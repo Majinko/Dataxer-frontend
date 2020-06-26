@@ -1,0 +1,73 @@
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+p {
+  color: $global-secondary-color;
+}
+
+h2 {
+  color: $global-primary-color;
+}
+
+
+/*
+* === helper ===
+*/
+
+.border-radius-0 {
+  border-radius: 0 !important;
+}
+
+.cursor-pointer {
+  cursor: pointer !important;
+}
+
+.cursor-move {
+  cursor: move !important;
+}
+
+.t-d-n {
+  text-decoration: none !important;
+}
+
+.border-bottom-2{
+  border-bottom: 2px solid $global-primary-color;
+}
+
+.no-border{
+  border: none !important;
+}
+
+/*
+* === Grid ===
+*/
+
+$max: 50;
+
+@for $i from 1 through $max {
+  @if ($i * 5 != 100) {
+    .w-#{$i * 5} {
+      width: #{$i * 5}px !important;
+    }
+  }
+}
+
+
+.min-height-100vh {
+  min-height: 100vh;
+}
+
+.loading-shade {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 56px;
+  right: 0;
+  background: rgba(0, 0, 0, 0.15);
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

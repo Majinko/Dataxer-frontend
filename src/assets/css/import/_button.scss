@@ -1,0 +1,38 @@
+button, .btn {
+  font-weight: 500;
+  outline: none !important;
+  border-radius: 25px !important;
+  transition: all ease 0.5s;
+
+  &.btn-big{
+    padding: 0.7rem .75rem;
+  }
+
+  &.btn-icon {
+    position: relative;
+    padding-left: 45px !important;
+
+    mat-icon {
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      margin-top: -10px;
+      font-size: 20px;
+    }
+  }
+
+  &.btn-theme {
+    color: white;
+    border-color: $global-primary-color !important;
+    background-color: $global-primary-color !important;
+
+    &:hover {
+      background-color: lighten($global-primary-color, 10%) !important;
+    }
+  }
+
+  &.btn-theme-stroked {
+    color: $global-primary-color;
+    border-color: $global-primary-color !important;
+  }
+}

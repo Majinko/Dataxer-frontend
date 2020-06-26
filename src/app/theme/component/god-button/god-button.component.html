@@ -1,0 +1,11 @@
+
+<button *ngIf="godButtonService.title != null" mat-raised-button class="text-white btn-icon" routerLink="{{godButtonService.routerLink}}">
+  <mat-icon>add</mat-icon>
+  <span>{{godButtonService.title}}</span>
+</button>
+<!--
+
+<button mat-fab class="btn-primary d-inline d-sm-none" routerLink="{{godButtonService.routerLink}}">
+  <mat-icon>add</mat-icon>
+</button>
+-->

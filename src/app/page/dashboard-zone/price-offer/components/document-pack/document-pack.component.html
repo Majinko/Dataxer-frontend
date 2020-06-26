@@ -1,0 +1,93 @@
+<div class="row">
+  <div class="col-12" [formGroup]="formGroup">
+    <div class="table-wrap no-border" formArrayName="packs" (cdkDropListDropped)="drop($event)">
+      <table class="table-hover table-hover-gray table-data table-borderless w-100 mat-table" [formGroupName]="i" *ngFor="let pack of formPacks.controls; let i=index">
+        <tbody class="no-border">
+          <tr class="tbody-row set-row">
+            <td>
+              <app-pack-autocomplete (findPack)="setPack(i, pack, $event)" formControlName="title"></app-pack-autocomplete>
+            </td>
+            <td colspan="4" class="thin">
+              <mat-checkbox #customPrice formControlName="customPrice">Určiť cenu</mat-checkbox>
+            </td>
+            <td class="thin">
+              <mat-form-field class="w-100">
+                <input matInput formControlName="tax" [readonly]="!customPrice.checked" class="text-right">
+              </mat-form-field>
+            </td>
+            <td>
+              <mat-form-field class="w-100">
+                <input matInput formControlName="totalPrice" [readonly]="!customPrice.checked" value="{{documentHelper.packs[i].totalPrice}}" class="text-right">
+              </mat-form-field>
+            </td>
+            <td class="text-right thin">
+              <button
+                (click)="removePack(i)"
+                mat-icon-button
+                matTooltip="Delete item">
+                <mat-icon class="text-theme">delete</mat-icon>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+
+        <tbody class="no-border" formArrayName="items">
+          <tr class="tbody-row set-row" [formGroupName]="i" *ngFor="let item of pack.get('items').controls; let i=index">
+            <td colspan="2" class="text-right">
+              <app-item-autocomplete formControlName="title" (change)="setItemTitle(item, $event.target.value)" (findItem)="setItem(item, $event)"></app-item-autocomplete>
+            </td>
+            <td class="text-right thin">
+              <mat-form-field class="w-100">
+                <input type="text" #qty formControlName="qty" placeholder="Počet" matInput>
+              </mat-form-field>
+            </td>
+            <td class="thin">
+              <mat-form-field class="w-100">
+                <mat-select formControlName="unit">
+                  <mat-option *ngFor="let option of units" [value]="option.unit">
+                    {{ option.unit }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </td>
+            <td>
+              <mat-form-field class="w-100">
+                <input matInput #price formControlName="price" placeholder="Cena bez DPH" class="text-right" />
+              </mat-form-field>
+            </td>
+            <td class="thin">
+              <mat-form-field class="w-100">
+                <input matInput #tax formControlName="tax" placeholder="DPH" class="text-right" />
+              </mat-form-field>
+            </td>
+            <td>
+              <mat-form-field class="w-100">
+                <input matInput value="{{+qty.value * +price.value | addPercent: +tax.value}}" placeholder="Cena s DPH" class="text-right" />
+              </mat-form-field>
+            </td>
+            <td class="text-center thin">
+              <button
+                (click)="removeItem(i)"
+                mat-icon-button
+                matTooltip="Delete item">
+                <mat-icon class="text-theme">delete</mat-icon>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="col-md-12 text-center mt-3 mb-5">
+    <a mat-flat-button class="btn btn-icon btn-theme mr-3" (click)="addItem()">
+      <mat-icon>add_circle</mat-icon>
+      Položka
+    </a>
+
+    <a mat-flat-button class="btn btn-icon btn-theme" (click)="addPack()">
+      <mat-icon>create_new_folder</mat-icon>
+      Sada položiek
+    </a>
+  </div>
+</div>

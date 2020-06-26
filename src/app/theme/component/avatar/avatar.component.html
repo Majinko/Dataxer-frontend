@@ -1,0 +1,24 @@
+<div class="text-center cursor-pointer text-light d-flex align-items-center" *ngIf="user" [matMenuTriggerFor]="userMenu"><ngx-avatar size="40" bgColor="#19A5E5" name="{{user.displayName}}" class=""></ngx-avatar></div>
+
+<mat-menu #userMenu="matMenu" class="mat-menu-avatar">
+  <div *ngIf="user" class="pl-3 pr-5 pt-2 pb-3 d-flex align-items-center profile-info">
+    <button mat-icon-button class="bg-theme text-light mr-2">
+      <mat-icon>perm_identity</mat-icon>
+    </button>
+    <div>
+      <span class="font-weight-bold d-block">
+        {{user.displayName}}
+      </span>
+      <small class="text-gray">{{user.position}}</small>
+    </div>
+  </div>
+  <div class="px-3 menu-item">
+    <a class="border-radius-0 t-d-n text-dark" mat-menu-item routerLink="/setting">
+      <mat-icon>build</mat-icon> Nastavenia
+    </a>
+    <a class="border-radius-0 t-d-n text-dark" mat-menu-item (click)="logout()">
+       <mat-icon>power_settings_new</mat-icon> Odhľasiť
+    </a>
+  </div>
+</mat-menu>
+

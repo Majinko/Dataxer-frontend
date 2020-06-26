@@ -1,0 +1,15 @@
+<mat-form-field>
+  <input [(ngModel)]="value" matInput placeholder="Search pack" (input)="onInputChange()" [matAutocomplete]="auto">
+  <mat-icon matSuffix class="text-gray">search</mat-icon>
+</mat-form-field>
+
+<mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="setPack($event.option.value)">
+  <ng-container>
+    <mat-option *ngFor="let pack of packs" [value]="pack">
+      <span>{{ pack.title }}</span>
+    </mat-option>
+
+    <mat-option *ngIf="packs == null"><span>No items found</span></mat-option>
+    <mat-option *ngIf="isLoading" class="is-loading"><mat-progress-bar mode="indeterminate"></mat-progress-bar></mat-option>
+  </ng-container>
+</mat-autocomplete>

@@ -1,0 +1,43 @@
+// Import material theming functions
+@import '~@angular/material/theming';
+
+/*
+* === Color ===
+*/
+$global-primary-color: #19A5E5;
+$global-secondary-color: #757575;
+$gray-border: rgba(0, 0, 0, .12);
+$theme-gray: #757575;
+$medium-gray: #d7d7d7;
+$light-gray: #ebebeb;
+$color-success: #70B602;
+$color-danger: #D0021B;
+$color-warning: #F59A22;
+
+
+/*
+* === Fonts ===
+*/
+$global-font-size: 14px;
+$global-line-height: 20px;
+
+$h1-font-size: 24px;
+$h1-line-height: 28px;
+
+$h2-font-size: 22px;
+$h2-line-height: 23px;
+
+$h3-font-size: 20px;
+$h3-line-height: 23px;
+
+$medium-font-size: 16px;
+
+$small-font-size: 14px;
+
+
+/*
+* === Grid break ===
+*/
+$break-small: 576px;
+$break-medium: 768px;
+$break-large: 992px;

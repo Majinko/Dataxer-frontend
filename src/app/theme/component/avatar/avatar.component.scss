@@ -1,0 +1,27 @@
+@import '../../../../assets/css/import/variables';
+
+.avatar {
+  height: 40px;
+  width: 40px;
+  font-size: 18px;
+  line-height: 40px;
+  font-weight: 300;
+  cursor: pointer;
+
+  border-radius: 50%;
+  background: $global-primary-color;
+}
+
+span {
+  margin-bottom: -8px;
+}
+
+.profile-info {
+  border-bottom: 2px solid $light-gray;
+}
+
+.menu-item{
+  a:last-child{
+    border-top: 2px solid $medium-gray;
+  }
+}

@@ -1,0 +1,91 @@
+<form [formGroup]="formGroup" action="" autocomplete="off" (ngSubmit)="onSubmit(formGroup.value)">
+  <div class="row mb-4">
+    <div class="col d-flex justify-content-between">
+      <h1>Osobné údaje</h1>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <h2 class="text-theme border-bottom-2 pb-2 mb-4">Kontaktné údaje</h2>
+    </div>
+  </div>
+
+  <div class="row align-items-center" *ngIf="user">
+    <div class="col-md-3 col-lg-2 pr-lg-0">
+      <div class="cursor-pointer jsFile d-flex justify-content-center d-md-block mb-4 mb-md-0">
+        <ngx-avatar size="100" name="{{user.displayName}}" textSizeRatio="2"></ngx-avatar>
+        <input type="file" name='file' class="d-none">
+      </div>
+    </div>
+    <div class="col-md-4 col-lg-5 pl-lg-0">
+      <mat-form-field class="form-group w-100">
+        <input matInput placeholder="Meno" formControlName="name" required>
+        <mat-error *ngIf="f.name.errors">Meno je <strong>požadované.</strong></mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-4 col-lg-5">
+      <mat-form-field class="form-group w-100">
+        <input matInput placeholder="Priezvisko" formControlName="surname" required>
+        <mat-error *ngIf="f.surname.errors">Priezvisko je <strong>požadované.</strong></mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-md-6">
+      <mat-form-field class="form-group w-100">
+        <input matInput placeholder="E-mail" formControlName="email" disabled required>
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-6">
+      <mat-form-field class="form-group w-100">
+        <input matInput placeholder="Telefón" formControlName="phone">
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-3">
+      <mat-form-field class="form-group w-100">
+        <input matInput placeholder="Ulica" formControlName="street">
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-3">
+      <mat-form-field class="form-group w-100">
+        <input  matInput placeholder="Mesto" formControlName="city">
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-3">
+      <mat-form-field class="form-group w-100">
+        <input matInput placeholder="PSČ" formControlName="postalCode">
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-3">
+      <ng-select [items]="countries"
+                 #select
+                 bindLabel="country"
+                 bindValue="country"
+                 placeholder="Krajina"
+                 formControlName="country">
+        <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+          <div><span>{{item.country}}</span></div>
+        </ng-template>
+      </ng-select>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12 text-right">
+      <button mat-flat-button class="btn-icon btn-theme">
+        <mat-icon>save</mat-icon>
+        Uložiť
+      </button>
+    </div>
+  </div>
+</form>

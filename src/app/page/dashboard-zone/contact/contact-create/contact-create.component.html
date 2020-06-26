@@ -1,0 +1,108 @@
+<form [formGroup]="contactForm" action="" autocomplete="off" (ngSubmit)="onSubmit(contactForm.value)">
+  <div class="row mb-4">
+    <div class="col d-flex align-items-center mb-3 mb-md-5">
+      <mat-icon *ngIf="dialogRef === null" routerLink="/contact" class="mr-2 mr-md-5 cursor-pointer">keyboard_backspace</mat-icon>
+      <h1 class="mb-0">Vytvorenie nového kontaktu</h1>
+    </div>
+  </div>
+
+  <div class="row align-items-center">
+    <div class="col-3 col-md-2">
+      <div class="avatar-photo-edit cursor-pointer jsFile" matTooltip="Nastaviť fotku kontaktu">
+        <ngx-avatar size="100%" src="https://ssl.gstatic.com/s2/oz/images/sge/grey_silhouette.png"></ngx-avatar>
+        <input type="file" name='file' (change)="onFileChange($event)" class="d-none">
+      </div>
+    </div>
+    <div class="col-9 col-md-5">
+      <mat-form-field class="form-group w-100">
+        <input matInput placeholder="Meno" formControlName="firstName" required>
+        <mat-error *ngIf="contactForm.invalid">Meno je povinné</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-5">
+      <mat-form-field class="form-group w-100">
+        <input matInput placeholder="Priezvisko" formControlName="lastName" required>
+        <mat-error *ngIf="contactForm.invalid">Priezvisko je povinné</mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-4">
+      <mat-form-field class="form-group w-100">
+        <input matInput placeholder="Ulica" formControlName="street">
+        <mat-icon matSuffix>home</mat-icon>
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-4">
+      <mat-form-field class="form-group w-100">
+        <input matInput placeholder="Mesto" formControlName="city">
+        <mat-icon matSuffix>room</mat-icon>
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-4">
+      <mat-form-field class="form-group w-100">
+        <input matInput placeholder="Krajina" formControlName="country">
+        <mat-icon matSuffix>language</mat-icon>
+      </mat-form-field>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-md-6">
+      <mat-form-field class="form-group w-100">
+        <input matInput placeholder="PSČ" formControlName="postalCode">
+      </mat-form-field>
+    </div>
+
+
+    <div class="col-md-6">
+      <mat-form-field class="form-group w-100">
+        <input matInput placeholder="Súpisné č." formControlName="regNumber">
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <mat-form-field class="form-group w-100">
+        <input matInput placeholder="E-mail" formControlName="email">
+        <mat-icon matSuffix>email</mat-icon>
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-6">
+      <mat-form-field class="form-group w-100">
+        <input matInput placeholder="Telefón" formControlName="phone">
+        <mat-icon matSuffix>phone</mat-icon>
+      </mat-form-field>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-md-12 text-right">
+      <div *ngIf="dialogRef === null; else dialogContact">
+        <button routerLink="/app/contact" mat-stroked-button class="btn-icon btn-theme-stroked mr-3">
+          <mat-icon>cancel</mat-icon>
+          Zrušiť
+        </button>
+        <button mat-flat-button class="btn-icon btn-theme">
+          <mat-icon>save</mat-icon>
+          Uložiť
+        </button>
+      </div>
+
+      <ng-template #dialogContact>
+        <button (click)="dialogRef.close()" mat-stroked-button class="btn-icon btn-theme-stroked mr-3">
+          <mat-icon>save</mat-icon>
+          Uložiť
+        </button>
+      </ng-template>
+    </div>
+  </div>
+</form>

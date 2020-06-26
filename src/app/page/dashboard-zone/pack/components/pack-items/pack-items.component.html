@@ -1,0 +1,31 @@
+<div class="row" [formGroup]="formGroup">
+  <div formArrayName="items" *ngFor="let item of items.controls; let i=index" class="item-wrap col-md-12">
+    <div [formGroupName]="i">
+      <div class="align-items-center">
+
+        <div class="d-flex justify-content-center">
+          <mat-icon class="text-theme cursor-move mr-3 mt-2">reorder</mat-icon>
+
+          <app-item-autocomplete formControlName="item"></app-item-autocomplete>
+
+          <mat-form-field class="mr-3">
+            <mat-label>Pocet</mat-label>
+            <input matInput placeholder="Qty" formControlName="qty">
+          </mat-form-field>
+
+          <button
+            (click)="removeItem(i)"
+            mat-icon-button
+            matTooltip="Delete item">
+            <mat-icon class="text-theme">delete</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="col-md-12 text-center mt-3 mb-5">
+      <a mat-flat-button class="btn btn-icon btn-theme" (click)="addItem()"><mat-icon>add</mat-icon>Polozka</a>
+  </div>
+</div>

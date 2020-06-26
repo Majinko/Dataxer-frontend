@@ -1,0 +1,52 @@
+<div class="row mb-5 pb-2">
+  <div class="col">
+    <h1 class="mb-4">Kalkulácie</h1>
+
+    <div class="mb-4 d-block d-md-flex justify-content-between">
+      <div class="mb-3 mb-md-0">
+        <p class="mb-0 d-inline">Zvolené kalkulácie v hodnote: </p>
+        <h2 class="mb-0 ml-2 d-inline">296 237,48 &euro;</h2>
+      </div>
+
+      <div class="d-block d-md-flex">
+        <button mat-stroked-button class="btn-theme-stroked mb-2 mb-md-0 mr-md-3 w-100">Stav <mat-icon>arrow_drop_down</mat-icon></button>
+
+        <button mat-stroked-button class="btn-theme-stroked mb-2 mb-md-0 mr-md-3 w-100">Obdobie <mat-icon>arrow_drop_down</mat-icon></button>
+
+        <button mat-stroked-button class="btn-theme-stroked w-100">Klient <mat-icon>arrow_drop_down</mat-icon></button>
+      </div>
+    </div>
+
+    <div class="d-block d-md-flex align-content-center">
+      <p class="mb-2 mb-md-0 d-md-inline mr-3">Filtre: </p>
+      <mat-chip-list aria-label="Filtering">
+        <mat-chip class="text-gray my-md-0  mb-md-0">
+          <mat-icon class="mr-1">timelapse</mat-icon>
+          Všetky stavy
+          <mat-icon matChipRemove>cancel</mat-icon>
+        </mat-chip>
+
+        <mat-chip class="text-gray my-md-0">
+          <mat-icon class="mr-1">date_range</mat-icon>
+          Marec  2019
+          <mat-icon matChipRemove>cancel</mat-icon>
+        </mat-chip>
+
+        <mat-chip class="text-gray my-md-0">
+          <mat-icon class="mr-1">group</mat-icon>
+          Všetci klienti
+          <mat-icon matChipRemove>cancel</mat-icon>
+        </mat-chip>
+      </mat-chip-list>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <h3 class="text-gray mb-3">Zvolené kalkulácie</h3>
+    <div class="table-wrap">
+      <app-price-offer-table></app-price-offer-table>
+    </div>
+  </div>
+</div>

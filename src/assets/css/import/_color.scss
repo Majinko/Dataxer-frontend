@@ -1,0 +1,30 @@
+/*
+* === Text ===
+*/
+$text-color: (
+  'gray' : $theme-gray,
+  'theme': $global-primary-color,
+);
+
+@each $color, $value in $text-color {
+  .text-#{$color} {
+    color: $value !important;
+  }
+}
+
+
+/*
+* === Bg ===
+*/
+$bg-colors: (
+  'rejected' : $color-danger,
+  'waiting': $color-warning,
+  'approved': $color-success,
+  'theme' : $global-primary-color,
+);
+
+@each $bg, $color in $bg-colors {
+  .bg-#{$bg} {
+    background: $color !important;
+  }
+}

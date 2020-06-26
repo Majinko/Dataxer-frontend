@@ -1,0 +1,165 @@
+<div class="container d-flex justify-content-center align-items-center min-height-100vh pt-5 pb-3">
+  <div class="row justify-content-center">
+    <div class="col-md-8 text-center">
+      <img class="mb-5" src="assets/img/illustration/undraw_sign_in_e6hj.svg" alt="login">
+      <div class="row justify-content-center">
+        <div class="col-md-12">
+          <mat-horizontal-stepper [linear]="isLinear" #stepper>
+            <mat-step [stepControl]="userFormGroup">
+              <form [formGroup]="userFormGroup">
+                <div class="row">
+                  <div class="col-md-6">
+                    <ng-template matStepLabel>Profil</ng-template>
+                    <mat-form-field class="form-group w-100">
+                      <input matInput placeholder="Meno" formControlName="firstName" required>
+                      <mat-error *ngIf="fUser.firstName.errors">First name is <strong>required</strong></mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-6">
+                    <mat-form-field class="form-group w-100">
+                      <input matInput placeholder="Priezvisko" formControlName="lastName" required>
+                      <mat-error *ngIf="fUser.lastName.errors">Last name is <strong>required</strong></mat-error>
+                    </mat-form-field>
+                  </div>
+
+                  <div class="col-md-6">
+                    <mat-form-field class="form-group w-100">
+                      <input matInput placeholder="Email" formControlName="email" required>
+                      <mat-error *ngIf="fUser.email.errors && fUser.email.errors.required">Email is<strong>required</strong></mat-error>
+                      <mat-error *ngIf="fUser.email.errors && fUser.email.errors.email">E-mail is <strong>incorrect</strong></mat-error>
+                    </mat-form-field>
+                  </div>
+
+                  <div class="col-md-6">
+                    <mat-form-field class="form-group w-100">
+                      <input type="password" matInput placeholder="Heslo" formControlName="password" required>
+                      <mat-error *ngIf="fUser.password.errors">Password is <strong>required</strong></mat-error>
+                    </mat-form-field>
+                  </div>
+
+                  <div class="col-md-12">
+                    <mat-form-field class="form-group w-100">
+                      <input matInput placeholder="Telefón" formControlName="phone">
+                    </mat-form-field>
+                  </div>
+
+
+                  <div class="col-md-3">
+                    <mat-form-field class="form-group w-100">
+                      <input matInput placeholder="Ulica" formControlName="street">
+                    </mat-form-field>
+                  </div>
+
+                  <div class="col-md-3">
+                    <mat-form-field class="form-group w-100">
+                      <input  matInput placeholder="Mesto" formControlName="city">
+                    </mat-form-field>
+                  </div>
+
+                  <div class="col-md-3">
+                    <mat-form-field class="form-group w-100">
+                      <input matInput placeholder="PSČ" formControlName="postalCode">
+                    </mat-form-field>
+                  </div>
+
+                  <div class="col-md-3">
+                    <ng-select [items]="countries"
+                               #select
+                               bindLabel="country"
+                               bindValue="country"
+                               placeholder="Krajina"
+                               formControlName="country">
+                      <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+                        <div><span>{{item.country}}</span></div>
+                      </ng-template>
+                    </ng-select>
+                  </div>
+
+                  <div class="col-md-12">
+                    <div class="text-center">
+                      <a class="text-dark btn t-d-n sm-f-s" mat-button routerLink="/pages/time">Prihlásiť sa</a>
+                      <button mat-button matStepperNext>Ďalej</button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </mat-step>
+            <mat-step [stepControl]="companyFormGroup">
+              <form [formGroup]="companyFormGroup">
+                <div class="row">
+                  <div class="col-md-12">
+                    <ng-template matStepLabel>Spoľočnosť</ng-template>
+                    <mat-form-field class="form-group w-100">
+                      <input matInput placeholder="Názov spoločnosti" formControlName="name" required>
+                      <mat-error *ngIf="fCompany.name.errors">Company name <strong>required</strong></mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-12">
+                    <mat-form-field class="form-group w-100">
+                      <mat-label>Právna forma</mat-label>
+                      <mat-select formControlName="legalForm" required>
+                        <mat-option *ngFor="let legalForm of legalForms" [value]="legalForm.name" >
+                          {{legalForm.name}}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="fCompany.legalForm.errors">Právna forma <strong>required</strong></mat-error>
+                    </mat-form-field>
+                  </div>
+
+                  <div class="col-md-6">
+                    <mat-form-field class="form-group w-100">
+                      <input matInput placeholder="Ulica" formControlName="street">
+                    </mat-form-field>
+                  </div>
+
+                  <div class="col-md-6">
+                    <mat-form-field class="form-group w-100">
+                      <input  matInput placeholder="Mesto" formControlName="city">
+                    </mat-form-field>
+                  </div>
+
+                  <div class="col-md-6">
+                    <mat-form-field class="form-group w-100">
+                      <input matInput placeholder="PSČ" formControlName="postalCode">
+                    </mat-form-field>
+                  </div>
+
+                  <div class="col-md-6">
+                    <mat-form-field class="form-group w-100">
+                      <input matInput placeholder="Krajina" formControlName="country">
+                      <mat-icon matSuffix>language</mat-icon>
+                    </mat-form-field>
+                  </div>
+
+                  <div class="col-md-4">
+                    <mat-form-field class="form-group w-100">
+                      <input matInput placeholder="E-mail" formControlName="email">
+                    </mat-form-field>
+                  </div>
+
+                  <div class="col-md-4">
+                    <mat-form-field class="form-group w-100">
+                      <input  matInput placeholder="Telefón" formControlName="phone">
+                    </mat-form-field>
+                  </div>
+
+                  <div class="col-md-4">
+                    <mat-form-field class="form-group w-100">
+                      <input matInput placeholder="Web" formControlName="web">
+                    </mat-form-field>
+                  </div>
+
+                  <div class="col-12 text-center">
+                    <button mat-button matStepperPrevious>Späť</button>
+
+                    <button (click)="register()" mat-button>Registrovať</button>
+                  </div>
+                </div>
+              </form>
+            </mat-step>
+          </mat-horizontal-stepper>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

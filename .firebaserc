@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "dataxer-aab65": {
+      "hosting": {
+        "dataxer-angular-v1": [
+          "dataxer-aab65"
+        ]
+      }
+    }
+  }
+}

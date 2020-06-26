@@ -1,0 +1,16 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12 mt-4 mb-3">
+      <app-god-button></app-god-button>
+    </div>
+    <div class="col-12 pl-0">
+      <mat-nav-list>
+        <a mat-list-item href="#" class="text-gray" [routerLink]="link.routerLink" routerLinkActive="active" *ngFor="let link of menuItems">
+          <mat-icon mat-list-icon class="mr-2">{{link.icon}}</mat-icon>
+          <span>{{link.title}}</span>
+        </a>
+      </mat-nav-list>
+    </div>
+  </div>
+</div>
+

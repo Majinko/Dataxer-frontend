@@ -1,0 +1,33 @@
+mat-sidenav-container{
+  height: 100%;
+
+  mat-sidenav{
+    width: 256px;
+  }
+
+  .mat-list-item{
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
+
+    &.active{
+      color: black !important;
+      background: #E1F4FC;
+      border-left: 4px solid $global-primary-color;
+      mat-icon{
+        margin-left: -4px;
+        color: $global-primary-color;
+      }
+    }
+  }
+
+  .mat-list-base .mat-list-item.mat-list-item-with-avatar{
+    height: 35px;
+  }
+
+  .mat-list-base .mat-list-item{
+    font-size: $global-font-size;
+    line-height: $global-line-height;
+  }
+}
+
+

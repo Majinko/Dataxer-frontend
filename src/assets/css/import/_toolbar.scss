@@ -1,0 +1,14 @@
+mat-toolbar{
+  border-bottom: 1px solid $gray-border;
+}
+
+.logo-wrap{
+  width: 256px;
+}
+
+
+@media only screen and (max-width: $break-small) {
+  .logo-wrap{
+    width: inherit;
+  }
+}

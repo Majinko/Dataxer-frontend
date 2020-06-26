@@ -1,0 +1,16 @@
+/*
+* === Color ===
+*/
+/*
+* === Fonts ===
+*/
+button {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 45px;
+  padding: 0 25px;
+  background: #19A5E5; }
+  button:hover {
+    background-color: #46b7eb; }
+
+/*# sourceMappingURL=god-button.component.css.map */

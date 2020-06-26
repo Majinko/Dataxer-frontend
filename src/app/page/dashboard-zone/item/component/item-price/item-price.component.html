@@ -1,0 +1,55 @@
+<div [formGroup]="itemPriceForm">
+  <div formGroupName="itemPrice">
+    <div class="row">
+      <div class="col-md-4">
+        <mat-form-field class="form-group w-100">
+          <input matInput placeholder="NC bez DPH €" formControlName="wholesalePrice">
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-2">
+        <mat-form-field class="form-group w-100">
+          <input matInput placeholder="DPH %" formControlName="wholesaleTax">
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-3">
+        <mat-form-field class="form-group w-100">
+          <input matInput placeholder="NC s DPH €">
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-3">
+        <mat-form-field class="form-group w-100">
+          <input matInput placeholder="Prirážka %" formControlName="surcharge">
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4">
+        <mat-form-field class="form-group w-100">
+          <input (input)="callPrice()" matInput placeholder="PC bez DPH €" formControlName="price">
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-2">
+        <mat-form-field class="form-group w-100">
+          <input  matInput placeholder="DPH %" formControlName="tax">
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-3">
+        <mat-form-field class="form-group w-100">
+          <input matInput placeholder="PC s DPH €">
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-3">
+        <mat-form-field class="form-group w-100">
+          <input matInput placeholder="Marža %" formControlName="marge">
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+</div>

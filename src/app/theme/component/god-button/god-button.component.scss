@@ -1,0 +1,44 @@
+@import '../../../../assets/css/import/variables';
+
+button {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 45px;
+  padding: 0 25px;
+  background: $global-primary-color;
+/*  position: absolute;
+  z-price-offer-item-company-index: 999999;
+  top: 80px;
+  left: 15px;
+  transition-property: all;
+  transition-duration: 0.4s;
+
+  &.close {
+    transform: translateX(-256px);
+  }
+
+  &.open {
+    transform: translateX(0px);
+  }
+
+  &:hover {
+    background-color: lighten($global-primary-color, 10%);
+  }*/
+}
+/*
+.mat-fab.mat-accent{
+  background: $global-primary-color;
+}
+
+@media only screen and (max-width: $break-small) {
+  button {
+    padding: 0;
+    opacity: 1;
+    right: 15px;
+    left: inherit;
+    bottom: 15px;
+    top: inherit;
+
+    border-radius: 50px !important;
+  }
+}*/

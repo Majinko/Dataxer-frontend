@@ -1,0 +1,4 @@
+<div class="search-bar position-relative text-gray">
+  <mat-icon class="position-absolute d-none d-md-block">search</mat-icon>
+  <input (input)="searchBarService.applyFilter($event.target.value)" type="text" class="form-control pl-5" placeholder="Hľadaj v aplikácii">
+</div>

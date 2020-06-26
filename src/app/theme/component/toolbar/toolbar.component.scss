@@ -1,0 +1,12 @@
+@import '../../../../assets/css/import/variables';
+
+app-menu-logo, app-avatar {
+  z-index: 10;
+  position: relative;
+}
+
+app-search-bar{
+  @media screen and (max-width: $break-small) {
+    position: absolute;
+  }
+}
