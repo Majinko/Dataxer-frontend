@@ -73,7 +73,6 @@ export class PriceOfferEditComponent implements OnInit {
     return this.formGroup.controls;
   }
 
-
   // submit form
   submit() {
     this.submitted = true;
@@ -82,6 +81,7 @@ export class PriceOfferEditComponent implements OnInit {
       return;
     }
 
+    
     //set offer price and total price
     this.formGroup.patchValue({
       price: this.documentHelper.price,

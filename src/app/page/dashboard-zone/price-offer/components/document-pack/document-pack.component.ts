@@ -150,8 +150,15 @@ export class DocumentPackComponent implements OnInit {
     });
   }
 
-  // drop it
-  drop(event: CdkDragDrop<Pack[]>) {
-    moveItemInArray(this.packs, event.previousIndex, event.currentIndex);
+  dropPack(event: CdkDragDrop<FormArray[]>) {
+    moveItemInArray(this.formPacks.controls, event.previousIndex, event.currentIndex);
+
+    this.formPacks.patchValue(this.formPacks.controls)
+  }
+
+  dropItem(packIndex: number, event: CdkDragDrop<any[]>) {
+    moveItemInArray(this.itemsByIndex(packIndex).controls, event.previousIndex, event.currentIndex);
+
+    this.itemsByIndex(packIndex).patchValue(this.itemsByIndex(packIndex).controls)
   }
 }

@@ -5,7 +5,7 @@ import {switchMap} from 'rxjs/operators';
 import {AngularFirestore, AngularFirestoreDocument} from '@angular/fire/firestore';
 import {User} from '../models/user';
 import {auth} from 'firebase';
-import {nonUndefined} from "../../../helper";
+import {nonUndefined} from '../../../helper';
 
 @Injectable({
   providedIn: 'root'
@@ -73,7 +73,7 @@ export class AuthService {
 
   set setUser(credential) {
     this.user = {
-      token: credential.ma,
+      token: credential.xa,
       uid: credential.uid,
       displayName: credential.displayName,
       email: credential.email

@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-12" [formGroup]="formGroup">
-    <div class="table-wrap no-border" formArrayName="packs" (cdkDropListDropped)="drop($event)">
-      <table class="table-hover table-hover-gray table-data table-borderless w-100 mat-table" [formGroupName]="i" *ngFor="let pack of formPacks.controls; let i=index">
+    <div class="table-wrap no-border" formArrayName="packs" cdkDropList (cdkDropListDropped)="dropPack($event)">
+      <table class="table-hover table-hover-gray table-data table-borderless w-100 mat-table" cdkDrag [formGroupName]="i" *ngFor="let pack of formPacks.controls; let i=index" >
         <tbody class="no-border">
           <tr class="tbody-row set-row">
             <td>
@@ -31,8 +31,8 @@
           </tr>
         </tbody>
 
-        <tbody class="no-border" formArrayName="items">
-          <tr class="tbody-row set-row" [formGroupName]="i" *ngFor="let item of pack.get('items').controls; let i=index">
+        <tbody class="no-border" formArrayName="items" cdkDropList (cdkDropListDropped)="dropItem(i, $event)">
+          <tr class="tbody-row set-row" [formGroupName]="i" *ngFor="let item of pack.get('items').controls; let i=index" cdkDrag>
             <td colspan="2" class="text-right">
               <app-item-autocomplete formControlName="title" (change)="setItemTitle(item, $event.target.value)" (findItem)="setItem(item, $event)"></app-item-autocomplete>
             </td>

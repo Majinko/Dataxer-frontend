@@ -24,6 +24,7 @@ import {MatTreeModule} from "@angular/material/tree";
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatCardModule} from "@angular/material/card";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
+import {DragDropModule} from "@angular/cdk/drag-drop";
 
 @NgModule({
   exports: [
@@ -52,6 +53,7 @@ import {MatProgressBarModule} from "@angular/material/progress-bar";
     MatDialogModule,
     MatCardModule,
     MatProgressBarModule,
+    DragDropModule
   ]
 })
 export class MaterialModule {
