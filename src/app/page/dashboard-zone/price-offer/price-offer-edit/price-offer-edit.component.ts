@@ -52,6 +52,7 @@ export class PriceOfferEditComponent implements OnInit {
       dueDate: [new Date()],
       note: "",
       noteToRecipient: "",
+      discount: 0,
       price: 0,
       totalPrice: 0,
       priceOfferData: this.formBuilder.group({
@@ -81,7 +82,6 @@ export class PriceOfferEditComponent implements OnInit {
       return;
     }
 
-    
     //set offer price and total price
     this.formGroup.patchValue({
       price: this.documentHelper.price,

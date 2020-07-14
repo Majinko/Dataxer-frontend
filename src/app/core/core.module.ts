@@ -7,10 +7,11 @@ import {FilterPersonPipe} from './pipes/filter-person.pipe';
 import { RemovePercentPipe } from './pipes/remove-percent.pipe';
 import { NotNullPipe } from './pipes/not-null.pipe';
 import { SortByPipe } from './pipes/sort-by.pipe';
+import { RemovePercentGetNumberPipe } from './pipes/remove-percent-get-number.pipe';
 
 
 @NgModule({
-  declarations: [ZeroValuePipe, AddPercentPipe, GetinitialsPipe, FilterPersonPipe, RemovePercentPipe, NotNullPipe, SortByPipe],
+  declarations: [ZeroValuePipe, AddPercentPipe, GetinitialsPipe, FilterPersonPipe, RemovePercentPipe, NotNullPipe, SortByPipe, RemovePercentGetNumberPipe],
     exports: [
         ZeroValuePipe,
         AddPercentPipe,
@@ -18,7 +19,8 @@ import { SortByPipe } from './pipes/sort-by.pipe';
         FilterPersonPipe,
         RemovePercentPipe,
         NotNullPipe,
-        SortByPipe
+        SortByPipe,
+        RemovePercentGetNumberPipe
     ],
   imports: [
     CommonModule,

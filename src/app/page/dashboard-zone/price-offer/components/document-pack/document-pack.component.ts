@@ -1,4 +1,4 @@
-import {Component, OnInit, Input} from "@angular/core";
+import {Component, OnInit, Input, AfterViewInit, OnChanges} from "@angular/core";
 import {
   FormBuilder,
   FormGroup,
@@ -18,6 +18,7 @@ import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 })
 export class DocumentPackComponent implements OnInit {
   units = UNITS;
+  showDis: boolean = false;
   @Input() packs: Pack[]
   @Input() documentHelper: DocumentHelper
   @Input() formGroup: FormGroup;
@@ -57,6 +58,7 @@ export class DocumentPackComponent implements OnInit {
       item: null,
       qty: 1,
       unit: this.units[0].unit,
+      discount: 0,
       price: [{value: 0, disabled: false}],
       tax: [{value: 20, disabled: false}],
       totalPrice: [{value: 0, disabled: false}],
@@ -150,15 +152,28 @@ export class DocumentPackComponent implements OnInit {
     });
   }
 
+  // sort pack
   dropPack(event: CdkDragDrop<FormArray[]>) {
     moveItemInArray(this.formPacks.controls, event.previousIndex, event.currentIndex);
 
     this.formPacks.patchValue(this.formPacks.controls)
   }
 
+  // sort item
   dropItem(packIndex: number, event: CdkDragDrop<any[]>) {
     moveItemInArray(this.itemsByIndex(packIndex).controls, event.previousIndex, event.currentIndex);
 
     this.itemsByIndex(packIndex).patchValue(this.itemsByIndex(packIndex).controls)
+  }
+
+  // show discount
+  showDiscount(trRow: HTMLTableRowElement) {
+    let discountInputs = trRow.querySelectorAll('.jsDiscount')
+
+    discountInputs && discountInputs.forEach(discountInput => {
+      discountInput.classList.toggle('d-none');
+    })
+
+    return false;
   }
 }

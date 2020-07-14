@@ -29,8 +29,8 @@ export class DocumentHelper {
         item.totalPrice = +this.addPercent(+item.price * +item.qty, +item.tax)
         pack.totalPrice += +item.totalPrice;
 
-        this.price += +item.price * +item.qty;
-        this.totalPrice += +item.totalPrice;
+        this.price += +this.removePercent(+item.price * +item.qty, +item.discount)
+        this.totalPrice += +this.removePercent(+item.totalPrice, +item.discount)
       })
     });
   }

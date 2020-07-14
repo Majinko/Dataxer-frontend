@@ -8,7 +8,6 @@ import {PriceOfferEditComponent} from "./price-offer-edit/price-offer-edit.compo
 const routes: Routes = [{
   path: '',
   component: PriceOfferComponent,
-  data: {title: 'Heroes List'},
   children: [
     {
       path: '',

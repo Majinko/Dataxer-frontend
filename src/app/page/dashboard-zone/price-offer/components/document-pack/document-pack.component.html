@@ -31,10 +31,15 @@
           </tr>
         </tbody>
 
-        <tbody class="no-border" formArrayName="items" cdkDropList (cdkDropListDropped)="dropItem(i, $event)">
-          <tr class="tbody-row set-row" [formGroupName]="i" *ngFor="let item of pack.get('items').controls; let i=index" cdkDrag>
+        <tbody class="no-border table-item table-td-initial" formArrayName="items" cdkDropList (cdkDropListDropped)="dropItem(i, $event)">
+          <tr #trRow class="tbody-row set-row" [formGroupName]="i" *ngFor="let item of pack.get('items').controls; let i=index" cdkDrag>
             <td colspan="2" class="text-right">
               <app-item-autocomplete formControlName="title" (change)="setItemTitle(item, $event.target.value)" (findItem)="setItem(item, $event)"></app-item-autocomplete>
+              <div class="jsDiscount" [ngClass]="{'d-none' : item.value.discount == 0}">
+              <mat-form-field class="w-100">
+                  <input matInput readonly placeholder="Zľava {{item.value.discount}} %" class="text-right" />
+                </mat-form-field>
+              </div>
             </td>
             <td class="text-right thin">
               <mat-form-field class="w-100">
@@ -42,18 +47,32 @@
               </mat-form-field>
             </td>
             <td class="thin">
-              <mat-form-field class="w-100">
-                <mat-select formControlName="unit">
-                  <mat-option *ngFor="let option of units" [value]="option.unit">
-                    {{ option.unit }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
+              <div>
+                <mat-form-field class="w-100">
+                  <mat-select formControlName="unit">
+                    <mat-option *ngFor="let option of units" [value]="option.unit">
+                      {{ option.unit }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="jsDiscount" [ngClass]="{'d-none' : item.value.discount == 0}">
+                <mat-form-field class="w-100">
+                  <input matInput formControlName="discount" #itemDiscount class="text-right" />
+                </mat-form-field>
+              </div>
             </td>
             <td>
+              <div>
+                <mat-form-field class="w-100">
+                  <input matInput #price formControlName="price" placeholder="Cena bez DPH" class="text-right" />
+                </mat-form-field>
+              </div>
+              <div class="jsDiscount" [ngClass]="{'d-none' : item.value.discount == 0}">
               <mat-form-field class="w-100">
-                <input matInput #price formControlName="price" placeholder="Cena bez DPH" class="text-right" />
-              </mat-form-field>
+                  <input matInput disabled value="{{(itemDiscount.value > 0 && price.value > 0 ? '-' : '') + (+price.value | removePercentGetNumber: +itemDiscount.value)}}" class="text-right" />
+                </mat-form-field>
+              </div>
             </td>
             <td class="thin">
               <mat-form-field class="w-100">
@@ -61,11 +80,25 @@
               </mat-form-field>
             </td>
             <td>
+              <div>
+                <mat-form-field class="w-100">
+                  <input matInput value="{{+qty.value * +price.value | addPercent: +tax.value}}" placeholder="Cena s DPH" class="text-right" />
+                </mat-form-field>
+              </div>
+              <div class="jsDiscount" [ngClass]="{'d-none' : item.value.discount == 0}">
               <mat-form-field class="w-100">
-                <input matInput value="{{+qty.value * +price.value | addPercent: +tax.value}}" placeholder="Cena s DPH" class="text-right" />
-              </mat-form-field>
+                  <input matInput disabled value="{{(itemDiscount.value > 0 && price.value > 0 ? '-' : '') + (+price.value * +qty.value | addPercent: tax.value | removePercentGetNumber: +itemDiscount.value)}}" class="text-right" />
+                </mat-form-field>
+              </div>
             </td>
             <td class="text-center thin">
+              <a
+                (click)="showDiscount(trRow)"
+                class="mr-3"
+                mat-icon-button
+                matTooltip="Discount item">
+                <mat-icon class="text-theme">local_offer</mat-icon>
+              </a>
               <button
                 (click)="removeItem(i)"
                 mat-icon-button

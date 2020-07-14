@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {User} from '../models/user';
+import {map} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,15 @@ export class UserService {
     private afs: AngularFirestore,
     private http: HttpClient
   ) {
+  }
 
+  all() {
+    return this.afs.collection('users').snapshotChanges().pipe(map(users => {
+      return users.map(user => {
+
+        return { ...(user.payload.doc as object) } as User;
+      })
+    }));
   }
 
   update(oUser: User, user: User) {

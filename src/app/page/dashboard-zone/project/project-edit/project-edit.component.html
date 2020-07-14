@@ -1,0 +1,101 @@
+<div class="row mb-4">
+  <div class="col d-flex align-items-center mb-3 mb-md-5">
+    <mat-icon routerLink="/project" class="mr-2 mr-md-5 cursor-pointer">keyboard_backspace</mat-icon>
+    <h1 class="mb-0">Uprava zákazky</h1>
+  </div>
+</div>
+
+<form autocomplete="off" [formGroup]="formGroup" (ngSubmit)="submit()" *ngIf="project">
+  <div class="row">
+    <div class="col-12">
+      <h2 class="border-bottom-2 pb-2 mb-4">Špeciﬁkácia zákazky</h2>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6 form-group">
+      <mat-form-field class="form-group w-100">
+        <input formControlName="title" matInput placeholder="Názov zákazky">
+        <mat-error *ngIf="f.title.errors">Názov zákazky je <strong>pozadovany.</strong></mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-6 form-group">
+      <mat-form-field class="form-group w-100">
+        <input formControlName="number" matInput placeholder="Číslo zákazky">
+        <mat-error *ngIf="f.number.errors">Číslo zákazky je <strong>pozadovany.</strong></mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-12 form-group">
+      <mat-form-field class="form-group w-100">
+        <input formControlName="description" matInput placeholder="Popis zákazky">
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-6 form-group">
+      <app-select-new-contact formControlName="contact"></app-select-new-contact>
+      <mat-error *ngIf="submitted && f.contact.errors">Client je <strong>pozadovany.</strong></mat-error>
+    </div>
+
+    <div class="col-md-6">
+      <mat-form-field class="form-group w-100">
+        <mat-label>Stav</mat-label>
+        <select formControlName="state" matNativeControl>
+          <option value="completed">Dokončená</option>
+          <option value="in_progress">V realizácii</option>
+        </select>
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-6">
+      <mat-form-field class="form-group w-100">
+        <mat-label>Dátum od</mat-label>
+        <input formControlName="startedAt" matInput [matDatepicker]="startedAt">
+        <mat-datepicker-toggle matSuffix [for]="startedAt"></mat-datepicker-toggle>
+        <mat-datepicker #startedAt></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-6">
+      <mat-form-field class="form-group w-100">
+        <mat-label>Dátum do</mat-label>
+        <input formControlName="finishedAt" matInput [matDatepicker]="finishedAt">
+        <mat-datepicker-toggle matSuffix [for]="finishedAt"></mat-datepicker-toggle>
+        <mat-datepicker #finishedAt></mat-datepicker>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <h2 class="border-bottom-2 pb-2 mb-4">Vlastnosti zákazky</h2>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6 form-group">
+      <mat-form-field class="form-group w-100">
+        <input formControlName="address" matInput placeholder="Miesto zákazky">
+      </mat-form-field>
+    </div>
+    <div class="col-md-6 form-group">
+      <mat-form-field class="form-group w-100">
+        <input formControlName="area" matInput placeholder="Rozloha zákazky">
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12 text-right">
+      <button routerLink="/project" mat-stroked-button class="btn-icon btn-theme-stroked mr-3">
+        <mat-icon>cancel</mat-icon>
+        Zrušiť
+      </button>
+      <button mat-flat-button class="btn-icon btn-theme">
+        <mat-icon>save</mat-icon>
+        Uložiť
+      </button>
+    </div>
+  </div>
+</form>

@@ -15,6 +15,16 @@ const routes: Routes = [
         loadChildren: () => import('./contact/contact.module').then(m => m.ContactModule),
       },
       {
+        path: 'project',
+        data: {godButtonTitle: 'Nová zákazka', gotButtonRouteLink: '/project/create'},
+        loadChildren: () => import('./project/project.module').then(m => m.ProjectModule),
+      },
+      {
+        path: 'demand',
+        data: {godButtonTitle: 'Nový dopyt', gotButtonRouteLink: '/demand/create'},
+        loadChildren: () => import('./demand/demand.module').then(m => m.DemandModule),
+      },
+      {
         path: 'price-offer',
         data: {godButtonTitle: 'Nová cenová ponuka', gotButtonRouteLink: '/price-offer/create'},
         loadChildren: () => import('./price-offer/price-offer.module').then(m => m.PriceOfferModule),

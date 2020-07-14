@@ -23,6 +23,15 @@ table tbody th.space {
   overflow-x: auto;
   border-top: 3px solid $global-primary-color;
 
+  .table-item{
+    &.table-td-initial{
+      td{
+        vertical-align: initial;
+        padding-top: 20px;
+      }
+    }
+  }
+
   tbody {
     border-bottom: 3px solid $global-primary-color;
   }

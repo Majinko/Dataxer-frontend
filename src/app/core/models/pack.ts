@@ -13,6 +13,7 @@ export interface PackItem {
   item: Item;
   title: string;
   qty: number;
+  discount?: number;
   price?: number;
   tax?: number;
   totalPrice?: number

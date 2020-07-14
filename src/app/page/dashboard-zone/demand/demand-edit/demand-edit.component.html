@@ -1,0 +1,98 @@
+<div class="row mb-4">
+  <div class="col d-flex align-items-center mb-3 mb-md-5">
+    <mat-icon routerLink="/demand" class="mr-2 mr-md-5 cursor-pointer">keyboard_backspace</mat-icon>
+    <h1 class="mb-0">Editacia dopytu</h1>
+  </div>
+</div>
+
+<form autocomplete="off" *ngIf="demand" [formGroup]="formGroup" (ngSubmit)="submit()">
+  <div class="row">
+    <div class="col-12">
+      <h2 class="border-bottom-2 pb-2 mb-4">Špeciﬁkácia dopytu</h2>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-8 form-group">
+      <mat-form-field class="form-group w-100">
+        <input formControlName="title" matInput placeholder="Názov dopytu">
+        <mat-error *ngIf="f.title.errors">Názov dopytu je <strong>pozadovany.</strong></mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-4 form-group">
+      <ng-select class="form-group w-100" [items]="categories"
+                 #select
+                 bindLabel="name"
+                 placeholder="Kategória"
+                 [clearable]="false"
+                 formControlName="category">
+        <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+          <div><span>{{item.name}}</span></div>
+        </ng-template>
+      </ng-select>
+    </div>
+
+
+    <div class="col-md-12 form-group">
+      <mat-form-field class="form-group w-100">
+        <input formControlName="description" matInput placeholder="Požiadavka">
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-4">
+      <mat-form-field class="form-group w-100">
+        <mat-select placeholder="Zdroj" formControlName="source">
+          <mat-option value="E-mail">
+            E-mail
+          </mat-option>
+          <mat-option value="Web">
+            Web
+          </mat-option>
+          <mat-option value="Online reklama">
+            Online reklama
+          </mat-option>
+          <mat-option value="Telefón">
+            Telefón
+          </mat-option>
+          <mat-option value="Osobný kontak">
+            Osobný kontak
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-4">
+      <mat-form-field class="form-group w-100">
+        <mat-select placeholder="Stav" formControlName="state">
+          <mat-option value="Vyžaduje reakciu">
+            Vyžaduje reakciu
+          </mat-option>
+          <mat-option value="Schválený">
+            Schválený
+          </mat-option>
+          <mat-option value="Zamietnutý">
+            Zamietnutý
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="form-group col-md-4">
+      <app-select-new-contact formControlName="contact"></app-select-new-contact>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12 text-right">
+      <button routerLink="/demand" mat-stroked-button class="btn-icon btn-theme-stroked mr-3">
+        <mat-icon>cancel</mat-icon>
+        Zrušiť
+      </button>
+      <button mat-flat-button class="btn-icon btn-theme">
+        <mat-icon>save</mat-icon>
+        Uložiť
+      </button>
+    </div>
+  </div>
+</form>
