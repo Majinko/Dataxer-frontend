@@ -4,6 +4,7 @@ import {User} from '../../../../core/models/user';
 import {AuthService} from '../../../../core/services/auth.service';
 import {COUNTRIES} from '../../../../core/data/countries';
 import {UserService} from '../../../../core/services/user.service';
+import { MessageService } from 'src/app/core/services/message.service';
 
 @Component({
   selector: 'app-user-edit',
@@ -18,6 +19,7 @@ export class UserEditComponent implements OnInit {
   constructor(
     @Inject(UserService) private readonly userService: UserService,
     @Inject(AuthService) private readonly authService: AuthService,
+    private messageSevice: MessageService,
     private fb: FormBuilder
   ) {
   }
@@ -48,6 +50,7 @@ export class UserEditComponent implements OnInit {
     }
 
     this.userService.update(this.user, user);
+    this.messageSevice.add("Udaje boli aktualizovane");
   }
 
   getLoggedUser() {
