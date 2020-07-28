@@ -33,7 +33,6 @@
   bottom: 4px !important;
 }
 
-
 .ng-select.disable-arrow .ng-arrow-wrapper .ng-arrow {
   display: none;
 }
@@ -44,4 +43,17 @@
 
 .ng-select.disable-clear-all .ng-clear-wrapper {
   display: none;
+}
+
+// material form
+.custom-material-form-field{
+  .mat-form-field-flex{
+    border: 1px solid $global-primary-color;
+    border-radius: 25px !important;
+    background: transparent !important;
+  }
+
+  .mat-form-field-underline{
+    display: none !important;
+  }
 }

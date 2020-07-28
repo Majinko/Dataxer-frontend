@@ -1,3 +1,3 @@
-export class DocumentFilter {
-  state: string | null = null;
+export interface DocumentFilter {
+  state: string | null;
 }

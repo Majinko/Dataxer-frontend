@@ -50,7 +50,7 @@ export class PriceOfferTableComponent implements AfterViewInit {
           return this.priceOfferService.paginate(
             this.paginator.pageIndex,
             this.paginator.pageSize,
-            this.documentFilterRef.documentFilter
+            this.documentFilterRef.filterForm.value
           );
         }),
         map((data) => {

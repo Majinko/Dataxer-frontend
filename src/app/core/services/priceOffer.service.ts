@@ -5,6 +5,7 @@ import {Observable} from 'rxjs';
 import {environment} from 'src/environments/environment';
 import {Paginate} from '../models/paginate';
 import {DocumentFilter} from "../filter/document-filter";
+import {prepareFilter} from "../../../helper";
 
 @Injectable({
   providedIn: "root",
@@ -22,16 +23,7 @@ export class PriceOfferService {
   }
 
   paginate(page: number, size: number, documentFilter: DocumentFilter): Observable<Paginate> {
-    let params = new HttpParams();
-
-    for (const key in documentFilter) {
-      if (documentFilter.hasOwnProperty(key)) {
-        const value = documentFilter[key];
-        if (value !== null) {
-          params = params.set(key, value.toString());
-        }
-      }
-    }
+    let params = prepareFilter(documentFilter);
 
     return this.http.get<Paginate>(`${environment.baseUrl}/price-offer/paginate?page=${page}&size=${size}`, {params});
   }

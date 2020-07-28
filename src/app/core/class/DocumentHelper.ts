@@ -1,6 +1,5 @@
 import {Injectable} from "@angular/core";
-import {AbstractControl, FormArray, FormGroup} from "@angular/forms";
-import {Item} from "../models/item";
+import {AbstractControl} from "@angular/forms";
 import {Pack} from "../models/pack";
 
 @Injectable()
