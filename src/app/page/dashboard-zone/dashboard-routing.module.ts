@@ -10,6 +10,11 @@ const routes: Routes = [
     canActivate: [AuthGuardService],
     children: [
       {
+        path: 'task',
+        data: {godButtonTitle: 'Nova uloha', gotButtonRouteLink: '/task/create'},
+        loadChildren: () => import('./task/task.module').then(m => m.TaskModule),
+      },
+      {
         path: 'contact',
         data: {godButtonTitle: 'Nový kontakt', gotButtonRouteLink: '/contact/create'},
         loadChildren: () => import('./contact/contact.module').then(m => m.ContactModule),

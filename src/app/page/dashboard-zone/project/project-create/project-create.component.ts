@@ -31,7 +31,7 @@ export class ProjectCreateComponent implements OnInit {
 
   ngOnInit(): void {
     this.prepareForm();
-    //this.getUsers();
+    this.getUsers();
   }
 
   private prepareForm() {
@@ -52,8 +52,6 @@ export class ProjectCreateComponent implements OnInit {
   private getUsers() {
     return this.userService.all().subscribe(data => {
       this.users = data;
-
-      console.log(this.users);
     });
   }
 

@@ -21,6 +21,10 @@ export class ProjectService {
     return this.http.post<void>(`${environment.baseUrl}/project/update`, project)
   }
 
+  all(): Observable<Project[]>{
+    return this.http.get<Project[]>(`${environment.baseUrl}/project/all`);
+  }
+
   getById(id: number): Observable<Project>{
     return this.http.get<Project>(environment.baseUrl + '/project/' + id);
   }
@@ -31,6 +35,6 @@ export class ProjectService {
   }
 
   destroy(id: number): Observable<void> {
-    return this.http.get<void>(environment.baseUrl + '/project/destroy/' + id);
+    return this.http.get<void>(`${environment.baseUrl}/project/destroy/${id}`);
   }
 }

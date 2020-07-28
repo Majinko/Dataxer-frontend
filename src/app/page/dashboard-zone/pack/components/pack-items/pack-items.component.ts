@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormArray, FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {AbstractControl, FormArray, FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {PackItem} from "../../../../../core/models/pack";
+import {Item} from "../../../../../core/models/item";
 
 @Component({
   selector: 'app-group-items',
@@ -10,6 +11,7 @@ import {PackItem} from "../../../../../core/models/pack";
 export class PackItemsComponent implements OnInit {
   @Input() formGroup: FormGroup;
   @Input() packItems: PackItem[];
+  @Input() isSubmit: boolean;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -51,5 +53,14 @@ export class PackItemsComponent implements OnInit {
 
   get f() {
     return this.formGroup.controls;
+  }
+
+
+  setItem(item: AbstractControl) {
+    if (!item.value.item.title) {
+      item.patchValue({
+        item: null
+      })
+    }
   }
 }

@@ -1,9 +1,10 @@
 import {Injectable} from "@angular/core";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpParams} from "@angular/common/http";
 import {PriceOffer} from '../models/priceOffer';
 import {Observable} from 'rxjs';
 import {environment} from 'src/environments/environment';
 import {Paginate} from '../models/paginate';
+import {DocumentFilter} from "../filter/document-filter";
 
 @Injectable({
   providedIn: "root",
@@ -20,8 +21,19 @@ export class PriceOfferService {
     return this.http.post<void>(`${environment.baseUrl}/price-offer/store`, priceOffer)
   }
 
-  paginate(page: number, size: number): Observable<Paginate> {
-    return this.http.get<Paginate>(`${environment.baseUrl}/price-offer/paginate?page=${page}&size=${size}`);
+  paginate(page: number, size: number, documentFilter: DocumentFilter): Observable<Paginate> {
+    let params = new HttpParams();
+
+    for (const key in documentFilter) {
+      if (documentFilter.hasOwnProperty(key)) {
+        const value = documentFilter[key];
+        if (value !== null) {
+          params = params.set(key, value.toString());
+        }
+      }
+    }
+
+    return this.http.get<Paginate>(`${environment.baseUrl}/price-offer/paginate?page=${page}&size=${size}`, {params});
   }
 
   destroy(id: number): Observable<void> {

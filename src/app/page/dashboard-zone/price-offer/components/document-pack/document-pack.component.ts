@@ -18,7 +18,6 @@ import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 })
 export class DocumentPackComponent implements OnInit {
   units = UNITS;
-  showDis: boolean = false;
   @Input() packs: Pack[]
   @Input() documentHelper: DocumentHelper
   @Input() formGroup: FormGroup;

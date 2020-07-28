@@ -7,6 +7,11 @@ export const MenuItems: MenuItem[] = [
     icon: 'person',
   },
   {
+    routerLink: ['/task'],
+    title: 'Ulohy',
+    icon: 'work',
+  },
+  {
     routerLink: ['/demand'],
     title: 'Dopyty',
     icon: 'request_quote',

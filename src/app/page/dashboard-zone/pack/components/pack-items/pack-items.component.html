@@ -6,7 +6,10 @@
         <div class="d-flex justify-content-center">
           <mat-icon class="text-theme cursor-move mr-3 mt-2">reorder</mat-icon>
 
-          <app-item-autocomplete formControlName="item"></app-item-autocomplete>
+          <div>
+            <app-item-autocomplete (change)="setItem(item)" (findItem)="setItem(item)"  formControlName="item"></app-item-autocomplete>
+            <small class="d-block text-danger position-relative" style="top: -15px" *ngIf="isSubmit && item.controls.item.errors">Polozka je pozadovana.</small>
+          </div>
 
           <mat-form-field class="mr-3 ml-3">
             <mat-label>Pocet</mat-label>
@@ -23,7 +26,6 @@
       </div>
     </div>
   </div>
-
 
   <div class="col-md-12 text-center mt-3 mb-5">
       <a mat-flat-button class="btn btn-icon btn-theme" (click)="addItem()"><mat-icon>add</mat-icon>Polozka</a>

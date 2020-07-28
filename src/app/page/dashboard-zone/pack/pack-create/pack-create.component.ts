@@ -11,6 +11,7 @@ import {Router} from "@angular/router";
 })
 export class PackCreateComponent implements OnInit {
   formGroup: FormGroup;
+  isSubmit: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -33,6 +34,8 @@ export class PackCreateComponent implements OnInit {
   }
 
   onSubmit() {
+    this.isSubmit = true;
+
     if (this.formGroup.invalid) {
       return;
     }

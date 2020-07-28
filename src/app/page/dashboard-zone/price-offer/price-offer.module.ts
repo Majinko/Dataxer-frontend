@@ -13,6 +13,7 @@ import { ContactModule } from "../contact/contact.module";
 import { ThemeModule } from "../../../theme/theme.module";
 import { DocumentPackComponent } from "./components/document-pack/document-pack.component";
 import { PriceOfferEditComponent } from './price-offer-edit/price-offer-edit.component';
+import { DocumentFilterComponent } from './components/document-filter/document-filter.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { PriceOfferEditComponent } from './price-offer-edit/price-offer-edit.com
     PriceOfferTableComponent,
     DocumentPackComponent,
     PriceOfferEditComponent,
+    DocumentFilterComponent,
   ],
   imports: [
     CommonModule,
