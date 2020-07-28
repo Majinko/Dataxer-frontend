@@ -24,7 +24,7 @@ export class DocumentHelper {
     this.packs.forEach(pack => {
       pack.totalPrice = 0;
 
-      pack.items.forEach(item => {
+      pack.packItems.forEach(item => {
         item.totalPrice = +this.addPercent(+item.price * +item.qty, +item.tax)
         pack.totalPrice += +item.totalPrice;
 

@@ -31,8 +31,8 @@
           </tr>
         </tbody>
 
-        <tbody class="no-border table-item table-td-initial" formArrayName="items" cdkDropList (cdkDropListDropped)="dropItem(i, $event)">
-          <tr #trRow class="tbody-row set-row" [formGroupName]="i" *ngFor="let item of pack.get('items').controls; let i=index" cdkDrag>
+        <tbody class="no-border table-item table-td-initial" formArrayName="packItems" cdkDropList (cdkDropListDropped)="dropItem(i, $event)">
+          <tr #trRow class="tbody-row set-row" [formGroupName]="i" *ngFor="let item of pack.get('packItems').controls; let i=index" cdkDrag>
             <td colspan="2" class="text-right">
               <app-item-autocomplete formControlName="title" (change)="setItemTitle(item, $event.target.value)" (findItem)="setItem(item, $event)"></app-item-autocomplete>
               <div class="jsDiscount" [ngClass]="{'d-none' : item.value.discount == 0}">

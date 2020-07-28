@@ -24,7 +24,7 @@ export class PackCreateComponent implements OnInit {
   ngOnInit() {
     this.formGroup = this.formBuilder.group({
       title: ['', Validators.required],
-      items: this.formBuilder.array([])
+      packItems: this.formBuilder.array([])
     })
   }
 

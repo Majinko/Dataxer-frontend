@@ -27,7 +27,7 @@ export class PackEditComponent implements OnInit {
     this.formGroup = this.formBuilder.group({
       id: ['', Validators.required],
       title: ['', Validators.required],
-      items: this.formBuilder.array([])
+      packItems: this.formBuilder.array([])
     });
 
     this.getById();

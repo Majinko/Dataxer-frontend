@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, AfterViewInit, OnChanges} from "@angular/core";
+import {Component, OnInit, Input} from "@angular/core";
 import {
   FormBuilder,
   FormGroup,
@@ -46,7 +46,7 @@ export class DocumentPackComponent implements OnInit {
       customPrice: false,
       tax: 20,
       totalPrice: 0,
-      items: this.formBuilder.array([this.createItem()])
+      packItems: this.formBuilder.array([this.createItem()])
     });
   }
 
@@ -69,7 +69,7 @@ export class DocumentPackComponent implements OnInit {
       this.addPack();
 
       if (this.packs) {
-        for (let j = 0; j < (this.packs[i] ? this.packs[i].items.length - 1 : 1); j++) {
+        for (let j = 0; j < (this.packs[i] ? this.packs[i].packItems.length - 1 : 1); j++) {
           this.addItemByIndex(i);
         }
       }
@@ -97,7 +97,7 @@ export class DocumentPackComponent implements OnInit {
   }
 
   itemsByIndex(index: number): FormArray {
-    return this.formPacks.at(index).get('items') as FormArray;
+    return this.formPacks.at(index).get('packItems') as FormArray;
   }
 
   get formPacks(): FormArray {
@@ -105,7 +105,7 @@ export class DocumentPackComponent implements OnInit {
   }
 
   get items(): FormArray {
-    return this.formPacks.at(this.formPacks.length - 1).get('items') as FormArray;
+    return this.formPacks.at(this.formPacks.length - 1).get('packItems') as FormArray;
   }
 
   get f() {
@@ -133,13 +133,13 @@ export class DocumentPackComponent implements OnInit {
   // set pack when find it
   setPack(packIndex: number, packFormGroup: AbstractControl, pack: Pack) {
     this.packService.getById(pack.id).subscribe(p => {
-      for (let i = 0; i < p.items.length; i++) {
-        if (p.items.length > packFormGroup.get('items').value.length) {
+      for (let i = 0; i < p.packItems.length; i++) {
+        if (p.packItems.length > packFormGroup.get('packItems').value.length) {
           this.addItemByIndex(packIndex);
         }
 
         packFormGroup.patchValue({
-          items: p.items.map(item => {
+          packItems: p.packItems.map(item => {
             item.id = '';
             item.title = item.item.title;
             item.price = item.item.itemPrice.price;

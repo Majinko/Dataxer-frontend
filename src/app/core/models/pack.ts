@@ -1,9 +1,9 @@
-import {Item, ItemPrice} from "./item";
+import {Item} from "./item";
 
 export interface Pack {
   id: number;
   title: string;
-  items: PackItem[],
+  packItems: PackItem[],
   tax?: number;
   totalPrice?: number
 }
