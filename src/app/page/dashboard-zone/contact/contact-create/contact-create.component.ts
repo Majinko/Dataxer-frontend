@@ -46,7 +46,7 @@ export class ContactCreateComponent {
         this.messageService.add("Kontakt bol ulozeny")
 
         if (this.dialogRef === null)
-          this.router.navigate(['/app/contact']);
+          this.router.navigate(['/contact']);
       }
     );
   }
