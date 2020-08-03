@@ -1,0 +1,30 @@
+<div class="d-block d-md-flex justify-content-end">
+ <!-- <div class="mb-3 mb-md-0">
+    <p class="mb-0 d-inline">Zvolené kalkulácie v hodnote: </p>
+    <h2 class="mb-0 ml-2 d-inline">296 237,48 &euro;</h2>
+  </div>-->
+
+  <div class="d-block d-md-flex">
+    <form [formGroup]="filterForm">
+      <mat-form-field appearance="fill" color="primary" class="custom-material-form-field">
+        <mat-label>Stav</mat-label>
+        <mat-select formControlName="state">
+          <mat-option value="pending">Čakajúca</mat-option>
+          <mat-option value="approved">Schválená</mat-option>
+          <mat-option value="rejected">Zamietnutá</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </form>
+  </div>
+</div>
+
+<div class="d-block d-md-flex align-content-center" *ngIf="isFiltering">
+  <p class="mb-2 mb-md-0 d-md-inline mr-3">Filtre: </p>
+  <mat-chip-list aria-label="Filtering">
+    <mat-chip class="text-gray my-md-0  mb-md-0" *ngIf="filterForm.get('state').value">
+      <mat-icon class="mr-1">timelapse</mat-icon>
+      {{filterForm.get('state').value}}
+      <mat-icon (click)="resetFilterValue('state')" matChipRemove>cancel</mat-icon>
+    </mat-chip>
+  </mat-chip-list>
+</div>
