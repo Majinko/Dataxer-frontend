@@ -21,3 +21,7 @@ export interface PriceOffer {
   contact: Contact;
   packs: Pack[]
 }
+
+export enum PriceOfferState {
+  pending = 'Čakajúca'
+}
