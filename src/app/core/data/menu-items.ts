@@ -27,6 +27,11 @@ export const MenuItems: MenuItem[] = [
     icon: 'account_balance',
   },
   {
+    routerLink: ['/invoice'],
+    title: 'Fakturacia',
+    icon: 'description',
+  },
+  {
     routerLink: ['/time'],
     title: 'Čas',
     icon: 'timer',

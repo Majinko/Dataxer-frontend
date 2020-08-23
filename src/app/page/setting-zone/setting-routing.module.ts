@@ -25,6 +25,12 @@ const routes: Routes = [
         loadChildren: () => import('./user/user.module')
           .then(m => m.UserModule),
       },
+      {
+        path: 'numbering',
+        data: {godButtonTitle: 'Pridaj číselník', gotButtonRouteLink: '/setting/numbering/create'},
+        loadChildren: () => import('./numbering/numbering.module')
+          .then(m => m.NumberingModule),
+      },
     ],
   }
 ];

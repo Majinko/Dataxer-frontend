@@ -30,6 +30,11 @@ const routes: Routes = [
         loadChildren: () => import('./demand/demand.module').then(m => m.DemandModule),
       },
       {
+        path: 'invoice',
+        data: {godButtonTitle: 'Nova Faktura', gotButtonRouteLink: '/invoice/create'},
+        loadChildren: () => import('./invoice/invoice.module').then(m => m.InvoiceModule),
+      },
+      {
         path: 'price-offer',
         data: {godButtonTitle: 'Nová cenová ponuka', gotButtonRouteLink: '/price-offer/create'},
         loadChildren: () => import('./price-offer/price-offer.module').then(m => m.PriceOfferModule),

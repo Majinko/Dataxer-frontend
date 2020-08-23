@@ -1,0 +1,72 @@
+<form [formGroup]="formGroup" action="" autocomplete="off" (ngSubmit)="onSubmit()">
+  <div class="row mb-4">
+    <div class="col d-flex justify-content-between">
+      <h1>Pridať číselník</h1>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <h2 class="text-theme border-bottom-2 pb-2 mb-4">Zakladne údaje</h2>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <mat-form-field class="form-group w-100">
+        <input matInput placeholder="Názov / Popis" formControlName="title" required>
+        <mat-error *ngIf="f.title.errors">Názov / Popis <strong>požadovaný.</strong></mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-6">
+      <mat-form-field class="form-group w-100">
+        <mat-label>Formát</mat-label>
+        <mat-select formControlName="format" required>
+          <mat-option value="YYYYCCC">YYYYCCC</mat-option>
+          <mat-option value="YYYYCCC">YYYYCCCC</mat-option>
+          <mat-option value="YYYYCCC">YYYYCCCC</mat-option>
+          <mat-option value="YYYYCCC">CCCRRR</mat-option>
+          <mat-option value="YYYYCCC">RRCCCC</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-6">
+      <mat-form-field class="form-group w-100">
+        <mat-label>Typ dokladu</mat-label>
+        <mat-select formControlName="type" required>
+          <mat-option *ngFor="let typeDocument of typeDocuments" [value]="typeDocument.key">
+            {{typeDocument.value}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-6">
+      <mat-form-field class="form-group w-100">
+        <mat-label>Obdobie</mat-label>
+        <mat-select formControlName="period" required>
+          <mat-option value="YEAR">Ročne</mat-option>
+          <mat-option value="MONTHLY">Mesačne</mat-option>
+          <mat-option value="QUARTER">Stvrt Ročne</mat-option>
+          <mat-option value="HALF_YEAR">Pol Ročne</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-md-12 text-right">
+      <button routerLink="/setting/numbering" mat-stroked-button class="btn-icon btn-theme-stroked mr-3">
+        <mat-icon>cancel</mat-icon>
+        Zrušiť
+      </button>
+      <button mat-flat-button class="btn-icon btn-theme">
+        <mat-icon>save</mat-icon>
+        Uložiť
+      </button>
+    </div>
+  </div>
+</form>

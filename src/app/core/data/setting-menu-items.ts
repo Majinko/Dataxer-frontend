@@ -15,5 +15,10 @@ export const SettingMenuItems: MenuItem[] = [
     routerLink: ['/setting/category'],
     title: 'Kategórie',
     icon: 'folder',
+  },
+  {
+    routerLink: ['/setting/numbering'],
+    title: 'Číselníky',
+    icon: 'point_of_sale',
   }
 ];
