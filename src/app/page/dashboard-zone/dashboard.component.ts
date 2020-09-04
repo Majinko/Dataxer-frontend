@@ -1,6 +1,8 @@
 import {Component, Inject} from '@angular/core';
 import {SidenavService} from '../../core/services/sidenav.service';
 import {MenuItems} from '../../core/data/menu-items';
+import {CompanyService} from "../../core/services/company.service";
+import {UserService} from "../../core/services/user.service";
 
 @Component({
   selector: 'app-page',
@@ -21,6 +23,9 @@ export class DashboardComponent {
   menuItems = MenuItems;
 
   constructor(
-    @Inject(SidenavService) public sidenavService: SidenavService) {
+    public sidenavService: SidenavService,
+    private companyService: CompanyService,
+    private userService: UserService
+    ) {
   }
 }

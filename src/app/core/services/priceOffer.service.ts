@@ -23,9 +23,7 @@ export class PriceOfferService {
   }
 
   paginate(page: number, size: number, documentFilter: DocumentFilter): Observable<Paginate> {
-    let params = prepareFilter(documentFilter);
-
-    return this.http.get<Paginate>(`${environment.baseUrl}/price-offer/paginate?page=${page}&size=${size}`, {params});
+    return this.http.post<Paginate>(`${environment.baseUrl}/price-offer/paginate?page=${page}&size=${size}`, documentFilter);
   }
 
   destroy(id: number): Observable<void> {

@@ -2,12 +2,15 @@ import {RouterModule, Routes} from '@angular/router';
 import {NgModule} from '@angular/core';
 import {DashboardComponent} from './dashboard.component';
 import {AuthGuardService} from '../../core/guards/auth-guard.service';
+import {UserResolver} from "../../core/resolver/user.resolver";
+import {CompanyResolver} from "../../core/resolver/company.resolver";
 
 const routes: Routes = [
   {
     path: '',
     component: DashboardComponent,
     canActivate: [AuthGuardService],
+    resolve: {user: UserResolver, company: CompanyResolver},
     children: [
       {
         path: 'task',
@@ -60,6 +63,7 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
+  providers: [CompanyResolver, UserResolver]
 })
 export class DashboardRoutingModule {
 }

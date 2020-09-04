@@ -8,6 +8,7 @@ import {environment} from '../../../environments/environment';
   providedIn: 'root'
 })
 export class CompanyService {
+  company: Company;
 
   constructor(private http: HttpClient) {
   }
@@ -26,5 +27,9 @@ export class CompanyService {
 
   update(company: Company, companyId: number): Observable<Company> {
     return this.http.post<Company>(environment.baseUrl + '/company/update/' + companyId, company);
+  }
+
+  defaultCompany(): Observable<Company> {
+    return this.http.get<Company>(`${environment.baseUrl}/company/default`);
   }
 }
