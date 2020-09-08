@@ -1,11 +1,11 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { InvoiceComponent } from './invoice.component';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {InvoiceComponent} from './invoice.component';
 import {RouterModule, Routes} from "@angular/router";
 import {InvoiceCreateComponent} from "./invoice-create/invoice-create.component";
 import {InvoiceIndexComponent} from "./invoice-index/invoice-index.component";
 import {InvoiceEditComponent} from "./invoice-edit/invoice-edit.component";
-import { InvoiceTableComponent } from './invoice-index/invoice-table/invoice-table.component';
+import {InvoiceTableComponent} from './invoice-index/invoice-table/invoice-table.component';
 
 const routes: Routes = [{
   path: '',
@@ -33,4 +33,5 @@ const routes: Routes = [{
     RouterModule.forChild(routes)
   ]
 })
-export class InvoiceModule { }
+export class InvoiceModule {
+}
