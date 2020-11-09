@@ -1,0 +1,15 @@
+<mat-form-field class="w-100">
+  <input [(ngModel)]="value" matInput placeholder="Začnite písať meno..." (input)="onInputChange()" [matAutocomplete]="auto">
+  <mat-icon matSuffix class="text-gray">search</mat-icon>
+</mat-form-field>
+
+<mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn"  (optionSelected)="setFirm($event.option.value)">
+  <ng-container>
+    <mat-option *ngFor="let firm of slovakiaDigitalFirms" [value]="firm">
+      <span>{{ firm.name }}</span>
+    </mat-option>
+
+    <mat-option *ngIf="slovakiaDigitalFirms == null"><span>No items found</span></mat-option>
+    <mat-option *ngIf="isLoading" class="is-loading"><mat-progress-bar mode="indeterminate"></mat-progress-bar></mat-option>
+  </ng-container>
+</mat-autocomplete>
