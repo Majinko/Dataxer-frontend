@@ -15,7 +15,8 @@
 
       </mat-card-content>
       <mat-card-actions>
-        <button mat-button [routerLink]="['/setting/company/edit', company.id]">Editovať</button>
+        <button class="text-theme" mat-button [routerLink]="['/setting/company/edit', company.id]">Editovať</button>
+        <button class="text-dark" mat-button (click)="deleteCompany(company.id)">Zmazat</button>
       </mat-card-actions>
     </mat-card>
   </div>

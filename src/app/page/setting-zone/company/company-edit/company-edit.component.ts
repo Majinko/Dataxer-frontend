@@ -7,6 +7,7 @@ import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {COUNTRIES} from '../../../../core/data/countries';
 import {BillingInformation} from '../../../../core/models/billing-information';
 import {MatCheckbox} from "@angular/material/checkbox";
+import {MessageService} from "../../../../core/services/message.service";
 
 @Component({
   selector: 'app-company-edit',
@@ -23,7 +24,8 @@ export class CompanyEditComponent implements OnInit {
   constructor(
     @Inject(CompanyService) private readonly companyService: CompanyService,
     private route: ActivatedRoute,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private messageService: MessageService
   ) {
   }
 
@@ -44,18 +46,14 @@ export class CompanyEditComponent implements OnInit {
           postalCode: c.postalCode,
           country: c.country,
           email: c.email,
-          phone: c.phone,
           web: c.web,
-          identifyingNumber: c.identifyingNumber,
-          vat: c.vat,
-          netOfVat: c.netOfVat,
+          phone: c.phone,
+          cin: c.cin,
+          tin: c.tin,
+          vatin: c.vatin,
           iban: c.iban,
-          billingInformation: this.fb.array([this.createBillingInformation(c.billingInformation)])
+          defaultCompany: c.defaultCompany
         });
-
-        if (c.billingInformation.length) {
-          this.formGroup.get('billingInformation').setValue(c.billingInformation);
-        }
       }
     );
   }
@@ -74,20 +72,9 @@ export class CompanyEditComponent implements OnInit {
       return;
     }
 
-    if (this.bInfo.checked) {
-      delete companyFormData.billingInformation;
-    }
 
-    this.companyService.update(companyFormData, companyFormData.id).subscribe();
-  }
-
-  private createBillingInformation(billingInformation: BillingInformation[]): FormGroup {
-    return this.fb.group({
-      id: '',
-      street: '',
-      city: '',
-      postalCode: '',
-      country: '',
+    this.companyService.update(companyFormData).subscribe(() => {
+      this.messageService.add("Spolocnost bola upravena")
     });
   }
 }

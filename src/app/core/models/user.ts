@@ -2,10 +2,9 @@ export interface User {
   id?: number;
   uid: string;
   position?: string;
-  name?: string;
-  surname?: string;
+  firstName?: string;
+  lastName?: string;
   displayName?: string;
-  fullName?: string;
   appKey?: string;
   email: string;
   token?: string;

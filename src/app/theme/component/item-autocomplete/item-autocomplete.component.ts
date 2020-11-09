@@ -16,7 +16,6 @@ import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
   }]
 })
 
-//todo asi premiestnit inakam
 export class ItemAutocompleteComponent implements ControlValueAccessor, OnInit {
   items: Item[] = [];
 

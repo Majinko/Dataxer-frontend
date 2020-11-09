@@ -19,7 +19,7 @@
     <!-- Client Column -->
     <ng-container matColumnDef="client">
       <th mat-header-cell *matHeaderCellDef> Klient</th>
-      <td mat-cell *matCellDef="let element"> {{element.contact.firstName + ' ' + element.contact.lastName}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.contact ? element.contact.name : 'Klient nebol priradeny'}} </td>
     </ng-container>
 
     <!-- Adresa Column -->

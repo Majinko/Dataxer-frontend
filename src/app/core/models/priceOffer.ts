@@ -13,7 +13,7 @@ export interface PriceOffer {
   deliveredDate: Date;
   dueDate: Date;
   note: string;
-  priceOfferData: {
+  documentData: {
     user: User
   };
   price: number;

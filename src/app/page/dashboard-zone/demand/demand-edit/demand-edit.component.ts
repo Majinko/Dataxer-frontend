@@ -66,7 +66,7 @@ export class DemandEditComponent implements OnInit {
     }
 
     this.demandService.store(this.formGroup.value).subscribe(() => {
-      this.messageService.add("Dopyt bol aktualizovany")
+      this.messageService.add("Dopyt bol aktualizovaný")
     })
   }
 

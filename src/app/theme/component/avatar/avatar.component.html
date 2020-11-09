@@ -1,4 +1,4 @@
-<div class="text-center cursor-pointer text-light d-flex align-items-center" *ngIf="user" [matMenuTriggerFor]="userMenu"><ngx-avatar size="40" bgColor="#19A5E5" name="{{user.displayName}}" class=""></ngx-avatar></div>
+<div class="text-center cursor-pointer text-light d-flex align-items-center" *ngIf="userService.user" [matMenuTriggerFor]="userMenu"><ngx-avatar size="40" bgColor="#19A5E5" name="{{userService.user.displayName}}" class=""></ngx-avatar></div>
 
 <mat-menu #userMenu="matMenu" class="mat-menu-avatar">
   <div *ngIf="user" class="pl-3 pr-5 pt-2 pb-3 d-flex align-items-center profile-info">
@@ -7,9 +7,9 @@
     </button>
     <div>
       <span class="font-weight-bold d-block">
-        {{user.displayName}}
+        {{userService.user.displayName}}
       </span>
-      <small class="text-gray">{{user.position}}</small>
+      <small class="text-gray">{{userService.user.position}}</small>
     </div>
   </div>
   <div class="px-3 menu-item">

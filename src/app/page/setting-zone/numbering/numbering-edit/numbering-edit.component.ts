@@ -13,6 +13,7 @@ import {DocumentNumbering} from "../../../../core/models/documentNumbering";
 export class NumberingEditComponent implements OnInit {
   formGroup: FormGroup;
   documentNumbering: DocumentNumbering
+  defaultFormat: string[] = ['YYYYNNN', 'YYYYNNNN', 'YYYYNNNNN', 'NNNYYY', 'YYNNNN']
   typeDocuments: { key: string, value: string }[] = [
     {key: 'PRICE_OFFER', value: 'Cenové ponuky'},
     {key: 'INVOICE', value: 'Faktúry'},
@@ -37,15 +38,20 @@ export class NumberingEditComponent implements OnInit {
         title: [docNumbering.title, Validators.required],
         format: docNumbering.format,
         type: docNumbering.type,
-        period: docNumbering.period
+        period: docNumbering.period,
+        otherFormat: docNumbering.format,
+        isDefault: docNumbering.isDefault
       })
     })
   }
 
-
   onSubmit() {
     if (this.formGroup.invalid) {
       return;
+    }
+
+    if (this.f.format.value === 'other' || this.defaultFormat.indexOf(this.f.format.value) === -1){
+      this.formGroup.patchValue({format: this.f.otherFormat.value})
     }
 
     this.numberingService.update(this.formGroup.value).subscribe(() => {

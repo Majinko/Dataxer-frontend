@@ -9,11 +9,27 @@ import {UserService} from "../../../../core/services/user.service";
 import {TaskService} from "../../../../core/services/task.service";
 import {Router} from "@angular/router";
 import {MessageService} from "../../../../core/services/message.service";
+import {MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS} from '@angular/material-moment-adapter';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+import {APP_DATE_FORMATS} from "../../../../../helper";
+import {FileService} from "../../../../core/services/file.service";
 
 @Component({
   selector: 'app-task-create',
   templateUrl: './task-create.component.html',
-  styleUrls: ['./task-create.component.scss']
+  styleUrls: ['./task-create.component.scss'],
+  providers: [
+    // `MomentDateAdapter` can be automatically provided by importing `MomentDateModule` in your
+    // application's root module. We provide it at the component level here, due to limitations of
+    // our example generation script.
+    {
+      provide: DateAdapter,
+      useClass: MomentDateAdapter,
+      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]
+    },
+
+    {provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS},
+  ],
 })
 export class TaskCreateComponent implements OnInit {
   formGroup: FormGroup
@@ -29,7 +45,8 @@ export class TaskCreateComponent implements OnInit {
     private userService: UserService,
     private taskService: TaskService,
     private messageService: MessageService,
-    private router: Router
+    private router: Router,
+    public fileService: FileService,
   ) {
   }
 

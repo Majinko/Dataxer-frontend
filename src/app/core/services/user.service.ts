@@ -4,6 +4,7 @@ import {AngularFirestore} from '@angular/fire/firestore';
 import {User} from '../models/user';
 import {Observable} from "rxjs";
 import {environment} from "../../../environments/environment";
+import {map} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
@@ -21,23 +22,23 @@ export class UserService {
     return this.http.get<User[]>(`${environment.baseUrl}/user/all`)
   }
 
-  /*all() {
-  return this.afs.collection('users').snapshotChanges().pipe(map(users => {
-    return users.map(user => {
-      return { ...(user.payload.doc.data() as object) } as User;
-    })
-  }));
-}*/
-
   loggedUser(): Observable<User>{
-    return this.http.get<User>(`${environment.baseUrl}/user/logged`)
+    return this.http.get<User>(`${environment.baseUrl}/user/logged`).pipe(map((user) => {
+      user.displayName = user.firstName + ' ' + user.lastName;
+
+      return user;
+    }))
   }
 
-  update(oUser: User, user: User) {
+  update(user: User): Observable<User>{
+    return this.http.post<User>(`${environment.baseUrl}/user/update`, user)
+  }
+
+  updateFirebase(oUser: User, user: User) {
     this.afs.collection('users').doc(oUser.uid).set({
       uid: oUser.uid,
       appKey: oUser.appKey,
-      displayName: user.name + ' ' + user.surname,
+      displayName: user.firstName + ' ' + user.lastName,
       email: user.email,
       phone: user.phone,
       street: user.street,

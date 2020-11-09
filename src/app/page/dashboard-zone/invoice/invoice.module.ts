@@ -6,6 +6,10 @@ import {InvoiceCreateComponent} from "./invoice-create/invoice-create.component"
 import {InvoiceIndexComponent} from "./invoice-index/invoice-index.component";
 import {InvoiceEditComponent} from "./invoice-edit/invoice-edit.component";
 import {InvoiceTableComponent} from './invoice-index/invoice-table/invoice-table.component';
+import {MaterialModule} from "../../../theme/modules/material.module";
+import {ThemeModule} from "../../../theme/theme.module";
+import {ReactiveFormsModule} from "@angular/forms";
+import {CoreModule} from "../../../core/core.module";
 
 const routes: Routes = [{
   path: '',
@@ -27,10 +31,14 @@ const routes: Routes = [{
 }];
 
 @NgModule({
-  declarations: [InvoiceComponent, InvoiceTableComponent],
+  declarations: [InvoiceComponent, InvoiceIndexComponent, InvoiceTableComponent, InvoiceCreateComponent],
   imports: [
     CommonModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    MaterialModule,
+    ThemeModule,
+    ReactiveFormsModule,
+    CoreModule
   ]
 })
 export class InvoiceModule {

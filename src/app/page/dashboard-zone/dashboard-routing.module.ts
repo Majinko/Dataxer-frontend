@@ -14,7 +14,7 @@ const routes: Routes = [
     children: [
       {
         path: 'task',
-        data: {godButtonTitle: 'Nova uloha', gotButtonRouteLink: '/task/create'},
+        data: {godButtonTitle: 'Nová úloha', gotButtonRouteLink: '/task/create'},
         loadChildren: () => import('./task/task.module').then(m => m.TaskModule),
       },
       {
@@ -36,6 +36,11 @@ const routes: Routes = [
         path: 'invoice',
         data: {godButtonTitle: 'Nova Faktura', gotButtonRouteLink: '/invoice/create'},
         loadChildren: () => import('./invoice/invoice.module').then(m => m.InvoiceModule),
+      },
+      {
+        path: 'cost',
+        data: {godButtonTitle: 'Nový Náklad', gotButtonRouteLink: '/cost/create'},
+        loadChildren: () => import('./cost/cost.module').then(m => m.CostModule),
       },
       {
         path: 'price-offer',

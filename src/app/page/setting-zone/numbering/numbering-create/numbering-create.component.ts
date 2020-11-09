@@ -29,14 +29,20 @@ export class NumberingCreateComponent implements OnInit {
     this.formGroup = this.fb.group({
       title: [null, Validators.required],
       format: 'YYYYCCC',
+      otherFormat: '',
       type: [this.typeDocuments[0].key],
-      period: 'YEAR'
+      period: 'YEAR',
+      isDefault: true
     })
   }
 
   onSubmit() {
     if (this.formGroup.invalid) {
       return;
+    }
+
+    if (this.f.format.value === 'other'){
+      this.formGroup.patchValue({format: this.f.otherFormat.value})
     }
 
     this.numberingService.store(this.formGroup.value).subscribe(() => {

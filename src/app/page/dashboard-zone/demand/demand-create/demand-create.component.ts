@@ -53,7 +53,7 @@ export class DemandCreateComponent implements OnInit {
 
     this.demandService.store(this.formGroup.value).subscribe(() => {
       this.router.navigate(['/demand']).then(() => {
-        this.messageService.add("Dopyt bol ulozeny")
+        this.messageService.add("Dopyt bol uložený")
       })
     })
   }

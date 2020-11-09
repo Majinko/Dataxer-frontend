@@ -7,24 +7,14 @@
   </div>
 
   <div class="row">
-    <div class="col-3 col-md-1 pr-md-0">
+    <div class="col-3 col-md-2">
       <div class="avatar-photo-edit cursor-pointer jsFile" matTooltip="Nastaviť fotku kontaktu">
         <ngx-avatar size="100%" src="{{contact.photoUrl !== '' ? contact.photoUrl : 'https://ssl.gstatic.com/s2/oz/images/sge/grey_silhouette.png'}} "></ngx-avatar>
         <input type="file" name='file' (change)="onFileChange($event)" class="d-none">
       </div>
     </div>
-    <div class="col-9 col-md-5 pl-md-0">
-      <mat-form-field class="form-group w-100">
-        <input matInput placeholder="Meno" formControlName="firstName" required>
-        <mat-error *ngIf="contactForm.invalid">Meno je povinné</mat-error>
-      </mat-form-field>
-    </div>
-
-    <div class="col-md-6">
-      <mat-form-field class="form-group w-100">
-        <input matInput placeholder="Priezvisko" formControlName="lastName" required>
-        <mat-error *ngIf="contactForm.invalid">Priezvisko je povinné</mat-error>
-      </mat-form-field>
+    <div class="col-9 col-md-10">
+      <app-slovakia-digital-autocomplete formControlName="name" (findFirm)="setFirmData($event)"></app-slovakia-digital-autocomplete>
     </div>
   </div>
 
@@ -44,10 +34,16 @@
     </div>
 
     <div class="col-md-4">
-      <mat-form-field class="form-group w-100">
-        <input matInput placeholder="Krajina" formControlName="country">
-        <mat-icon matSuffix>language</mat-icon>
-      </mat-form-field>
+      <ng-select [items]="countries"
+                 #select
+                 bindLabel="country"
+                 bindValue="country"
+                 placeholder="Krajina"
+                 formControlName="country">
+        <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+          <div><span>{{item.country}}</span></div>
+        </ng-template>
+      </ng-select>
     </div>
   </div>
 
@@ -57,8 +53,7 @@
         <input matInput placeholder="PSČ" formControlName="postalCode">
       </mat-form-field>
     </div>
-
-
+    
     <div class="col-md-6">
       <mat-form-field class="form-group w-100">
         <input matInput placeholder="Súpisné č." formControlName="regNumber">
@@ -83,8 +78,28 @@
   </div>
 
   <div class="row">
+    <div class="col-md-4">
+      <mat-form-field class="form-group w-100">
+        <input  matInput placeholder="IČO" formControlName="cin">
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-4">
+      <mat-form-field class="form-group w-100">
+        <input  matInput placeholder="DIČ" formControlName="tin">
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-4">
+      <mat-form-field class="form-group w-100">
+        <input  matInput placeholder="IČ DPH" formControlName="vatin">
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="row">
     <div class="col-md-12 text-right">
-      <button routerLink="/app/contact" mat-stroked-button class="btn-icon btn-theme-stroked mr-3">
+      <button routerLink="/contact" mat-stroked-button class="btn-icon btn-theme-stroked mr-3">
         <mat-icon>cancel</mat-icon>
         Zrušiť
       </button>

@@ -1,5 +1,5 @@
 
-<button *ngIf="godButtonService.title != null" mat-raised-button class="text-white btn-icon" routerLink="{{godButtonService.routerLink}}">
+<button *ngIf="godButtonService.title != null" mat-raised-button class="text-white btn-icon" (click)="navigate()">
   <mat-icon>add</mat-icon>
   <span>{{godButtonService.title}}</span>
 </button>

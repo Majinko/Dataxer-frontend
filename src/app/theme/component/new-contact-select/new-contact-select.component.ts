@@ -36,7 +36,6 @@ export class NewContactSelectComponent implements ControlValueAccessor, OnInit {
 
     this.contactService.contractorStore.subscribe(c => {
       this.contact = c;
-      this.setFullName();
 
       this.contacts = this.contacts.concat(c);
     })
@@ -62,17 +61,9 @@ export class NewContactSelectComponent implements ControlValueAccessor, OnInit {
 
   writeValue(contact: Contact) {
     this.contact = contact;
-
-    if (this.contact)
-      this.setFullName();
   }
 
   selectContact(contact: Contact) {
     this.onChange(contact);
-  }
-
-  setFullName() {
-    this.onChange(this.contact);
-    this.contact.fullName = this.contact.firstName + ' ' + this.contact.lastName;
   }
 }

@@ -89,17 +89,12 @@
 
     <div class="col-md-6">
       <mat-form-field class="form-group w-100">
-        <mat-select placeholder="Stav" formControlName="state">
-          <mat-option value="Vyžaduje reakciu">
-            Vyžaduje reakciu
-          </mat-option>
-          <mat-option value="Schválená">
-            Schválená
-          </mat-option>
-          <mat-option value="Zamietnutá">
-            Zamietnutá
-          </mat-option>
-        </mat-select>
+        <mat-label>Stav</mat-label>
+        <select formControlName="state" matNativeControl>
+          <option value="WAITING">Čakajúca</option>
+          <option value="APPROVED">Schválená</option>
+          <option value="REJECTED">Zamietnutá</option>
+        </select>
       </mat-form-field>
     </div>
   </div>

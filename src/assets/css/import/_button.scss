@@ -36,3 +36,9 @@ button, .btn {
     border-color: $global-primary-color !important;
   }
 }
+
+.btn-link{
+  &:hover{
+    text-decoration: underline !important;
+  }
+}

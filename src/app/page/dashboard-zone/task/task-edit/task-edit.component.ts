@@ -10,11 +10,26 @@ import {UserService} from "../../../../core/services/user.service";
 import {TaskService} from "../../../../core/services/task.service";
 import {ActivatedRoute} from "@angular/router";
 import {MessageService} from "../../../../core/services/message.service";
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from "@angular/material/core";
+import {MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter} from "@angular/material-moment-adapter";
+import {APP_DATE_FORMATS} from "../../../../../helper";
 
 @Component({
   selector: 'app-task-edit',
   templateUrl: './task-edit.component.html',
-  styleUrls: ['./task-edit.component.scss']
+  styleUrls: ['./task-edit.component.scss'],
+  providers: [
+    // `MomentDateAdapter` can be automatically provided by importing `MomentDateModule` in your
+    // application's root module. We provide it at the component level here, due to limitations of
+    // our example generation script.
+    {
+      provide: DateAdapter,
+      useClass: MomentDateAdapter,
+      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]
+    },
+
+    {provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS},
+  ],
 })
 export class TaskEditComponent implements OnInit {
   formGroup: FormGroup

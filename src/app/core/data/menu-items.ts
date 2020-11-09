@@ -32,6 +32,11 @@ export const MenuItems: MenuItem[] = [
     icon: 'description',
   },
   {
+    routerLink: ['/cost'],
+    title: 'Naklady',
+    icon: 'equalizer',
+  },
+  {
     routerLink: ['/time'],
     title: 'Čas',
     icon: 'timer',

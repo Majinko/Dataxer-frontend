@@ -12,8 +12,9 @@ export interface Company {
   email: string;
   phone: string;
   web: string;
-  identifyingNumber: string;
-  vat: string;
-  netOfVat: string;
+  cin: string,
+  tin: string,
+  vatin: string,
   iban: string;
+  defaultCompany: boolean;
 }

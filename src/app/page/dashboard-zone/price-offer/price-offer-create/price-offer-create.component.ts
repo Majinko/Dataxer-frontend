@@ -1,10 +1,12 @@
 import {Component, OnInit} from "@angular/core";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {AuthService} from "src/app/core/services/auth.service";
 import {PriceOfferService} from "src/app/core/services/priceOffer.service";
 import {MessageService} from "src/app/core/services/message.service";
 import {Router} from "@angular/router";
 import {DocumentHelper} from "../../../../core/class/DocumentHelper";
+import {UserService} from "../../../../core/services/user.service";
+import {NumberingService} from "../../../../core/services/numbering.service";
+import {CompanyService} from "../../../../core/services/company.service";
 
 @Component({
   selector: "app-create",
@@ -18,9 +20,11 @@ export class PriceOfferCreateComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private authService: AuthService,
+    private userService: UserService,
     private priceOfferService: PriceOfferService,
     private messageService: MessageService,
+    private numberingService: NumberingService,
+    private companyService: CompanyService,
     private router: Router,
     public documentHelper: DocumentHelper
   ) {
@@ -28,7 +32,7 @@ export class PriceOfferCreateComponent implements OnInit {
 
   ngOnInit() {
     this.prepareForm();
-    this.getUser();
+    this.preparePriceOfferData();
   }
 
   // prepare form
@@ -38,7 +42,7 @@ export class PriceOfferCreateComponent implements OnInit {
       title: ["", Validators.required],
       subject: "",
       number: ["", Validators.required],
-      state: "pending",
+      state: null,
       createdDate: [new Date(), Validators.required],
       deliveredDate: [new Date(), Validators.required],
       dueDate: [new Date()],
@@ -47,23 +51,27 @@ export class PriceOfferCreateComponent implements OnInit {
       discount: 0,
       price: 0,
       totalPrice: 0,
-      priceOfferData: this.formBuilder.group({
+      documentData: this.formBuilder.group({
         user: this.formBuilder.group({
           displayName: "",
           phone: "",
           email: "",
         }),
+        firm: this.companyService.company
       }),
 
       packs: this.formBuilder.array([])
     });
   }
 
-  // get user
-  private getUser() {
-    this.authService.loggedUser().subscribe((u) => {
-      this.formGroup.get("priceOfferData.user").patchValue(u);
-    });
+  // set user
+  private preparePriceOfferData() {
+    this.formGroup.get("documentData.user").patchValue(this.userService.user);
+
+
+    this.numberingService.nextNumber('PRICE_OFFER').subscribe(r => {
+      this.formGroup.patchValue({number: r})
+    })
   }
 
   // submit form

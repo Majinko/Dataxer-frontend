@@ -1,31 +1,35 @@
-import {Component, Inject, Optional} from '@angular/core';
+import {Component, Inject, OnInit, Optional} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ContactService} from '../../../../core/services/contact.service';
-import {Contact} from '../../../../core/models/contact';
 import {Router} from '@angular/router';
 import {UploadService} from '../../../../core/services/upload.service';
 import {MatDialogRef} from "@angular/material/dialog";
 import {MessageService} from "../../../../core/services/message.service";
+import {SlovakiaDigital} from "../../../../core/models/slovakiaDigital";
+import {COUNTRIES} from "../../../../core/data/countries";
 
 @Component({
   selector: 'app-create',
   templateUrl: './contact-create.component.html',
   styleUrls: ['./contact-create.component.scss']
 })
-export class ContactCreateComponent {
+export class ContactCreateComponent implements OnInit {
   contactForm: FormGroup;
+  countries = COUNTRIES;
 
   constructor(
-    @Inject(ContactService) private readonly contactService: ContactService,
-    @Inject(UploadService) private readonly uploadService: UploadService,
+    private readonly contactService: ContactService,
+    private readonly uploadService: UploadService,
     private readonly messageService: MessageService,
     @Optional() public dialogRef: MatDialogRef<ContactCreateComponent>,
     private formBuilder: FormBuilder,
     private router: Router
   ) {
+  }
+
+  ngOnInit(): void {
     this.contactForm = this.formBuilder.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
+      name: ['', Validators.required],
       photoUrl: '',
       street: '',
       city: '',
@@ -33,17 +37,20 @@ export class ContactCreateComponent {
       postalCode: '',
       regNumber: '',
       email: '',
-      phone: ''
+      phone: '',
+      cin: '',
+      tin: '',
+      vatin: ''
     });
   }
 
-  onSubmit(contactFormData: Contact) {
+  onSubmit() {
     if (this.contactForm.invalid) {
       return;
     }
 
     this.contactService.store(this.contactForm.value).subscribe(data => {
-        this.messageService.add("Kontakt bol ulozeny")
+        this.messageService.add("Kontakt bol uložený")
 
         if (this.dialogRef === null)
           this.router.navigate(['/contact']);
@@ -61,5 +68,19 @@ export class ContactCreateComponent {
         });
       });
     }
+  }
+
+
+  setFirmData(firm: SlovakiaDigital) {
+    this.contactForm.patchValue({
+      name: firm.name,
+      street: firm.street,
+      city: firm.municipality,
+      postalCode: firm.postal_code,
+      regNumber: firm.street,
+      cin: firm.cin,
+      tin: firm.tin,
+      vatin: firm.vatin
+    })
   }
 }

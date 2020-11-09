@@ -25,7 +25,8 @@ export class ErrorInterceptor implements HttpInterceptor {
           this.authService.signOut().then(() => this.router.navigate(['/auth/login']));
         }
 
-        this.messageService.add(error.error.message || error.statusText);
+        //this.messageService.add(error.error.message || error.statusText);
+        this.messageService.add("Somenthing wrong :(");
         return throwError(error);
       })
     );

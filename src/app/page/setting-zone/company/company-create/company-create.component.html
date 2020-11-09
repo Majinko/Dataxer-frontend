@@ -95,62 +95,24 @@
     <div class="col-12">
       <h2 class="text-theme border-bottom-2 pb-2 mb-4">Fakturačné údaje</h2>
     </div>
-    <div class="col-12 pb-2 mb-4">
-      <mat-checkbox color="primary" #bInfo checked="checked" class="text-gray">Použiť kontaktné údaje spoločnosti</mat-checkbox>
-    </div>
-  </div>
-
-  <div formArrayName="billingInformation" [ngClass]="{'d-none': bInfo.checked}">
-    <div [formGroupName]="i" class="row" *ngFor="let bInformation of bI.controls; let i = index">
-
-      <div class="col-md-6">
-        <mat-form-field class="form-group w-100">
-          <input matInput placeholder="Ulica" formControlName="street">
-        </mat-form-field>
-      </div>
-
-      <div class="col-md-6">
-        <mat-form-field class="form-group w-100">
-          <input matInput placeholder="Mesto" formControlName="city">
-        </mat-form-field>
-      </div>
-
-      <div class="col-md-6">
-        <mat-form-field class="form-group w-100">
-          <input type="number" matInput placeholder="PSČ" formControlName="postalCode">
-        </mat-form-field>
-      </div>
-
-      <div class="col-md-6">
-        <ng-select [items]="countries"
-                   bindLabel="country"
-                   bindValue="country"
-                   placeholder="Krajina"
-                   formControlName="country">
-          <ng-template  let-item="item" let-search="searchTerm">
-            <div><span>{{item.country}}</span></div>
-          </ng-template>
-        </ng-select>
-      </div>
-    </div>
   </div>
 
   <div class="row">
     <div class="col-md-4">
       <mat-form-field class="form-group w-100">
-        <input matInput placeholder="IČO" formControlName="identifyingNumber">
+        <input matInput placeholder="IČO" formControlName="cin">
       </mat-form-field>
     </div>
 
     <div class="col-md-4">
       <mat-form-field class="form-group w-100">
-        <input matInput placeholder="DIČ" formControlName="vat">
+        <input matInput placeholder="DIČ" formControlName="tin">
       </mat-form-field>
     </div>
 
     <div class="col-md-4">
       <mat-form-field class="form-group w-100">
-        <input matInput placeholder="IČ DPH" formControlName="netOfVat">
+        <input matInput placeholder="IČ DPH" formControlName="vatin">
       </mat-form-field>
     </div>
   </div>

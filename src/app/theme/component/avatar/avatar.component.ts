@@ -13,20 +13,13 @@ export class AvatarComponent implements OnInit {
   user: User;
 
   constructor(
-    @Inject(UserService) private readonly userService: UserService,
+    @Inject(UserService) public readonly userService: UserService,
     @Inject(AuthService) private readonly authService: AuthService,
     private router: Router
   ) {
   }
 
   ngOnInit() {
-    this.getLoggedUser();
-  }
-
-  getLoggedUser() {
-    this.authService.loggedUser().subscribe(user => {
-      this.user = user;
-    });
   }
 
   logout() {

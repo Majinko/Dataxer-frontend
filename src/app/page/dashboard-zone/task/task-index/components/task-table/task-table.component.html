@@ -26,7 +26,7 @@
     <!-- Project Column -->
     <ng-container matColumnDef="project">
       <th mat-header-cell *matHeaderCellDef> Zákazka</th>
-      <td mat-cell *matCellDef="let element"> {{element.project.title}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.project ? element.project.title : 'projekt neni'}} </td>
     </ng-container>
 
 

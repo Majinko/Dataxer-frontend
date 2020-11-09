@@ -2,12 +2,15 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {SettingComponent} from './setting.component';
 import {AuthGuardService} from '../../core/guards/auth-guard.service';
+import {UserResolver} from "../../core/resolver/user.resolver";
+import {CompanyResolver} from "../../core/resolver/company.resolver";
 
 const routes: Routes = [
   {
     path: '',
     component: SettingComponent,
     canActivate: [AuthGuardService],
+    resolve: {user: UserResolver, company: CompanyResolver},
     children: [
       {
         path: 'company',
@@ -31,6 +34,12 @@ const routes: Routes = [
         loadChildren: () => import('./numbering/numbering.module')
           .then(m => m.NumberingModule),
       },
+      {
+        path: 'bank-account',
+        data: {godButtonTitle: 'Novy bankovy icet', gotButtonRouteLink: '/setting/bank-account/create'},
+        loadChildren: () => import('./bank-account/bank-account.module')
+          .then(m => m.BankAccountModule),
+      },
     ],
   }
 ];
@@ -38,6 +47,7 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
+  providers: [CompanyResolver, UserResolver]
 })
 export class SettingRoutingModule {
 }

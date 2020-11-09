@@ -13,7 +13,7 @@
     <!-- Contact Columnt -->
     <ng-container matColumnDef="contact">
       <th mat-header-cell *matHeaderCellDef> Kontaktná osoba</th>
-      <td mat-cell *matCellDef="let element"> {{element.contact.firstName + ' ' + element.contact.lastName}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.contact ? element.contact.name : 'Klient nebol priradeny'}} </td>
     </ng-container>
 
     <ng-container matColumnDef="state">

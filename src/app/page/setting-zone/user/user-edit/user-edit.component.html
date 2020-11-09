@@ -1,4 +1,4 @@
-<form [formGroup]="formGroup" action="" autocomplete="off" (ngSubmit)="onSubmit(formGroup.value)">
+<form [formGroup]="formGroup" action="" autocomplete="off" (ngSubmit)="onSubmit()">
   <div class="row mb-4">
     <div class="col d-flex justify-content-between">
       <h1>Osobné údaje</h1>
@@ -11,24 +11,24 @@
     </div>
   </div>
 
-  <div class="row align-items-center" *ngIf="user">
+  <div class="row align-items-center" *ngIf="userService.user">
     <div class="col-md-3 col-lg-2 pr-lg-0">
       <div class="cursor-pointer jsFile d-flex justify-content-center d-md-block mb-4 mb-md-0">
-        <ngx-avatar size="100" name="{{user.displayName}}" textSizeRatio="2"></ngx-avatar>
+        <ngx-avatar size="100" name="{{userService.user.firstName + ' ' + userService.user.lastName}}" textSizeRatio="2"></ngx-avatar>
         <input type="file" name='file' class="d-none">
       </div>
     </div>
     <div class="col-md-4 col-lg-5 pl-lg-0">
       <mat-form-field class="form-group w-100">
-        <input matInput placeholder="Meno" formControlName="name" required>
-        <mat-error *ngIf="f.name.errors">Meno je <strong>požadované.</strong></mat-error>
+        <input matInput placeholder="Meno" formControlName="firstName" required>
+        <mat-error *ngIf="f.firstName.errors">Meno je <strong>požadované.</strong></mat-error>
       </mat-form-field>
     </div>
 
     <div class="col-md-4 col-lg-5">
       <mat-form-field class="form-group w-100">
-        <input matInput placeholder="Priezvisko" formControlName="surname" required>
-        <mat-error *ngIf="f.surname.errors">Priezvisko je <strong>požadované.</strong></mat-error>
+        <input matInput placeholder="Priezvisko" formControlName="lastName" required>
+        <mat-error *ngIf="f.lastName.errors">Priezvisko je <strong>požadované.</strong></mat-error>
       </mat-form-field>
     </div>
   </div>

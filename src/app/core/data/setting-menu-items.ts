@@ -20,5 +20,10 @@ export const SettingMenuItems: MenuItem[] = [
     routerLink: ['/setting/numbering'],
     title: 'Číselníky',
     icon: 'point_of_sale',
+  },
+  {
+    routerLink: ['/setting/bank-account'],
+    title: 'Bankove ucty',
+    icon: 'account_balance_wallet',
   }
 ];

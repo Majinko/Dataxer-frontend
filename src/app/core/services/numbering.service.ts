@@ -14,7 +14,7 @@ export class NumberingService {
   }
 
   public store(documentNumbering: DocumentNumbering): Observable<void> {
-    return this.http.post<void>(`${environment.baseUrl}/numberGenerator/storeOrUpdate`, documentNumbering);
+    return this.http.post<void>(`${environment.baseUrl}/numberGenerator/store`, documentNumbering);
   }
 
   public update(documentNumbering: DocumentNumbering): Observable<void> {
@@ -31,5 +31,9 @@ export class NumberingService {
 
   destroy(id: number): Observable<void> {
     return this.http.get<void>(`${environment.baseUrl}/numberGenerator/destroy/${id}`)
+  }
+
+  nextNumber(type: string): Observable<string>{
+    return this.http.get<string>(`${environment.baseUrl}/numberGenerator/generateNextByType/${type}`)
   }
 }

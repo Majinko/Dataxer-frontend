@@ -55,12 +55,13 @@ export class PriceOfferEditComponent implements OnInit {
       discount: 0,
       price: 0,
       totalPrice: 0,
-      priceOfferData: this.formBuilder.group({
+      documentData: this.formBuilder.group({
         user: this.formBuilder.group({
           displayName: "",
           phone: "",
           email: "",
         }),
+        firm: null
       }),
 
       packs: this.formBuilder.array([])

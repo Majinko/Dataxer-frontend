@@ -44,9 +44,9 @@
       <mat-form-field class="form-group w-100">
         <mat-label>Stav</mat-label>
         <select formControlName="state" matNativeControl>
-          <option value="pending">Čakajúca</option>
-          <option value="approved">Schválená</option>
-          <option value="rejected">Zamietnutá</option>
+          <option value="WAITING">Čakajúca</option>
+          <option value="APPROVED">Schválená</option>
+          <option value="REJECTED">Zamietnutá</option>
         </select>
       </mat-form-field>
     </div>
@@ -137,7 +137,7 @@
     </div>
   </div>
 
-  <div class="row" formGroupName="priceOfferData">
+  <div class="row" formGroupName="documentData">
     <div class="col-12" formGroupName="user">
       <div class="row">
         <div class="col-md-4">

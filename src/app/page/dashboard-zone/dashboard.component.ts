@@ -1,8 +1,10 @@
-import {Component, Inject} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {SidenavService} from '../../core/services/sidenav.service';
 import {MenuItems} from '../../core/data/menu-items';
 import {CompanyService} from "../../core/services/company.service";
 import {UserService} from "../../core/services/user.service";
+import {ActivatedRoute} from "@angular/router";
+import {GodButtonService} from "../../core/services/god-button.service";
 
 @Component({
   selector: 'app-page',
@@ -19,13 +21,22 @@ import {UserService} from "../../core/services/user.service";
       </mat-sidenav-content>
     </mat-sidenav-container>`,
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit{
   menuItems = MenuItems;
 
   constructor(
+    @Inject(GodButtonService) private readonly godButtonService: GodButtonService,
     public sidenavService: SidenavService,
     private companyService: CompanyService,
-    private userService: UserService
+    private userService: UserService,
+    private route: ActivatedRoute
     ) {
+  }
+
+  ngOnInit(): void {
+    this.userService.user = this.route.snapshot.data.user;
+    this.companyService.company = this.route.snapshot.data.company;
+
+    this.godButtonService.showModal = false;
   }
 }

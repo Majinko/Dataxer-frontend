@@ -20,15 +20,27 @@
     </div>
 
     <div class="col-md-6">
-      <mat-form-field class="form-group w-100">
+      <mat-form-field  class="form-group w-100">
         <mat-label>Formát</mat-label>
-        <mat-select formControlName="format" required>
-          <mat-option value="YYYYCCC">YYYYCCC</mat-option>
-          <mat-option value="YYYYCCC">YYYYCCCC</mat-option>
-          <mat-option value="YYYYCCC">YYYYCCCC</mat-option>
-          <mat-option value="YYYYCCC">CCCRRR</mat-option>
-          <mat-option value="YYYYCCC">RRCCCC</mat-option>
+        <mat-select #format formControlName="format" required>
+          <mat-option *ngFor="let format of defaultFormat" value="{{format}}">{{format}}</mat-option>
+          <mat-option value="other">Iné</mat-option>
         </mat-select>
+      </mat-form-field>
+
+      <p *ngIf="format.value === 'other' || defaultFormat.indexOf(f.format.value) === -1">
+        Tieto znaky budú nahradené skutočnými hodnotami:
+        YYYY - Rok 4 číslice <br>
+        YY - Rok 2 číslice <br>
+        MM - Mesiac <br>
+        DD - Deň <br>
+        N - Č. faktúry <br>
+        Príklad: FA-YYYY/NNNN
+      </p>
+
+      <mat-form-field class="form-group w-100" *ngIf="format.value === 'other' || defaultFormat.indexOf(f.format.value) === -1">
+        <input matInput formControlName="otherFormat" required>
+        <mat-error *ngIf="f.format.errors">Format <strong>požadovaný.</strong></mat-error>
       </mat-form-field>
     </div>
 

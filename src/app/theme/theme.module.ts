@@ -13,9 +13,11 @@ import {AvatarModule} from 'ngx-avatar';
 import {MenuLogoComponent} from './component/toolbar/component/menu-logo/menu-logo.component';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {ItemAutocompleteComponent} from './component/item-autocomplete/item-autocomplete.component';
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {NewContactSelectComponent} from "./component/new-contact-select/new-contact-select.component";
-import { PackAutocompleteComponent } from './component/pack-autocomplete/pack-autocomplete.component';
+import {PackAutocompleteComponent} from './component/pack-autocomplete/pack-autocomplete.component';
+import {DocumentPackComponent} from "./component/document-pack/document-pack.component";
+import { SlovakiaDigitalAutocompleteComponent } from './component/slovakia-digital-autocomplete/slovakia-digital-autocomplete.component';
 
 
 @NgModule({
@@ -27,6 +29,7 @@ import { PackAutocompleteComponent } from './component/pack-autocomplete/pack-au
     AvatarModule,
     NgSelectModule,
     FormsModule,
+    ReactiveFormsModule
   ],
   declarations: [
     DrawerComponent,
@@ -38,9 +41,11 @@ import { PackAutocompleteComponent } from './component/pack-autocomplete/pack-au
     MenuLogoComponent,
     ItemAutocompleteComponent,
     NewContactSelectComponent,
-    PackAutocompleteComponent
+    PackAutocompleteComponent,
+    DocumentPackComponent,
+    SlovakiaDigitalAutocompleteComponent
   ],
-    exports: [DrawerComponent, ToolbarComponent, MessageComponent, ItemAutocompleteComponent, NewContactSelectComponent, PackAutocompleteComponent],
+    exports: [DrawerComponent, ToolbarComponent, MessageComponent, ItemAutocompleteComponent, NewContactSelectComponent, PackAutocompleteComponent, DocumentPackComponent, SlovakiaDigitalAutocompleteComponent],
 })
 export class ThemeModule {
 }

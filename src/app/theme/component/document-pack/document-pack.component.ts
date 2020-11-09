@@ -4,11 +4,11 @@ import {
   FormGroup,
   FormArray, AbstractControl,
 } from "@angular/forms";
-import {UNITS} from "../../../../../core/data/unit-items";
-import {DocumentHelper} from "../../../../../core/class/DocumentHelper";
-import {Pack} from "../../../../../core/models/pack";
-import {PackService} from "../../../../../core/services/pack.service";
-import {Item} from "../../../../../core/models/item";
+import {UNITS} from "../../../core/data/unit-items";
+import {DocumentHelper} from "../../../core/class/DocumentHelper";
+import {Pack} from "../../../core/models/pack";
+import {PackService} from "../../../core/services/pack.service";
+import {Item} from "../../../core/models/item";
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 
 @Component({

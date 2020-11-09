@@ -8,7 +8,7 @@
 <form autocomplete="off" [formGroup]="formGroup" (ngSubmit)="submit()">
   <div class="row">
     <div class="col-12">
-      <h2 class="border-bottom-2 pb-2 mb-4">Špeciﬁkácia ulohy</h2>
+      <h2 class="border-bottom-2 pb-2 mb-4">Špeciﬁkácia úlohy</h2>
     </div>
   </div>
 
@@ -16,7 +16,7 @@
     <div class="col-md-8 form-group">
       <mat-form-field class="form-group w-100">
         <input formControlName="title" matInput placeholder="Názov ulohy">
-        <mat-error *ngIf="f.title.errors">Názov ulohy je <strong>pozadovany.</strong></mat-error>
+        <mat-error *ngIf="f.title.errors">Názov úlohy je <strong>pozadovany.</strong></mat-error>
       </mat-form-field>
     </div>
 
@@ -31,7 +31,7 @@
 
     <div class="col-md-4">
       <mat-form-field class="form-pack-price-offer-create w-100 form-group">
-        <ngx-mat-file-input placeholder="Súbor"></ngx-mat-file-input>
+        <ngx-mat-file-input (change)="fileService.prepareFile($event.target.files[0])" placeholder="Súbor"></ngx-mat-file-input>
         <mat-icon matSuffix>folder</mat-icon>
       </mat-form-field>
     </div>
@@ -96,24 +96,19 @@
 
     <div class="col-md-6">
       <mat-form-field class="form-group w-100">
-        <mat-select placeholder="Stav" formControlName="state">
-          <mat-option value="Vyžaduje reakciu">
-            Vyžaduje reakciu
-          </mat-option>
-          <mat-option value="Schválená">
-            Schválená
-          </mat-option>
-          <mat-option value="Zamietnutá">
-            Zamietnutá
-          </mat-option>
-        </mat-select>
+        <mat-label>Stav</mat-label>
+        <select formControlName="state" matNativeControl>
+          <option value="WAITING">Čakajúca</option>
+          <option value="APPROVED">Schválená</option>
+          <option value="REJECTED">Zamietnutá</option>
+        </select>
       </mat-form-field>
     </div>
   </div>
 
   <div class="row">
     <div class="col-md-12 text-right">
-      <button routerLink="/demand" mat-stroked-button class="btn-icon btn-theme-stroked mr-3">
+      <button routerLink="/task" mat-stroked-button class="btn-icon btn-theme-stroked mr-3">
         <mat-icon>cancel</mat-icon>
         Zrušiť
       </button>

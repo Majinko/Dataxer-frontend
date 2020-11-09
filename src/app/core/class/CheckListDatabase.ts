@@ -1,7 +1,6 @@
 import {Inject, Injectable} from '@angular/core';
 import {BehaviorSubject} from 'rxjs';
 import {CategoryItemNode} from '../models/category-item-node';
-import {CategoryNodeItems} from '../data/category-node-items';
 import {CategoryService} from '../services/category.service';
 
 /**

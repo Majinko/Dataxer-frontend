@@ -37,11 +37,10 @@ export class CompanyCreateComponent implements OnInit {
       email: '',
       phone: '',
       web: '',
-      identifyingNumber: '',
-      vat: '',
-      netOfVat: '',
+      cin: '',
+      tin: '',
+      vatin: '',
       iban: '',
-      billingInformation: this.fb.array([this.createBillingInformation()])
     });
   }
 
@@ -57,10 +56,6 @@ export class CompanyCreateComponent implements OnInit {
   onSubmit(companyFormData: Company) {
     if (this.formGroup.invalid) {
       return;
-    }
-
-    if (this.bInfo.checked) {
-      delete companyFormData.billingInformation;
     }
 
     this.companyService.store(companyFormData).subscribe(company => this.router.navigate(['/setting/company']));

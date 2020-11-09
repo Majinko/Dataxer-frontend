@@ -25,11 +25,15 @@ export class CompanyService {
     return this.http.get<Company>(environment.baseUrl + '/company/' + companyId);
   }
 
-  update(company: Company, companyId: number): Observable<Company> {
-    return this.http.post<Company>(environment.baseUrl + '/company/update/' + companyId, company);
+  update(company: Company): Observable<Company> {
+    return this.http.post<Company>(environment.baseUrl + '/company/update', company);
   }
 
   defaultCompany(): Observable<Company> {
     return this.http.get<Company>(`${environment.baseUrl}/company/default`);
+  }
+
+  destroy(id: number): Observable<void> {
+    return this.http.get<void>(`${environment.baseUrl}/company/destroy/${id}`);
   }
 }

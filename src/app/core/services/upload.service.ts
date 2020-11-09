@@ -17,6 +17,6 @@ export class UploadService {
   }
 
   pushUpload(path: string, upload: Upload): AngularFireUploadTask {
-   return  this.afStorage.upload(`${this.authService.user.appKey}/${path}/${upload.name}`, upload);
+    return this.afStorage.upload(`${this.authService.user.appKey}/${path}/${upload.name}`, upload);
   }
 }

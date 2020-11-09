@@ -1,9 +1,7 @@
 export interface Contact {
   id: number;
   photoUrl?: string;
-  fullName: string;
-  firstName: string;
-  lastName: string;
+  name: string;
   street: string;
   city: string;
   country: string;

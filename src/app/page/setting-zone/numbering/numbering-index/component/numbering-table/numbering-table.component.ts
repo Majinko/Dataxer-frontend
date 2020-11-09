@@ -21,6 +21,7 @@ export class NumberingTableComponent implements AfterViewInit {
     "title",
     "type",
     "format",
+    "next",
     "period",
     "actions",
   ];
