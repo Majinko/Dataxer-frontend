@@ -1,11 +1,11 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {Invoice} from "../../../../../core/models/invoice";
-import {MatPaginator} from "@angular/material/paginator";
-import {DocumentFilterComponent} from "../../../price-offer/components/document-filter/document-filter.component";
-import {InvoiceService} from "../../../../../core/services/invoice.service";
-import {MessageService} from "../../../../../core/services/message.service";
-import {merge} from "rxjs";
-import {map, startWith, switchMap} from "rxjs/operators";
+import {Invoice} from '../../../../../core/models/invoice';
+import {MatPaginator} from '@angular/material/paginator';
+import {DocumentFilterComponent} from '../../../price-offer/components/document-filter/document-filter.component';
+import {InvoiceService} from '../../../../../core/services/invoice.service';
+import {MessageService} from '../../../../../core/services/message.service';
+import {merge} from 'rxjs';
+import {map, startWith, switchMap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-invoice-table',
@@ -17,17 +17,17 @@ export class InvoiceTableComponent implements OnInit, AfterViewInit {
   invoices: Invoice[] = [];
   isLoadingResults = true;
   displayedColumns: string[] = [
-    "id",
-    "client",
-    "action",
-    "created",
-    "state",
-    "price",
-    "actions",
+    'id',
+    'client',
+    'action',
+    'created',
+    'state',
+    'price',
+    'actions',
   ];
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  @ViewChild(DocumentFilterComponent, {static: false}) private documentFilterRef: DocumentFilterComponent
+  @ViewChild(DocumentFilterComponent, {static: false}) private documentFilterRef: DocumentFilterComponent;
 
   ngAfterViewInit() {
     this.paginate();
@@ -42,7 +42,7 @@ export class InvoiceTableComponent implements OnInit, AfterViewInit {
   }
 
   public paginate() {
-    this.paginator.pageIndex = 0
+    this.paginator.pageIndex = 0;
 
     merge(this.paginator.page)
       .pipe(
@@ -68,7 +68,7 @@ export class InvoiceTableComponent implements OnInit, AfterViewInit {
     this.invoiceService.destroy(id).subscribe(r => {
       this.paginate();
 
-      this.messageService.add("Faktura bola odstránená");
-    })
+      this.messageService.add('Faktura bola odstránená');
+    });
   }
 }

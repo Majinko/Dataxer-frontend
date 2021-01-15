@@ -1,18 +1,19 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {CategoryService} from "../../../../core/services/category.service";
-import {ProjectService} from "../../../../core/services/project.service";
-import {Project} from "../../../../core/models/project";
-import {CategoryItemNode} from "../../../../core/models/category-item-node";
-import {User} from "../../../../core/models/user";
-import {UserService} from "../../../../core/services/user.service";
-import {TaskService} from "../../../../core/services/task.service";
-import {Router} from "@angular/router";
-import {MessageService} from "../../../../core/services/message.service";
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {CategoryService} from '../../../../core/services/category.service';
+import {ProjectService} from '../../../../core/services/project.service';
+import {Project} from '../../../../core/models/project';
+import {CategoryItemNode} from '../../../../core/models/category-item-node';
+import {User} from '../../../../core/models/user';
+import {UserService} from '../../../../core/services/user.service';
+import {TaskService} from '../../../../core/services/task.service';
+import {Router} from '@angular/router';
+import {MessageService} from '../../../../core/services/message.service';
 import {MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS} from '@angular/material-moment-adapter';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
-import {APP_DATE_FORMATS} from "../../../../../helper";
-import {FileService} from "../../../../core/services/file.service";
+import {APP_DATE_FORMATS} from '../../../../../helper';
+import {UploadHelper} from '../../../../core/class/UploadHelper';
+import {CustomFile} from '../../../../core/models/customFile';
 
 @Component({
   selector: 'app-task-create',
@@ -32,13 +33,14 @@ import {FileService} from "../../../../core/services/file.service";
   ],
 })
 export class TaskCreateComponent implements OnInit {
-  formGroup: FormGroup
+  formGroup: FormGroup;
 
   users: User[] = [];
   projects: Project[] = [];
-  categories: CategoryItemNode[] = []
+  categories: CategoryItemNode[] = [];
 
   constructor(
+    public uploadHelper: UploadHelper,
     private formBuilder: FormBuilder,
     private categoryService: CategoryService,
     private projectService: ProjectService,
@@ -46,7 +48,6 @@ export class TaskCreateComponent implements OnInit {
     private taskService: TaskService,
     private messageService: MessageService,
     private router: Router,
-    public fileService: FileService,
   ) {
   }
 
@@ -69,7 +70,7 @@ export class TaskCreateComponent implements OnInit {
       sendEmail: true,
       completion: '',
       finishedAt: new Date(),
-    })
+    });
   }
 
   private getProjects() {
@@ -89,9 +90,9 @@ export class TaskCreateComponent implements OnInit {
       return;
     }
 
-    this.taskService.store(this.formGroup.value).subscribe(() => {
-      this.router.navigate(['/task']).then(() => this.messageService.add("Uloha bola pridana"))
-    })
+    this.taskService.store(this.formGroup.value, this.uploadHelper.files).subscribe(() => {
+      this.router.navigate(['/task']).then(() => this.messageService.add('Úloha bola pridaná'));
+    });
   }
 
   // convenience getter for easy access to form fields

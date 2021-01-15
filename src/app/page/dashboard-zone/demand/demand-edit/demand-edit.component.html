@@ -21,7 +21,7 @@
     </div>
 
     <div class="col-md-4 form-group">
-      <ng-select class="form-group w-100" [items]="categories"
+      <ng-select class="form-group w-100 mb-0 pb-1" [items]="categories"
                  #select
                  bindLabel="name"
                  placeholder="Kategória"
@@ -31,6 +31,7 @@
           <div><span>{{item.name}}</span></div>
         </ng-template>
       </ng-select>
+      <mat-error *ngIf="isSubmit && f.category.errors">Kategória je <strong>požadovaná.</strong></mat-error>
     </div>
 
 
@@ -64,17 +65,12 @@
 
     <div class="col-md-4">
       <mat-form-field class="form-group w-100">
-        <mat-select placeholder="Stav" formControlName="state">
-          <mat-option value="Vyžaduje reakciu">
-            Vyžaduje reakciu
-          </mat-option>
-          <mat-option value="Schválený">
-            Schválený
-          </mat-option>
-          <mat-option value="Zamietnutý">
-            Zamietnutý
-          </mat-option>
-        </mat-select>
+        <mat-label>Stav</mat-label>
+        <select formControlName="state" matNativeControl>
+          <option value="WAITING">Čakajúca</option>
+          <option value="APPROVED">Schválená</option>
+          <option value="REJECTED">Zamietnutá</option>
+        </select>
       </mat-form-field>
     </div>
 

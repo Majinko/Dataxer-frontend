@@ -1,0 +1,13 @@
+<div class="ng-select-custom position-relative">
+  <ng-select class="form-group w-100 disable-arrow mb-0"
+             [items]="projects"
+             bindLabel="title"
+             placeholder="Zákazka"
+             [clearable]="false"
+             [searchable]="true"
+             [(ngModel)]="project"
+             (change)="selectProject($event)"
+  >
+  </ng-select>
+  <mat-icon *ngIf="showAddButton" class="text-gray md-f-s position-absolute btn-add" (click)="openDialog()">add</mat-icon>
+</div>

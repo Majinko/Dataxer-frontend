@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {Router} from "@angular/router";
-import {MessageService} from "../../../../core/services/message.service";
-import {NumberingService} from "../../../../core/services/numbering.service";
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
+import {MessageService} from '../../../../core/services/message.service';
+import {NumberingService} from '../../../../core/services/numbering.service';
 
 @Component({
   selector: 'app-numbering-create',
@@ -15,7 +15,7 @@ export class NumberingCreateComponent implements OnInit {
     {key: 'PRICE_OFFER', value: 'Cenové ponuky'},
     {key: 'INVOICE', value: 'Faktúry'},
     {key: 'PROFORMA', value: 'Zálohové faktúry'}
-  ]
+  ];
 
   constructor(
     private fb: FormBuilder,
@@ -33,7 +33,7 @@ export class NumberingCreateComponent implements OnInit {
       type: [this.typeDocuments[0].key],
       period: 'YEAR',
       isDefault: true
-    })
+    });
   }
 
   onSubmit() {
@@ -41,15 +41,15 @@ export class NumberingCreateComponent implements OnInit {
       return;
     }
 
-    if (this.f.format.value === 'other'){
-      this.formGroup.patchValue({format: this.f.otherFormat.value})
+    if (this.f.format.value === 'other') {
+      this.formGroup.patchValue({format: this.f.otherFormat.value});
     }
 
     this.numberingService.store(this.formGroup.value).subscribe(() => {
       this.router.navigate(['setting/numbering']).then(() => {
-        this.messageService.add("číselník bol ulozeny")
-      })
-    })
+        this.messageService.add('Číselník bol uložený');
+      });
+    });
   }
 
   // convenience getter for easy access to form fields

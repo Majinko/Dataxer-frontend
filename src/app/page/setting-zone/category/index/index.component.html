@@ -23,6 +23,14 @@
     <button mat-icon-button (click)="deleteNode(node)"><mat-icon>delete</mat-icon></button>
   </mat-tree-node>
 
+  <mat-tree-node *matTreeNodeDef="let node; when: hasNoContent" matTreeNodePadding>
+    <button mat-icon-button disabled></button>
+    <mat-form-field>
+      <input autocomplete="off" matInput #itemValue placeholder="Pridať novú kategóriu...">
+    </mat-form-field>
+    <button mat-button [disabled]="isStore" (click)="saveNode(node, itemValue.value)">Uložiť</button>
+  </mat-tree-node>
+
   <mat-tree-node *matTreeNodeDef="let node; when: hasChild"
                  [ngClass]="{'drop-above': dragNodeExpandOverArea === 'above' && dragNodeExpandOverNode === node,
                               'drop-below': dragNodeExpandOverArea === 'below' && dragNodeExpandOverNode === node,
@@ -34,13 +42,15 @@
                  (dragend)="handleDragEnd($event);"
                  (change)="todoItemSelectionToggle(node)"
                  matTreeNodePadding>
-    <button mat-icon-button matTreeNodeToggle
-            [attr.aria-label]="'toggle ' + node.filename">
+    <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'toggle ' + node.name">
       <mat-icon class="mat-icon-rtl-mirror">
         {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
       </mat-icon>
     </button>
     {{node.name}}
+    <button mat-icon-button (click)="addNewItem(node)">
+      <mat-icon>add</mat-icon>
+    </button>
   </mat-tree-node>
 </mat-tree>
 

@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {ActivatedRoute, Router} from "@angular/router";
-import {NumberingService} from "../../../../core/services/numbering.service";
-import {MessageService} from "../../../../core/services/message.service";
-import {DocumentNumbering} from "../../../../core/models/documentNumbering";
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {ActivatedRoute, Router} from '@angular/router';
+import {NumberingService} from '../../../../core/services/numbering.service';
+import {MessageService} from '../../../../core/services/message.service';
+import {DocumentNumbering} from '../../../../core/models/documentNumbering';
 
 @Component({
   selector: 'app-numbering-edit',
@@ -12,13 +12,13 @@ import {DocumentNumbering} from "../../../../core/models/documentNumbering";
 })
 export class NumberingEditComponent implements OnInit {
   formGroup: FormGroup;
-  documentNumbering: DocumentNumbering
-  defaultFormat: string[] = ['YYYYNNN', 'YYYYNNNN', 'YYYYNNNNN', 'NNNYYY', 'YYNNNN']
+  documentNumbering: DocumentNumbering;
+  defaultFormat: string[] = ['YYYYNNN', 'YYYYNNNN', 'YYYYNNNNN', 'NNNYYY', 'YYNNNN'];
   typeDocuments: { key: string, value: string }[] = [
     {key: 'PRICE_OFFER', value: 'Cenové ponuky'},
     {key: 'INVOICE', value: 'Faktúry'},
     {key: 'PROFORMA', value: 'Zálohové faktúry'}
-  ]
+  ];
 
   constructor(
     private fb: FormBuilder,
@@ -41,8 +41,8 @@ export class NumberingEditComponent implements OnInit {
         period: docNumbering.period,
         otherFormat: docNumbering.format,
         isDefault: docNumbering.isDefault
-      })
-    })
+      });
+    });
   }
 
   onSubmit() {
@@ -50,13 +50,13 @@ export class NumberingEditComponent implements OnInit {
       return;
     }
 
-    if (this.f.format.value === 'other' || this.defaultFormat.indexOf(this.f.format.value) === -1){
-      this.formGroup.patchValue({format: this.f.otherFormat.value})
+    if (this.f.format.value === 'other' || this.defaultFormat.indexOf(this.f.format.value) === -1) {
+      this.formGroup.patchValue({format: this.f.otherFormat.value});
     }
 
     this.numberingService.update(this.formGroup.value).subscribe(() => {
-      this.messageService.add("číselník bol aktualizovany")
-    })
+      this.messageService.add('Číselník bol aktualizovaní');
+    });
   }
 
   // convenience getter for easy access to form fields

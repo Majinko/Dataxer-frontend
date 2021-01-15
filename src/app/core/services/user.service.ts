@@ -2,9 +2,9 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {User} from '../models/user';
-import {Observable} from "rxjs";
-import {environment} from "../../../environments/environment";
-import {map} from "rxjs/operators";
+import {Observable} from 'rxjs';
+import {environment} from '../../../environments/environment';
+import {map} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +19,7 @@ export class UserService {
   }
 
   all(): Observable<User[]>{
-    return this.http.get<User[]>(`${environment.baseUrl}/user/all`)
+    return this.http.get<User[]>(`${environment.baseUrl}/user/all`);
   }
 
   loggedUser(): Observable<User>{
@@ -27,11 +27,11 @@ export class UserService {
       user.displayName = user.firstName + ' ' + user.lastName;
 
       return user;
-    }))
+    }));
   }
 
   update(user: User): Observable<User>{
-    return this.http.post<User>(`${environment.baseUrl}/user/update`, user)
+    return this.http.post<User>(`${environment.baseUrl}/user/update`, user);
   }
 
   updateFirebase(oUser: User, user: User) {

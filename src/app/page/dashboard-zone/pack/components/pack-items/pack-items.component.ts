@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {AbstractControl, FormArray, FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {PackItem} from "../../../../../core/models/pack";
+import {AbstractControl, FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {PackItem} from '../../../../../core/models/pack';
+import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-group-items',
@@ -29,7 +30,15 @@ export class PackItemsComponent implements OnInit {
     return this.formBuilder.group({
       item: ['', Validators.required],
       qty: 0,
-    })
+    });
+  }
+
+  drop(event: CdkDragDrop<FormArray[]>) {
+    moveItemInArray(this.items.controls, event.previousIndex, event.currentIndex);
+
+    this.formGroup.patchValue({
+      packItems: this.items.controls
+    });
   }
 
   addItem() {
@@ -59,7 +68,7 @@ export class PackItemsComponent implements OnInit {
     if (!item.value.item.title) {
       item.patchValue({
         item: null
-      })
+      });
     }
   }
 }

@@ -14,14 +14,14 @@
 
   <div class="row">
     <div class="col-md-8 form-group">
-      <mat-form-field class="form-group w-100">
+      <mat-form-field class="w-100">
         <input formControlName="title" matInput placeholder="Názov ulohy">
         <mat-error *ngIf="f.title.errors">Názov úlohy je <strong>pozadovany.</strong></mat-error>
       </mat-form-field>
     </div>
 
     <div class="col-md-4">
-      <mat-form-field class="form-group w-100">
+      <mat-form-field class="w-100">
         <mat-label>Dátum do</mat-label>
         <input formControlName="finishedAt" matInput [matDatepicker]="finishedAt">
         <mat-datepicker-toggle matSuffix [for]="finishedAt"></mat-datepicker-toggle>
@@ -29,29 +29,27 @@
       </mat-form-field>
     </div>
 
-    <div class="col-md-4">
-      <mat-form-field class="form-pack-price-offer-create w-100 form-group">
-        <ngx-mat-file-input (change)="fileService.prepareFile($event.target.files[0])" placeholder="Súbor"></ngx-mat-file-input>
-        <mat-icon matSuffix>folder</mat-icon>
+    <div class="col-md-4 form-group">
+      <mat-form-field class="form-pack-price-offer-create w-100">
+        <ngx-mat-file-input (change)="uploadHelper.uploadFile($event.target.files)" placeholder="Súbory k úlohe" multiple></ngx-mat-file-input>
+        <mat-icon matSuffix class="cursor-pointer">image</mat-icon>
       </mat-form-field>
     </div>
 
-    <div class="col-md-8">
+   <!-- <div class="col-md-8">
       <div class="col-md-4 form-group">
         <mat-checkbox checked="checked" class="text-gray" formControlName="sendEmail">Poslať úlohu e-mailom</mat-checkbox>
       </div>
-    </div>
-
+    </div>-->
 
     <div class="col-md-12 form-group">
-      <mat-form-field class="form-group w-100">
+      <mat-form-field class="w-100">
         <input formControlName="description" matInput placeholder="Popis">
       </mat-form-field>
     </div>
 
     <div class="col-md-4 form-group">
-      <ng-select class="form-group w-100" [items]="projects"
-                 #select
+      <ng-select class="w-100" [items]="projects"
                  bindLabel="title"
                  placeholder="Zákazka"
                  [clearable]="false"
@@ -63,8 +61,7 @@
     </div>
 
     <div class="col-md-4 form-group">
-      <ng-select class="form-group w-100" [items]="categories"
-                 #select
+      <ng-select class="w-100" [items]="categories"
                  bindLabel="name"
                  placeholder="Kategória"
                  [clearable]="false"
@@ -76,8 +73,7 @@
     </div>
 
     <div class="col-md-4 form-group">
-      <ng-select class="form-group w-100" [items]="users"
-                 #select
+      <ng-select class="w-100" [items]="users"
                  bindLabel="email"
                  placeholder="Osoba"
                  [clearable]="false"
@@ -88,14 +84,14 @@
       </ng-select>
     </div>
 
-    <div class="col-md-6 form-group">
-      <mat-form-field class="form-group w-100">
+    <!--<div class="col-md-6 form-group">
+      <mat-form-field class="w-100">
         <input formControlName="completion" matInput placeholder="Dokončenosť">
       </mat-form-field>
-    </div>
+    </div>-->
 
     <div class="col-md-6">
-      <mat-form-field class="form-group w-100">
+      <mat-form-field class="w-100">
         <mat-label>Stav</mat-label>
         <select formControlName="state" matNativeControl>
           <option value="WAITING">Čakajúca</option>

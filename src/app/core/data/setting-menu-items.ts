@@ -23,7 +23,7 @@ export const SettingMenuItems: MenuItem[] = [
   },
   {
     routerLink: ['/setting/bank-account'],
-    title: 'Bankove ucty',
+    title: 'Bankové účty',
     icon: 'account_balance_wallet',
   }
 ];

@@ -5,13 +5,14 @@ import {Router} from '@angular/router';
 import {CategoryItemNode} from '../../../../core/models/category-item-node';
 import {CategoryService} from '../../../../core/services/category.service';
 import {CdkTextareaAutosize} from '@angular/cdk/text-field';
-import {ItemService} from "../../../../core/services/item.service";
-import {MessageService} from "../../../../core/services/message.service";
+import {ItemService} from '../../../../core/services/item.service';
+import {MessageService} from '../../../../core/services/message.service';
+import {UploadHelper} from '../../../../core/class/UploadHelper';
 
 @Component({
   selector: 'app-item-create',
   templateUrl: './item-create.component.html',
-  styleUrls: ['./item-create.component.scss']
+  styleUrls: ['./item-create.component.scss'],
 })
 export class ItemCreateComponent implements OnInit {
   item: Item;
@@ -23,11 +24,12 @@ export class ItemCreateComponent implements OnInit {
   @ViewChild('autosize', {static: false}) autosize: CdkTextareaAutosize;
 
   constructor(
-    private readonly categoryService: CategoryService,
+    private categoryService: CategoryService,
     private messageService: MessageService,
     private itemService: ItemService,
     private formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    public uploadHelper: UploadHelper,
   ) {
   }
 
@@ -39,7 +41,7 @@ export class ItemCreateComponent implements OnInit {
   prepareForm() {
     this.formGroup = this.formBuilder.group({
       title: [null, Validators.required],
-      category: [null, Validators.required],
+      category: [null],
       type: null,
       shortDescription: null,
       description: null,
@@ -61,9 +63,11 @@ export class ItemCreateComponent implements OnInit {
         wholesaleTax: 20,
         surcharge: 0,
         price: 0,
+        priceTax: 0,
         tax: 20,
         marge: 0
-      })
+      }),
+      preview: null
     });
   }
 
@@ -77,13 +81,22 @@ export class ItemCreateComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.formGroup.invalid)
+    if (this.formGroup.invalid) {
       return;
+    }
 
-    this.itemService.store(this.formGroup.value).subscribe(i => {
+    this.itemService.store(this.formGroup.value, this.uploadHelper.files).subscribe(i => {
       this.router.navigate(['/item']).then(() => {
-        this.messageService.add("Item was store")
+        this.messageService.add('Item was store');
       });
-    })
+    });
+  }
+
+  uploadFile(files: File, b: boolean) {
+    this.uploadHelper.prepareCustomFile(files[0], b).then(res => {
+      this.formGroup.patchValue({
+        preview: res
+      });
+    });
   }
 }

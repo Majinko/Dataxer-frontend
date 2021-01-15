@@ -1,9 +1,10 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {DemandService} from "../../../../../../core/services/demand.service";
-import {Demand} from "../../../../../../core/models/demand";
-import {MatPaginator} from "@angular/material/paginator";
-import {merge} from "rxjs";
-import {map, startWith, switchMap} from "rxjs/operators";
+import {AfterViewInit, Component, ViewChild} from '@angular/core';
+import {DemandService} from '../../../../../../core/services/demand.service';
+import {Demand} from '../../../../../../core/models/demand';
+import {MatPaginator} from '@angular/material/paginator';
+import {merge} from 'rxjs';
+import {map, startWith, switchMap} from 'rxjs/operators';
+import {MessageService} from '../../../../../../core/services/message.service';
 
 @Component({
   selector: 'app-demand-table',
@@ -17,16 +18,19 @@ export class DemandTableComponent implements AfterViewInit {
   isLoadingResults = true;
 
   displayedColumns: string[] = [
-    "title",
-    "contact",
-    "state",
-    "source",
+    'title',
+    'contact',
+    'state',
+    'source',
     'actions'
   ];
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
-  constructor(private demandService: DemandService) {
+  constructor(
+    private demandService: DemandService,
+    private messageService: MessageService
+  ) {
   }
 
   ngAfterViewInit() {
@@ -34,7 +38,7 @@ export class DemandTableComponent implements AfterViewInit {
   }
 
   paginate() {
-    this.paginator.pageIndex = 0
+    this.paginator.pageIndex = 0;
 
     merge(this.paginator.page)
       .pipe(
@@ -57,6 +61,11 @@ export class DemandTableComponent implements AfterViewInit {
   }
 
   destroy(id: number) {
+    return this.demandService.destroy(id).subscribe(d => {
+      this.messageService.add('Dopyt bol zmazaný');
 
+      this.demands = this.demands.filter(demand => demand.id !== id);
+      this.totalElements = this.demands.length;
+    });
   }
 }

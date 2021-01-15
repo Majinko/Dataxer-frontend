@@ -47,7 +47,7 @@ export class UserEditComponent implements OnInit {
     }
 
     this.userService.update(this.formGroup.value).subscribe(() => {
-      this.messageSevice.add("Udaje boli aktualizovane");
+      this.messageSevice.add("Údaje boli aktualizované");
     });
   }
 

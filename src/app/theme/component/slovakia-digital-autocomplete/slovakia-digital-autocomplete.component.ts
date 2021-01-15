@@ -1,9 +1,9 @@
-import {Component, EventEmitter, forwardRef, OnInit, Output} from '@angular/core';
-import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
-import {SlovakiaDigital} from "../../../core/models/slovakiaDigital";
-import {Subject} from "rxjs";
-import {ContactService} from "../../../core/services/contact.service";
-import {debounceTime, distinctUntilChanged, switchMap, tap} from "rxjs/operators";
+import {Component, EventEmitter, forwardRef, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
+import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
+import {SlovakiaDigital} from '../../../core/models/slovakiaDigital';
+import {Subject} from 'rxjs';
+import {ContactService} from '../../../core/services/contact.service';
+import {debounceTime, distinctUntilChanged, switchMap, tap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-slovakia-digital-autocomplete',
@@ -15,12 +15,13 @@ import {debounceTime, distinctUntilChanged, switchMap, tap} from "rxjs/operators
     multi: true
   }]
 })
-export class SlovakiaDigitalAutocompleteComponent implements ControlValueAccessor, OnInit {
+export class SlovakiaDigitalAutocompleteComponent implements ControlValueAccessor, OnInit, OnChanges {
   value: string;
   isLoading: boolean = false;
   private searchTerms = new Subject<string>();
   slovakiaDigitalFirms: SlovakiaDigital[] = [];
 
+  @Input() isError: boolean | null;
   @Output() findFirm: EventEmitter<SlovakiaDigital> = new EventEmitter();
 
   constructor(
@@ -32,6 +33,10 @@ export class SlovakiaDigitalAutocompleteComponent implements ControlValueAccesso
   };
   onChange = _ => {
   };
+
+  ngOnChanges(changes: SimpleChanges) {
+    this.isError = changes.isError.currentValue;
+  }
 
   ngOnInit(): void {
     this.searchTerms.pipe(
@@ -46,7 +51,7 @@ export class SlovakiaDigitalAutocompleteComponent implements ControlValueAccesso
     ).subscribe(firms => {
       this.slovakiaDigitalFirms = firms;
       this.isLoading = false;
-    })
+    });
   }
 
   registerOnChange(fn: any): void {

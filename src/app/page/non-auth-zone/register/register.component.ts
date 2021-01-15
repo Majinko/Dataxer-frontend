@@ -2,8 +2,6 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MessageService} from '../../../core/services/message.service';
 import {AuthService} from '../../../core/services/auth.service';
-import {User} from '../../../core/models/user';
-import {auth} from 'firebase';
 import {Router} from '@angular/router';
 import {LEGALFORMS} from '../../../core/data/legal-forms';
 import {CompanyService} from '../../../core/services/company.service';
@@ -70,7 +68,7 @@ export class RegisterComponent implements OnInit {
       return;
     }
 
-    this.authService.registerWithEmail(this.fUser.email.value, this.fUser.password.value)
+ /*   this.authService.registerWithEmail(this.fUser.email.value, this.fUser.password.value)
       .then((response: auth.UserCredential) => {
         this.authService.setUser = response.user;
         this.authService.user.displayName = this.fUser.firstName.value + ' ' + this.fUser.lastName.value;
@@ -82,6 +80,6 @@ export class RegisterComponent implements OnInit {
             this.messageService.add('Registration successful');
           });
         });
-      }).catch((error) => this.messageService.add(error));
+      }).catch((error) => this.messageService.add(error));*/
   }
 }

@@ -1,7 +1,7 @@
-import {User} from "./user";
-import {Contact} from "./contact";
-import {Pack} from "./pack";
-import {InvoiceTypeEnum} from "../enums/invoiceType.enum";
+import {User} from './user';
+import {Contact} from './contact';
+import {Pack} from './pack';
+import {InvoiceTypeEnum} from '../enums/invoiceType.enum';
 
 export interface Invoice {
   id: number;
@@ -22,5 +22,5 @@ export interface Invoice {
   price: number;
   totalPrice: number;
   contact: Contact;
-  packs: Pack[]
+  packs: Pack[];
 }

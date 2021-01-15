@@ -15,7 +15,7 @@
     <div class="col-md-4">
       <mat-form-field class="form-group w-100">
         <input matInput placeholder="Názov položky" formControlName="title">
-        <mat-error *ngIf="f.title.errors">Názov položky je <strong>pozadovany</strong></mat-error>
+        <mat-error *ngIf="f.title.errors">Názov položky je <strong>požadovaný</strong></mat-error>
       </mat-form-field>
     </div>
 
@@ -71,15 +71,21 @@
     </div>
   </div>
 
-<!--  <div class="row">
+  <div class="row">
     <div class="col-md-4">
+      <div class="mb-3" *ngIf="this.uploadHelper.imageUrl">
+        <img src="{{this.uploadHelper.imageUrl}}" alt="">
+      </div>
+
       <mat-form-field class="form-pack-price-offer-create w-100">
-        <ngx-mat-file-input formControlName="basicfile" placeholder="Obrázok položky"></ngx-mat-file-input>
-        <mat-icon matSuffix>image</mat-icon>
+        <ngx-mat-file-input (change)="uploadFile($event.target.files, true)" placeholder="Obrázok položky"></ngx-mat-file-input>
+        <mat-icon matSuffix class="cursor-pointer">image</mat-icon>
       </mat-form-field>
+
+      <input type="hidden" formControlName="preview">
     </div>
 
-    <div class="col-md-4">
+<!--    <div class="col-md-4">
       <mat-form-field class="form-pack-price-offer-create w-100">
         <ngx-mat-file-input formControlName="basicfile" placeholder="Galéria položky" multiple></ngx-mat-file-input>
         <mat-icon matSuffix>collections</mat-icon>
@@ -91,12 +97,12 @@
         <ngx-mat-file-input formControlName="basicfile" placeholder="Súbory položky"></ngx-mat-file-input>
         <mat-icon matSuffix>add</mat-icon>
       </mat-form-field>
-    </div>
-  </div>-->
+    </div>-->
+  </div>
 
   <div class="row">
     <div class="col-md-4">
-      <mat-form-field class="form-group w-100">
+      <mat-form-field class="form-group w-100 cursor-pointer">
         <input matInput placeholder="Výrobca" formControlName="manufacturer">
       </mat-form-field>
     </div>
@@ -113,23 +119,23 @@
   </div>
 
   <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-6">
       <mat-form-field class="form-group w-100">
         <input matInput placeholder="Jednotka" formControlName="unit">
       </mat-form-field>
     </div>
 
-    <div class="col-md-4">
+    <div class="col-md-6">
       <mat-form-field class="form-group w-100">
         <input matInput placeholder="Kód (SKU)" formControlName="code">
       </mat-form-field>
     </div>
 
-    <div class="col-md-4">
+<!--    <div class="col-md-4">
       <mat-form-field class="form-group w-100">
         <input matInput placeholder="Súvisiace položky">
       </mat-form-field>
-    </div>
+    </div>-->
   </div>
 
   <div class="row">

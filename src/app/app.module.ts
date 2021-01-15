@@ -7,14 +7,14 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {ErrorInterceptor} from './core/interceptor/error.interceptor';
 import {TokenInterceptor} from './core/interceptor/token.interceptor';
 import {environment} from '../environments/environment';
-import {AngularFireModule} from "@angular/fire";
-import {AngularFirestoreModule} from "@angular/fire/firestore";
-import {AngularFireAuthModule} from "@angular/fire/auth";
-import {AngularFireStorageModule} from "@angular/fire/storage";
+import {AngularFireModule} from '@angular/fire';
+import {AngularFirestoreModule} from '@angular/fire/firestore';
+import {AngularFireAuthModule} from '@angular/fire/auth';
+import {AngularFireStorageModule} from '@angular/fire/storage';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,

@@ -2,8 +2,8 @@ import {RouterModule, Routes} from '@angular/router';
 import {NgModule} from '@angular/core';
 import {DashboardComponent} from './dashboard.component';
 import {AuthGuardService} from '../../core/guards/auth-guard.service';
-import {UserResolver} from "../../core/resolver/user.resolver";
-import {CompanyResolver} from "../../core/resolver/company.resolver";
+import {UserResolver} from '../../core/resolver/user.resolver';
+import {CompanyResolver} from '../../core/resolver/company.resolver';
 
 const routes: Routes = [
   {
@@ -34,12 +34,12 @@ const routes: Routes = [
       },
       {
         path: 'invoice',
-        data: {godButtonTitle: 'Nova Faktura', gotButtonRouteLink: '/invoice/create'},
+        data: {godButtonTitle: 'Nová faktúra', gotButtonRouteLink: '/invoice/create'},
         loadChildren: () => import('./invoice/invoice.module').then(m => m.InvoiceModule),
       },
       {
         path: 'cost',
-        data: {godButtonTitle: 'Nový Náklad', gotButtonRouteLink: '/cost/create'},
+        data: {godButtonTitle: 'Nový náklad', gotButtonRouteLink: '/cost/create'},
         loadChildren: () => import('./cost/cost.module').then(m => m.CostModule),
       },
       {

@@ -1,6 +1,7 @@
 import {Project} from "./project";
 import {CategoryItemNode} from "./category-item-node";
 import {User} from "./user";
+import {CustomFile} from './customFile';
 
 export interface Task {
   id: number;
@@ -13,4 +14,5 @@ export interface Task {
   completion: string;
   state: string;
   finishedAt: Date;
+  files?: CustomFile[];
 }

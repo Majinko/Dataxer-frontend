@@ -1,5 +1,6 @@
 import {CategoryItemNode} from './category-item-node';
 import {Contact} from './contact';
+import {CustomFile} from './customFile';
 
 export interface Item {
   id: number;
@@ -14,14 +15,16 @@ export interface Item {
   dimensions?: string;
   priceLevel?: string;
   model?: string;
-  series?:string;
+  series?: string;
   color?: string;
   material?: string;
   isPartOfSet?: boolean;
   needMontage?: boolean;
+  file?: any;
   itemPrice?: ItemPrice;
   categories?: CategoryItemNode;
   supplier?: Contact;
+  preview?: CustomFile;
 }
 
 

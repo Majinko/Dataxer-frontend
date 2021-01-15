@@ -5,13 +5,13 @@ import {Contact} from '../models/contact';
 import {Paginate} from '../models/paginate';
 import {environment} from '../../../environments/environment';
 import {map, tap} from 'rxjs/operators';
-import {SlovakiaDigital} from "../models/slovakiaDigital";
+import {SlovakiaDigital} from '../models/slovakiaDigital';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ContactService {
-  contractorStore = new Subject<Contact>()
+  contractorStore = new Subject<Contact>();
 
   constructor(private http: HttpClient) {
   }
@@ -32,9 +32,9 @@ export class ContactService {
     return this.http.get<Contact[]>(environment.baseUrl + `/contact/search?name=${name}`);
   }
 
-  paginate(page: number, size: number, sort: string, searchedString: string): Observable<Paginate> {
+  paginate(page: number, size: number, sort: string, searchedString: string): Observable<Paginate<Contact>> {
     // tslint:disable-next-line:max-line-length
-    return this.http.get<Paginate>(environment.baseUrl + `/contact/paginate?page=${page}&size=${size}&sort=${sort}&email=${searchedString}`);
+    return this.http.get<Paginate<Contact>>(environment.baseUrl + `/contact/paginate?page=${page}&size=${size}&sort=${sort}&email=${searchedString}`);
   }
 
   store(contact: Contact): Observable<Contact> {

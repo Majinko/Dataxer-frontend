@@ -15,7 +15,7 @@
 
       <div class="col-md-3">
         <mat-form-field class="form-group w-100">
-          <input matInput placeholder="NC s DPH €">
+          <input matInput placeholder="NC s DPH €" formControlName="wholesalePrice">
         </mat-form-field>
       </div>
 
@@ -29,7 +29,7 @@
     <div class="row">
       <div class="col-md-4">
         <mat-form-field class="form-group w-100">
-          <input (input)="callPrice()" matInput placeholder="PC bez DPH €" formControlName="price">
+          <input matInput placeholder="PC bez DPH €" formControlName="price">
         </mat-form-field>
       </div>
 
@@ -41,7 +41,7 @@
 
       <div class="col-md-3">
         <mat-form-field class="form-group w-100">
-          <input matInput placeholder="PC s DPH €">
+          <input matInput placeholder="PC s DPH €" formControlName="priceTax">
         </mat-form-field>
       </div>
 

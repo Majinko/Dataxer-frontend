@@ -1,7 +1,7 @@
 import {SelectionModel} from '@angular/cdk/collections';
 import {FlatTreeControl} from '@angular/cdk/tree';
-import {Component, ElementRef, Inject, QueryList, ViewChild, ViewChildren} from '@angular/core';
-import {MatTreeFlatDataSource, MatTreeFlattener, MatTreeNode} from '@angular/material/tree';
+import {Component, ElementRef, Inject, ViewChild} from '@angular/core';
+import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
 import {CategoryItemNode} from '../../../../core/models/category-item-node';
 import {CategoryItemFlatNode} from '../../../../core/models/category-item-flat-node';
 import {ChecklistDatabase} from '../../../../core/class/CheckListDatabase';
@@ -26,6 +26,15 @@ export class IndexComponent {
 
   /** The new item's name */
   newItemName = '';
+
+  /** The new item's parent */
+  newNodeParent: { id: number, name: string };
+
+  /** The new item's id */
+  newNodeId: number = null;
+
+  /** The form was store */
+  isStore: boolean = false;
 
   treeControl: FlatTreeControl<CategoryItemFlatNode>;
 
@@ -54,9 +63,8 @@ export class IndexComponent {
     this.dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
 
     database.dataChange.subscribe(data => {
-      if (data) {
-        this.dataSource.data = data;
-      }
+      this.dataSource.data = [];
+      this.dataSource.data = data;
     });
   }
 
@@ -66,18 +74,16 @@ export class IndexComponent {
 
   getChildren = (node: CategoryItemNode): CategoryItemNode[] => node.children;
 
-  hasChild = (_: number, _nodeData: CategoryItemFlatNode) => _nodeData.expandable;
+  hasChild = (_: number, nodeData: CategoryItemFlatNode) => nodeData.expandable;
 
-  hasNoContent = (_: number, _nodeData: CategoryItemFlatNode) => _nodeData.name === '';
+  hasNoContent = (_: number, nodeData: CategoryItemFlatNode) => nodeData.name === '';
 
   /**
    * Transformer to convert nested node to flat node. Record the nodes in maps for later use.
    */
   transformer = (node: CategoryItemNode, level: number) => {
     const existingNode = this.nestedNodeMap.get(node);
-    const flatNode = existingNode && existingNode.name === node.name
-      ? existingNode
-      : new CategoryItemFlatNode();
+    const flatNode = existingNode && existingNode.name === node.name ? existingNode : new CategoryItemFlatNode();
     flatNode.id = node.id;
     flatNode.name = node.name;
     flatNode.level = level;
@@ -112,14 +118,25 @@ export class IndexComponent {
   /** Select the category so we can insert the new item. */
   addNewItem(node: CategoryItemFlatNode) {
     const parentNode = this.flatNodeMap.get(node);
-    this.database.insertItem(parentNode, 0, '');
+    this.newNodeParent = {id: parentNode.id, name: parentNode.name};
+
+    this.database.insertItem(parentNode, null, '');
     this.treeControl.expand(node);
   }
 
   /** Save the node to database */
   saveNode(node: CategoryItemFlatNode, itemValue: string) {
+    this.isStore = true;
+
     const nestedNode = this.flatNodeMap.get(node);
-    this.database.updateItem(nestedNode, itemValue);
+
+    this.categoryService.store({name: itemValue, parent: this.newNodeParent}).subscribe(category => {
+      this.isStore = false;
+
+      nestedNode.id = category.id;
+
+      this.database.updateItem(nestedNode, itemValue);
+    });
   }
 
   handleDragStart(event, node) {
@@ -159,6 +176,7 @@ export class IndexComponent {
 
   handleDrop(event, node) {
     event.preventDefault();
+
     if (node !== this.dragNode) {
       let newItem: CategoryItemNode;
       if (this.dragNodeExpandOverArea === 'above') {
@@ -169,7 +187,7 @@ export class IndexComponent {
         newItem = this.database.copyPasteItem(this.flatNodeMap.get(this.dragNode), this.flatNodeMap.get(node));
       }
       this.database.deleteItem(this.flatNodeMap.get(this.dragNode));
-      /*this.treeControl.expandDescendants(this.nestedNodeMap.get(newItem));*/
+      this.treeControl.expandDescendants(this.nestedNodeMap.get(newItem));
     }
 
     this.dragNode = null;
@@ -186,7 +204,7 @@ export class IndexComponent {
   }
 
   deleteNode(flatNode: CategoryItemFlatNode) {
-    let node = this.flatNodeMap.get(flatNode);
+    const node = this.flatNodeMap.get(flatNode);
     this.database.deleteItem(node);
 
     this.categoryService.destroy(node.id).subscribe(() => {

@@ -4,7 +4,6 @@ import {Observable, of} from 'rxjs';
 import {switchMap} from 'rxjs/operators';
 import {AngularFirestore, AngularFirestoreDocument} from '@angular/fire/firestore';
 import {User} from '../models/user';
-import {auth} from 'firebase';
 import {nonUndefined} from '../../../helper';
 
 @Injectable({
@@ -37,14 +36,14 @@ export class AuthService {
       .signInWithEmailAndPassword(email, password);
   }
 
-  registerWithEmail(email: string, password: string): Promise<auth.UserCredential> {
+ /* registerWithEmail(email: string, password: string): Promise<auth.UserCredential> {
     return this.afAuth.createUserWithEmailAndPassword(email, password);
-  }
+  }*/
 
   public updateUserData(user) {
-    let userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${user.uid}`);
+    const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${user.uid}`);
 
-    let data = {
+    const data = {
       appKey: user.uid,
       uid: user.uid,
       email: user.email,
@@ -73,13 +72,13 @@ export class AuthService {
 
   set setUser(credential) {
     this.user = {
-      token: credential.xa,
+      token: credential.ya,
       uid: credential.uid,
       displayName: credential.displayName,
       email: credential.email
     };
 
-    //todo nechapem preco to neslo priamo v objekte appKey: credential.uid
+    // todo nechapem preco to neslo priamo v objekte appKey: credential.uid
     this.user.appKey = this.user.uid;
   }
 }

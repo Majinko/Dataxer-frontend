@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {CategoryService} from "../../../../core/services/category.service";
-import {CategoryItemNode} from "../../../../core/models/category-item-node";
-import {DemandService} from "../../../../core/services/demand.service";
-import {MessageService} from "../../../../core/services/message.service";
-import {Router} from "@angular/router";
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {CategoryService} from '../../../../core/services/category.service';
+import {CategoryItemNode} from '../../../../core/models/category-item-node';
+import {DemandService} from '../../../../core/services/demand.service';
+import {MessageService} from '../../../../core/services/message.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-demand-create',
@@ -12,7 +12,8 @@ import {Router} from "@angular/router";
   styleUrls: ['./demand-create.component.scss']
 })
 export class DemandCreateComponent implements OnInit {
-  formGroup: FormGroup
+  formGroup: FormGroup;
+  isSubmit: boolean = false;
   categories: CategoryItemNode[];
   source: string[] = ['E-mail', 'Web', 'Online reklama', 'Telefón', 'Osobný kontak'];
 
@@ -26,7 +27,7 @@ export class DemandCreateComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getCategories()
+    this.getCategories();
 
     this.prepareForm();
   }
@@ -37,9 +38,9 @@ export class DemandCreateComponent implements OnInit {
       category: [null, Validators.required],
       description: '',
       source: '',
-      state: '',
-      contact: [null]
-    })
+      state: 'WAITING',
+      contact: null
+    });
   }
 
   getCategories() {
@@ -47,15 +48,17 @@ export class DemandCreateComponent implements OnInit {
   }
 
   submit() {
+    this.isSubmit = true;
+
     if (this.formGroup.invalid) {
       return;
     }
 
     this.demandService.store(this.formGroup.value).subscribe(() => {
       this.router.navigate(['/demand']).then(() => {
-        this.messageService.add("Dopyt bol uložený")
-      })
-    })
+        this.messageService.add('Dopyt bol uložený');
+      });
+    });
   }
 
   // convenience getter for easy access to form fields

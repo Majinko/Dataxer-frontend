@@ -18,19 +18,26 @@ import {NewContactSelectComponent} from "./component/new-contact-select/new-cont
 import {PackAutocompleteComponent} from './component/pack-autocomplete/pack-autocomplete.component';
 import {DocumentPackComponent} from "./component/document-pack/document-pack.component";
 import { SlovakiaDigitalAutocompleteComponent } from './component/slovakia-digital-autocomplete/slovakia-digital-autocomplete.component';
+import { NewProjectSelectComponent } from './component/new-project-select/new-project-select.component';
+import { NewCategorySelectComponent } from './component/new-category-select/new-category-select.component';
+import { SpinnerButtonComponent } from './component/spinner-button/spinner-button.component';
+import { ElementPaidStateComponent } from './component/element-paid-state/element-paid-state.component';
+import { FileComponent } from './component/file/file.component';
+import {NgxFilesizeModule} from 'ngx-filesize';
 
 
 @NgModule({
-  imports: [
-    CommonModule,
-    RouterModule,
-    MaterialModule,
-    CoreModule,
-    AvatarModule,
-    NgSelectModule,
-    FormsModule,
-    ReactiveFormsModule
-  ],
+    imports: [
+        CommonModule,
+        RouterModule,
+        MaterialModule,
+        CoreModule,
+        AvatarModule,
+        NgSelectModule,
+        FormsModule,
+        ReactiveFormsModule,
+        NgxFilesizeModule
+    ],
   declarations: [
     DrawerComponent,
     ToolbarComponent,
@@ -43,9 +50,14 @@ import { SlovakiaDigitalAutocompleteComponent } from './component/slovakia-digit
     NewContactSelectComponent,
     PackAutocompleteComponent,
     DocumentPackComponent,
-    SlovakiaDigitalAutocompleteComponent
+    SlovakiaDigitalAutocompleteComponent,
+    NewProjectSelectComponent,
+    NewCategorySelectComponent,
+    SpinnerButtonComponent,
+    ElementPaidStateComponent,
+    FileComponent
   ],
-    exports: [DrawerComponent, ToolbarComponent, MessageComponent, ItemAutocompleteComponent, NewContactSelectComponent, PackAutocompleteComponent, DocumentPackComponent, SlovakiaDigitalAutocompleteComponent],
+  exports: [DrawerComponent, ToolbarComponent, MessageComponent, ItemAutocompleteComponent, NewContactSelectComponent, PackAutocompleteComponent, DocumentPackComponent, SlovakiaDigitalAutocompleteComponent, NewProjectSelectComponent, NewCategorySelectComponent, SpinnerButtonComponent, ElementPaidStateComponent, FileComponent],
 })
 export class ThemeModule {
 }

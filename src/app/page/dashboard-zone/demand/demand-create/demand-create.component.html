@@ -22,7 +22,7 @@
     </div>
 
     <div class="col-md-4 form-group">
-      <ng-select class="form-group w-100" [items]="categories"
+      <ng-select class="form-group w-100 mb-0 pb-1" [items]="categories"
                  #select
                  bindLabel="name"
                  placeholder="Kategória"
@@ -32,6 +32,7 @@
           <div><span>{{item.name}}</span></div>
         </ng-template>
       </ng-select>
+      <mat-error *ngIf="isSubmit && f.category.errors">Kategória je <strong>požadovaná.</strong></mat-error>
     </div>
 
 

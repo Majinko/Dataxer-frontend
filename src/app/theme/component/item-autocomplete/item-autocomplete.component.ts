@@ -2,7 +2,7 @@ import {Component, forwardRef, OnInit, Output, EventEmitter} from '@angular/core
 import {Subject} from "rxjs";
 import {Item} from "../../../core/models/item";
 import {debounceTime, distinctUntilChanged, switchMap, tap} from "rxjs/operators";
-import {ItemService} from "../../../core/services/item.service";
+import {ItemService} from '../../../core/services/item.service';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
 
 @Component({

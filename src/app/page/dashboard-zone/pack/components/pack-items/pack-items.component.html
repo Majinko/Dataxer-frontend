@@ -1,5 +1,5 @@
-<div class="row" [formGroup]="formGroup">
-  <div formArrayName="packItems" *ngFor="let item of items.controls; let i=index" class="item-wrap col-md-12">
+<div class="row" [formGroup]="formGroup" cdkDropList (cdkDropListDropped)="drop($event)">
+  <div formArrayName="packItems" *ngFor="let item of items.controls; let i=index" class="item-wrap col-md-12" cdkDrag>
     <div [formGroupName]="i">
       <div class="align-items-center">
 

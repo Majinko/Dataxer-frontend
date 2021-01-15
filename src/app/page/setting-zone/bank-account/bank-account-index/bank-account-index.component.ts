@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {BankAccountService} from "../../../../core/services/bank-account.service";
-import {BankAccount} from "../../../../core/models/bank-account";
-import {MatDialog} from "@angular/material/dialog";
-import {BankAccountDialogComponent} from "../bank-account-dialog/bank-account-dialog.component";
+import {BankAccountService} from '../../../../core/services/bank-account.service';
+import {BankAccount} from '../../../../core/models/bank-account';
+import {MatDialog} from '@angular/material/dialog';
+import {BankAccountDialogComponent} from '../bank-account-dialog/bank-account-dialog.component';
 
 @Component({
   selector: 'app-bank-account-index',
@@ -10,7 +10,7 @@ import {BankAccountDialogComponent} from "../bank-account-dialog/bank-account-di
   styleUrls: ['./bank-account-index.component.scss']
 })
 export class BankAccountIndexComponent implements OnInit {
-  bankAccounts: BankAccount[] = []
+  bankAccounts: BankAccount[] = [];
 
   displayedColumns: string[] = ['name', 'code', 'iban', 'currency', 'default', 'actions'];
 
@@ -29,21 +29,21 @@ export class BankAccountIndexComponent implements OnInit {
   private getAccounts() {
     this.bankAccountService.getAll().subscribe(bankAccounts => {
       this.bankAccounts = bankAccounts;
-    })
+    });
   }
 
   destroy(id: number) {
     this.bankAccountService.destroy(id).subscribe(() => {
-      this.bankAccounts = this.bankAccounts.filter(bankAccount => bankAccount.id != id);
-    })
+      this.bankAccounts = this.bankAccounts.filter(bankAccount => bankAccount.id !== id);
+    });
   }
 
   setDefaultBank(id: number) {
     this.bankAccountService.setDefaultBankAccount(id).subscribe(() => {
       this.bankAccounts.forEach(bankAccount => {
-        bankAccount.isDefault = bankAccount.id === id
-      })
-    })
+        bankAccount.isDefault = bankAccount.id === id;
+      });
+    });
   }
 
   edit(bankAccount: BankAccount) {
@@ -51,9 +51,9 @@ export class BankAccountIndexComponent implements OnInit {
       width: '100%',
       maxWidth: '500px',
       autoFocus: false,
-      data:{
-        bankAccount: bankAccount
+      data: {
+        bankAccount
       }
-    })
+    });
   }
 }

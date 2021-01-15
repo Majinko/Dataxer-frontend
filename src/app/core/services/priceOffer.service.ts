@@ -1,14 +1,14 @@
-import {Injectable} from "@angular/core";
-import {HttpClient, HttpParams} from "@angular/common/http";
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {PriceOffer} from '../models/priceOffer';
 import {Observable} from 'rxjs';
 import {environment} from 'src/environments/environment';
 import {Paginate} from '../models/paginate';
-import {DocumentFilter} from "../filter/document-filter";
-import {prepareFilter} from "../../../helper";
+import {DocumentFilter} from '../filter/document-filter';
+import {prepareFilter} from '../../../helper';
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class PriceOfferService {
   constructor(private http: HttpClient) {
@@ -19,13 +19,13 @@ export class PriceOfferService {
   }
 
   store(priceOffer: PriceOffer): Observable<void> {
-    return this.http.post<void>(`${environment.baseUrl}/price-offer/store`, priceOffer)
+    return this.http.post<void>(`${environment.baseUrl}/price-offer/store`, priceOffer);
   }
 
-  paginate(page: number, size: number, documentFilter: DocumentFilter): Observable<Paginate> {
-    let params = prepareFilter(documentFilter);
+  paginate(page: number, size: number, documentFilter: DocumentFilter): Observable<Paginate<PriceOffer>> {
+    const params = prepareFilter(documentFilter);
 
-    return this.http.get<Paginate>(`${environment.baseUrl}/price-offer/paginate?page=${page}&size=${size}`, {params});
+    return this.http.get<Paginate<PriceOffer>>(`${environment.baseUrl}/price-offer/paginate?page=${page}&size=${size}`, {params});
   }
 
   destroy(id: number): Observable<void> {
@@ -33,6 +33,6 @@ export class PriceOfferService {
   }
 
   update(priceOffer: PriceOffer): Observable<void> {
-    return this.http.post<void>(`${environment.baseUrl}/price-offer/update`, priceOffer)
+    return this.http.post<void>(`${environment.baseUrl}/price-offer/update`, priceOffer);
   }
 }

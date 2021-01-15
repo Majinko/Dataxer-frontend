@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {Demand} from "../../../../core/models/demand";
-import {ActivatedRoute} from "@angular/router";
-import {MessageService} from "../../../../core/services/message.service";
-import {DemandService} from "../../../../core/services/demand.service";
-import {CategoryItemNode} from "../../../../core/models/category-item-node";
-import {CategoryService} from "../../../../core/services/category.service";
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Demand} from '../../../../core/models/demand';
+import {ActivatedRoute} from '@angular/router';
+import {MessageService} from '../../../../core/services/message.service';
+import {DemandService} from '../../../../core/services/demand.service';
+import {CategoryItemNode} from '../../../../core/models/category-item-node';
+import {CategoryService} from '../../../../core/services/category.service';
 
 @Component({
   selector: 'app-demand-edit',
@@ -15,6 +15,7 @@ import {CategoryService} from "../../../../core/services/category.service";
 export class DemandEditComponent implements OnInit {
   demand: Demand;
   formGroup: FormGroup;
+  isSubmit: boolean = false;
   categories: CategoryItemNode[];
   source: string[] = ['E-mail', 'Web', 'Online reklama', 'Telefón', 'Osobný kontak'];
 
@@ -38,7 +39,7 @@ export class DemandEditComponent implements OnInit {
       this.demand = d;
 
       this.prepareForm();
-    })
+    });
   }
 
   private prepareForm() {
@@ -50,7 +51,7 @@ export class DemandEditComponent implements OnInit {
       source: '',
       state: '',
       contact: [null]
-    })
+    });
 
     this.formGroup.patchValue(this.demand);
   }
@@ -61,13 +62,15 @@ export class DemandEditComponent implements OnInit {
   }
 
   submit() {
+    this.isSubmit = true;
+
     if (this.formGroup.invalid) {
       return;
     }
 
     this.demandService.store(this.formGroup.value).subscribe(() => {
-      this.messageService.add("Dopyt bol aktualizovaný")
-    })
+      this.messageService.add('Dopyt bol aktualizovaný');
+    });
   }
 
   // convenience getter for easy access to form fields

@@ -1,13 +1,15 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {CategoryItemNode} from '../models/category-item-node';
-import {Observable} from 'rxjs';
+import {Observable, Subject} from 'rxjs';
 import {environment} from '../../../environments/environment';
+import {map} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CategoryService {
+  categoryStore = new Subject<CategoryItemNode>();
 
   constructor(private http: HttpClient) {
   }
@@ -21,7 +23,11 @@ export class CategoryService {
   }
 
   store(category: CategoryItemNode): Observable<CategoryItemNode> {
-    return this.http.post<CategoryItemNode>(environment.baseUrl + '/category/store', category);
+    return this.http.post<CategoryItemNode>(`${environment.baseUrl}/category/store`, category).pipe(map((categoryItemNode) => {
+      this.categoryStore.next(categoryItemNode);
+
+      return categoryItemNode;
+    }));
   }
 
   updateTree(categories: CategoryItemNode[]): Observable<CategoryItemNode[]> {

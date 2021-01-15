@@ -1,0 +1,10 @@
+<mat-list>
+  <mat-list-item (click)="uploadHelper.downloadFile(file)" class="cursor-pointer" *ngFor="let file of files">
+    <mat-icon mat-list-icon>folder</mat-icon>
+    <div mat-line><a class="text-theme">{{file.fileName}}</a></div>
+    <div mat-line> {{file.size | filesize}} </div>
+
+    <mat-icon *ngIf="deleteFile === false; else deleteFileBlock">get_app</mat-icon>
+    <ng-template #deleteFileBlock><mat-icon (click)="delete(file)" matTooltip="Delete file">delete</mat-icon></ng-template>
+  </mat-list-item>
+</mat-list>

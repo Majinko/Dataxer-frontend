@@ -2,9 +2,9 @@ import {Component, forwardRef, Input, OnInit} from '@angular/core';
 import {Contact} from '../../../core/models/contact';
 
 import {ContactCreateComponent} from '../../../page/dashboard-zone/contact/contact-create/contact-create.component';
-import {ContactService} from "../../../core/services/contact.service";
-import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
-import {MatDialog} from "@angular/material/dialog";
+import {ContactService} from '../../../core/services/contact.service';
+import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-select-new-contact',
@@ -35,10 +35,11 @@ export class NewContactSelectComponent implements ControlValueAccessor, OnInit {
     this.getContacts();
 
     this.contactService.contractorStore.subscribe(c => {
+      this.onChange(c);
       this.contact = c;
 
       this.contacts = this.contacts.concat(c);
-    })
+    });
   }
 
   getContacts() {
@@ -48,6 +49,7 @@ export class NewContactSelectComponent implements ControlValueAccessor, OnInit {
   openDialog() {
     this.dialog.open(ContactCreateComponent, {
       data: {inModal: true},
+      autoFocus: false
     });
   }
 

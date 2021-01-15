@@ -1,0 +1,7 @@
+<mat-chip-list class="mat-chip-list-stacked" aria-label="Color selection">
+  <mat-chip selected class="d-flex justify-content-center bg-{{isPaid ? 'green-light' : 'red-light'}}">
+      <span class="text-{{isPaid ? 'green-dark' : 'red-dark'}}">
+        {{isPaid ? 'Uhradené' : (dueAtDays > 0 ? 'Neuhradené' : ('Po splatnosti ' + dueAtDays * -1 + ' ' + (dueAtDays * -1 === 1 ? 'deň' : (dueAtDays * -1) > 5 ? 'dni' : 'dní')))}}
+      </span>
+  </mat-chip>
+</mat-chip-list>

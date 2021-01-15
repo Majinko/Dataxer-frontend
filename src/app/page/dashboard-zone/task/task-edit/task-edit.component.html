@@ -14,7 +14,7 @@
 
   <div class="row">
     <div class="col-md-8 form-group">
-      <mat-form-field class="form-group w-100">
+      <mat-form-field class="w-100">
         <input formControlName="title" matInput placeholder="Názov ulohy">
         <mat-error *ngIf="f.title.errors">Názov ulohy je <strong>pozadovany.</strong></mat-error>
       </mat-form-field>
@@ -29,10 +29,10 @@
       </mat-form-field>
     </div>
 
-    <div class="col-md-4">
-      <mat-form-field class="form-pack-price-offer-create w-100 form-group">
-        <ngx-mat-file-input placeholder="Súbor"></ngx-mat-file-input>
-        <mat-icon matSuffix>folder</mat-icon>
+    <div class="col-md-4 form-group">
+      <mat-form-field class="form-pack-price-offer-create w-100">
+        <ngx-mat-file-input  placeholder="Súbory k úlohe" multiple></ngx-mat-file-input>
+        <mat-icon matSuffix class="cursor-pointer">image</mat-icon>
       </mat-form-field>
     </div>
 
@@ -44,7 +44,6 @@
 
     <div class="col-md-4 form-group">
       <ng-select class="form-group w-100" [items]="projects"
-                 #select
                  bindLabel="title"
                  placeholder="Zákazka"
                  [clearable]="false"
@@ -57,7 +56,6 @@
 
     <div class="col-md-4 form-group">
       <ng-select class="form-group w-100" [items]="categories"
-                 #select
                  bindLabel="name"
                  placeholder="Kategória"
                  [clearable]="false"
@@ -70,7 +68,6 @@
 
     <div class="col-md-4 form-group">
       <ng-select class="form-group w-100" [items]="users"
-                 #select
                  bindLabel="email"
                  placeholder="Osoba"
                  [clearable]="false"

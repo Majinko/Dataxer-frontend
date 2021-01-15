@@ -1,16 +1,19 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {ItemService} from "../../../../../core/services/item.service";
-import {Item} from "../../../../../core/models/item";
-import {MatPaginator} from "@angular/material/paginator";
-import {MatSort} from "@angular/material/sort";
-import {merge} from "rxjs";
-import {map, startWith, switchMap} from "rxjs/operators";
-import {MessageService} from "../../../../../core/services/message.service";
+import {AfterViewInit, Component, ViewChild} from '@angular/core';
+import {ItemService} from '../../../../../core/services/item.service';
+import {Item} from '../../../../../core/models/item';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatSort} from '@angular/material/sort';
+import {merge} from 'rxjs';
+import {map, startWith, switchMap} from 'rxjs/operators';
+import {MessageService} from '../../../../../core/services/message.service';
+import {StorageService} from '../../../../../core/services/storage.service';
+import {UploadHelper} from '../../../../../core/class/UploadHelper';
 
 @Component({
   selector: 'app-item-table',
   templateUrl: './item-table.component.html',
-  styleUrls: ['./item-table.component.scss']
+  styleUrls: ['./item-table.component.scss'],
+  providers: [UploadHelper]
 })
 export class ItemTableComponent implements AfterViewInit {
   pageSize = 15;
@@ -23,9 +26,12 @@ export class ItemTableComponent implements AfterViewInit {
   @ViewChild(MatSort, {static: false}) sort: MatSort;
 
   constructor(
+    private storageService: StorageService,
     private itemService: ItemService,
-    private messageService: MessageService
-  ) { }
+    private messageService: MessageService,
+    public uploadHelper: UploadHelper,
+  ) {
+  }
 
   ngAfterViewInit() {
     this.paginate();
@@ -55,14 +61,17 @@ export class ItemTableComponent implements AfterViewInit {
           return data.content;
         })
       )
-      .subscribe(data => (this.items = data));
+      .subscribe(data => {
+        this.items = data;
+      });
   }
 
-  destroy(item: Item){
+
+  destroy(item: Item) {
     this.itemService.destroy(item.id).subscribe(r => {
       this.paginate();
 
-      this.messageService.add("Item was delete");
-    })
+      this.messageService.add('Item was delete');
+    });
   }
 }

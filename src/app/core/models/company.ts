@@ -12,9 +12,9 @@ export interface Company {
   email: string;
   phone: string;
   web: string;
-  cin: string,
-  tin: string,
-  vatin: string,
+  cin: string;
+  tin: string;
+  vatin: string;
   iban: string;
   defaultCompany: boolean;
 }

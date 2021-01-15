@@ -17,7 +17,7 @@ export class ChecklistDatabase {
   }
 
   constructor(
-    @Inject(CategoryService) private readonly categoryService: CategoryService,
+    private readonly categoryService: CategoryService,
   ) {
     this.initialize();
   }
@@ -67,6 +67,7 @@ export class ChecklistDatabase {
   }
 
   getParentFromNodes(node: CategoryItemNode): CategoryItemNode {
+    // tslint:disable-next-line:prefer-for-of
     for (let i = 0; i < this.data.length; ++i) {
       const currentRoot = this.data[i];
       const parent = this.getParent(currentRoot, node);
@@ -79,6 +80,7 @@ export class ChecklistDatabase {
 
   getParent(currentRoot: CategoryItemNode, node: CategoryItemNode): CategoryItemNode {
     if (currentRoot.children && currentRoot.children.length > 0) {
+      // tslint:disable-next-line:prefer-for-of
       for (let i = 0; i < currentRoot.children.length; ++i) {
         const child = currentRoot.children[i];
         if (child === node) {

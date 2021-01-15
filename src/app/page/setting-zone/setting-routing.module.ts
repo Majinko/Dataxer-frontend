@@ -2,8 +2,8 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {SettingComponent} from './setting.component';
 import {AuthGuardService} from '../../core/guards/auth-guard.service';
-import {UserResolver} from "../../core/resolver/user.resolver";
-import {CompanyResolver} from "../../core/resolver/company.resolver";
+import {UserResolver} from '../../core/resolver/user.resolver';
+import {CompanyResolver} from '../../core/resolver/company.resolver';
 
 const routes: Routes = [
   {
@@ -36,7 +36,7 @@ const routes: Routes = [
       },
       {
         path: 'bank-account',
-        data: {godButtonTitle: 'Novy bankovy icet', gotButtonRouteLink: '/setting/bank-account/create'},
+        data: {godButtonTitle: 'Nový bankový účet', gotButtonRouteLink: '/setting/bank-account/create'},
         loadChildren: () => import('./bank-account/bank-account.module')
           .then(m => m.BankAccountModule),
       },

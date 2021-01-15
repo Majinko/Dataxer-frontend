@@ -4,6 +4,10 @@
 $text-color: (
   'gray' : $theme-gray,
   'theme': $global-primary-color,
+  'red-light': $color-red-light,
+  'red-dark': $color-red-dark,
+  'green-light' : $color-green-light,
+  'green-dark' : $color-green-dark
 );
 
 @each $color, $value in $text-color {
@@ -21,6 +25,10 @@ $bg-colors: (
   'pending': $color-warning,
   'approved': $color-success,
   'theme' : $global-primary-color,
+  'red-light': $color-red-light,
+  'red-dark': $color-red-dark,
+  'green-light' : $color-green-light,
+  'green-dark' : $color-green-dark
 );
 
 @each $bg, $color in $bg-colors {

@@ -1,4 +1,4 @@
-export interface Paginate {
-  content: any[];
+export interface Paginate<T> {
+  content: T[];
   totalElements: number;
 }

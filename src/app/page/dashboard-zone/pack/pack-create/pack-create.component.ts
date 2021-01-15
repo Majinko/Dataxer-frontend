@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {PackService} from "../../../../core/services/pack.service";
-import {MessageService} from "../../../../core/services/message.service";
-import {Router} from "@angular/router";
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {PackService} from '../../../../core/services/pack.service';
+import {MessageService} from '../../../../core/services/message.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-set-item-create',
@@ -25,7 +25,7 @@ export class PackCreateComponent implements OnInit {
     this.formGroup = this.formBuilder.group({
       title: ['', Validators.required],
       packItems: this.formBuilder.array([])
-    })
+    });
   }
 
   // convenience getter for easy access to form fields
@@ -42,8 +42,8 @@ export class PackCreateComponent implements OnInit {
 
     this.packService.store(this.formGroup.value).subscribe(() => {
       this.router.navigate(['/pack']).then(() => {
-        this.messageService.add("Pack item was store")
-      })
-    })
+        this.messageService.add('Sada položiek bola vytvorená.');
+      });
+    });
   }
 }

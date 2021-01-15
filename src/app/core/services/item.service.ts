@@ -1,10 +1,12 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {Observable, of} from "rxjs";
-import {Item, ItemPrice} from "../models/item";
-import {environment} from "../../../environments/environment";
-import {Paginate} from "../models/paginate";
-
+import {HttpClient} from '@angular/common/http';
+import {Observable, of} from 'rxjs';
+import {Item} from '../models/item';
+import {environment} from '../../../environments/environment';
+import {Paginate} from '../models/paginate';
+import {CustomFile} from '../models/customFile';
+import {UploadContext} from '../models/uploadContext';
+import {map} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -15,23 +17,29 @@ export class ItemService {
   }
 
   getById(id: number): Observable<Item> {
-    return this.http.get<Item>(`${environment.baseUrl}/item/${id}`)
+    return this.http.get<Item>(`${environment.baseUrl}/item/${id}`);
   }
 
-  paginate(page: number, size: number): Observable<Paginate> {
-    return this.http.get<Paginate>(environment.baseUrl + `/item/paginate?page=${page}&size=${size}`);
+  paginate(page: number, size: number): Observable<Paginate<Item>> {
+    return this.http.get<Paginate<Item>>(environment.baseUrl + `/item/paginate?page=${page}&size=${size}`);
   }
 
-  store(item: Item): Observable<Item> {
-    return this.http.post<Item>(`${environment.baseUrl}/item/store`, item)
+  store(item: Item, files: CustomFile[]): Observable<Item> {
+
+    const data: UploadContext<Item> = {
+      files,
+      object: item
+    };
+
+    return this.http.post<Item>(`${environment.baseUrl}/item/store`, data);
   }
 
   update(item: Item): Observable<Item> {
-    return this.http.post<Item>(`${environment.baseUrl}/item/update`, item)
+    return this.http.post<Item>(`${environment.baseUrl}/item/update`, item);
   }
 
   destroy(id: number): Observable<void> {
-    return this.http.get<void>(`${environment.baseUrl}/item/destroy/${id}`)
+    return this.http.get<void>(`${environment.baseUrl}/item/destroy/${id}`);
   }
 
   search(q: string): Observable<Item[]> {

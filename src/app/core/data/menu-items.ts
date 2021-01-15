@@ -8,7 +8,7 @@ export const MenuItems: MenuItem[] = [
   },
   {
     routerLink: ['/task'],
-    title: 'Ulohy',
+    title: 'Úlohy',
     icon: 'work',
   },
   {
@@ -28,12 +28,12 @@ export const MenuItems: MenuItem[] = [
   },
   {
     routerLink: ['/invoice'],
-    title: 'Fakturacia',
+    title: 'Fakturácia',
     icon: 'description',
   },
   {
     routerLink: ['/cost'],
-    title: 'Naklady',
+    title: 'Náklady',
     icon: 'equalizer',
   },
   {

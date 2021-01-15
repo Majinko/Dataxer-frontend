@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs";
-import {environment} from "../../../environments/environment";
-import {Paginate} from "../models/paginate";
-import {Invoice} from "../models/invoice";
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {environment} from '../../../environments/environment';
+import {Paginate} from '../models/paginate';
+import {Invoice} from '../models/invoice';
 
 @Injectable({
   providedIn: 'root'
@@ -18,11 +18,11 @@ export class InvoiceService {
   }
 
   store(invoice: Invoice): Observable<void> {
-    return this.http.post<void>(`${environment.baseUrl}/invoice/store`, invoice)
+    return this.http.post<void>(`${environment.baseUrl}/invoice/store`, invoice);
   }
 
-  paginate(page: number, size: number): Observable<Paginate> {
-    return this.http.get<Paginate>(`${environment.baseUrl}/invoice/paginate?page=${page}&size=${size}`);
+  paginate(page: number, size: number): Observable<Paginate<Invoice>> {
+    return this.http.get<Paginate<Invoice>>(`${environment.baseUrl}/invoice/paginate?page=${page}&size=${size}`);
   }
 
   destroy(id: number): Observable<void> {
@@ -30,6 +30,6 @@ export class InvoiceService {
   }
 
   update(invoice: Invoice): Observable<void> {
-    return this.http.post<void>(`${environment.baseUrl}/invoice/update`, invoice)
+    return this.http.post<void>(`${environment.baseUrl}/invoice/update`, invoice);
   }
 }

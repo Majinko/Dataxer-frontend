@@ -71,28 +71,35 @@
     </div>
   </div>
 
-  <!--  <div class="row">
-      <div class="col-md-4">
-        <mat-form-field class="form-pack-price-offer-create w-100">
-          <ngx-mat-file-input formControlName="basicfile" placeholder="Obrázok položky"></ngx-mat-file-input>
-          <mat-icon matSuffix>image</mat-icon>
-        </mat-form-field>
+  <div class="row">
+    <div class="col-md-4">
+      <div class="mb-3">
+        <mat-progress-bar *ngIf="!this.uploadHelper.imageUrl && !this.uploadHelper.isLoad" mode="indeterminate"></mat-progress-bar>
+        <img *ngIf="this.uploadHelper.imageUrl" src="{{this.uploadHelper.imageUrl}}" alt="">
       </div>
 
-      <div class="col-md-4">
-        <mat-form-field class="form-pack-price-offer-create w-100">
-          <ngx-mat-file-input formControlName="basicfile" placeholder="Galéria položky" multiple></ngx-mat-file-input>
-          <mat-icon matSuffix>collections</mat-icon>
-        </mat-form-field>
-      </div>
+      <mat-form-field class="form-pack-price-offer-create w-100">
+        <ngx-mat-file-input (change)="uploadFile($event.target.files, true)"  placeholder="Obrázok položky"></ngx-mat-file-input>
+        <mat-icon matSuffix>image</mat-icon>
+      </mat-form-field>
 
-      <div class="col-md-4">
-        <mat-form-field class="form-pack-price-offer-create w-100">
-          <ngx-mat-file-input formControlName="basicfile" placeholder="Súbory položky"></ngx-mat-file-input>
-          <mat-icon matSuffix>add</mat-icon>
-        </mat-form-field>
-      </div>
+      <input type="hidden" formControlName="preview">
+    </div>
+
+<!--    <div class="col-md-4">
+      <mat-form-field class="form-pack-price-offer-create w-100">
+        <ngx-mat-file-input placeholder="Galéria položky" multiple></ngx-mat-file-input>
+        <mat-icon matSuffix>collections</mat-icon>
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-4">
+      <mat-form-field class="form-pack-price-offer-create w-100">
+        <ngx-mat-file-input  placeholder="Súbory položky"></ngx-mat-file-input>
+        <mat-icon matSuffix>add</mat-icon>
+      </mat-form-field>
     </div>-->
+  </div>
 
   <div class="row">
     <div class="col-md-4">
@@ -113,23 +120,23 @@
   </div>
 
   <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-6">
       <mat-form-field class="form-group w-100">
         <input matInput placeholder="Jednotka" formControlName="unit">
       </mat-form-field>
     </div>
 
-    <div class="col-md-4">
+    <div class="col-md-6">
       <mat-form-field class="form-group w-100">
         <input matInput placeholder="Kód (SKU)" formControlName="code">
       </mat-form-field>
     </div>
 
-    <div class="col-md-4">
+  <!--  <div class="col-md-4">
       <mat-form-field class="form-group w-100">
         <input matInput placeholder="Súvisiace položky">
       </mat-form-field>
-    </div>
+    </div>-->
   </div>
 
   <div class="row">

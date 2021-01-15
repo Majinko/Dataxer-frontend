@@ -7,7 +7,6 @@ import {ItemCreateComponent} from './item-create/item-create.component';
 import {MaterialModule} from '../../../theme/modules/material.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NgSelectModule} from '@ng-select/ng-select';
-import {MaterialFileInputModule} from 'ngx-material-file-input';
 import {ThemeModule} from '../../../theme/theme.module';
 import {ContactModule} from '../contact/contact.module';
 import {ItemPriceComponent} from './component/item-price/item-price.component';
@@ -23,7 +22,6 @@ import {ItemTableComponent} from './item-index/item-table/item-table.component';
     MaterialModule,
     ReactiveFormsModule,
     NgSelectModule,
-    MaterialFileInputModule,
     ThemeModule,
     ContactModule,
     FormsModule,

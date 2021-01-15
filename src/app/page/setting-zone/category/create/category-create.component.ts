@@ -1,8 +1,10 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, Inject, OnInit, Optional} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CategoryItemNode} from '../../../../core/models/category-item-node';
 import {CategoryService} from '../../../../core/services/category.service';
 import {Router} from '@angular/router';
+import {MatDialogRef} from '@angular/material/dialog';
+import {MessageService} from '../../../../core/services/message.service';
 
 @Component({
   selector: 'app-create-category',
@@ -16,7 +18,9 @@ export class CategoryCreateComponent implements OnInit {
   constructor(
     @Inject(CategoryService) private readonly categoryService: CategoryService,
     private formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    private messageService: MessageService,
+    @Optional() public dialogRef: MatDialogRef<CategoryCreateComponent>,
   ) {
     this.formGroup = this.formBuilder.group({
       name: ['', Validators.required],
@@ -37,14 +41,23 @@ export class CategoryCreateComponent implements OnInit {
     return this.formGroup.controls;
   }
 
-
   onSubmit(category: CategoryItemNode) {
     if (this.formGroup.invalid) {
       return;
     }
 
     this.categoryService.store(category).subscribe(() => {
-      this.router.navigate(['/setting/category']);
+      this.messageService.add('Kategória bola vytvorená');
+
+      if (this.dialogRef === null) {
+        this.router.navigate(['/setting/category']);
+      }
     });
+  }
+
+  close() {
+    if (this.formGroup.valid) {
+      this.dialogRef.close();
+    }
   }
 }

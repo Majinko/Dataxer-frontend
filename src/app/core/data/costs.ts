@@ -1,23 +1,23 @@
-import {CostState, CostType} from "../models/cost";
+import {CostState, CostType} from '../models/cost';
 
 export const COSTTYPES: CostType[] = [
   {
-    key: 'invoice',
+    key: 'INVOICE',
     value: 'Faktúra'
-  }
-]
+  },
+];
 
 export const COSTSTATES: CostState[] = [
   {
-    key: 'payed',
+    key: 'PAYED',
     value: 'Uhradený'
   },
   {
-    key: 'unpaid',
+    key: 'UNPAID',
     value: 'Neuhradený'
   },
   {
-    key: 'overdue',
+    key: 'OVERDUE',
     value: 'Po splatnosti'
   }
-]
+];

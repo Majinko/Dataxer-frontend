@@ -20,7 +20,7 @@ const routes: Routes = [{
       component: BankAccountDialogComponent
     }
   ]
-}]
+}];
 
 @NgModule({
   declarations: [BankAccountComponent, BankAccountIndexComponent, BankAccountDialogComponent],

@@ -1,19 +1,22 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {ItemService} from "../../../../core/services/item.service";
-import {Item} from "../../../../core/models/item";
-import {ActivatedRoute, Router} from "@angular/router";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {CategoryItemNode} from "../../../../core/models/category-item-node";
-import {Contact} from "../../../../core/models/contact";
-import {CdkTextareaAutosize} from "@angular/cdk/text-field";
-import {CategoryService} from "../../../../core/services/category.service";
-import {ContactService} from "../../../../core/services/contact.service";
-import {MessageService} from "../../../../core/services/message.service";
+import {ItemService} from '../../../../core/services/item.service';
+import {Item} from '../../../../core/models/item';
+import {ActivatedRoute} from '@angular/router';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {CategoryItemNode} from '../../../../core/models/category-item-node';
+import {Contact} from '../../../../core/models/contact';
+import {CdkTextareaAutosize} from '@angular/cdk/text-field';
+import {CategoryService} from '../../../../core/services/category.service';
+import {ContactService} from '../../../../core/services/contact.service';
+import {MessageService} from '../../../../core/services/message.service';
+import {StorageService} from '../../../../core/services/storage.service';
+import {UploadHelper} from '../../../../core/class/UploadHelper';
 
 @Component({
   selector: 'app-item-edit',
   templateUrl: './item-edit.component.html',
-  styleUrls: ['./item-edit.component.scss']
+  styleUrls: ['./item-edit.component.scss'],
+  providers: [UploadHelper]
 })
 export class ItemEditComponent implements OnInit {
   item: Item;
@@ -29,9 +32,11 @@ export class ItemEditComponent implements OnInit {
     private readonly categoryService: CategoryService,
     private readonly contactService: ContactService,
     private messageService: MessageService,
+    private storageService: StorageService,
     private itemService: ItemService,
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
+    public uploadHelper: UploadHelper,
   ) {
   }
 
@@ -46,7 +51,7 @@ export class ItemEditComponent implements OnInit {
     this.formGroup = this.formBuilder.group({
       id: '',
       title: [null, Validators.required],
-      category: [null, Validators.required],
+      category: [null],
       type: null,
       shortDescription: null,
       description: null,
@@ -71,7 +76,8 @@ export class ItemEditComponent implements OnInit {
         price: 0,
         tax: 20,
         marge: 0
-      })
+      }),
+      preview: null
     });
 
   }
@@ -81,7 +87,9 @@ export class ItemEditComponent implements OnInit {
       this.item = i;
 
       this.formGroup.patchValue(this.item);
-    })
+
+      this.getItemImage();
+    });
   }
 
   getCategories() {
@@ -92,17 +100,34 @@ export class ItemEditComponent implements OnInit {
     this.contactService.all().subscribe(c => this.contacts = c);
   }
 
+  onSubmit() {
+    if (this.formGroup.invalid) {
+      return;
+    }
+
+    this.itemService.update(this.formGroup.value).subscribe(i => {
+      this.messageService.add('Položka bola aktualizovaná');
+    });
+  }
+
+  uploadFile(files: File, b: boolean) {
+    this.uploadHelper.prepareCustomFile(files[0], b).then(res => {
+      this.formGroup.patchValue({
+        preview: res
+      });
+    });
+  }
+
+  private getItemImage() {
+    this.storageService.getPreviewImage(this.item.id, 'item').subscribe(r => {
+      if (r) {
+        this.uploadHelper.prepareItemUrl(r.path);
+      }
+    });
+  }
+
   // convenience getter for easy access to form fields
   get f() {
     return this.formGroup.controls;
-  }
-
-  onSubmit() {
-    if (this.formGroup.invalid)
-      return;
-
-    this.itemService.update(this.formGroup.value).subscribe(i => {
-      this.messageService.add("Item was update")
-    })
   }
 }

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {InvoiceService} from '../../../../core/services/invoice.service';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-invoice-edit',
@@ -7,9 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InvoiceEditComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private invoiceService: InvoiceService,
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit(): void {
+    console.log(this.route.snapshot.paramMap.get('id'))
   }
 
 }

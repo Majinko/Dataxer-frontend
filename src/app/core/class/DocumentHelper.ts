@@ -1,6 +1,6 @@
-import {Injectable} from "@angular/core";
-import {AbstractControl} from "@angular/forms";
-import {Pack} from "../models/pack";
+import {Injectable} from '@angular/core';
+import {AbstractControl} from '@angular/forms';
+import {Pack} from '../models/pack';
 
 @Injectable()
 export class DocumentHelper {
@@ -10,11 +10,12 @@ export class DocumentHelper {
 
   // change input value packs
   handlePackChanges(packs: AbstractControl) {
+    // tslint:disable-next-line:no-shadowed-variable
     packs.valueChanges.subscribe((packs) => {
       this.packs = packs;
 
       this.calcPackPrice();
-    })
+    });
   }
 
   calcPackPrice() {
@@ -24,13 +25,15 @@ export class DocumentHelper {
     this.packs.forEach(pack => {
       pack.totalPrice = 0;
 
-      pack.packItems.forEach(item => {
-        item.totalPrice = +this.addPercent(+item.price * +item.qty, +item.tax)
-        pack.totalPrice += +item.totalPrice;
+      if (pack.packItems) {
+        pack.packItems.forEach(item => {
+          item.totalPrice = +this.addPercent(+item.price * +item.qty, +item.tax);
+          pack.totalPrice += +item.totalPrice;
 
-        this.price += +this.removePercent(+item.price * +item.qty, +item.discount)
-        this.totalPrice += +this.removePercent(+item.totalPrice, +item.discount)
-      })
+          this.price += +this.removePercent(+item.price * +item.qty, +item.discount);
+          this.totalPrice += +this.removePercent(+item.totalPrice, +item.discount);
+        });
+      }
     });
   }
 

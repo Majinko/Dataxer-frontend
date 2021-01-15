@@ -1,7 +1,8 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
+import {TimeIndexComponent} from './time-index/time-index.component';
 import {TimeComponent} from './time.component';
-import {IndexComponent} from './index/index.component';
+import {TimeCreateComponent} from './time-create/time-create.component';
 
 const routes: Routes = [{
   path: '',
@@ -9,7 +10,11 @@ const routes: Routes = [{
   children: [
     {
       path: '',
-      component: IndexComponent
+      component: TimeIndexComponent
+    },
+    {
+      path: 'create',
+      component: TimeCreateComponent
     }
   ]
 }];

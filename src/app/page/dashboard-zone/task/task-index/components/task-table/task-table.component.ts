@@ -1,10 +1,10 @@
 import {AfterViewInit, Component, ViewChild} from '@angular/core';
-import {Task} from "../../../../../../core/models/task";
-import {MatPaginator} from "@angular/material/paginator";
-import {TaskService} from "../../../../../../core/services/task.service";
-import {MessageService} from "../../../../../../core/services/message.service";
-import {merge} from "rxjs";
-import {map, startWith, switchMap} from "rxjs/operators";
+import {Task} from '../../../../../../core/models/task';
+import {MatPaginator} from '@angular/material/paginator';
+import {TaskService} from '../../../../../../core/services/task.service';
+import {MessageService} from '../../../../../../core/services/message.service';
+import {merge} from 'rxjs';
+import {map, startWith, switchMap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-task-table',
@@ -14,7 +14,7 @@ import {map, startWith, switchMap} from "rxjs/operators";
 export class TaskTableComponent implements AfterViewInit {
   pageSize = 15;
   totalElements = 0;
-  tasks: Task[] = []
+  tasks: Task[] = [];
   isLoadingResults = true;
 
   displayedColumns: string[] = [
@@ -31,7 +31,8 @@ export class TaskTableComponent implements AfterViewInit {
   constructor(
     private taskService: TaskService,
     private messageService: MessageService
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
   }
@@ -41,7 +42,7 @@ export class TaskTableComponent implements AfterViewInit {
   }
 
   private paginate() {
-    this.paginator.pageIndex = 0
+    this.paginator.pageIndex = 0;
 
     merge(this.paginator.page)
       .pipe(
@@ -66,7 +67,7 @@ export class TaskTableComponent implements AfterViewInit {
   destroy(id: number) {
     this.taskService.destroy(id).subscribe(() => {
       this.paginate();
-      this.messageService.add("Uloha bola vymazana");
-    })
+      this.messageService.add('Úloha bola vymazana');
+    });
   }
 }

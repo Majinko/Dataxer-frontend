@@ -3,6 +3,8 @@
   <mat-icon matSuffix class="text-gray">search</mat-icon>
 </mat-form-field>
 
+<mat-error *ngIf="isError">Meno je povinné</mat-error>
+
 <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn"  (optionSelected)="setFirm($event.option.value)">
   <ng-container>
     <mat-option *ngFor="let firm of slovakiaDigitalFirms" [value]="firm">

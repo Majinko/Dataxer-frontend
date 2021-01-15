@@ -1,11 +1,12 @@
-import {Item} from "./item";
+import {Item} from './item';
 
 export interface Pack {
   id: number;
   title: string;
-  packItems: PackItem[],
+  customPrice?: boolean;
+  packItems: PackItem[];
   tax?: number;
-  totalPrice?: number
+  totalPrice?: number;
 }
 
 export interface PackItem {
@@ -16,5 +17,5 @@ export interface PackItem {
   discount?: number;
   price?: number;
   tax?: number;
-  totalPrice?: number
+  totalPrice?: number;
 }

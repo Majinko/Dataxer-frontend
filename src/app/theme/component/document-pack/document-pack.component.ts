@@ -1,25 +1,25 @@
-import {Component, OnInit, Input} from "@angular/core";
+import {Component, OnInit, Input} from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
   FormArray, AbstractControl,
-} from "@angular/forms";
-import {UNITS} from "../../../core/data/unit-items";
-import {DocumentHelper} from "../../../core/class/DocumentHelper";
-import {Pack} from "../../../core/models/pack";
-import {PackService} from "../../../core/services/pack.service";
-import {Item} from "../../../core/models/item";
+} from '@angular/forms';
+import {UNITS} from '../../../core/data/unit-items';
+import {DocumentHelper} from '../../../core/class/DocumentHelper';
+import {Pack} from '../../../core/models/pack';
+import {PackService} from '../../../core/services/pack.service';
+import {Item} from '../../../core/models/item';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 
 @Component({
-  selector: "app-document-pack",
-  templateUrl: "./document-pack.component.html",
-  styleUrls: ["./document-pack.component.css"],
+  selector: 'app-document-pack',
+  templateUrl: './document-pack.component.html',
+  styleUrls: ['./document-pack.component.css'],
 })
 export class DocumentPackComponent implements OnInit {
   units = UNITS;
-  @Input() packs: Pack[]
-  @Input() documentHelper: DocumentHelper
+  @Input() packs: Pack[];
+  @Input() documentHelper: DocumentHelper;
   @Input() formGroup: FormGroup;
 
   constructor(
@@ -29,14 +29,31 @@ export class DocumentPackComponent implements OnInit {
   }
 
   ngOnInit() {
-    //init pack changes
     this.documentHelper.handlePackChanges(this.f.packs);
 
     this.preparePack();
 
     if (this.packs) {
-      this.formGroup.patchValue({packs: this.packs})
+      this.formGroup.patchValue({packs: this.packs});
     }
+  }
+
+  private disableEnable() {
+    this.f.packs.valueChanges.subscribe(packs => {
+      packs.forEach((pack, index) => {
+        if (pack.customPrice) {
+          this.formPacks.at(index).get('tax').enable({emitEvent: false});
+          this.formPacks.at(index).get('totalPrice').enable({emitEvent: false});
+
+          this.formPacks.at(index).get('packItems').disable({emitEvent: false});
+        } else {
+          this.formPacks.at(index).get('tax').disable({emitEvent: false});
+          this.formPacks.at(index).get('totalPrice').disable({emitEvent: false});
+
+          this.formPacks.at(index).get('packItems').enable({emitEvent: false});
+        }
+      });
+    });
   }
 
   createPack(): FormGroup {
@@ -53,14 +70,14 @@ export class DocumentPackComponent implements OnInit {
   createItem(): FormGroup {
     return this.formBuilder.group({
       id: '',
-      title: "",
+      title: null,
       item: null,
       qty: 1,
       unit: this.units[0].unit,
       discount: 0,
-      price: [{value: 0, disabled: false}],
-      tax: [{value: 20, disabled: false}],
-      totalPrice: [{value: 0, disabled: false}],
+      price: 0,
+      tax: 20,
+      totalPrice: 0,
     });
   }
 
@@ -101,7 +118,7 @@ export class DocumentPackComponent implements OnInit {
   }
 
   get formPacks(): FormArray {
-    return this.formGroup.get("packs") as FormArray;
+    return this.formGroup.get('packs') as FormArray;
   }
 
   get items(): FormArray {
@@ -119,7 +136,7 @@ export class DocumentPackComponent implements OnInit {
       title: item.title,
       price: item.itemPrice.price,
       tax: item.itemPrice.tax
-    })
+    });
   }
 
   // set item title
@@ -127,7 +144,7 @@ export class DocumentPackComponent implements OnInit {
     itemGroup.patchValue({
       title,
       item: null
-    })
+    });
   }
 
   // set pack when find it
@@ -146,7 +163,7 @@ export class DocumentPackComponent implements OnInit {
 
             return item;
           })
-        })
+        });
       }
     });
   }
@@ -155,23 +172,24 @@ export class DocumentPackComponent implements OnInit {
   dropPack(event: CdkDragDrop<FormArray[]>) {
     moveItemInArray(this.formPacks.controls, event.previousIndex, event.currentIndex);
 
-    this.formPacks.patchValue(this.formPacks.controls)
+    this.formPacks.patchValue(this.formPacks.controls);
   }
 
   // sort item
   dropItem(packIndex: number, event: CdkDragDrop<any[]>) {
     moveItemInArray(this.itemsByIndex(packIndex).controls, event.previousIndex, event.currentIndex);
 
-    this.itemsByIndex(packIndex).patchValue(this.itemsByIndex(packIndex).controls)
+    this.itemsByIndex(packIndex).patchValue(this.itemsByIndex(packIndex).controls);
   }
 
   // show discount
   showDiscount(trRow: HTMLTableRowElement) {
-    let discountInputs = trRow.querySelectorAll('.jsDiscount')
+    const discountInputs = trRow.querySelectorAll('.jsDiscount');
 
+    // tslint:disable-next-line:no-unused-expression
     discountInputs && discountInputs.forEach(discountInput => {
       discountInput.classList.toggle('d-none');
-    })
+    });
 
     return false;
   }

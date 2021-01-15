@@ -1,20 +1,38 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {CategoryItemNode} from "../../../../core/models/category-item-node";
-import {CategoryService} from "../../../../core/services/category.service";
-import {MessageService} from "../../../../core/services/message.service";
-import {Router} from "@angular/router";
-import {ProjectService} from "../../../../core/services/project.service";
-import {User} from "../../../../core/models/user";
-import {UserService} from "../../../../core/services/user.service";
+import {Component, OnInit, Optional} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {CategoryItemNode} from '../../../../core/models/category-item-node';
+import {CategoryService} from '../../../../core/services/category.service';
+import {MessageService} from '../../../../core/services/message.service';
+import {Router} from '@angular/router';
+import {ProjectService} from '../../../../core/services/project.service';
+import {User} from '../../../../core/models/user';
+import {UserService} from '../../../../core/services/user.service';
+import {MatDialogRef} from '@angular/material/dialog';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+import {MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter} from '@angular/material-moment-adapter';
+import {APP_DATE_FORMATS} from '../../../../../helper';
+import {AddPercentPipe} from '../../../../core/pipes/add-percent.pipe';
 
 @Component({
   selector: 'app-project-create',
   templateUrl: './project-create.component.html',
-  styleUrls: ['./project-create.component.scss']
+  styleUrls: ['./project-create.component.scss'],
+  providers: [
+    // `MomentDateAdapter` can be automatically provided by importing `MomentDateModule` in your
+    // application's root module. We provide it at the component level here, due to limitations of
+    // our example generation script.
+    {
+      provide: DateAdapter,
+      useClass: MomentDateAdapter,
+      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]
+    },
+
+    {provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS},
+    AddPercentPipe
+  ],
 })
 export class ProjectCreateComponent implements OnInit {
-  formGroup: FormGroup
+  formGroup: FormGroup;
   submitted: boolean = false;
   categories: CategoryItemNode[];
   users: User[] = [];
@@ -25,7 +43,8 @@ export class ProjectCreateComponent implements OnInit {
     private categoryService: CategoryService,
     private messageService: MessageService,
     private projectService: ProjectService,
-    private router: Router
+    private router: Router,
+    @Optional() public dialogRef: MatDialogRef<ProjectCreateComponent>,
   ) {
   }
 
@@ -42,11 +61,11 @@ export class ProjectCreateComponent implements OnInit {
       contact: null,
       state: null,
       address: '',
-      area: 0,
+      area: [0, Validators.pattern(/^[0-9]\d*$/)],
       startedAt: new Date(),
       finishedAt: new Date(),
-      //attributes: this.formBuilder.array([])
-    })
+      // attributes: this.formBuilder.array([])
+    });
   }
 
   private getUsers() {
@@ -63,14 +82,23 @@ export class ProjectCreateComponent implements OnInit {
     }
 
     this.projectService.store(this.formGroup.value).subscribe(() => {
-      this.router.navigate(['/project']).then(() => {
-        this.messageService.add("Zákazka bola vytvorena")
-      })
-    })
+      this.messageService.add('Zákazka bola vytvorena');
+
+      if (this.dialogRef === null) {
+        this.router.navigate(['/project']).then(() => {
+        });
+      }
+    });
   }
 
   // convenience getter for easy access to form fields
   get f() {
     return this.formGroup.controls;
+  }
+
+  close() {
+    if (this.formGroup.valid) {
+      this.dialogRef.close();
+    }
   }
 }

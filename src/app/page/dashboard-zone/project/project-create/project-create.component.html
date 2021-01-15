@@ -1,7 +1,10 @@
 <div class="row mb-4">
-  <div class="col d-flex align-items-center mb-3 mb-md-5">
-    <mat-icon routerLink="/project" class="mr-2 mr-md-5 cursor-pointer">keyboard_backspace</mat-icon>
+  <div class="col d-flex align-items-center mb-3" [class.mb-md-5]="!dialogRef" [class.justify-content-between]="dialogRef">
+    <mat-icon *ngIf="dialogRef === null" routerLink="/project" class="mr-2 mr-md-5 cursor-pointer">keyboard_backspace</mat-icon>
     <h1 class="mb-0">Nová zákazka</h1>
+    <a *ngIf="dialogRef" mat-icon-button class="close-icon cursor-pointer" mat-dialog-close>
+      <mat-icon>close</mat-icon>
+    </a>
   </div>
 </div>
 
@@ -16,14 +19,14 @@
     <div class="col-md-6 form-group">
       <mat-form-field class="form-group w-100">
         <input formControlName="title" matInput placeholder="Názov zákazky">
-        <mat-error *ngIf="f.title.errors">Názov zákazky je <strong>pozadovany.</strong></mat-error>
+        <mat-error *ngIf="f.title.errors">Názov zákazky je <strong>požadovaný.</strong></mat-error>
       </mat-form-field>
     </div>
 
     <div class="col-md-6 form-group">
       <mat-form-field class="form-group w-100">
         <input formControlName="number" matInput placeholder="Číslo zákazky">
-        <mat-error *ngIf="f.number.errors">Číslo zákazky je <strong>pozadovane.</strong></mat-error>
+        <mat-error *ngIf="f.number.errors">Číslo zákazky je <strong>požadované.</strong></mat-error>
       </mat-form-field>
     </div>
 
@@ -35,7 +38,7 @@
 
     <div class="col-md-6 form-group">
       <app-select-new-contact formControlName="contact"></app-select-new-contact>
-      <mat-error *ngIf="submitted && f.contact.errors">Client je <strong>pozadovany.</strong></mat-error>
+      <mat-error *ngIf="submitted && f.contact.errors">Client je <strong>požadovaný.</strong></mat-error>
     </div>
 
     <div class="col-md-6">
@@ -82,20 +85,30 @@
     <div class="col-md-6 form-group">
       <mat-form-field class="form-group w-100">
         <input formControlName="area" matInput placeholder="Rozloha zákazky">
+        <mat-error *ngIf="f.area.errors">Rozloha zákazky musi byt <strong>cislo.</strong></mat-error>
       </mat-form-field>
     </div>
   </div>
 
   <div class="row">
     <div class="col-md-12 text-right">
-      <button routerLink="/project" mat-stroked-button class="btn-icon btn-theme-stroked mr-3">
-        <mat-icon>cancel</mat-icon>
-        Zrušiť
-      </button>
-      <button mat-flat-button class="btn-icon btn-theme">
-        <mat-icon>save</mat-icon>
-        Uložiť
-      </button>
+      <div *ngIf="dialogRef === null; else dialogProject">
+        <button routerLink="/project" mat-stroked-button class="btn-icon btn-theme-stroked mr-3">
+          <mat-icon>cancel</mat-icon>
+          Zrušiť
+        </button>
+        <button mat-flat-button class="btn-icon btn-theme">
+          <mat-icon>save</mat-icon>
+          Uložiť
+        </button>
+      </div>
+
+      <ng-template #dialogProject>
+        <button (click)="close()" mat-stroked-button class="btn-icon btn-theme-stroked">
+          <mat-icon>save</mat-icon>
+          Uložiť
+        </button>
+      </ng-template>
     </div>
   </div>
 </form>
