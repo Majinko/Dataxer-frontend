@@ -29,7 +29,7 @@ export class UserEditComponent implements OnInit {
       id: null,
       firstName: [null, Validators.required],
       lastName: [null, Validators.required],
-      email: [null, Validators.required],
+      email: [{value: null, disabled: true}, Validators.required],
       uid: null,
       phone: null,
       street: null,

@@ -1,1 +1,230 @@
-<p>invoice-edit works!</p>
+<div *ngIf="invoice">
+  <div class="row mb-4">
+    <div class="col d-flex align-items-center mb-3 mb-md-5">
+      <mat-icon routerLink="/invoice" class="mr-2 mr-md-5 cursor-pointer">keyboard_backspace</mat-icon>
+      <h1 class="mb-0">Úprava faktúry</h1>
+    </div>
+  </div>
+
+  <form autocomplete="off" [formGroup]="formGroup" (ngSubmit)="submit()">
+    <div class="row">
+      <div class="col-12">
+        <h2 class="border-bottom-2 pb-2 mb-4">Súhrnné info</h2>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4 form-group">
+        <app-select-new-contact formControlName="contact"></app-select-new-contact>
+        <mat-error *ngIf="submitted && f.contact.errors">Client je <strong>pozadovany.</strong></mat-error>
+      </div>
+
+      <div class="col-md-8">
+        <mat-form-field class="form-group w-100">
+          <input formControlName="title" matInput placeholder="Názov faktury">
+          <mat-error *ngIf="f.title.errors">Názov faktury je <strong>pozadovany.</strong></mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-3">
+        <mat-form-field class="form-group w-100">
+          <input formControlName="number" matInput placeholder="Číslo">
+          <mat-error *ngIf="submitted && f.number.errors">Číslo je <strong>pozadovany.</strong></mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-3">
+        <mat-form-field class="form-group w-100">
+          <input formControlName="variableSymbol" matInput placeholder="Variabilný symbol">
+          <mat-error *ngIf="submitted && f.number.errors">Variabilný symbol je <strong>pozadovany.</strong></mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-3">
+        <mat-form-field class="form-group w-100">
+          <input formControlName="subject" matInput placeholder="Predmet">
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-3">
+        <mat-form-field class="form-group w-100">
+          <mat-label>Stav</mat-label>
+          <select formControlName="state" matNativeControl>
+            <option value="WAITING">Čakajúca</option>
+            <option value="APPROVED">Schválená</option>
+            <option value="REJECTED">Zamietnutá</option>
+          </select>
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-12 {{moreOptions ? 'mb-3' : 'mb-5'}}">
+        <a class="cursor-pointer text-dark btn-link" (click)="moreOptions = !moreOptions"><b>Viac možností</b></a>
+      </div>
+
+      <div class="col-12" *ngIf="moreOptions">
+        <div class="row">
+          <div class="col-md-4">
+            <mat-form-field class="form-group w-100">
+              <mat-label>Spôsob dodania</mat-label>
+              <select formControlName="deliveryMethod" matNativeControl>
+                <option value="MAIL" selected>Poštou</option>
+                <option value="COURIER">Kuriérom</option>
+                <option value="PERSONAL">Osobný odber</option>
+                <option value="PERSONAL">Vlastné</option>
+              </select>
+            </mat-form-field>
+          </div>
+          <div class="col-md-4">
+            <mat-form-field class="form-group w-100">
+              <mat-label>Forma úhrady</mat-label>
+              <mat-select formControlName="paymentMethod" matNativeControl>
+                <mat-option value="BANK_PAYMENT" selected>Bankový prevod</mat-option>
+                <mat-option value="CASH">Hotovosť</mat-option>
+                <mat-option value="PAYPAL">Paypal</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-4">
+            <mat-form-field class="form-group w-100">
+              <input formControlName="constantSymbol" matInput placeholder="Konštantný symbol">
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-4">
+            <mat-form-field class="form-group w-100">
+              <input formControlName="specificSymbol" matInput placeholder="Špecifický symbol">
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12">
+        <h2 class="border-bottom-2 pb-2 mb-4">Dátumy</h2>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4">
+        <mat-form-field class="form-group w-100">
+          <mat-label>Dátum vystavenia</mat-label>
+          <input formControlName="createdDate" matInput [matDatepicker]="createdDate">
+          <mat-datepicker-toggle matSuffix [for]="createdDate"></mat-datepicker-toggle>
+          <mat-datepicker #createdDate></mat-datepicker>
+          <mat-error *ngIf="f.createdDate.errors">Dátum vystavenia je <strong>pozadovany.</strong></mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-4">
+        <mat-form-field class="form-group w-100">
+          <mat-label>Dátum dodania</mat-label>
+          <input formControlName="deliveredDate" matInput [matDatepicker]="deliveredDate">
+          <mat-datepicker-toggle matSuffix [for]="deliveredDate"></mat-datepicker-toggle>
+          <mat-datepicker #deliveredDate></mat-datepicker>
+          <mat-error *ngIf="f.deliveredDate.errors">Dátum dodania je <strong>pozadovany.</strong></mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-4">
+        <mat-form-field class="form-group w-100">
+          <mat-label>Platnosť</mat-label>
+          <input formControlName="deliveredDate" matInput [matDatepicker]="dueDate">
+          <mat-datepicker-toggle matSuffix [for]="dueDate"></mat-datepicker-toggle>
+          <mat-datepicker #dueDate></mat-datepicker>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12">
+        <h2 class="border-bottom-2 pb-2 mb-4">Položky</h2>
+      </div>
+    </div>
+
+    <app-document-pack [formGroup]="formGroup" [packs]="invoice.packs"  [documentHelper]="documentHelper"></app-document-pack>
+
+    <div class="row">
+      <div class="col-12">
+        <h2 class="border-bottom-2 pb-2 mb-4">Doplňujúce informácie</h2>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4 mb-5">
+        <mat-form-field class="example-full-width">
+          <input type="number" matInput #discount formControlName="discount">
+          <i matSuffix>%</i>
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-8 mb-5">
+        <table class="w-100">
+          <tr class="text-right">
+            <td class="pb-1">Zľava {{discount.value}} %</td>
+            <td class="pb-1">{{discount.value > 0 ? '-' : ''}}{{((documentHelper.totalPrice | addPercent: discount.value) - documentHelper.totalPrice).toFixed(2)}} €</td>
+          </tr>
+
+          <tr class="text-right">
+            <td>Celkom bez DPH:</td>
+            <td>{{documentHelper.price | removePercent: +discount.value}} €</td>
+          </tr>
+
+          <tr class="text-right">
+            <td><h2 class="text-theme mb-0"><b>Celkom s DPH:</b></h2></td>
+            <td>{{documentHelper.totalPrice | removePercent: +discount.value}} €</td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="col-md-12">
+        <mat-form-field class="form-group w-100">
+          <input formControlName="note" matInput placeholder="Poznámka pre príjemcu">
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row" formGroupName="documentData">
+      <div class="col-12" formGroupName="user">
+        <div class="row">
+          <div class="col-md-4">
+            <mat-form-field class="form-group w-100">
+              <input formControlName="displayName" matInput placeholder="Vystavil">
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-4">
+            <mat-form-field class="form-group w-100">
+              <input formControlName="phone" matInput placeholder="Telefón">
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-4">
+            <mat-form-field class="form-group w-100">
+              <input formControlName="email" matInput placeholder="E-mail">
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12 text-right">
+        <button mat-stroked-button class="btn-icon btn-theme-stroked mr-3">
+          <mat-icon>cancel</mat-icon>
+          Zrušiť
+        </button>
+        <button mat-flat-button class="btn-icon btn-theme">
+          <mat-icon>save</mat-icon>
+          Uložiť
+        </button>
+      </div>
+    </div>
+  </form>
+
+</div>

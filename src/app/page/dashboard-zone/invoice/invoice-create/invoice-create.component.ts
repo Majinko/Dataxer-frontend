@@ -115,7 +115,7 @@ export class InvoiceCreateComponent implements OnInit {
     this.invoiceService.store(this.formGroup.value).subscribe((r) => {
       this.router
         .navigate(['/invoice'])
-        .then(() => this.messageService.add('Faktura ponuka bola ulozna'));
+        .then(() => this.messageService.add('Faktúra bola uložená'));
     });
   }
 }

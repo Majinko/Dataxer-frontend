@@ -91,7 +91,6 @@ export class PriceOfferCreateComponent implements OnInit {
 
   // submit form
   submit() {
-    console.log(this.formGroup.value);
     this.submitted = true;
 
     if (this.formGroup.invalid) {

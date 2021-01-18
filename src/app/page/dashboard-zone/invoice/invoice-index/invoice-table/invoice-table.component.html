@@ -37,8 +37,7 @@
           <ng-container matColumnDef="state">
             <th class="text-center" mat-header-cell *matHeaderCellDef> Stav</th>
             <td class="text-center" mat-cell *matCellDef="let element">
-              <span [ngClass]="'bg-' + element.state"
-                    class="custom-badge text-white">{{element.state | uppercase | slice:0:1 }}</span>
+              <span [ngClass]="'bg-' + element.state | lowercase" class="custom-badge text-white">{{element.state | uppercase | slice:0:1 }}</span>
             </td>
           </ng-container>
 
@@ -54,7 +53,7 @@
             <td class="text-right action-link pr-0 max" mat-cell colspan="3" *matCellDef="let element">
               <div class="invisible">
                 <button
-                  [routerLink]="['/price-offer/edit', element.id]"
+                  [routerLink]="['/invoice/edit', element.id]"
                   mat-icon-button
                   matTooltip="Edit item">
                   <mat-icon class="text-theme">edit</mat-icon>

@@ -24,7 +24,7 @@ const routes: Routes = [{
       component: InvoiceCreateComponent
     },
     {
-      path: 'edit/:invoice_id',
+      path: 'edit/:id',
       component: InvoiceEditComponent
     }
   ]
