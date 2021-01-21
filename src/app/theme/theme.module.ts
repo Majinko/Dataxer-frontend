@@ -13,31 +13,31 @@ import {AvatarModule} from 'ngx-avatar';
 import {MenuLogoComponent} from './component/toolbar/component/menu-logo/menu-logo.component';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {ItemAutocompleteComponent} from './component/item-autocomplete/item-autocomplete.component';
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {NewContactSelectComponent} from "./component/new-contact-select/new-contact-select.component";
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {NewContactSelectComponent} from './component/new-contact-select/new-contact-select.component';
 import {PackAutocompleteComponent} from './component/pack-autocomplete/pack-autocomplete.component';
-import {DocumentPackComponent} from "./component/document-pack/document-pack.component";
-import { SlovakiaDigitalAutocompleteComponent } from './component/slovakia-digital-autocomplete/slovakia-digital-autocomplete.component';
-import { NewProjectSelectComponent } from './component/new-project-select/new-project-select.component';
-import { NewCategorySelectComponent } from './component/new-category-select/new-category-select.component';
-import { SpinnerButtonComponent } from './component/spinner-button/spinner-button.component';
-import { ElementPaidStateComponent } from './component/element-paid-state/element-paid-state.component';
-import { FileComponent } from './component/file/file.component';
+import {DocumentPackComponent} from './component/document-pack/document-pack.component';
+import {SlovakiaDigitalAutocompleteComponent} from './component/slovakia-digital-autocomplete/slovakia-digital-autocomplete.component';
+import {NewProjectSelectComponent} from './component/new-project-select/new-project-select.component';
+import {NewCategorySelectComponent} from './component/new-category-select/new-category-select.component';
+import {SpinnerButtonComponent} from './component/spinner-button/spinner-button.component';
+import {ElementPaidStateComponent} from './component/element-paid-state/element-paid-state.component';
+import {FileComponent} from './component/file/file.component';
 import {NgxFilesizeModule} from 'ngx-filesize';
 
 
 @NgModule({
-    imports: [
-        CommonModule,
-        RouterModule,
-        MaterialModule,
-        CoreModule,
-        AvatarModule,
-        NgSelectModule,
-        FormsModule,
-        ReactiveFormsModule,
-        NgxFilesizeModule
-    ],
+  imports: [
+    CommonModule,
+    RouterModule,
+    MaterialModule,
+    CoreModule,
+    AvatarModule,
+    NgSelectModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NgxFilesizeModule
+  ],
   declarations: [
     DrawerComponent,
     ToolbarComponent,
@@ -57,7 +57,20 @@ import {NgxFilesizeModule} from 'ngx-filesize';
     ElementPaidStateComponent,
     FileComponent
   ],
-  exports: [DrawerComponent, ToolbarComponent, MessageComponent, ItemAutocompleteComponent, NewContactSelectComponent, PackAutocompleteComponent, DocumentPackComponent, SlovakiaDigitalAutocompleteComponent, NewProjectSelectComponent, NewCategorySelectComponent, SpinnerButtonComponent, ElementPaidStateComponent, FileComponent],
+  exports: [
+    DrawerComponent,
+    ToolbarComponent,
+    MessageComponent,
+    ItemAutocompleteComponent,
+    NewContactSelectComponent,
+    PackAutocompleteComponent,
+    DocumentPackComponent,
+    SlovakiaDigitalAutocompleteComponent,
+    NewProjectSelectComponent,
+    NewCategorySelectComponent,
+    SpinnerButtonComponent,
+    ElementPaidStateComponent,
+    FileComponent],
 })
 export class ThemeModule {
 }

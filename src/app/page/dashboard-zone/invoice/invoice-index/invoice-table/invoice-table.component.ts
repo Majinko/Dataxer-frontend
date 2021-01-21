@@ -6,6 +6,7 @@ import {InvoiceService} from '../../../../../core/services/invoice.service';
 import {MessageService} from '../../../../../core/services/message.service';
 import {merge} from 'rxjs';
 import {map, startWith, switchMap} from 'rxjs/operators';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-invoice-table',
@@ -34,9 +35,11 @@ export class InvoiceTableComponent implements OnInit, AfterViewInit {
   }
 
   constructor(
+    private router: Router,
     private invoiceService: InvoiceService,
     private messageService: MessageService
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
   }
@@ -64,11 +67,17 @@ export class InvoiceTableComponent implements OnInit, AfterViewInit {
       .subscribe((data) => (this.invoices = data));
   }
 
-  destroy(id: number) {
+  destroy(event: MouseEvent, id: number) {
+    event.stopPropagation();
+
     this.invoiceService.destroy(id).subscribe(r => {
       this.paginate();
 
       this.messageService.add('Faktura bola odstránená');
     });
+  }
+
+  show(invoice: Invoice) {
+    this.router.navigate(['/invoice/show', invoice.id]).then();
   }
 }

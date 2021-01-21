@@ -6,8 +6,8 @@ import {LEGALFORMS} from '../../../../core/data/legal-forms';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {COUNTRIES} from '../../../../core/data/countries';
 import {BillingInformation} from '../../../../core/models/billing-information';
-import {MatCheckbox} from "@angular/material/checkbox";
-import {MessageService} from "../../../../core/services/message.service";
+import {MatCheckbox} from '@angular/material/checkbox';
+import {MessageService} from '../../../../core/services/message.service';
 
 @Component({
   selector: 'app-company-edit',
@@ -74,7 +74,7 @@ export class CompanyEditComponent implements OnInit {
 
 
     this.companyService.update(companyFormData).subscribe(() => {
-      this.messageService.add("Spolocnost bola upravena")
+      this.messageService.add('Spoločnosť bola upravená');
     });
   }
 }

@@ -5,6 +5,7 @@ export interface Pack {
   title: string;
   customPrice?: boolean;
   packItems: PackItem[];
+  price?: number;
   tax?: number;
   totalPrice?: number;
 }

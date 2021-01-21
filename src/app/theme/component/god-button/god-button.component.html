@@ -1,11 +1,19 @@
+<div *ngIf="godButtonService.menuItem.length === 0; else godButtonMenu">
+  <button *ngIf="godButtonService.title != null" mat-raised-button class="text-white btn-icon god-button" (click)="navigate()">
+    <mat-icon>add</mat-icon>
+    <span>{{godButtonService.title}}</span>
+  </button>
+</div>
 
-<button *ngIf="godButtonService.title != null" mat-raised-button class="text-white btn-icon" (click)="navigate()">
-  <mat-icon>add</mat-icon>
-  <span>{{godButtonService.title}}</span>
-</button>
-<!--
+<ng-template #godButtonMenu>
+  <button [matMenuTriggerFor]="menu" *ngIf="godButtonService.title != null" mat-raised-button class="text-white btn-icon god-button">
+    <mat-icon>add</mat-icon>
+    <span>{{godButtonService.title}}</span>
+  </button>
 
-<button mat-fab class="btn-primary d-inline d-sm-none" routerLink="{{godButtonService.routerLink}}">
-  <mat-icon>add</mat-icon>
-</button>
--->
+  <mat-menu #menu="matMenu">
+    <button [routerLink]="menu.link" class="border-radius-0" mat-menu-item *ngFor="let menu of godButtonService.menuItem">
+      {{menu.title}}
+    </button>
+  </mat-menu>
+</ng-template>

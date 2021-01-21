@@ -5,7 +5,7 @@ Error: File to import not found or unreadable: ~@angular/material/theming.
 
 1: @import '../../../../assets/css/import/variables';
 2: 
-3: button {
+3: .god-button {
 4:   font-size: 14px;
 5:   font-weight: 400;
 6:   line-height: 45px;
@@ -64,4 +64,4 @@ god-button.component.scss:1
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: File to import not found or unreadable: ~@angular/material/theming.\A         on line 2 of ../../../../assets/css/import/_variables.scss\A         from line 1 of god-button.component.scss\A \A 1: @import '../../../../assets/css/import/variables';\A 2: \A 3: button {\A 4:   font-size: 14px;\A 5:   font-weight: 400;\A 6:   line-height: 45px;\A 7:   padding: 0 25px;"; }
+  content: "Error: File to import not found or unreadable: ~@angular/material/theming.\A         on line 2 of ../../../../assets/css/import/_variables.scss\A         from line 1 of god-button.component.scss\A \A 1: @import '../../../../assets/css/import/variables';\A 2: \A 3: .god-button {\A 4:   font-size: 14px;\A 5:   font-weight: 400;\A 6:   line-height: 45px;\A 7:   padding: 0 25px;"; }

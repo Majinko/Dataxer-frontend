@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MessageService} from '../../../../core/services/message.service';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {DocumentHelper} from '../../../../core/class/DocumentHelper';
 import {InvoiceService} from '../../../../core/services/invoice.service';
 import {UserService} from '../../../../core/services/user.service';
@@ -10,6 +10,7 @@ import {NumberingService} from '../../../../core/services/numbering.service';
 import {CompanyService} from '../../../../core/services/company.service';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import {MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter} from '@angular/material-moment-adapter';
+import {BankAccountService} from '../../../../core/services/bank-account.service';
 
 @Component({
   selector: 'app-invoice-create',
@@ -40,8 +41,10 @@ export class InvoiceCreateComponent implements OnInit {
     private companyService: CompanyService,
     private messageService: MessageService,
     private router: Router,
+    private route: ActivatedRoute,
     private invoiceService: InvoiceService,
     private numberingService: NumberingService,
+    private bankAccountService: BankAccountService,
     public documentHelper: DocumentHelper
   ) {
   }
@@ -49,12 +52,19 @@ export class InvoiceCreateComponent implements OnInit {
   ngOnInit(): void {
     this.prepareForm();
     this.prepareInvoiceData();
+    this.changeForm();
+    this.getDefaultBankAccount();
+
+    this.route.params.subscribe(params => {
+      this.prepareInvoiceData();
+    });
   }
 
   // prepare form
   private prepareForm() {
     this.formGroup = this.formBuilder.group({
       contact: [null],
+      documentType: null,
       title: ['', Validators.required],
       subject: '',
       number: ['', Validators.required],
@@ -73,12 +83,14 @@ export class InvoiceCreateComponent implements OnInit {
       price: 0,
       totalPrice: 0,
       documentData: this.formBuilder.group({
+        contact: null,
+        bankAccount: null,
+        firm: this.companyService.company,
         user: this.formBuilder.group({
           displayName: '',
           phone: '',
           email: '',
         }),
-        firm: this.companyService.company
       }),
 
       packs: this.formBuilder.array([])
@@ -89,8 +101,31 @@ export class InvoiceCreateComponent implements OnInit {
   private prepareInvoiceData() {
     this.formGroup.get('documentData.user').patchValue(this.userService.user);
 
-    this.numberingService.generateNextNumberByDocumentType('INVOICE').subscribe(r => {
-      this.formGroup.patchValue({number: r, variableSymbol: r});
+    this.numberingService.generateNextNumberByDocumentType(this.route.snapshot.paramMap.get('type')).subscribe(r => {
+      this.formGroup.patchValue({
+        number: r,
+        documentType: this.route.snapshot.paramMap.get('type'),
+        variableSymbol: r.toString().replace(/\D/g, ''),
+        title: (this.route.snapshot.paramMap.get('type') === 'PROFORMA' ? 'Zálohová faktúra ' : 'Faktúra ') + r,
+      });
+    });
+  }
+
+  // detect change form
+  private changeForm() {
+    this.formGroup.valueChanges.subscribe(v => {
+      this.formGroup.get('documentData').patchValue({
+        contact: v.contact
+      }, {emitEvent: false});
+    });
+  }
+
+  // get default bank account
+  private getDefaultBankAccount() {
+    this.bankAccountService.getDefaultBankAccount().subscribe(bA => {
+      this.formGroup.get('documentData').patchValue({
+        bankAccount: bA
+      }, {emitEvent: false});
     });
   }
 
@@ -115,7 +150,9 @@ export class InvoiceCreateComponent implements OnInit {
     this.invoiceService.store(this.formGroup.value).subscribe((r) => {
       this.router
         .navigate(['/invoice'])
-        .then(() => this.messageService.add('Faktúra bola uložená'));
+        .then(() => {
+          this.messageService.add('Faktúra bola uložená');
+        });
     });
   }
 }

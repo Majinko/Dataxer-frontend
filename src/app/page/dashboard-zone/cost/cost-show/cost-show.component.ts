@@ -9,7 +9,6 @@ import {ActivatedRoute} from '@angular/router';
   styleUrls: ['./cost-show.component.scss']
 })
 export class CostShowComponent implements OnInit {
-
   cost: Cost;
 
   constructor(

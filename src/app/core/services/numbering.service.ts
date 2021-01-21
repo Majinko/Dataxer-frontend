@@ -34,7 +34,8 @@ export class NumberingService {
   }
 
   generateNextNumberByDocumentType(type: string): Observable<string>{
-    return this.http.get<string>(`${environment.baseUrl}/numberGenerator/generateAndSaveNextByType/${type}`);
+    // @ts-ignore
+    return this.http.get<string>(`${environment.baseUrl}/numberGenerator/generateNextByType/${type}`, {responseType: 'text'});
   }
 
   generateAndSaveNextByType(type: string): Observable<string>{

@@ -38,29 +38,12 @@ export class DocumentPackComponent implements OnInit {
     }
   }
 
-  private disableEnable() {
-    this.f.packs.valueChanges.subscribe(packs => {
-      packs.forEach((pack, index) => {
-        if (pack.customPrice) {
-          this.formPacks.at(index).get('tax').enable({emitEvent: false});
-          this.formPacks.at(index).get('totalPrice').enable({emitEvent: false});
-
-          this.formPacks.at(index).get('packItems').disable({emitEvent: false});
-        } else {
-          this.formPacks.at(index).get('tax').disable({emitEvent: false});
-          this.formPacks.at(index).get('totalPrice').disable({emitEvent: false});
-
-          this.formPacks.at(index).get('packItems').enable({emitEvent: false});
-        }
-      });
-    });
-  }
-
   createPack(): FormGroup {
     return this.formBuilder.group({
       id: '',
       title: null,
       customPrice: false,
+      price: 0,
       tax: 20,
       totalPrice: 0,
       packItems: this.formBuilder.array([this.createItem()])

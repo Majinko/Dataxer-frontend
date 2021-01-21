@@ -34,7 +34,10 @@ const routes: Routes = [
       },
       {
         path: 'invoice',
-        data: {godButtonTitle: 'Nová faktúra', gotButtonRouteLink: '/invoice/create'},
+        data: {
+          godButtonTitle: 'Nová faktúra', gotButtonRouteLink: '/invoice/create',
+          menuItem: [{title: 'Nová faktúra', link: '/invoice/create/INVOICE'}, {title: 'Nová zálohová faktúra', link: '/invoice/create/PROFORMA'}]
+        },
         loadChildren: () => import('./invoice/invoice.module').then(m => m.InvoiceModule),
       },
       {

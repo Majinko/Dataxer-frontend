@@ -10,6 +10,7 @@ import {MaterialModule} from '../../../theme/modules/material.module';
 import {ThemeModule} from '../../../theme/theme.module';
 import {ReactiveFormsModule} from '@angular/forms';
 import {CoreModule} from '../../../core/core.module';
+import {InvoiceShowComponent} from './invoice-show/invoice-show.component';
 
 const routes: Routes = [{
   path: '',
@@ -20,18 +21,22 @@ const routes: Routes = [{
       component: InvoiceIndexComponent
     },
     {
-      path: 'create',
+      path: 'create/:type',
       component: InvoiceCreateComponent
     },
     {
       path: 'edit/:id',
       component: InvoiceEditComponent
+    },
+    {
+      path: 'show/:id',
+      component: InvoiceShowComponent
     }
   ]
 }];
 
 @NgModule({
-  declarations: [InvoiceComponent, InvoiceIndexComponent, InvoiceTableComponent, InvoiceCreateComponent, InvoiceEditComponent],
+  declarations: [InvoiceComponent, InvoiceIndexComponent, InvoiceTableComponent, InvoiceCreateComponent, InvoiceEditComponent, InvoiceShowComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),

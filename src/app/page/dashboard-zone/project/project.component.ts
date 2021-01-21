@@ -22,6 +22,7 @@ export class ProjectComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.godButtonService.menuItem = [];
     this.godButtonService.title = this.route.snapshot.data.godButtonTitle;
     this.godButtonService.routerLink = this.route.snapshot.data.gotButtonRouteLink;
   }

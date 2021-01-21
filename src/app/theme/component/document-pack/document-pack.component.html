@@ -7,8 +7,13 @@
             <td>
               <app-pack-autocomplete (findPack)="setPack(i, pack, $event)" formControlName="title"></app-pack-autocomplete>
             </td>
-            <td colspan="4" class="thin">
+            <td colspan="3" class="thin">
               <mat-checkbox #checkbox formControlName="customPrice">Určiť cenu</mat-checkbox>
+            </td>
+            <td class="thin">
+              <mat-form-field  class="w-100">
+                <input matInput [attr.disabled]="!checkbox.checked ? true : null" formControlName="price" value="{{documentHelper.packs[i].price}}" class="text-right">
+              </mat-form-field>
             </td>
             <td class="thin">
               <mat-form-field  class="w-100">

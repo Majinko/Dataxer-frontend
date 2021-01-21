@@ -25,14 +25,25 @@ export class DocumentHelper {
     this.packs.forEach(pack => {
       pack.totalPrice = 0;
 
-      if (pack.packItems) {
-        pack.packItems.forEach(item => {
-          item.totalPrice = +this.addPercent(+item.price * +item.qty, +item.tax);
-          pack.totalPrice += +item.totalPrice;
+      if (pack.customPrice === false) {
+        pack.price = 0;
 
-          this.price += +this.removePercent(+item.price * +item.qty, +item.discount);
-          this.totalPrice += +this.removePercent(+item.totalPrice, +item.discount);
-        });
+        if (pack.packItems) {
+          pack.packItems.forEach(item => {
+            item.totalPrice = +this.addPercent(+item.price * +item.qty, +item.tax);
+
+            pack.totalPrice += +item.totalPrice;
+            pack.price += !isNaN(+item.price) && !isNaN(+item.qty) ? +(+item.price * +item.qty) : 0;
+
+            this.price += +this.removePercent(+item.price * +item.qty, +item.discount);
+            this.totalPrice += +this.removePercent(+item.totalPrice, +item.discount);
+          });
+        }
+      } else {
+        pack.totalPrice += +this.addPercent(+pack.price, +pack.tax);
+
+        this.price += pack.price;
+        this.totalPrice += +pack.totalPrice;
       }
     });
   }
