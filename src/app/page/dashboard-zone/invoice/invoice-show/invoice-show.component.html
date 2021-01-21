@@ -1,0 +1,50 @@
+<div *ngIf="invoice" class="mb-5">
+  <div class="row mb-4">
+    <div class="col d-flex align-items-center mb-3 mb-md-5">
+      <mat-icon routerLink="/invoice" class="mr-2 mr-md-5 cursor-pointer">keyboard_backspace</mat-icon>
+      <h1 class="mb-0">Detail faktúry</h1>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <h1 class="pb-2 mb-1 text-theme"><b>{{invoice.title}}</b></h1>
+      <p>Číslo faktúry: {{invoice.number}}</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <div class="border-top mt-3">
+        <div class="row">
+          <div class="col-md-6 pt-3">
+            <h2 class="text-theme"><b>Dodávateľ:</b></h2>
+
+            <h3 class="text-dark"><strong>{{invoice.documentData.firm.name}}</strong></h3>
+            <p class="mb-3">
+              {{invoice.documentData.firm.street}}
+              <br>
+              {{invoice.documentData.firm.city + ' ' + invoice.documentData.firm.postalCode}}
+              <br>
+              {{invoice.documentData.firm.country}}
+            </p>
+
+            <p>
+              <b class="text-dark">IČO:</b> {{invoice.documentData.firm.cin}} <br>
+              <b class="text-dark">DIČ:</b> {{invoice.documentData.firm.tin}} <br>
+              <b class="text-dark">IČ DPH:</b> {{invoice.documentData.firm.vatin}} <br>
+            </p>
+          </div>
+
+          <div class="col-md-6">
+            <div class="h-100 pl-5 invoice-contractor border-left pt-3">
+              <h2 class="text-theme"><b>Odberateľ:</b></h2>
+
+              <h3 class="text-dark"><strong>{{invoice.documentData.contact.name}}</strong></h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
