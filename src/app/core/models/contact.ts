@@ -9,4 +9,7 @@ export interface Contact {
   regNumber: string;
   email: string;
   phone: string;
+  cin: string;
+  tin: string;
+  vatin: string;
 }

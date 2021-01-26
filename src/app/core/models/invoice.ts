@@ -10,9 +10,9 @@ export interface Invoice {
   title: string;
   subject: string;
   number: string;
-  variable_symbol: string;
-  constant_symbol: string;
-  specific_symbol: string;
+  variableSymbol: string;
+  constantSymbol: string;
+  specificSymbol: string;
   state: InvoiceTypeEnum;
   createdDate: Date;
   deliveredDate: Date;

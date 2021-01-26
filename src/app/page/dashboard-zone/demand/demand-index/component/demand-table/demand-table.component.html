@@ -18,7 +18,9 @@
 
     <ng-container matColumnDef="state">
       <th mat-header-cell *matHeaderCellDef> Stav</th>
-      <td mat-cell *matCellDef="let element"> {{element.state}} </td>
+      <td class="text-center" mat-cell *matCellDef="let element">
+        <span [ngClass]="'bg-' + element.state | lowercase" class="custom-badge text-white">{{element.state | uppercase | slice:0:1 }}</span>
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="source">

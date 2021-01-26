@@ -1,49 +1,191 @@
 <div *ngIf="invoice" class="mb-5">
   <div class="row mb-4">
-    <div class="col d-flex align-items-center mb-3 mb-md-5">
-      <mat-icon routerLink="/invoice" class="mr-2 mr-md-5 cursor-pointer">keyboard_backspace</mat-icon>
-      <h1 class="mb-0">Detail faktúry</h1>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-12">
-      <h1 class="pb-2 mb-1 text-theme"><b>{{invoice.title}}</b></h1>
-      <p>Číslo faktúry: {{invoice.number}}</p>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-12">
-      <div class="border-top mt-3">
-        <div class="row">
-          <div class="col-md-6 pt-3">
-            <h2 class="text-theme"><b>Dodávateľ:</b></h2>
-
-            <h3 class="text-dark"><strong>{{invoice.documentData.firm.name}}</strong></h3>
-            <p class="mb-3">
-              {{invoice.documentData.firm.street}}
-              <br>
-              {{invoice.documentData.firm.city + ' ' + invoice.documentData.firm.postalCode}}
-              <br>
-              {{invoice.documentData.firm.country}}
-            </p>
-
-            <p>
-              <b class="text-dark">IČO:</b> {{invoice.documentData.firm.cin}} <br>
-              <b class="text-dark">DIČ:</b> {{invoice.documentData.firm.tin}} <br>
-              <b class="text-dark">IČ DPH:</b> {{invoice.documentData.firm.vatin}} <br>
-            </p>
-          </div>
-
-          <div class="col-md-6">
-            <div class="h-100 pl-5 invoice-contractor border-left pt-3">
-              <h2 class="text-theme"><b>Odberateľ:</b></h2>
-
-              <h3 class="text-dark"><strong>{{invoice.documentData.contact.name}}</strong></h3>
-            </div>
-          </div>
+    <div class="col mb-3 mb-md-5">
+      <div class="d-flex align-items-center">
+        <mat-icon routerLink="/invoice" class="mr-2 mr-md-5 cursor-pointer">keyboard_backspace</mat-icon>
+        <div>
+          <h1 class="mb-0">{{invoice.title}}</h1>
+          <p>Číslo faktúry: {{invoice.number}}</p>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <h2 class="border-bottom-2 pb-2 mb-4">Súhrnné info</h2>
+    </div>
+
+    <div class="col-md-4">
+      <p class="mb-0">Dodávateľ:</p>
+
+      <h3 class="text-dark"><strong>{{invoice.documentData.firm.name}}</strong></h3>
+      <p class="mb-3">
+        {{invoice.documentData.firm.street}}
+        <br>
+        {{invoice.documentData.firm.city + ' ' + invoice.documentData.firm.postalCode}}
+        <br>
+        {{invoice.documentData.firm.country}}
+      </p>
+
+      <p>
+        <b class="text-dark">IČO:</b> {{invoice.documentData.firm.cin}} <br>
+        <b class="text-dark">DIČ:</b> {{invoice.documentData.firm.tin}} <br>
+        <b class="text-dark">IČ DPH:</b> {{invoice.documentData.firm.vatin}} <br>
+      </p>
+
+      <p>
+        <b class="text-dark">Banka:</b> {{invoice.documentData.bankAccount.bankName}} <br>
+        <b class="text-dark">Účet(IBAN):</b> {{invoice.documentData.bankAccount.iban}}<br>
+        <b class="text-dark">VS:</b> {{invoice.variableSymbol}} <br>
+      </p>
+    </div>
+
+    <div class="col-md-8">
+      <p class="mb-0">Odberateľ:</p>
+
+      <h3 class="text-dark"><strong>{{invoice.documentData.contact.name}}</strong></h3>
+      <p class="mb-3">
+        {{invoice.documentData.contact.street}}
+        <br>
+        {{invoice.documentData.contact.city + ' ' + invoice.documentData.contact.postalCode}}
+        <br>
+        {{invoice.documentData.contact.country}}
+      </p>
+
+      <p>
+        <b class="text-dark">IČO:</b> {{invoice.documentData.contact.cin}} <br>
+        <b class="text-dark">DIČ:</b> {{invoice.documentData.contact.tin}} <br>
+        <b class="text-dark">IČ DPH:</b> {{invoice.documentData.contact.vatin}} <br>
+      </p>
+    </div>
+
+    <div class="col-12 mt-2">
+      <h2 class="border-bottom-2 pb-2 mb-4">Dátumy</h2>
+    </div>
+
+    <div class="col-md-4">
+      <p class="mb-0">Dátum dodania:</p>
+      <h3 class="text-dark"><b>{{invoice.deliveredDate | date:'dd.MM.y' || '-'}}</b></h3>
+    </div>
+
+    <div class="col-md-4">
+      <p class="mb-0">Dátum vystavenia:</p>
+      <h3 class="text-dark"><b>{{invoice.createdDate | date:'dd.MM.y' || '-'}}</b></h3>
+    </div>
+
+    <div class="col-md-4">
+      <p class="mb-0">Dátum splatnosti:</p>
+      <h3 class="text-dark"><b>{{invoice.dueDate | date:'dd.MM.y' || '-'}}</b></h3>
+    </div>
+
+    <div class="col-12">
+      <h2 class="border-bottom-2 pb-2 mb-4">Položky</h2>
+    </div>
+
+    <div class="col-12">
+      <div class="table-scroll table-data">
+        <table class="table-hover table-data table-borderless w-100">
+          <thead>
+          <tr>
+            <th class="text-left">Názov položky</th>
+            <th class="text-center">Počet</th>
+            <th class="text-center">MJ</th>
+            <th class="text-right">Jedn. cena bez DPH</th>
+            <th class="text-center">Dph %</th>
+            <th class="text-right">Jedn. cena s DPH</th>
+            <th class="text-right">Celkom s DPH</th>
+          </tr>
+          </thead>
+          <tbody *ngFor="let pack of invoice.packs">
+            <tr class="pack-row">
+              <td class="text-left font-weight-bold" style="white-space: nowrap">
+                {{pack.title}}
+              </td>
+              <td class="text-center font-weight-bold">
+
+              </td>
+              <td class="text-center font-weight-bold">
+
+              </td>
+              <td class="text-right font-weight-bold">
+                {{pack.price}} &euro;
+              </td>
+              <td class="text-center font-weight-bold" style="white-space: nowrap">
+                {{pack.tax}} %
+              </td>
+              <td class="text-right font-weight-bold">
+                {{pack.totalPrice}} &euro;
+              </td>
+              <td class="text-right font-weight-bold">
+                {{pack.totalPrice}} &euro;
+              </td>
+            </tr>
+
+            <ng-template [ngIf]="!pack.customPrice">
+              <tr class="table-item" *ngFor="let item of pack.packItems">
+                <td class="text-left" style="white-space: nowrap">
+                  {{item.title}}
+                </td>
+                <td class="text-center">
+                  {{!pack.customPrice ? item.qty : ''}}
+                </td>
+                <td class="text-center">
+                  {{!pack.customPrice ? item.unit : ''}}
+                </td>
+                <td class="text-right">
+                  {{!pack.customPrice ? (item.price + ' &euro;' ): ''}}
+                </td>
+                <td class="text-center" style="white-space: nowrap">
+                  {{!pack.customPrice ? (item.tax + ' %' ): ''}}
+                </td>
+                <td class="text-right">
+                  {{!pack.customPrice ? (item.price | addPercent: item.tax + ' &euro;' ): ''}}
+                </td>
+                <td class="text-right">
+                  {{!pack.customPrice ? (item.totalPrice + ' &euro;' ): ''}}
+                </td>
+              </tr>
+            </ng-template>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="col-12 mt-4">
+      <h2 class="border-bottom-2 pb-2 mb-4">Doplňujúce informácie</h2>
+    </div>
+
+    <div class="col-12">
+      <div class="col-md-4 offset-md-8">
+        <table class="table-summary no-bg-change mt-4 pr-3 w-100">
+          <tr class="row-summary">
+            <td class="text-right">
+              <p>Zľava {{invoice.discount}} %</p>
+            </td>
+            <td class="text-right">
+              <p>{{((invoice.totalPrice | addPercent: invoice.discount) - invoice.totalPrice).toFixed(2)}} &euro;</p>
+            </td>
+          </tr>
+
+          <tr class="row-summary">
+            <td class="text-right">
+              <p>Celkom bez DPH:</p>
+            </td>
+            <td class="text-right">
+              <p>{{invoice.price | removePercent: invoice.discount}} &euro;</p>
+            </td>
+          </tr>
+
+          <tr class="row-summary">
+            <td class="text-right">
+              <h1 class="text-theme font-weight-bold">Celkom s DPH:</h1>
+            </td>
+            <td class="text-right">
+              <h1 class="text-theme font-weight-bold">{{invoice.totalPrice | removePercent: invoice.discount}} &euro;</h1>
+            </td>
+          </tr>
+        </table>
       </div>
     </div>
   </div>

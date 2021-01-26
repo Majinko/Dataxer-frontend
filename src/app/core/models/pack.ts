@@ -14,6 +14,7 @@ export interface PackItem {
   id: any;
   item: Item;
   title: string;
+  unit?: string;
   qty: number;
   discount?: number;
   price?: number;

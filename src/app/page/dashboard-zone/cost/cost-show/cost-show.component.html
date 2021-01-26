@@ -65,17 +65,18 @@
     </div>
 
     <div class="col-md-4">
+      <p class="mb-0">Dátum dodania:</p>
+      <h3 class="text-dark"><b>{{cost.deliveredDate | date:'dd.MM.y' || '-'}}</b></h3>
+    </div>
+
+
+    <div class="col-md-4">
       <p class="mb-0">Dátum vystavenia:</p>
       <h3 class="text-dark"><b>{{cost.createdDate | date:'dd.MM.y' || '-'}}</b></h3>
     </div>
 
     <div class="col-md-4">
-      <p class="mb-0">Dátum dodania:</p>
-      <h3 class="text-dark"><b>{{cost.deliveredDate | date:'dd.MM.y' || '-'}}</b></h3>
-    </div>
-
-    <div class="col-md-4">
-      <p class="mb-0">Slatnosť:</p>
+      <p class="mb-0">Dátum splatnosti:</p>
       <h3 class="text-dark"><b>{{cost.dueDate | date:'dd.MM.y' || '-'}}</b></h3>
     </div>
 

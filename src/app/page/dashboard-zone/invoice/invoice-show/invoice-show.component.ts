@@ -24,6 +24,12 @@ export class InvoiceShowComponent implements OnInit {
   getById() {
     this.invoiceService.getById(+this.route.snapshot.paramMap.get('id')).subscribe(invoice => {
       this.invoice = invoice;
+
+      this.prepareTaxes();
     });
+  }
+
+  prepareTaxes() {
+    console.log(this.invoice);
   }
 }

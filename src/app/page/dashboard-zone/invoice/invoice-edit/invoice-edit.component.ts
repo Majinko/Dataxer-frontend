@@ -76,7 +76,9 @@ export class InvoiceEditComponent implements OnInit {
           phone: '',
           email: '',
         }),
-        firm: null
+        firm: null,
+        contact: null,
+        bankAccount: null,
       }),
 
       packs: this.formBuilder.array([])
