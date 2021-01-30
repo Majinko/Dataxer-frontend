@@ -11,6 +11,8 @@ import {CompanyService} from '../../../../core/services/company.service';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import {MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter} from '@angular/material-moment-adapter';
 import {BankAccountService} from '../../../../core/services/bank-account.service';
+import {DatePipe} from '@angular/common';
+import {Invoice} from '../../../../core/models/invoice';
 
 @Component({
   selector: 'app-invoice-create',
@@ -27,21 +29,25 @@ import {BankAccountService} from '../../../../core/services/bank-account.service
     },
     {provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: {useUtc: true}},
     {provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS},
-    DocumentHelper
+    DocumentHelper,
+    DatePipe
   ],
 })
 export class InvoiceCreateComponent implements OnInit {
   formGroup: FormGroup;
   submitted = false;
   moreOptions = false;
+  oldInvoice: Invoice;
+  invoiceType: string = 'INVOICE';
 
   constructor(
+    private datePipe: DatePipe,
     private formBuilder: FormBuilder,
     private userService: UserService,
     private companyService: CompanyService,
     private messageService: MessageService,
     private router: Router,
-    private route: ActivatedRoute,
+    public route: ActivatedRoute,
     private invoiceService: InvoiceService,
     private numberingService: NumberingService,
     private bankAccountService: BankAccountService,
@@ -50,6 +56,7 @@ export class InvoiceCreateComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.setInvoiceDataByType();
     this.prepareForm();
     this.prepareInvoiceData();
     this.changeForm();
@@ -97,16 +104,36 @@ export class InvoiceCreateComponent implements OnInit {
     });
   }
 
+  // set type of invoice
+  private setInvoiceDataByType() {
+    this.invoiceType = this.route.snapshot.paramMap.get('type') === 'PROFORMA' ? this.route.snapshot.paramMap.get('type') : 'INVOICE';
+
+    if (this.route.snapshot.paramMap.get('type') === 'TAX_DOCUMENT') {
+      this.invoiceService.taxInvoice(+this.route.snapshot.paramMap.get('id')).subscribe(taxInvoice => {
+      });
+    }
+
+    if (this.route.snapshot.paramMap.get('type') === 'INVOICE' && this.route.snapshot.paramMap.get('id')) {
+      this.invoiceService.getById(+this.route.snapshot.paramMap.get('id')).subscribe(i => {
+        this.oldInvoice = i;
+
+        this.formGroup.patchValue({
+          contact: i.contact
+        });
+      });
+    }
+  }
+
   // set user
   private prepareInvoiceData() {
     this.formGroup.get('documentData.user').patchValue(this.userService.user);
 
-    this.numberingService.generateNextNumberByDocumentType(this.route.snapshot.paramMap.get('type')).subscribe(r => {
+    this.numberingService.generateNextNumberByDocumentType(this.invoiceType).subscribe(r => {
       this.formGroup.patchValue({
         number: r,
-        documentType: this.route.snapshot.paramMap.get('type'),
+        documentType: this.invoiceType,
         variableSymbol: r.toString().replace(/\D/g, ''),
-        title: (this.route.snapshot.paramMap.get('type') === 'PROFORMA' ? 'Zálohová faktúra ' : 'Faktúra ') + r,
+        title: (this.invoiceType === 'PROFORMA' ? 'Zálohová faktúra ' : 'Faktúra ') + r,
       });
     });
   }
@@ -147,7 +174,7 @@ export class InvoiceCreateComponent implements OnInit {
       totalPrice: this.documentHelper.totalPrice,
     });
 
-    this.invoiceService.store(this.formGroup.value).subscribe((r) => {
+    this.invoiceService.store(this.formGroup.value, +this.route.snapshot.paramMap.get('id')).subscribe((r) => {
       this.router
         .navigate(['/invoice'])
         .then(() => {

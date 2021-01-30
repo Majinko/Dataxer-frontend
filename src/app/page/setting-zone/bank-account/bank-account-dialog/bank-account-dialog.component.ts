@@ -12,7 +12,6 @@ import {MessageService} from '../../../../core/services/message.service';
 })
 export class BankAccountDialogComponent implements OnInit {
   formGroup: FormGroup;
-
   currencies = CRURRENCIES;
 
   constructor(

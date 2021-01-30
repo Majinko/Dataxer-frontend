@@ -30,12 +30,13 @@ export class DocumentPackComponent implements OnInit {
 
   ngOnInit() {
     this.documentHelper.handlePackChanges(this.f.packs);
-
     this.preparePack();
 
-    if (this.packs) {
-      this.formGroup.patchValue({packs: this.packs});
-    }
+    setTimeout(() => {
+      if (this.packs) {
+        this.formGroup.patchValue({packs: this.packs});
+      }
+    }, 1);
   }
 
   createPack(): FormGroup {

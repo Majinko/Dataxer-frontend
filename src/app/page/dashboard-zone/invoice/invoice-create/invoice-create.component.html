@@ -2,8 +2,8 @@
   <div class="col d-flex align-items-center mb-3 mb-md-5">
     <mat-icon routerLink="/invoice" class="mr-2 mr-md-5 cursor-pointer">keyboard_backspace</mat-icon>
     <h1 class="mb-0" [ngSwitch]="f.documentType.value">
-      <span *ngSwitchCase="'INVOICE'">Nová faktúra</span>
       <span *ngSwitchCase="'PROFORMA'">Nová zálohová faktúra</span>
+      <span *ngSwitchDefault>Nová faktúra</span>
     </h1>
   </div>
 </div>
@@ -136,7 +136,7 @@
     <div class="col-md-4">
       <mat-form-field class="form-group w-100">
         <mat-label>Platnosť</mat-label>
-        <input formControlName="deliveredDate" matInput [matDatepicker]="dueDate">
+        <input formControlName="dueDate" matInput [matDatepicker]="dueDate">
         <mat-datepicker-toggle matSuffix [for]="dueDate"></mat-datepicker-toggle>
         <mat-datepicker #dueDate></mat-datepicker>
       </mat-form-field>
@@ -149,7 +149,12 @@
     </div>
   </div>
 
-  <app-document-pack [formGroup]="formGroup" [documentHelper]="documentHelper"></app-document-pack>
+  <app-document-pack *ngIf="route.snapshot.paramMap.get('id') === null; else copyInvoiceBlock" [formGroup]="formGroup" [documentHelper]="documentHelper"></app-document-pack>
+  <ng-template #copyInvoiceBlock>
+    <div *ngIf="oldInvoice">
+      <app-document-pack [formGroup]="formGroup" [packs]="oldInvoice.packs" [documentHelper]="documentHelper"></app-document-pack>
+    </div>
+  </ng-template>
 
   <div class="row">
     <div class="col-12">

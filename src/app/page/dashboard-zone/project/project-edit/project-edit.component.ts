@@ -46,7 +46,6 @@ export class ProjectEditComponent implements OnInit {
 
   prepareForm() {
     this.projectService.getById(+this.route.snapshot.paramMap.get('project_id')).subscribe((p) => {
-      console.log(p);
       this.project = p;
 
       this.formGroup = this.formBuilder.group({

@@ -1,7 +1,6 @@
 import {User} from './user';
 import {Contact} from './contact';
 import {Pack} from './pack';
-import {InvoiceTypeEnum} from '../enums/invoiceType.enum';
 import {Company} from './company';
 import {BankAccount} from './bank-account';
 
@@ -13,11 +12,12 @@ export interface Invoice {
   variableSymbol: string;
   constantSymbol: string;
   specificSymbol: string;
-  state: InvoiceTypeEnum;
+  note: string;
+  documentType: string;
   createdDate: Date;
   deliveredDate: Date;
   dueDate: Date;
-  note: string;
+  paymentDate: Date;
   documentData: {
     user: User;
     firm: Company;
@@ -27,6 +27,7 @@ export interface Invoice {
   discount: number;
   price: number;
   totalPrice: number;
+  dueAtDays: number;
   contact: Contact;
   packs: Pack[];
 }

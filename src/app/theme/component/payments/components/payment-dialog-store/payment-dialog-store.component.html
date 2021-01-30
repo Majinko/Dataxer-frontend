@@ -1,0 +1,30 @@
+<div>
+  <div mat-dialog-title class="row mb-4">
+    <div class="d-flex align-items-center justify-content-between mb-3">
+      <h1 class="mb-0">VYSTAVIŤ FAKTÚRU?
+      </h1>
+      <a mat-icon-button class="close-icon cursor-pointer" mat-dialog-close>
+        <mat-icon>close</mat-icon>
+      </a>
+    </div>
+  </div>
+
+  <div mat-dialog-content>
+    <div class="row">
+      <div class="col-12 mb-3">
+        <p class="text-center"><strong>Úhrada bola zaznamenaná. V nasledujúcom kroku môžete k tejto zálohovej faktúre vystaviť ostrú faktúru alebo daňový doklad k prijatej platbe.</strong></p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12 d-flex justify-content-between">
+        <button mat-dialog-close mat-stroked-button class="btn-theme" [routerLink]="['/invoice/create', 'INVOICE', data.id]">
+          Vystaviť ostrú faktúru
+        </button>
+        <button mat-flat-button mat-dialog-close class="btn-theme" [routerLink]="['/invoice/create', 'TAX_DOCUMENT', data.id]">
+          Vystaviť daňový doklad k platbe
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

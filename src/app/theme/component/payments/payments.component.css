@@ -1,0 +1,11 @@
+.pay-wrap button {
+  margin-right: 30px;
+  font-size: 12px !important;
+  font-weight: 400 !important;
+  color: #a4a5b1;
+  background: #f9fafb;
+  border: 1px solid #e5e5e5;
+  box-shadow: none !important;
+  border-radius: 50px; }
+
+/*# sourceMappingURL=payments.component.css.map */

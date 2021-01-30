@@ -47,13 +47,13 @@
               </div>
             </td>
             <td class="text-right thin">
-              <mat-form-field class="w-100">
+              <mat-form-field style="width: 65px">
                 <input type="text" [attr.disabled]="checkbox.checked ? true : null" #qty formControlName="qty" placeholder="Počet" matInput>
               </mat-form-field>
             </td>
             <td class="thin">
               <div>
-                <mat-form-field class="w-100">
+                <mat-form-field style="width: 65px">
                   <mat-select [attr.disabled]="checkbox.checked ? true : null" formControlName="unit">
                     <mat-option *ngFor="let option of units" [value]="option.unit">
                       {{ option.unit }}

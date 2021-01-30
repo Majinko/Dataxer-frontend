@@ -1,0 +1,19 @@
+<div class="row">
+  <div class="col">
+    <div class="alert alert-danger" *ngIf="!isPay">
+      <p class="mb-3" style="color: #721c24">Faktúra je splatná o 2 dni.</p>
+
+      <button mat-flat-button class="btn-icon" (click)="showPaymentDialog()">
+        <mat-icon>credit_card</mat-icon>
+        Prijať platbu
+      </button>
+    </div>
+
+    <div class="alert alert-success d-flex align-items-center py-1" *ngFor="let payment of payments">
+      Platba prijatá dňa {{payment.payedDate | date:'dd.MM.y'}} - &euro; {{payment.payedValue}}
+      <button mat-icon-button matTooltip="Vymazať" class="ml-3" (click)="destroy(payment.id)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>

@@ -32,8 +32,8 @@ export class DocumentHelper {
           pack.packItems.forEach(item => {
             item.totalPrice = +this.addPercent(+item.price * +item.qty, +item.tax);
 
-            pack.totalPrice += +item.totalPrice;
-            pack.price += !isNaN(+item.price) && !isNaN(+item.qty) ? +(+item.price * +item.qty) : 0;
+            pack.totalPrice += +this.removePercent(+item.totalPrice, +item.discount);
+            pack.price += !isNaN(+item.price) && !isNaN(+item.qty) ? +this.removePercent((+item.price * +item.qty), +item.discount) : 0;
 
             this.price += +this.removePercent(+item.price * +item.qty, +item.discount);
             this.totalPrice += +this.removePercent(+item.totalPrice, +item.discount);

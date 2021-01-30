@@ -24,7 +24,9 @@ import {SpinnerButtonComponent} from './component/spinner-button/spinner-button.
 import {ElementPaidStateComponent} from './component/element-paid-state/element-paid-state.component';
 import {FileComponent} from './component/file/file.component';
 import {NgxFilesizeModule} from 'ngx-filesize';
-
+import {PaymentsComponent} from './component/payments/payments.component';
+import {PaymentDialogComponent} from './component/payments/components/payment-dialog/payment-dialog.component';
+import {PaymentDialogStoreComponent} from './component/payments/components/payment-dialog-store/payment-dialog-store.component';
 
 @NgModule({
   imports: [
@@ -55,7 +57,10 @@ import {NgxFilesizeModule} from 'ngx-filesize';
     NewCategorySelectComponent,
     SpinnerButtonComponent,
     ElementPaidStateComponent,
-    FileComponent
+    FileComponent,
+    PaymentsComponent,
+    PaymentDialogComponent,
+    PaymentDialogStoreComponent
   ],
   exports: [
     DrawerComponent,
@@ -70,7 +75,9 @@ import {NgxFilesizeModule} from 'ngx-filesize';
     NewCategorySelectComponent,
     SpinnerButtonComponent,
     ElementPaidStateComponent,
-    FileComponent],
+    FileComponent,
+    PaymentsComponent
+  ],
 })
 export class ThemeModule {
 }
