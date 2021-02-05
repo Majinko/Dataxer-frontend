@@ -25,7 +25,7 @@ export interface Cost {
   category: CategoryItemNode;
   isInternal: boolean;
   isRepeated: boolean;
-  isPaid: boolean;
+  paymentDate: Date;
   repeatedFrom: Date;
   repeatedTo: Date;
   deliveredDate: Date;

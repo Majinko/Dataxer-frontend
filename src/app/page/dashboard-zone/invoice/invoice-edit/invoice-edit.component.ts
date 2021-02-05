@@ -104,6 +104,7 @@ export class InvoiceEditComponent implements OnInit {
     this.formGroup.patchValue({
       price: this.documentHelper.price,
       totalPrice: this.documentHelper.totalPrice,
+      packs: this.documentHelper.packs
     });
 
     this.invoiceService.update(this.formGroup.value).subscribe((r) => {

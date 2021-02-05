@@ -110,6 +110,11 @@ export class InvoiceCreateComponent implements OnInit {
 
     if (this.route.snapshot.paramMap.get('type') === 'TAX_DOCUMENT') {
       this.invoiceService.taxInvoice(+this.route.snapshot.paramMap.get('id')).subscribe(taxInvoice => {
+        this.oldInvoice = taxInvoice;
+
+        this.formGroup.patchValue({
+          contact: taxInvoice.contact,
+        });
       });
     }
 
@@ -131,7 +136,7 @@ export class InvoiceCreateComponent implements OnInit {
     this.numberingService.generateNextNumberByDocumentType(this.invoiceType).subscribe(r => {
       this.formGroup.patchValue({
         number: r,
-        documentType: this.invoiceType,
+        documentType: this.route.snapshot.paramMap.get('type'),
         variableSymbol: r.toString().replace(/\D/g, ''),
         title: (this.invoiceType === 'PROFORMA' ? 'Zálohová faktúra ' : 'Faktúra ') + r,
       });
@@ -172,6 +177,7 @@ export class InvoiceCreateComponent implements OnInit {
     this.formGroup.patchValue({
       price: this.documentHelper.price,
       totalPrice: this.documentHelper.totalPrice,
+      packs: this.documentHelper.packs
     });
 
     this.invoiceService.store(this.formGroup.value, +this.route.snapshot.paramMap.get('id')).subscribe((r) => {

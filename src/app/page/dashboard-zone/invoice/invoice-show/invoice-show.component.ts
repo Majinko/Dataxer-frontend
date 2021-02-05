@@ -16,6 +16,7 @@ import {PaymentService} from '../../../../core/services/payment.service';
 export class InvoiceShowComponent implements OnInit {
   invoice: Invoice;
   taxResult: Taxes[] = [];
+  canCreateTaxDocument: boolean = false;
 
   constructor(
     private router: Router,

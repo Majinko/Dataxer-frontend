@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {PaymentService} from '../../../core/services/payment.service';
 import {MatDialog} from '@angular/material/dialog';
 import {PaymentDialogComponent} from './components/payment-dialog/payment-dialog.component';
@@ -12,13 +12,17 @@ import {ActivatedRoute} from '@angular/router';
   templateUrl: './payments.component.html',
   styleUrls: ['./payments.component.scss']
 })
-export class PaymentsComponent<T> implements OnInit {
+export class PaymentsComponent<T> implements OnInit, OnDestroy {
   @Input() model: any;
   @Input() documentId: number;
   @Input() documentType: string;
   @Input() isPay: boolean;
+  @Input() dueAtDays: number;
+
+  @Output() canCreateTaxDocument = new EventEmitter<boolean>();
 
   payments: Payment[] = [];
+  myEventSubscription: any;
 
   constructor(
     private dialog: MatDialog,
@@ -36,11 +40,15 @@ export class PaymentsComponent<T> implements OnInit {
   getPayments() {
     return this.paymentService.getDocumentPayments(this.documentId, this.documentType).subscribe(payments => {
       this.payments = payments;
+
+      this.canCreateTaxDoc();
     });
   }
 
   watchStorePayment() {
-    this.paymentService.newPayment.subscribe(payment => {
+    this.dialog.closeAll();
+
+    this.myEventSubscription = this.paymentService.newPayment.subscribe(payment => {
       if (payment.documentType === 'PROFORMA') {
         this.dialog.open(PaymentDialogStoreComponent, {
           width: '100%',
@@ -53,6 +61,7 @@ export class PaymentsComponent<T> implements OnInit {
       }
 
       this.payments.push(payment);
+      this.canCreateTaxDoc();
     });
   }
 
@@ -73,6 +82,16 @@ export class PaymentsComponent<T> implements OnInit {
       this.payments = this.payments.filter(payment => payment.id !== id);
       this.paymentService.destroyPayment.next(true);
       this.messageService.add('Platba bola vymazaná');
+
+      this.canCreateTaxDoc();
     });
+  }
+
+  canCreateTaxDoc() {
+    this.canCreateTaxDocument.emit(this.payments.length > 0);
+  }
+
+  ngOnDestroy(): void {
+    this.myEventSubscription.unsubscribe();
   }
 }

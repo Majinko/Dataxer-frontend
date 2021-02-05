@@ -21,8 +21,11 @@
           </button>
           <mat-menu #menu="matMenu" class="menu-not-rounded">
             <button *ngIf="invoice.documentType === 'PROFORMA'" mat-menu-item [routerLink]="['/invoice/create', 'INVOICE', invoice.id]">
-              <mat-icon>insert_drive_file</mat-icon>
               <span>Vystaviť ostrú faktúru</span>
+            </button>
+
+            <button *ngIf="canCreateTaxDocument" mat-menu-item [routerLink]="['/invoice/create', 'TAX_DOCUMENT', invoice.id]">
+              <span>Daňový doklad k prijatej platbe</span>
             </button>
           </mat-menu>
         </div>
@@ -32,7 +35,7 @@
     <div class="col-12">
       <div class="row">
         <div class="col-md-12">
-          <app-payments [isPay]="invoice.paymentDate != null" [documentId]="invoice.id" [documentType]="invoice.documentType"></app-payments>
+          <app-payments (canCreateTaxDocument)="canCreateTaxDocument = $event" [isPay]="invoice.paymentDate != null" [dueAtDays]="invoice.dueAtDays" [documentId]="invoice.id" [documentType]="invoice.documentType"></app-payments>
         </div>
       </div>
     </div>

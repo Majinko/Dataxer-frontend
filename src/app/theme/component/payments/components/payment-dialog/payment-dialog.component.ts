@@ -47,6 +47,7 @@ export class PaymentDialogComponent implements OnInit {
       documentId: this.data.documentId,
       documentType: this.data.documentType,
       paymentMethod: 'BANK_PAYMENT',
+      taxDocumentCreated: false,
       payedDate: [new Date(), Validators.required],
       payedValue: [null, Validators.required]
     });

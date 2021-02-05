@@ -4,5 +4,6 @@ export interface Payment {
   documentType: string;
   payedValue: number;
   paymentMethod: string;
+  taxDocumentCreated: boolean;
   payedDate: Date;
 }

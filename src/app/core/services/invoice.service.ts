@@ -24,11 +24,17 @@ export class InvoiceService {
   }
 
   store(invoice: Invoice, relatedId: number = null): Observable<void> {
-    return this.http.post<void>(relatedId != null ? `${environment.baseUrl}/invoice/store/${relatedId}` : `${environment.baseUrl}/invoice/store`, invoice);
+    return this.http.post<void>(relatedId !== 0 ? `${environment.baseUrl}/invoice/store/${relatedId}` : `${environment.baseUrl}/invoice/store`, invoice);
   }
 
   paginate(page: number, size: number): Observable<Paginate<Invoice>> {
-    return this.http.get<Paginate<Invoice>>(`${environment.baseUrl}/invoice/paginate?page=${page}&size=${size}`);
+    return this.http.get<Paginate<Invoice>>(`${environment.baseUrl}/invoice/paginate?page=${page}&size=${size}`).pipe(map(data => {
+      data.content.forEach(invoice => {
+        invoice.dueAtDays = Math.ceil(moment(invoice.dueDate).diff(new Date(), 'days', true));
+      });
+
+      return data;
+    }));
   }
 
   destroy(id: number): Observable<void> {
