@@ -3,6 +3,8 @@ import {UserService} from '../../../core/services/user.service';
 import {User} from '../../../core/models/user';
 import {AuthService} from '../../../core/services/auth.service';
 import {Router} from '@angular/router';
+import {CompanyService} from '../../../core/services/company.service';
+import {Company} from '../../../core/models/company';
 
 @Component({
   selector: 'app-avatar',
@@ -11,18 +13,27 @@ import {Router} from '@angular/router';
 })
 export class AvatarComponent implements OnInit {
   user: User;
+  companies: Company[] = [];
 
   constructor(
     @Inject(UserService) public readonly userService: UserService,
     @Inject(AuthService) private readonly authService: AuthService,
+    public readonly companyService: CompanyService,
     private router: Router
   ) {
   }
 
   ngOnInit() {
+    this.getCompanies();
   }
 
   logout() {
     this.authService.signOut().then(() => this.router.navigate(['/auth/login']));
+  }
+
+  getCompanies() {
+    this.companyService.all().subscribe(companies => {
+      this.companies = companies;
+    });
   }
 }

@@ -1,5 +1,4 @@
 import {HttpParams} from '@angular/common/http';
-import {CustomFile} from './app/core/models/customFile';
 
 export function prepareFilter(filter) {
   let params = new HttpParams();
@@ -78,4 +77,14 @@ export function containsObject(obj, list) {
   }
 
   return false;
+}
+
+
+/**
+ * Sum of array object by key
+ * @param data
+ * @param key
+ */
+export function sum(data: any[], key: string) {
+  return data.reduce((a, b) => a + (b[key] || 0), 0);
 }

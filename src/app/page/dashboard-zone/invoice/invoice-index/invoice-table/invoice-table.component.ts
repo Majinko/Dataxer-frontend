@@ -76,8 +76,4 @@ export class InvoiceTableComponent implements OnInit, AfterViewInit {
       this.messageService.add('Faktura bola odstránená');
     });
   }
-
-  show(invoice: Invoice) {
-    this.router.navigate(['/invoice/show', invoice.id]).then();
-  }
 }

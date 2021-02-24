@@ -8,6 +8,8 @@ import {RemovePercentPipe} from './pipes/remove-percent.pipe';
 import {NotNullPipe} from './pipes/not-null.pipe';
 import {SortByPipe} from './pipes/sort-by.pipe';
 import {RemovePercentGetNumberPipe} from './pipes/remove-percent-get-number.pipe';
+import { TimeFromTimestampPipe } from './pipes/time-from-timestamp.pipe';
+import { StrftimePipe } from './pipes/strftime.pipe';
 
 
 @NgModule({
@@ -19,7 +21,9 @@ import {RemovePercentGetNumberPipe} from './pipes/remove-percent-get-number.pipe
     RemovePercentPipe,
     NotNullPipe,
     SortByPipe,
-    RemovePercentGetNumberPipe
+    RemovePercentGetNumberPipe,
+    TimeFromTimestampPipe,
+    StrftimePipe
   ],
   exports: [
     ZeroValuePipe,
@@ -30,6 +34,8 @@ import {RemovePercentGetNumberPipe} from './pipes/remove-percent-get-number.pipe
     NotNullPipe,
     SortByPipe,
     RemovePercentGetNumberPipe,
+    TimeFromTimestampPipe,
+    StrftimePipe,
   ],
   imports: [
     CommonModule,

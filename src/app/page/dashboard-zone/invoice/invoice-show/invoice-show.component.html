@@ -71,7 +71,7 @@
       </p>
     </div>
 
-    <div class="col-md-8">
+    <div class="col-md-4">
       <p class="mb-0">Odberateľ:</p>
 
       <div *ngIf="invoice.documentData.contact">
@@ -90,6 +90,10 @@
           <b class="text-dark">IČ DPH:</b> {{invoice.documentData.contact.vatin}} <br>
         </p>
       </div>
+    </div>
+
+    <div class="col-md-4">
+      <app-document-relation [documentId]="invoice.id"></app-document-relation>
     </div>
 
     <div class="col-12 mt-2">
@@ -222,7 +226,7 @@
             </td>
           </tr>
 
-          <tr class="row-summary" *ngFor="let tax of taxResult">
+          <tr class="row-summary" *ngFor="let tax of documentHelper.taxResult">
             <td class="text-right">
               <p>DPH {{tax.tax}} %:</p>
             </td>

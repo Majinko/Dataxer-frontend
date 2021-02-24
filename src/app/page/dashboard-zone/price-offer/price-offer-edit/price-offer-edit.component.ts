@@ -42,22 +42,34 @@ export class PriceOfferEditComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.prepareForm();
+    this.changeForm();
     this.getById();
   }
 
   getById() {
-    this.priceOfferService.getById(+this.route.snapshot.paramMap.get('price_offer_id')).subscribe(p => {
+    this.priceOfferService.getById(+this.route.snapshot.paramMap.get('id')).subscribe(p => {
       this.priceOffer = p;
 
-      this.prepareForm();
+      this.formGroup.patchValue(p);
+    });
+  }
+
+  // detect change form
+  private changeForm() {
+    this.formGroup.valueChanges.subscribe(v => {
+      this.formGroup.get('documentData').patchValue({
+        contact: v.contact
+      }, {emitEvent: false});
     });
   }
 
   // prepare form
   private prepareForm() {
     this.formGroup = this.formBuilder.group({
-      id: '',
-      contact: [null],
+      id: null,
+      contact: [null, Validators.required],
+      project: [null, Validators.required],
       title: ['', Validators.required],
       subject: '',
       number: ['', Validators.required],
@@ -76,13 +88,13 @@ export class PriceOfferEditComponent implements OnInit {
           phone: '',
           email: '',
         }),
-        firm: null
+        firm: null,
+        contact: null,
+        bankAccount: null,
       }),
 
       packs: this.formBuilder.array([])
     });
-
-    this.formGroup.patchValue(this.priceOffer);
   }
 
   // convenience getter for easy access to form fields

@@ -1,10 +1,12 @@
 import {Injectable} from '@angular/core';
 import {AbstractControl} from '@angular/forms';
 import {Pack} from '../models/pack';
+import {Taxes} from '../models/taxes';
 
 @Injectable()
 export class DocumentHelper {
   packs: Pack[];
+  taxResult: Taxes[] = [];
   price: number = 0;
   totalPrice: number = 0;
 
@@ -58,5 +60,40 @@ export class DocumentHelper {
     const result: any = value - (parseFloat(value) / 100) * parseFloat(args);
 
     return !isNaN(result) ? result.toFixed(2) : 0;
+  }
+
+  prepareTaxes(packs: Pack[]) {
+    packs.forEach(pack => {
+      if (pack.customPrice) {
+        this.prepareTaxResult(pack);
+      } else {
+        pack.packItems.forEach(item => {
+          this.prepareTaxResult(item, true);
+        });
+      }
+    });
+  }
+
+  prepareTaxResult(item, isItem = false) {
+    const tAxResult = this.taxResult.find(t => t.tax === item.tax);
+    if (tAxResult !== undefined) {
+      if (isItem) {
+        tAxResult.price += +this.removePercent(+item.price, +item.discount);
+        tAxResult.totalPrice += +this.removePercent(+item.totalPrice, +item.discount);
+      } else {
+        tAxResult.price += +item.price;
+        tAxResult.totalPrice += +item.totalPrice;
+      }
+    } else {
+      if (isItem) {
+        this.taxResult.push({
+          tax: item.tax,
+          price: +this.removePercent(+item.price * +item.qty, +item.discount),
+          totalPrice: +this.removePercent(+item.totalPrice, +item.discount)
+        });
+      } else {
+        this.taxResult.push({tax: item.tax, price: item.price, totalPrice: item.totalPrice});
+      }
+    }
   }
 }

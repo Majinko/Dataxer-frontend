@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {CompanyService} from '../../../core/services/company.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -7,6 +8,11 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class ToolbarComponent implements OnInit {
   @Input() showSearchBar = true;
+
+
+  constructor(public readonly companyService: CompanyService) {
+  }
+
   ngOnInit() {
   }
 }

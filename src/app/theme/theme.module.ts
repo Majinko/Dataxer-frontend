@@ -27,6 +27,8 @@ import {NgxFilesizeModule} from 'ngx-filesize';
 import {PaymentsComponent} from './component/payments/payments.component';
 import {PaymentDialogComponent} from './component/payments/components/payment-dialog/payment-dialog.component';
 import {PaymentDialogStoreComponent} from './component/payments/components/payment-dialog-store/payment-dialog-store.component';
+import {DocumentRelationComponent} from './component/document-relation/document-relation.component';
+import {DocumentRelationDialogComponent} from './component/document-relation/component/document-relation-dialog/document-relation-dialog.component';
 
 @NgModule({
   imports: [
@@ -60,7 +62,9 @@ import {PaymentDialogStoreComponent} from './component/payments/components/payme
     FileComponent,
     PaymentsComponent,
     PaymentDialogComponent,
-    PaymentDialogStoreComponent
+    PaymentDialogStoreComponent,
+    DocumentRelationComponent,
+    DocumentRelationDialogComponent,
   ],
   exports: [
     DrawerComponent,
@@ -76,7 +80,8 @@ import {PaymentDialogStoreComponent} from './component/payments/components/payme
     SpinnerButtonComponent,
     ElementPaidStateComponent,
     FileComponent,
-    PaymentsComponent
+    PaymentsComponent,
+    DocumentRelationComponent,
   ],
 })
 export class ThemeModule {

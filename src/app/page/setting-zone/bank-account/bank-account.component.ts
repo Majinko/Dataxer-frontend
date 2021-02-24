@@ -1,7 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {GodButtonService} from "../../../core/services/god-button.service";
-import {ActivatedRoute} from "@angular/router";
-import {BankAccountDialogComponent} from "./bank-account-dialog/bank-account-dialog.component";
+import {GodButtonService} from '../../../core/services/god-button.service';
+import {ActivatedRoute} from '@angular/router';
+import {BankAccountDialogComponent} from './bank-account-dialog/bank-account-dialog.component';
 
 @Component({
   selector: 'app-bank-account',
@@ -27,5 +27,6 @@ export class BankAccountComponent implements OnInit {
     this.godButtonService.routerLink = this.route.snapshot.data.gotButtonRouteLink;
     this.godButtonService.component = BankAccountDialogComponent;
     this.godButtonService.showModal = true;
+    this.godButtonService.menuItem = [];
   }
 }

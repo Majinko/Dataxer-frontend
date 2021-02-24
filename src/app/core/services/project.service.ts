@@ -5,6 +5,7 @@ import {Paginate} from '../models/paginate';
 import {environment} from '../../../environments/environment';
 import {Project} from '../models/project';
 import {map} from 'rxjs/operators';
+import {CategoryItemNode} from '../models/category-item-node';
 
 @Injectable({
   providedIn: 'root'

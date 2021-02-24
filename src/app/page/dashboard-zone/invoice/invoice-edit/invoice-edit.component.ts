@@ -46,13 +46,15 @@ export class InvoiceEditComponent implements OnInit {
   ngOnInit(): void {
     this.getById();
     this.prepareForm();
+    this.changeForm();
   }
 
   // prepare form
   private prepareForm() {
     this.formGroup = this.formBuilder.group({
       id: null,
-      contact: [null],
+      contact: [null, Validators.required],
+      project: [null, Validators.required],
       title: ['', Validators.required],
       subject: '',
       number: ['', Validators.required],
@@ -82,6 +84,15 @@ export class InvoiceEditComponent implements OnInit {
       }),
 
       packs: this.formBuilder.array([])
+    });
+  }
+
+  // detect change form
+  private changeForm() {
+    this.formGroup.valueChanges.subscribe(v => {
+      this.formGroup.get('documentData').patchValue({
+        contact: v.contact
+      }, {emitEvent: false});
     });
   }
 

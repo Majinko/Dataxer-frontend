@@ -48,6 +48,7 @@ export class CostEditComponent implements OnInit {
     private addPercent: AddPercentPipe,
     private costService: CostService,
     private route: ActivatedRoute,
+    private router: Router,
     private messageService: MessageService,
   ) {
   }
@@ -119,8 +120,10 @@ export class CostEditComponent implements OnInit {
     }
 
     this.costService.update(this.formGroup.value, this.uploadHelper.files).subscribe(() => {
-      this.messageService.add('Náklad bol aktualizovaní');
-      this.isLoading = false;
+      this.router.navigate(['/cost']).then(() => {
+        this.messageService.add('Náklad bol aktualizovaný');
+        this.isLoading = false;
+      });
     });
   }
 }

@@ -19,7 +19,7 @@ export class UserEditComponent implements OnInit {
   constructor(
     @Inject(UserService) public readonly userService: UserService,
     @Inject(AuthService) private readonly authService: AuthService,
-    private messageSevice: MessageService,
+    private messageService: MessageService,
     private fb: FormBuilder
   ) {
   }
@@ -47,7 +47,7 @@ export class UserEditComponent implements OnInit {
     }
 
     this.userService.update(this.formGroup.value).subscribe(() => {
-      this.messageSevice.add("Údaje boli aktualizované");
+      this.messageService.add('Údaje boli aktualizované');
     });
   }
 

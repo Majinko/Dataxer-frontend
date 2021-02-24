@@ -3,6 +3,7 @@ import {Contact} from './contact';
 import {Pack} from './pack';
 import {Company} from './company';
 import {BankAccount} from './bank-account';
+import {Project} from './project';
 
 export interface Invoice {
   id: number;
@@ -29,5 +30,6 @@ export interface Invoice {
   totalPrice: number;
   dueAtDays: number;
   contact: Contact;
+  project: Project;
   packs: Pack[];
 }

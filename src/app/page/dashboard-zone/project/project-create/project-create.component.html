@@ -91,6 +91,23 @@
   </div>
 
   <div class="row">
+    <div class="col-12">
+      <h2 class="border-bottom-2 pb-2 mb-4">Kategórie položky</h2>
+    </div>
+
+    <div class="col-12">
+      <ng-select class="form-group w-100 mb-0"
+                 [multiple]="true"
+                 [items]="categories"
+                 bindLabel="name"
+                 placeholder="Kategórie"
+                 formControlName="categories"
+      >
+      </ng-select>
+    </div>
+  </div>
+
+  <div class="row">
     <div class="col-md-12 text-right">
       <div *ngIf="dialogRef === null; else dialogProject">
         <button routerLink="/project" mat-stroked-button class="btn-icon btn-theme-stroked mr-3">

@@ -27,10 +27,10 @@ export class BankAccountDialogComponent implements OnInit {
     this.formGroup = this.formBuilder.group({
       id: null,
       iban: [null, Validators.required],
-      bankCode: [null, Validators.pattern('^[0-9]*$')],
+      bankCode: [null, Validators.pattern('^[0-9]{1,6}$')],
       bankName: null,
       swift: null,
-      accountNumber: [null, Validators.pattern('^[0-9]*$')],
+      accountNumber: [null, Validators.pattern('^[0-9]{1,10}$')],
       currency: this.currencies[0].value,
     });
 

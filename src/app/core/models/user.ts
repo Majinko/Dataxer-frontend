@@ -1,3 +1,5 @@
+import {Salary} from './salary';
+
 export interface User {
   id?: number;
   uid: string;
@@ -13,4 +15,9 @@ export interface User {
   city?: string;
   postalCode?: string;
   country?: string;
+}
+
+export interface UserInit {
+  user: User;
+  salary: Salary;
 }

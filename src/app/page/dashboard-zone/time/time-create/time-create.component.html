@@ -52,7 +52,7 @@
     <div class="col-md-4">
       <mat-form-field class="form-group w-100">
         <input type="text"
-               placeholder="Čas od"
+               placeholder="Čas do"
                aria-label="Number"
                matInput
                formControlName="timeToForUser"
@@ -63,14 +63,14 @@
     </div>
 
     <div class="col-md-6 form-group">
-      <app-new-category-select formControlName="category" [showAddButton]="false"></app-new-category-select>
-
-      <mat-error *ngIf="isSubmit && f.category.errors">Kategória je <strong>požadovaná.</strong></mat-error>
+      <app-new-project-select formControlName="project" [showAddButton]="false"></app-new-project-select>
+      <mat-error *ngIf="isSubmit && f.project.errors">Projekt je <strong>požadovaný.</strong></mat-error>
     </div>
 
     <div class="col-md-6 form-group">
-      <app-new-project-select formControlName="project" [showAddButton]="false"></app-new-project-select>
-      <mat-error *ngIf="isSubmit && f.project.errors">Projekt je <strong>požadovaný.</strong></mat-error>
+      <app-new-category-select formControlName="category" [showAddButton]="false"></app-new-category-select>
+
+      <mat-error *ngIf="isSubmit && f.category.errors">Kategória je <strong>požadovaná.</strong></mat-error>
     </div>
   </div>
 

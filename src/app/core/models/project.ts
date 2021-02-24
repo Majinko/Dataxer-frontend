@@ -1,10 +1,9 @@
-import {Contact} from "./contact";
-import {User} from "./user";
+import {Contact} from './contact';
+import {User} from './user';
+import {CategoryItemNode} from './category-item-node';
 
 export interface Project {
   id: number;
-  contact: Contact;
-  user: User;
   description: string;
   title: string;
   number: string;
@@ -13,4 +12,8 @@ export interface Project {
   area: number;
   startedAt: Date;
   finishedAt: Date;
+
+  contact: Contact;
+  user: User;
+  categories: CategoryItemNode[];
 }

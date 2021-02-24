@@ -27,7 +27,7 @@
           <!-- Action Column -->
           <ng-container matColumnDef="action">
             <th mat-header-cell *matHeaderCellDef> Projekt</th>
-            <td class="max" mat-cell *matCellDef="let element"> {{element.action}} </td>
+            <td class="max" mat-cell *matCellDef="let element"> {{element.project.title}} </td>
           </ng-container>
 
           <!-- Created Column -->
@@ -62,7 +62,7 @@
                   <mat-icon class="text-theme">edit</mat-icon>
                 </button>
                 <button
-                  (click)="destroy(element.id)"
+                  (click)="destroy($event, element.id)"
                   mat-icon-button
                   matTooltip="Delete item">
                   <mat-icon class="text-theme">delete</mat-icon>
@@ -72,11 +72,10 @@
           </ng-container>
 
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          <tr mat-row class="cursor-pointer" [routerLink]="['/price-offer/show', row.id]" *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
 
-        <mat-paginator [pageSizeOptions]="[10, 15, 20, 100]" [length]="totalElements"
-                       [pageSize]="pageSize"></mat-paginator>
+        <mat-paginator [pageSizeOptions]="[10, 15, 20, 100]" [length]="totalElements" [pageSize]="pageSize"></mat-paginator>
       </div>
     </div>
   </div>

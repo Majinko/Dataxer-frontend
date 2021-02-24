@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {AngularFirestore} from '@angular/fire/firestore';
-import {User} from '../models/user';
+import {User, UserInit} from '../models/user';
 import {Observable} from 'rxjs';
 import {environment} from '../../../environments/environment';
 import {map} from 'rxjs/operators';
@@ -18,11 +18,11 @@ export class UserService {
   ) {
   }
 
-  all(): Observable<User[]>{
+  all(): Observable<User[]> {
     return this.http.get<User[]>(`${environment.baseUrl}/user/all`);
   }
 
-  loggedUser(): Observable<User>{
+  loggedUser(): Observable<User> {
     return this.http.get<User>(`${environment.baseUrl}/user/logged`).pipe(map((user) => {
       user.displayName = user.firstName + ' ' + user.lastName;
 
@@ -30,7 +30,7 @@ export class UserService {
     }));
   }
 
-  update(user: User): Observable<User>{
+  update(user: User): Observable<User> {
     return this.http.post<User>(`${environment.baseUrl}/user/update`, user);
   }
 
@@ -46,5 +46,9 @@ export class UserService {
       postalCode: user.postalCode,
       country: user.country
     });
+  }
+
+  store(user: UserInit): Observable<User> {
+    return this.http.post<User>(`${environment.baseUrl}/user/store`, user);
   }
 }

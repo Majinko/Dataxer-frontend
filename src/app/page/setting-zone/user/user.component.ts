@@ -1,5 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {GodButtonService} from '../../../core/services/god-button.service';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-user',
@@ -16,10 +17,13 @@ import {GodButtonService} from '../../../core/services/god-button.service';
 export class UserComponent implements OnInit {
   constructor(
     @Inject(GodButtonService) private readonly godButtonService: GodButtonService,
+    private route: ActivatedRoute
   ) {
   }
 
   ngOnInit() {
-    this.godButtonService.title = null;
+    this.godButtonService.title = this.route.snapshot.data.godButtonTitle;
+    this.godButtonService.routerLink = this.route.snapshot.data.gotButtonRouteLink;
+    this.godButtonService.showModal = false;
   }
 }

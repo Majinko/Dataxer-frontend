@@ -13,27 +13,27 @@
   </div>
 
   <div class="row">
-    <div class="col-md-6 form-group">
+    <div class="col-md-6">
       <mat-form-field class="form-group w-100">
         <input formControlName="title" matInput placeholder="Názov zákazky">
         <mat-error *ngIf="f.title.errors">Názov zákazky je <strong>pozadovany.</strong></mat-error>
       </mat-form-field>
     </div>
 
-    <div class="col-md-6 form-group">
+    <div class="col-md-6">
       <mat-form-field class="form-group w-100">
         <input formControlName="number" matInput placeholder="Číslo zákazky">
         <mat-error *ngIf="f.number.errors">Číslo zákazky je <strong>pozadovany.</strong></mat-error>
       </mat-form-field>
     </div>
 
-    <div class="col-md-12 form-group">
+    <div class="col-md-12">
       <mat-form-field class="form-group w-100">
         <input formControlName="description" matInput placeholder="Popis zákazky">
       </mat-form-field>
     </div>
 
-    <div class="col-md-6 form-group">
+    <div class="col-md-6">
       <app-select-new-contact formControlName="contact"></app-select-new-contact>
       <mat-error *ngIf="submitted && f.contact.errors">Client je <strong>pozadovany.</strong></mat-error>
     </div>
@@ -83,6 +83,23 @@
       <mat-form-field class="form-group w-100">
         <input formControlName="area" matInput placeholder="Rozloha zákazky">
       </mat-form-field>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <h2 class="border-bottom-2 pb-2 mb-4">Kategórie položky</h2>
+    </div>
+
+    <div class="col-12">
+      <ng-select class="form-group w-100 mb-0"
+                 [multiple]="true"
+                 [items]="categories"
+                 bindLabel="name"
+                 placeholder="Kategórie"
+                 formControlName="categories"
+      >
+      </ng-select>
     </div>
   </div>
 

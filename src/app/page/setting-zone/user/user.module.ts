@@ -7,6 +7,8 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {MaterialModule} from '../../../theme/modules/material.module';
 import {AvatarModule} from 'ngx-avatar';
 import {NgSelectModule} from '@ng-select/ng-select';
+import {UserAllComponent} from './user-all/user-all.component';
+import {UserCreateComponent} from './user-create/user-create.component';
 
 const routes: Routes = [
   {
@@ -16,13 +18,21 @@ const routes: Routes = [
       {
         path: '',
         component: UserEditComponent
+      },
+      {
+        path: 'all',
+        component: UserAllComponent
+      },
+      {
+        path: 'create',
+        component: UserCreateComponent
       }
     ]
   },
 ];
 
 @NgModule({
-  declarations: [UserComponent, UserEditComponent],
+  declarations: [UserComponent, UserEditComponent, UserAllComponent, UserCreateComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),

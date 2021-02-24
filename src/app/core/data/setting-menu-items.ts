@@ -2,9 +2,9 @@ import {MenuItem} from '../models/menu-item';
 
 export const SettingMenuItems: MenuItem[] = [
   {
-    routerLink: ['/setting/user'],
-    title: 'Osobné údaje',
-    icon: 'person',
+    routerLink: ['/setting/user/all'],
+    title: 'Používatelia',
+    icon: 'groups',
   },
   {
     routerLink: ['/setting/company'],

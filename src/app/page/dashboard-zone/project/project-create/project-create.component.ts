@@ -34,7 +34,7 @@ import {AddPercentPipe} from '../../../../core/pipes/add-percent.pipe';
 export class ProjectCreateComponent implements OnInit {
   formGroup: FormGroup;
   submitted: boolean = false;
-  categories: CategoryItemNode[];
+  categories: CategoryItemNode[] = [];
   users: User[] = [];
 
   constructor(
@@ -50,7 +50,7 @@ export class ProjectCreateComponent implements OnInit {
 
   ngOnInit(): void {
     this.prepareForm();
-    this.getUsers();
+    this.getAllCategories();
   }
 
   private prepareForm() {
@@ -64,7 +64,13 @@ export class ProjectCreateComponent implements OnInit {
       area: [0, Validators.pattern(/^[0-9]\d*$/)],
       startedAt: new Date(),
       finishedAt: new Date(),
-      // attributes: this.formBuilder.array([])
+      categories: null
+    });
+  }
+
+  private getAllCategories() {
+    this.categoryService.all().subscribe((nestedCategories) => {
+      this.categories = nestedCategories;
     });
   }
 

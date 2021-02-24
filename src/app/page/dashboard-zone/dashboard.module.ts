@@ -7,14 +7,14 @@ import {MaterialModule} from '../../theme/modules/material.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
-  declarations: [DashboardComponent],
-  imports: [
-    CommonModule,
-    DashboardRoutingModule,
-    ThemeModule,
-    MaterialModule,
-    FormsModule,
-    ReactiveFormsModule,
-  ]
+    declarations: [DashboardComponent],
+    imports: [
+        CommonModule,
+        DashboardRoutingModule,
+        ThemeModule,
+        MaterialModule,
+        FormsModule,
+        ReactiveFormsModule,
+    ]
 })
 export class DashboardModule {}

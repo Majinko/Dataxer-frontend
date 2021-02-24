@@ -18,10 +18,15 @@
       <mat-error *ngIf="submitted && f.contact.errors">Client je <strong>pozadovany.</strong></mat-error>
     </div>
 
-    <div class="col-md-8">
+    <div class="col-md-4 form-group">
+      <app-new-project-select formControlName="project"></app-new-project-select>
+      <mat-error *ngIf="submitted && f.project.errors">Projekt je <strong>požadovaný.</strong></mat-error>
+    </div>
+
+    <div class="col-md-4">
       <mat-form-field class="form-group w-100">
         <input formControlName="title" matInput placeholder="Názov kalkulácie">
-        <mat-error *ngIf="f.title.errors">Názov kalkulácie je <strong>pozadovany.</strong></mat-error>
+        <mat-error *ngIf="f.title.errors">Názov kalkulácie je <strong>požadovaný.</strong></mat-error>
       </mat-form-field>
     </div>
   </div>

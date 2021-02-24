@@ -1,5 +1,5 @@
 import {Inject, Injectable} from '@angular/core';
-import {HttpRequest, HttpHandler, HttpEvent, HttpInterceptor} from '@angular/common/http';
+import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {catchError} from 'rxjs/operators';
 import {Router} from '@angular/router';
@@ -26,7 +26,7 @@ export class ErrorInterceptor implements HttpInterceptor {
         }
 
         //this.messageService.add(error.error.message || error.statusText);
-        this.messageService.add("Somenthing wrong :(");
+        this.messageService.add('Somenthing wrong :(');
         return throwError(error);
       })
     );

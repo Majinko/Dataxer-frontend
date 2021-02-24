@@ -1,0 +1,46 @@
+<form [formGroup]="formGroup">
+  <div mat-dialog-title class="row mb-4">
+    <div class="d-flex align-items-center justify-content-between mb-3 mb-md-5">
+      <h1 class="mb-0">Vybrať doklad</h1>
+      <a mat-icon-button class="close-icon cursor-pointer" mat-dialog-close>
+        <mat-icon>close</mat-icon>
+      </a>
+    </div>
+  </div>
+
+  <div mat-dialog-content>
+    <div class="row mb-3">
+      <div class="col-md-12">
+        <mat-form-field class="w-100">
+          <input matInput placeholder="Vybrať doklad..." formControlName="title" autocomplete="off">
+          <mat-icon matSuffix class="text-gray" form>search</mat-icon>
+        </mat-form-field>
+      </div>
+
+      <div class="col-12">
+        <table mat-table class="w-100 table-hover" [dataSource]="dataSource">
+          <!-- Title -->
+          <ng-container matColumnDef="title">
+            <th mat-header-cell *matHeaderCellDef>Názov </th>
+            <td mat-cell *matCellDef="let element"> {{element.documentTitle}} </td>
+          </ng-container>
+
+          <!-- CreatedDate -->
+          <ng-container matColumnDef="createdDate">
+            <th mat-header-cell *matHeaderCellDef>Vystavené </th>
+            <td mat-cell *matCellDef="let element"> {{element.createdDate | date:'dd.MM.y'}} </td>
+          </ng-container>
+
+          <!-- Price -->
+          <ng-container matColumnDef="totalPrice">
+            <th mat-header-cell *matHeaderCellDef>Suma </th>
+            <td mat-cell *matCellDef="let element"> <b>{{element.totalPrice | removePercent: element.discount}} &euro;</b></td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row class="cursor-pointer" (click)="makeRelation(row)" *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</form>

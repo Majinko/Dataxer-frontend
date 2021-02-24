@@ -19,6 +19,12 @@ const routes: Routes = [
           .then(m => m.CompanyModule),
       },
       {
+        path: 'user',
+        data: {godButtonTitle: 'Nový používateľ', gotButtonRouteLink: '/setting/user/create'},
+        loadChildren: () => import('./user/user.module')
+          .then(m => m.UserModule),
+      },
+      {
         path: 'category',
         data: {godButtonTitle: 'Nová kategória', gotButtonRouteLink: '/setting/category/create'},
         loadChildren: () => import('./category/category.module').then(m => m.CategoryModule),

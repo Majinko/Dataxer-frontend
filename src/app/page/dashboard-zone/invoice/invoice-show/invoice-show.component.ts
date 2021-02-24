@@ -2,9 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {InvoiceService} from '../../../../core/services/invoice.service';
 import {Invoice} from '../../../../core/models/invoice';
-import {Taxes} from '../../../../core/models/taxes';
 import {DocumentHelper} from '../../../../core/class/DocumentHelper';
-import {MessageService} from '../../../../core/services/message.service';
 import {PaymentService} from '../../../../core/services/payment.service';
 
 @Component({
@@ -15,16 +13,14 @@ import {PaymentService} from '../../../../core/services/payment.service';
 })
 export class InvoiceShowComponent implements OnInit {
   invoice: Invoice;
-  taxResult: Taxes[] = [];
   canCreateTaxDocument: boolean = false;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private invoiceService: InvoiceService,
-    private documentHelper: DocumentHelper,
-    private messageService: MessageService,
-    private paymentService: PaymentService
+    private paymentService: PaymentService,
+    public documentHelper: DocumentHelper
   ) {
   }
 
@@ -46,42 +42,7 @@ export class InvoiceShowComponent implements OnInit {
     this.invoiceService.getById(+this.route.snapshot.paramMap.get('id')).subscribe(invoice => {
       this.invoice = invoice;
 
-      this.prepareTaxes();
+      this.documentHelper.prepareTaxes(invoice.packs);
     });
-  }
-
-  private prepareTaxes() {
-    this.invoice.packs.forEach(pack => {
-      if (pack.customPrice) {
-        this.prepareTaxResult(pack);
-      } else {
-        pack.packItems.forEach(item => {
-          this.prepareTaxResult(item, true);
-        });
-      }
-    });
-  }
-
-  private prepareTaxResult(item, isItem = false) {
-    const tAxResult = this.taxResult.find(t => t.tax === item.tax);
-    if (tAxResult !== undefined) {
-      if (isItem) {
-        tAxResult.price += +this.documentHelper.removePercent(+item.price, +item.discount);
-        tAxResult.totalPrice += +this.documentHelper.removePercent(+item.totalPrice, +item.discount);
-      } else {
-        tAxResult.price += +item.price;
-        tAxResult.totalPrice += +item.totalPrice;
-      }
-    } else {
-      if (isItem) {
-        this.taxResult.push({
-          tax: item.tax,
-          price: +this.documentHelper.removePercent(+item.price * +item.qty, +item.discount),
-          totalPrice: +this.documentHelper.removePercent(+item.totalPrice, +item.discount)
-        });
-      } else {
-        this.taxResult.push({tax: item.tax, price: item.price, totalPrice: item.totalPrice});
-      }
-    }
   }
 }

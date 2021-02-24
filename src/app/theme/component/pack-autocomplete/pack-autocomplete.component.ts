@@ -1,10 +1,10 @@
 import {Component, EventEmitter, forwardRef, OnInit, Output} from '@angular/core';
-import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
-import {PackService} from "../../../core/services/pack.service";
-import {Subject} from "rxjs";
-import {debounceTime, distinctUntilChanged, switchMap, tap} from "rxjs/operators";
-import {Pack} from "../../../core/models/pack";
-import {Item} from "../../../core/models/item";
+import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
+import {PackService} from '../../../core/services/pack.service';
+import {Subject} from 'rxjs';
+import {debounceTime, distinctUntilChanged, switchMap, tap} from 'rxjs/operators';
+import {Pack} from '../../../core/models/pack';
+import {Item} from '../../../core/models/item';
 
 @Component({
   selector: 'app-pack-autocomplete',
@@ -18,7 +18,7 @@ import {Item} from "../../../core/models/item";
 })
 
 export class PackAutocompleteComponent implements ControlValueAccessor, OnInit {
-  packs: Pack[] = []
+  packs: Pack[] = [];
 
   value: string;
   isLoading: boolean = false;
@@ -47,7 +47,7 @@ export class PackAutocompleteComponent implements ControlValueAccessor, OnInit {
     ).subscribe(packs => {
       this.packs = packs;
       this.isLoading = false;
-    })
+    });
   }
 
   registerOnChange(fn: any): void {
@@ -65,7 +65,7 @@ export class PackAutocompleteComponent implements ControlValueAccessor, OnInit {
   search(event: { term: string; items: any[] }) {
     this.onChange(event.term);
 
-    this.searchTerms.next(event.term)
+    this.searchTerms.next(event.term);
   }
 
   findingPack(pack: Pack) {

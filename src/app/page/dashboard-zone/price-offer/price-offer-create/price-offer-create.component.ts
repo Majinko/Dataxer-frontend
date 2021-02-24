@@ -9,7 +9,8 @@ import {NumberingService} from '../../../../core/services/numbering.service';
 import {CompanyService} from '../../../../core/services/company.service';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import {MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter} from '@angular/material-moment-adapter';
-import {APP_DATE_FORMATS} from '../../../../../helper';
+import {addDays, APP_DATE_FORMATS} from '../../../../../helper';
+import {BankAccountService} from '../../../../core/services/bank-account.service';
 
 @Component({
   selector: 'app-create',
@@ -39,6 +40,7 @@ export class PriceOfferCreateComponent implements OnInit {
     private priceOfferService: PriceOfferService,
     private messageService: MessageService,
     private numberingService: NumberingService,
+    private bankAccountService: BankAccountService,
     private companyService: CompanyService,
     private router: Router,
     public documentHelper: DocumentHelper
@@ -48,30 +50,36 @@ export class PriceOfferCreateComponent implements OnInit {
   ngOnInit() {
     this.prepareForm();
     this.preparePriceOfferData();
+    this.changeForm();
+    this.getDefaultBankAccount();
   }
 
   // prepare form
   private prepareForm() {
     this.formGroup = this.formBuilder.group({
-      contact: [null],
+      contact: [null, Validators.required],
+      project: [null, Validators.required],
       title: ['', Validators.required],
       subject: '',
       number: ['', Validators.required],
       state: null,
       createdDate: [new Date(), Validators.required],
       deliveredDate: [new Date(), Validators.required],
-      dueDate: [new Date()],
+      dueDate: [addDays(new Date(), 14)],
       note: '',
       noteToRecipient: '',
       discount: 0,
       price: 0,
       totalPrice: 0,
+      documentType: 'PRICE_OFFER',
       documentData: this.formBuilder.group({
         user: this.formBuilder.group({
           displayName: '',
           phone: '',
           email: '',
         }),
+        contact: null,
+        bankAccount: null,
         firm: this.companyService.company
       }),
 
@@ -86,8 +94,35 @@ export class PriceOfferCreateComponent implements OnInit {
 
     this.numberingService.generateNextNumberByDocumentType('PRICE_OFFER').subscribe(r => {
       this.formGroup.patchValue({number: r});
+      this.formGroup.patchValue({title: 'Cenová ponuka ' + r});
     });
   }
+
+  // detect change form
+  private changeForm() {
+    this.formGroup.valueChanges.subscribe(v => {
+      this.formGroup.get('documentData').patchValue({
+        contact: v.contact
+      }, {emitEvent: false});
+    });
+  }
+
+  // get default bank account
+  private getDefaultBankAccount() {
+    this.bankAccountService.getDefaultBankAccount().subscribe(bA => {
+        this.formGroup.get('documentData').patchValue({
+          bankAccount: bA
+        }, {emitEvent: false});
+      },
+      error => {
+        if (error){
+          this.router.navigate(['/setting/bank-account']).then(() => {
+            this.messageService.add('Pri vytváraní faktúr je potrebné mať nastavený defaultny účet.');
+          });
+        }
+      });
+  }
+
 
   // submit form
   submit() {

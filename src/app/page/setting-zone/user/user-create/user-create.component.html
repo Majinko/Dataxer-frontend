@@ -1,0 +1,121 @@
+<form [formGroup]="userForm">
+  <div class="row mb-4">
+    <div class="col d-flex justify-content-between">
+      <h1>Osobné údaje</h1>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <h2 class="text-theme border-bottom-2 pb-2 mb-4">Kontaktné údaje</h2>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-4">
+      <mat-form-field class="form-group w-100">
+        <input matInput placeholder="Meno" formControlName="firstName" required>
+        <mat-error *ngIf="fUser.firstName.errors">Meno je <strong>požadované.</strong></mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-4">
+      <mat-form-field class="form-group w-100">
+        <input matInput placeholder="Priezvisko" formControlName="lastName" required>
+        <mat-error *ngIf="fUser.lastName.errors">Priezvisko je <strong>požadované.</strong></mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-4">
+      <ng-select class="form-group w-100 mb-0"
+                 [multiple]="true"
+                 [items]="role"
+                 bindLabel="name"
+                 placeholder="Role"
+                 formControlName="roles"
+      >
+      </ng-select>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <mat-form-field class="form-group w-100">
+        <input matInput placeholder="E-mail" formControlName="email" required>
+        <mat-error *ngIf="fUser.email.errors">Meno je <strong>požadovaný.</strong></mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-6">
+      <mat-form-field class="form-group w-100">
+        <input matInput placeholder="Telefón" formControlName="phone">
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-3">
+      <mat-form-field class="form-group w-100">
+        <input matInput placeholder="Ulica" formControlName="street">
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-3">
+      <mat-form-field class="form-group w-100">
+        <input  matInput placeholder="Mesto" formControlName="city">
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-3">
+      <mat-form-field class="form-group w-100">
+        <input matInput placeholder="PSČ" formControlName="postalCode">
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-3">
+      <ng-select [items]="countries"
+                 #select
+                 bindLabel="country"
+                 bindValue="country"
+                 placeholder="Krajina"
+                 formControlName="country">
+        <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+          <div><span>{{item.country}}</span></div>
+        </ng-template>
+      </ng-select>
+    </div>
+  </div>
+</form>
+
+<div class="row" [formGroup]="salaryForm">
+  <div class="col-12">
+    <h2 class="text-theme border-bottom-2 pb-2 mb-4">Mzda</h2>
+  </div>
+
+  <div class="col-md-6">
+    <mat-form-field class="form-group w-100">
+      <input matInput placeholder="Mzda" formControlName="price">
+      <mat-error *ngIf="fSalary.price.errors">Mzda je <strong>požadovana.</strong></mat-error>
+    </mat-form-field>
+  </div>
+
+  <div class="col-md-6">
+    <mat-form-field class="form-group w-100">
+      <mat-label>Typ mzdy</mat-label>
+      <select formControlName="salaryType" matNativeControl>
+        <option value="HOUR" selected>Hodinovo</option>
+        <option value="FLAT">Paušálne</option>
+        <option value="FIX">Úkolovo</option>
+      </select>
+    </mat-form-field>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12 text-right">
+    <button mat-flat-button class="btn-icon btn-theme" (click)="onSubmit()">
+      <mat-icon>save</mat-icon>
+      Uložiť
+    </button>
+  </div>
+</div>

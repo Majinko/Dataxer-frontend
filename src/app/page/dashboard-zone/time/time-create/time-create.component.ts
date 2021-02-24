@@ -7,6 +7,7 @@ import {AddPercentPipe} from '../../../../core/pipes/add-percent.pipe';
 import * as moment from 'moment';
 import {TimeService} from '../../../../core/services/time.service';
 import {MessageService} from '../../../../core/services/message.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-time-create',
@@ -35,7 +36,8 @@ export class TimeCreateComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private timeService: TimeService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private router: Router
   ) {
   }
 
@@ -61,7 +63,7 @@ export class TimeCreateComponent implements OnInit {
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
 
-    return this.timeRange.filter(range => range.toLowerCase().replace(':', '').replace(/^0+/, '') >= filterValue.replace(/^0+/, ''));
+    return this.timeRange.filter(range => range.toLowerCase().replace(':', '') >= filterValue);
   }
 
   private prepareTimeToUnix() {
@@ -81,14 +83,15 @@ export class TimeCreateComponent implements OnInit {
 
     this.prepareTimeToUnix();
 
-    if (this.f.timeTo <= this.f.timeFrom){
+    if (this.f.timeTo.value <= this.f.timeFrom.value) {
       this.messageService.add('Čas do nemôže byt menší, ako čas od.');
       return;
     }
 
     this.timeService.store(this.formGroup.value).subscribe(() => {
-
-      this.messageService.add('Čas bol uložený');
+      this.router.navigate(['/time']).then(() => {
+        this.messageService.add('Čas bol uložený');
+      });
     });
   }
 

@@ -8,16 +8,19 @@ import {TimeTableComponent} from './time-index/time-table/time-table.component';
 import {MaterialModule} from '../../../theme/modules/material.module';
 import {ReactiveFormsModule} from '@angular/forms';
 import {ThemeModule} from '../../../theme/theme.module';
+import {CoreModule} from '../../../core/core.module';
+import { TimeEditComponent } from './time-edit/time-edit.component';
 
 @NgModule({
-  declarations: [TimeComponent, TimeCreateComponent, TimeIndexComponent, TimeTableComponent],
-  imports: [
-    CommonModule,
-    TimeRoutingModule,
-    MaterialModule,
-    ReactiveFormsModule,
-    ThemeModule
-  ]
+  declarations: [TimeComponent, TimeCreateComponent, TimeIndexComponent, TimeTableComponent, TimeEditComponent],
+    imports: [
+        CommonModule,
+        TimeRoutingModule,
+        MaterialModule,
+        ReactiveFormsModule,
+        ThemeModule,
+        CoreModule
+    ]
 })
 export class TimeModule {
 }

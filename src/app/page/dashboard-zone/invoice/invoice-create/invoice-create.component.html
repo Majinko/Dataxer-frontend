@@ -21,7 +21,12 @@
       <mat-error *ngIf="submitted && f.contact.errors">Client je <strong>pozadovany.</strong></mat-error>
     </div>
 
-    <div class="col-md-8">
+    <div class="col-md-4 form-group">
+      <app-new-project-select formControlName="project"></app-new-project-select>
+      <mat-error *ngIf="submitted && f.project.errors">Projekt je <strong>požadovaný.</strong></mat-error>
+    </div>
+
+    <div class="col-md-4">
       <mat-form-field class="form-group w-100">
         <input formControlName="title" matInput placeholder="Názov faktury">
         <mat-error *ngIf="f.title.errors">Názov faktury je <strong>pozadovany.</strong></mat-error>
@@ -68,15 +73,8 @@
     <div class="col-12" *ngIf="moreOptions">
       <div class="row">
         <div class="col-md-4">
-          <mat-form-field class="form-group w-100">
-            <mat-label>Spôsob dodania</mat-label>
-            <select formControlName="deliveryMethod" matNativeControl>
-              <option value="MAIL" selected>Poštou</option>
-              <option value="COURIER">Kuriérom</option>
-              <option value="PERSONAL">Osobný odber</option>
-              <option value="PERSONAL">Vlastné</option>
-            </select>
-          </mat-form-field>
+
+
         </div>
         <div class="col-md-4">
           <mat-form-field class="form-group w-100">
@@ -151,8 +149,8 @@
 
   <app-document-pack *ngIf="route.snapshot.paramMap.get('id') === null; else copyInvoiceBlock" [formGroup]="formGroup" [documentHelper]="documentHelper"></app-document-pack>
   <ng-template #copyInvoiceBlock>
-    <div *ngIf="oldInvoice">
-      <app-document-pack [formGroup]="formGroup" [packs]="oldInvoice.packs" [documentHelper]="documentHelper"></app-document-pack>
+    <div *ngIf="this.oldPacks.length > 0">
+      <app-document-pack [formGroup]="formGroup" [packs]="this.oldPacks" [documentHelper]="documentHelper"></app-document-pack>
     </div>
   </ng-template>
 

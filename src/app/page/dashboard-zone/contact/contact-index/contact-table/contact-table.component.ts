@@ -5,10 +5,10 @@ import {MessageService} from '../../../../../core/services/message.service';
 import {ContactService} from '../../../../../core/services/contact.service';
 
 import {merge} from 'rxjs';
-import {startWith, switchMap, map} from 'rxjs/operators';
+import {map, startWith, switchMap} from 'rxjs/operators';
 import {SearchBarService} from '../../../../../core/services/search-bar.service';
-import {MatPaginator} from "@angular/material/paginator";
-import {MatSort} from "@angular/material/sort";
+import {MatPaginator} from '@angular/material/paginator';
+import {MatSort} from '@angular/material/sort';
 
 @Component({
   selector: 'app-contact-table',

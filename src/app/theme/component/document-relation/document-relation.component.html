@@ -1,0 +1,16 @@
+<div>
+  <p class="mb-0">Súvisiace doklady:</p>
+
+  <mat-list>
+    <mat-list-item (click)="showDoc(document.relatedDocumentId, document.documentType)" class="cursor-pointer" *ngFor="let document of documentRelations">
+      <div mat-line><a class="text-theme">{{document.documentTitle}}</a></div>
+
+      <mat-icon (click)="delete($event, documentId, document.relatedDocumentId)">delete</mat-icon>
+    </mat-list-item>
+  </mat-list>
+
+  <a class="btn btn-icon text-theme" (click)="addRelatedDocument(documentId)">
+    <mat-icon>add_circle</mat-icon>
+    Súvisiaci doklad
+  </a>
+</div>
