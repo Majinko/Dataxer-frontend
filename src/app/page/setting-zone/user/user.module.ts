@@ -9,6 +9,8 @@ import {AvatarModule} from 'ngx-avatar';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {UserAllComponent} from './user-all/user-all.component';
 import {UserCreateComponent} from './user-create/user-create.component';
+import {CoreModule} from '../../../core/core.module';
+import {ThemeModule} from '../../../theme/theme.module';
 
 const routes: Routes = [
   {
@@ -26,6 +28,10 @@ const routes: Routes = [
       {
         path: 'create',
         component: UserCreateComponent
+      },
+      {
+        path: 'edit/:uid',
+        component: UserEditComponent
       }
     ]
   },
@@ -39,7 +45,9 @@ const routes: Routes = [
     ReactiveFormsModule,
     MaterialModule,
     AvatarModule,
-    NgSelectModule
+    NgSelectModule,
+    CoreModule,
+    ThemeModule
   ]
 })
 export class UserModule {

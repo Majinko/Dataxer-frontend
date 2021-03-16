@@ -5,6 +5,7 @@ import {User, UserInit} from '../models/user';
 import {Observable} from 'rxjs';
 import {environment} from '../../../environments/environment';
 import {map} from 'rxjs/operators';
+import {UserOverview} from '../models/userOverview';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,17 @@ export class UserService {
   }
 
   all(): Observable<User[]> {
-    return this.http.get<User[]>(`${environment.baseUrl}/user/all`);
+    return this.http.get<User[]>(`${environment.baseUrl}/user/all`).pipe(map((users) => {
+      users.forEach(user => {
+        user.displayName = user.firstName + ' ' + user.lastName;
+      });
+
+      return users;
+    }));
+  }
+
+  overview(): Observable<UserOverview[]> {
+    return this.http.get<UserOverview[]>(`${environment.baseUrl}/user/overview`);
   }
 
   loggedUser(): Observable<User> {
@@ -50,5 +61,13 @@ export class UserService {
 
   store(user: UserInit): Observable<User> {
     return this.http.post<User>(`${environment.baseUrl}/user/store`, user);
+  }
+
+  findByUid(uid: string): Observable<User> {
+    return this.http.get<User>(`${environment.baseUrl}/user/${uid}`);
+  }
+
+  destroy(uid: string): Observable<void> {
+    return this.http.get<void>(`${environment.baseUrl}/user/destroy/${uid}`);
   }
 }

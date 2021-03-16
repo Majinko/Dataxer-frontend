@@ -35,4 +35,8 @@ export class PriceOfferService {
   update(priceOffer: PriceOffer): Observable<void> {
     return this.http.post<void>(`${environment.baseUrl}/price-offer/update`, priceOffer);
   }
+
+  findAllByProject(projectId: number): Observable<PriceOffer[]> {
+    return this.http.get<PriceOffer[]>(`${environment.baseUrl}/price-offer/project/${projectId}`);
+  }
 }

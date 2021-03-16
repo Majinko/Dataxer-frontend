@@ -39,7 +39,11 @@ export class CostService {
   }
 
   getById(id: number): Observable<Cost> {
-    return this.http.get<Cost>(`${environment.baseUrl}/cost/${id}`);
+    return this.http.get<Cost>(`${environment.baseUrl}/cost/${id}`).pipe(map(cost => {
+      cost.dueAtDays = Math.ceil(moment(cost.dueDate).diff(new Date(), 'days', true));
+
+      return cost;
+    }));
   }
 
   destroy(id: number): Observable<void> {
@@ -53,5 +57,9 @@ export class CostService {
     };
 
     return this.http.post<void>(`${environment.baseUrl}/cost/update`, data);
+  }
+
+  findAllByProject(projectId: number): Observable<Cost[]> {
+    return this.http.get<Cost[]>(`${environment.baseUrl}/cost/project/${projectId}`);
   }
 }

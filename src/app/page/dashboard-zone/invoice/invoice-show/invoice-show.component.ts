@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {InvoiceService} from '../../../../core/services/invoice.service';
 import {Invoice} from '../../../../core/models/invoice';

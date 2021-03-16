@@ -11,10 +11,10 @@
     </div>
   </div>
 
-  <div class="row align-items-center" *ngIf="userService.user">
+  <div class="row align-items-center" *ngIf="user">
     <div class="col-md-3 col-lg-2 pr-lg-0">
       <div class="cursor-pointer jsFile d-flex justify-content-center d-md-block mb-4 mb-md-0">
-        <ngx-avatar size="100" name="{{userService.user.firstName + ' ' + userService.user.lastName}}" textSizeRatio="2"></ngx-avatar>
+        <ngx-avatar size="100" name="{{user.firstName + ' ' + user.lastName}}" textSizeRatio="2"></ngx-avatar>
         <input type="file" name='file' class="d-none">
       </div>
     </div>

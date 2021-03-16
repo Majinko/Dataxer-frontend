@@ -1,10 +1,9 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnChanges, OnInit} from '@angular/core';
 import {DocumentRelationService} from '../../../core/services/document-relation.service';
 import {DocumentRelation} from '../../../core/models/documentRelation';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {MessageService} from '../../../core/services/message.service';
 import {MatDialog} from '@angular/material/dialog';
-import {BankAccountDialogComponent} from '../../../page/setting-zone/bank-account/bank-account-dialog/bank-account-dialog.component';
 import {DocumentRelationDialogComponent} from './component/document-relation-dialog/document-relation-dialog.component';
 
 @Component({
@@ -12,12 +11,13 @@ import {DocumentRelationDialogComponent} from './component/document-relation-dia
   templateUrl: './document-relation.component.html',
   styleUrls: ['./document-relation.component.scss']
 })
-export class DocumentRelationComponent implements OnInit {
+export class DocumentRelationComponent implements OnInit, OnChanges {
   @Input() documentId: number;
   documentRelations: DocumentRelation[] = [];
 
   constructor(
     private router: Router,
+    private route: ActivatedRoute,
     private documentRelationService: DocumentRelationService,
     private messageService: MessageService,
     private dialog: MatDialog
@@ -29,7 +29,11 @@ export class DocumentRelationComponent implements OnInit {
     this.storeNewDocumentRelation();
   }
 
-  getRelatedDocuments(){
+  ngOnChanges() {
+    this.getRelatedDocuments();
+  }
+
+  getRelatedDocuments() {
     this.documentRelationService.getAllRelationDocuments(this.documentId).subscribe(documents => {
       this.documentRelations = documents;
     });

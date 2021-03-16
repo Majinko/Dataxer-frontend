@@ -25,5 +25,6 @@ export class UserComponent implements OnInit {
     this.godButtonService.title = this.route.snapshot.data.godButtonTitle;
     this.godButtonService.routerLink = this.route.snapshot.data.gotButtonRouteLink;
     this.godButtonService.showModal = false;
+    this.godButtonService.menuItem = [];
   }
 }

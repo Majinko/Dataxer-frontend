@@ -7,10 +7,12 @@ import {MessageService} from '../../../../../core/services/message.service';
 import {merge} from 'rxjs';
 import {map, startWith, switchMap} from 'rxjs/operators';
 import {Router} from '@angular/router';
+import {DocumentHelper} from '../../../../../core/class/DocumentHelper';
 
 @Component({
   selector: 'app-invoice-table',
   templateUrl: './invoice-table.component.html',
+  providers: [DocumentHelper]
 })
 export class InvoiceTableComponent implements OnInit, AfterViewInit {
   pageSize = 15;
@@ -36,6 +38,7 @@ export class InvoiceTableComponent implements OnInit, AfterViewInit {
 
   constructor(
     private router: Router,
+    private documentHelper: DocumentHelper,
     private invoiceService: InvoiceService,
     private messageService: MessageService
   ) {
@@ -74,6 +77,14 @@ export class InvoiceTableComponent implements OnInit, AfterViewInit {
       this.paginate();
 
       this.messageService.add('Faktura bola odstránená');
+    });
+  }
+
+  pdf(event: MouseEvent, id: number, name: string) {
+    event.stopPropagation();
+
+    this.invoiceService.pdf(id).subscribe(r => {
+      this.documentHelper.pdf(r, name);
     });
   }
 }

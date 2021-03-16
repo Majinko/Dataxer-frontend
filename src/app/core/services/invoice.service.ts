@@ -56,4 +56,13 @@ export class InvoiceService {
   taxInvoice(id: number): Observable<Invoice> {
     return this.http.get<Invoice>(`${environment.baseUrl}/invoice/tax-invoice/${id}`);
   }
+
+  pdf(id: number): Observable<any> {
+    // @ts-ignore
+    return this.http.get<any>(`${environment.baseUrl}/invoice/pdf/${id}`, {responseType: 'blob'});
+  }
+
+  findAllByProject(projectId: number): Observable<Invoice[]> {
+    return this.http.get<Invoice[]>(`${environment.baseUrl}/invoice/project/${projectId}`);
+  }
 }

@@ -1,10 +1,11 @@
 import {AfterViewInit, Component, ViewChild} from '@angular/core';
-import {ProjectService} from "../../../../../../core/services/project.service";
-import {Project} from "../../../../../../core/models/project";
-import {MatPaginator} from "@angular/material/paginator";
-import {merge} from "rxjs";
-import {map, startWith, switchMap} from "rxjs/operators";
-import {MessageService} from "../../../../../../core/services/message.service";
+import {ProjectService} from '../../../../../../core/services/project.service';
+import {Project} from '../../../../../../core/models/project';
+import {MatPaginator} from '@angular/material/paginator';
+import {merge} from 'rxjs';
+import {map, startWith, switchMap} from 'rxjs/operators';
+import {MessageService} from '../../../../../../core/services/message.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-project-table',
@@ -14,7 +15,7 @@ import {MessageService} from "../../../../../../core/services/message.service";
 export class ProjectTableComponent implements AfterViewInit {
   pageSize = 15;
   totalElements = 0;
-  projects: Project[] = []
+  projects: Project[] = [];
   isLoadingResults = true;
 
   displayedColumns: string[] = [
@@ -28,6 +29,7 @@ export class ProjectTableComponent implements AfterViewInit {
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
   constructor(
+    private router: Router,
     private projectService: ProjectService,
     private messageService: MessageService
   ) {
@@ -41,7 +43,7 @@ export class ProjectTableComponent implements AfterViewInit {
   }
 
   private paginate() {
-    this.paginator.pageIndex = 0
+    this.paginator.pageIndex = 0;
 
     merge(this.paginator.page)
       .pipe(
@@ -63,10 +65,16 @@ export class ProjectTableComponent implements AfterViewInit {
       .subscribe((data) => (this.projects = data));
   }
 
-  destroy(id: number) {
+  destroy(event: MouseEvent, id: number) {
+    event.stopPropagation();
+
     this.projectService.destroy(id).subscribe(() => {
       this.paginate();
-      this.messageService.add("Zákazka bola vymazana");
-    })
+      this.messageService.add('Zákazka bola vymazana');
+    });
+  }
+
+  show(project: Project) {
+    this.router.navigate(['/project/show', project.id]).then();
   }
 }

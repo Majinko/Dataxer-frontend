@@ -3,6 +3,8 @@ import {HttpClient} from '@angular/common/http';
 import {Time} from '../models/time';
 import {Observable} from 'rxjs';
 import {environment} from '../../../environments/environment';
+import {Project} from '../models/project';
+import {CategoryItemNode} from '../models/category-item-node';
 
 @Injectable({
   providedIn: 'root'
@@ -30,5 +32,13 @@ export class TimeService {
 
   destroy(id: number): Observable<void> {
     return this.http.get<void>(`${environment.baseUrl}/time/destroy/${id}`);
+  }
+
+  getLastUsersProject(userId: number): Observable<Project[]> {
+    return this.http.get<Project[]>(`${environment.baseUrl}/time/lastUserProjects?id=${userId}`);
+  }
+
+  getLatestProjectCategories(projectId: number): Observable<CategoryItemNode[]> {
+    return this.http.get<CategoryItemNode[]>(`${environment.baseUrl}/time/lastProjectCategories?projectId=${projectId}`);
   }
 }

@@ -1,1 +1,71 @@
-<p>user-all works!</p>
+<div class="row">
+  <div class="col-md-12">
+    <h3 class="text-gray mb-3">
+      Použivaťelia: {{userOverview.length}}
+    </h3>
+    <div class="table-wrap">
+      <div class="position-relative">
+        <div class="loading-shade" *ngIf="isLoadingResults">
+          <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+        </div>
+
+        <table mat-table [dataSource]="userOverview" class="table-hover table-data table-borderless w-100" matSort matSortDisableClear matSortDirection="desc">
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef>Meno</th>
+            <td mat-cell *matCellDef="let element">
+              <div class="d-flex align-items-center">
+                <ngx-avatar size="40" name="{{element.fullName}}"></ngx-avatar>
+
+                <span class="ml-2">{{element.fullName}}</span>
+              </div>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="startWork">
+            <th mat-header-cell *matHeaderCellDef>Začal pracovať</th>
+            <td mat-cell *matCellDef="let element"> {{element.startWork | date:'dd.MM.y'}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="years">
+            <th mat-header-cell *matHeaderCellDef>Roky</th>
+            <td mat-cell *matCellDef="let element"> {{element.years}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="hours">
+            <th mat-header-cell *matHeaderCellDef>Hodiny</th>
+            <td mat-cell *matCellDef="let element"> {{(element.sumTime | timeFromTimestamp) + ' h'}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="projectCount">
+            <th mat-header-cell *matHeaderCellDef>Projekty (počet)	</th>
+            <td mat-cell *matCellDef="let element"> {{element.projectCount}} </td>
+          </ng-container>
+
+          <!-- Action Column -->
+          <ng-container matColumnDef="actions">
+            <th class="text-right p-0 thin" mat-header-cell *matHeaderCellDef></th>
+            <td class="text-right thin action-link pr-0" mat-cell colspan="3" *matCellDef="let element">
+              <div class="invisible">
+                <button
+                  [routerLink]="['/setting/user/edit', element.uid]"
+                  mat-icon-button
+                  matTooltip="Edit item">
+                  <mat-icon class="text-theme">edit</mat-icon>
+                </button>
+                <button
+                  (click)="destroy($event, element.uid)"
+                  mat-icon-button
+                  matTooltip="Delete item">
+                  <mat-icon class="text-theme">delete</mat-icon>
+                </button>
+              </div>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

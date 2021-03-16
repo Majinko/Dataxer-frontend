@@ -20,11 +20,13 @@
             <mat-icon>more_vert</mat-icon>
           </button>
           <mat-menu #menu="matMenu" class="menu-not-rounded">
-            <button *ngIf="invoice.documentType === 'PROFORMA'" mat-menu-item [routerLink]="['/invoice/create', 'INVOICE', invoice.id]">
+            <button *ngIf="invoice.documentType === 'PROFORMA'" mat-menu-item
+                    [routerLink]="['/invoice/create', 'INVOICE', invoice.id]">
               <span>Vystaviť ostrú faktúru</span>
             </button>
 
-            <button *ngIf="canCreateTaxDocument" mat-menu-item [routerLink]="['/invoice/create', 'TAX_DOCUMENT', invoice.id]">
+            <button *ngIf="canCreateTaxDocument" mat-menu-item
+                    [routerLink]="['/invoice/create', 'TAX_DOCUMENT', invoice.id]">
               <span>Daňový doklad k prijatej platbe</span>
             </button>
           </mat-menu>
@@ -35,7 +37,7 @@
     <div class="col-12">
       <div class="row">
         <div class="col-md-12">
-          <app-payments (canCreateTaxDocument)="canCreateTaxDocument = $event" [isPay]="invoice.paymentDate != null" [dueAtDays]="invoice.dueAtDays" [documentId]="invoice.id" [documentType]="invoice.documentType"></app-payments>
+          <app-payments (canCreateTaxDocument)="canCreateTaxDocument = $event" [isPay]="invoice.paymentDate != null" [dueAtDays]="invoice.dueAtDays" [documentId]="invoice.id" [documentType]="invoice.documentType" [price]="invoice.totalPrice"></app-payments>
         </div>
       </div>
     </div>
@@ -134,68 +136,74 @@
           </tr>
           </thead>
           <tbody *ngFor="let pack of invoice.packs">
-            <tr class="pack-row">
-              <td class="text-left font-weight-bold" style="white-space: nowrap">
-                {{pack.title}}
-              </td>
-              <td class="text-center font-weight-bold">
+          <tr class="pack-row">
+            <td class="text-left font-weight-bold" style="white-space: nowrap">
+              {{pack.title}}
+            </td>
+            <td class="text-center font-weight-bold">
 
-              </td>
-              <td class="text-center font-weight-bold">
+            </td>
+            <td class="text-center font-weight-bold">
 
-              </td>
-              <td class="text-right font-weight-bold">
-                {{pack.price}} &euro;
-              </td>
-              <td class="text-center font-weight-bold" style="white-space: nowrap">
-                {{pack.tax}} %
-              </td>
-              <td class="text-right font-weight-bold">
-                {{pack.totalPrice}} &euro;
-              </td>
-              <td class="text-right font-weight-bold">
-                {{pack.totalPrice}} &euro;
-              </td>
-            </tr>
+            </td>
+            <td class="text-right font-weight-bold">
+              {{pack.price}} &euro;
+            </td>
+            <td class="text-center font-weight-bold" style="white-space: nowrap">
+              {{pack.tax}} %
+            </td>
+            <td class="text-right font-weight-bold">
+              {{pack.totalPrice}} &euro;
+            </td>
+            <td class="text-right font-weight-bold">
+              {{pack.totalPrice}} &euro;
+            </td>
+          </tr>
 
-            <ng-template [ngIf]="!pack.customPrice">
-              <ng-container *ngFor="let item of pack.packItems">
-                <tr class="table-item">
-                  <td class="text-left" style="white-space: nowrap">
-                    {{item.title}}
-                  </td>
-                  <td class="text-center">
-                    {{!pack.customPrice ? item.qty : ''}}
-                  </td>
-                  <td class="text-center">
-                    {{!pack.customPrice ? item.unit : ''}}
-                  </td>
-                  <td class="text-right">
-                    {{!pack.customPrice ? (item.price + ' &euro;' ): ''}}
-                  </td>
-                  <td class="text-center" style="white-space: nowrap">
-                    {{!pack.customPrice ? (item.tax + ' %' ): ''}}
-                  </td>
-                  <td class="text-right">
-                    {{!pack.customPrice ? (item.price | addPercent: item.tax + ' &euro;' ): ''}}
-                  </td>
-                  <td class="text-right">
-                    {{!pack.customPrice ? (item.totalPrice + ' &euro;' ): ''}}
-                  </td>
-                </tr>
-                <tr class="table-item" *ngIf="item.discount > 0">
-                  <td class="text-left" colspan="3" style="white-space: nowrap">
-                    Zľava {{item.discount}} %
-                  </td>
-                  <td class="text-right">
-                    {{+(item.price | removePercent: item.discount) - +item.price}} &euro;
-                  </td>
-                  <td></td>
-                  <td class="text-right">{{(+(item.totalPrice | removePercent: item.discount) - +item.totalPrice) | number:'1.0-2'}} &euro;</td>
-                  <td class="text-right">{{(+(item.totalPrice | removePercent: item.discount) - +item.totalPrice) | number:'1.0-2'}} &euro;</td>
-                </tr>
-              </ng-container>
-            </ng-template>
+          <ng-template [ngIf]="!pack.customPrice">
+            <ng-container *ngFor="let item of pack.packItems">
+              <tr class="table-item">
+                <td class="text-left" style="white-space: nowrap">
+                  {{item.title}}
+                </td>
+                <td class="text-center">
+                  {{!pack.customPrice ? item.qty : ''}}
+                </td>
+                <td class="text-center">
+                  {{!pack.customPrice ? item.unit : ''}}
+                </td>
+                <td class="text-right">
+                  {{!pack.customPrice ? (item.price + ' &euro;') : ''}}
+                </td>
+                <td class="text-center" style="white-space: nowrap">
+                  {{!pack.customPrice ? (item.tax + ' %') : ''}}
+                </td>
+                <td class="text-right">
+                  {{!pack.customPrice ? (item.price | addPercent: item.tax + ' &euro;') : ''}}
+                </td>
+                <td class="text-right">
+                  {{!pack.customPrice ? (item.totalPrice + ' &euro;') : ''}}
+                </td>
+              </tr>
+              <tr class="table-item" *ngIf="item.discount > 0">
+                <td class="text-left" colspan="3" style="white-space: nowrap">
+                  Zľava {{item.discount}} %
+                </td>
+                <td class="text-right">
+                  {{+(item.price | removePercent: item.discount) - +item.price}} &euro;
+                </td>
+                <td></td>
+                <td
+                  class="text-right">{{(+(item.totalPrice | removePercent: item.discount) - +item.totalPrice) | number:'1.0-2'}}
+                  &euro;
+                </td>
+                <td
+                  class="text-right">{{(+(item.totalPrice | removePercent: item.discount) - +item.totalPrice) | number:'1.0-2'}}
+                  &euro;
+                </td>
+              </tr>
+            </ng-container>
+          </ng-template>
           </tbody>
         </table>
       </div>
@@ -240,7 +248,8 @@
               <h1 class="text-theme font-weight-bold">Celkom s DPH:</h1>
             </td>
             <td class="text-right">
-              <h1 class="text-theme font-weight-bold">{{invoice.totalPrice | removePercent: invoice.discount}} &euro;</h1>
+              <h1 class="text-theme font-weight-bold">{{invoice.totalPrice | removePercent: invoice.discount}}
+                &euro;</h1>
             </td>
           </tr>
         </table>

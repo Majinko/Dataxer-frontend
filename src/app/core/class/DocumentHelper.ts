@@ -96,4 +96,13 @@ export class DocumentHelper {
       }
     }
   }
+
+  pdf(x: ArrayBuffer, name: string) {
+    const downloadURL = window.URL.createObjectURL(x);
+    const link = document.createElement('a');
+
+    link.href = downloadURL;
+    link.download = name + '.pdf';
+    link.click();
+  }
 }

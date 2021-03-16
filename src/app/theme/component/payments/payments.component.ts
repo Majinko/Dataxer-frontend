@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output} from '@angular/core';
 import {PaymentService} from '../../../core/services/payment.service';
 import {MatDialog} from '@angular/material/dialog';
 import {PaymentDialogComponent} from './components/payment-dialog/payment-dialog.component';
@@ -6,18 +6,20 @@ import {PaymentDialogStoreComponent} from './components/payment-dialog-store/pay
 import {Payment} from '../../../core/models/payment';
 import {MessageService} from '../../../core/services/message.service';
 import {ActivatedRoute} from '@angular/router';
+import {sum} from '../../../../helper';
 
 @Component({
   selector: 'app-payments',
   templateUrl: './payments.component.html',
   styleUrls: ['./payments.component.scss']
 })
-export class PaymentsComponent<T> implements OnInit, OnDestroy {
+export class PaymentsComponent implements OnInit, OnDestroy, OnChanges {
   @Input() model: any;
   @Input() documentId: number;
   @Input() documentType: string;
   @Input() isPay: boolean;
   @Input() dueAtDays: number;
+  @Input() price: number;
 
   @Output() canCreateTaxDocument = new EventEmitter<boolean>();
 
@@ -35,6 +37,10 @@ export class PaymentsComponent<T> implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.getPayments();
     this.watchStorePayment();
+  }
+
+  ngOnChanges() {
+    this.getPayments();
   }
 
   getPayments() {
@@ -88,7 +94,7 @@ export class PaymentsComponent<T> implements OnInit, OnDestroy {
   }
 
   canCreateTaxDoc() {
-    this.canCreateTaxDocument.emit(this.payments.length > 0);
+    this.canCreateTaxDocument.emit(sum(this.payments, 'payedValue') < this.price);
   }
 
   ngOnDestroy(): void {

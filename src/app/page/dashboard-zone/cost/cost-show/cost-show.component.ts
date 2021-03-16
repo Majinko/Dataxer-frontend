@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {CostService} from '../../../../core/services/cost.service';
 import {Cost} from '../../../../core/models/cost';
 import {ActivatedRoute} from '@angular/router';
+import {PaymentService} from '../../../../core/services/payment.service';
 
 @Component({
   selector: 'app-cost-show',
@@ -14,10 +15,19 @@ export class CostShowComponent implements OnInit {
   constructor(
     private costService: CostService,
     private route: ActivatedRoute,
+    private paymentService: PaymentService,
   ) {
   }
 
   ngOnInit(): void {
+    this.paymentService.newPayment.subscribe(() => {
+      this.getCost();
+    });
+
+    this.paymentService.destroyPayment.subscribe(() => {
+      this.getCost();
+    });
+
     this.getCost();
   }
 

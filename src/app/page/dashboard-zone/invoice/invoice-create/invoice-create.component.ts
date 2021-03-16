@@ -114,9 +114,15 @@ export class InvoiceCreateComponent implements OnInit {
 
     if (!window.location.href.includes('create-from-proforma')) {
       if (+this.route.snapshot.paramMap.get('id')) {
-        this.invoiceService.getById(+this.route.snapshot.paramMap.get('id')).subscribe(invoice => {
-          this.pathFromOldObject(invoice);
-        });
+        if (this.route.snapshot.paramMap.get('type') === 'TAX_DOCUMENT') {
+          this.invoiceService.taxInvoice(+this.route.snapshot.paramMap.get('id')).subscribe(invoice => {
+            this.pathFromOldObject(invoice);
+          });
+        } else {
+          this.invoiceService.getById(+this.route.snapshot.paramMap.get('id')).subscribe(invoice => {
+            this.pathFromOldObject(invoice);
+          });
+        }
       }
     } else {
       this.priceOfferService.getById(+this.route.snapshot.paramMap.get('id')).subscribe(proforma => {
@@ -131,7 +137,7 @@ export class InvoiceCreateComponent implements OnInit {
     this.formGroup.patchValue({
       contact: document.contact,
       project: document.project,
-      discount: document.discount
+      discount: document.discount === null ? 0 : document.discount,
     });
   }
 

@@ -8,6 +8,7 @@ import * as moment from 'moment';
 import {TimeService} from '../../../../core/services/time.service';
 import {MessageService} from '../../../../core/services/message.service';
 import {Router} from '@angular/router';
+import {UserService} from '../../../../core/services/user.service';
 
 @Component({
   selector: 'app-time-create',
@@ -34,6 +35,7 @@ export class TimeCreateComponent implements OnInit {
   isSubmit: boolean = false;
 
   constructor(
+    private userService: UserService,
     private formBuilder: FormBuilder,
     private timeService: TimeService,
     private messageService: MessageService,
@@ -42,6 +44,11 @@ export class TimeCreateComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.prepareForm();
+    this.getLastUsersProject();
+  }
+
+  prepareForm() {
     this.formGroup = this.formBuilder.group({
       description: null,
       dateWork: [new Date(), Validators.required],
@@ -53,6 +60,22 @@ export class TimeCreateComponent implements OnInit {
       project: [null, Validators.required],
       category: [null, Validators.required],
       km: 0
+    });
+  }
+
+  private getLastUsersProject() {
+    this.timeService.getLastUsersProject(this.userService.user.id).subscribe(projects => {
+      if (projects.length > 0) {
+        this.formGroup.patchValue({project: projects[0]});
+
+        this.getLatestProjectCategories(projects[0].id);
+      }
+    });
+  }
+
+  private getLatestProjectCategories(projectId: number) {
+    this.timeService.getLatestProjectCategories(projectId).subscribe(r => {
+      console.log(r);
     });
   }
 
