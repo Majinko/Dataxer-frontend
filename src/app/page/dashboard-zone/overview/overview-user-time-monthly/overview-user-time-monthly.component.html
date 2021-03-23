@@ -1,0 +1,33 @@
+<div *ngIf="isLoad; else loading" class="position-relative table-scroll table-fixed-col mt-4 w-100">
+  <table class="table-show-data w-100 border-bottom">
+    <thead>
+    <tr>
+      <th class="table-fixed-col text-left row-head">Užívateľ</th>
+      <th class="text-center" *ngFor="let day of countMonthDays; let index = index">{{index + 1}}</th>
+      <th class="text-center">Spolu</th>
+    </tr>
+    </thead>
+
+    <tbody class="table-border">
+      <tr *ngFor="let userMonthlyOverview of userMonthlyOverviews">
+      <td class="table-fixed-col text-left row-head white-space-nowrap">
+          <span class="d-flex align-items-center">
+            <ngx-avatar size="30" name="{{userMonthlyOverview.fullName}}" class="mr-3"></ngx-avatar>
+            {{userMonthlyOverview.fullName}}
+          </span>
+      </td>
+      <td class="text-center white-space-nowrap text-center" [class.bg-medium-gray]="isWeekendDay(index)" *ngFor="let day of countMonthDays; let index = index"><strong>{{userMonthlyOverview.userHours[index+1] || ''}}</strong></td>
+      <td class="white-space-nowrap text-center">
+        <!--<strong>{{userMonthlyOverview.activeHourPrice}} &euro;</strong> <br>-->
+        <strong>{{userMonthlyOverview.totalUserHours}} / {{userMonthlyOverview.totalUserPrice}} &euro;</strong><br>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<ng-template #loading>
+  <div class="w-100 d-flex justify-content-center mt-5 pt-5">
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-template>

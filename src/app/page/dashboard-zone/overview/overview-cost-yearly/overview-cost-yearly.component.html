@@ -1,0 +1,36 @@
+<div *ngIf="isLoad; else loading" class="position-relative table-scroll table-fixed-col mt-4 w-100">
+  <table class="table-show-data table-default w-100 border-bottom">
+    <thead>
+    <tr>
+      <th class="text-left">Kategória</th>
+      <th class="text-center white-space-nowrap">
+        Spolu <br>
+        {{categoryCostsOverview.totalCosts}} &euro;
+      </th>
+      <th class="text-center" *ngFor="let month of months; let index = index">
+        {{skMonths[index]}} <br>
+        {{categoryCostsOverview.monthsTotalCosts[index + 1] || 0}} &euro;
+      </th>
+    </tr>
+    </thead>
+    <tbody class="table-border">
+      <tr *ngFor="let categoryMonth of categoryCostsOverview.categoryMonthsCostsDTOS">
+        <td class="table-fixed-col text-left white-space-nowrap">
+          {{categoryMonth.categoryName}}
+        </td>
+        <td class="text-center">
+          <strong>{{categoryMonth.categoryTotalPrice}} &euro;</strong>
+        </td>
+        <td  *ngFor="let month of months; let index = index">
+          <strong>{{categoryMonth.totalMonthsCosts[index + 1] || 0}} &euro;</strong>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<ng-template #loading>
+  <div class="w-100 d-flex justify-content-center mt-5 pt-5">
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-template>
