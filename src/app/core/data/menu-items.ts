@@ -50,5 +50,10 @@ export const MenuItems: MenuItem[] = [
     routerLink: ['/pack'],
     title: 'Sady položiek',
     icon: 'apps',
+  },
+  {
+    routerLink: ['/overview'],
+    title: 'Prehľady',
+    icon: 'show_chart'
   }
 ];

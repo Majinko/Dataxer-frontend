@@ -7,6 +7,11 @@ export const SettingMenuItems: MenuItem[] = [
     icon: 'groups',
   },
   {
+    routerLink: ['/setting/role'],
+    title: 'Role',
+    icon: 'admin_panel_settings',
+  },
+  {
     routerLink: ['/setting/company'],
     title: 'Spoločnosti',
     icon: 'account_balance',

@@ -27,6 +27,8 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MaterialFileInputModule} from 'ngx-material-file-input';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 @NgModule({
   exports: [
@@ -57,7 +59,9 @@ import {MaterialFileInputModule} from 'ngx-material-file-input';
     MatCardModule,
     MatProgressBarModule,
     DragDropModule,
-    MaterialFileInputModule
+    MaterialFileInputModule,
+    MatTabsModule,
+    MatExpansionModule
   ]
 })
 export class MaterialModule {

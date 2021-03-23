@@ -70,4 +70,8 @@ export class UserService {
   destroy(uid: string): Observable<void> {
     return this.http.get<void>(`${environment.baseUrl}/user/destroy/${uid}`);
   }
+
+  switchCompany(companyId: number): Observable<void> {
+    return this.http.get<void>(`${environment.baseUrl}/user/switchCompany/${companyId}`);
+  }
 }

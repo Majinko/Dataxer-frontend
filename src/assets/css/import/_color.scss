@@ -28,7 +28,11 @@ $bg-colors: (
   'red-light': $color-red-light,
   'red-dark': $color-red-dark,
   'green-light' : $color-green-light,
-  'green-dark' : $color-green-dark
+  'green-dark' : $color-green-dark,
+  'theme-gray' : $theme-gray,
+  'light-gray' : $light-gray,
+  'medium-gray' : $medium-gray,
+  'box': $color-box
 );
 
 @each $bg, $color in $bg-colors {

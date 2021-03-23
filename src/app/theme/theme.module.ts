@@ -29,6 +29,7 @@ import {PaymentDialogComponent} from './component/payments/components/payment-di
 import {PaymentDialogStoreComponent} from './component/payments/components/payment-dialog-store/payment-dialog-store.component';
 import {DocumentRelationComponent} from './component/document-relation/document-relation.component';
 import {DocumentRelationDialogComponent} from './component/document-relation/component/document-relation-dialog/document-relation-dialog.component';
+import { MenuTabComponent } from './component/menu-tab/menu-tab.component';
 
 @NgModule({
   imports: [
@@ -65,24 +66,26 @@ import {DocumentRelationDialogComponent} from './component/document-relation/com
     PaymentDialogStoreComponent,
     DocumentRelationComponent,
     DocumentRelationDialogComponent,
+    MenuTabComponent,
   ],
-  exports: [
-    DrawerComponent,
-    ToolbarComponent,
-    MessageComponent,
-    ItemAutocompleteComponent,
-    NewContactSelectComponent,
-    PackAutocompleteComponent,
-    DocumentPackComponent,
-    SlovakiaDigitalAutocompleteComponent,
-    NewProjectSelectComponent,
-    NewCategorySelectComponent,
-    SpinnerButtonComponent,
-    ElementPaidStateComponent,
-    FileComponent,
-    PaymentsComponent,
-    DocumentRelationComponent,
-  ],
+    exports: [
+        DrawerComponent,
+        ToolbarComponent,
+        MessageComponent,
+        ItemAutocompleteComponent,
+        NewContactSelectComponent,
+        PackAutocompleteComponent,
+        DocumentPackComponent,
+        SlovakiaDigitalAutocompleteComponent,
+        NewProjectSelectComponent,
+        NewCategorySelectComponent,
+        SpinnerButtonComponent,
+        ElementPaidStateComponent,
+        FileComponent,
+        PaymentsComponent,
+        DocumentRelationComponent,
+        MenuTabComponent,
+    ],
 })
 export class ThemeModule {
 }

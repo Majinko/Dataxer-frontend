@@ -1,8 +1,9 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Company} from '../models/company';
-import {Observable} from 'rxjs';
+import {Observable, Subject} from 'rxjs';
 import {environment} from '../../../environments/environment';
+import {map} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -10,11 +11,17 @@ import {environment} from '../../../environments/environment';
 export class CompanyService {
   company: Company;
 
+  companyStore = new Subject<Company>();
+
   constructor(private http: HttpClient) {
   }
 
   store(company: Company): Observable<Company> {
-    return this.http.post<Company>(environment.baseUrl + '/company/store', company);
+    return this.http.post<Company>(environment.baseUrl + '/company/store', company).pipe(map((c) => {
+      this.companyStore.next(c);
+
+      return c;
+    }));
   }
 
   all(): Observable<Company[]> {

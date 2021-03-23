@@ -20,14 +20,20 @@
             <mat-icon>more_vert</mat-icon>
           </button>
           <mat-menu #menu="matMenu" class="menu-not-rounded">
-            <button *ngIf="invoice.documentType === 'PROFORMA'" mat-menu-item
-                    [routerLink]="['/invoice/create', 'INVOICE', invoice.id]">
+            <button *ngIf="invoice.documentType === 'PROFORMA'" mat-menu-item [routerLink]="['/invoice/create', 'INVOICE', invoice.id]">
               <span>Vystaviť ostrú faktúru</span>
             </button>
 
-            <button *ngIf="canCreateTaxDocument" mat-menu-item
-                    [routerLink]="['/invoice/create', 'TAX_DOCUMENT', invoice.id]">
+            <button *ngIf="canCreateTaxDocument && invoice.documentType === 'PROFORMA'" mat-menu-item [routerLink]="['/invoice/create', 'TAX_DOCUMENT', invoice.id]">
               <span>Daňový doklad k prijatej platbe</span>
+            </button>
+
+            <button *ngIf="invoice.documentType === 'TAX_DOCUMENT'" mat-menu-item [routerLink]="['/invoice/create', 'SUMMARY_INVOICE', invoice.id]">
+              <span>Vystaviť vyúčtovaciu faktúru</span>
+            </button>
+
+            <button mat-menu-item (click)="pdf(invoice.id, invoice.title)">
+              <span>Stiahnuť PDF</span>
             </button>
           </mat-menu>
         </div>

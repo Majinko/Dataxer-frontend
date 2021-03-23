@@ -68,7 +68,7 @@
     </div>
 
     <div class="col-md-6 form-group">
-      <app-new-category-select formControlName="category" [showAddButton]="false"></app-new-category-select>
+      <app-new-category-select #categorySelect formControlName="category" [showAddButton]="false"></app-new-category-select>
 
       <mat-error *ngIf="isSubmit && f.category.errors">Kategória je <strong>požadovaná.</strong></mat-error>
     </div>

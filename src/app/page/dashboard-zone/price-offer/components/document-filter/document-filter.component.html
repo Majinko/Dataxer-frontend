@@ -1,17 +1,12 @@
 <div class="d-block d-md-flex justify-content-end">
- <!-- <div class="mb-3 mb-md-0">
-    <p class="mb-0 d-inline">Zvolené kalkulácie v hodnote: </p>
-    <h2 class="mb-0 ml-2 d-inline">296 237,48 &euro;</h2>
-  </div>-->
-
   <div class="d-block d-md-flex">
     <form [formGroup]="filterForm">
       <mat-form-field size="small" appearance="fill" color="primary" class="custom-material-form-field">
         <mat-label>Stav</mat-label>
         <mat-select formControlName="state">
-          <mat-option value="pending">Čakajúca</mat-option>
-          <mat-option value="approved">Schválená</mat-option>
-          <mat-option value="rejected">Zamietnutá</mat-option>
+          <mat-option value="WAITING">Čakajúca</mat-option>
+          <mat-option value="APPROVED">Schválená</mat-option>
+          <mat-option value="REJECTED">Zamietnutá</mat-option>
         </mat-select>
       </mat-form-field>
     </form>

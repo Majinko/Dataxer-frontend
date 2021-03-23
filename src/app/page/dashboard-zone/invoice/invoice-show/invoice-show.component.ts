@@ -45,4 +45,10 @@ export class InvoiceShowComponent implements OnInit {
       this.documentHelper.prepareTaxes(invoice.packs);
     });
   }
+
+  pdf(id: number, name: string) {
+    this.invoiceService.pdf(id).subscribe(r => {
+      this.documentHelper.pdf(r, name);
+    });
+  }
 }

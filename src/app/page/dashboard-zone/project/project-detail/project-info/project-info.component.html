@@ -1,1 +1,50 @@
-<p>project-info works!</p>
+<div class="row mt-3" *ngIf="project">
+  <div class="col-12">
+    <div class="box p-3">
+      <h1>{{project.title}}</h1>
+
+      <div class="row">
+        <div class="col-md-3">
+          <p class="mb-0">Kód projektu:</p>
+          <h3 class="text-dark"><b>{{project.number || '-'}}</b></h3>
+        </div>
+
+        <div class="col-md-3">
+          <p class="mb-0">Klient:</p>
+          <h3 class="text-dark"><b>{{project.contact ? project.contact.name : 'Klient nebol priradeny'}} </b></h3>
+        </div>
+
+        <div class="col-md-3">
+          <p class="mb-0">Miesto:</p>
+          <h3 class="text-dark"><b>{{project.address || '-'}} </b></h3>
+        </div>
+
+        <div class="col-md-3">
+          <p class="mb-0">Rozloha zákazky:</p>
+          <h3 class="text-dark"><b>{{project.area || '-'}} </b></h3>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-project-chart *ngIf="requestDone===3" [costs]="costs" [invoices]="invoices" [priceOffers]="priceOffers"></app-project-chart>
+
+<div class="row">
+  <div class="col-12 mt-3">
+    <mat-accordion>
+      <mat-expansion-panel class="bg-box">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <div class="w-100 justify-content-between">
+              <b>Celková dohodnutá cena (sumár cenových ponúk): {{priceOfferSum}} &euro;</b>
+            </div>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div>
+
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+</div>

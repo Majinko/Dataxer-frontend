@@ -36,7 +36,10 @@ const routes: Routes = [
         path: 'invoice',
         data: {
           godButtonTitle: 'Nová faktúra', gotButtonRouteLink: '/invoice/create',
-          menuItem: [{title: 'Nová faktúra', link: '/invoice/create/INVOICE'}, {title: 'Nová zálohová faktúra', link: '/invoice/create/PROFORMA'}]
+          menuItem: [{title: 'Nová faktúra', link: '/invoice/create/INVOICE'}, {
+            title: 'Nová zálohová faktúra',
+            link: '/invoice/create/PROFORMA'
+          }]
         },
         loadChildren: () => import('./invoice/invoice.module').then(m => m.InvoiceModule),
       },
@@ -65,6 +68,10 @@ const routes: Routes = [
         data: {godButtonTitle: 'Nová sada poloziek', gotButtonRouteLink: '/pack/create'},
         loadChildren: () => import('./pack/pack.module').then(m => m.PackModule),
       },
+      {
+        path: 'overview',
+        loadChildren: () => import('./overview/overview.module').then(m => m.OverviewModule),
+      }
     ],
   }];
 

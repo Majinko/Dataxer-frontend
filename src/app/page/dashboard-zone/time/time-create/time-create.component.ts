@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {APP_DATE_FORMATS, timeRange} from '../../../../../helper';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
@@ -9,6 +9,9 @@ import {TimeService} from '../../../../core/services/time.service';
 import {MessageService} from '../../../../core/services/message.service';
 import {Router} from '@angular/router';
 import {UserService} from '../../../../core/services/user.service';
+import {ProjectService} from 'src/app/core/services/project.service';
+import {NewCategorySelectComponent} from 'src/app/theme/component/new-category-select/new-category-select.component';
+import {StrftimePipe} from '../../../../core/pipes/strftime.pipe';
 
 @Component({
   selector: 'app-time-create',
@@ -25,7 +28,8 @@ import {UserService} from '../../../../core/services/user.service';
     },
 
     {provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS},
-    AddPercentPipe
+    AddPercentPipe,
+    StrftimePipe
   ],
 })
 export class TimeCreateComponent implements OnInit {
@@ -34,18 +38,23 @@ export class TimeCreateComponent implements OnInit {
   filteredOptions: string[];
   isSubmit: boolean = false;
 
+  @ViewChild('categorySelect') categorySelect: NewCategorySelectComponent;
+
   constructor(
     private userService: UserService,
     private formBuilder: FormBuilder,
     private timeService: TimeService,
     private messageService: MessageService,
-    private router: Router
+    private projectService: ProjectService,
+    private router: Router,
+    private strftimePipe: StrftimePipe
   ) {
   }
 
   ngOnInit() {
     this.prepareForm();
     this.getLastUsersProject();
+    this.getLastUserTime();
   }
 
   prepareForm() {
@@ -67,15 +76,38 @@ export class TimeCreateComponent implements OnInit {
     this.timeService.getLastUsersProject(this.userService.user.id).subscribe(projects => {
       if (projects.length > 0) {
         this.formGroup.patchValue({project: projects[0]});
-
         this.getLatestProjectCategories(projects[0].id);
       }
+
+      this.changeProjectGetCategories();
     });
   }
 
   private getLatestProjectCategories(projectId: number) {
-    this.timeService.getLatestProjectCategories(projectId).subscribe(r => {
-      console.log(r);
+    this.timeService.getLatestProjectCategories(projectId).subscribe(cateogires => {
+      if (cateogires.length > 0) {
+        this.formGroup.patchValue({category: cateogires[0]});
+      }
+    });
+  }
+
+  private getLastUserTime() {
+    return this.timeService.getLastUserTime().subscribe(time => {
+      if (time != null) {
+        this.formGroup.patchValue({
+          timeFromForUser: this.strftimePipe.transform(time.timeTo),
+          timeToForUser: this.strftimePipe.transform(time.timeTo + 3600)
+        });
+      }
+    });
+  }
+
+  public changeProjectGetCategories() {
+    this.f.project.valueChanges.subscribe((project) => {
+      this.projectService.getCategories(project.id).subscribe(categories => {
+
+        this.categorySelect.categoryItemNodes = categories;
+      });
     });
   }
 

@@ -12,15 +12,25 @@
       <small class="text-gray">{{userService.user.position}}</small>
     </div>
   </div>
-  <div class="px-3 menu-item">
-    <a class="border-radius-0 t-d-n text-dark" mat-menu-item routerLink="/setting/user/all">
-      <mat-icon>build</mat-icon> Nastavenia
-    </a>
+  <div class="menu-item">
+    <h5 class="pl-3 pr-3 mt-0 mb-2 pt-3"><b>Môj profil</b></h5>
     <a class="border-radius-0 t-d-n text-dark" mat-menu-item routerLink="/setting/user">
       <mat-icon>person</mat-icon> Osobné údaje
     </a>
-    <a class="border-radius-0 t-d-n text-dark" mat-menu-item (click)="logout()">
-       <mat-icon>power_settings_new</mat-icon> Odhľasiť
+    <a class="border-radius-0 t-d-n text-dark" mat-menu-item routerLink="/setting/user/all">
+      <mat-icon>build</mat-icon> Nastavenia
+    </a>
+  </div>
+  <div class="menu-item border-top">
+    <h5 class="pl-3 pr-3 mt-0 mb-2 pt-3"><b>Moje firmy</b></h5>
+
+    <a class="border-radius-0 t-d-n text-dark" [class.default-company]="company.id === companyService.company.id" mat-menu-item *ngFor="let company of companies" (click)="switchCompany(company)">
+      {{company.name}}
+    </a>
+  </div>
+  <div class="menu-item">
+    <a class="border-radius-0 t-d-n text-dark border-top" mat-menu-item (click)="logout()">
+      <mat-icon>power_settings_new</mat-icon> Odhľasiť
     </a>
   </div>
 </mat-menu>

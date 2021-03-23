@@ -44,4 +44,8 @@ export class ProjectService {
   destroy(id: number): Observable<void> {
     return this.http.get<void>(`${environment.baseUrl}/project/destroy/${id}`);
   }
+
+  getCategories(id: number): Observable<CategoryItemNode[]>{
+    return this.http.get<CategoryItemNode[]>(`${environment.baseUrl}/project/allProjectCategory?projectId=${id}`)
+  }
 }

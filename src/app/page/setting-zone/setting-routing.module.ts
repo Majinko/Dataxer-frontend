@@ -43,9 +43,13 @@ const routes: Routes = [
       {
         path: 'bank-account',
         data: {godButtonTitle: 'Nový bankový účet', gotButtonRouteLink: '/setting/bank-account/create'},
-        loadChildren: () => import('./bank-account/bank-account.module')
-          .then(m => m.BankAccountModule),
+        loadChildren: () => import('./bank-account/bank-account.module').then(m => m.BankAccountModule),
       },
+      {
+        path: 'role',
+        data: {godButtonTitle: 'Nová rola', gotButtonRouteLink: '/setting/role/create'},
+        loadChildren: () => import('./role/role.module').then(m => m.RoleModule)
+      }
     ],
   }
 ];

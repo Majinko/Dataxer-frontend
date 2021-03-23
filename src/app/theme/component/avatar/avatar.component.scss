@@ -8,7 +8,7 @@
   font-weight: 300;
   cursor: pointer;
 
-  border-radius: 50%;
+  border-radius: 15px !important;
   background: $global-primary-color;
 }
 
@@ -20,8 +20,11 @@ span {
   border-bottom: 2px solid $light-gray;
 }
 
-.menu-item{
-  a:last-child{
-    border-top: 2px solid $medium-gray;
-  }
+.border-top{
+  border-top: 2px solid $medium-gray !important;
+}
+
+.default-company{
+  color: black !important;
+  font-weight: bold !important;
 }

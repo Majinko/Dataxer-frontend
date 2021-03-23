@@ -15,6 +15,24 @@ export function prepareFilter(filter) {
 }
 
 /**
+ *
+ * @param filter
+ */
+export function prepareStringFilter(filter): string {
+  let searchString: string = '';
+
+  if (filter != null) {
+    for (const key in filter) {
+      if (filter[key] !== null) {
+        searchString += 'priceOffer.' + key + '==' + filter[key];
+      }
+    }
+  }
+
+  return searchString;
+}
+
+/**
  * Check value is not undefined
  * @param value
  */
@@ -85,6 +103,6 @@ export function containsObject(obj, list) {
  * @param data
  * @param key
  */
-export function sum(data: any[], key: string) {
+export function sum(data: any[], key: string): number {
   return data.reduce((a, b) => a + (b[key] || 0), 0);
 }

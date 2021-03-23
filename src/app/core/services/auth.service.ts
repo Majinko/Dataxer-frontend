@@ -23,7 +23,8 @@ export class AuthService {
       switchMap(user => {
         if (user) {
           this.setUser = user;
-          return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
+
+          return of(this.user);
         } else {
           return of(null);
         }
@@ -36,9 +37,9 @@ export class AuthService {
       .signInWithEmailAndPassword(email, password);
   }
 
- /* registerWithEmail(email: string, password: string): Promise<auth.UserCredential> {
-    return this.afAuth.createUserWithEmailAndPassword(email, password);
-  }*/
+  /* registerWithEmail(email: string, password: string): Promise<auth.UserCredential> {
+     return this.afAuth.createUserWithEmailAndPassword(email, password);
+   }*/
 
   public updateUserData(user) {
     const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${user.uid}`);
@@ -72,7 +73,7 @@ export class AuthService {
 
   set setUser(credential) {
     this.user = {
-      token: credential.ya,
+      token: credential.za,
       uid: credential.uid,
       displayName: credential.displayName,
       email: credential.email

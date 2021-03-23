@@ -41,4 +41,12 @@ export class TimeService {
   getLatestProjectCategories(projectId: number): Observable<CategoryItemNode[]> {
     return this.http.get<CategoryItemNode[]>(`${environment.baseUrl}/time/lastProjectCategories?projectId=${projectId}`);
   }
+
+  getLastUserTime(): Observable<Time> {
+    return this.http.get<Time>(`${environment.baseUrl}/time/lastUserTime`);
+  }
+
+  getAllWorkYears(): Observable<number[]>{
+    return this.http.get<number[]>(`${environment.baseUrl}/time/allWorkYears`);
+  }
 }

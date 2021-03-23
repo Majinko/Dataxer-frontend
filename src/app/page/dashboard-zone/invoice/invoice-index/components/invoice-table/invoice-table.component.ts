@@ -1,13 +1,13 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {Invoice} from '../../../../../core/models/invoice';
+import {Invoice} from '../../../../../../core/models/invoice';
 import {MatPaginator} from '@angular/material/paginator';
-import {DocumentFilterComponent} from '../../../price-offer/components/document-filter/document-filter.component';
-import {InvoiceService} from '../../../../../core/services/invoice.service';
-import {MessageService} from '../../../../../core/services/message.service';
+import {DocumentFilterComponent} from '../../../../price-offer/components/document-filter/document-filter.component';
+import {InvoiceService} from '../../../../../../core/services/invoice.service';
+import {MessageService} from '../../../../../../core/services/message.service';
 import {merge} from 'rxjs';
 import {map, startWith, switchMap} from 'rxjs/operators';
 import {Router} from '@angular/router';
-import {DocumentHelper} from '../../../../../core/class/DocumentHelper';
+import {DocumentHelper} from '../../../../../../core/class/DocumentHelper';
 
 @Component({
   selector: 'app-invoice-table',

@@ -1,4 +1,4 @@
-import {Component, ViewChild, AfterViewInit} from '@angular/core';
+import {AfterViewInit, Component, ViewChild} from '@angular/core';
 
 import {PriceOfferService} from 'src/app/core/services/priceOffer.service';
 import {MessageService} from 'src/app/core/services/message.service';
@@ -41,6 +41,8 @@ export class PriceOfferTableComponent implements AfterViewInit {
   }
 
   public paginate() {
+    this.setFiltering();
+
     this.paginator.pageIndex = 0;
 
     merge(this.paginator.page)
@@ -50,7 +52,6 @@ export class PriceOfferTableComponent implements AfterViewInit {
           return this.priceOfferService.paginate(
             this.paginator.pageIndex,
             this.paginator.pageSize,
-            this.documentFilterRef.filterForm.value
           );
         }),
         map((data) => {
@@ -62,6 +63,15 @@ export class PriceOfferTableComponent implements AfterViewInit {
         })
       )
       .subscribe((data) => (this.priceOffers = data));
+  }
+
+  private setFiltering() {
+    if (this.priceOfferService.filter != null && this.documentFilterRef.isFiltering === false) {
+      this.documentFilterRef.filterForm.patchValue(this.priceOfferService.filter, {emitEvent: false});
+      this.documentFilterRef.isFiltering = true;
+    } else {
+      this.priceOfferService.filter = this.documentFilterRef.filterForm.value;
+    }
   }
 
   destroy(event: MouseEvent, id: number) {

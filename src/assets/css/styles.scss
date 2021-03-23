@@ -25,6 +25,16 @@
   justify-content: center;
 }
 
+.box{
+  border-radius: .55rem;
+  background: $color-box !important;
+  transition: .5s;
+  border: 0;
+  position: relative;
+  width: 100%;
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 10%);
+}
+
 /*
 * === Shuffle ===
 */

@@ -5,6 +5,7 @@ import {AuthService} from '../../../core/services/auth.service';
 import {Router} from '@angular/router';
 import {CompanyService} from '../../../core/services/company.service';
 import {Company} from '../../../core/models/company';
+import {MessageService} from '../../../core/services/message.service';
 
 @Component({
   selector: 'app-avatar',
@@ -19,12 +20,17 @@ export class AvatarComponent implements OnInit {
     @Inject(UserService) public readonly userService: UserService,
     @Inject(AuthService) private readonly authService: AuthService,
     public readonly companyService: CompanyService,
-    private router: Router
+    private router: Router,
+    private messageService: MessageService
   ) {
   }
 
   ngOnInit() {
     this.getCompanies();
+
+    this.companyService.companyStore.subscribe(c => {
+      this.companies.push(c);
+    });
   }
 
   logout() {
@@ -34,6 +40,15 @@ export class AvatarComponent implements OnInit {
   getCompanies() {
     this.companyService.all().subscribe(companies => {
       this.companies = companies;
+    });
+  }
+
+  switchCompany(company: Company) {
+    this.userService.switchCompany(company.id).subscribe(() => {
+      this.router.navigate(['/setting/company']).then(() => {
+        this.companyService.company = company;
+        this.messageService.add('Spoločnosť bola zmenená');
+      });
     });
   }
 }

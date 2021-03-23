@@ -6,11 +6,13 @@ import {Paginate} from '../models/paginate';
 import {Invoice} from '../models/invoice';
 import * as moment from 'moment';
 import {map} from 'rxjs/operators';
+import {DocumentFilter} from '../models/filters/document-filter';
 
 @Injectable({
   providedIn: 'root'
 })
 export class InvoiceService {
+  filter: DocumentFilter;
 
   constructor(private http: HttpClient) {
   }
@@ -28,7 +30,7 @@ export class InvoiceService {
   }
 
   paginate(page: number, size: number): Observable<Paginate<Invoice>> {
-    return this.http.get<Paginate<Invoice>>(`${environment.baseUrl}/invoice/paginate?page=${page}&size=${size}`).pipe(map(data => {
+    return this.http.get<Paginate<Invoice>>(`${environment.baseUrl}/invoice/paginate?page=${page}&size=${size}&filters=invoice.documentType == INVOICE;invoice.contact.name==J*`).pipe(map(data => {
       data.content.forEach(invoice => {
         invoice.dueAtDays = Math.ceil(moment(invoice.dueDate).diff(new Date(), 'days', true));
       });
@@ -55,6 +57,10 @@ export class InvoiceService {
 
   taxInvoice(id: number): Observable<Invoice> {
     return this.http.get<Invoice>(`${environment.baseUrl}/invoice/tax-invoice/${id}`);
+  }
+
+  summaryInvoice(id: number): Observable<Invoice> {
+    return this.http.get<Invoice>(`${environment.baseUrl}/invoice/summary-invoice/${id}`);
   }
 
   pdf(id: number): Observable<any> {
