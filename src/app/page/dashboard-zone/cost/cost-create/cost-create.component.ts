@@ -10,6 +10,8 @@ import {UploadHelper} from '../../../../core/class/UploadHelper';
 import {CostService} from '../../../../core/services/cost.service';
 import {MessageService} from '../../../../core/services/message.service';
 import {Router} from '@angular/router';
+import {CategoryItemNode} from '../../../../core/models/category-item-node';
+import {CategoryService} from '../../../../core/services/category.service';
 
 @Component({
   selector: 'app-cost-create',
@@ -33,6 +35,7 @@ export class CostCreateComponent implements OnInit {
   formGroup: FormGroup;
   submitted: boolean = false;
   isLoading: boolean = false;
+  categories: CategoryItemNode[] = [];
 
   costTypes = COSTTYPES;
   costStates = COSTSTATES;
@@ -44,14 +47,15 @@ export class CostCreateComponent implements OnInit {
     private addPercent: AddPercentPipe,
     private costService: CostService,
     private messageService: MessageService,
+    private categoryService: CategoryService,
     private router: Router,
   ) {
   }
 
   ngOnInit() {
     this.prepareForm();
-
     this.changeValue();
+    this.getAllCategories();
   }
 
   private prepareForm() {
@@ -67,7 +71,7 @@ export class CostCreateComponent implements OnInit {
       repeatedTo: null,
       contact: [null, Validators.required],
       project: [null, Validators.required],
-      category: [null, Validators.required],
+      categories: [null, Validators.required],
       note: null,
       number: null,
       variableSymbol: null,
@@ -88,6 +92,12 @@ export class CostCreateComponent implements OnInit {
       this.formGroup.patchValue({
         totalPrice: +this.addPercent.transform(value.price, value.tax)
       }, {emitEvent: false});
+    });
+  }
+
+  private getAllCategories() {
+    this.categoryService.all().subscribe((nestedCategories) => {
+      this.categories = nestedCategories;
     });
   }
 

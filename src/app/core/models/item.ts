@@ -22,7 +22,7 @@ export interface Item {
   needMontage?: boolean;
   file?: any;
   itemPrice?: ItemPrice;
-  categories?: CategoryItemNode;
+  categories?: CategoryItemNode[];
   supplier?: Contact;
   preview?: CustomFile;
 }

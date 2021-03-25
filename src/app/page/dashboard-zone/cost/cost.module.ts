@@ -11,6 +11,7 @@ import {ThemeModule} from '../../../theme/theme.module';
 import {CoreModule} from '../../../core/core.module';
 import {CostTableComponent} from './cost-index/components/cost-table/cost-table.component';
 import {CostShowComponent} from './cost-show/cost-show.component';
+import {NgSelectModule} from '@ng-select/ng-select';
 
 const routes: Routes = [
   {
@@ -38,14 +39,15 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    RouterModule.forChild(routes),
-    MaterialModule,
-    ReactiveFormsModule,
-    ThemeModule,
-    CoreModule,
-  ],
+    imports: [
+        CommonModule,
+        RouterModule.forChild(routes),
+        MaterialModule,
+        ReactiveFormsModule,
+        ThemeModule,
+        CoreModule,
+        NgSelectModule,
+    ],
   declarations: [
     CostComponent,
     CostIndexComponent,

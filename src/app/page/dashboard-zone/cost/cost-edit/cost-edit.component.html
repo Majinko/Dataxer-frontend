@@ -102,8 +102,14 @@
       </div>
 
       <div class="col-md-4">
-        <app-new-category-select formControlName="category"></app-new-category-select>
-        <mat-error *ngIf="submitted && f.project.errors">Kategória je <strong>požadovaná.</strong></mat-error>
+        <ng-select class="form-group w-100 mb-0"
+                   [multiple]="true"
+                   [items]="categories"
+                   bindLabel="name"
+                   placeholder="Kategórie"
+                   formControlName="categories"
+        >
+        </ng-select>
       </div>
 
       <div class="col-md-12">

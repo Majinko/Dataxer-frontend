@@ -602,7 +602,7 @@ export const COUNTRIES: Country[] = [
     country: 'Singapore'
   },
   {
-    country: 'Slovakia'
+    country: 'Slovensko'
   },
   {
     country: 'Slovenia'

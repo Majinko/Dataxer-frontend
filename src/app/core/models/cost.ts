@@ -9,6 +9,7 @@ export interface Cost {
   contact: Contact;
   user: User;
   project: Project;
+  categories: CategoryItemNode[];
   title: string;
   number: string;
   variableSymbol: string;
@@ -22,7 +23,6 @@ export interface Cost {
   tax: number;
   totalPrice: number;
   dueAtDays: number;
-  category: CategoryItemNode;
   isInternal: boolean;
   isRepeated: boolean;
   paymentDate: Date;

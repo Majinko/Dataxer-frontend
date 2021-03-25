@@ -1,5 +1,5 @@
 <div *ngIf="isLoad; else loading" class="position-relative table-scroll table-fixed-col mt-4 w-100">
-  <table class="table-show-data w-100 border-bottom">
+  <table class="table-show-data table-default w-100 border-bottom">
     <thead>
     <tr>
       <th class="table-fixed-col text-left row-head">Užívateľ</th>
@@ -9,13 +9,13 @@
 
     <tbody class="table-border">
     <tr *ngFor="let userYearlyOverview of userYearlyOverviews">
-      <td class="table-fixed-col text-left row-head white-space-nowrap">
+      <td class="table-fixed-col text-left white-space-nowrap">
           <span class="d-flex align-items-center">
             <ngx-avatar size="30" name="{{userYearlyOverview.fullName}}" class="mr-3"></ngx-avatar>
             {{userYearlyOverview.fullName}}
           </span>
       </td>
-      <td class="text-center white-space-nowrap text-center" *ngFor="let year of years; let index = index"><strong>{{userYearlyOverview.yearHours[year] || ''}}</strong></td>
+      <td class="text-center white-space-nowrap text-center" *ngFor="let year of years; let index = index"><strong class="font-weight-bold">{{userYearlyOverview.yearHours[year] || ''}}</strong></td>
     </tr>
     </tbody>
   </table>

@@ -35,7 +35,6 @@ export class PaymentsComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   ngOnInit(): void {
-    this.getPayments();
     this.watchStorePayment();
   }
 

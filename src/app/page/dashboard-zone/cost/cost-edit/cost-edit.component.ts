@@ -11,6 +11,8 @@ import {MessageService} from '../../../../core/services/message.service';
 import {addDays, APP_DATE_FORMATS} from '../../../../../helper';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import {MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter} from '@angular/material-moment-adapter';
+import {CategoryService} from '../../../../core/services/category.service';
+import {CategoryItemNode} from '../../../../core/models/category-item-node';
 
 @Component({
   selector: 'app-cost-edit',
@@ -33,6 +35,7 @@ import {MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter} from '@angular/mater
 })
 export class CostEditComponent implements OnInit {
   cost: Cost;
+  categories: CategoryItemNode[] = [];
 
   formGroup: FormGroup;
   submitted: boolean = false;
@@ -47,6 +50,7 @@ export class CostEditComponent implements OnInit {
     private formBuilder: FormBuilder,
     private addPercent: AddPercentPipe,
     private costService: CostService,
+    private categoryService: CategoryService,
     private route: ActivatedRoute,
     private router: Router,
     private messageService: MessageService,
@@ -57,6 +61,7 @@ export class CostEditComponent implements OnInit {
     this.getCost();
     this.prepareForm();
     this.changeValue();
+    this.getAllCategories();
   }
 
   private prepareForm() {
@@ -73,7 +78,7 @@ export class CostEditComponent implements OnInit {
       repeatedTo: null,
       contact: [null, Validators.required],
       project: [null, Validators.required],
-      category: [null, Validators.required],
+      categories: [null, Validators.required],
       note: null,
       number: null,
       variableSymbol: null,
@@ -94,6 +99,12 @@ export class CostEditComponent implements OnInit {
       this.formGroup.patchValue({
         totalPrice: +this.addPercent.transform(value.price, value.tax)
       }, {emitEvent: false});
+    });
+  }
+
+  private getAllCategories() {
+    this.categoryService.all().subscribe((nestedCategories) => {
+      this.categories = nestedCategories;
     });
   }
 

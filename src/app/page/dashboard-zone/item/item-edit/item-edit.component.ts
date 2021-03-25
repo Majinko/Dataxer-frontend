@@ -51,7 +51,7 @@ export class ItemEditComponent implements OnInit {
     this.formGroup = this.formBuilder.group({
       id: '',
       title: [null, Validators.required],
-      category: [null],
+      categories: [null],
       type: null,
       shortDescription: null,
       description: null,
@@ -74,6 +74,7 @@ export class ItemEditComponent implements OnInit {
         wholesaleTax: 20,
         surcharge: 0,
         price: 0,
+        priceTax: 0,
         tax: 20,
         marge: 0
       }),

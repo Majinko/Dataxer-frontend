@@ -41,7 +41,7 @@ export class ItemCreateComponent implements OnInit {
   prepareForm() {
     this.formGroup = this.formBuilder.group({
       title: [null, Validators.required],
-      category: [null],
+      categories: [null],
       type: null,
       shortDescription: null,
       description: null,

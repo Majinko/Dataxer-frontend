@@ -25,6 +25,7 @@
     "@angular/router": "^9.1.13",
     "@ng-select/ng-select": "^5.1.0",
     "@ngx-translate/core": "^13.0.0",
+    "apexcharts": "^3.26.0",
     "bootstrap": "^4.6.0",
     "firebase": "^8.3.0",
     "moment": "^2.29.1",

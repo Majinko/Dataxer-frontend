@@ -53,6 +53,8 @@ export class CostTableComponent implements OnInit, AfterViewInit {
       .pipe(
         startWith({}),
         switchMap(() => {
+          this.isLoadingResults = true;
+
           return this.costService.paginate(
             this.paginator.pageIndex,
             this.paginator.pageSize,

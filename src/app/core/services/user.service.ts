@@ -6,6 +6,7 @@ import {Observable} from 'rxjs';
 import {environment} from '../../../environments/environment';
 import {map} from 'rxjs/operators';
 import {UserOverview} from '../models/userOverview';
+import {Paginate} from '../models/paginate';
 
 @Injectable({
   providedIn: 'root'
@@ -29,8 +30,8 @@ export class UserService {
     }));
   }
 
-  overview(): Observable<UserOverview[]> {
-    return this.http.get<UserOverview[]>(`${environment.baseUrl}/user/overview`);
+  paginate(page: number, size: number): Observable<Paginate<UserOverview>> {
+    return this.http.get<Paginate<UserOverview>>(`${environment.baseUrl}/user/overview?page=${page}&size=${size}`);
   }
 
   loggedUser(): Observable<User> {

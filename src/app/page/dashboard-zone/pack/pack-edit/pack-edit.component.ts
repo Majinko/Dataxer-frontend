@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {Pack} from "../../../../core/models/pack";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {MessageService} from "../../../../core/services/message.service";
-import {ActivatedRoute} from "@angular/router";
-import {PackService} from "../../../../core/services/pack.service";
+import {Pack} from '../../../../core/models/pack';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {MessageService} from '../../../../core/services/message.service';
+import {ActivatedRoute} from '@angular/router';
+import {PackService} from '../../../../core/services/pack.service';
 
 @Component({
   selector: 'app-pack-edit',
@@ -33,8 +33,8 @@ export class PackEditComponent implements OnInit {
     this.getById();
   }
 
-  getById(){
-    this.packService.getById(+this.route.snapshot.paramMap.get("pack_id")).subscribe(p => {
+  getById() {
+    this.packService.getById(+this.route.snapshot.paramMap.get('pack_id')).subscribe(p => {
       this.pack = p;
 
       this.formGroup.patchValue(p);
@@ -52,7 +52,7 @@ export class PackEditComponent implements OnInit {
     }
 
     this.packService.update(this.formGroup.value).subscribe(() => {
-      this.messageService.add("Pack was update")
-    })
+      this.messageService.add('Sada položiek bola aktualizovaná.');
+    });
   }
 }

@@ -30,7 +30,7 @@ export class CostService {
   }
 
   store(cost: Cost, files: CustomFile[]): Observable<void> {
-    const data: UploadContext<Item> = {
+    const data: UploadContext<Cost> = {
       files,
       object: cost
     };
@@ -51,7 +51,7 @@ export class CostService {
   }
 
   update(cost: Cost, files: CustomFile[]): Observable<void> {
-    const data: UploadContext<Item> = {
+    const data: UploadContext<Cost> = {
       files,
       object: cost
     };

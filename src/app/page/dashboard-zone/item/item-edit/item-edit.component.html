@@ -20,19 +20,6 @@
     </div>
 
     <div class="col-md-4">
-      <ng-select class="form-group w-100" [items]="categories"
-                 #select
-                 bindLabel="name"
-                 placeholder="Kategória"
-                 [clearable]="false"
-                 formControlName="category">
-        <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
-          <div><span>{{item.name}}</span></div>
-        </ng-template>
-      </ng-select>
-    </div>
-
-    <div class="col-md-4">
       <mat-form-field class="form-group w-100">
         <mat-select placeholder="Typ" formControlName="type">
           <mat-option value="basic">
@@ -43,6 +30,17 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
+    </div>
+
+    <div class="col-md-4">
+      <ng-select class="form-group w-100 mb-0"
+                 [multiple]="true"
+                 [items]="categories"
+                 bindLabel="name"
+                 placeholder="Kategórie"
+                 formControlName="categories"
+      >
+      </ng-select>
     </div>
   </div>
 
@@ -73,9 +71,9 @@
 
   <div class="row">
     <div class="col-md-4">
-      <div class="mb-3">
+      <div class="mb-3" *ngIf="this.uploadHelper.imageUrl">
         <mat-progress-bar *ngIf="!this.uploadHelper.imageUrl && !this.uploadHelper.isLoad" mode="indeterminate"></mat-progress-bar>
-        <img *ngIf="this.uploadHelper.imageUrl" src="{{this.uploadHelper.imageUrl}}" alt="">
+        <img src="{{this.uploadHelper.imageUrl}}" alt="">
       </div>
 
       <mat-form-field class="form-pack-price-offer-create w-100">
@@ -171,7 +169,7 @@
           <mat-option value="middle">
             Stredná
           </mat-option>
-          <mat-option value="middle">
+          <mat-option value="hard">
             Vyššia
           </mat-option>
         </mat-select>

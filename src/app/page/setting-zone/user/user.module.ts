@@ -32,6 +32,10 @@ const routes: Routes = [
       {
         path: 'edit/:uid',
         component: UserEditComponent
+      },
+      {
+        path: 'show/:uid',
+        loadChildren: () => import('./user-detail/user-detail.module').then((m) => m.UserDetailModule)
       }
     ]
   },
