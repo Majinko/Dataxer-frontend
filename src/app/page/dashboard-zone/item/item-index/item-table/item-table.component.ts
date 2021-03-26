@@ -48,6 +48,8 @@ export class ItemTableComponent implements AfterViewInit {
       .pipe(
         startWith({}),
         switchMap(() => {
+          this.isLoadingResults = true;
+
           return this.itemService.paginate(
             this.paginator.pageIndex,
             this.paginator.pageSize,

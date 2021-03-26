@@ -51,6 +51,8 @@ export class ContactTableComponent implements AfterViewInit {
       .pipe(
         startWith({}),
         switchMap(() => {
+          this.isLoadingResults = true;
+
           return this.contactService.paginate(
             this.paginator.pageIndex,
             this.paginator.pageSize,

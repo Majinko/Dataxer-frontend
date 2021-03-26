@@ -49,6 +49,8 @@ export class ProjectTableComponent implements AfterViewInit {
       .pipe(
         startWith({}),
         switchMap(() => {
+          this.isLoadingResults = true;
+
           return this.projectService.paginate(
             this.paginator.pageIndex,
             this.paginator.pageSize
