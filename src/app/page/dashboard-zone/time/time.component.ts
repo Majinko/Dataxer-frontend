@@ -17,7 +17,7 @@ import {GodButtonService} from '../../../core/services/god-button.service';
 export class TimeComponent implements OnInit {
   constructor(
     @Inject(GodButtonService) private readonly godButtonService: GodButtonService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
   ) {
   }
 

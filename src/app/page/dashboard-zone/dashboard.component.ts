@@ -5,6 +5,7 @@ import {CompanyService} from '../../core/services/company.service';
 import {UserService} from '../../core/services/user.service';
 import {ActivatedRoute} from '@angular/router';
 import {GodButtonService} from '../../core/services/god-button.service';
+import {NgxPermissionsService} from 'ngx-permissions';
 
 @Component({
   selector: 'app-page',
@@ -12,7 +13,7 @@ import {GodButtonService} from '../../core/services/god-button.service';
     <app-message></app-message>
     <app-toolbar></app-toolbar>
     <mat-sidenav-container>
-      <mat-sidenav  [mode]="sidenavService.mobileQuery.matches ? 'over' : 'side'" [(opened)]="sidenavService.opened" class="border-0 h-100">
+      <mat-sidenav [mode]="sidenavService.mobileQuery.matches ? 'over' : 'side'" [(opened)]="sidenavService.opened" class="border-0 h-100">
         <app-drawer [menuItems]="menuItems"></app-drawer>
       </mat-sidenav>
       <mat-sidenav-content class="bg-white py-4">
@@ -28,14 +29,22 @@ export class DashboardComponent implements OnInit {
     public sidenavService: SidenavService,
     private companyService: CompanyService,
     private userService: UserService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private permissionService: NgxPermissionsService
   ) {
   }
 
   ngOnInit(): void {
     this.userService.user = this.route.snapshot.data.user;
     this.companyService.company = this.route.snapshot.data.company;
-
     this.godButtonService.showModal = false;
+
+    this.preparePermission();
+  }
+
+  private preparePermission() {
+    this.userService.user.roles.forEach(r => {
+      this.permissionService.addPermission(r.privileges.map(p => p.name));
+    });
   }
 }

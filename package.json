@@ -33,6 +33,7 @@
     "ngx-avatar": "^4.0.0",
     "ngx-filesize": "^2.0.16",
     "ngx-material-file-input": "^2.1.1",
+    "ngx-permissions": "^8.1.1",
     "ngx-translate-multi-http-loader": "^3.0.0",
     "rxjs": "~6.5.4",
     "strftime": "^0.10.0",

@@ -9,7 +9,10 @@ import {MenuItem} from '../../../core/models/menu-item';
 export class DrawerComponent implements OnInit {
   @Input() menuItems: MenuItem[];
 
-  ngOnInit() {
 
+  constructor() {
+  }
+
+  ngOnInit() {
   }
 }

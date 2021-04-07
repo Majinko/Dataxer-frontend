@@ -30,6 +30,7 @@ import {PaymentDialogStoreComponent} from './component/payments/components/payme
 import {DocumentRelationComponent} from './component/document-relation/document-relation.component';
 import {DocumentRelationDialogComponent} from './component/document-relation/component/document-relation-dialog/document-relation-dialog.component';
 import { MenuTabComponent } from './component/menu-tab/menu-tab.component';
+import {NgxPermissionsModule} from 'ngx-permissions';
 
 @NgModule({
   imports: [
@@ -41,7 +42,8 @@ import { MenuTabComponent } from './component/menu-tab/menu-tab.component';
     NgSelectModule,
     FormsModule,
     ReactiveFormsModule,
-    NgxFilesizeModule
+    NgxFilesizeModule,
+    NgxPermissionsModule,
   ],
   declarations: [
     DrawerComponent,

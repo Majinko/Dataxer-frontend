@@ -5,8 +5,7 @@ import { Routes, RouterModule } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./page/dashboard-zone/dashboard.module')
-      .then(m => m.DashboardModule),
+    loadChildren: () => import('./page/dashboard-zone/dashboard.module').then(m => m.DashboardModule),
   },
   {
     path: 'setting',

@@ -5,6 +5,7 @@ import {GodButtonService} from '../../core/services/god-button.service';
 import {UserService} from '../../core/services/user.service';
 import {ActivatedRoute} from '@angular/router';
 import {CompanyService} from '../../core/services/company.service';
+import {NgxPermissionsService} from 'ngx-permissions';
 
 
 @Component({
@@ -30,7 +31,8 @@ export class SettingComponent implements OnInit {
     @Inject(GodButtonService) public godButtonService: GodButtonService,
     private companyService: CompanyService,
     private userService: UserService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private permissionService: NgxPermissionsService
   ) {
     godButtonService.title = null;
   }
@@ -38,5 +40,13 @@ export class SettingComponent implements OnInit {
   ngOnInit(): void {
     this.userService.user = this.route.snapshot.data.user;
     this.companyService.company = this.route.snapshot.data.company;
+
+    this.preparePermission();
+  }
+
+  private preparePermission() {
+    this.userService.user.roles.forEach(r => {
+      this.permissionService.addPermission(r.privileges.map(p => p.name));
+    });
   }
 }

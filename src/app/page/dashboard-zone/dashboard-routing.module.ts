@@ -4,6 +4,7 @@ import {DashboardComponent} from './dashboard.component';
 import {AuthGuardService} from '../../core/guards/auth-guard.service';
 import {UserResolver} from '../../core/resolver/user.resolver';
 import {CompanyResolver} from '../../core/resolver/company.resolver';
+import {NgxPermissionsGuard} from 'ngx-permissions';
 
 const routes: Routes = [
   {
@@ -14,28 +15,61 @@ const routes: Routes = [
     children: [
       {
         path: 'task',
-        data: {godButtonTitle: 'Nová úloha', gotButtonRouteLink: '/task/create'},
+        canActivate: [NgxPermissionsGuard],
+        data: {
+          godButtonTitle: 'Nová úloha',
+          gotButtonRouteLink: '/task/create',
+          permissions: {
+            only: 'Task'
+          }
+        },
         loadChildren: () => import('./task/task.module').then(m => m.TaskModule),
       },
       {
         path: 'contact',
-        data: {godButtonTitle: 'Nový kontakt', gotButtonRouteLink: '/contact/create'},
+        canActivate: [NgxPermissionsGuard],
+        data: {
+          godButtonTitle: 'Nový kontakt',
+          gotButtonRouteLink: '/contact/create',
+          permissions: {
+            only: 'Contact'
+          }
+        },
         loadChildren: () => import('./contact/contact.module').then(m => m.ContactModule),
       },
       {
         path: 'project',
-        data: {godButtonTitle: 'Nová zákazka', gotButtonRouteLink: '/project/create'},
+        canActivate: [NgxPermissionsGuard],
+        data: {
+          godButtonTitle: 'Nová zákazka',
+          gotButtonRouteLink: '/project/create',
+          permissions: {
+            only: 'Project'
+          }
+        },
         loadChildren: () => import('./project/project.module').then(m => m.ProjectModule),
       },
       {
         path: 'demand',
-        data: {godButtonTitle: 'Nový dopyt', gotButtonRouteLink: '/demand/create'},
+        canActivate: [NgxPermissionsGuard],
+        data: {
+          godButtonTitle: 'Nový dopyt',
+          gotButtonRouteLink: '/demand/create',
+          permissions: {
+            only: 'Demand'
+          }
+        },
         loadChildren: () => import('./demand/demand.module').then(m => m.DemandModule),
       },
       {
         path: 'invoice',
+        canActivate: [NgxPermissionsGuard],
         data: {
-          godButtonTitle: 'Nová faktúra', gotButtonRouteLink: '/invoice/create',
+          godButtonTitle: 'Nová faktúra',
+          gotButtonRouteLink: '/invoice/create',
+          permissions: {
+            only: 'Document'
+          },
           menuItem: [{title: 'Nová faktúra', link: '/invoice/create/INVOICE'}, {
             title: 'Nová zálohová faktúra',
             link: '/invoice/create/PROFORMA'
@@ -45,31 +79,71 @@ const routes: Routes = [
       },
       {
         path: 'cost',
-        data: {godButtonTitle: 'Nový náklad', gotButtonRouteLink: '/cost/create'},
+        canActivate: [NgxPermissionsGuard],
+        data: {
+          godButtonTitle: 'Nový náklad', gotButtonRouteLink: '/cost/create',
+          permissions: {
+            only: 'Cost'
+          },
+        },
         loadChildren: () => import('./cost/cost.module').then(m => m.CostModule),
       },
       {
         path: 'price-offer',
-        data: {godButtonTitle: 'Nová cenová ponuka', gotButtonRouteLink: '/price-offer/create'},
+        canActivate: [NgxPermissionsGuard],
+        data: {
+          godButtonTitle: 'Nová cenová ponuka',
+          gotButtonRouteLink: '/price-offer/create',
+          permissions: {
+            only: 'Document'
+          },
+        },
         loadChildren: () => import('./price-offer/price-offer.module').then(m => m.PriceOfferModule),
       },
       {
         path: 'time',
-        data: {godButtonTitle: 'Zaznamenať čas', gotButtonRouteLink: '/time/create'},
+        canActivate: [NgxPermissionsGuard],
+        data: {
+          godButtonTitle: 'Zaznamenať čas',
+          gotButtonRouteLink: '/time/create',
+          permissions: {
+            only: 'Time'
+          }
+        },
         loadChildren: () => import('./time/time.module').then(m => m.TimeModule),
       },
       {
         path: 'item',
-        data: {godButtonTitle: 'Nová položka', gotButtonRouteLink: '/item/create'},
+        canActivate: [NgxPermissionsGuard],
+        data: {
+          godButtonTitle: 'Nová položka',
+          gotButtonRouteLink: '/item/create',
+          permissions: {
+            only: 'Item'
+          }
+        },
         loadChildren: () => import('./item/item.module').then(m => m.ItemModule),
       },
       {
         path: 'pack',
-        data: {godButtonTitle: 'Nová sada poloziek', gotButtonRouteLink: '/pack/create'},
+        canActivate: [NgxPermissionsGuard],
+        data: {
+          godButtonTitle: 'Nová sada poloziek',
+          gotButtonRouteLink: '/pack/create',
+          permissions: {
+            only: 'Pack'
+          }
+        },
         loadChildren: () => import('./pack/pack.module').then(m => m.PackModule),
       },
       {
         path: 'overview',
+        canActivate: [NgxPermissionsGuard],
+        data: {
+          permissions: {
+            only: 'Overview'
+          }
+        },
         loadChildren: () => import('./overview/overview.module').then(m => m.OverviewModule),
       }
     ],
