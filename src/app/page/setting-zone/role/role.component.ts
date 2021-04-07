@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
+import {GodButtonService} from '../../../core/services/god-button.service';
+import {ActivatedRoute} from '@angular/router';
+import {RoleDialogComponent} from './role-dialog/role-dialog.component';
 
 @Component({
   selector: 'app-role',
@@ -13,9 +16,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RoleComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    @Inject(GodButtonService) private readonly godButtonService: GodButtonService,
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit(): void {
+    this.godButtonService.title = this.route.snapshot.data.godButtonTitle;
+    this.godButtonService.routerLink = this.route.snapshot.data.gotButtonRouteLink;
+    this.godButtonService.component = RoleDialogComponent;
+    this.godButtonService.showModal = true;
+    this.godButtonService.menuItem = [];
   }
-
 }

@@ -1,6 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {RoleService} from '../../../../core/services/role.service';
-import {Role} from '../../../../core/models/role';
+import {Privilege, Role} from '../../../../core/models/role';
+import {PrivilegeService} from '../../../../core/services/privilege.service';
+import {PRIVILEGEICONS} from '../../../../core/data/privilegesIcon';
+import {MatDialog} from '@angular/material/dialog';
+import {RoleDialogComponent} from '../role-dialog/role-dialog.component';
+import {MessageService} from '../../../../core/services/message.service';
 
 @Component({
   selector: 'app-role-index',
@@ -9,16 +14,24 @@ import {Role} from '../../../../core/models/role';
 })
 export class RoleIndexComponent implements OnInit {
   roles: Role[] = [];
+  privileges: Privilege[] = [];
+  privilegesIcons = PRIVILEGEICONS;
 
-  displayedColumns: string[] = ['name', 'actions'];
+  displayedColumns: string[] = ['name', 'privileges', 'actions'];
 
   constructor(
-    private roleService: RoleService
+    private roleService: RoleService,
+    private privilegeService: PrivilegeService,
+    private dialog: MatDialog,
+    private messageService: MessageService,
   ) {
   }
 
   ngOnInit(): void {
     this.getAll();
+    this.getAllPrivilege();
+
+    this.roleService.reloadRoles.subscribe(() => this.getAll());
   }
 
   getAll() {
@@ -27,11 +40,36 @@ export class RoleIndexComponent implements OnInit {
     });
   }
 
-  edit(role: Role) {
+  getAllPrivilege() {
+    this.privilegeService.getAll().subscribe(privileges => {
+      this.privileges = privileges;
+    });
+  }
 
+  edit(role: Role) {
+    this.dialog.open(RoleDialogComponent, {
+      width: '100%',
+      maxWidth: '500px',
+      autoFocus: false,
+      data: {
+        role
+      }
+    });
   }
 
   destroy(id: number) {
+    this.roleService.destroy(id).subscribe(() => {
+      this.roles = this.roles.filter(role => role.id !== id);
 
+      this.messageService.add('Rola bola odstránená');
+    });
+  }
+
+  getPrivilegeIcon(privilege: Privilege) {
+    return this.privilegesIcons.find(pr => pr.name === privilege.name)?.icon;
+  }
+
+  roleIncludesPrivilege(role: Role, privilege: Privilege): boolean {
+    return role.privileges.some(pr => pr.name === privilege.name);
   }
 }

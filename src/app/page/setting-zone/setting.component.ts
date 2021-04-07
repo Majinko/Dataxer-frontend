@@ -2,9 +2,9 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {SidenavService} from '../../core/services/sidenav.service';
 import {SettingMenuItems} from '../../core/data/setting-menu-items';
 import {GodButtonService} from '../../core/services/god-button.service';
-import {UserService} from "../../core/services/user.service";
-import {ActivatedRoute} from "@angular/router";
-import {CompanyService} from "../../core/services/company.service";
+import {UserService} from '../../core/services/user.service';
+import {ActivatedRoute} from '@angular/router';
+import {CompanyService} from '../../core/services/company.service';
 
 
 @Component({
@@ -22,7 +22,7 @@ import {CompanyService} from "../../core/services/company.service";
       </mat-sidenav-content>
     </mat-sidenav-container>`,
 })
-export class SettingComponent implements OnInit{
+export class SettingComponent implements OnInit {
   menuItems = SettingMenuItems;
 
   constructor(

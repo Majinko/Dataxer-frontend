@@ -31,31 +31,31 @@ h2 {
   text-decoration: none !important;
 }
 
-.border-bottom-2{
+.border-bottom-2 {
   border-bottom: 2px solid $global-primary-color;
 }
 
-.no-border{
+.no-border {
   border: none !important;
 }
 
-.border-top{
-  border-top: 1px solid rgba(0,0,0,.1);
+.border-top {
+  border-top: 1px solid rgba(0, 0, 0, .1);
 }
 
-.border-right{
-  border-right: 1px solid rgba(0,0,0,.1);
+.border-right {
+  border-right: 1px solid rgba(0, 0, 0, .1);
 }
 
-.border-bottom{
-  border-bottom: 1px solid rgba(0,0,0,.1);
+.border-bottom {
+  border-bottom: 1px solid rgba(0, 0, 0, .1);
 }
 
-.border-left{
-  border-left: 1px solid rgba(0,0,0,.1);
+.border-left {
+  border-left: 1px solid rgba(0, 0, 0, .1);
 }
 
-.white-space-nowrap{
+.white-space-nowrap {
   white-space: nowrap !important;
 }
 
@@ -71,8 +71,11 @@ $max: 50;
       width: #{$i * 5}px !important;
     }
   }
-}
 
+  .font-size-#{$i} {
+    font-size: #{$i}px !important;
+  }
+}
 
 .min-height-100vh {
   min-height: 100vh;

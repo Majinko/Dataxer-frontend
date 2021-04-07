@@ -2,14 +2,14 @@ import {MenuItem} from '../models/menu-item';
 
 export const SettingMenuItems: MenuItem[] = [
   {
-    routerLink: ['/setting/user/all'],
-    title: 'Používatelia',
-    icon: 'groups',
-  },
-  {
     routerLink: ['/setting/role'],
     title: 'Role',
     icon: 'admin_panel_settings',
+  },
+  {
+    routerLink: ['/setting/user/all'],
+    title: 'Používatelia',
+    icon: 'groups',
   },
   {
     routerLink: ['/setting/company'],
