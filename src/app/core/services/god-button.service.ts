@@ -6,6 +6,7 @@ import {ComponentType} from '@angular/cdk/overlay';
 })
 export class GodButtonService {
   title: string = null;
+  data: any = null;
   routerLink: string = null;
   showModal: boolean = false;
   component: ComponentType<any>;

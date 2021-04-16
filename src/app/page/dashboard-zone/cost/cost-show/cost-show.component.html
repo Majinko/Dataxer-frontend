@@ -35,7 +35,7 @@
 
     <div class="col-md-4">
       <p class="mb-0">Zákazka:</p>
-      <h3 class="text-dark"><b>{{cost.project.title}}</b></h3>
+      <h3 class="text-dark cursor-pointer text-underline-hover" [routerLink]="['/project/show', cost.project.id]"><b>{{cost.project.title}}</b></h3>
     </div>
 
     <div class="col-md-4">

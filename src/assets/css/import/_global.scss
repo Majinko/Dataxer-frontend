@@ -63,6 +63,12 @@ h2 {
   outline: none !important;
 }
 
+.text-underline-hover{
+  &:hover{
+    text-decoration: underline !important;
+  }
+}
+
 /*
 * === Grid ===
 */

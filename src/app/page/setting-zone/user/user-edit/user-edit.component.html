@@ -34,17 +34,28 @@
   </div>
 
   <div class="row mt-4">
-    <div class="col-md-6">
+    <div class="col-md-4">
       <mat-form-field class="form-group w-100">
         <input matInput placeholder="E-mail" formControlName="email" required>
         <mat-hint>Email cannot be changed</mat-hint>
       </mat-form-field>
     </div>
 
-    <div class="col-md-6">
+    <div class="col-md-4">
       <mat-form-field class="form-group w-100">
         <input matInput placeholder="Telefón" formControlName="phone">
       </mat-form-field>
+    </div>
+
+    <div class="col-md-4">
+      <ng-select class="form-group w-100 mb-0"
+                 [multiple]="true"
+                 [items]="roles"
+                 bindLabel="name"
+                 placeholder="Role"
+                 formControlName="roles"
+      >
+      </ng-select>
     </div>
   </div>
 

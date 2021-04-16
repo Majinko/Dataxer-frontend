@@ -1,1 +1,58 @@
-<p>user-salary works!</p>
+<div class="container-fluid">
+  <div class="row mb-3 pb-2 mt-2" *ngIf="user">
+    <div class="table-wrap no-border">
+      <div class="position-relative">
+        <div class="loading-shade" *ngIf="isLoadingResults">
+          <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+        </div>
+
+        <table mat-table [dataSource]="salaries" class="table-hover table-data table-borderless w-100" matSort matSortDisableClear matSortDirection="desc">
+          <ng-container matColumnDef="price">
+            <th mat-header-cell *matHeaderCellDef>Mzda {{user.displayName}}</th>
+            <td mat-cell *matCellDef="let element"> {{element.price}} &euro;</td>
+          </ng-container>
+
+
+          <ng-container matColumnDef="from">
+            <th mat-header-cell *matHeaderCellDef>Od</th>
+            <td mat-cell *matCellDef="let element"> {{element.start | date:'dd.MM.y'}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="to">
+            <th mat-header-cell *matHeaderCellDef>Do</th>
+            <td mat-cell *matCellDef="let element"> {{element.finish | date:'dd.MM.y' || '-'}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="type">
+            <th mat-header-cell *matHeaderCellDef>Vyplácaný</th>
+            <td mat-cell *matCellDef="let element"> {{element.salaryType}}</td>
+          </ng-container>
+
+          <!-- Action Column -->
+          <ng-container matColumnDef="actions">
+            <th class="text-right p-0 thin" mat-header-cell *matHeaderCellDef></th>
+            <td class="text-right action-link pr-0 thin" mat-cell colspan="3" *matCellDef="let element">
+              <div class="invisible">
+                <button
+                  (click)="edit(element)"
+                  mat-icon-button
+                  matTooltip="Edit item">
+                  <mat-icon class="text-theme">edit</mat-icon>
+                </button>
+                <button
+                  (click)="destroy(element.id)"
+                  mat-icon-button
+                  matTooltip="Delete item">
+                  <mat-icon class="text-theme">delete</mat-icon>
+                </button>
+              </div>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

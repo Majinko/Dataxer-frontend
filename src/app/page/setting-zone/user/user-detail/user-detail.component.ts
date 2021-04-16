@@ -22,13 +22,13 @@ export class UserDetailComponent implements OnInit {
         index: 0
       },
       {
-        label: 'Vývoj mzdy',
-        link: `/setting/user/show/salary/${this.route.snapshot.paramMap.get('uid')}`,
+        label: 'Mzda',
+        link: `/setting/user/show/${this.route.snapshot.paramMap.get('uid')}/salary`,
         index: 1
       },
       {
         label: 'Čas',
-        link: `/setting/user/show/time/${this.route.snapshot.paramMap.get('uid')}`,
+        link: `/setting/user/show/${this.route.snapshot.paramMap.get('uid')}/time`,
         index: 2
       },
     ];

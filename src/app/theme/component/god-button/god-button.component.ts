@@ -27,6 +27,9 @@ export class GodButtonComponent implements OnInit {
         width: '100%',
         maxWidth: '500px',
         autoFocus: false,
+        data: {
+          ...this.godButtonService.data
+        }
       });
     }
   }

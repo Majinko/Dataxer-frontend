@@ -1,3 +1,6 @@
+import {Salary} from './salary';
+import {Role} from './role';
+
 export interface UserOverview {
   id: number;
   uid: string;
@@ -6,4 +9,7 @@ export interface UserOverview {
   endWork: Date;
   projectCount: number;
   sumTime: number;
+  years: number;
+  salary: Salary;
+  roles: Role[];
 }

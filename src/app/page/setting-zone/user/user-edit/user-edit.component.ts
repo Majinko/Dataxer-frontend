@@ -6,6 +6,8 @@ import {COUNTRIES} from '../../../../core/data/countries';
 import {UserService} from '../../../../core/services/user.service';
 import {MessageService} from 'src/app/core/services/message.service';
 import {ActivatedRoute} from '@angular/router';
+import {RoleService} from '../../../../core/services/role.service';
+import {Role} from '../../../../core/models/role';
 
 @Component({
   selector: 'app-user-edit',
@@ -14,6 +16,8 @@ import {ActivatedRoute} from '@angular/router';
 })
 export class UserEditComponent implements OnInit {
   user: User;
+  roles: Role[] = [];
+
   countries = COUNTRIES;
   formGroup: FormGroup;
 
@@ -21,6 +25,7 @@ export class UserEditComponent implements OnInit {
     @Inject(UserService) public readonly userService: UserService,
     @Inject(AuthService) private readonly authService: AuthService,
     private messageService: MessageService,
+    private roleService: RoleService,
     private route: ActivatedRoute,
     private fb: FormBuilder
   ) {
@@ -28,6 +33,7 @@ export class UserEditComponent implements OnInit {
 
   ngOnInit() {
     this.prepareForm();
+    this.getRoles();
   }
 
   private prepareForm() {
@@ -42,6 +48,7 @@ export class UserEditComponent implements OnInit {
       city: null,
       postalCode: null,
       country: null,
+      roles: null
     });
 
     if (this.route.snapshot.paramMap.get('uid')) {
@@ -53,10 +60,16 @@ export class UserEditComponent implements OnInit {
   }
 
   private getUserByUid() {
-    this.userService.findByUid(this.route.snapshot.paramMap.get('uid')).subscribe(u => {
+    this.userService.edit(this.route.snapshot.paramMap.get('uid')).subscribe(u => {
 
       this.user = u;
       this.formGroup.patchValue(u);
+    });
+  }
+
+  private getRoles() {
+    this.roleService.getAll().subscribe(r => {
+      this.roles = r;
     });
   }
 

@@ -1,1 +1,47 @@
-<p>user-info works!</p>
+<div class="row mt-3" *ngIf="userOverview">
+  <div class="col-12">
+    <div class="box p-3">
+      <h1>{{userOverview.fullName}}</h1>
+
+      <div class="row">
+        <div class="col-md-3">
+          <p class="mb-0">Pracuje od:</p>
+          <h3 class="text-dark"><b>{{userOverview.startWork | date:'dd.MM.y' || '-'}}</b></h3>
+        </div>
+        <div class="col-md-3">
+          <p class="mb-0">Počet projektov:</p>
+          <h3 class="text-dark"><b>{{userOverview.projectCount || '-'}}</b></h3>
+        </div>
+        <div class="col-md-3">
+          <p class="mb-0">Odrobené roky:</p>
+          <h3 class="text-dark"><b>{{userOverview.years || '-'}}</b></h3>
+        </div>
+        <div class="col-md-3">
+          <p class="mb-0">Odrobené hodiny:</p>
+          <h3 class="text-dark"><b>{{(userOverview.sumTime | timeFromTimestamp) + ' h' || '-'}}</b></h3>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-3">
+          <p class="mb-0">Plat:</p>
+          <h3 class="text-dark"><b>{{userOverview.salary.price}} &euro; / {{userOverview.salary.salaryType.slice(0, 1).toLowerCase()}}</b></h3>
+        </div>
+
+
+        <div class="col-md-3">
+          <p class="mb-0">Role:</p>
+          <h3 class="text-dark"><b class="d-block" *ngFor="let role of userOverview.roles">{{role.name}}</b></h3>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12 mt-3" *ngIf="salaries.length > 0">
+    <div class="box p-3">
+      <h1>{{ 'advancement salary' | translate }}</h1>
+
+      <app-salary-chart [salary]="salaries"></app-salary-chart>
+    </div>
+  </div>
+</div>

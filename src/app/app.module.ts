@@ -15,7 +15,6 @@ import {TranslateLoader, TranslateModule, TranslateService} from '@ngx-translate
 import {MultiTranslateHttpLoader} from 'ngx-translate-multi-http-loader';
 import {registerLocaleData} from '@angular/common';
 import localeSk from '@angular/common/locales/sk';
-import {NgxPermissionsModule} from 'ngx-permissions';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new MultiTranslateHttpLoader(http, [

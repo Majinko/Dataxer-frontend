@@ -65,7 +65,15 @@ export class UserService {
   }
 
   findByUid(uid: string): Observable<User> {
-    return this.http.get<User>(`${environment.baseUrl}/user/${uid}`);
+    return this.http.get<User>(`${environment.baseUrl}/user/${uid}`).pipe(map((user) => {
+      user.displayName = user.firstName + ' ' + user.lastName;
+
+      return user;
+    }));
+  }
+
+  edit(uid: string): Observable<User> {
+    return this.http.get<User>(`${environment.baseUrl}/user/edit/${uid}`);
   }
 
   destroy(uid: string): Observable<void> {
@@ -74,5 +82,9 @@ export class UserService {
 
   switchCompany(companyId: number): Observable<void> {
     return this.http.get<void>(`${environment.baseUrl}/user/switchCompany/${companyId}`);
+  }
+
+  userOverview(uid: string): Observable<UserOverview> {
+    return this.http.get<UserOverview>(`${environment.baseUrl}/user/overview/${uid}`);
   }
 }
