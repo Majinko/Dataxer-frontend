@@ -1,5 +1,5 @@
 import {Contact} from './contact';
-import {User} from './user';
+import {User, UserOverviewPrice} from './user';
 import {CategoryItemNode} from './category-item-node';
 
 export interface Project {
@@ -16,4 +16,17 @@ export interface Project {
   contact: Contact;
   user: User;
   categories: CategoryItemNode[];
+}
+
+export interface ProjectEvaluation {
+  categoryId: number;
+  categoryName: string;
+  categoryTimeSum: number;
+  userTimePriceOverviewList: UserOverviewPrice[];
+}
+
+export interface ProjectManHours {
+  sumPriceNetto: number;
+  sumPriceBrutto: number;
+  userTimePriceOverviewList: UserOverviewPrice[];
 }

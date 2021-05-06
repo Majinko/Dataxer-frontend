@@ -128,3 +128,12 @@ export function slugify(str) {
 
   return str;
 }
+
+
+/**
+ * To human format
+ * @param value
+ */
+export function numberFormat(value: number): string {
+  return Number(value).toLocaleString('es-ES', {minimumFractionDigits: 2});
+}

@@ -35,7 +35,7 @@ export class PriceOfferTableComponent implements AfterViewInit {
   }
 
   constructor(
-    private priceOfferService: PriceOfferService,
+    public priceOfferService: PriceOfferService,
     private messageService: MessageService
   ) {
   }
@@ -66,12 +66,7 @@ export class PriceOfferTableComponent implements AfterViewInit {
   }
 
   private setFiltering() {
-    if (this.priceOfferService.filter != null && this.documentFilterRef.isFiltering === false) {
-      this.documentFilterRef.filterForm.patchValue(this.priceOfferService.filter, {emitEvent: false});
-      this.documentFilterRef.isFiltering = true;
-    } else {
-      this.priceOfferService.filter = this.documentFilterRef.filterForm.value;
-    }
+    this.priceOfferService.filter = this.documentFilterRef.filterForm.value;
   }
 
   destroy(event: MouseEvent, id: number) {

@@ -85,17 +85,17 @@
       <div *ngIf="invoice.documentData.contact">
         <h3 class="text-dark"><strong>{{invoice.documentData.contact.name}}</strong></h3>
         <p class="mb-3">
-          {{invoice.documentData.contact.street}}
+          {{invoice.documentData.contact.street || '-'}}
           <br>
-          {{invoice.documentData.contact.city + ' ' + invoice.documentData.contact.postalCode}}
+          {{invoice.documentData.contact.city || '' + ' ' + (invoice.documentData.contact.postalCode || '-')}}
           <br>
-          {{invoice.documentData.contact.country}}
+          {{invoice.documentData.contact.country || '-'}}
         </p>
 
         <p>
-          <b class="text-dark">IČO:</b> {{invoice.documentData.contact.cin}} <br>
-          <b class="text-dark">DIČ:</b> {{invoice.documentData.contact.tin}} <br>
-          <b class="text-dark">IČ DPH:</b> {{invoice.documentData.contact.vatin}} <br>
+          <b class="text-dark">IČO:</b> {{invoice.documentData.contact.cin || '-'}} <br>
+          <b class="text-dark">DIČ:</b> {{invoice.documentData.contact.tin || '-'}} <br>
+          <b class="text-dark">IČ DPH:</b> {{invoice.documentData.contact.vatin || '-'}} <br>
         </p>
       </div>
     </div>
@@ -227,7 +227,7 @@
               <p>Zľava {{invoice.discount}} %</p>
             </td>
             <td class="text-right">
-              <p>{{((invoice.totalPrice | addPercent: invoice.discount) - invoice.totalPrice).toFixed(2)}} &euro;</p>
+              <p>{{invoice.discount > 0 ? '-' : ''}}{{invoice.discount > 0 && invoice.discount != null ? ((invoice.totalPrice | addPercent: invoice.discount) - invoice.totalPrice).toFixed(2) : 0}} &euro;</p>
             </td>
           </tr>
 

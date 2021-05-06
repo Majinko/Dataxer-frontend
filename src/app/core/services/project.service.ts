@@ -3,7 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable, Subject} from 'rxjs';
 import {Paginate} from '../models/paginate';
 import {environment} from '../../../environments/environment';
-import {Project} from '../models/project';
+import {Project, ProjectEvaluation, ProjectManHours} from '../models/project';
 import {map} from 'rxjs/operators';
 import {CategoryItemNode} from '../models/category-item-node';
 
@@ -38,14 +38,22 @@ export class ProjectService {
 
   paginate(page: number, size: number): Observable<Paginate<Project>> {
     // tslint:disable-next-line:max-line-length
-    return this.http.get<Paginate<Project>>(environment.baseUrl + `/project/paginate?page=${page}&size=${size}`);
+    return this.http.get<Paginate<Project>>(environment.baseUrl + `/project/paginate?page=${page}&size=${size}&filters=project.title == "Byt 2i Skypark 2.B.23.5"`);
   }
 
   destroy(id: number): Observable<void> {
     return this.http.get<void>(`${environment.baseUrl}/project/destroy/${id}`);
   }
 
-  getCategories(id: number): Observable<CategoryItemNode[]>{
-    return this.http.get<CategoryItemNode[]>(`${environment.baseUrl}/project/allProjectCategory?projectId=${id}`)
+  getCategories(id: number): Observable<CategoryItemNode[]> {
+    return this.http.get<CategoryItemNode[]>(`${environment.baseUrl}/project/allProjectCategory?projectId=${id}`);
+  }
+
+  getProjectEvaluation(id: number, categoryId?: number): Observable<ProjectEvaluation[]> {
+    return this.http.get<ProjectEvaluation[]>(`${environment.baseUrl}/project/projectCategoryOverview/${id}${categoryId ? '?categoryParent=' + categoryId : ''}`);
+  }
+
+  getProjectManHours(id: number): Observable<ProjectManHours> {
+    return this.http.get<ProjectManHours>(`${environment.baseUrl}/project/projectManHours/${id}`);
   }
 }

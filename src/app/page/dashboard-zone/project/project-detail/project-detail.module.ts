@@ -9,6 +9,11 @@ import {ProjectCategoryEvaluationComponent} from './project-category-evaluation/
 import {ProjectChartComponent} from './components/project-chart/project-chart.component';
 import {NgApexchartsModule} from 'ng-apexcharts';
 import {ThemeModule} from '../../../../theme/theme.module';
+import {CoreModule} from '../../../../core/core.module';
+import {DocumentTableComponent} from './project-info/components/document-table/document-table.component';
+import { ProjectUserEvaluationTableComponent } from './components/project-user-evaluation-table/project-user-evaluation-table.component';
+import {AvatarModule} from 'ngx-avatar';
+import { ProjectEvaluationExpansionPanelComponent } from './project-category-evaluation/components/project-evaluation-expansion-panel/project-evaluation-expansion-panel.component';
 
 const routes: Routes = [
   {
@@ -37,14 +42,19 @@ const routes: Routes = [
     ProjectInfoComponent,
     ProjectEvaluationComponent,
     ProjectCategoryEvaluationComponent,
-    ProjectChartComponent
+    ProjectChartComponent,
+    DocumentTableComponent,
+    ProjectUserEvaluationTableComponent,
+    ProjectEvaluationExpansionPanelComponent,
   ],
   imports: [
     NgApexchartsModule,
     CommonModule,
     MaterialModule,
     RouterModule.forChild(routes),
-    ThemeModule
+    ThemeModule,
+    CoreModule,
+    AvatarModule
   ]
 })
 export class ProjectDetailModule {

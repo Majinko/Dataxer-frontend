@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {ProjectService} from '../../../../../core/services/project.service';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-project-evaluation',
@@ -7,9 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProjectEvaluationComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private route: ActivatedRoute,
+  ) {
+  }
 
   ngOnInit(): void {
   }
-
 }

@@ -115,7 +115,7 @@ export class PriceOfferCreateComponent implements OnInit {
         }, {emitEvent: false});
       },
       error => {
-        if (error){
+        if (error) {
           this.router.navigate(['/setting/bank-account']).then(() => {
             this.messageService.add('Pri vytváraní faktúr je potrebné mať nastavený defaultny účet.');
           });
@@ -136,12 +136,13 @@ export class PriceOfferCreateComponent implements OnInit {
     this.formGroup.patchValue({
       price: this.documentHelper.price,
       totalPrice: this.documentHelper.totalPrice,
+      packs: this.documentHelper.packs
     });
 
     this.priceOfferService.store(this.formGroup.value).subscribe((r) => {
       this.router
         .navigate(['/price-offer'])
-        .then(() => this.messageService.add('Cenova ponuka bola ulozna'));
+        .then(() => this.messageService.add('Cenová ponuka bola uložená'));
     });
   }
 

@@ -15,7 +15,7 @@ const routes: Routes = [
     children: [
       {
         path: 'task',
-        canActivate: [NgxPermissionsGuard],
+        //canActivate: [NgxPermissionsGuard],
         data: {
           godButtonTitle: 'Nová úloha',
           gotButtonRouteLink: '/task/create',
@@ -27,7 +27,7 @@ const routes: Routes = [
       },
       {
         path: 'contact',
-        canActivate: [NgxPermissionsGuard],
+        //canActivate: [NgxPermissionsGuard],
         data: {
           godButtonTitle: 'Nový kontakt',
           gotButtonRouteLink: '/contact/create',
@@ -39,7 +39,7 @@ const routes: Routes = [
       },
       {
         path: 'project',
-        canActivate: [NgxPermissionsGuard],
+        //canActivate: [NgxPermissionsGuard],
         data: {
           godButtonTitle: 'Nová zákazka',
           gotButtonRouteLink: '/project/create',
@@ -51,7 +51,7 @@ const routes: Routes = [
       },
       {
         path: 'demand',
-        canActivate: [NgxPermissionsGuard],
+        //canActivate: [NgxPermissionsGuard],
         data: {
           godButtonTitle: 'Nový dopyt',
           gotButtonRouteLink: '/demand/create',
@@ -63,7 +63,7 @@ const routes: Routes = [
       },
       {
         path: 'invoice',
-        canActivate: [NgxPermissionsGuard],
+        //canActivate: [NgxPermissionsGuard],
         data: {
           godButtonTitle: 'Nová faktúra',
           gotButtonRouteLink: '/invoice/create',
@@ -79,7 +79,7 @@ const routes: Routes = [
       },
       {
         path: 'cost',
-        canActivate: [NgxPermissionsGuard],
+        //canActivate: [NgxPermissionsGuard],
         data: {
           godButtonTitle: 'Nový náklad', gotButtonRouteLink: '/cost/create',
           permissions: {
@@ -90,7 +90,7 @@ const routes: Routes = [
       },
       {
         path: 'price-offer',
-        canActivate: [NgxPermissionsGuard],
+        //canActivate: [NgxPermissionsGuard],
         data: {
           godButtonTitle: 'Nová cenová ponuka',
           gotButtonRouteLink: '/price-offer/create',
@@ -102,7 +102,7 @@ const routes: Routes = [
       },
       {
         path: 'time',
-        canActivate: [NgxPermissionsGuard],
+        //canActivate: [NgxPermissionsGuard],
         data: {
           godButtonTitle: 'Zaznamenať čas',
           gotButtonRouteLink: '/time/create',
@@ -114,7 +114,7 @@ const routes: Routes = [
       },
       {
         path: 'item',
-        canActivate: [NgxPermissionsGuard],
+        //canActivate: [NgxPermissionsGuard],
         data: {
           godButtonTitle: 'Nová položka',
           gotButtonRouteLink: '/item/create',
@@ -126,7 +126,7 @@ const routes: Routes = [
       },
       {
         path: 'pack',
-        canActivate: [NgxPermissionsGuard],
+        //canActivate: [NgxPermissionsGuard],
         data: {
           godButtonTitle: 'Nová sada poloziek',
           gotButtonRouteLink: '/pack/create',
@@ -138,7 +138,7 @@ const routes: Routes = [
       },
       {
         path: 'overview',
-        canActivate: [NgxPermissionsGuard],
+        //canActivate: [NgxPermissionsGuard],
         data: {
           permissions: {
             only: 'Overview'

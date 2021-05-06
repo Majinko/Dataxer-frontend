@@ -23,3 +23,12 @@ export interface UserInit {
   user: User;
   salary: Salary;
 }
+
+export interface UserOverviewPrice {
+  name: string;
+  hours: number;
+  hourNetto: number;
+  hourBrutto: number;
+  priceNetto: number;
+  priceBrutto: number;
+}

@@ -1,10 +1,10 @@
-import { Component, Inject, OnInit } from "@angular/core";
-import { MessageService } from "../../../core/services/message.service";
-import { MatSnackBar } from "@angular/material/snack-bar";
+import { Component, Inject, OnInit } from '@angular/core';
+import { MessageService } from '../../../core/services/message.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
-  selector: "app-message",
-  templateUrl: "./message.component.html"
+  selector: 'app-message',
+  templateUrl: './message.component.html'
 })
 export class MessageComponent implements OnInit {
   durationInSeconds = 5;
@@ -21,7 +21,7 @@ export class MessageComponent implements OnInit {
   }
 
   openSnackBar(message: string) {
-    this.snackBar.open(message, "close", {
+    this.snackBar.open(message, 'close', {
       duration: this.durationInSeconds * 1000
     });
   }

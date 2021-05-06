@@ -7,7 +7,7 @@
         </button>
         <div class="ml-3">
           <h4 class="mb-0"><b>Kalkulácie</b></h4>
-          <h3 class="mb-0">{{priceOfferSum}} &euro;</h3>
+          <h3 class="mb-0">{{priceOfferSum | formatPrice}} &euro;</h3>
         </div>
       </div>
     </div>
@@ -19,7 +19,7 @@
         </button>
         <div class="ml-3">
           <h4 class="mb-0"><b>Fakturácia uhradené</b></h4>
-          <h3 class="mb-0">{{invoicePayedSum}} &euro;</h3>
+          <h3 class="mb-0">{{invoicePayedSum | formatPrice}} &euro;</h3>
         </div>
       </div>
 
@@ -31,7 +31,7 @@
         </button>
         <div class="ml-3">
           <h4 class="mb-0"><b>Fakturácia neuhradené</b></h4>
-          <h3 class="mb-0">{{invoiceNotPayedSum}} &euro;</h3>
+          <h3 class="mb-0">{{invoiceNotPayedSum | formatPrice}} &euro;</h3>
         </div>
       </div>
     </div>
@@ -43,7 +43,7 @@
         </button>
         <div class="ml-3">
           <h4 class="mb-0"><b>Náklady uhradené</b></h4>
-          <h3 class="mb-0">{{costPayedSum}} &euro;</h3>
+          <h3 class="mb-0">{{costPayedSum | formatPrice}} &euro;</h3>
         </div>
       </div>
 
@@ -55,7 +55,7 @@
         </button>
         <div class="ml-3">
           <h4 class="mb-0"><b>Náklady neuhradené</b></h4>
-          <h3 class="mb-0">{{costNotPayedSum}} &euro;</h3>
+          <h3 class="mb-0">{{costNotPayedSum | formatPrice}} &euro;</h3>
         </div>
       </div>
     </div>

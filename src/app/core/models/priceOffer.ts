@@ -5,8 +5,9 @@ import {Pack} from './pack';
 import {Project} from './project';
 import {Company} from './company';
 import {BankAccount} from './bank-account';
+import {DocumentBase} from './documentBase';
 
-export interface PriceOffer {
+export interface PriceOffer extends DocumentBase{
   id: number;
   title: string;
   subject: string;

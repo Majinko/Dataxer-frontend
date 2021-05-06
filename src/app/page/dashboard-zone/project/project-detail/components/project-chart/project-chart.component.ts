@@ -14,7 +14,7 @@ import {
 import {Cost} from '../../../../../../core/models/cost';
 import {Invoice} from '../../../../../../core/models/invoice';
 import {PriceOffer} from '../../../../../../core/models/priceOffer';
-import {sum} from '../../../../../../../helper';
+import {numberFormat, sum} from '../../../../../../../helper';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -120,7 +120,7 @@ export class ProjectChartComponent implements OnInit {
       yaxis: {
         labels: {
           formatter(val: number): string {
-            return val + ' €';
+            return numberFormat(val) + ' €';
           }
         }
       },

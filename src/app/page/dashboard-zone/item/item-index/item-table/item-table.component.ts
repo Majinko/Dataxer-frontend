@@ -69,7 +69,9 @@ export class ItemTableComponent implements AfterViewInit {
   }
 
 
-  destroy(item: Item) {
+  destroy(event: MouseEvent, item: Item) {
+    event.stopPropagation();
+
     this.itemService.destroy(item.id).subscribe(r => {
       this.paginate();
 

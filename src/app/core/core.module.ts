@@ -8,8 +8,10 @@ import {RemovePercentPipe} from './pipes/remove-percent.pipe';
 import {NotNullPipe} from './pipes/not-null.pipe';
 import {SortByPipe} from './pipes/sort-by.pipe';
 import {RemovePercentGetNumberPipe} from './pipes/remove-percent-get-number.pipe';
-import { TimeFromTimestampPipe } from './pipes/time-from-timestamp.pipe';
-import { StrftimePipe } from './pipes/strftime.pipe';
+import {TimeFromTimestampPipe} from './pipes/time-from-timestamp.pipe';
+import {StrftimePipe} from './pipes/strftime.pipe';
+import {FormatPricePipe} from './pipes/format-price.pipe';
+import {AdHostDirective} from './directives/ad-host.directive';
 
 
 @NgModule({
@@ -23,9 +25,12 @@ import { StrftimePipe } from './pipes/strftime.pipe';
     SortByPipe,
     RemovePercentGetNumberPipe,
     TimeFromTimestampPipe,
-    StrftimePipe
+    StrftimePipe,
+    FormatPricePipe,
+    AdHostDirective
   ],
   exports: [
+    AdHostDirective,
     ZeroValuePipe,
     AddPercentPipe,
     GetinitialsPipe,
@@ -36,6 +41,7 @@ import { StrftimePipe } from './pipes/strftime.pipe';
     RemovePercentGetNumberPipe,
     TimeFromTimestampPipe,
     StrftimePipe,
+    FormatPricePipe,
   ],
   imports: [
     CommonModule,

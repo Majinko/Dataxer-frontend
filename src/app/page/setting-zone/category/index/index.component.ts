@@ -15,6 +15,8 @@ import {MessageService} from '../../../../core/services/message.service';
   providers: [ChecklistDatabase]
 })
 export class IndexComponent {
+  /** All category load ? */
+  isLoadingResults: boolean = true;
   /** Map from flat node to nested node. This helps us finding the nested node to be modified */
   flatNodeMap = new Map<CategoryItemFlatNode, CategoryItemNode>();
 
@@ -65,6 +67,8 @@ export class IndexComponent {
     database.dataChange.subscribe(data => {
       this.dataSource.data = [];
       this.dataSource.data = data;
+
+      this.isLoadingResults = database.isLoad;
     });
   }
 

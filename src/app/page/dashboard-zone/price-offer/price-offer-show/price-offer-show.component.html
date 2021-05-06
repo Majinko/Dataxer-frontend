@@ -203,7 +203,7 @@
               <p>Zľava {{priceOffer.discount}} %</p>
             </td>
             <td class="text-right">
-              <p>{{((priceOffer.totalPrice | addPercent: priceOffer.discount) - priceOffer.totalPrice).toFixed(2)}} &euro;</p>
+              <p>{{priceOffer.discount > 0 ? '-' : ''}}{{((priceOffer.totalPrice | addPercent: priceOffer.discount) - priceOffer.totalPrice).toFixed(2)}} &euro;</p>
             </td>
           </tr>
 

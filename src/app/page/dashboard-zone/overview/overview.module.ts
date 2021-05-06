@@ -8,6 +8,7 @@ import {OverviewCostYearlyComponent} from './overview-cost-yearly/overview-cost-
 import {ThemeModule} from '../../../theme/theme.module';
 import {MaterialModule} from '../../../theme/modules/material.module';
 import {AvatarModule} from 'ngx-avatar';
+import {CoreModule} from '../../../core/core.module';
 
 const routes: Routes = [
   {
@@ -32,13 +33,14 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [OverviewComponent, OverviewUserTimeMonthlyComponent, OverviewUserTimeYearlyComponent, OverviewCostYearlyComponent],
-  imports: [
-    CommonModule,
-    RouterModule.forChild(routes),
-    ThemeModule,
-    MaterialModule,
-    AvatarModule
-  ]
+    imports: [
+        CommonModule,
+        RouterModule.forChild(routes),
+        ThemeModule,
+        MaterialModule,
+        AvatarModule,
+        CoreModule
+    ]
 })
 export class OverviewModule {
 }

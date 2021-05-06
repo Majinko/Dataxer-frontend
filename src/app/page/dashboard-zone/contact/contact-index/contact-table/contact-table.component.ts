@@ -9,6 +9,7 @@ import {map, startWith, switchMap} from 'rxjs/operators';
 import {SearchBarService} from '../../../../../core/services/search-bar.service';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-contact-table',
@@ -29,7 +30,8 @@ export class ContactTableComponent implements AfterViewInit {
     @Inject(ContactService) private readonly contactService: ContactService,
     @Inject(MessageService) private readonly messageService: MessageService,
     @Inject(SearchBarService)
-    private readonly searchBarService: SearchBarService
+    private readonly searchBarService: SearchBarService,
+    private router: Router
   ) {
   }
 
@@ -71,11 +73,15 @@ export class ContactTableComponent implements AfterViewInit {
       .subscribe(data => (this.contacts = data));
   }
 
-  destroy(contact: Contact) {
+  destroy(event: MouseEvent, contact: Contact) {
+    event.stopPropagation();
+
     this.contacts = this.contacts.filter(c => c !== contact);
 
     this.contactService.destroy(contact.id).subscribe(() => {
       this.messageService.add('Kontakt bol zmazaný');
     });
+
+    return;
   }
 }

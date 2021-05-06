@@ -12,9 +12,10 @@ import {ContactFilterComponent} from './components/contact-filter/contact-filter
 import {AvatarModule} from 'ngx-avatar';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {ThemeModule} from "../../../theme/theme.module";
+import { ContactShowComponent } from './contact-show/contact-show.component';
 
 @NgModule({
-  declarations: [ContactComponent, ContactIndexComponent, ContactTableComponent, ContactCreateComponent, ContactEditComponent, ContactFilterComponent],
+  declarations: [ContactComponent, ContactIndexComponent, ContactTableComponent, ContactCreateComponent, ContactEditComponent, ContactFilterComponent, ContactShowComponent],
     imports: [
         CommonModule,
         ContactRoutingModule,

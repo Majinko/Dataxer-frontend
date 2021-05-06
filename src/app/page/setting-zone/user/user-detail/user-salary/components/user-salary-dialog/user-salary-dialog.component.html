@@ -1,0 +1,74 @@
+<form (ngSubmit)="submit()" [formGroup]="formGroup" autocomplete="off">
+  <div mat-dialog-title class="row mb-4">
+    <div class="d-flex align-items-center justify-content-between mb-3 mb-md-5">
+      <h1 class="mb-0">{{data.salary ? 'Úprava' : 'Pridanie'}} mzdy <span *ngIf="data.user && !data.salary">{{data.user.displayName}}</span></h1>
+      <a mat-icon-button class="close-icon cursor-pointer" mat-dialog-close>
+        <mat-icon>close</mat-icon>
+      </a>
+    </div>
+  </div>
+
+  <div mat-dialog-content>
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <mat-form-field class="form-group w-100" *ngIf="!data.salary">
+          <mat-label>Dátum od</mat-label>
+          <input formControlName="start" matInput [matDatepicker]="fromDate">
+          <mat-datepicker-toggle matSuffix [for]="fromDate"></mat-datepicker-toggle>
+          <mat-datepicker #fromDate></mat-datepicker>
+          <mat-error *ngIf="f.start.errors">Dátum od <strong>pozadovany.</strong></mat-error>
+        </mat-form-field>
+      </div>
+
+      <!--<div class="col-md-6" *ngIf="data && data.salary">
+        <mat-form-field class="form-group w-100">
+          <mat-label>Dátum do</mat-label>
+          <input formControlName="finish" matInput [matDatepicker]="toDate">
+          <mat-datepicker-toggle matSuffix [for]="toDate"></mat-datepicker-toggle>
+          <mat-datepicker #toDate></mat-datepicker>
+        </mat-form-field>
+      </div>-->
+
+      <div class="col-md-6">
+        <mat-form-field class="form-group w-100">
+          <input matInput placeholder="Cena" formControlName="price">
+          <mat-error *ngIf="f.price.errors">Cena je požadovaná</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-6">
+        <mat-form-field class="form-group w-100">
+          <mat-label>Typ mzdy</mat-label>
+          <select formControlName="salaryType" matNativeControl>
+            <option value="HOUR" selected>Hodinovo</option>
+            <option value="FLAT">Paušálne</option>
+            <option value="FIX">Úkolovo</option>
+          </select>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field class="form-group w-100">
+          <mat-label>Je aktívna</mat-label>
+          <select formControlName="isActive" matNativeControl>
+            <option value="true" selected>Ano</option>
+            <option value="false">Nie</option>
+          </select>
+          <mat-hint>Znamená to či sa bude brat v úvahu pri nákladoch.</mat-hint>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12 text-right">
+        <button mat-dialog-close mat-stroked-button class="btn-icon btn-theme-stroked mr-3">
+          <mat-icon>cancel</mat-icon>
+          Zrušiť
+        </button>
+        <button mat-flat-button class="btn-icon btn-theme">
+          <mat-icon>save</mat-icon>
+          Uložiť
+        </button>
+      </div>
+    </div>
+  </div>
+</form>

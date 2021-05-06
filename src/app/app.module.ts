@@ -15,6 +15,7 @@ import {TranslateLoader, TranslateModule, TranslateService} from '@ngx-translate
 import {MultiTranslateHttpLoader} from 'ngx-translate-multi-http-loader';
 import {registerLocaleData} from '@angular/common';
 import localeSk from '@angular/common/locales/sk';
+import { TransferHttpCacheModule } from '@nguniversal/common';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new MultiTranslateHttpLoader(http, [
@@ -34,10 +35,14 @@ export function HttpLoaderFactory(http: HttpClient) {
         deps: [HttpClient]
       }
     }),
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    // Add .withServerTransition() to support Universal rendering.
+    // The application ID can be any identifier which is unique on
+    // the page.
+    TransferHttpCacheModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features

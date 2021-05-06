@@ -4,6 +4,12 @@
   </div>
 </div>
 
+<div class="row" *ngIf="isLoadingResults">
+  <div class="col-12 d-flex justify-content-center">
+    <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+  </div>
+</div>
+
 <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
   <mat-tree-node *matTreeNodeDef="let node"
                  class="checklist-leaf-node"

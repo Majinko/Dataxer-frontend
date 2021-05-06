@@ -37,13 +37,66 @@
         <mat-expansion-panel-header>
           <mat-panel-title>
             <div class="w-100 justify-content-between">
-              <b>Celková dohodnutá cena (sumár cenových ponúk): {{priceOfferSum}} &euro;</b>
+              <b>Celková dohodnutá cena (sumár cenových ponúk): {{priceOfferSum | formatPrice}} &euro;</b>
             </div>
           </mat-panel-title>
         </mat-expansion-panel-header>
-        <div>
+        <app-document-table routerUrl="price-offer"  [documents]="priceOffers" [displayedColumns]="['title', 'createdDate', 'dueDate', 'totalPrice']"></app-document-table>
+      </mat-expansion-panel>
 
-        </div>
+      <mat-expansion-panel class="bg-box">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <div class="w-100 justify-content-between">
+              <b>Fakturácia uhradené: {{invoicePayedSum | formatPrice}} &euro;</b>
+            </div>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <app-document-table routerUrl="invoice" [documents]="payedInvoices" [displayedColumns]="['title', 'variable', 'createdDate', 'dueDate', 'totalPrice']"></app-document-table>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel class="bg-box">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <div class="w-100 justify-content-between">
+              <b>Fakturácia neuhradené: {{invoiceNotPayedSum | formatPrice}} &euro;</b>
+            </div>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <app-document-table routerUrl="invoice" [documents]="noPayedInvoices" [displayedColumns]="['title', 'variable', 'createdDate', 'dueDate', 'totalPrice']"></app-document-table>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel class="bg-box">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <div class="w-100 justify-content-between">
+              <b>Náklady uhradené: {{costPayedSum | formatPrice}} &euro;</b>
+            </div>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <app-document-table  routerUrl="cost" [documents]="payedCost" [displayedColumns]="['title', 'variable', 'createdDate', 'dueDate', 'totalPrice']"></app-document-table>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel class="bg-box">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <div class="w-100 justify-content-between">
+              <b>Náklady neuhradené: {{costNotPayedSum | formatPrice}} &euro;</b>
+            </div>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <app-document-table routerUrl="cost" [documents]="noPayedCost" [displayedColumns]="['title', 'variable', 'createdDate', 'dueDate', 'totalPrice']"></app-document-table>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel class="bg-box" *ngIf="projectManHours">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <div class="w-100 justify-content-between">
+              <b>Človekohodiny: <span class="mr-3">Summa netto {{projectManHours.sumPriceNetto | formatPrice}} &euro; </span><span>Summa brutto {{projectManHours.sumPriceBrutto | formatPrice}} &euro;</span></b>
+            </div>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <app-project-user-evaluation-table [userOverviewPrice]="projectManHours.userTimePriceOverviewList"></app-project-user-evaluation-table>
       </mat-expansion-panel>
     </mat-accordion>
   </div>

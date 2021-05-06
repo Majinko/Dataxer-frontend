@@ -1,9 +1,10 @@
-import { NgModule } from '@angular/core';
+import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {ItemComponent} from './item.component';
 import {IndexComponent} from './item-index/index.component';
 import {ItemCreateComponent} from './item-create/item-create.component';
-import {ItemEditComponent} from "./item-edit/item-edit.component";
+import {ItemEditComponent} from './item-edit/item-edit.component';
+import {ItemShowComponent} from './item-show/item-show.component';
 
 const routes: Routes = [{
   path: '',
@@ -20,6 +21,10 @@ const routes: Routes = [{
     {
       path: 'edit/:item_id',
       component: ItemEditComponent
+    },
+    {
+      path: 'show/:id',
+      component: ItemShowComponent
     }
   ]
 }];
@@ -28,4 +33,5 @@ const routes: Routes = [{
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class ItemRoutingModule { }
+export class ItemRoutingModule {
+}

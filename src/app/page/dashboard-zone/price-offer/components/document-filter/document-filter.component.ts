@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 
 @Component({
@@ -8,7 +8,6 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 })
 export class DocumentFilterComponent implements OnInit {
   filterForm: FormGroup;
-  isFiltering: boolean = false;
 
   @Output() private onFilter: EventEmitter<void> = new EventEmitter<void>();
 
@@ -25,10 +24,12 @@ export class DocumentFilterComponent implements OnInit {
     this.emitFilter();
   }
 
+  /**
+   * Emit filter
+   * @private
+   */
   private emitFilter() {
     this.filterForm.valueChanges.subscribe((attr) => {
-      this.isFiltering = true;
-
       this.onFilter.emit();
     });
   }
@@ -49,14 +50,13 @@ export class DocumentFilterComponent implements OnInit {
   private checkFilterFormValue() {
     let somethingFiltering: number = 0;
 
+    // tslint:disable-next-line:forin
     for (const key in this.filterForm.value) {
       somethingFiltering = 0;
 
       Object.keys(this.filterForm.value).forEach(attr => {
         somethingFiltering += this.filterForm.value[attr] != null ? 1 : 0;
       });
-
-      this.isFiltering = somethingFiltering > 0;
     }
   }
 }

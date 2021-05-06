@@ -10,6 +10,7 @@ import {CategoryService} from '../services/category.service';
  */
 @Injectable()
 export class ChecklistDatabase {
+  isLoad: boolean = true;
   dataChange = new BehaviorSubject<CategoryItemNode[]>([]);
 
   get data(): CategoryItemNode[] {
@@ -27,6 +28,7 @@ export class ChecklistDatabase {
     // file node as children.
     // Notify the change.
     this.categoryService.nested().subscribe((categories) => {
+      this.isLoad = false;
       this.dataChange.next(categories);
     });
   }

@@ -34,7 +34,7 @@
             <mat-icon class="text-theme">edit</mat-icon>
           </button>
           <button
-            (click)="destroy(element)"
+            (click)="destroy($event, element)"
             mat-icon-button
             matTooltip="Delete item">
             <mat-icon class="text-theme">delete</mat-icon>
@@ -44,7 +44,7 @@
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    <tr class="cursor-pointer" [routerLink]="['/contact/show', row.id]" mat-row  *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 
   <mat-paginator [pageSizeOptions]="[10, 15, 20, 100, totalElements]" [length]="totalElements" [pageSize]="pageSize"></mat-paginator>

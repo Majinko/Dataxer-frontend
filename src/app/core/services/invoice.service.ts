@@ -30,7 +30,7 @@ export class InvoiceService {
   }
 
   paginate(page: number, size: number): Observable<Paginate<Invoice>> {
-    return this.http.get<Paginate<Invoice>>(`${environment.baseUrl}/invoice/paginate?page=${page}&size=${size}&filters=invoice.documentType == INVOICE;invoice.contact.name==J*`).pipe(map(data => {
+    return this.http.get<Paginate<Invoice>>(`${environment.baseUrl}/invoice/paginate?page=${page}&size=${size}`).pipe(map(data => {
       data.content.forEach(invoice => {
         invoice.dueAtDays = Math.ceil(moment(invoice.dueDate).diff(new Date(), 'days', true));
       });

@@ -72,7 +72,6 @@ export class CompanyEditComponent implements OnInit {
       return;
     }
 
-
     this.companyService.update(companyFormData).subscribe(() => {
       this.messageService.add('Spoločnosť bola upravená');
     });

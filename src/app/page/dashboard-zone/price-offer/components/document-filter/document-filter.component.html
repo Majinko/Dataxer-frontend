@@ -13,7 +13,7 @@
   </div>
 </div>
 
-<div class="d-block d-md-flex align-content-center" *ngIf="isFiltering">
+<div class="d-block d-md-flex align-content-center" *ngIf="filterForm.dirty">
   <p class="mb-2 mb-md-0 d-md-inline mr-3">Filtre: </p>
   <mat-chip-list aria-label="Filtering">
     <mat-chip class="text-gray my-md-0  mb-md-0" *ngIf="filterForm.get('state').value">

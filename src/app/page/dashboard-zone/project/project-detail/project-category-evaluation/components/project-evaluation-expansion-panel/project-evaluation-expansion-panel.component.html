@@ -1,0 +1,25 @@
+<div class="row mt-3" *ngIf="isLoad">
+  <div class="col-12 d-flex justify-content-center">
+    <mat-spinner *ngIf="isLoad"></mat-spinner>
+  </div>
+</div>
+
+<div class="mt-3" *ngFor="let categoryEvaluation of projectEvaluation">
+  <mat-accordion>
+    <mat-expansion-panel (opened)="loadData(categoryEvaluation.categoryId, divElement)">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{categoryEvaluation.categoryName}}
+        </mat-panel-title>
+        <mat-panel-description>
+          <mat-panel-description class="align-items-center justify-content-end">
+            {{categoryEvaluation.categoryTimeSum | timeFromTimestamp}} h
+            <mat-icon class="ml-2">query_builder</mat-icon>
+          </mat-panel-description>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <div #divElement></div>
+      <app-project-user-evaluation-table [userOverviewPrice]="categoryEvaluation.userTimePriceOverviewList"></app-project-user-evaluation-table>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>
