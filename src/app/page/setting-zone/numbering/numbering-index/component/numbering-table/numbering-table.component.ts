@@ -1,11 +1,10 @@
 import {AfterViewInit, Component, ViewChild} from '@angular/core';
-import {DocumentNumbering} from "../../../../../../core/models/documentNumbering";
-import {MatPaginator} from "@angular/material/paginator";
-import {DocumentFilterComponent} from "../../../../../dashboard-zone/price-offer/components/document-filter/document-filter.component";
-import {NumberingService} from "../../../../../../core/services/numbering.service";
-import {merge} from "rxjs";
-import {map, startWith, switchMap} from "rxjs/operators";
-import {MessageService} from "../../../../../../core/services/message.service";
+import {DocumentNumbering} from '../../../../../../core/models/documentNumbering';
+import {MatPaginator} from '@angular/material/paginator';
+import {NumberingService} from '../../../../../../core/services/numbering.service';
+import {merge} from 'rxjs';
+import {map, startWith, switchMap} from 'rxjs/operators';
+import {MessageService} from '../../../../../../core/services/message.service';
 
 @Component({
   selector: 'app-numbering-table',
@@ -18,16 +17,15 @@ export class NumberingTableComponent implements AfterViewInit {
   documentNumberings: DocumentNumbering[] = [];
   isLoadingResults = true;
   displayedColumns: string[] = [
-    "title",
-    "type",
-    "format",
-    "next",
-    "period",
-    "actions",
+    'title',
+    'type',
+    'format',
+    'next',
+    'period',
+    'actions',
   ];
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  @ViewChild(DocumentFilterComponent, {static: false}) private documentFilterRef: DocumentFilterComponent
 
   constructor(
     private numberingService: NumberingService,
@@ -40,7 +38,7 @@ export class NumberingTableComponent implements AfterViewInit {
   }
 
   public paginate() {
-    this.paginator.pageIndex = 0
+    this.paginator.pageIndex = 0;
 
     merge(this.paginator.page)
       .pipe(
@@ -66,7 +64,7 @@ export class NumberingTableComponent implements AfterViewInit {
     this.numberingService.destroy(id).subscribe(r => {
       this.paginate();
 
-      this.messageService.add("Ciselnik bol zmazany");
-    })
+      this.messageService.add('Ciselnik bol zmazany');
+    });
   }
 }

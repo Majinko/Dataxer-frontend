@@ -6,11 +6,12 @@ import {environment} from 'src/environments/environment';
 import {Paginate} from '../models/paginate';
 import {DocumentFilter} from '../models/filters/document-filter';
 import {prepareStringFilter} from '../../../helper';
+import {IPaginate} from '../interface/IPaginate';
 
 @Injectable({
   providedIn: 'root',
 })
-export class PriceOfferService {
+export class PriceOfferService implements IPaginate<PriceOffer> {
   filter: DocumentFilter;
 
   constructor(private http: HttpClient) {
@@ -25,7 +26,7 @@ export class PriceOfferService {
   }
 
   paginate(page: number, size: number): Observable<Paginate<PriceOffer>> {
-    const filter = prepareStringFilter(this.filter);
+    const filter = prepareStringFilter('priceOffer', this.filter);
 
     return this.http.get<Paginate<PriceOffer>>(`${environment.baseUrl}/price-offer/paginate?page=${page}&size=${size}${filter !== '' ? '&filters=' + filter : ''}`);
   }

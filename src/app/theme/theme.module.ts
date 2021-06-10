@@ -31,20 +31,24 @@ import {DocumentRelationComponent} from './component/document-relation/document-
 import {DocumentRelationDialogComponent} from './component/document-relation/component/document-relation-dialog/document-relation-dialog.component';
 import {MenuTabComponent} from './component/menu-tab/menu-tab.component';
 import {NgxPermissionsModule} from 'ngx-permissions';
+import {NestedCategoriesComponent} from './component/nested-categories/nested-categories.component';
+import { GlobalFilterComponent } from './component/global-filter/global-filter.component';
+import {TranslateModule} from '@ngx-translate/core';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    RouterModule,
-    MaterialModule,
-    CoreModule,
-    AvatarModule,
-    NgSelectModule,
-    FormsModule,
-    ReactiveFormsModule,
-    NgxFilesizeModule,
-    NgxPermissionsModule,
-  ],
+    imports: [
+        CommonModule,
+        RouterModule,
+        MaterialModule,
+        CoreModule,
+        AvatarModule,
+        NgSelectModule,
+        FormsModule,
+        ReactiveFormsModule,
+        NgxFilesizeModule,
+        NgxPermissionsModule,
+        TranslateModule,
+    ],
   declarations: [
     DrawerComponent,
     ToolbarComponent,
@@ -69,6 +73,8 @@ import {NgxPermissionsModule} from 'ngx-permissions';
     DocumentRelationComponent,
     DocumentRelationDialogComponent,
     MenuTabComponent,
+    NestedCategoriesComponent,
+    GlobalFilterComponent
   ],
   exports: [
     DrawerComponent,
@@ -87,6 +93,8 @@ import {NgxPermissionsModule} from 'ngx-permissions';
     PaymentsComponent,
     DocumentRelationComponent,
     MenuTabComponent,
+    NestedCategoriesComponent,
+    GlobalFilterComponent,
   ]
 })
 export class ThemeModule {

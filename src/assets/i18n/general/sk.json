@@ -1,4 +1,9 @@
 {
   "salary" : "Mzda",
-  "advancement salary" : "Vývoj mzdy"
+  "advancement salary" : "Vývoj mzdy",
+  "rejected": "zamietnuté",
+  "approved": "Schválené",
+  "waiting": "Čakajúce",
+  "invoice": "Faktúra",
+  "proforma": "Zálohová faktúra"
 }

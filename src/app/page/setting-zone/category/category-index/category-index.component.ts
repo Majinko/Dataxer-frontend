@@ -10,11 +10,11 @@ import {MessageService} from '../../../../core/services/message.service';
 
 @Component({
   selector: 'app-index',
-  templateUrl: './index.component.html',
-  styleUrls: ['./index.component.scss'],
+  templateUrl: './category-index.component.html',
+  styleUrls: ['./category-index.component.scss'],
   providers: [ChecklistDatabase]
 })
-export class IndexComponent {
+export class CategoryIndexComponent {
   /** All category load ? */
   isLoadingResults: boolean = true;
   /** Map from flat node to nested node. This helps us finding the nested node to be modified */

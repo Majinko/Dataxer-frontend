@@ -28,9 +28,10 @@ export class OverviewUserTimeMonthlyComponent implements OnInit {
     });
   }
 
-  isWeekendDay(index: number) {
-    const day: number = moment(this.startDate).isoWeekday(index + 1).day();
+  isWeekendDay(index: any) {
+    const newDay = new Date(this.startDate);
+    newDay.setDate(index + 1);
 
-    return day % 6 === 0;
+    return newDay.getDay() % 6 === 0;
   }
 }

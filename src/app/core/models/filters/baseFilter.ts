@@ -1,4 +1,3 @@
-export interface BaseFilter<T> {
-  name: string;
-  model: T;
+export interface BaseFilter {
+  [name: string]: any;
 }

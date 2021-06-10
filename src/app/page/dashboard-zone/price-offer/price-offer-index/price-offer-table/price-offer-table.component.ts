@@ -3,20 +3,16 @@ import {AfterViewInit, Component, ViewChild} from '@angular/core';
 import {PriceOfferService} from 'src/app/core/services/priceOffer.service';
 import {MessageService} from 'src/app/core/services/message.service';
 import {PriceOffer} from 'src/app/core/models/priceOffer';
-import {merge} from 'rxjs';
-import {map, startWith, switchMap} from 'rxjs/operators';
+
 import {MatPaginator} from '@angular/material/paginator';
-import {DocumentFilterComponent} from '../../components/document-filter/document-filter.component';
+import {PaginateClass} from '../../../../../core/class/PaginateClass';
+import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'app-price-offer-table',
   templateUrl: './price-offer-table.component.html',
 })
-export class PriceOfferTableComponent implements AfterViewInit {
-  pageSize = 15;
-  totalElements = 0;
-  priceOffers: PriceOffer[] = [];
-  isLoadingResults = true;
+export class PriceOfferTableComponent extends PaginateClass<PriceOffer> implements AfterViewInit {
   displayedColumns: string[] = [
     'id',
     'client',
@@ -28,45 +24,17 @@ export class PriceOfferTableComponent implements AfterViewInit {
   ];
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  @ViewChild(DocumentFilterComponent, {static: false}) private documentFilterRef: DocumentFilterComponent;
 
   ngAfterViewInit() {
     this.paginate();
   }
 
   constructor(
+    public http: HttpClient,
     public priceOfferService: PriceOfferService,
-    private messageService: MessageService
+    private messageService: MessageService,
   ) {
-  }
-
-  public paginate() {
-    this.setFiltering();
-
-    this.paginator.pageIndex = 0;
-
-    merge(this.paginator.page)
-      .pipe(
-        startWith({}),
-        switchMap(() => {
-          return this.priceOfferService.paginate(
-            this.paginator.pageIndex,
-            this.paginator.pageSize,
-          );
-        }),
-        map((data) => {
-          // Flip flag to show that loading has finished.
-          this.isLoadingResults = false;
-          this.totalElements = data.totalElements;
-
-          return data.content;
-        })
-      )
-      .subscribe((data) => (this.priceOffers = data));
-  }
-
-  private setFiltering() {
-    this.priceOfferService.filter = this.documentFilterRef.filterForm.value;
+    super(priceOfferService);
   }
 
   destroy(event: MouseEvent, id: number) {

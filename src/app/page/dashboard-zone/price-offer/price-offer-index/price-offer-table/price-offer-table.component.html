@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-md-12 mb-3" style="margin-top: -75px">
-    <app-document-filter (onFilter)="paginate()"></app-document-filter>
+    <app-global-filter [columnNames]="['state' ,'contact', 'project']"  [queryStringName]="['title', 'contact.name']" [filterData]="priceOfferService.filter" (onFilter)="filtering($event)"></app-global-filter>
   </div>
   <div class="col-md-12">
     <h3 class="text-gray mb-3">Zvolené kalkulácie</h3>
@@ -10,7 +10,7 @@
           <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
         </div>
 
-        <table mat-table [dataSource]="priceOffers" class="table-hover table-data table-borderless w-100">
+        <table mat-table [dataSource]="data" class="table-hover table-data table-borderless w-100">
           <!-- Id Column -->
           <ng-container matColumnDef="id">
             <th mat-header-cell *matHeaderCellDef> Číslo</th>
@@ -40,7 +40,7 @@
           <ng-container matColumnDef="state">
             <th class="text-center" mat-header-cell *matHeaderCellDef> Stav</th>
             <td class="text-center" mat-cell *matCellDef="let element">
-              <span *ngIf="element.state" [ngClass]="'bg-' + element.state | lowercase" class="custom-badge text-white">{{element.state | uppercase | slice:0:1 }}</span>
+              <span [matTooltip]="element.state | lowercase | translate | titlecase" *ngIf="element.state" [ngClass]="'bg-' + element.state | lowercase" class="custom-badge text-white">{{element.state | lowercase | translate | uppercase | slice:0:1 }}</span>
             </td>
           </ng-container>
 
@@ -75,7 +75,7 @@
           <tr mat-row class="cursor-pointer" [routerLink]="['/price-offer/show', row.id]" *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
 
-        <mat-paginator [pageSizeOptions]="[10, 15, 20, 100]" [length]="totalElements" [pageSize]="pageSize"></mat-paginator>
+        <mat-paginator [pageSizeOptions]="[10, 15, 20, 100]" [length]="totalElements" [pageSize]="pageSize" [pageIndex]="pageIndex"></mat-paginator>
       </div>
     </div>
   </div>

@@ -1,4 +1,6 @@
 import {HttpParams} from '@angular/common/http';
+import {DocumentFilter} from './app/core/models/filters/document-filter';
+import {BaseFilter} from './app/core/models/filters/baseFilter';
 
 export function prepareFilter(filter) {
   let params = new HttpParams();
@@ -16,15 +18,30 @@ export function prepareFilter(filter) {
 
 /**
  *
+ * @param objectName
  * @param filter
  */
-export function prepareStringFilter(filter): string {
+export function prepareStringFilter(objectName: string, filter: BaseFilter): string {
   let searchString: string = '';
+
+  const useAttrs = [];
+  const ands = ['state'];
+  const useContainsCase = ['title', 'name', 'contact.name'];
 
   if (filter != null) {
     for (const key in filter) {
       if (filter[key] !== null) {
-        searchString += 'priceOffer.' + key + '==' + filter[key];
+        if (!useContainsCase.includes(key)) {
+          if (typeof filter[key] === 'string') {
+            useAttrs.push(key); // if use this attr content with and
+            searchString += `${searchString === '' ? '' : ' and '}${objectName}.${key}=="${filter[key]}"`;
+          } else {
+            searchString += `${searchString === '' ? '' : ' and '}${objectName}.${key}.id==${filter[key].id}`;
+          }
+        } else {
+          searchString += `${searchString === '' ? '' : (useAttrs.some(r => ands.indexOf(r) >= 0) ? ' and ' : ' or ')}${objectName}.${key}=="${filter[key]}*"`;
+          useAttrs.pop();
+        }
       }
     }
   }

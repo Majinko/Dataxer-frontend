@@ -35,7 +35,9 @@ export class DocumentHelper {
             item.totalPrice = +this.addPercent(+item.price * +item.qty, +item.tax);
 
             pack.totalPrice += +this.removePercent(+item.totalPrice, +item.discount);
-            pack.price += !isNaN(+item.price) && !isNaN(+item.qty) ? +this.removePercent((+item.price * +item.qty), +item.discount) : 0;
+            pack.totalPrice = +pack.totalPrice.toFixed(2);
+
+            pack.price += (!isNaN(+item.price) && !isNaN(+item.qty)) ? +this.removePercent((+item.price * +item.qty), +item.discount) : 0;
 
             this.price += +this.removePercent(+item.price * +item.qty, +item.discount);
             this.totalPrice += +this.removePercent(+item.totalPrice, +item.discount);
@@ -50,13 +52,13 @@ export class DocumentHelper {
     });
   }
 
-  addPercent(value: any, args: any) {
+  addPercent(value: any, args: any): number {
     const result: any = (parseFloat(value) / 100) * parseFloat(args) + parseFloat(value);
 
     return !isNaN(result) ? result.toFixed(2) : 0;
   }
 
-  removePercent(value: any, args: any) {
+  removePercent(value: any, args: any): number {
     const result: any = value - (parseFloat(value) / 100) * parseFloat(args);
 
     return !isNaN(result) ? result.toFixed(2) : 0;

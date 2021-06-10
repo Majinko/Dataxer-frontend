@@ -1,6 +1,6 @@
 <div class="row">
-  <div class="col-md-12 mt-3 mb-5">
-
+  <div class="col-md-12 mb-3" style="margin-top: -75px">
+    <app-global-filter [columnNames]="['documentType', 'contact', 'project']" [queryStringName]="['title', 'contact.name']" [filterData]="invoiceService.filter" (onFilter)="filtering($event)"></app-global-filter>
   </div>
   <div class="col-md-12">
     <h3 class="text-gray mb-3">Vybrané faktúry</h3>
@@ -10,7 +10,7 @@
           <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
         </div>
 
-        <table mat-table [dataSource]="invoices" class="table-hover table-data table-borderless w-100">
+        <table mat-table [dataSource]="data" class="table-hover table-data table-borderless w-100">
           <!-- Id Column -->
           <ng-container matColumnDef="id">
             <th mat-header-cell *matHeaderCellDef> Nazov</th>

@@ -12,9 +12,10 @@ import {AvatarModule} from 'ngx-avatar';
 import {ContactModule} from '../contact/contact.module';
 import {ThemeModule} from '../../../theme/theme.module';
 import {PriceOfferEditComponent} from './price-offer-edit/price-offer-edit.component';
-import {DocumentFilterComponent} from './components/document-filter/document-filter.component';
 import {PriceOfferShowComponent} from './price-offer-show/price-offer-show.component';
 import {DashboardModule} from '../dashboard.module';
+import {TranslateModule} from '@ngx-translate/core';
+import {NgSelectModule} from '@ng-select/ng-select';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,6 @@ import {DashboardModule} from '../dashboard.module';
     PriceOfferCreateComponent,
     PriceOfferTableComponent,
     PriceOfferEditComponent,
-    DocumentFilterComponent,
     PriceOfferShowComponent,
   ],
   imports: [
@@ -37,6 +37,8 @@ import {DashboardModule} from '../dashboard.module';
     ContactModule,
     ThemeModule,
     DashboardModule,
+    TranslateModule,
+    NgSelectModule,
   ],
 })
 export class PriceOfferModule {

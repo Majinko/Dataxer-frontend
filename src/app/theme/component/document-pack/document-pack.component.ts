@@ -1,9 +1,5 @@
-import {Component, OnInit, Input} from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  FormArray, AbstractControl,
-} from '@angular/forms';
+import {Component, Input, OnInit} from '@angular/core';
+import {AbstractControl, FormArray, FormBuilder, FormGroup,} from '@angular/forms';
 import {UNITS} from '../../../core/data/unit-items';
 import {DocumentHelper} from '../../../core/class/DocumentHelper';
 import {Pack} from '../../../core/models/pack';
@@ -134,6 +130,7 @@ export class DocumentPackComponent implements OnInit {
   // set pack when find it
   setPack(packIndex: number, packFormGroup: AbstractControl, pack: Pack) {
     this.packService.getById(pack.id).subscribe(p => {
+      // tslint:disable-next-line:prefer-for-of
       for (let i = 0; i < p.packItems.length; i++) {
         if (p.packItems.length > packFormGroup.get('packItems').value.length) {
           this.addItemByIndex(packIndex);

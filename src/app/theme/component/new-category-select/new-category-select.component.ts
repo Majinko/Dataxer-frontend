@@ -3,7 +3,7 @@ import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 import {CategoryItemNode} from '../../../core/models/category-item-node';
 import {MatDialog} from '@angular/material/dialog';
 import {CategoryService} from '../../../core/services/category.service';
-import {CategoryCreateComponent} from '../../../page/setting-zone/category/create/category-create.component';
+import {CategoryCreateComponent} from '../../../page/setting-zone/category/category-create/category-create.component';
 
 @Component({
   selector: 'app-new-category-select',
