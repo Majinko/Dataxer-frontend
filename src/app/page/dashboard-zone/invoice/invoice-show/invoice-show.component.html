@@ -35,6 +35,10 @@
             <button mat-menu-item (click)="pdf(invoice.id, invoice.title)">
               <span>Stiahnuť PDF</span>
             </button>
+
+            <button mat-menu-item (click)="sendEmail(invoice)">
+              <span>Poslať na email</span>
+            </button>
           </mat-menu>
         </div>
       </div>

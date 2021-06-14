@@ -34,6 +34,8 @@ import {NgxPermissionsModule} from 'ngx-permissions';
 import {NestedCategoriesComponent} from './component/nested-categories/nested-categories.component';
 import { GlobalFilterComponent } from './component/global-filter/global-filter.component';
 import {TranslateModule} from '@ngx-translate/core';
+import { DocumentEmailDialogComponent } from './component/document-email-dialog/document-email-dialog.component';
+import {AngularEditorModule} from '@kolkov/angular-editor';
 
 @NgModule({
     imports: [
@@ -48,6 +50,7 @@ import {TranslateModule} from '@ngx-translate/core';
         NgxFilesizeModule,
         NgxPermissionsModule,
         TranslateModule,
+        AngularEditorModule,
     ],
   declarations: [
     DrawerComponent,
@@ -74,7 +77,8 @@ import {TranslateModule} from '@ngx-translate/core';
     DocumentRelationDialogComponent,
     MenuTabComponent,
     NestedCategoriesComponent,
-    GlobalFilterComponent
+    GlobalFilterComponent,
+    DocumentEmailDialogComponent
   ],
   exports: [
     DrawerComponent,

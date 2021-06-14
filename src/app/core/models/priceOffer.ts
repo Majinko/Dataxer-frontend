@@ -8,7 +8,6 @@ import {BankAccount} from './bank-account';
 import {DocumentBase} from './documentBase';
 
 export interface PriceOffer extends DocumentBase{
-  id: number;
   title: string;
   subject: string;
   number: string;

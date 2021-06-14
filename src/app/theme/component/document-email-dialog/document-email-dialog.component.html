@@ -1,0 +1,42 @@
+<form (ngSubmit)="submit()" [formGroup]="formGroup" autocomplete="off">
+  <div mat-dialog-title class="row mb-4">
+    <div class="d-flex align-items-center justify-content-between mb-3 mb-md-5">
+      <h1 class="mb-0">Odosielanie emailu</h1>
+      <a mat-icon-button class="close-icon cursor-pointer" mat-dialog-close>
+        <mat-icon>close</mat-icon>
+      </a>
+    </div>
+  </div>
+
+  <div mat-dialog-content *ngIf="mailTemplate">
+    <div class="row mb-3">
+      <div class="col-md-12">
+        <mat-form-field class="form-group w-100">
+          <input matInput placeholder="Predmet" formControlName="subject">
+          <mat-error *ngIf="f.subject.errors">Predmet je požadovaný</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-12">
+        <angular-editor formControlName="body" [config]="config"></angular-editor>
+      </div>
+
+      <div class="col-md-12">
+        Príloha
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12 text-right">
+        <button mat-dialog-close mat-stroked-button class="btn-icon btn-theme-stroked mr-3">
+          <mat-icon>cancel</mat-icon>
+          Zrušiť
+        </button>
+        <button mat-flat-button class="btn-icon btn-theme">
+          <mat-icon>save</mat-icon>
+          Uložiť
+        </button>
+      </div>
+    </div>
+  </div>
+</form>

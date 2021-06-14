@@ -1,0 +1,35 @@
+<div class="row mb-3 pb-2" *ngIf="!isLoading">
+  <div class="col">
+    <h1>Šablóny emailov</h1>
+  </div>
+
+  <div class="col-12">
+    <form [formGroup]="formGroup" (ngSubmit)="submit()" class="content-box">
+      <!-- <h3>Šablóny emailov</h3> -->
+      <ng-container formArrayName="mailTemplates">
+        <mat-tab-group>
+          <mat-tab class="pt-3" [formGroupName]="i" label="{{template.title}}" *ngFor="let template of defaultMailTemplates; let i = index">
+            <mat-form-field class="form-group w-100 mt-3">
+              <input formControlName="emailSubject" matInput placeholder="Predmet emailu">
+            </mat-form-field>
+
+            <div class="form-group">
+              <angular-editor formControlName="emailContent" [config]="config"></angular-editor>
+            </div>
+          </mat-tab>
+        </mat-tab-group>
+
+        <app-email-template-variable></app-email-template-variable>
+
+        <button mat-flat-button class="btn-icon btn-theme mt-3">
+          <mat-icon>save</mat-icon>
+          Uložiť
+        </button>
+      </ng-container>
+    </form>
+  </div>
+</div>
+
+<div class="loading-shade h-100 mt-5" *ngIf="isLoading">
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+</div>

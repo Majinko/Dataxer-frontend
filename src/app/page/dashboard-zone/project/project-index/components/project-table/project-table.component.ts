@@ -6,6 +6,7 @@ import {merge} from 'rxjs';
 import {map, startWith, switchMap} from 'rxjs/operators';
 import {MessageService} from '../../../../../../core/services/message.service';
 import {Router} from '@angular/router';
+import {SearchBarService} from '../../../../../../core/services/search-bar.service';
 
 @Component({
   selector: 'app-project-table',
@@ -31,11 +32,9 @@ export class ProjectTableComponent implements AfterViewInit {
   constructor(
     private router: Router,
     private projectService: ProjectService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private readonly searchBarService: SearchBarService,
   ) {
-  }
-
-  ngOnInit(): void {
   }
 
   ngAfterViewInit() {
@@ -45,7 +44,10 @@ export class ProjectTableComponent implements AfterViewInit {
   private paginate() {
     this.paginator.pageIndex = 0;
 
-    merge(this.paginator.page)
+    merge(
+      this.paginator.page,
+      this.searchBarService.appSearch,
+    )
       .pipe(
         startWith({}),
         switchMap(() => {
@@ -53,7 +55,8 @@ export class ProjectTableComponent implements AfterViewInit {
 
           return this.projectService.paginate(
             this.paginator.pageIndex,
-            this.paginator.pageSize
+            this.paginator.pageSize,
+            this.searchBarService.filterValue
           );
         }),
         map((data) => {

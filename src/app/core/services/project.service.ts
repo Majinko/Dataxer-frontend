@@ -36,9 +36,17 @@ export class ProjectService {
     return this.http.get<Project>(environment.baseUrl + '/project/' + id);
   }
 
-  paginate(page: number, size: number): Observable<Paginate<Project>> {
+  paginate(page: number, size: number, qs: string): Observable<Paginate<Project>> {
+    let filter = '&filters=';
+
+    if (qs) {
+      ['title', 'number'].forEach(key => {
+        filter += `${filter === '&filters=' ? '' : ' or '}${'project.' + key}=="${qs}*"`;
+      });
+    }
+
     // tslint:disable-next-line:max-line-length
-    return this.http.get<Paginate<Project>>(environment.baseUrl + `/project/paginate?page=${page}&size=${size}&filters=project.title == "Byt 2i Skypark 2.B.23.5"`);
+    return this.http.get<Paginate<Project>>(environment.baseUrl + `/project/paginate?page=${page}&size=${size}${filter}`);
   }
 
   destroy(id: number): Observable<void> {

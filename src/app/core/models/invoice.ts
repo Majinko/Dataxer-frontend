@@ -7,7 +7,6 @@ import {Project} from './project';
 import {DocumentBase} from './documentBase';
 
 export interface Invoice extends DocumentBase{
-  id: number;
   title: string;
   subject: string;
   number: string;
