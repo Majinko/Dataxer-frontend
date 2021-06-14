@@ -13,7 +13,7 @@ import {ItemPriceComponent} from './component/item-price/item-price.component';
 import {CoreModule} from '../../../core/core.module';
 import {ItemEditComponent} from './item-edit/item-edit.component';
 import {ItemTableComponent} from './item-index/item-table/item-table.component';
-import { ItemShowComponent } from './item-show/item-show.component';
+import {ItemShowComponent} from './item-show/item-show.component';
 
 @NgModule({
   declarations: [ItemComponent, IndexComponent, ItemCreateComponent, ItemPriceComponent, ItemEditComponent, ItemTableComponent, ItemShowComponent],

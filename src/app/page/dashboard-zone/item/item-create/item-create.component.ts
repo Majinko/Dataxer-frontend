@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Item} from '../../../../core/models/item';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {CategoryItemNode} from '../../../../core/models/category-item-node';
 import {CategoryService} from '../../../../core/services/category.service';
 import {CdkTextareaAutosize} from '@angular/cdk/text-field';
@@ -17,6 +17,7 @@ import {UploadHelper} from '../../../../core/class/UploadHelper';
 export class ItemCreateComponent implements OnInit {
   item: Item;
   formGroup: FormGroup;
+  isLoading: boolean = false;
   categories: CategoryItemNode[];
   colors: string[] = ['zlta', 'modra', 'biela'];
   material: string[] = ['kov', 'drevo', 'zlato'];
@@ -29,14 +30,17 @@ export class ItemCreateComponent implements OnInit {
     private itemService: ItemService,
     private formBuilder: FormBuilder,
     private router: Router,
+    private route: ActivatedRoute,
     public uploadHelper: UploadHelper,
   ) {
   }
 
   ngOnInit() {
     this.prepareForm();
+    this.duplicateItem();
     this.getCategories();
   }
+
 
   prepareForm() {
     this.formGroup = this.formBuilder.group({
@@ -71,7 +75,27 @@ export class ItemCreateComponent implements OnInit {
     });
   }
 
-  getCategories() {
+  private duplicateItem() {
+    if (+this.route.snapshot.paramMap.get('original_id')) {
+      this.itemService.getById(+this.route.snapshot.paramMap.get('original_id')).subscribe((item) => {
+        delete item.id; // remove old item id
+
+        console.log(item);
+
+        if (item.preview) {
+          delete item.preview;
+
+          this.messageService.add('Obrázky položky nebudú duplikované');
+        }
+
+        this.formGroup.patchValue({
+          ...item
+        });
+      });
+    }
+  }
+
+  private getCategories() {
     this.categoryService.all().subscribe(c => this.categories = c);
   }
 
@@ -81,13 +105,18 @@ export class ItemCreateComponent implements OnInit {
   }
 
   onSubmit() {
+    this.isLoading = true;
+
     if (this.formGroup.invalid) {
+      this.isLoading = false;
       return;
     }
 
     this.itemService.store(this.formGroup.value, this.uploadHelper.files).subscribe(i => {
+      this.uploadHelper.imageUrl = null;
+
       this.router.navigate(['/item']).then(() => {
-        this.messageService.add('Item was store');
+        this.messageService.add('Položka bola vytvorená.');
       });
     });
   }
