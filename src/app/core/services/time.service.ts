@@ -46,7 +46,11 @@ export class TimeService {
     return this.http.get<Time>(`${environment.baseUrl}/time/lastUserTime`);
   }
 
-  getAllWorkYears(): Observable<number[]>{
+  getAllWorkYears(): Observable<number[]> {
     return this.http.get<number[]>(`${environment.baseUrl}/time/allWorkYears`);
+  }
+
+  getAllByUser(uid: string): Observable<Time[]> {
+    return this.http.get<Time[]>(`${environment.baseUrl}/time/allByUser?uId=${uid}`);
   }
 }

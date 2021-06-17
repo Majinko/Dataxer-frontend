@@ -64,4 +64,8 @@ export class ProjectService {
   getProjectManHours(id: number): Observable<ProjectManHours> {
     return this.http.get<ProjectManHours>(`${environment.baseUrl}/project/projectManHours/${id}`);
   }
+
+  getEvaluation(id: number): Observable<any> {
+    return this.http.get<any>(`${environment.baseUrl}/project/evaluation/${id}`);
+  }
 }

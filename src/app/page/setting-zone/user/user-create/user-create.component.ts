@@ -73,6 +73,10 @@ export class UserCreateComponent implements OnInit {
       this.router.navigate(['/setting/user/all']).then(() => {
         this.messageService.add('Užívateľ bol vytvorený');
       });
+    }, error => {
+      this.isLoading = false;
+
+      this.messageService.add(error.error.message);
     });
   }
 

@@ -11,9 +11,13 @@ export class ProjectEvaluationComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private projectService: ProjectService
   ) {
   }
 
   ngOnInit(): void {
+    this.projectService.getEvaluation(+this.route.parent.snapshot.paramMap.get('id')).subscribe((evaluation) => {
+      console.log(evaluation);
+    });
   }
 }
