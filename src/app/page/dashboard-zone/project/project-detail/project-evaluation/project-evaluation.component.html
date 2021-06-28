@@ -1,7 +1,93 @@
-<div class="row mt-3">
+<div class="row mt-3" *ngIf="countLoads === 4;">
   <div class="col-12">
     <div class="box p-3">
       <h1>Vyhodnotenie projektu</h1>
+
+      <div class="row">
+        <div class="col-md-4">
+          <p class="mb-0">Zisk:</p>
+          <h3 class="text-dark"><b>{{(projectStats.profit | currency:'EUR':'symbol') || '-'}}</b></h3>
+        </div>
+
+        <div class="col-md-4">
+          <p class="mb-0">Zisk osobohodina:</p>
+          <h3 class="text-dark">
+            <b>{{((projectStats.timeStamp > 0 ? projectStats.profit / (projectStats.timeStamp / 60 / 60) : 0)| currency:'EUR':'symbol') || '-'}}</b>
+          </h3>
+        </div>
+
+        <div class="col-md-4">
+          <p class="mb-0">Zisk z obratu (marža):</p>
+          <h3 class="text-dark">
+            <b>{{(((projectStats.profit / ((projectStats.sumCost ? projectStats.sumCost : 1) + projectManHours.sumPriceBrutto))) * 100).toFixed(2) || '-'}} %</b></h3>
+        </div>
+      </div>
     </div>
+  </div>
+
+    <div class="col-12 mt-3">
+      <mat-accordion>
+        <mat-expansion-panel class="bg-box">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <div class="w-100 justify-content-between">
+                <b>Štatistika zákazky: {{projectStats.profit | currency:'EUR':'symbol'}}</b>
+              </div>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+
+          <mat-selection-list>
+            <mat-list-item>
+              <div matLine>
+                <span class="text-left">Left Text</span>
+                <span class="text-right">Right Text</span>
+              </div>
+            </mat-list-item>
+          </mat-selection-list>
+
+          <div class="row">
+            <div class="col-md-6">
+              Začiatok fázy:
+            </div>
+            <div class="col-md-6 text-right">
+              {{projectStats.start | date:'dd.MM.y' || '-'}}
+            </div>
+
+            <div class="col-md-6">
+              Koniec fázy:
+            </div>
+            <div class="col-md-6 text-right">
+              {{projectStats.end | date:'dd.MM.y' || '-'}}
+            </div>
+
+            <div class="col-md-6">
+              Trvanie v mesiacoch:
+            </div>
+            <div class="col-md-6 text-right">
+              {{projectStats.countMonth}}
+            </div>
+
+            <div class="col-md-6">
+              Počet človekohodín:
+            </div>
+            <div class="col-md-6 text-right">
+              {{projectStats.timeStamp | timeFromTimestamp}} h
+            </div>
+
+            <div class="col-md-6">
+              Priemerný počet osobohodín za mesiac:
+            </div>
+            <div class="col-md-6 text-right">
+              {{projectStats.timeStamp / projectStats.countUser | timeFromTimestamp}} h
+            </div>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+</div>
+
+<div class="row mt-3" *ngIf="countLoads != 4;">
+  <div class="col-12 d-flex justify-content-center">
+    <mat-spinner></mat-spinner>
   </div>
 </div>

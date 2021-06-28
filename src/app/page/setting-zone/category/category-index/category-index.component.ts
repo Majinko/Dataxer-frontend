@@ -134,7 +134,7 @@ export class CategoryIndexComponent {
 
     const nestedNode = this.flatNodeMap.get(node);
 
-    this.categoryService.store({name: itemValue, parent: this.newNodeParent}).subscribe(category => {
+    this.categoryService.store({name: itemValue, parentId: this.newNodeParent.id}).subscribe(category => {
       this.isStore = false;
 
       nestedNode.id = category.id;
@@ -198,7 +198,11 @@ export class CategoryIndexComponent {
     this.dragNodeExpandOverNode = null;
     this.dragNodeExpandOverTime = 0;
 
-    this.categoryService.updateTree(this.dataSource.data).subscribe();
+    this.isLoadingResults = true;
+
+    this.categoryService.updateTree(this.dataSource.data).subscribe(() => {
+      this.isLoadingResults = false;
+    });
   }
 
   handleDragEnd(event) {

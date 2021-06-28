@@ -81,13 +81,13 @@ export class ChecklistDatabase {
   }
 
   getParent(currentRoot: CategoryItemNode, node: CategoryItemNode): CategoryItemNode {
-    if (currentRoot.children && currentRoot.children.length > 0) {
+    if (currentRoot && currentRoot.children && currentRoot.children.length > 0) {
       // tslint:disable-next-line:prefer-for-of
       for (let i = 0; i < currentRoot.children.length; ++i) {
         const child = currentRoot.children[i];
         if (child === node) {
           return currentRoot;
-        } else if (child.children && child.children.length > 0) {
+        } else if (child && child.children && child.children.length > 0) {
           const parent = this.getParent(child, node);
           if (parent != null) {
             return parent;

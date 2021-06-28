@@ -13,8 +13,9 @@
       <ng-select [items]="categories"
                  #select
                  bindLabel="name"
+                 bindValue="id"
                  placeholder="Rodičovnská kategória"
-                 formControlName="parent">
+                 formControlName="parentId">
         <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
           <div><span>{{item.name}}</span></div>
         </ng-template>

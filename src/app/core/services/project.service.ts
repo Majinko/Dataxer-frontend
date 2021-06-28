@@ -66,6 +66,6 @@ export class ProjectService {
   }
 
   getEvaluation(id: number): Observable<any> {
-    return this.http.get<any>(`${environment.baseUrl}/project/evaluation/${id}`);
+    return this.http.get<any>(`${environment.baseUrl}/project/prepareEvaluation/${id}`);
   }
 }

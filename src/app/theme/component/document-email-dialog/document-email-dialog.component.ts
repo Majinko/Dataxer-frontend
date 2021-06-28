@@ -2,9 +2,10 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {MailTemplateService} from '../../../core/services/mail-template.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {Invoice} from '../../../core/models/invoice';
 import {MailTemplate} from '../../../core/models/mailTemplate';
 import {EDITORCONFIG} from '../../../core/data/editor-config';
+import {InvoiceService} from '../../../core/services/invoice.service';
+import {Invoice} from '../../../core/models/invoice';
 
 @Component({
   selector: 'app-document-email-dialog',
@@ -20,19 +21,31 @@ export class DocumentEmailDialogComponent implements OnInit {
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<DocumentEmailDialogComponent>,
     private mailTemplateService: MailTemplateService,
+    private invoiceService: InvoiceService,
     @Inject(MAT_DIALOG_DATA) public document: Invoice,
   ) {
   }
 
   ngOnInit(): void {
     this.prepareForm();
+    this.attachment();
     this.getTemplate();
   }
 
   private prepareForm() {
     this.formGroup = this.fb.group({
       subject: null,
-      body: null
+      content: null,
+      attachment: null,
+      participantIds: null
+    });
+  }
+
+  private attachment() {
+    this.invoiceService.pdf(this.document.id).subscribe(r => {
+      this.formGroup.patchValue({
+        attachment: r
+      });
     });
   }
 
@@ -59,7 +72,7 @@ export class DocumentEmailDialogComponent implements OnInit {
 
     this.formGroup.patchValue({
       subject: this.mailTemplate.emailSubject,
-      body: this.mailTemplate.emailContent
+      content: this.mailTemplate.emailContent,
     });
   }
 

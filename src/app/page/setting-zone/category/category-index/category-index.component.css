@@ -9,4 +9,12 @@
 .drop-center {
   background-color: #dddddd; }
 
+.centered {
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  top: 50%;
+  margin-top: -50px; }
+
 /*# sourceMappingURL=category-index.component.css.map */

@@ -53,4 +53,8 @@ export class TimeService {
   getAllByUser(uid: string): Observable<Time[]> {
     return this.http.get<Time[]>(`${environment.baseUrl}/time/allByUser?uId=${uid}`);
   }
+
+  getAllByProject(projectId: number): Observable<Time[]> {
+    return this.http.get<Time[]>(`${environment.baseUrl}/time/allByProject/${projectId}`);
+  }
 }
