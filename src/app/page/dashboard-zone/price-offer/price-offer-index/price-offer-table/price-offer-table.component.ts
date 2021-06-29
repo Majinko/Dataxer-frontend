@@ -7,12 +7,14 @@ import {PriceOffer} from 'src/app/core/models/priceOffer';
 import {MatPaginator} from '@angular/material/paginator';
 import {PaginateClass} from '../../../../../core/class/PaginateClass';
 import {HttpClient} from '@angular/common/http';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-price-offer-table',
   templateUrl: './price-offer-table.component.html',
 })
 export class PriceOfferTableComponent extends PaginateClass<PriceOffer> implements AfterViewInit {
+  destroyMsg = 'Cenová ponuka bola odstránená';
   displayedColumns: string[] = [
     'id',
     'client',
@@ -32,18 +34,9 @@ export class PriceOfferTableComponent extends PaginateClass<PriceOffer> implemen
   constructor(
     public http: HttpClient,
     public priceOfferService: PriceOfferService,
-    private messageService: MessageService,
+    public messageService: MessageService,
+    public dialog: MatDialog
   ) {
-    super(priceOfferService);
-  }
-
-  destroy(event: MouseEvent, id: number) {
-    event.stopPropagation();
-
-    this.priceOfferService.destroy(id).subscribe(r => {
-      this.paginate();
-
-      this.messageService.add('Cenová ponuka bola odstránená');
-    });
+    super(messageService, priceOfferService, dialog);
   }
 }

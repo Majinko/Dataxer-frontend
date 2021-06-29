@@ -36,6 +36,7 @@ import { GlobalFilterComponent } from './component/global-filter/global-filter.c
 import {TranslateModule} from '@ngx-translate/core';
 import { DocumentEmailDialogComponent } from './component/document-email-dialog/document-email-dialog.component';
 import {AngularEditorModule} from '@kolkov/angular-editor';
+import { ConfirmDialogComponent } from './component/confirm-dialog/confirm-dialog.component';
 
 @NgModule({
     imports: [
@@ -78,7 +79,8 @@ import {AngularEditorModule} from '@kolkov/angular-editor';
     MenuTabComponent,
     NestedCategoriesComponent,
     GlobalFilterComponent,
-    DocumentEmailDialogComponent
+    DocumentEmailDialogComponent,
+    ConfirmDialogComponent
   ],
   exports: [
     DrawerComponent,

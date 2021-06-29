@@ -38,49 +38,39 @@
 
           <mat-selection-list>
             <mat-list-item>
-              <div matLine>
-                <span class="text-left">Left Text</span>
-                <span class="text-right">Right Text</span>
+              <div class="d-flex justify-content-between" matLine>
+                <span>Začiatok fázy:</span>
+                <span>{{projectStats.start | date:'dd.MM.y' || '-'}}</span>
+              </div>
+            </mat-list-item>
+            <mat-list-item>
+              <div class="d-flex justify-content-between" matLine>
+                <span>Koniec fázy:</span>
+                <span>{{projectStats.end | date:'dd.MM.y' || '-'}}</span>
+              </div>
+            </mat-list-item>
+
+            <mat-list-item>
+              <div class="d-flex justify-content-between" matLine>
+                <span>Trvanie v mesiacoch:</span>
+                <span>{{projectStats.countMonth}}</span>
+              </div>
+            </mat-list-item>
+
+            <mat-list-item>
+              <div class="d-flex justify-content-between" matLine>
+                <span>Počet človekohodín:</span>
+                <span>{{projectStats.timeStamp | timeFromTimestamp}} h</span>
+              </div>
+            </mat-list-item>
+
+            <mat-list-item>
+              <div class="d-flex justify-content-between" matLine>
+                <span>Priemerný počet osobohodín za mesiac:</span>
+                <span>{{projectStats.timeStamp / projectStats.countUser | timeFromTimestamp}} h</span>
               </div>
             </mat-list-item>
           </mat-selection-list>
-
-          <div class="row">
-            <div class="col-md-6">
-              Začiatok fázy:
-            </div>
-            <div class="col-md-6 text-right">
-              {{projectStats.start | date:'dd.MM.y' || '-'}}
-            </div>
-
-            <div class="col-md-6">
-              Koniec fázy:
-            </div>
-            <div class="col-md-6 text-right">
-              {{projectStats.end | date:'dd.MM.y' || '-'}}
-            </div>
-
-            <div class="col-md-6">
-              Trvanie v mesiacoch:
-            </div>
-            <div class="col-md-6 text-right">
-              {{projectStats.countMonth}}
-            </div>
-
-            <div class="col-md-6">
-              Počet človekohodín:
-            </div>
-            <div class="col-md-6 text-right">
-              {{projectStats.timeStamp | timeFromTimestamp}} h
-            </div>
-
-            <div class="col-md-6">
-              Priemerný počet osobohodín za mesiac:
-            </div>
-            <div class="col-md-6 text-right">
-              {{projectStats.timeStamp / projectStats.countUser | timeFromTimestamp}} h
-            </div>
-          </div>
         </mat-expansion-panel>
       </mat-accordion>
     </div>

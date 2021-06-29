@@ -6,6 +6,7 @@ import {MessageService} from '../../../../../../core/services/message.service';
 import {Router} from '@angular/router';
 import {DocumentHelper} from '../../../../../../core/class/DocumentHelper';
 import {PaginateClass} from '../../../../../../core/class/PaginateClass';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-invoice-table',
@@ -13,6 +14,7 @@ import {PaginateClass} from '../../../../../../core/class/PaginateClass';
   providers: [DocumentHelper]
 })
 export class InvoiceTableComponent extends PaginateClass<Invoice> implements OnInit, AfterViewInit {
+  destroyMsg = 'Faktura bola odstránená';
   displayedColumns: string[] = [
     'id',
     'client',
@@ -32,23 +34,14 @@ export class InvoiceTableComponent extends PaginateClass<Invoice> implements OnI
   constructor(
     private router: Router,
     private documentHelper: DocumentHelper,
-    private messageService: MessageService,
+    public messageService: MessageService,
     public invoiceService: InvoiceService,
+    public dialog: MatDialog
   ) {
-    super(invoiceService);
+    super(messageService, invoiceService, dialog);
   }
 
   ngOnInit(): void {
-  }
-
-  destroy(event: MouseEvent, id: number) {
-    event.stopPropagation();
-
-    this.invoiceService.destroy(id).subscribe(r => {
-      this.paginate();
-
-      this.messageService.add('Faktura bola odstránená');
-    });
   }
 
   pdf(event: MouseEvent, id: number, name: string) {

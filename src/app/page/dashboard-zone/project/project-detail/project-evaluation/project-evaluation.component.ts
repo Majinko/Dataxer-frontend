@@ -44,7 +44,7 @@ export class ProjectEvaluationComponent implements OnInit {
   private getTimes() {
     this.timeService.getAllByProject(+this.route.parent.snapshot.paramMap.get('id')).subscribe((times) => {
       if (times.length) {
-        this.projectStats.countUser = [...new Set(times.map(time => time.user.uid))].length;
+        this.projectStats.countUser = [...new Set(times.map(time => time?.user?.uid))].length;
         this.projectStats.start = times && times[0].dateWork;
         this.projectStats.end = times && times[times.length - 1].dateWork;
         this.projectStats.countMonth = monthDiff(this.projectStats.start, this.projectStats.end);
