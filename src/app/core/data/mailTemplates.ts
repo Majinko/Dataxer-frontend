@@ -6,7 +6,7 @@ export const DEFAULTMAILTEMPLATES: MailTemplate[] = [
     title: 'Faktúra',
     mailTemplateType: 'INVOICE',
     emailSubject: 'Faktúra #CISLO',
-    emailContent: 'Dobrý deň,<br><br>v prílohe posielame faktúru č. #CISLO#.<br><br>Suma na úhradu: #SUMA<br>Variabilný key: #VAR<br>Číslo účtu: #IBAN#<br><br>Ďakujeme za úhradu a prajeme príjemný deň.<br>Dataid s.r.o.'
+    emailContent: 'Dobrý deň,<br><br>v prílohe posielame faktúru č. #CISLO#.<br><br>Suma na úhradu: #SUMA<br>Variabilný key: #VAR<br>Číslo účtu: #IBAN#<br><br>Ďakujeme za úhradu a prajeme príjemný deň.'
   },
   {
     id: null,

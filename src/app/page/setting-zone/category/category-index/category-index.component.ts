@@ -7,6 +7,8 @@ import {CategoryItemFlatNode} from '../../../../core/models/category-item-flat-n
 import {ChecklistDatabase} from '../../../../core/class/CheckListDatabase';
 import {CategoryService} from '../../../../core/services/category.service';
 import {MessageService} from '../../../../core/services/message.service';
+import {MatDialog} from '@angular/material/dialog';
+import {ConfirmDialogComponent} from '../../../../theme/component/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-index',
@@ -58,7 +60,8 @@ export class CategoryIndexComponent {
   constructor(
     @Inject(CategoryService) private readonly categoryService: CategoryService,
     @Inject(MessageService) private readonly messageService: MessageService,
-    private database: ChecklistDatabase
+    private database: ChecklistDatabase,
+    public dialog: MatDialog
   ) {
     this.treeFlattener = new MatTreeFlattener(this.transformer, this.getLevel, this.isExpandable, this.getChildren);
     this.treeControl = new FlatTreeControl<CategoryItemFlatNode>(this.getLevel, this.isExpandable);
@@ -212,11 +215,19 @@ export class CategoryIndexComponent {
   }
 
   deleteNode(flatNode: CategoryItemFlatNode) {
-    const node = this.flatNodeMap.get(flatNode);
-    this.database.deleteItem(node);
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      maxWidth: '400px',
+    });
 
-    this.categoryService.destroy(node.id).subscribe(() => {
-      this.messageService.add(`Kategória ${node.name} bola zmazaná.`);
+    dialogRef.afterClosed().subscribe(dialogResult => {
+      if (dialogResult === true) {
+        const node = this.flatNodeMap.get(flatNode);
+        this.database.deleteItem(node);
+
+        this.categoryService.destroy(node.id).subscribe(() => {
+          this.messageService.add(`Kategória ${node.name} bola zmazaná.`);
+        });
+      }
     });
   }
 }

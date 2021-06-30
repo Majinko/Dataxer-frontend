@@ -13,7 +13,6 @@ import {MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS} from '@angular/mater
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import {APP_DATE_FORMATS} from '../../../../../helper';
 import {UploadHelper} from '../../../../core/class/UploadHelper';
-import {CustomFile} from '../../../../core/models/customFile';
 
 @Component({
   selector: 'app-task-create',
