@@ -5,22 +5,27 @@ import {CustomFile} from '../models/customFile';
 import {Observable} from 'rxjs';
 import {environment} from '../../../environments/environment';
 import {UploadContext} from '../models/uploadContext';
-import {Item} from '../models/item';
 import {Paginate} from '../models/paginate';
 import * as moment from 'moment';
 import {map} from 'rxjs/operators';
+import {IPaginate} from '../interface/IPaginate';
+import {DocumentFilter} from '../models/filters/document-filter';
+import {prepareStringFilter} from '../../../helper';
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class CostService {
+export class CostService implements IPaginate<Cost> {
+  filter: DocumentFilter;
 
   constructor(private http: HttpClient) {
   }
 
   paginate(page: number, size: number): Observable<Paginate<Cost>> {
-    return this.http.get<Paginate<Cost>>(`${environment.baseUrl}/cost/paginate?page=${page}&size=${size}`).pipe(map(data => {
+    const filter = prepareStringFilter('priceOffer', this.filter);
+
+    return this.http.get<Paginate<Cost>>(`${environment.baseUrl}/cost/paginate?page=${page}&size=${size}${filter !== '' ? '&filters=' + filter : ''}`).pipe(map(data => {
       data.content.forEach(cost => {
         cost.dueAtDays = Math.ceil(moment(cost.dueDate).diff(new Date(), 'days', true));
       });

@@ -18,14 +18,18 @@ export class GlobalFilterComponent implements OnInit {
   contacts: Contact[] = [];
   projects: Project[] = [];
   isFiltering: boolean = false;
-  states: { key: string, value: string }[] = [
+  payedState: { key: string, value: string }[] = [
+    {key: 'PAYED', value: 'Uhradené'},
+    {key: 'UNPAID', value: 'Neuradené'},
+  ];
+  priceOfferStates: { key: string, value: string }[] = [
     {key: 'WAITING', value: 'Čakajúca'},
     {key: 'APPROVED', value: 'Schválená'},
     {key: 'REJECTED', value: 'Zamietnutá'}
   ];
   documentTypes: { key: string, value: string }[] = [{key: 'INVOICE', value: 'Faktúra'}, {key: 'PROFORMA', value: 'Zálohová faktúra'}];
 
-  @Input() public columnNames: string[] = [];
+  @Input() public displayedColumns: string[] = []; // all to you want see
   @Input() private queryStringName: string[];
   @Input() private filterData: BaseFilter;
 

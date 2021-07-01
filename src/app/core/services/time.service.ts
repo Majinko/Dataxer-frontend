@@ -5,11 +5,14 @@ import {Observable} from 'rxjs';
 import {environment} from '../../../environments/environment';
 import {Project} from '../models/project';
 import {CategoryItemNode} from '../models/category-item-node';
+import {DocumentFilter} from '../models/filters/document-filter';
+import {prepareStringFilter} from '../../../helper';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TimeService {
+  filter: DocumentFilter;
 
   constructor(private http: HttpClient) {
   }
@@ -19,7 +22,9 @@ export class TimeService {
   }
 
   allForPeriod(from: string, to: string): Observable<Time[]> {
-    return this.http.get<Time[]>(`${environment.baseUrl}/time/allForPeriod?from=${from}&to=${to}`);
+    const filter = prepareStringFilter('time', this.filter);
+
+    return this.http.get<Time[]>(`${environment.baseUrl}/time/allForPeriod?from=${from}&to=${to}${filter !== '' ? '&filters=' + filter : ''}`);
   }
 
   getById(id: number): Observable<Time> {

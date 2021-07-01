@@ -30,6 +30,8 @@ export class PaginateClass<T> {
       .pipe(
         startWith({}),
         switchMap(() => {
+          this.isLoadingResults = true;
+
           return this.service.paginate(
             this.paginator.pageIndex,
             this.paginator.pageSize,

@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-md-12 mb-3" style="margin-top: -75px">
-    <app-global-filter [columnNames]="['state' ,'contact', 'project']"  [queryStringName]="['title', 'contact.name']" [filterData]="priceOfferService.filter" (onFilter)="filtering($event)"></app-global-filter>
+    <app-global-filter [displayedColumns]="['state' ,'contact', 'project']"  [queryStringName]="['title', 'contact.name']" [filterData]="priceOfferService.filter" (onFilter)="filtering($event)"></app-global-filter>
   </div>
   <div class="col-md-12">
     <h3 class="text-gray mb-3">Zvolené kalkulácie</h3>
