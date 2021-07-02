@@ -1,5 +1,6 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, Inject, OnDestroy, OnInit} from '@angular/core';
 import {GodButtonService} from '../../../core/services/god-button.service';
+import {SearchBarService} from '../../../core/services/search-bar.service';
 
 @Component({
   selector: 'app-overview',
@@ -13,15 +14,18 @@ import {GodButtonService} from '../../../core/services/god-button.service';
       </div>
     </div>`,
 })
-export class OverviewComponent implements OnInit {
+export class OverviewComponent implements OnInit, OnDestroy {
   navLinks: { label: string, link: string, index: number }[] = [];
 
   constructor(
     @Inject(GodButtonService) private readonly godButtonService: GodButtonService,
-  ) { }
+    private readonly searchBarService: SearchBarService
+  ) {
+  }
 
   ngOnInit(): void {
     this.godButtonService.title = null;
+    this.searchBarService.showBar = false;
 
     this.navLinks = [
       {
@@ -40,5 +44,9 @@ export class OverviewComponent implements OnInit {
         index: 2
       },
     ];
+  }
+
+  ngOnDestroy(): void {
+    this.searchBarService.showBar = true;
   }
 }

@@ -39,7 +39,10 @@ export class PaginateClass<T> {
         }),
         map((data) => {
           // Flip flag to show that loading has finished.
-          this.isLoadingResults = false;
+          setTimeout(() => {
+            this.isLoadingResults = false;
+          }, 1);
+
           this.totalElements = data.totalElements;
 
           return data.content;
