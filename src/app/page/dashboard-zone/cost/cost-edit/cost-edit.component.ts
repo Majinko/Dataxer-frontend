@@ -130,7 +130,7 @@ export class CostEditComponent implements OnInit {
       return;
     }
 
-    this.costService.update(this.formGroup.value, this.uploadHelper.files).subscribe(() => {
+    this.costService.updateWithFiles(this.formGroup.value, this.uploadHelper.files).subscribe(() => {
       this.router.navigate(['/cost']).then(() => {
         this.messageService.add('Náklad bol aktualizovaný');
         this.isLoading = false;

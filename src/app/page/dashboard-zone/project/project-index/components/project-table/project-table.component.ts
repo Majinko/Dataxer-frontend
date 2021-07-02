@@ -2,22 +2,18 @@ import {AfterViewInit, Component, ViewChild} from '@angular/core';
 import {ProjectService} from '../../../../../../core/services/project.service';
 import {Project} from '../../../../../../core/models/project';
 import {MatPaginator} from '@angular/material/paginator';
-import {merge} from 'rxjs';
-import {map, startWith, switchMap} from 'rxjs/operators';
 import {MessageService} from '../../../../../../core/services/message.service';
 import {Router} from '@angular/router';
-import {SearchBarService} from '../../../../../../core/services/search-bar.service';
+import {PaginateClass} from '../../../../../../core/class/PaginateClass';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-project-table',
   templateUrl: './project-table.component.html',
   styleUrls: ['./project-table.component.scss']
 })
-export class ProjectTableComponent implements AfterViewInit {
-  pageSize = 15;
-  totalElements = 0;
-  projects: Project[] = [];
-  isLoadingResults = true;
+export class ProjectTableComponent extends PaginateClass<Project> implements AfterViewInit {
+  destroyMsg: string = 'Zákazka bola vymazana';
 
   displayedColumns: string[] = [
     'number',
@@ -31,52 +27,15 @@ export class ProjectTableComponent implements AfterViewInit {
 
   constructor(
     private router: Router,
-    private projectService: ProjectService,
-    private messageService: MessageService,
-    private readonly searchBarService: SearchBarService,
+    public projectService: ProjectService,
+    public messageService: MessageService,
+    public dialog: MatDialog
   ) {
+    super(messageService, projectService, dialog);
   }
 
   ngAfterViewInit() {
     this.paginate();
-  }
-
-  private paginate() {
-    this.paginator.pageIndex = 0;
-
-    merge(
-      this.paginator.page,
-      this.searchBarService.appSearch,
-    )
-      .pipe(
-        startWith({}),
-        switchMap(() => {
-          this.isLoadingResults = true;
-
-          return this.projectService.paginate(
-            this.paginator.pageIndex,
-            this.paginator.pageSize,
-            this.searchBarService.filterValue
-          );
-        }),
-        map((data) => {
-          // Flip flag to show that loading has finished.
-          this.isLoadingResults = false;
-          this.totalElements = data.totalElements;
-
-          return data.content;
-        })
-      )
-      .subscribe((data) => (this.projects = data));
-  }
-
-  destroy(event: MouseEvent, id: number) {
-    event.stopPropagation();
-
-    this.projectService.destroy(id).subscribe(() => {
-      this.paginate();
-      this.messageService.add('Zákazka bola vymazana');
-    });
   }
 
   show(project: Project) {

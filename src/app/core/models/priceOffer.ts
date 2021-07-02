@@ -7,7 +7,7 @@ import {Company} from './company';
 import {BankAccount} from './bank-account';
 import {DocumentBase} from './documentBase';
 
-export interface PriceOffer extends DocumentBase{
+export class PriceOffer extends DocumentBase {
   title: string;
   subject: string;
   number: string;

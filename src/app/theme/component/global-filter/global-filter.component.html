@@ -41,20 +41,7 @@
     </ng-select>
   </div>
 
-  <div class="col-md-4 col-lg-2 pr-md-0" *ngIf="displayedColumns.includes('contact')">
-    <ng-select [items]="contacts"
-               [clearable]="false"
-               bindLabel="name"
-               placeholder="Klient"
-               formControlName="contact"
-               class="filter-ng-select">
-      <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
-        <div><span>{{item.name}}</span></div>
-      </ng-template>
-    </ng-select>
-  </div>
-
-  <div class="col-md-4 col-lg-2" *ngIf="displayedColumns.includes('project')">
+  <div class="col-md-4 col-lg-2 pr-md-0" *ngIf="displayedColumns.includes('project')">
     <ng-select [items]="projects"
                [clearable]="false"
                bindLabel="title"
@@ -63,6 +50,19 @@
                class="filter-ng-select">
       <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
         <div><span>{{item.title}}</span></div>
+      </ng-template>
+    </ng-select>
+  </div>
+
+  <div class="col-md-4 col-lg-2" *ngIf="displayedColumns.includes('contact')">
+    <ng-select [items]="contacts"
+               [clearable]="false"
+               bindLabel="name"
+               placeholder="Klient"
+               formControlName="contact"
+               class="filter-ng-select">
+      <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+        <div><span>{{item.name}}</span></div>
       </ng-template>
     </ng-select>
   </div>

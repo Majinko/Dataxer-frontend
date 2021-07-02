@@ -12,7 +12,7 @@ export class PaginateClass<T> {
   pageSize: number = 15;
   pageIndex: number = 0;
   totalElements: number;
-  isLoadingResults: boolean;
+  isLoadingResults: boolean = false;
   data: T[];
 
   paginator: MatPaginator;
@@ -30,7 +30,9 @@ export class PaginateClass<T> {
       .pipe(
         startWith({}),
         switchMap(() => {
-          this.isLoadingResults = true;
+          setTimeout(() => {
+            this.isLoadingResults = true;
+          }, 1);
 
           return this.service.paginate(
             this.paginator.pageIndex,
@@ -39,6 +41,7 @@ export class PaginateClass<T> {
         }),
         map((data) => {
           // Flip flag to show that loading has finished.
+
           setTimeout(() => {
             this.isLoadingResults = false;
           }, 1);

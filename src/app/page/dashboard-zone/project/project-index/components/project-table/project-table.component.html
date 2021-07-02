@@ -1,4 +1,7 @@
 <div class="row">
+  <div class="col-md-12 mb-3" style="margin-top: -75px">
+    <app-global-filter [displayedColumns]="['contact']"  [queryStringName]="['number', 'contact.name']" [filterData]="projectService.filter" (onFilter)="filtering($event)"></app-global-filter>
+  </div>
   <div class="col-md-12">
     <h3 class="text-gray mb-3">Prijate zákazky</h3>
     <div class="table-wrap">
@@ -7,7 +10,7 @@
           <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
         </div>
 
-        <table mat-table [dataSource]="projects" class="table-hover table-data table-borderless w-100">
+        <table mat-table [dataSource]="data" class="table-hover table-data table-borderless w-100">
           <!-- Number Column -->
           <ng-container matColumnDef="number">
             <th mat-header-cell *matHeaderCellDef> Číslo</th>
