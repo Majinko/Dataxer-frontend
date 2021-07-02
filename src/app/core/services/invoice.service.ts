@@ -29,6 +29,10 @@ export class InvoiceService extends ResourceService<Invoice> {
     }));
   }
 
+  store(invoice: Invoice, relatedId: number = null): Observable<Invoice> {
+    return this.httpClient.post<Invoice>(relatedId !== 0 ? `${environment.baseUrl}/invoice/store/${relatedId}` : `${environment.baseUrl}/invoice/store`, invoice);
+  }
+
   paginate(page: number, size: number): Observable<Paginate<Invoice>> {
     const filter = prepareStringFilter('invoice', this.filter);
 
