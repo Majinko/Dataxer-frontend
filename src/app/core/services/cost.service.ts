@@ -23,7 +23,7 @@ export class CostService extends ResourceService<Cost> {
   }
 
   paginate(page: number, size: number): Observable<Paginate<Cost>> {
-    const filter = prepareStringFilter('priceOffer', this.filter);
+    const filter = prepareStringFilter('cost', this.filter);
 
     return this.httpClient.get<Paginate<Cost>>(`${environment.baseUrl}/cost/paginate?page=${page}&size=${size}${filter !== '' ? '&filters=' + filter : ''}`).pipe(map(data => {
       data.content.forEach(cost => {

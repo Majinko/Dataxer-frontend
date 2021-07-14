@@ -1,5 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
+import {SearchBarService} from '../../../../core/services/search-bar.service';
 
 @Component({
   selector: 'app-project-detail',
@@ -9,13 +10,17 @@ import {ActivatedRoute} from '@angular/router';
       <router-outlet></router-outlet>
     </div>`,
 })
-export class ProjectDetailComponent implements OnInit {
+export class ProjectDetailComponent implements OnInit, OnDestroy {
   navLinks: { label: string, link: string, index: number }[] = [];
 
-  constructor(private route: ActivatedRoute) {
+  constructor(
+    private readonly searchBarService: SearchBarService,
+    private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
+    this.searchBarService.showBar = false;
+
     this.navLinks = [
       {
         label: 'Prehľad',
@@ -33,5 +38,9 @@ export class ProjectDetailComponent implements OnInit {
         index: 2
       }
     ];
+  }
+
+  ngOnDestroy(): void {
+    this.searchBarService.showBar = true;
   }
 }

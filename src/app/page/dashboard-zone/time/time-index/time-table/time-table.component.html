@@ -15,7 +15,9 @@
         <table mat-table [dataSource]="times" class="table-hover table-data table-borderless w-100" matSort matSortDisableClear matSortDirection="desc">
           <ng-container matColumnDef="dateWork">
             <th mat-header-cell *matHeaderCellDef>Dátum práce</th>
-            <td mat-cell *matCellDef="let element"> {{element.dateWork | date:'fullDate':'Europe/Slovak'}} </td>
+            <td mat-cell *matCellDef="let element; let i = dataIndex" >
+              {{element.dateWork | date:'fullDate':'Europe/Slovak'}}
+            </td>
           </ng-container>
 
           <ng-container matColumnDef="stats">
