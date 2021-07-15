@@ -1,11 +1,11 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {PackService} from "../../../../../../core/services/pack.service";
-import {Pack} from "../../../../../../core/models/pack";
-import {MatPaginator} from "@angular/material/paginator";
-import {MatSort} from "@angular/material/sort";
-import {MessageService} from "../../../../../../core/services/message.service";
-import {merge} from "rxjs";
-import {map, startWith, switchMap} from "rxjs/operators";
+import {AfterViewInit, Component, ViewChild} from '@angular/core';
+import {PackService} from '../../../../../../core/services/pack.service';
+import {Pack} from '../../../../../../core/models/pack';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatSort} from '@angular/material/sort';
+import {MessageService} from '../../../../../../core/services/message.service';
+import {merge} from 'rxjs';
+import {map, startWith, switchMap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-group-table',
@@ -15,7 +15,7 @@ import {map, startWith, switchMap} from "rxjs/operators";
 export class PackTableComponent implements AfterViewInit {
   pageSize = 15;
   totalElements = 0;
-  packs: Pack[] = []
+  packs: Pack[] = [];
   isLoadingResults = true;
   displayedColumns: string[] = ['id', 'title', 'actions'];
 
@@ -63,7 +63,7 @@ export class PackTableComponent implements AfterViewInit {
     this.packService.destroy(pack.id).subscribe(r => {
       this.paginate();
 
-      this.messageService.add("Pack was delete");
-    })
+      this.messageService.add('Pack was delete');
+    });
   }
 }

@@ -1,8 +1,8 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 import {CategoryComponent} from './category.component';
-import {IndexComponent} from './index/index.component';
-import {CategoryCreateComponent} from './create/category-create.component';
+import {CategoryIndexComponent} from './category-index/category-index.component';
+import {CategoryCreateComponent} from './category-create/category-create.component';
 
 const routes: Routes = [{
   path: '',
@@ -10,7 +10,7 @@ const routes: Routes = [{
   children: [
     {
       path: '',
-      component: IndexComponent
+      component: CategoryIndexComponent
     },
     {
       path: 'create',

@@ -1,9 +1,11 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {InvoiceService} from '../../../../core/services/invoice.service';
 import {Invoice} from '../../../../core/models/invoice';
 import {DocumentHelper} from '../../../../core/class/DocumentHelper';
 import {PaymentService} from '../../../../core/services/payment.service';
+import {MatDialog} from '@angular/material/dialog';
+import {DocumentEmailDialogComponent} from '../../../../theme/component/document-email-dialog/document-email-dialog.component';
 
 @Component({
   selector: 'app-invoice-show',
@@ -20,7 +22,8 @@ export class InvoiceShowComponent implements OnInit {
     private route: ActivatedRoute,
     private invoiceService: InvoiceService,
     private paymentService: PaymentService,
-    public documentHelper: DocumentHelper
+    public documentHelper: DocumentHelper,
+    private dialog: MatDialog
   ) {
   }
 
@@ -49,6 +52,17 @@ export class InvoiceShowComponent implements OnInit {
   pdf(id: number, name: string) {
     this.invoiceService.pdf(id).subscribe(r => {
       this.documentHelper.pdf(r, name);
+    });
+  }
+
+  sendEmail(invoice: Invoice) {
+    this.dialog.open(DocumentEmailDialogComponent, {
+      width: '100%',
+      maxWidth: '500px',
+      autoFocus: false,
+      data: {
+        ...invoice
+      }
     });
   }
 }

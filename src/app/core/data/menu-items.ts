@@ -10,7 +10,7 @@ export const MenuItems: MenuItem[] = [
   {
     routerLink: ['/task'],
     title: 'Úlohy',
-    icon: 'work',
+    icon: 'check_circle',
     permission: 'Task'
   },
   {

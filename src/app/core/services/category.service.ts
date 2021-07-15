@@ -19,7 +19,27 @@ export class CategoryService {
   }
 
   nested(): Observable<CategoryItemNode[]> {
-    return this.http.get<CategoryItemNode[]>(environment.baseUrl + '/category/nested');
+    return this.http.get<CategoryItemNode[]>(environment.baseUrl + '/category/all').pipe(map((categories) => {
+      return this.prepareTree(categories, null);
+    }));
+  }
+
+  private prepareTree(items: CategoryItemNode[], parenId: number): CategoryItemNode[] {
+    if (items.length > 0) {
+      let i = 0;
+      const tree: CategoryItemNode[] = [];
+
+      items.forEach((item, index) => {
+        if (item.parentId === parenId) {
+          tree[i] = item;
+          tree[i].children = this.prepareTree(items, item.id);
+
+          i++;
+        }
+      });
+
+      return tree;
+    }
   }
 
   store(category: CategoryItemNode): Observable<CategoryItemNode> {

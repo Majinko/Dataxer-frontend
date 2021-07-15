@@ -1,5 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
+import {LOCALE_ID, NgModule} from '@angular/core';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -15,7 +15,7 @@ import {TranslateLoader, TranslateModule, TranslateService} from '@ngx-translate
 import {MultiTranslateHttpLoader} from 'ngx-translate-multi-http-loader';
 import {registerLocaleData} from '@angular/common';
 import localeSk from '@angular/common/locales/sk';
-import { TransferHttpCacheModule } from '@nguniversal/common';
+import {TransferHttpCacheModule} from '@nguniversal/common';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new MultiTranslateHttpLoader(http, [
@@ -35,7 +35,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         deps: [HttpClient]
       }
     }),
-    BrowserModule.withServerTransition({ appId: 'serverApp' }),
+    BrowserModule.withServerTransition({appId: 'serverApp'}),
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
@@ -49,6 +49,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     AngularFireStorageModule, // imports firebase/storage only needed for storage features
   ],
   providers: [
+    {provide: LOCALE_ID, useValue: 'sk'},
     {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
   ],

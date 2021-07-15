@@ -36,5 +36,11 @@ export const SettingMenuItems: MenuItem[] = [
     title: 'Bankové účty',
     icon: 'account_balance_wallet',
     permission: 'Settings'
+  },
+  {
+    routerLink: ['/setting/mail-template'],
+    title: 'Šablóny emailov',
+    icon: 'format_paint',
+    permission: 'Settings'
   }
 ];

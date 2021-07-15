@@ -1,0 +1,61 @@
+<div class="row mb-3 pb-2">
+  <div class="col">
+    <h1>Kategórie</h1>
+  </div>
+</div>
+
+<div class="position-relative">
+  <mat-spinner class="position-absolute centered" *ngIf="isLoadingResults"></mat-spinner>
+
+  <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+    <mat-tree-node *matTreeNodeDef="let node"
+                   class="checklist-leaf-node"
+                   [ngClass]="{'drop-above': dragNodeExpandOverArea === 'above' && dragNodeExpandOverNode === node,
+                              'drop-below': dragNodeExpandOverArea === 'below' && dragNodeExpandOverNode === node,
+                              'drop-center': dragNodeExpandOverArea === 'center' && dragNodeExpandOverNode === node}"
+                   (change)="checklistSelection.toggle(node);"
+                   draggable="true"
+                   (dragstart)="handleDragStart($event, node);"
+                   (dragover)="handleDragOver($event, node);"
+                   (drop)="handleDrop($event, node);"
+                   (dragend)="handleDragEnd($event);"
+                   matTreeNodeToggle
+                   matTreeNodePadding>
+      <button mat-icon-button disabled></button>
+      {{node.name}}
+      <button mat-icon-button (click)="deleteNode(node)"><mat-icon>delete</mat-icon></button>
+    </mat-tree-node>
+
+    <mat-tree-node *matTreeNodeDef="let node; when: hasNoContent" matTreeNodePadding>
+      <button mat-icon-button disabled></button>
+      <mat-form-field>
+        <input autocomplete="off" matInput #itemValue placeholder="Pridať novú kategóriu...">
+      </mat-form-field>
+      <button mat-button [disabled]="isStore" (click)="saveNode(node, itemValue.value)">Uložiť</button>
+    </mat-tree-node>
+
+    <mat-tree-node *matTreeNodeDef="let node; when: hasChild"
+                   [ngClass]="{'drop-above': dragNodeExpandOverArea === 'above' && dragNodeExpandOverNode === node,
+                              'drop-below': dragNodeExpandOverArea === 'below' && dragNodeExpandOverNode === node,
+                              'drop-center': dragNodeExpandOverArea === 'center' && dragNodeExpandOverNode === node}"
+                   draggable="true"
+                   (dragstart)="handleDragStart($event, node);"
+                   (dragover)="handleDragOver($event,  node);"
+                   (drop)="handleDrop($event, node);"
+                   (dragend)="handleDragEnd($event);"
+                   (change)="todoItemSelectionToggle(node)"
+                   matTreeNodePadding>
+      <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'toggle ' + node.name">
+        <mat-icon class="mat-icon-rtl-mirror">
+          {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+        </mat-icon>
+      </button>
+      {{node.name}}
+      <button mat-icon-button (click)="addNewItem(node)">
+        <mat-icon>add</mat-icon>
+      </button>
+    </mat-tree-node>
+  </mat-tree>
+</div>
+
+<span #emptyItem></span>

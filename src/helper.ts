@@ -1,30 +1,45 @@
-import {HttpParams} from '@angular/common/http';
+import {BaseFilter} from './app/core/models/filters/baseFilter';
 
-export function prepareFilter(filter) {
-  let params = new HttpParams();
-
-  for (const key in filter) {
-    if (filter.hasOwnProperty(key)) {
-      if (filter[key] !== null) {
-        params = params.set(key, filter[key].toString());
-      }
-    }
-  }
-
-  return params;
-}
+// custom date picker formats
+export const APP_DATE_FORMATS = {
+  locale: 'sk',
+  parse: {
+    dateInput: 'LL',
+  },
+  display: {
+    dateInput: 'DD.MM.YYYY',
+    monthYearLabel: 'YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'YYYY',
+  },
+};
 
 /**
  *
+ * @param objectName
  * @param filter
  */
-export function prepareStringFilter(filter): string {
+export function prepareStringFilter(objectName: string, filter: BaseFilter): string {
   let searchString: string = '';
+
+  const useAttrs = [];
+  const ands = ['state'];
+  const useContainsCase = ['title', 'name', 'contact.name'];
 
   if (filter != null) {
     for (const key in filter) {
       if (filter[key] !== null) {
-        searchString += 'priceOffer.' + key + '==' + filter[key];
+        if (!useContainsCase.includes(key)) {
+          if (typeof filter[key] === 'string') {
+            useAttrs.push(key); // if use this attr content with and
+            searchString += `${searchString === '' ? '' : ' and '}${objectName}.${key}=="${filter[key]}"`;
+          } else {
+            searchString += `${searchString === '' ? '' : ' and '}${objectName}.${key}.id==${filter[key].id}`;
+          }
+        } else {
+          searchString += `${searchString === '' ? '' : (useAttrs.some(r => ands.indexOf(r) >= 0) ? ' and ' : ' or ')}${objectName}.${key}=="${filter[key]}*"`;
+          useAttrs.pop();
+        }
       }
     }
   }
@@ -50,21 +65,6 @@ export function addDays(date, days) {
   result.setDate(result.getDate() + days);
   return result;
 }
-
-
-// custom date picker formats
-export const APP_DATE_FORMATS = {
-  locale: 'sk',
-  parse: {
-    dateInput: 'LL',
-  },
-  display: {
-    dateInput: 'DD.MM.YYYY',
-    monthYearLabel: 'YYYY',
-    dateA11yLabel: 'LL',
-    monthYearA11yLabel: 'YYYY',
-  },
-};
 
 // day in time range
 export function timeRange(): string[] {
@@ -136,4 +136,29 @@ export function slugify(str) {
  */
 export function numberFormat(value: number): string {
   return Number(value).toLocaleString('es-ES', {minimumFractionDigits: 2});
+}
+
+/**
+ * Year diff
+ * @param d1
+ * @param d2
+ */
+export function yearsDiff(d1, d2) {
+  const date1 = new Date(d1);
+  const date2 = new Date(d2);
+
+  return date2.getFullYear() - date1.getFullYear();
+}
+
+/**
+ * Dif twp month
+ * @param d1
+ * @param d2
+ */
+export function monthDiff(d1: Date, d2: Date) {
+  const date1 = new Date(d1);
+  const date2 = new Date(d2);
+  const years = yearsDiff(d1, d2);
+
+  return (years * 12) + (date2.getMonth() - date1.getMonth());
 }

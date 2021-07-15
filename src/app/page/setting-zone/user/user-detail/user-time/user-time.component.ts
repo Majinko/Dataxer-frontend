@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {TimeService} from '../../../../../core/services/time.service';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-user-time',
@@ -7,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserTimeComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private timeService: TimeService,
+    private route: ActivatedRoute
+  ) {
+  }
 
   ngOnInit(): void {
+    this.timeService.getAllByUser(this.route.parent.snapshot.paramMap.get('uid')).subscribe((t) => {
+      console.log(t);
+    });
   }
 
 }

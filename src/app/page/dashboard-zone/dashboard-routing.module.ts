@@ -26,6 +26,18 @@ const routes: Routes = [
         loadChildren: () => import('./task/task.module').then(m => m.TaskModule),
       },
       {
+        path: 'todo',
+        //canActivate: [NgxPermissionsGuard],
+        data: {
+          godButtonTitle: 'Nová úloha',
+          gotButtonRouteLink: '/todo/create',
+          permissions: {
+            only: 'Task'
+          }
+        },
+        loadChildren: () => import('./todo/todo.module').then(m => m.TodoModule),
+      },
+      {
         path: 'contact',
         //canActivate: [NgxPermissionsGuard],
         data: {

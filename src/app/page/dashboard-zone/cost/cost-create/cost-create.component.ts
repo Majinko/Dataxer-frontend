@@ -115,7 +115,7 @@ export class CostCreateComponent implements OnInit {
       return;
     }
 
-    this.costService.store(this.formGroup.value, this.uploadHelper.files).subscribe(() => {
+    this.costService.storeWithFiles(this.formGroup.value, this.uploadHelper.files).subscribe(() => {
       this.router.navigate(['/cost']).then(() => this.messageService.add('Náklad bol pridaný'));
     });
   }

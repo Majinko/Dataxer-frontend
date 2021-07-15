@@ -19,6 +19,10 @@ const routes: Routes = [{
       component: ItemCreateComponent
     },
     {
+      path: 'duplicate/:original_id',
+      component: ItemCreateComponent
+    },
+    {
       path: 'edit/:item_id',
       component: ItemEditComponent
     },

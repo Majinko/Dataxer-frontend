@@ -1,4 +1,4 @@
-<div class="table-wrap no-border mt-4" *ngIf="userOverviewPrice.length">
+<div class="table-wrap no-border mt-4" *ngIf="userOverviewPrice && userOverviewPrice.length">
   <div class="position-relative">
     <table mat-table [dataSource]="userOverviewPrice" class="table-hover table-data table-borderless w-100" matSort matSortDisableClear matSortDirection="desc">
       <ng-container matColumnDef="name">

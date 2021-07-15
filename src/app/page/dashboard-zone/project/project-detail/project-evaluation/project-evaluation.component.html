@@ -1,7 +1,83 @@
-<div class="row mt-3">
+<div class="row mt-3" *ngIf="countLoads === 4;">
   <div class="col-12">
     <div class="box p-3">
       <h1>Vyhodnotenie projektu</h1>
+
+      <div class="row">
+        <div class="col-md-4">
+          <p class="mb-0">Zisk:</p>
+          <h3 class="text-dark"><b>{{(projectStats.profit | currency:'EUR':'symbol') || '-'}}</b></h3>
+        </div>
+
+        <div class="col-md-4">
+          <p class="mb-0">Zisk osobohodina:</p>
+          <h3 class="text-dark">
+            <b>{{((projectStats.timeStamp > 0 ? projectStats.profit / (projectStats.timeStamp / 60 / 60) : 0)| currency:'EUR':'symbol') || '-'}}</b>
+          </h3>
+        </div>
+
+        <div class="col-md-4">
+          <p class="mb-0">Zisk z obratu (marža):</p>
+          <h3 class="text-dark">
+            <b>{{(((projectStats.profit / ((projectStats.sumCost ? projectStats.sumCost : 1) + projectManHours.sumPriceBrutto))) * 100).toFixed(2) || '-'}} %</b></h3>
+        </div>
+      </div>
     </div>
+  </div>
+
+    <div class="col-12 mt-3">
+      <mat-accordion>
+        <mat-expansion-panel class="bg-box">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <div class="w-100 justify-content-between">
+                <b>Štatistika zákazky: {{projectStats.profit | currency:'EUR':'symbol'}}</b>
+              </div>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+
+          <mat-selection-list>
+            <mat-list-item>
+              <div class="d-flex justify-content-between" matLine>
+                <span>Začiatok fázy:</span>
+                <span>{{projectStats.start | date:'dd.MM.y' || '-'}}</span>
+              </div>
+            </mat-list-item>
+            <mat-list-item>
+              <div class="d-flex justify-content-between" matLine>
+                <span>Koniec fázy:</span>
+                <span>{{projectStats.end | date:'dd.MM.y' || '-'}}</span>
+              </div>
+            </mat-list-item>
+
+            <mat-list-item>
+              <div class="d-flex justify-content-between" matLine>
+                <span>Trvanie v mesiacoch:</span>
+                <span>{{projectStats.countMonth}}</span>
+              </div>
+            </mat-list-item>
+
+            <mat-list-item>
+              <div class="d-flex justify-content-between" matLine>
+                <span>Počet človekohodín:</span>
+                <span>{{projectStats.timeStamp | timeFromTimestamp}} h</span>
+              </div>
+            </mat-list-item>
+
+            <mat-list-item>
+              <div class="d-flex justify-content-between" matLine>
+                <span>Priemerný počet osobohodín za mesiac:</span>
+                <span>{{projectStats.timeStamp / projectStats.countUser | timeFromTimestamp}} h</span>
+              </div>
+            </mat-list-item>
+          </mat-selection-list>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+</div>
+
+<div class="row mt-3" *ngIf="countLoads != 4;">
+  <div class="col-12 d-flex justify-content-center">
+    <mat-spinner></mat-spinner>
   </div>
 </div>

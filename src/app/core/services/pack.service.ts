@@ -39,6 +39,6 @@ export class PackService {
       return of([]);
     }
 
-    return this.http.get<Pack[]>(`${environment.baseUrl}/pack/search/${q}`);
+    return this.http.get<Pack[]>(`${environment.baseUrl}/pack/search?q=${q}`);
   }
 }

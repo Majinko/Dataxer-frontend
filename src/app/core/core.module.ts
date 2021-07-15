@@ -27,7 +27,7 @@ import {AdHostDirective} from './directives/ad-host.directive';
     TimeFromTimestampPipe,
     StrftimePipe,
     FormatPricePipe,
-    AdHostDirective
+    AdHostDirective,
   ],
   exports: [
     AdHostDirective,

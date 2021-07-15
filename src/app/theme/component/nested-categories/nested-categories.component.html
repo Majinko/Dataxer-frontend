@@ -1,0 +1,34 @@
+<ng-template #loading class="w-100">
+  <div class="w-100 d-flex justify-content-center">
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-template>
+
+<mat-accordion *ngIf="!isLoadingResults; else loading">
+  <mat-expansion-panel expanded="true">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Vybrať kategórie
+      </mat-panel-title>
+      <mat-panel-description>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+      <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle matTreeNodePadding>
+        <a mat-icon-button disabled></a>
+        <mat-checkbox class="checklist-leaf-node" [checked]="checklistSelection.isSelected(node)" (change)="todoLeafItemSelectionToggle(node)">{{node.name}}</mat-checkbox>
+      </mat-tree-node>
+
+      <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
+        <a mat-icon-button matTreeNodeToggle [attr.aria-label]="'Toggle ' + node">
+          <mat-icon class="mat-icon-rtl-mirror">
+            {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+          </mat-icon>
+        </a>
+        <mat-checkbox [checked]="descendantsAllSelected(node)"
+                      [indeterminate]="descendantsPartiallySelected(node)"
+                      (change)="todoItemSelectionToggle(node)">{{node.name}}</mat-checkbox>
+      </mat-tree-node>
+    </mat-tree>
+  </mat-expansion-panel>
+</mat-accordion>

@@ -88,15 +88,20 @@
         <app-document-table routerUrl="cost" [documents]="noPayedCost" [displayedColumns]="['title', 'variable', 'createdDate', 'dueDate', 'totalPrice']"></app-document-table>
       </mat-expansion-panel>
 
-      <mat-expansion-panel class="bg-box" *ngIf="projectManHours">
+      <mat-expansion-panel class="bg-box">
         <mat-expansion-panel-header>
           <mat-panel-title>
             <div class="w-100 justify-content-between">
-              <b>Človekohodiny: <span class="mr-3">Summa netto {{projectManHours.sumPriceNetto | formatPrice}} &euro; </span><span>Summa brutto {{projectManHours.sumPriceBrutto | formatPrice}} &euro;</span></b>
+              <b>Človekohodiny: <span class="mr-3">Summa netto {{projectManHours && projectManHours.sumPriceNetto | formatPrice}} &euro; </span><span>Summa brutto {{ projectManHours && projectManHours.sumPriceBrutto | formatPrice}} &euro;</span></b>
             </div>
           </mat-panel-title>
         </mat-expansion-panel-header>
-        <app-project-user-evaluation-table [userOverviewPrice]="projectManHours.userTimePriceOverviewList"></app-project-user-evaluation-table>
+        <ng-template #noProjectManHorus>
+          <div class="loading-shade">
+            <mat-spinner></mat-spinner>
+          </div>
+        </ng-template>
+        <app-project-user-evaluation-table *ngIf="projectManHours; else noProjectManHorus" [userOverviewPrice]="projectManHours.userTimePriceOverviewList"></app-project-user-evaluation-table>
       </mat-expansion-panel>
     </mat-accordion>
   </div>

@@ -45,6 +45,17 @@
             matTooltip="Delete item">
             <mat-icon class="text-theme">delete</mat-icon>
           </button>
+
+          <button onclick="event.stopPropagation();" mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+
+          <mat-menu #menu="matMenu" class="menu-not-rounded">
+            <button mat-menu-item [routerLink]="['/item/duplicate/', element.id]">
+              <mat-icon>content_copy</mat-icon>
+              <span>Duplikovať položku</span>
+            </button>
+          </mat-menu>
         </div>
       </td>
     </ng-container>

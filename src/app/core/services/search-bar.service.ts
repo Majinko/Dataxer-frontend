@@ -5,7 +5,8 @@ import {Subject} from 'rxjs';
   providedIn: 'root'
 })
 export class SearchBarService {
-  filterValue = '';
+  filterValue: string = '';
+  showBar: boolean = true;
 
   appSearch = new Subject<string>();
 

@@ -6,6 +6,9 @@ import {merge} from 'rxjs';
 import {map, startWith, switchMap} from 'rxjs/operators';
 import {MessageService} from '../../../../../core/services/message.service';
 import {sum} from '../../../../../../helper';
+import {MatDialog} from '@angular/material/dialog';
+import {ConfirmDialogComponent} from '../../../../../theme/component/confirm-dialog/confirm-dialog.component';
+import {DocumentFilter} from '../../../../../core/models/filters/document-filter';
 
 @Component({
   selector: 'app-time-table',
@@ -26,8 +29,9 @@ export class TimeTableComponent implements OnInit {
   endDate: string = moment().clone().endOf('month').format('YYYY-MM-DD');
 
   constructor(
-    private timeService: TimeService,
-    private messageService: MessageService
+    public timeService: TimeService,
+    private messageService: MessageService,
+    public dialog: MatDialog
   ) {
   }
 
@@ -58,15 +62,28 @@ export class TimeTableComponent implements OnInit {
       .subscribe(data => (this.times = data));
   }
 
-
   destroy(id: number) {
-    this.timeService.destroy(id).subscribe(() => {
-      this.messageService.add('Čas bol zmazaný');
-
-      this.times = this.times.filter(t => t.id !== id);
-
-      this.totalTime = sum(this.times, 'time');
-      this.totalPrice = sum(this.times, 'price');
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      maxWidth: '400px',
     });
+
+    dialogRef.afterClosed().subscribe(dialogResult => {
+      if (dialogResult === true) {
+        this.timeService.destroy(id).subscribe(() => {
+          this.messageService.add('Čas bol zmazaný');
+
+          this.times = this.times.filter(t => t.id !== id);
+
+          this.totalTime = sum(this.times, 'time');
+          this.totalPrice = sum(this.times, 'price');
+        });
+      }
+    });
+  }
+
+  filtering(event: DocumentFilter) {
+    this.timeService.filter = event;
+
+    this.paginate();
   }
 }

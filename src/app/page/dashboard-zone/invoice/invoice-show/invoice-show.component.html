@@ -35,6 +35,10 @@
             <button mat-menu-item (click)="pdf(invoice.id, invoice.title)">
               <span>Stiahnuť PDF</span>
             </button>
+
+            <button mat-menu-item (click)="sendEmail(invoice)">
+              <span>Poslať na email</span>
+            </button>
           </mat-menu>
         </div>
       </div>
@@ -153,16 +157,16 @@
 
             </td>
             <td class="text-right font-weight-bold">
-              {{pack.price}} &euro;
+              {{pack.price | currency:'EUR':'symbol'}}
             </td>
             <td class="text-center font-weight-bold" style="white-space: nowrap">
               {{pack.tax}} %
             </td>
             <td class="text-right font-weight-bold">
-              {{pack.totalPrice}} &euro;
+              {{pack.totalPrice | currency:'EUR':'symbol'}}
             </td>
             <td class="text-right font-weight-bold">
-              {{pack.totalPrice}} &euro;
+              {{pack.totalPrice | currency:'EUR':'symbol'}}
             </td>
           </tr>
 
@@ -179,16 +183,16 @@
                   {{!pack.customPrice ? item.unit : ''}}
                 </td>
                 <td class="text-right">
-                  {{!pack.customPrice ? (item.price + ' &euro;') : ''}}
+                  {{!pack.customPrice ? (item.price | currency:'EUR':'symbol') : ''}}
                 </td>
                 <td class="text-center" style="white-space: nowrap">
                   {{!pack.customPrice ? (item.tax + ' %') : ''}}
                 </td>
                 <td class="text-right">
-                  {{!pack.customPrice ? (item.price | addPercent: item.tax + ' &euro;') : ''}}
+                  {{!pack.customPrice ? (item.price | addPercent: item.tax | currency:'EUR':'symbol') : ''}}
                 </td>
                 <td class="text-right">
-                  {{!pack.customPrice ? (item.totalPrice + ' &euro;') : ''}}
+                  {{!pack.customPrice ? (item.totalPrice | currency:'EUR':'symbol') : ''}}
                 </td>
               </tr>
               <tr class="table-item" *ngIf="item.discount > 0">
@@ -196,7 +200,7 @@
                   Zľava {{item.discount}} %
                 </td>
                 <td class="text-right">
-                  {{+(item.price | removePercent: item.discount) - +item.price}} &euro;
+                  {{+(item.price | removePercent: item.discount) - +item.price | currency:'EUR':'symbol'}}
                 </td>
                 <td></td>
                 <td
@@ -227,7 +231,7 @@
               <p>Zľava {{invoice.discount}} %</p>
             </td>
             <td class="text-right">
-              <p>{{invoice.discount > 0 ? '-' : ''}}{{invoice.discount > 0 && invoice.discount != null ? ((invoice.totalPrice | addPercent: invoice.discount) - invoice.totalPrice).toFixed(2) : 0}} &euro;</p>
+              <p>{{invoice.discount > 0 ? '-' : ''}}{{invoice.discount > 0 && invoice.discount != null ? ((invoice.totalPrice | addPercent: invoice.discount) - invoice.totalPrice).toFixed(2)  : 0 | currency:'EUR':'symbol'}} &euro;</p>
             </td>
           </tr>
 
@@ -236,7 +240,7 @@
               <p>Celkom bez DPH:</p>
             </td>
             <td class="text-right">
-              <p>{{invoice.price | removePercent: invoice.discount}} &euro;</p>
+              <p>{{invoice.price | removePercent: invoice.discount | currency:'EUR':'symbol'}}</p>
             </td>
           </tr>
 
@@ -245,7 +249,7 @@
               <p>DPH {{tax.tax}} %:</p>
             </td>
             <td class="text-right">
-              <p>{{tax.price | removePercent: invoice.discount}} &euro;</p>
+              <p>{{tax.price | removePercent: invoice.discount | currency:'EUR':'symbol'}}</p>
             </td>
           </tr>
 

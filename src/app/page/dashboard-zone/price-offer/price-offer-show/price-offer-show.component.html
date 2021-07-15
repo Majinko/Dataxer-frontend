@@ -135,16 +135,16 @@
 
             </td>
             <td class="text-right font-weight-bold">
-              {{pack.price}} &euro;
+              {{pack.price | currency:'EUR':'symbol'}}
             </td>
             <td class="text-center font-weight-bold" style="white-space: nowrap">
               {{pack.tax}} %
             </td>
             <td class="text-right font-weight-bold">
-              {{pack.totalPrice}} &euro;
+              {{pack.totalPrice | currency:'EUR':'symbol'}}
             </td>
             <td class="text-right font-weight-bold">
-              {{pack.totalPrice}} &euro;
+              {{pack.totalPrice | currency:'EUR':'symbol'}}
             </td>
           </tr>
 
@@ -178,11 +178,11 @@
                   Zľava {{item.discount}} %
                 </td>
                 <td class="text-right">
-                  {{+(item.price | removePercent: item.discount) - +item.price}} &euro;
+                  {{+(item.price | removePercent: item.discount) - +item.price | currency:'EUR':'symbol'}}
                 </td>
                 <td></td>
-                <td class="text-right">{{(+(item.totalPrice | removePercent: item.discount) - +item.totalPrice) | number:'1.0-2'}} &euro;</td>
-                <td class="text-right">{{(+(item.totalPrice | removePercent: item.discount) - +item.totalPrice) | number:'1.0-2'}} &euro;</td>
+                <td class="text-right">{{(+(item.totalPrice | removePercent: item.discount) - +item.totalPrice) | number:'1.0-2' | currency:'EUR':'symbol'}}</td>
+                <td class="text-right">{{(+(item.totalPrice | removePercent: item.discount) - +item.totalPrice) | number:'1.0-2' | currency:'EUR':'symbol'}}</td>
               </tr>
             </ng-container>
           </ng-template>
@@ -200,10 +200,10 @@
         <table class="table-summary no-bg-change mt-4 pr-3 w-100">
           <tr class="row-summary">
             <td class="text-right">
-              <p>Zľava {{priceOffer.discount}} %</p>
+              <p>Zľava {{priceOffer.discount ? priceOffer.discount : 0}} %</p>
             </td>
             <td class="text-right">
-              <p>{{priceOffer.discount > 0 ? '-' : ''}}{{((priceOffer.totalPrice | addPercent: priceOffer.discount) - priceOffer.totalPrice).toFixed(2)}} &euro;</p>
+              <p>{{priceOffer.discount > 0 ? '-' : ''}}{{((priceOffer.totalPrice | addPercent: priceOffer.discount) - priceOffer.totalPrice).toFixed(2) | currency:'EUR':'symbol'}}</p>
             </td>
           </tr>
 
@@ -212,7 +212,7 @@
               <p>Celkom bez DPH:</p>
             </td>
             <td class="text-right">
-              <p>{{priceOffer.price | removePercent: priceOffer.discount}} &euro;</p>
+              <p>{{priceOffer.price | removePercent: priceOffer.discount | currency:'EUR':'symbol'}}</p>
             </td>
           </tr>
 
@@ -221,7 +221,7 @@
               <p>DPH {{tax.tax}} %:</p>
             </td>
             <td class="text-right">
-              <p>{{tax.price | removePercent: priceOffer.discount}} &euro;</p>
+              <p>{{tax.price | removePercent: priceOffer.discount | currency:'EUR':'symbol'}}</p>
             </td>
           </tr>
 
@@ -230,7 +230,7 @@
               <h1 class="text-theme font-weight-bold">Celkom s DPH:</h1>
             </td>
             <td class="text-right">
-              <h1 class="text-theme font-weight-bold">{{priceOffer.totalPrice | removePercent: priceOffer.discount}} &euro;</h1>
+              <h1 class="text-theme font-weight-bold">{{priceOffer.totalPrice  | removePercent: priceOffer.discount | currency:'EUR':'symbol'}}</h1>
             </td>
           </tr>
         </table>

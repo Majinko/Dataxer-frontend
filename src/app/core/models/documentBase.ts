@@ -1,2 +1,3 @@
-export interface DocumentBase {
+export class DocumentBase {
+  id: number;
 }
