@@ -27,7 +27,7 @@ export class PriceOfferService {
   paginate(page: number, size: number): Observable<Paginate<PriceOffer>> {
     const filter = prepareStringFilter(this.filter);
 
-    return this.http.get<Paginate<PriceOffer>>(`${environment.baseUrl}/price-offer/paginate?page=${page}&size=${size}${filter !== '' ? '&filters=' + filter : ''}`);
+    return this.http.get<Paginate<PriceOffer>>(`${environment.baseUrl}/priceOffer/paginate?page=${page}&size=${size}${filter !== '' ? '&filters=' + filter : ''}`);
   }
 
   destroy(id: number): Observable<void> {
