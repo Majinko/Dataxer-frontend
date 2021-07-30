@@ -11,136 +11,155 @@
     </div>
   </div>
 
-  <div class="row align-items-center">
-    <div class="col-md-3 col-lg-2 pr-lg-0">
-      <div class="cursor-pointer jsFile d-flex justify-content-center d-md-block mb-4 mb-md-0">
-        <ngx-avatar size="100" textSizeRatio="5" name="L O G O"></ngx-avatar>
-        <input type="file" name='file' class="d-none">
+  <div class="row">
+    <div class="col-md-9">
+      <div class="row">
+        <div class="col-md-4">
+          <mat-form-field class="form-group w-100">
+            <input matInput placeholder="Názov spoločnosti" formControlName="name" required>
+            <mat-error *ngIf="f.name.errors">Názov spoločnosti je <strong>požadovaný.</strong></mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-4">
+          <mat-form-field class="form-group w-100">
+            <mat-label>Právna forma</mat-label>
+            <mat-select formControlName="legalForm" required>
+              <mat-option *ngFor="let legalForm of legalForms" [value]="legalForm.name">
+                {{legalForm.name}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="f.legalForm.errors">Právna forma <strong>požadovaná.</strong></mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-4">
+          <mat-form-field class="form-group w-100">
+            <mat-label>Typ firmy:</mat-label>
+            <mat-select formControlName="companyTaxType" required>
+              <mat-option value="NO_TAX_PAYER">Neplatiteľ DPH</mat-option>
+              <mat-option value="TAX_PAYER">Platiteľ DPH</mat-option>
+            </mat-select>
+            <mat-error *ngIf="f.companyTaxType.errors">Typ firmy <strong>požadovaný.</strong></mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row mt-4">
+        <div class="col-md-3">
+          <mat-form-field class="form-group w-100">
+            <input matInput placeholder="Ulica" formControlName="street">
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-3">
+          <mat-form-field class="form-group w-100">
+            <input matInput placeholder="Mesto" formControlName="city">
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-3">
+          <mat-form-field class="form-group w-100">
+            <input type="number" matInput placeholder="PSČ" formControlName="postalCode">
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-3">
+          <ng-select [items]="countries"
+                     #select
+                     bindLabel="country"
+                     bindValue="country"
+                     placeholder="Krajina"
+                     formControlName="country">
+            <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+              <div><span>{{item.country}}</span></div>
+            </ng-template>
+          </ng-select>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-4">
+          <mat-form-field class="form-group w-100">
+            <input matInput placeholder="E-mail" formControlName="email">
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-4">
+          <mat-form-field class="form-group w-100">
+            <input matInput placeholder="Telefón" formControlName="phone">
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-4">
+          <mat-form-field class="form-group w-100">
+            <input matInput placeholder="Web" formControlName="web">
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <h2 class="text-theme border-bottom-2 pb-2 mb-4">Fakturačné údaje</h2>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-4">
+          <mat-form-field class="form-group w-100">
+            <input matInput placeholder="IČO" formControlName="cin">
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-4">
+          <mat-form-field class="form-group w-100">
+            <input matInput placeholder="DIČ" formControlName="tin">
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-4">
+          <mat-form-field class="form-group w-100">
+            <input matInput placeholder="IČ DPH" formControlName="vatin">
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <h2 class="text-theme border-bottom-2 pb-2 mb-4">Platobné údaje</h2>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <mat-form-field class="form-group w-100">
+            <input matInput placeholder="IBAN" formControlName="iban">
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12 text-right">
+          <button routerLink="/setting/company" mat-stroked-button class="btn-icon btn-theme-stroked mr-3">
+            <mat-icon>cancel</mat-icon>
+            Zrušiť
+          </button>
+          <button mat-flat-button class="btn-icon btn-theme">
+            <mat-icon>save</mat-icon>
+            Uložiť
+          </button>
+        </div>
       </div>
     </div>
-    <div class="col-md-4">
-      <mat-form-field class="form-group w-100">
-        <input matInput placeholder="Názov spoločnosti" formControlName="name" required>
-        <mat-error *ngIf="f.name.errors">Názov spoločnosti je <strong>požadovaný.</strong></mat-error>
-      </mat-form-field>
-    </div>
-
-    <div class="col-md-6">
-      <mat-form-field class="form-group w-100">
-        <mat-label>Právna forma</mat-label>
-        <mat-select formControlName="legalForm" required>
-          <mat-option *ngFor="let legalForm of legalForms" [value]="legalForm.name">
-            {{legalForm.name}}
-          </mat-option>
-        </mat-select>
-        <mat-error *ngIf="f.legalForm.errors">Právna forma <strong>požadovaná.</strong></mat-error>
-      </mat-form-field>
-    </div>
-  </div>
-
-  <div class="row mt-4">
-    <div class="col-md-3">
-      <mat-form-field class="form-group w-100">
-        <input matInput placeholder="Ulica" formControlName="street">
-      </mat-form-field>
-    </div>
 
     <div class="col-md-3">
-      <mat-form-field class="form-group w-100">
-        <input matInput placeholder="Mesto" formControlName="city">
-      </mat-form-field>
-    </div>
+      <h3 class="text-dark mb-1">Logo</h3>
+      <app-photo-uploader [formGroup]="formGroup" nameAttr="logoUrl" path="company"></app-photo-uploader>
 
-    <div class="col-md-3">
-      <mat-form-field class="form-group w-100">
-        <input type="number" matInput placeholder="PSČ" formControlName="postalCode">
-      </mat-form-field>
-    </div>
+      <h3 class="text-dark mb-1 mt-4">Pečiatka/Podpis</h3>
+      <app-photo-uploader [formGroup]="formGroup" nameAttr="signatureUrl" path="company"></app-photo-uploader>
 
-    <div class="col-md-3">
-      <ng-select [items]="countries"
-                 #select
-                 bindLabel="country"
-                 bindValue="country"
-                 placeholder="Krajina"
-                 formControlName="country">
-        <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
-          <div><span>{{item.country}}</span></div>
-        </ng-template>
-      </ng-select>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-md-4">
-      <mat-form-field class="form-group w-100">
-        <input matInput placeholder="E-mail" formControlName="email">
-      </mat-form-field>
-    </div>
-
-    <div class="col-md-4">
-      <mat-form-field class="form-group w-100">
-        <input matInput placeholder="Telefón" formControlName="phone">
-      </mat-form-field>
-    </div>
-
-    <div class="col-md-4">
-      <mat-form-field class="form-group w-100">
-        <input matInput placeholder="Web" formControlName="web">
-      </mat-form-field>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-12">
-      <h2 class="text-theme border-bottom-2 pb-2 mb-4">Fakturačné údaje</h2>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-md-4">
-      <mat-form-field class="form-group w-100">
-        <input matInput placeholder="IČO" formControlName="cin">
-      </mat-form-field>
-    </div>
-
-    <div class="col-md-4">
-      <mat-form-field class="form-group w-100">
-        <input matInput placeholder="DIČ" formControlName="tin">
-      </mat-form-field>
-    </div>
-
-    <div class="col-md-4">
-      <mat-form-field class="form-group w-100">
-        <input matInput placeholder="IČ DPH" formControlName="vatin">
-      </mat-form-field>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-12">
-      <h2 class="text-theme border-bottom-2 pb-2 mb-4">Platobné údaje</h2>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-md-12">
-      <mat-form-field class="form-group w-100">
-        <input matInput placeholder="IBAN" formControlName="iban">
-      </mat-form-field>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-md-12 text-right">
-      <button routerLink="/setting/company" mat-stroked-button class="btn-icon btn-theme-stroked mr-3">
-        <mat-icon>cancel</mat-icon>
-        Zrušiť
-      </button>
-      <button mat-flat-button class="btn-icon btn-theme">
-        <mat-icon>save</mat-icon>
-        Uložiť
-      </button>
+      <p class="text-center mt-3">Podporované formáty obrázku sú: .jpg. .png, .gif. Maximálna veľkosť obrázka je 2MB.</p>
     </div>
   </div>
 </form>

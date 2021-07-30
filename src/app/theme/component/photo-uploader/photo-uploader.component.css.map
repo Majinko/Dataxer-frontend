@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAAA,SAAS;EACP,KAAK,EAAE,IAAI;EACX,MAAM,EAAE,KAAK;EACb,OAAO,EAAE,IAAI;EAEb,4BAAkB;IAChB,OAAO,EAAC,IAAI",
+"sources": ["photo-uploader.component.scss"],
+"names": [],
+"file": "photo-uploader.component.css"
+}

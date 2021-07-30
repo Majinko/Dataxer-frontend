@@ -9,16 +9,21 @@ import {TaskRoutingModule} from './task-routing.module';
 import {MaterialModule} from '../../../theme/modules/material.module';
 import {ReactiveFormsModule} from '@angular/forms';
 import {NgSelectModule} from '@ng-select/ng-select';
+import { TaskShowComponent } from './task-show/task-show.component';
+import {ThemeModule} from '../../../theme/theme.module';
+import {AvatarModule} from 'ngx-avatar';
 
 
 @NgModule({
-  declarations: [TaskComponent, TaskIndexComponent, TaskTableComponent, TaskCreateComponent, TaskEditComponent],
+  declarations: [TaskComponent, TaskIndexComponent, TaskTableComponent, TaskCreateComponent, TaskEditComponent, TaskShowComponent],
   imports: [
     CommonModule,
     TaskRoutingModule,
     MaterialModule,
     ReactiveFormsModule,
     NgSelectModule,
+    ThemeModule,
+    AvatarModule
   ]
 })
 export class TaskModule {

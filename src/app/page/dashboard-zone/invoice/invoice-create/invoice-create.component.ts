@@ -45,7 +45,7 @@ export class InvoiceCreateComponent implements OnInit {
     private datePipe: DatePipe,
     private formBuilder: FormBuilder,
     private userService: UserService,
-    private companyService: CompanyService,
+    public companyService: CompanyService,
     private messageService: MessageService,
     private router: Router,
     public route: ActivatedRoute,
@@ -68,6 +68,7 @@ export class InvoiceCreateComponent implements OnInit {
       this.prepareInvoiceData();
     });
   }
+
 
   // prepare form
   private prepareForm() {

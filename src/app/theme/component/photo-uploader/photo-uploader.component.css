@@ -1,0 +1,8 @@
+.dropzone {
+  width: 100%;
+  height: 120px;
+  padding: 15px; }
+  .dropzone input[type="file"] {
+    display: none; }
+
+/*# sourceMappingURL=photo-uploader.component.css.map */

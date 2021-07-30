@@ -4,9 +4,9 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Contact} from '../../../../core/models/contact';
 import {UploadService} from '../../../../core/services/upload.service';
-import {SlovakiaDigital} from "../../../../core/models/slovakiaDigital";
-import {MessageService} from "../../../../core/services/message.service";
-import {COUNTRIES} from "../../../../core/data/countries";
+import {SlovakiaDigital} from '../../../../core/models/slovakiaDigital';
+import {MessageService} from '../../../../core/services/message.service';
+import {COUNTRIES} from '../../../../core/data/countries';
 
 @Component({
   selector: 'app-edit',
@@ -76,7 +76,7 @@ export class ContactEditComponent implements OnInit {
     }
 
     this.contactService.update(contactFormData).subscribe(() => {
-      this.messageService.add("Kontakt bol aktualizovaný");
+      this.messageService.add('Kontakt bol aktualizovaný');
     });
   }
 
@@ -90,6 +90,6 @@ export class ContactEditComponent implements OnInit {
       cin: firm.cin,
       tin: firm.tin,
       vatin: firm.vatin
-    })
+    });
   }
 }

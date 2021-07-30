@@ -62,19 +62,6 @@ export class ContactCreateComponent implements OnInit {
     );
   }
 
-  onFileChange(event) {
-    if (event.target.files && event.target.files.length) {
-      this.uploadService.pushUpload('contact/', event.target.files[0]).then(ref => {
-        ref.ref.getDownloadURL().then((url) => {
-          this.contactForm.patchValue({
-            photoUrl: url
-          });
-        });
-      });
-    }
-  }
-
-
   setFirmData(firm: SlovakiaDigital) {
     this.contactForm.patchValue({
       name: firm.name,

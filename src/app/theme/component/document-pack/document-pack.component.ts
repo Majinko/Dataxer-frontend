@@ -6,6 +6,7 @@ import {Pack} from '../../../core/models/pack';
 import {PackService} from '../../../core/services/pack.service';
 import {Item} from '../../../core/models/item';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
+import {CompanyService} from '../../../core/services/company.service';
 
 @Component({
   selector: 'app-document-pack',
@@ -14,11 +15,13 @@ import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 })
 export class DocumentPackComponent implements OnInit {
   units = UNITS;
+
   @Input() packs: Pack[];
   @Input() documentHelper: DocumentHelper;
   @Input() formGroup: FormGroup;
 
   constructor(
+    private companyService: CompanyService,
     private formBuilder: FormBuilder,
     private packService: PackService
   ) {
@@ -41,7 +44,7 @@ export class DocumentPackComponent implements OnInit {
       title: null,
       customPrice: false,
       price: 0,
-      tax: 20,
+      tax: this.companyService.company.isTaxPayer ? 20 : 0,
       totalPrice: 0,
       packItems: this.formBuilder.array([this.createItem()])
     });
@@ -56,7 +59,7 @@ export class DocumentPackComponent implements OnInit {
       unit: this.units[0].unit,
       discount: 0,
       price: 0,
-      tax: 20,
+      tax: this.companyService.company.isTaxPayer ? 20 : 0,
       totalPrice: 0,
     });
   }

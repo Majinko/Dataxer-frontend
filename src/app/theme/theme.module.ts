@@ -32,27 +32,28 @@ import {DocumentRelationDialogComponent} from './component/document-relation/com
 import {MenuTabComponent} from './component/menu-tab/menu-tab.component';
 import {NgxPermissionsModule} from 'ngx-permissions';
 import {NestedCategoriesComponent} from './component/nested-categories/nested-categories.component';
-import { GlobalFilterComponent } from './component/global-filter/global-filter.component';
+import {GlobalFilterComponent} from './component/global-filter/global-filter.component';
 import {TranslateModule} from '@ngx-translate/core';
-import { DocumentEmailDialogComponent } from './component/document-email-dialog/document-email-dialog.component';
+import {DocumentEmailDialogComponent} from './component/document-email-dialog/document-email-dialog.component';
 import {AngularEditorModule} from '@kolkov/angular-editor';
-import { ConfirmDialogComponent } from './component/confirm-dialog/confirm-dialog.component';
+import {ConfirmDialogComponent} from './component/confirm-dialog/confirm-dialog.component';
+import {PhotoUploaderComponent} from './component/photo-uploader/photo-uploader.component';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        RouterModule,
-        MaterialModule,
-        CoreModule,
-        AvatarModule,
-        NgSelectModule,
-        FormsModule,
-        ReactiveFormsModule,
-        NgxFilesizeModule,
-        NgxPermissionsModule,
-        TranslateModule,
-        AngularEditorModule,
-    ],
+  imports: [
+    CommonModule,
+    RouterModule,
+    MaterialModule,
+    CoreModule,
+    AvatarModule,
+    NgSelectModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NgxFilesizeModule,
+    NgxPermissionsModule,
+    TranslateModule,
+    AngularEditorModule,
+  ],
   declarations: [
     DrawerComponent,
     ToolbarComponent,
@@ -80,7 +81,8 @@ import { ConfirmDialogComponent } from './component/confirm-dialog/confirm-dialo
     NestedCategoriesComponent,
     GlobalFilterComponent,
     DocumentEmailDialogComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    PhotoUploaderComponent
   ],
   exports: [
     DrawerComponent,
@@ -101,6 +103,7 @@ import { ConfirmDialogComponent } from './component/confirm-dialog/confirm-dialo
     MenuTabComponent,
     NestedCategoriesComponent,
     GlobalFilterComponent,
+    PhotoUploaderComponent,
   ]
 })
 export class ThemeModule {

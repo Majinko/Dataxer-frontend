@@ -1,0 +1,34 @@
+<div *ngIf="!isAvatar; else avatarUpload">
+  <div class="dropzone position-relative mb-2 d-flex justify-content-center cursor-pointer" appFileDragDrop (filesChangeEmmit)="onFileChange($event)" *ngIf="!isUploaded && !formGroup.get(nameAttr).value; else uploadBar">
+    <label for="file" class="d-flex align-items-center justify-content-center cursor-pointer">
+      <mat-icon class="mr-3">upload</mat-icon>
+      Select your file
+      or Drop it here!
+    </label>
+    <input id="file" type="file" accept="image/png, image/jpeg, image/jpg, image/git" (change)="onFileChange($event.target.files)">
+  </div>
+
+  <div class="preview d-flex align-items-center justify-content-between" *ngIf="formGroup.get(nameAttr).value">
+    <img [src]="formGroup.get(nameAttr).value">
+
+    <button
+      (click)="resetValue()"
+      mat-icon-button
+      matTooltip="Delete photo">
+      <mat-icon class="text-danger">delete</mat-icon>
+    </button>
+  </div>
+</div>
+
+<ng-template #avatarUpload>
+  <div class="avatar-photo-edit cursor-pointer jsFile" matTooltip="Nastaviť fotku kontaktu" *ngIf="!isUploaded; else uploadBar">
+    <ngx-avatar size="100%" [src]="formGroup.get(nameAttr).value ? formGroup.get(nameAttr).value : 'https://ssl.gstatic.com/s2/oz/images/sge/grey_silhouette.png'" ></ngx-avatar>
+    <input type="file" name='file' (change)="onFileChange($event.target.files)" class="d-none">
+  </div>
+</ng-template>
+
+<ng-template #uploadBar>
+  <div class="d-flex justify-content-center">
+    <mat-spinner *ngIf="!formGroup.get(nameAttr).value"></mat-spinner>
+  </div>
+</ng-template>

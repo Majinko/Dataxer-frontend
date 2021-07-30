@@ -3,45 +3,50 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Task} from '../models/task';
 import {environment} from '../../../environments/environment';
-import {Paginate} from '../models/paginate';
 import {CustomFile} from '../models/customFile';
 import {UploadContext} from '../models/uploadContext';
 import {Item} from '../models/item';
+import {ResourceService} from '../class/ResourceService';
+import {Serializer} from '../models/serializers/Serializer';
+import {map} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
-export class TaskService {
+export class TaskService extends ResourceService<Task> {
 
-  constructor(
-    private http: HttpClient
-  ) {
+  constructor(private httpClient: HttpClient) {
+    super(
+      httpClient,
+      'task',
+      new Serializer());
   }
 
-  store(task: Task, files: CustomFile[]): Observable<void> {
+  storeWithFiles(task: Task, files: CustomFile[]): Observable<void> {
 
     const data: UploadContext<Item> = {
       files,
       object: task
     };
 
-    return this.http.post<void>(`${environment.baseUrl}/task/store`, data);
+    return this.httpClient.post<void>(`${environment.baseUrl}/task/store`, data);
   }
 
-  update(task: Task): Observable<void> {
-    return this.http.post<void>(`${environment.baseUrl}/task/update`, task);
+  update(task: Task): Observable<Task> {
+    return this.httpClient.post<Task>(`${environment.baseUrl}/task/update`, task);
   }
 
-  paginate(page: number, size: number): Observable<Paginate<Task>> {
-    // tslint:disable-next-line:max-line-length
-    return this.http.get<Paginate<Task>>(environment.baseUrl + `/task/paginate?page=${page}&size=${size}`);
-  }
 
   getById(id: number): Observable<Task> {
-    return this.http.get<Task>(environment.baseUrl + `/task/${id}`);
+    return this.httpClient.get<Task>(environment.baseUrl + `/task/${id}`).pipe(map((task) => {
+      task.user.displayName = task.user.firstName + ' ' + task.user.lastName;
+      task.userFrom.displayName = task.userFrom.firstName + ' ' + task.userFrom.lastName;
+
+      return task;
+    }));
   }
 
   destroy(id: number): Observable<void> {
-    return this.http.get<void>(environment.baseUrl + `/task/destroy/${id}`);
+    return this.httpClient.get<void>(environment.baseUrl + `/task/destroy/${id}`);
   }
 }

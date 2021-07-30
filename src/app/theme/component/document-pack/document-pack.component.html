@@ -12,17 +12,17 @@
             </td>
             <td class="thin">
               <mat-form-field  class="w-100">
-                <input matInput [attr.disabled]="!checkbox.checked ? true : null" formControlName="price" value="{{documentHelper.packs[i].price}}" class="text-right">
+                <input matInput [attr.disabled]="!checkbox.checked ? true : null" formControlName="price" placeholder="Jednotková cena" value="{{documentHelper.packs[i].price}}" class="text-right">
               </mat-form-field>
             </td>
-            <td class="thin">
+            <td class="thin" appShowHideTax>
               <mat-form-field  class="w-100">
-                <input matInput [attr.disabled]="!checkbox.checked ? true : null" formControlName="tax" class="text-right">
+                <input matInput [attr.disabled]="!checkbox.checked ? true : null" formControlName="tax" placeholder="DPH" class="text-right">
               </mat-form-field>
             </td>
             <td>
               <mat-form-field class="w-100">
-                <input matInput [attr.disabled]="!checkbox.checked ? true : null" formControlName="totalPrice" value="{{documentHelper.packs[i].totalPrice}}" class="text-right">
+                <input matInput [attr.disabled]="!checkbox.checked ? true : null" formControlName="totalPrice" placeholder="Celkom" value="{{documentHelper.packs[i].totalPrice}}" class="text-right">
               </mat-form-field>
             </td>
             <td class="text-right thin">
@@ -70,7 +70,7 @@
             <td>
               <div>
                 <mat-form-field class="w-100">
-                  <input matInput #price [attr.disabled]="checkbox.checked ? true : null" formControlName="price" placeholder="Cena bez DPH" class="text-right" />
+                  <input matInput #price [attr.disabled]="checkbox.checked ? true : null" formControlName="price" placeholder="Jednotková cena" class="text-right" />
                 </mat-form-field>
               </div>
               <div class="jsDiscount" [ngClass]="{'d-none' : item.value.discount == 0}">
@@ -79,7 +79,7 @@
                 </mat-form-field>
               </div>
             </td>
-            <td class="thin">
+            <td class="thin" appShowHideTax>
               <mat-form-field class="w-100">
                 <input matInput #tax [attr.disabled]="checkbox.checked ? true : null" formControlName="tax" placeholder="DPH" class="text-right" />
               </mat-form-field>
@@ -87,7 +87,7 @@
             <td>
               <div>
                 <mat-form-field class="w-100">
-                  <input matInput [attr.disabled]="checkbox.checked ? true : null" value="{{+qty.value * +price.value | addPercent: +tax.value}}" placeholder="Cena s DPH" class="text-right" />
+                  <input matInput [attr.disabled]="checkbox.checked ? true : null" value="{{+qty.value * +price.value | addPercent: +tax.value}}" placeholder="Celkom" class="text-right" />
                 </mat-form-field>
               </div>
               <div class="jsDiscount" [ngClass]="{'d-none' : item.value.discount == 0}">

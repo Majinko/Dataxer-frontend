@@ -29,13 +29,6 @@
       </mat-form-field>
     </div>
 
-    <div class="col-md-4 form-group">
-      <mat-form-field class="form-pack-price-offer-create w-100">
-        <ngx-mat-file-input  placeholder="Súbory k úlohe" multiple></ngx-mat-file-input>
-        <mat-icon matSuffix class="cursor-pointer">image</mat-icon>
-      </mat-form-field>
-    </div>
-
     <div class="col-md-12 form-group">
       <mat-form-field class="form-group w-100">
         <input formControlName="description" matInput placeholder="Popis">
@@ -78,20 +71,16 @@
       </ng-select>
     </div>
 
-    <div class="col-md-6 form-group">
+    <!--<div class="col-md-6 form-group">
       <mat-form-field class="form-group w-100">
         <input formControlName="completion" matInput placeholder="Dokončenosť">
       </mat-form-field>
-    </div>
+    </div>-->
 
-    <div class="col-md-6">
-      <mat-form-field class="form-group w-100">
-        <mat-label>Stav</mat-label>
-        <select formControlName="state" matNativeControl>
-          <option value="WAITING">Čakajúca</option>
-          <option value="APPROVED">Schválená</option>
-          <option value="REJECTED">Zamietnutá</option>
-        </select>
+    <div class="col-md-4 form-group">
+      <mat-form-field class="form-pack-price-offer-create w-100">
+        <ngx-mat-file-input (change)="uploadHelper.uploadFile($event.target.files)" placeholder="Súbory k úlohe" multiple></ngx-mat-file-input>
+        <mat-icon matSuffix class="cursor-pointer">attachment</mat-icon>
       </mat-form-field>
     </div>
   </div>

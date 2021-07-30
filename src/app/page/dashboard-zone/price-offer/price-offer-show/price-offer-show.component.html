@@ -19,11 +19,11 @@
             <mat-icon>more_vert</mat-icon>
           </button>
           <mat-menu #menu="matMenu" class="menu-not-rounded">
-            <button mat-menu-item [routerLink]="['/invoice/create-from-proforma', 'INVOICE', priceOffer.id]">
+            <button mat-menu-item [routerLink]="['/priceOffer/create-from-proforma', 'priceOffer', priceOffer.id]">
               <span>Vystaviť ostrú faktúru</span>
             </button>
 
-            <button mat-menu-item [routerLink]="['/invoice/create-from-proforma', 'PROFORMA', priceOffer.id]">
+            <button mat-menu-item [routerLink]="['/priceOffer/create-from-proforma', 'PROFORMA', priceOffer.id]">
               <span>Vystaviť zálohovú faktúru</span>
             </button>
           </mat-menu>
@@ -117,10 +117,10 @@
             <th class="text-left white-space-nowrap">Názov položky</th>
             <th class="text-center white-space-nowrap">Počet</th>
             <th class="text-center white-space-nowrap">MJ</th>
-            <th class="text-right white-space-nowrap">Jedn. cena bez DPH</th>
-            <th class="text-center white-space-nowrap">Dph %</th>
-            <th class="text-right white-space-nowrap">Jedn. cena s DPH</th>
-            <th class="text-right white-space-nowrap">Celkom s DPH</th>
+            <th class="text-right white-space-nowrap">Jedn. cena <span appShowHideTax>bez DPH</span></th>
+            <th class="text-center white-space-nowrap" appShowHideTax>Dph %</th>
+            <th class="text-right white-space-nowrap" appShowHideTax>Jedn. cena s DPH</th>
+            <th class="text-right white-space-nowrap">Celkom <span appShowHideTax>s DPH</span></th>
           </tr>
           </thead>
           <tbody *ngFor="let pack of priceOffer.packs">
@@ -137,10 +137,10 @@
             <td class="text-right font-weight-bold">
               {{pack.price | currency:'EUR':'symbol'}}
             </td>
-            <td class="text-center font-weight-bold" style="white-space: nowrap">
+            <td class="text-center font-weight-bold" style="white-space: nowrap" appShowHideTax>
               {{pack.tax}} %
             </td>
-            <td class="text-right font-weight-bold">
+            <td class="text-right font-weight-bold" appShowHideTax>
               {{pack.totalPrice | currency:'EUR':'symbol'}}
             </td>
             <td class="text-right font-weight-bold">
@@ -161,16 +161,16 @@
                   {{!pack.customPrice ? item.unit : ''}}
                 </td>
                 <td class="text-right">
-                  {{!pack.customPrice ? (item.price + ' &euro;' ): ''}}
+                  {{!pack.customPrice ? (item.price | currency:'EUR':'symbol') : ''}}
                 </td>
-                <td class="text-center" style="white-space: nowrap">
-                  {{!pack.customPrice ? (item.tax + ' %' ): ''}}
+                <td class="text-center" style="white-space: nowrap" appShowHideTax>
+                  {{!pack.customPrice ? (item.tax + ' %') : ''}}
+                </td>
+                <td class="text-right" appShowHideTax>
+                  {{!pack.customPrice ? (item.price | addPercent: item.tax | currency:'EUR':'symbol') : ''}}
                 </td>
                 <td class="text-right">
-                  {{!pack.customPrice ? (item.price | addPercent: item.tax + ' &euro;' ): ''}}
-                </td>
-                <td class="text-right">
-                  {{!pack.customPrice ? (item.totalPrice + ' &euro;' ): ''}}
+                  {{!pack.customPrice ? (item.totalPrice | currency:'EUR':'symbol') : ''}}
                 </td>
               </tr>
               <tr class="table-item" *ngIf="item.discount > 0">
@@ -181,8 +181,14 @@
                   {{+(item.price | removePercent: item.discount) - +item.price | currency:'EUR':'symbol'}}
                 </td>
                 <td></td>
-                <td class="text-right">{{(+(item.totalPrice | removePercent: item.discount) - +item.totalPrice) | number:'1.0-2' | currency:'EUR':'symbol'}}</td>
-                <td class="text-right">{{(+(item.totalPrice | removePercent: item.discount) - +item.totalPrice) | number:'1.0-2' | currency:'EUR':'symbol'}}</td>
+                <td
+                  class="text-right">{{(+(item.totalPrice | removePercent: item.discount) - +item.totalPrice) | number:'1.0-2'}}
+                  &euro;
+                </td>
+                <td
+                  class="text-right">{{(+(item.totalPrice | removePercent: item.discount) - +item.totalPrice) | number:'1.0-2'}}
+                  &euro;
+                </td>
               </tr>
             </ng-container>
           </ng-template>
@@ -200,23 +206,23 @@
         <table class="table-summary no-bg-change mt-4 pr-3 w-100">
           <tr class="row-summary">
             <td class="text-right">
-              <p>Zľava {{priceOffer.discount ? priceOffer.discount : 0}} %</p>
+              <p>Zľava {{priceOffer.discount}} %</p>
             </td>
             <td class="text-right">
-              <p>{{priceOffer.discount > 0 ? '-' : ''}}{{((priceOffer.totalPrice | addPercent: priceOffer.discount) - priceOffer.totalPrice).toFixed(2) | currency:'EUR':'symbol'}}</p>
+              <p>{{priceOffer.discount > 0 ? '-' : ''}}{{priceOffer.discount > 0 && priceOffer.discount != null ? ((priceOffer.totalPrice | addPercent: priceOffer.discount) - priceOffer.totalPrice).toFixed(2)  : 0 | currency:'EUR':'symbol'}} &euro;</p>
             </td>
           </tr>
 
-          <tr class="row-summary">
+          <tr class="row-summary" appShowHideTax>
             <td class="text-right">
-              <p>Celkom bez DPH:</p>
+              <p>Celkom nez DPH:</p>
             </td>
             <td class="text-right">
               <p>{{priceOffer.price | removePercent: priceOffer.discount | currency:'EUR':'symbol'}}</p>
             </td>
           </tr>
 
-          <tr class="row-summary" *ngFor="let tax of documentHelper.taxResult">
+          <tr class="row-summary" *ngFor="let tax of documentHelper.taxResult" appShowHideTax>
             <td class="text-right">
               <p>DPH {{tax.tax}} %:</p>
             </td>
@@ -227,10 +233,10 @@
 
           <tr class="row-summary">
             <td class="text-right">
-              <h1 class="text-theme font-weight-bold">Celkom s DPH:</h1>
+              <h1 class="text-theme font-weight-bold">Celkom <span appShowHideTax>s DPH</span>:</h1>
             </td>
             <td class="text-right">
-              <h1 class="text-theme font-weight-bold">{{priceOffer.totalPrice  | removePercent: priceOffer.discount | currency:'EUR':'symbol'}}</h1>
+              <h1 class="text-theme font-weight-bold">{{priceOffer.totalPrice | removePercent: priceOffer.discount}}&euro;</h1>
             </td>
           </tr>
         </table>

@@ -3,6 +3,7 @@ import {BillingInformation} from './billing-information';
 export interface Company {
   id: number;
   billingInformation?: BillingInformation[];
+  companyTaxType: string;
   name: string;
   legalForm: string;
   street: string;
@@ -17,4 +18,7 @@ export interface Company {
   vatin: string;
   iban: string;
   defaultCompany: boolean;
+  logoUrl: string;
+  signatureUrl: string;
+  isTaxPayer: boolean;
 }

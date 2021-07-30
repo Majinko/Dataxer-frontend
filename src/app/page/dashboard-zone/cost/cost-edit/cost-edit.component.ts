@@ -13,6 +13,7 @@ import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/
 import {MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter} from '@angular/material-moment-adapter';
 import {CategoryService} from '../../../../core/services/category.service';
 import {CategoryItemNode} from '../../../../core/models/category-item-node';
+import {CompanyService} from '../../../../core/services/company.service';
 
 @Component({
   selector: 'app-cost-edit',

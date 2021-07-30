@@ -89,7 +89,7 @@ export class TaskCreateComponent implements OnInit {
       return;
     }
 
-    this.taskService.store(this.formGroup.value, this.uploadHelper.files).subscribe(() => {
+    this.taskService.storeWithFiles(this.formGroup.value, this.uploadHelper.files).subscribe(() => {
       this.router.navigate(['/task']).then(() => this.messageService.add('Úloha bola pridaná'));
     });
   }

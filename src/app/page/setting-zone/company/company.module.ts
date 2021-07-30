@@ -9,6 +9,7 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {MaterialModule} from '../../../theme/modules/material.module';
 import {AvatarModule} from 'ngx-avatar';
 import {NgSelectModule} from '@ng-select/ng-select';
+import {ThemeModule} from '../../../theme/theme.module';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import {NgSelectModule} from '@ng-select/ng-select';
         ReactiveFormsModule,
         MaterialModule,
         AvatarModule,
-        NgSelectModule
+        NgSelectModule,
+        ThemeModule
     ]
 })
 export class CompanyModule {

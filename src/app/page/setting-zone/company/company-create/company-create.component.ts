@@ -5,7 +5,7 @@ import {Company} from '../../../../core/models/company';
 import {CompanyService} from '../../../../core/services/company.service';
 import {Router} from '@angular/router';
 import {COUNTRIES} from '../../../../core/data/countries';
-import {MatCheckbox} from "@angular/material/checkbox";
+import {MatCheckbox} from '@angular/material/checkbox';
 
 
 @Component({
@@ -30,6 +30,9 @@ export class CompanyCreateComponent implements OnInit {
     this.formGroup = this.fb.group({
       name: ['', Validators.required],
       legalForm: ['', Validators.required],
+      companyTaxType: ['', Validators.required],
+      logoUrl: '',
+      signatureUrl: '',
       street: '',
       city: '',
       postalCode: '',
@@ -54,6 +57,8 @@ export class CompanyCreateComponent implements OnInit {
   }
 
   onSubmit(companyFormData: Company) {
+    return;
+
     if (this.formGroup.invalid) {
       return;
     }

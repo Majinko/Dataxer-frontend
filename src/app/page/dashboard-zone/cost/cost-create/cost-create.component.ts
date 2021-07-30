@@ -12,6 +12,7 @@ import {MessageService} from '../../../../core/services/message.service';
 import {Router} from '@angular/router';
 import {CategoryItemNode} from '../../../../core/models/category-item-node';
 import {CategoryService} from '../../../../core/services/category.service';
+import {CompanyService} from '../../../../core/services/company.service';
 
 @Component({
   selector: 'app-cost-create',
@@ -35,6 +36,7 @@ export class CostCreateComponent implements OnInit {
   formGroup: FormGroup;
   submitted: boolean = false;
   isLoading: boolean = false;
+
   categories: CategoryItemNode[] = [];
 
   costTypes = COSTTYPES;
@@ -86,6 +88,7 @@ export class CostCreateComponent implements OnInit {
       totalPrice: 0
     });
   }
+
 
   private changeValue() {
     this.formGroup.valueChanges.subscribe((value) => {

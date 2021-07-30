@@ -37,7 +37,11 @@ export class CompanyService {
   }
 
   defaultCompany(): Observable<Company> {
-    return this.http.get<Company>(`${environment.baseUrl}/company/default`);
+    return this.http.get<Company>(`${environment.baseUrl}/company/default`).pipe(map((company) => {
+      company.isTaxPayer = company.companyTaxType === 'TAX_PAYER';
+
+      return company;
+    }));
   }
 
   destroy(id: number): Observable<void> {

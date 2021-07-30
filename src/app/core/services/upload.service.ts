@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {Upload} from '../models/upload';
 import {AngularFireStorage} from '@angular/fire/storage';
-import {AuthService} from './auth.service';
 import {AngularFireUploadTask} from '@angular/fire/storage/task';
+import {CompanyService} from './company.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,11 +12,13 @@ export class UploadService {
 
   constructor(
     private afStorage: AngularFireStorage,
-    private authService: AuthService
+    private companyService: CompanyService,
   ) {
   }
 
-  pushUpload(path: string, upload: Upload): AngularFireUploadTask {
-    return this.afStorage.upload(`${this.authService.user.appKey}/${path}/${upload.name}`, upload);
+  pushUpload(path: string, upload: File): AngularFireUploadTask {
+    return this
+      .afStorage
+      .upload(`${this.companyService.company.name.toLowerCase().replace('[^a-zA-Z0-9]', '')}/${path}/${upload.name}`, upload);
   }
 }

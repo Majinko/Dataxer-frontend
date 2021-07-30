@@ -10,20 +10,12 @@
   </div>
 
   <div class="row align-items-center">
-    <div class="col-3 col-md-2">
-      <div class="avatar-photo-edit cursor-pointer jsFile" matTooltip="Nastaviť fotku kontaktu">
-        <ngx-avatar size="100%" src="https://ssl.gstatic.com/s2/oz/images/sge/grey_silhouette.png"></ngx-avatar>
-        <input type="file" name='file' (change)="onFileChange($event)" class="d-none">
-      </div>
+    <div class="col-3 col-md-1 mb-2">
+      <app-photo-uploader [formGroup]="contactForm" path="contact" nameAttr="photoUrl" isAvatar="true"></app-photo-uploader>
     </div>
 
-    <div class="col-9 col-md-10">
+    <div class="col-9 col-md-11">
       <app-slovakia-digital-autocomplete [isError]="f.name.errors && f.name.errors.required && isSubmit" formControlName="name" (findFirm)="setFirmData($event)"></app-slovakia-digital-autocomplete>
-
-      <!--<mat-form-field class="form-group w-100">
-        <input matInput placeholder="Meno" formControlName="name" required>
-        <mat-error *ngIf="contactForm.invalid">Meno je povinné</mat-error>
-      </mat-form-field>-->
     </div>
   </div>
 
@@ -125,7 +117,7 @@
           <mat-icon>cancel</mat-icon>
           Zrušiť
         </button>
-        <button (click)="close()" mat-stroked-button class="btn-icon btn-theme-stroked">
+        <button (click)="close()" [disabled]="!contactForm.dirty" mat-stroked-button class="btn-icon btn-theme-stroked">
           <mat-icon>save</mat-icon>
           Uložiť
         </button>

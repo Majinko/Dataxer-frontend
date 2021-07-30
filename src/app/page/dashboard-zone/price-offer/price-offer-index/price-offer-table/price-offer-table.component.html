@@ -46,7 +46,7 @@
 
           <!-- Price Column -->
           <ng-container matColumnDef="price">
-            <th class="text-right" mat-header-cell *matHeaderCellDef> Suma bez DPH</th>
+            <th class="text-right" mat-header-cell *matHeaderCellDef> Suma <span appShowHideTax>bez DPH</span></th>
             <td class="text-right" mat-cell *matCellDef="let element">{{element.price | removePercent: element.discount | currency:'EUR':'symbol'}}</td>
           </ng-container>
 

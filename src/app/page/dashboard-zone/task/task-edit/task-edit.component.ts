@@ -1,18 +1,19 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {User} from "../../../../core/models/user";
-import {Project} from "../../../../core/models/project";
-import {CategoryItemNode} from "../../../../core/models/category-item-node";
-import {Task} from "../../../../core/models/task";
-import {CategoryService} from "../../../../core/services/category.service";
-import {ProjectService} from "../../../../core/services/project.service";
-import {UserService} from "../../../../core/services/user.service";
-import {TaskService} from "../../../../core/services/task.service";
-import {ActivatedRoute} from "@angular/router";
-import {MessageService} from "../../../../core/services/message.service";
-import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from "@angular/material/core";
-import {MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter} from "@angular/material-moment-adapter";
-import {APP_DATE_FORMATS} from "../../../../../helper";
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {User} from '../../../../core/models/user';
+import {Project} from '../../../../core/models/project';
+import {CategoryItemNode} from '../../../../core/models/category-item-node';
+import {Task} from '../../../../core/models/task';
+import {CategoryService} from '../../../../core/services/category.service';
+import {ProjectService} from '../../../../core/services/project.service';
+import {UserService} from '../../../../core/services/user.service';
+import {TaskService} from '../../../../core/services/task.service';
+import {ActivatedRoute} from '@angular/router';
+import {MessageService} from '../../../../core/services/message.service';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+import {MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter} from '@angular/material-moment-adapter';
+import {APP_DATE_FORMATS} from '../../../../../helper';
+import {UploadHelper} from '../../../../core/class/UploadHelper';
 
 @Component({
   selector: 'app-task-edit',
@@ -32,14 +33,15 @@ import {APP_DATE_FORMATS} from "../../../../../helper";
   ],
 })
 export class TaskEditComponent implements OnInit {
-  formGroup: FormGroup
+  formGroup: FormGroup;
 
   task: Task;
   users: User[] = [];
   projects: Project[] = [];
-  categories: CategoryItemNode[] = []
+  categories: CategoryItemNode[] = [];
 
   constructor(
+    public uploadHelper: UploadHelper,
     private formBuilder: FormBuilder,
     private categoryService: CategoryService,
     private projectService: ProjectService,
@@ -73,8 +75,8 @@ export class TaskEditComponent implements OnInit {
         state: t.state,
         completion: t.completion,
         finishedAt: t.finishedAt,
-      })
-    })
+      });
+    });
   }
 
   private getProjects() {
@@ -95,8 +97,8 @@ export class TaskEditComponent implements OnInit {
     }
 
     this.taskService.update(this.formGroup.value).subscribe(() => {
-      this.messageService.add("Uloha bola upravena")
-    })
+      this.messageService.add('Úloha bola upravená');
+    });
   }
 
   // convenience getter for easy access to form fields

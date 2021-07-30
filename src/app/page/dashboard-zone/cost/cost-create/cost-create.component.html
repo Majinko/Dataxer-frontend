@@ -211,11 +211,11 @@
 
     <div class="col-md-3">
       <mat-form-field class="w-100">
-        <input matInput #price formControlName="price" placeholder="Cena bez DPH" class="text-right" />
+        <input matInput #price formControlName="price" placeholder="Jednotková cena" class="text-right" />
       </mat-form-field>
     </div>
 
-    <div class="col-md-3">
+    <div class="col-md-3" appShowHideTax>
       <mat-form-field class="w-100">
         <input matInput #tax formControlName="tax" placeholder="DPH" class="text-right" />
       </mat-form-field>
@@ -223,7 +223,7 @@
 
     <div class="col-md-3">
       <mat-form-field class="w-100">
-        <input matInput value="{{+price.value | addPercent: +tax.value}}" formControlName="totalPrice" placeholder="Cena s DPH" class="text-right" />
+        <input matInput value="{{+price.value | addPercent: +tax.value}}" formControlName="totalPrice" placeholder="Celkom" class="text-right" />
       </mat-form-field>
     </div>
   </div>

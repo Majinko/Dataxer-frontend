@@ -123,13 +123,13 @@
           <td class="pb-1">{{discount.value > 0 ? '-' : ''}}{{((documentHelper.totalPrice | addPercent: discount.value) - documentHelper.totalPrice).toFixed(2)}} €</td>
         </tr>
 
-        <tr class="text-right">
+        <tr class="text-right" appShowHideTax>
           <td>Celkom bez DPH:</td>
           <td>{{documentHelper.price | removePercent: +discount.value}} €</td>
         </tr>
 
         <tr class="text-right">
-          <td><h2 class="text-theme mb-0"><b>Celkom s DPH:</b></h2></td>
+          <td><h2 class="text-theme mb-0"><b>Celkom <span appShowHideTax>s DPH</span>:</b></h2></td>
           <td>{{documentHelper.totalPrice | removePercent: +discount.value}} €</td>
         </tr>
       </table>

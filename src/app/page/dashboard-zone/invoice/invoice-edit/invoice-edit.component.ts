@@ -8,6 +8,7 @@ import {APP_DATE_FORMATS} from '../../../../../helper';
 import {DocumentHelper} from '../../../../core/class/DocumentHelper';
 import {Invoice} from '../../../../core/models/invoice';
 import {MessageService} from '../../../../core/services/message.service';
+import {CompanyService} from '../../../../core/services/company.service';
 
 @Component({
   selector: 'app-invoice-edit',
@@ -29,13 +30,14 @@ import {MessageService} from '../../../../core/services/message.service';
 })
 export class InvoiceEditComponent implements OnInit {
   formGroup: FormGroup;
-  submitted = false;
-  moreOptions = false;
+  submitted: boolean = false;
+  moreOptions: boolean = false;
 
   invoice: Invoice;
 
   constructor(
     public documentHelper: DocumentHelper,
+    private companyService: CompanyService,
     private formBuilder: FormBuilder,
     private invoiceService: InvoiceService,
     private route: ActivatedRoute,

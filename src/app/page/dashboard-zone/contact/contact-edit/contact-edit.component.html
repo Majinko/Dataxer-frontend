@@ -6,14 +6,12 @@
     </div>
   </div>
 
-  <div class="row">
-    <div class="col-3 col-md-2">
-      <div class="avatar-photo-edit cursor-pointer jsFile" matTooltip="Nastaviť fotku kontaktu">
-        <ngx-avatar size="100%" src="{{contact.photoUrl !== '' ? contact.photoUrl : 'https://ssl.gstatic.com/s2/oz/images/sge/grey_silhouette.png'}} "></ngx-avatar>
-        <input type="file" name='file' (change)="onFileChange($event)" class="d-none">
-      </div>
+  <div class="row align-items-center">
+    <div class="col-3 col-md-1 mb-2">
+      <app-photo-uploader [formGroup]="contactForm" path="contact" nameAttr="photoUrl" isAvatar="true"></app-photo-uploader>
     </div>
-    <div class="col-9 col-md-10">
+
+    <div class="col-9 col-md-11">
       <app-slovakia-digital-autocomplete formControlName="name" (findFirm)="setFirmData($event)"></app-slovakia-digital-autocomplete>
     </div>
   </div>
@@ -53,7 +51,7 @@
         <input matInput placeholder="PSČ" formControlName="postalCode">
       </mat-form-field>
     </div>
-    
+
     <div class="col-md-6">
       <mat-form-field class="form-group w-100">
         <input matInput placeholder="Súpisné č." formControlName="regNumber">
