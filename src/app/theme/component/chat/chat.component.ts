@@ -8,7 +8,6 @@ import {SocketServiceService} from '../../../core/services/socket-service.servic
   styleUrls: ['./chat.component.scss']
 })
 export class ChatComponent implements OnInit {
-
   constructor(
     private webSocketService: WebSocketService,
     private socketServiceService: SocketServiceService
