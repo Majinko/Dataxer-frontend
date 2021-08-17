@@ -38,6 +38,7 @@ import {DocumentEmailDialogComponent} from './component/document-email-dialog/do
 import {AngularEditorModule} from '@kolkov/angular-editor';
 import {ConfirmDialogComponent} from './component/confirm-dialog/confirm-dialog.component';
 import {PhotoUploaderComponent} from './component/photo-uploader/photo-uploader.component';
+import { ChatComponent } from './component/chat/chat.component';
 
 @NgModule({
   imports: [
@@ -82,29 +83,31 @@ import {PhotoUploaderComponent} from './component/photo-uploader/photo-uploader.
     GlobalFilterComponent,
     DocumentEmailDialogComponent,
     ConfirmDialogComponent,
-    PhotoUploaderComponent
-  ],
-  exports: [
-    DrawerComponent,
-    ToolbarComponent,
-    MessageComponent,
-    ItemAutocompleteComponent,
-    NewContactSelectComponent,
-    PackAutocompleteComponent,
-    DocumentPackComponent,
-    SlovakiaDigitalAutocompleteComponent,
-    NewProjectSelectComponent,
-    NewCategorySelectComponent,
-    SpinnerButtonComponent,
-    ElementPaidStateComponent,
-    FileComponent,
-    PaymentsComponent,
-    DocumentRelationComponent,
-    MenuTabComponent,
-    NestedCategoriesComponent,
-    GlobalFilterComponent,
     PhotoUploaderComponent,
-  ]
+    ChatComponent
+  ],
+    exports: [
+        DrawerComponent,
+        ToolbarComponent,
+        MessageComponent,
+        ItemAutocompleteComponent,
+        NewContactSelectComponent,
+        PackAutocompleteComponent,
+        DocumentPackComponent,
+        SlovakiaDigitalAutocompleteComponent,
+        NewProjectSelectComponent,
+        NewCategorySelectComponent,
+        SpinnerButtonComponent,
+        ElementPaidStateComponent,
+        FileComponent,
+        PaymentsComponent,
+        DocumentRelationComponent,
+        MenuTabComponent,
+        NestedCategoriesComponent,
+        GlobalFilterComponent,
+        PhotoUploaderComponent,
+        ChatComponent,
+    ]
 })
 export class ThemeModule {
 }

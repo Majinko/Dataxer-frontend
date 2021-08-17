@@ -37,6 +37,7 @@
     "@ng-select/ng-select": "^5.1.0",
     "@nguniversal/express-engine": "^9.1.1",
     "@ngx-translate/core": "^13.0.0",
+    "@stomp/ng2-stompjs": "^8.0.0",
     "apexcharts": "^3.26.0",
     "bootstrap": "^4.6.0",
     "class-transformer": "^0.2.3",
