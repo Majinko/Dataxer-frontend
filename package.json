@@ -30,10 +30,10 @@
     "@angular/platform-server": "^9.1.13",
     "@angular/router": "^9.1.13",
     "@kolkov/angular-editor": "^1.1.4",
-    "@nestjs/common": "^6.0.0",
-    "@nestjs/core": "^6.0.0",
+    "@nestjs/common": "^8.0.6",
+    "@nestjs/core": "^8.0.6",
     "@nestjs/ng-universal": "^3.2.0",
-    "@nestjs/platform-express": "^6.0.0",
+    "@nestjs/platform-express": "^8.0.6",
     "@ng-select/ng-select": "^5.1.0",
     "@nguniversal/express-engine": "^9.1.1",
     "@ngx-translate/core": "^13.0.0",
@@ -58,7 +58,7 @@
     "zone.js": "~0.10.2"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^0.901.15",
+    "@angular-devkit/build-angular": "^12.2.2",
     "@angular/cli": "^9.1.15",
     "@angular/compiler-cli": "^9.1.13",
     "@angular/language-service": "^9.1.13",
