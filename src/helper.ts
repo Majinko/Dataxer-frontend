@@ -1,4 +1,5 @@
 import {BaseFilter} from './app/core/models/filters/baseFilter';
+import {AbstractControl} from '@angular/forms';
 
 // custom date picker formats
 export const APP_DATE_FORMATS = {
@@ -97,7 +98,6 @@ export function containsObject(obj, list) {
   return false;
 }
 
-
 /**
  * Sum of array object by key
  * @param data
@@ -128,7 +128,6 @@ export function slugify(str) {
 
   return str;
 }
-
 
 /**
  * To human format
@@ -162,3 +161,19 @@ export function monthDiff(d1: Date, d2: Date) {
 
   return (years * 12) + (date2.getMonth() - date1.getMonth());
 }
+
+/**
+ * Vrati zoznam stlcpov ktore su invalid
+ * @param checkControls
+ */
+export function findInvalidControls(checkControls: { [p: string]: AbstractControl }) {
+  const invalid = [];
+  const controls = checkControls;
+  for (const name in controls) {
+    if (controls[name].invalid) {
+      invalid.push(name);
+    }
+  }
+  return invalid;
+}
+

@@ -57,8 +57,6 @@ export class CompanyCreateComponent implements OnInit {
   }
 
   onSubmit(companyFormData: Company) {
-    return;
-
     if (this.formGroup.invalid) {
       return;
     }
