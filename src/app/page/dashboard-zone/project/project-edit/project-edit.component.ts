@@ -61,6 +61,7 @@ export class ProjectEditComponent implements OnInit {
       state: null,
       address: null,
       area: null,
+      projectProfit: [0, Validators.pattern(/^[0-9]\d*$/)],
       startedAt: null,
       finishedAt: null,
       categories: null
@@ -90,16 +91,12 @@ export class ProjectEditComponent implements OnInit {
     }
 
     this.projectService.update(this.formGroup.value).subscribe(() => {
-      this.messageService.add('Zákazka bola aktualizovana');
+      this.messageService.add('Zákazka bola aktualizovaná');
     });
   }
 
   // convenience getter for easy access to form fields
   get f() {
     return this.formGroup.controls;
-  }
-
-  pathValue(event: MatOptionSelectionChange, categoryItemNode: CategoryItemNode) {
-
   }
 }

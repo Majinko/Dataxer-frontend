@@ -61,6 +61,7 @@ export class ProjectCreateComponent implements OnInit {
       contact: null,
       state: null,
       address: '',
+      projectProfit: [0, Validators.pattern(/^[0-9]\d*$/)],
       area: [0, Validators.pattern(/^[0-9]\d*$/)],
       startedAt: new Date(),
       finishedAt: new Date(),

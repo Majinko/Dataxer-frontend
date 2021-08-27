@@ -73,9 +73,9 @@ export class ProjectChartComponent implements OnInit {
         {
           name: 'suma',
           data: [
-            this.priceOfferSum,
+            this.priceOfferSum - this.invoicePayedSum,
             this.invoicePayedSum, // invoice payed,
-            this.invoicePayedSum, // invoice not payed,
+            this.invoiceNotPayedSum, // invoice not payed,
             this.costPayedSum, // cost payed
             this.costNotPayedSum // cost not payed
           ]

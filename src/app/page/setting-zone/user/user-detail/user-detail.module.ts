@@ -13,6 +13,7 @@ import {ChartComponent} from './user-info/components/chart/chart.component';
 import {NgApexchartsModule} from 'ng-apexcharts';
 import {UserSalaryDialogComponent} from './user-salary/components/user-salary-dialog/user-salary-dialog.component';
 import {ReactiveFormsModule} from '@angular/forms';
+import { UserProjectOverviewComponent } from './user-project-overview/user-project-overview.component';
 
 const routes: Routes = [
   {
@@ -26,6 +27,10 @@ const routes: Routes = [
       {
         path: 'salary',
         component: UserSalaryComponent
+      },
+      {
+        path: 'project-overview',
+        component: UserProjectOverviewComponent
       },
       {
         path: 'time',
@@ -42,7 +47,8 @@ const routes: Routes = [
     UserSalaryComponent,
     UserTimeComponent,
     ChartComponent,
-    UserSalaryDialogComponent
+    UserSalaryDialogComponent,
+    UserProjectOverviewComponent
   ],
   imports: [
     CommonModule,

@@ -58,7 +58,13 @@
       <h2 class="border-bottom-2 pb-2 mb-4">Súhrnné info</h2>
     </div>
 
-    <div class="col-md-4">
+    <div class="col-md-3">
+      <p class="mb-0">Predmet:</p>
+
+      <h3 class="text-dark"><strong>{{invoice.subject ? invoice.subject : (invoice.project ? invoice.project.title : '')}}</strong></h3>
+    </div>
+
+    <div class="col-md-3">
       <p class="mb-0">Dodávateľ:</p>
 
       <h3 class="text-dark"><strong>{{invoice.documentData.firm.name}}</strong></h3>
@@ -83,7 +89,7 @@
       </p>
     </div>
 
-    <div class="col-md-4">
+    <div class="col-md-3">
       <p class="mb-0">Odberateľ:</p>
 
       <div *ngIf="invoice.documentData.contact">
@@ -104,7 +110,7 @@
       </div>
     </div>
 
-    <div class="col-md-4">
+    <div class="col-md-3">
       <app-document-relation [documentId]="invoice.id"></app-document-relation>
     </div>
 
@@ -258,7 +264,7 @@
               <h1 class="text-theme font-weight-bold">Celkom <span appShowHideTax>s DPH</span>:</h1>
             </td>
             <td class="text-right">
-              <h1 class="text-theme font-weight-bold">{{invoice.totalPrice | removePercent: invoice.discount}}&euro;</h1>
+              <h1 class="text-theme font-weight-bold">{{invoice.totalPrice | removePercent: invoice.discount | currency:'EUR':'symbol'}}</h1>
             </td>
           </tr>
         </table>

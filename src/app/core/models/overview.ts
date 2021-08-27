@@ -19,6 +19,7 @@ export interface CategoryCostsOverview {
   categoryMonthsCostsDTOS: CategoryMonthsCosts[];
   monthsTotalCosts: { key: number, value: number }[];
   totalCosts: number;
+  hasChildren: boolean;
 }
 
 export interface CategoryMonthsCosts {

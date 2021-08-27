@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {APP_DATE_FORMATS, timeRange} from '../../../../../helper';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
@@ -12,6 +12,9 @@ import {UserService} from '../../../../core/services/user.service';
 import {ProjectService} from 'src/app/core/services/project.service';
 import {NewCategorySelectComponent} from 'src/app/theme/component/new-category-select/new-category-select.component';
 import {StrftimePipe} from '../../../../core/pipes/strftime.pipe';
+import {Project} from '../../../../core/models/project';
+import {CategoryItemNode} from '../../../../core/models/category-item-node';
+import {MatRadioButton} from '@angular/material/radio';
 
 @Component({
   selector: 'app-time-create',
@@ -37,8 +40,12 @@ export class TimeCreateComponent implements OnInit {
   timeRange: string[] = timeRange();
   filteredOptions: string[];
   isSubmit: boolean = false;
+  lastProjects: Project[];
+  lastCategories: CategoryItemNode[];
 
   @ViewChild('categorySelect') categorySelect: NewCategorySelectComponent;
+  @ViewChild('radioCategories') radioSelect: MatRadioButton;
+  @ViewChild('radioProjects') radioProjects: MatRadioButton;
 
   constructor(
     private userService: UserService,
@@ -53,8 +60,9 @@ export class TimeCreateComponent implements OnInit {
 
   ngOnInit() {
     this.prepareForm();
-    this.getLastUsersProject();
     this.getLastUserTime();
+    this.getLastUsersProject();
+    this.changeProjectGetCategories();
   }
 
   prepareForm() {
@@ -72,21 +80,29 @@ export class TimeCreateComponent implements OnInit {
     });
   }
 
+  public changeProjectGetCategories() {
+    this.f.project.valueChanges.subscribe((project) => {
+      this.getProjectCategories(project);
+    });
+  }
+
   private getLastUsersProject() {
     this.timeService.getLastUsersProject(this.userService.user.id).subscribe(projects => {
       if (projects.length > 0) {
+        this.lastProjects = projects;
+
         this.formGroup.patchValue({project: projects[0]});
         this.getLatestProjectCategories(projects[0].id);
       }
-
-      this.changeProjectGetCategories();
     });
   }
 
   private getLatestProjectCategories(projectId: number) {
-    this.timeService.getLatestProjectCategories(projectId).subscribe(cateogires => {
-      if (cateogires.length > 0) {
-        this.formGroup.patchValue({category: cateogires[0]});
+    this.timeService.getLatestProjectCategories(projectId).subscribe(categories => {
+      if (categories.length > 0) {
+        this.lastCategories = categories;
+
+        this.formGroup.patchValue({category: categories[0]});
       }
     });
   }
@@ -102,17 +118,33 @@ export class TimeCreateComponent implements OnInit {
     });
   }
 
-  public changeProjectGetCategories() {
-    this.f.project.valueChanges.subscribe((project) => {
-      this.projectService.getCategories(project.id).subscribe(categories => {
+  private getProjectCategories(project: Project) {
+    this.projectService.getCategories(project.id).subscribe(categories => {
 
-        this.categorySelect.categoryItemNodes = categories;
-      });
+      if (categories.length > 0) {
+        if (!this.lastCategories) {
+          this.formGroup.patchValue({category: categories[0]});
+        }
+      } else {
+        this.formGroup.patchValue({category: null});
+      }
+
+      this.categorySelect.categoryItemNodes = categories;
     });
   }
 
   search(value: string) {
     this.filteredOptions = this._filter(value);
+  }
+
+  setProject(project: Project) {
+    this.formGroup.patchValue({project});
+
+    this.getLatestProjectCategories(project.id);
+  }
+
+  setCategory(category: CategoryItemNode) {
+    this.formGroup.patchValue({category});
   }
 
   private _filter(value: string): string[] {

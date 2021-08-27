@@ -27,9 +27,14 @@ export class UserDetailComponent implements OnInit {
         index: 1
       },
       {
+        label: 'Projektový prehľad',
+        link: `/setting/user/show/${this.route.snapshot.paramMap.get('uid')}/project-overview`,
+        index: 2
+      },
+      {
         label: 'Čas',
         link: `/setting/user/show/${this.route.snapshot.paramMap.get('uid')}/time`,
-        index: 2
+        index: 3
       },
     ];
   }

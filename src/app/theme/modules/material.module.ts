@@ -29,6 +29,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MaterialFileInputModule} from 'ngx-material-file-input';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatExpansionModule} from '@angular/material/expansion';
+import {MatRadioModule} from '@angular/material/radio';
 
 @NgModule({
   exports: [
@@ -61,7 +62,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
     DragDropModule,
     MaterialFileInputModule,
     MatTabsModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatRadioModule
   ]
 })
 export class MaterialModule {

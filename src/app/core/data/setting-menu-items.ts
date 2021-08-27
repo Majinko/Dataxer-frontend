@@ -42,5 +42,11 @@ export const SettingMenuItems: MenuItem[] = [
     title: 'Šablóny emailov',
     icon: 'format_paint',
     permission: 'Settings'
-  }
+  }/*,
+  {
+    routerLink: ['/setting/company-setting/time'],
+    title: 'Ostatné nastavenia',
+    icon: 'settings',
+    permission: 'Settings'
+  }*/
 ];

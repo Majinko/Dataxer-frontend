@@ -19,16 +19,22 @@
         <td mat-cell *matCellDef="let element"> {{element.createdDate | date:'dd.MM.y'}} </td>
       </ng-container>
 
-      <!-- Due Column -->
+      <!-- DueDate Column -->
       <ng-container matColumnDef="dueDate">
         <th mat-header-cell *matHeaderCellDef>Dátum splatnosti</th>
         <td mat-cell *matCellDef="let element"> {{element.dueDate | date:'dd.MM.y'}} </td>
       </ng-container>
 
-      <!-- Due Column -->
-      <ng-container matColumnDef="totalPrice">
+      <!-- TotalPrice Column -->
+      <ng-container matColumnDef="price">
         <th mat-header-cell *matHeaderCellDef>Suma bez DPH</th>
-        <td mat-cell *matCellDef="let element"> {{element.totalPrice | formatPrice}} &euro;</td>
+        <td mat-cell *matCellDef="let element"> {{element.price |  currency:'EUR':'symbol'}}</td>
+      </ng-container>
+
+      <!-- TotalPrice Column -->
+      <ng-container matColumnDef="totalPrice">
+        <th mat-header-cell *matHeaderCellDef>Suma s DPH</th>
+        <td mat-cell *matCellDef="let element"> {{element.totalPrice |  currency:'EUR':'symbol'}}</td>
       </ng-container>
 
       <tr mat-header-row  *matHeaderRowDef="displayedColumns"></tr>

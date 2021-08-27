@@ -33,14 +33,14 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [OverviewComponent, OverviewUserTimeMonthlyComponent, OverviewUserTimeYearlyComponent, OverviewCostYearlyComponent],
-    imports: [
-        CommonModule,
-        RouterModule.forChild(routes),
-        ThemeModule,
-        MaterialModule,
-        AvatarModule,
-        CoreModule
-    ]
+  imports: [
+    CommonModule,
+    RouterModule.forChild(routes),
+    ThemeModule,
+    MaterialModule,
+    AvatarModule,
+    CoreModule,
+  ]
 })
 export class OverviewModule {
 }

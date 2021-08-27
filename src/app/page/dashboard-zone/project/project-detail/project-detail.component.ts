@@ -15,7 +15,8 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
 
   constructor(
     private readonly searchBarService: SearchBarService,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute
+  ) {
   }
 
   ngOnInit(): void {

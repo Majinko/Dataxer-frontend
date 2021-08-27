@@ -36,18 +36,26 @@
       </mat-form-field>
     </div>
 
-    <div class="col-md-6 form-group">
+    <div class="col-md-4 form-group">
       <app-select-new-contact formControlName="contact"></app-select-new-contact>
       <mat-error *ngIf="submitted && f.contact.errors">Client je <strong>požadovaný.</strong></mat-error>
     </div>
 
-    <div class="col-md-6">
+    <div class="col-md-4">
       <mat-form-field class="form-group w-100">
         <mat-label>Stav</mat-label>
         <select formControlName="state" matNativeControl>
           <option value="COMPLETED">Dokončená</option>
           <option value="IN_PROGRESS">V realizácii</option>
         </select>
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-4 form-group">
+      <mat-form-field class="form-group w-100">
+        <input formControlName="projectProfit" matInput placeholder="Projekt profit %">
+        <mat-error *ngIf="f.area.errors">Projekt profit musi byt <strong>cislo.</strong></mat-error>
+        <mat-hint>Číslo v percentách na základe, ktorého budú zamestnancom vyratane odmeny na projekte</mat-hint>
       </mat-form-field>
     </div>
 

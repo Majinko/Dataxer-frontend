@@ -24,6 +24,15 @@ const routes: Routes = [
           .then(m => m.CompanyModule),
       },
       {
+        path: 'company-setting',
+        data: {
+          permissions: {
+            only: 'Settings'
+          },
+        },
+        loadChildren: () => import('./company-setting/company-setting.module').then(m => m.CompanySettingModule),
+      },
+      {
         path: 'user',
         data: {
           godButtonTitle: 'Nový používateľ', gotButtonRouteLink: '/setting/user/create',

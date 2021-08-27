@@ -41,6 +41,12 @@ export class ResourceService<T extends Resource> implements IPaginate<T> {
       }));
   }
 
+  storeOrUpdate(item: T): Observable<T> {
+    return this.http
+      .post<T>(`${environment.baseUrl}/${this.endpoint}/storeOrUpdate`, this.serializer.toJson(item))
+      .pipe(map(data => this.serializer.fromJson(data) as T));
+  }
+
   store(item: T): Observable<T> {
     return this.http
       .post<T>(`${environment.baseUrl}/${this.endpoint}/store`, this.serializer.toJson(item))

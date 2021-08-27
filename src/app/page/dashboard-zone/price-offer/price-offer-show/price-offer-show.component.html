@@ -236,7 +236,7 @@
               <h1 class="text-theme font-weight-bold">Celkom <span appShowHideTax>s DPH</span>:</h1>
             </td>
             <td class="text-right">
-              <h1 class="text-theme font-weight-bold">{{priceOffer.totalPrice | removePercent: priceOffer.discount}}&euro;</h1>
+              <h1 class="text-theme font-weight-bold">{{priceOffer.totalPrice | removePercent: priceOffer.discount | currency:'EUR':'symbol'}}</h1>
             </td>
           </tr>
         </table>

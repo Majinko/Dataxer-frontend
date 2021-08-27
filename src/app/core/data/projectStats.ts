@@ -6,6 +6,7 @@ export class ProjectStats {
   countMonth: number;
   timeStamp: number;
   sumInvoices: number | 0;
+  coefficient: number; // number witch is calc profit by time
   sumCost: number | 0;
   isLoad: boolean | false;
 }

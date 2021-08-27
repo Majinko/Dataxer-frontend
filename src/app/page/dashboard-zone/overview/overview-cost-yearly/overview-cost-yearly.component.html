@@ -5,11 +5,11 @@
       <th class="text-left">Kategória</th>
       <th class="text-center white-space-nowrap">
         Spolu <br>
-        {{categoryCostsOverview.totalCosts | formatPrice}} &euro;
+        {{categoryCostsOverview.totalCosts | currency:'EUR':'symbol'}}
       </th>
       <th class="text-center" *ngFor="let month of months; let index = index">
         {{skMonths[index]}} <br>
-        {{categoryCostsOverview.monthsTotalCosts[index + 1] || 0}} &euro;
+        {{(+categoryCostsOverview.monthsTotalCosts[index + 1] | currency:'EUR':'symbol') || 0}}
       </th>
     </tr>
     </thead>
@@ -19,10 +19,10 @@
           {{categoryMonth.categoryName}}
         </td>
         <td class="text-center">
-          <strong>{{categoryMonth.categoryTotalPrice | formatPrice}} &euro;</strong>
+          <strong>{{categoryMonth.categoryTotalPrice | currency:'EUR':'symbol'}}</strong>
         </td>
         <td  *ngFor="let month of months; let index = index">
-          <b>{{(+categoryMonth.totalMonthsCosts[index + 1] | formatPrice) || 0}} &euro;</b>
+          <b>{{(+categoryMonth.totalMonthsCosts[index + 1] | currency:'EUR':'symbol') || 0}} </b>
         </td>
       </tr>
     </tbody>

@@ -10,6 +10,7 @@ export interface Project {
   state: string;
   address: string;
   area: number;
+  projectProfit: number;
   startedAt: Date;
   finishedAt: Date;
 

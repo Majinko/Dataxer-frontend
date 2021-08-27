@@ -10,6 +10,7 @@ import {CategoryCostsOverview} from '../../../../core/models/overview';
 export class OverviewCostYearlyComponent implements OnInit {
   isLoad: boolean = false;
   months: number[] = new Array(12);
+  // tslint:disable-next-line:max-line-length
   skMonths: string[] = ['Január', 'Február', 'Marec', 'Apríl', 'Máj', 'Jún', 'Júl', 'August', 'September', 'Október', 'November', 'December'];
   categoryCostsOverview: CategoryCostsOverview;
 

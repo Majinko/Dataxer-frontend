@@ -9,7 +9,7 @@ import {Cost} from '../../../../../core/models/cost';
 import {ProjectStats} from '../../../../../core/data/projectStats';
 import {monthDiff, sum} from '../../../../../../helper';
 import {ProjectService} from '../../../../../core/services/project.service';
-import {ProjectManHours} from '../../../../../core/models/project';
+import {Project, ProjectManHours} from '../../../../../core/models/project';
 
 @Component({
   selector: 'app-project-evaluation',
@@ -20,8 +20,10 @@ export class ProjectEvaluationComponent implements OnInit {
   times: Time[];
   invoices: Invoice[];
   costs: Cost[];
+  project: Project;
   countLoads: number = 0;
   projectManHours: ProjectManHours;
+  displayedColumns: string[] = ['input', 'user', 'time', 'profit'];
 
   projectStats: ProjectStats = new ProjectStats();
 
@@ -35,14 +37,22 @@ export class ProjectEvaluationComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getProject();
     this.getTimes();
-    this.getCosts();
     this.getInvoices();
+    this.getCosts();
     this.getProjectManHours();
+  }
+
+  private getProject() {
+    this.projectService.getById(+this.route.parent.snapshot.paramMap.get('id')).subscribe((project) => {
+      this.project = project;
+    });
   }
 
   private getTimes() {
     this.timeService.getAllByProject(+this.route.parent.snapshot.paramMap.get('id')).subscribe((times) => {
+
       if (times.length) {
         this.projectStats.countUser = [...new Set(times.map(time => time?.user?.uid))].length;
         this.projectStats.start = times && times[0].dateWork;
@@ -79,7 +89,10 @@ export class ProjectEvaluationComponent implements OnInit {
   private getProjectManHours() {
     this.projectService.getProjectManHours(+this.route.parent.snapshot.paramMap.get('id')).subscribe(manHours => {
       this.projectManHours = manHours;
+      // tslint:disable-next-line:max-line-length
       this.projectStats.profit = +((this.projectStats.sumInvoices || 0) - (this.projectStats.sumCost || 0) - (manHours.sumPriceBrutto || 0)).toFixed(2);
+      // tslint:disable-next-line:max-line-length
+      this.projectStats.coefficient = this.projectStats.timeStamp !== 0 ? (this.projectStats.profit / 100 * this.project.projectProfit) / (this.projectStats.timeStamp / 60 / 60) : 0;
 
       this.countLoads++;
     });
