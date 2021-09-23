@@ -1,5 +1,20 @@
-<div *ngIf="isLoad; else loading" class="position-relative table-scroll table-fixed-col mt-4 w-100">
-  <table class="table-show-data table-default w-100 border-bottom">
+<div class="row my-3 justify-content-end" *ngIf="years">
+  <div class="col-md-4 col-lg-2">
+    <ng-select [items]="years"
+               [clearable]="false"
+               [(ngModel)]="year"
+               (ngModelChange)="getCosts()"
+               placeholder="Rok"
+               class="filter-ng-select">
+      <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+        <div><span>{{item}}</span></div>
+      </ng-template>
+    </ng-select>
+  </div>
+</div>
+
+<div *ngIf="!isLoad; else loading" class="position-relative table-scroll table-fixed-col mt-4 w-100">
+  <table class="table-show-data table-default w-100 border-bottom" *ngIf="categoryCostsOverview.categoryMonthsCostsDTOS.length; else emptyList">
     <thead>
     <tr>
       <th class="text-left">Kategória</th>
@@ -13,20 +28,40 @@
       </th>
     </tr>
     </thead>
-    <tbody class="table-border">
-      <tr *ngFor="let categoryMonth of categoryCostsOverview.categoryMonthsCostsDTOS">
-        <td class="table-fixed-col text-left white-space-nowrap">
-          {{categoryMonth.categoryName}}
-        </td>
-        <td class="text-center">
-          <strong>{{categoryMonth.categoryTotalPrice | currency:'EUR':'symbol'}}</strong>
-        </td>
-        <td  *ngFor="let month of months; let index = index">
-          <b>{{(+categoryMonth.totalMonthsCosts[index + 1] | currency:'EUR':'symbol') || 0}} </b>
-        </td>
-      </tr>
+    <tbody class="table-border table-row">
+      <ng-template #recursiveTable let-list let-parent="categoryParent">
+        <ng-container *ngFor="let categoryMonth of list">
+          <tr [classList]="categoryMonth.cssClass">
+            <td class="table-fixed-col text-left white-space-nowrap" [style.padding-left]="getPadding(categoryMonth)">
+              <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" [class.invisible]="!categoryMonth.hasChildren"  (click)="loadData(categoryMonth)">
+                <mat-icon>{{categoryMonth.isOpen ? 'keyboard_arrow_down' : 'navigate_next'}}</mat-icon>
+              </button>
+              {{categoryMonth.categoryName}}
+            </td>
+            <td class="text-center">
+              <strong>{{categoryMonth.categoryTotalPrice | currency:'EUR':'symbol'}}</strong>
+            </td>
+            <td  *ngFor="let month of months; let index = index">
+              <b>{{(+categoryMonth.totalMonthsCosts[index + 1] | currency:'EUR':'symbol') || 0}} </b>
+            </td>
+          </tr>
+          <ng-container *ngIf="categoryMonth.children?.length > 0">
+            <ng-container *ngTemplateOutlet="recursiveTable; context:{ $implicit: categoryMonth.children, categoryParent: categoryMonth.categoryId }"></ng-container>
+          </ng-container>
+        </ng-container>
+      </ng-template>
+
+      <ng-container [ngTemplateOutlet]="recursiveTable"  [ngTemplateOutletContext]="{$implicit: categoryCostsOverview.categoryMonthsCostsDTOS}"></ng-container>
     </tbody>
   </table>
+
+  <ng-template #emptyList>
+    <div class="row">
+      <div class="col-md-12">
+        <p>Nothing to show</p>
+      </div>
+    </div>
+  </ng-template>
 </div>
 
 <ng-template #loading>

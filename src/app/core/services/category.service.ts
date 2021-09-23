@@ -9,6 +9,7 @@ import {map} from 'rxjs/operators';
   providedIn: 'root'
 })
 export class CategoryService {
+  private position = 0;
   categoryStore = new Subject<CategoryItemNode>();
 
   constructor(private http: HttpClient) {
@@ -22,6 +23,42 @@ export class CategoryService {
     return this.http.get<CategoryItemNode[]>(environment.baseUrl + '/category/all').pipe(map((categories) => {
       return this.prepareTree(categories, null);
     }));
+  }
+
+  store(category: CategoryItemNode): Observable<CategoryItemNode> {
+    return this.http.post<CategoryItemNode>(`${environment.baseUrl}/category/store`, category).pipe(map((categoryItemNode) => {
+      this.categoryStore.next(categoryItemNode);
+
+      return categoryItemNode;
+    }));
+  }
+
+  updateTree(categories: CategoryItemNode[]): Observable<CategoryItemNode[]> {
+    this.setTreeDepth(categories);
+
+    return this.http.post<CategoryItemNode[]>(environment.baseUrl + '/category/updateTree', this.resetTree(categories));
+  }
+
+  destroy(id: number): Observable<CategoryItemNode> {
+    return this.http.get<CategoryItemNode>(environment.baseUrl + '/category/destroy/' + id);
+  }
+
+  private resetTree(items: CategoryItemNode[], list: CategoryItemNode[] = [], parentId: number = null) {
+    if (items) {
+      items.forEach((item, index) => {
+        item.parentId = parentId;
+        list.push(item);
+
+        if (item.children) {
+          const children = item.children;
+          delete item.children;
+
+          this.resetTree(children, list, item.id);
+        }
+      });
+
+      return list;
+    }
   }
 
   private prepareTree(items: CategoryItemNode[], parenId: number): CategoryItemNode[] {
@@ -42,19 +79,16 @@ export class CategoryService {
     }
   }
 
-  store(category: CategoryItemNode): Observable<CategoryItemNode> {
-    return this.http.post<CategoryItemNode>(`${environment.baseUrl}/category/store`, category).pipe(map((categoryItemNode) => {
-      this.categoryStore.next(categoryItemNode);
+  private setTreeDepth(items: CategoryItemNode[], depth: number = 0) {
+    if (items) {
+      items.forEach(item => {
+        item.position = this.position++;
+        item.depth = depth;
 
-      return categoryItemNode;
-    }));
-  }
-
-  updateTree(categories: CategoryItemNode[]): Observable<CategoryItemNode[]> {
-    return this.http.post<CategoryItemNode[]>(environment.baseUrl + '/category/updateTree', categories);
-  }
-
-  destroy(id: number): Observable<CategoryItemNode> {
-    return this.http.get<CategoryItemNode>(environment.baseUrl + '/category/destroy/' + id);
+        if (item.children) {
+          this.setTreeDepth(item.children, depth + 1);
+        }
+      });
+    }
   }
 }

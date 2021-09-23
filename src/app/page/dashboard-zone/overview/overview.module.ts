@@ -9,6 +9,9 @@ import {ThemeModule} from '../../../theme/theme.module';
 import {MaterialModule} from '../../../theme/modules/material.module';
 import {AvatarModule} from 'ngx-avatar';
 import {CoreModule} from '../../../core/core.module';
+import {OverviewCostTableRowComponent} from './overview-cost-yearly/components/overview-cost-table-row/overview-cost-table-row.component';
+import {NgSelectModule} from '@ng-select/ng-select';
+import {FormsModule} from '@angular/forms';
 
 const routes: Routes = [
   {
@@ -32,7 +35,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [OverviewComponent, OverviewUserTimeMonthlyComponent, OverviewUserTimeYearlyComponent, OverviewCostYearlyComponent],
+  declarations: [OverviewComponent, OverviewUserTimeMonthlyComponent, OverviewUserTimeYearlyComponent, OverviewCostYearlyComponent, OverviewCostTableRowComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
@@ -40,6 +43,8 @@ const routes: Routes = [
     MaterialModule,
     AvatarModule,
     CoreModule,
+    NgSelectModule,
+    FormsModule,
   ]
 })
 export class OverviewModule {

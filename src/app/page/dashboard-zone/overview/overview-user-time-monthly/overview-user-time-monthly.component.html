@@ -1,5 +1,5 @@
 <div *ngIf="isLoad; else loading" class="position-relative table-scroll table-fixed-col mt-4 w-100">
-  <table class="table-show-data table-default w-100 border-bottom">
+  <table class="table-show-data table-default w-100 border-bottom" *ngIf="userMonthlyOverviews.length; else emptyList">
     <thead>
     <tr>
       <th class="table-fixed-col text-left">Užívateľ</th>
@@ -24,6 +24,14 @@
     </tr>
     </tbody>
   </table>
+
+  <ng-template #emptyList>
+    <div class="row">
+      <div class="col-md-12">
+          <p>Nothing to show</p>
+      </div>
+    </div>
+  </ng-template>
 </div>
 
 <ng-template #loading>

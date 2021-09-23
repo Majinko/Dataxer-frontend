@@ -19,11 +19,17 @@ export interface CategoryCostsOverview {
   categoryMonthsCostsDTOS: CategoryMonthsCosts[];
   monthsTotalCosts: { key: number, value: number }[];
   totalCosts: number;
-  hasChildren: boolean;
 }
 
 export interface CategoryMonthsCosts {
+  categoryId: number;
+  categoryParentId: number;
   categoryName: string;
+  categoryDepth: number;
   totalMonthsCosts: { key: number, value: number }[];
   categoryTotalPrice: number;
+  hasChildren: boolean;
+  cssClass: string;
+  isOpen: boolean | true;
+  children?: CategoryMonthsCosts[];
 }

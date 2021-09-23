@@ -45,4 +45,8 @@ export class CostService extends ResourceService<Cost> {
   findAllByProject(projectId: number): Observable<Cost[]> {
     return this.httpClient.get<Cost[]>(`${environment.baseUrl}/cost/project/${projectId}`);
   }
+
+  getCostsYears(): Observable<number[]> {
+    return this.httpClient.get<number[]>(`${environment.baseUrl}/cost/years`);
+  }
 }

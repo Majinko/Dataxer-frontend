@@ -8,7 +8,6 @@ import {environment} from '../../../environments/environment';
   providedIn: 'root'
 })
 export class OverviewService {
-
   constructor(private http: HttpClient) {
   }
 
@@ -20,7 +19,7 @@ export class OverviewService {
     return this.http.get<UserYearlyOverview[]>(`${environment.baseUrl}/overview/userYearsOverview`);
   }
 
-  getCostsOverview(): Observable<CategoryCostsOverview>{
-    return this.http.get<CategoryCostsOverview>(`${environment.baseUrl}/overview/costsOverview?year=2021`);
+  getCostsOverview(parentId: number = null, year): Observable<CategoryCostsOverview> {
+    return this.http.get<CategoryCostsOverview>(`${environment.baseUrl}/overview/costsOverview?year=${year}${parentId ? `&parentId=${parentId}` : ''}`);
   }
 }
