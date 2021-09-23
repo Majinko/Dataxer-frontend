@@ -1,0 +1,14 @@
+<tr *ngFor="let categoryMonth of categoryCostsOverview.categoryMonthsCostsDTOS">
+  <td class="table-fixed-col text-left white-space-nowrap">
+    <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" (click)="startLoadData(categoryMonth)" *ngIf="categoryMonth.hasChildren">
+      <mat-icon>navigate_next</mat-icon>
+    </button>
+    {{categoryMonth.categoryName}}
+  </td>
+  <td class="text-center">
+    <strong>{{categoryMonth.categoryTotalPrice | currency:'EUR':'symbol'}}</strong>
+  </td>
+  <td  *ngFor="let month of months; let index = index">
+    <b>{{(+categoryMonth.totalMonthsCosts[index + 1] | currency:'EUR':'symbol') || 0}} </b>
+  </td>
+</tr>

@@ -1,0 +1,44 @@
+<form class="row" [formGroup]="formGroup" (ngSubmit)="submit()">
+  <div class="col-12">
+    <div class="row">
+      <div class="col-md-4 form-group">
+        <mat-form-field class="form-group w-100">
+          <input formControlName="dayBeforeCanStore" matInput placeholder="Počet dní, pre spätne pridanie časového záznamu">
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4 form-group">
+        <mat-form-field class="form-group w-100">
+          <input formControlName="dayBeforeCanUpdate" matInput placeholder="Počet dní, pre upravenie časového záznamu">
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4 form-group">
+        <mat-form-field class="form-group w-100">
+          <input formControlName="dayBeforeSendEmail" matInput placeholder="Počet dní, po ktorého prekročení sa odošle upozorňujúci email">
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4 form-group">
+        <mat-form-field class="form-group w-100">
+          <input formControlName="email" matInput placeholder="E-mail pre upozornenia">
+          <mat-error *ngIf="f.email.errors && f.email.errors.required">Email is<strong>required</strong></mat-error>
+          <mat-error *ngIf="f.email.errors && f.email.errors.email">E-mail is <strong>incorrect</strong></mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-12">
+    <button mat-flat-button class="btn-icon btn-theme">
+      <mat-icon>save</mat-icon>
+      Uložiť
+    </button>
+  </div>
+</form>
