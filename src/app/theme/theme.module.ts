@@ -39,6 +39,7 @@ import {AngularEditorModule} from '@kolkov/angular-editor';
 import {ConfirmDialogComponent} from './component/confirm-dialog/confirm-dialog.component';
 import {PhotoUploaderComponent} from './component/photo-uploader/photo-uploader.component';
 import { ChatComponent } from './component/chat/chat.component';
+import { CategorySelectGroupComponent } from './component/category-select-group/category-select-group.component';
 
 @NgModule({
   imports: [
@@ -84,7 +85,8 @@ import { ChatComponent } from './component/chat/chat.component';
     DocumentEmailDialogComponent,
     ConfirmDialogComponent,
     PhotoUploaderComponent,
-    ChatComponent
+    ChatComponent,
+    CategorySelectGroupComponent
   ],
     exports: [
         DrawerComponent,
@@ -107,6 +109,7 @@ import { ChatComponent } from './component/chat/chat.component';
         GlobalFilterComponent,
         PhotoUploaderComponent,
         ChatComponent,
+        CategorySelectGroupComponent,
     ]
 })
 export class ThemeModule {

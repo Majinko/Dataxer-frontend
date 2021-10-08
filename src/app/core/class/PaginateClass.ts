@@ -41,7 +41,6 @@ export class PaginateClass<T> {
         }),
         map((data) => {
           // Flip flag to show that loading has finished.
-
           setTimeout(() => {
             this.isLoadingResults = false;
           }, 1);

@@ -28,6 +28,12 @@ export class UploadHelper {
     });
   }
 
+  public getItemUrl(path: string) {
+    return this.storage.ref(path).getDownloadURL().subscribe(url => {
+      return url;
+    });
+  }
+
   public uploadFile(files: File[], issDefault: boolean = false) {
     this.files = [];
 
@@ -113,7 +119,7 @@ export class UploadHelper {
           byteArrays.push(byteArray);
         }
 
-        return new Blob(byteArrays, { type: contentType });
+        return new Blob(byteArrays, {type: contentType});
       };
 
       const blob = b64toBlob(file.content, file.contentType);

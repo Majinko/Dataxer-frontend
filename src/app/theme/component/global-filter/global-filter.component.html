@@ -1,5 +1,6 @@
-<form [formGroup]="filterForm" class="form-row justify-content-end">
-  <div class="col-md-4 col-lg-2" *ngIf="displayedColumns.includes('documentType')">
+<form [formGroup]="filterForm" class="form-row justify-content-end mt-5 mt-md-0">
+
+  <div class="col-md-4 col-lg-3" *ngIf="displayedColumns.includes('documentType')">
     <ng-select [items]="documentTypes"
                [clearable]="false"
                bindLabel="value"
@@ -13,7 +14,7 @@
     </ng-select>
   </div>
 
-  <div class="col-md-4 col-lg-2" *ngIf="displayedColumns.includes('state')">
+  <div class="col-md-4 col-lg-3" *ngIf="displayedColumns.includes('state')">
     <ng-select [items]="priceOfferStates"
                [clearable]="false"
                bindLabel="value"
@@ -27,7 +28,7 @@
     </ng-select>
   </div>
 
-  <div class="col-md-4 col-lg-2 " *ngIf="displayedColumns.includes('payedState')">
+  <div class="col-md-4 col-lg-3" *ngIf="displayedColumns.includes('payedState')">
     <ng-select [items]="payedState"
                [clearable]="false"
                bindLabel="value"
@@ -41,7 +42,7 @@
     </ng-select>
   </div>
 
-  <div class="col-md-4 col-lg-2" *ngIf="displayedColumns.includes('project')">
+  <div class="col-md-4 col-lg-3" *ngIf="displayedColumns.includes('project')">
     <ng-select [items]="projects"
                [clearable]="false"
                bindLabel="title"
@@ -54,7 +55,7 @@
     </ng-select>
   </div>
 
-  <div class="col-md-4 col-lg-2" *ngIf="displayedColumns.includes('contact')">
+  <div class="col-md-4 col-lg-3" *ngIf="displayedColumns.includes('contact')">
     <ng-select [items]="contacts"
                [clearable]="false"
                bindLabel="name"
@@ -66,9 +67,22 @@
       </ng-template>
     </ng-select>
   </div>
+
+  <div class="col-md-4 col-lg-3" *ngIf="displayedColumns.includes('months')">
+    <ng-select [items]="months"
+               [clearable]="false"
+               bindLabel="title"
+               placeholder="Mesiac"
+               formControlName="month"
+               class="filter-ng-select">
+      <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+        <div><span>{{item.title}}</span></div>
+      </ng-template>
+    </ng-select>
+  </div>
 </form>
 
-<div class="d-block d-md-flex align-content-center" *ngIf="isFiltering && displayedColumns.length">
+<div class="d-block d-md-flex align-content-center mb-3" *ngIf="isFiltering && displayedColumns.length">
   <p class="mb-2 mb-md-0 d-md-inline mr-3">Filtre: </p>
   <mat-chip-list aria-label="Filtering">
     <mat-chip class="text-gray my-md-0  mb-md-0" *ngIf="filterForm.get('documentType').value">

@@ -8,9 +8,10 @@ import {ReactiveFormsModule} from '@angular/forms';
 import { RegisterComponent } from './register/register.component';
 import {ThemeModule} from '../../theme/theme.module';
 import {NgSelectModule} from '@ng-select/ng-select';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 @NgModule({
-  declarations: [PageComponent, LoginComponent, RegisterComponent],
+  declarations: [PageComponent, LoginComponent, RegisterComponent, ResetPasswordComponent],
   imports: [
     CommonModule,
     PageRoutingModule,

@@ -1,13 +1,12 @@
 import {AfterViewInit, Component, ViewChild} from '@angular/core';
 import {ItemService} from '../../../../../core/services/item.service';
-import {Item} from '../../../../../core/models/item';
 import {MatPaginator} from '@angular/material/paginator';
-import {MatSort} from '@angular/material/sort';
-import {merge} from 'rxjs';
-import {map, startWith, switchMap} from 'rxjs/operators';
 import {MessageService} from '../../../../../core/services/message.service';
-import {StorageService} from '../../../../../core/services/storage.service';
 import {UploadHelper} from '../../../../../core/class/UploadHelper';
+import {MatDialog} from '@angular/material/dialog';
+import {Router} from '@angular/router';
+import {PaginateClass} from '../../../../../core/class/PaginateClass';
+import {Item} from '../../../../../core/models/item';
 
 @Component({
   selector: 'app-item-table',
@@ -15,67 +14,21 @@ import {UploadHelper} from '../../../../../core/class/UploadHelper';
   styleUrls: ['./item-table.component.scss'],
   providers: [UploadHelper]
 })
-export class ItemTableComponent implements AfterViewInit {
-  pageSize = 15;
-  totalElements = 0;
-  items: Item[] = [];
-  isLoadingResults = true;
-  displayedColumns: string[] = ['id', 'title', 'manufacturer', 'actions'];
+export class ItemTableComponent extends PaginateClass<Item> implements AfterViewInit {
+  displayedColumns: string[] = ['id', 'title', 'actions'];
 
-  @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
-  @ViewChild(MatSort, {static: false}) sort: MatSort;
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
   constructor(
-    private storageService: StorageService,
-    private itemService: ItemService,
-    private messageService: MessageService,
-    public uploadHelper: UploadHelper,
+    public itemService: ItemService,
+    public messageService: MessageService,
+    public dialog: MatDialog,
+    private router: Router
   ) {
+    super(messageService, itemService, dialog);
   }
 
   ngAfterViewInit() {
     this.paginate();
-  }
-
-  paginate() {
-    // If the user changes the sort order, reset back to the first page.
-    this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));
-
-    merge(
-      this.paginator.page,
-      this.sort.sortChange,
-    )
-      .pipe(
-        startWith({}),
-        switchMap(() => {
-          this.isLoadingResults = true;
-
-          return this.itemService.paginate(
-            this.paginator.pageIndex,
-            this.paginator.pageSize,
-          );
-        }),
-        map(data => {
-          // Flip flag to show that loading has finished.
-          this.isLoadingResults = false;
-          this.totalElements = data.totalElements;
-
-          return data.content;
-        })
-      )
-      .subscribe(data => {
-        this.items = data;
-      });
-  }
-
-
-  destroy(event: MouseEvent, item: Item) {
-    event.stopPropagation();
-
-    this.itemService.destroy(item.id).subscribe(r => {
-      this.paginate();
-
-      this.messageService.add('Item was delete');
-    });
   }
 }

@@ -21,10 +21,10 @@ export class TimeService {
     return this.http.post<Time>(`${environment.baseUrl}/time/store`, time);
   }
 
-  allForPeriod(from: string, to: string): Observable<Time[]> {
+  allForPeriod(): Observable<Time[]> {
     const filter = prepareStringFilter('time', this.filter);
 
-    return this.http.get<Time[]>(`${environment.baseUrl}/time/allForPeriod?from=${from}&to=${to}${filter !== '' ? '&filters=' + filter : ''}`);
+    return this.http.get<Time[]>(`${environment.baseUrl}/time/allForPeriod${filter !== '' ? '?filters=' + filter : ''}`);
   }
 
   getById(id: number): Observable<Time> {

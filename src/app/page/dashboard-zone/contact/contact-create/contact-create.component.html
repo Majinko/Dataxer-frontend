@@ -1,6 +1,6 @@
 <form [formGroup]="contactForm" action="" autocomplete="off" (ngSubmit)="onSubmit()">
   <div class="row mb-4">
-    <div class="col d-flex align-items-center mb-3 mb-md-5" [class.justify-content-between]="dialogRef">
+    <div class="col d-flex align-items-center mb-3" [class.justify-content-between]="dialogRef">
       <mat-icon *ngIf="dialogRef === null" routerLink="/contact" class="mr-2 mr-md-5 cursor-pointer">keyboard_backspace</mat-icon>
       <h1 class="mb-0">Vytvorenie nového kontaktu</h1>
       <a *ngIf="dialogRef" mat-icon-button class="close-icon cursor-pointer" mat-dialog-close>

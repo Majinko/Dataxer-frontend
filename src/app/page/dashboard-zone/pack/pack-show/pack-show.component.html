@@ -1,0 +1,46 @@
+<div *ngIf="pack" class="mb-5">
+  <div class="row mb-4">
+    <div class="col d-flex align-items-center mb-3">
+      <mat-icon routerLink="/pack" class="mr-2 mr-md-5 cursor-pointer">keyboard_backspace</mat-icon>
+      <h1 class="mb-0">{{pack.title}}</h1>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <h2 class="border-bottom-2 pb-2 mb-4">Základné info</h2>
+    </div>
+
+    <div class="col-md-4">
+      <p class="mb-0">Názov sady:</p>
+      <h3 class="text-dark"><b>{{pack.title || '-'}}</b></h3>
+    </div>
+
+    <div class="col-md-4">
+      <p class="mb-0">Počet položiek:</p>
+      <h3 class="text-dark"><b>{{pack.packItems.length || '-'}}</b></h3>
+    </div>
+
+    <div class="col-md-4">
+      <p class="mb-0">Cena položiek:</p>
+      <h3 class="text-dark"><b>{{pack.price | currency:'EUR':'symbol' || '-'}}</b></h3>
+    </div>
+
+    <div class="col-12">
+      <h2 class="border-bottom-2 pb-0 mb-0">Položky</h2>
+    </div>
+
+    <div class="col-12">
+      <mat-list class="pt-0">
+        <mat-list-item *ngFor="let item of pack.packItems">
+          <div mat-list-icon>
+            <img *ngIf="item.item.preview" [src]="item.item.preview" [alt]="item.item.title">
+          </div>
+          <div mat-line>{{item.item.title}}</div>
+          <div mat-line> {{item.item.itemPrice.price  | currency:'EUR':'symbol' }} </div>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+      </mat-list>
+    </div>
+  </div>
+</div>

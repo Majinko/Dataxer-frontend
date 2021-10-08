@@ -6,7 +6,7 @@ import {TimeCreateComponent} from './time-create/time-create.component';
 import {TimeIndexComponent} from './time-index/time-index.component';
 import {TimeTableComponent} from './time-index/time-table/time-table.component';
 import {MaterialModule} from '../../../theme/modules/material.module';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ThemeModule} from '../../../theme/theme.module';
 import {CoreModule} from '../../../core/core.module';
 import { TimeEditComponent } from './time-edit/time-edit.component';
@@ -19,7 +19,8 @@ import { TimeEditComponent } from './time-edit/time-edit.component';
         MaterialModule,
         ReactiveFormsModule,
         ThemeModule,
-        CoreModule
+        CoreModule,
+        FormsModule
     ]
 })
 export class TimeModule {

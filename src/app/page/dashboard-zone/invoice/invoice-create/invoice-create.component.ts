@@ -197,7 +197,7 @@ export class InvoiceCreateComponent implements OnInit {
       return;
     }
 
-    // set offer price and total price
+    // set invoice price and total price
     this.formGroup.patchValue({
       price: this.documentHelper.price,
       totalPrice: this.documentHelper.totalPrice,

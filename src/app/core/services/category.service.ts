@@ -4,24 +4,33 @@ import {CategoryItemNode} from '../models/category-item-node';
 import {Observable, Subject} from 'rxjs';
 import {environment} from '../../../environments/environment';
 import {map} from 'rxjs/operators';
+import {CategoryHelper} from '../class/CategoryHelper';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CategoryService {
-  private position = 0;
   categoryStore = new Subject<CategoryItemNode>();
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+    private categoryHelper: CategoryHelper
+  ) {
   }
 
   all(): Observable<CategoryItemNode[]> {
     return this.http.get<CategoryItemNode[]>(environment.baseUrl + '/category/all');
   }
 
+  fallByType(type: string): Observable<CategoryItemNode[]> {
+    return this.http.get<CategoryItemNode[]>(`${environment.baseUrl}/category/allByType/${type}`).pipe(map(categories => {
+      return this.categoryHelper.prepareOptionTree(categories);
+    }));
+  }
+
   nested(): Observable<CategoryItemNode[]> {
     return this.http.get<CategoryItemNode[]>(environment.baseUrl + '/category/all').pipe(map((categories) => {
-      return this.prepareTree(categories, null);
+      return this.categoryHelper.prepareTree(categories, null);
     }));
   }
 
@@ -34,61 +43,12 @@ export class CategoryService {
   }
 
   updateTree(categories: CategoryItemNode[]): Observable<CategoryItemNode[]> {
-    this.setTreeDepth(categories);
+    this.categoryHelper.setTreeDepth(categories);
 
-    return this.http.post<CategoryItemNode[]>(environment.baseUrl + '/category/updateTree', this.resetTree(categories));
+    return this.http.post<CategoryItemNode[]>(environment.baseUrl + '/category/updateTree', this.categoryHelper.resetTree(categories));
   }
 
   destroy(id: number): Observable<CategoryItemNode> {
     return this.http.get<CategoryItemNode>(environment.baseUrl + '/category/destroy/' + id);
-  }
-
-  private resetTree(items: CategoryItemNode[], list: CategoryItemNode[] = [], parentId: number = null) {
-    if (items) {
-      items.forEach((item, index) => {
-        item.parentId = parentId;
-        list.push(item);
-
-        if (item.children) {
-          const children = item.children;
-          delete item.children;
-
-          this.resetTree(children, list, item.id);
-        }
-      });
-
-      return list;
-    }
-  }
-
-  private prepareTree(items: CategoryItemNode[], parenId: number): CategoryItemNode[] {
-    if (items.length > 0) {
-      let i = 0;
-      const tree: CategoryItemNode[] = [];
-
-      items.forEach((item, index) => {
-        if (item.parentId === parenId) {
-          tree[i] = item;
-          tree[i].children = this.prepareTree(items, item.id);
-
-          i++;
-        }
-      });
-
-      return tree;
-    }
-  }
-
-  private setTreeDepth(items: CategoryItemNode[], depth: number = 0) {
-    if (items) {
-      items.forEach(item => {
-        item.position = this.position++;
-        item.depth = depth;
-
-        if (item.children) {
-          this.setTreeDepth(item.children, depth + 1);
-        }
-      });
-    }
   }
 }

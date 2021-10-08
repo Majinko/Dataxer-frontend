@@ -7,6 +7,7 @@ import {map} from 'rxjs/operators';
 import {CategoryItemNode} from '../models/category-item-node';
 import {ResourceService} from '../class/ResourceService';
 import {Serializer} from '../models/serializers/Serializer';
+import {CategoryHelper} from '../class/CategoryHelper';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,10 @@ import {Serializer} from '../models/serializers/Serializer';
 export class ProjectService extends ResourceService<Project> {
   projectStore = new Subject<Project>();
 
-  constructor(private httpClient: HttpClient) {
+  constructor(
+    private httpClient: HttpClient,
+    private categoryHelper: CategoryHelper
+  ) {
     super(
       httpClient,
       'project',
@@ -34,7 +38,9 @@ export class ProjectService extends ResourceService<Project> {
   }
 
   getCategories(id: number): Observable<CategoryItemNode[]> {
-    return this.httpClient.get<CategoryItemNode[]>(`${environment.baseUrl}/project/allProjectCategory?projectId=${id}`);
+    return this.httpClient.get<CategoryItemNode[]>(`${environment.baseUrl}/project/allProjectCategory?projectId=${id}`).pipe(map(categories => {
+      return this.categoryHelper.prepareOptionTree(categories);
+    }));
   }
 
   getProjectEvaluation(id: number, categoryId?: number): Observable<ProjectEvaluation[]> {

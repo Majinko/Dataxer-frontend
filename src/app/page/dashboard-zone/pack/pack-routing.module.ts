@@ -4,6 +4,7 @@ import {PackComponent} from "./pack.component";
 import {PackCreateComponent} from "./pack-create/pack-create.component";
 import {PackIndexComponent} from "./pack-index/pack-index.component";
 import {PackEditComponent} from "./pack-edit/pack-edit.component";
+import {PackShowComponent} from './pack-show/pack-show.component';
 
 const routes: Routes = [{
   path: '',
@@ -20,9 +21,13 @@ const routes: Routes = [{
     {
       path: 'edit/:pack_id',
       component: PackEditComponent
+    },
+    {
+      path: 'show/:pack_id',
+      component: PackShowComponent
     }
   ]
-}]
+}];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

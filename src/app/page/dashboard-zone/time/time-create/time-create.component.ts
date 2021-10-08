@@ -120,7 +120,6 @@ export class TimeCreateComponent implements OnInit {
 
   private getProjectCategories(project: Project) {
     this.projectService.getCategories(project.id).subscribe(categories => {
-
       if (categories.length > 0) {
         if (!this.lastCategories) {
           this.formGroup.patchValue({category: categories[0]});

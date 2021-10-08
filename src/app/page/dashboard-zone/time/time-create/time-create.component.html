@@ -1,5 +1,5 @@
 <div class="row mb-4">
-  <div class="col d-flex align-items-center mb-3 mb-md-5">
+  <div class="col d-flex align-items-center mb-3">
     <mat-icon routerLink="/time" class="mr-2 mr-md-5 cursor-pointer">keyboard_backspace</mat-icon>
     <h1 class="mb-0">Nový časový záznam</h1>
   </div>
@@ -35,7 +35,7 @@
     </div>
 
     <div class="col-md-6 form-group">
-      <app-new-category-select #categorySelect formControlName="category" [showAddButton]="false"></app-new-category-select>
+      <app-category-select-group #categorySelect formControlName="category" type="TIME"></app-category-select-group>
 
       <mat-error *ngIf="isSubmit && f.category.errors">Kategória je <strong>požadovaná.</strong></mat-error>
     </div>

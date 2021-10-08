@@ -1,6 +1,5 @@
 import {Component, LOCALE_ID, OnInit} from '@angular/core';
 import {TimeService} from '../../../../../core/services/time.service';
-import * as moment from 'moment';
 import {Time} from '../../../../../core/models/time';
 import {merge} from 'rxjs';
 import {map, startWith, switchMap} from 'rxjs/operators';
@@ -9,6 +8,7 @@ import {sum} from '../../../../../../helper';
 import {MatDialog} from '@angular/material/dialog';
 import {ConfirmDialogComponent} from '../../../../../theme/component/confirm-dialog/confirm-dialog.component';
 import {DocumentFilter} from '../../../../../core/models/filters/document-filter';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-time-table',
@@ -25,8 +25,8 @@ export class TimeTableComponent implements OnInit {
   isLoadingResults = true;
   displayedColumns: string[] = ['dateWork', 'stats', 'project', 'description', 'category', 'actions'];
 
-  startDate: string = moment().clone().startOf('month').format('YYYY-MM-DD');
-  endDate: string = moment().clone().endOf('month').format('YYYY-MM-DD');
+  startDate: string = moment().startOf('month').format('YYYY-MM-DD');
+  endDate: string = moment().endOf('month').format('YYYY-MM-DD');
 
   constructor(
     public timeService: TimeService,
@@ -36,7 +36,6 @@ export class TimeTableComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.paginate();
   }
 
   private paginate() {
@@ -44,10 +43,7 @@ export class TimeTableComponent implements OnInit {
       .pipe(
         startWith({}),
         switchMap(() => {
-          return this.timeService.allForPeriod(
-            this.startDate,
-            this.endDate
-          );
+          return this.timeService.allForPeriod();
         }),
         map(data => {
           // Flip flag to show that loading has finished.

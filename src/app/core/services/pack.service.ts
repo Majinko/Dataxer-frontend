@@ -3,34 +3,18 @@ import {HttpClient} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
 import {environment} from '../../../environments/environment';
 import {Pack} from '../models/pack';
-import {Paginate} from '../models/paginate';
+import {ResourceService} from '../class/ResourceService';
+import {Serializer} from '../models/serializers/Serializer';
 
 @Injectable({
   providedIn: 'root'
 })
-export class PackService {
-
-  constructor(private http: HttpClient) {
-  }
-
-  store(set: Pack): Observable<Pack> {
-    return this.http.post<Pack>(`${environment.baseUrl}/pack/store`, set);
-  }
-
-  update(set: Pack): Observable<Pack> {
-    return this.http.post<Pack>(`${environment.baseUrl}/pack/update`, set);
-  }
-
-  getById(id: number): Observable<Pack> {
-    return this.http.get<Pack>(`${environment.baseUrl}/pack/${id}`);
-  }
-
-  paginate(page: number, size: number): Observable<Paginate<Pack>> {
-    return this.http.get<Paginate<Pack>>(environment.baseUrl + `/pack/paginate?page=${page}&size=${size}`);
-  }
-
-  destroy(id: number): Observable<void> {
-    return this.http.get<void>(`${environment.baseUrl}/pack/destroy/${id}`);
+export class PackService extends ResourceService<Pack> {
+  constructor(private httpClient: HttpClient) {
+    super(
+      httpClient,
+      'pack',
+      new Serializer());
   }
 
   search(q: string): Observable<Pack[]> {
@@ -39,6 +23,6 @@ export class PackService {
       return of([]);
     }
 
-    return this.http.get<Pack[]>(`${environment.baseUrl}/pack/search?q=${q}`);
+    return this.httpClient.get<Pack[]>(`${environment.baseUrl}/pack/search?q=${q}`);
   }
 }

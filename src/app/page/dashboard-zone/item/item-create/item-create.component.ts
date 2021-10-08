@@ -112,7 +112,7 @@ export class ItemCreateComponent implements OnInit {
       return;
     }
 
-    this.itemService.store(this.formGroup.value, this.uploadHelper.files).subscribe(i => {
+    this.itemService.storeWithFiles(this.formGroup.value, this.uploadHelper.files).subscribe(i => {
       this.uploadHelper.imageUrl = null;
 
       this.router.navigate(['/item']).then(() => {

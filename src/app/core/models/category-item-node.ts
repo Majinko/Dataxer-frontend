@@ -4,6 +4,7 @@ export interface CategoryItemNode {
   depth?: number;
   position?: number;
   parentId?: number;
+  parentName?: string;
   parent?: CategoryItemNode;
   children?: CategoryItemNode[];
 }

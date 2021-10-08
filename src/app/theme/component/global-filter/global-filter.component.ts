@@ -7,6 +7,8 @@ import {ContactService} from '../../../core/services/contact.service';
 import {ProjectService} from '../../../core/services/project.service';
 import {SearchBarService} from '../../../core/services/search-bar.service';
 import {BaseFilter} from '../../../core/models/filters/baseFilter';
+import {auditTime} from 'rxjs/operators';
+import * as moment from 'moment';
 
 // todo make refakt
 @Component({
@@ -28,10 +30,11 @@ export class GlobalFilterComponent implements OnInit {
     {key: 'APPROVED', value: 'Schválená'},
     {key: 'REJECTED', value: 'Zamietnutá'}
   ];
+  months: { start: string, end: string, title: string } [] = [];
   documentTypes: { key: string, value: string }[] = [{key: 'INVOICE', value: 'Faktúra'}, {key: 'PROFORMA', value: 'Zálohová faktúra'}];
 
   @Input() public displayedColumns: string[] = []; // all to you want see
-  @Input() private queryStringName: string[];
+  @Input() private queryStringName: string[]; // top filter searcher
   @Input() private filterData: BaseFilter;
 
   // tslint:disable-next-line:no-output-on-prefix
@@ -51,9 +54,17 @@ export class GlobalFilterComponent implements OnInit {
     this.emitFilter();
     this.patchFilter();
 
-    // fetch data witch you need
-    this.getAllContacts();
-    this.getAllProject();
+    if (this.displayedColumns.includes('months')) {
+      this.prepareMonth();
+    }
+
+    if (this.displayedColumns.includes('contact')) {
+      this.getAllContacts();
+    }
+
+    if (this.displayedColumns.includes('project')) {
+      this.getAllProject();
+    }
   }
 
   /**
@@ -92,7 +103,7 @@ export class GlobalFilterComponent implements OnInit {
    * @private
    */
   private emitFilter() {
-    this.filterForm.valueChanges.subscribe((attr) => {
+    this.filterForm.valueChanges.pipe(auditTime(0)).subscribe((attr) => {
       this.checkFilterFormValue();
       this.onFilter.emit(this.filterForm.value);
     });
@@ -132,7 +143,9 @@ export class GlobalFilterComponent implements OnInit {
       somethingFiltering = 0;
 
       Object.keys(this.filterForm.value).forEach(attr => {
-        somethingFiltering += this.filterForm.value[attr] != null ? 1 : 0;
+        if (attr !== 'month') {
+          somethingFiltering += this.filterForm.value[attr] != null ? 1 : 0;
+        }
       });
     }
 
@@ -149,6 +162,26 @@ export class GlobalFilterComponent implements OnInit {
     this.projectService.all().subscribe(res => {
       this.projects = res;
     });
+  }
+
+  private prepareMonth() {
+    for (let i = 0; i <= 12; i++) {
+      const monthStart: moment.Moment = moment().subtract(i, 'months').startOf('month');
+
+      this.months.push({
+        start: moment().subtract(i, 'months').startOf('month').format('YYYY-MM-DD'),
+        end: moment().subtract(i, 'months').endOf('month').format('YYYY-MM-DD'),
+        title: this.getMonthData(monthStart),
+      });
+    }
+
+    this.filterForm.addControl('month', this.formBuilder.control(this.months[0]));
+  }
+
+  private getMonthData = (momentData: moment.Moment): string => {
+    const date = new Date(momentData.year(), momentData.month(), momentData.date());
+
+    return date.toLocaleString('default', {month: 'long'}) + ' ' + momentData.year();
   }
 
   // convenience getter for easy access to form fields
