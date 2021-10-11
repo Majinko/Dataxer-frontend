@@ -137,13 +137,14 @@ export class GlobalFilterComponent implements OnInit {
    */
   private checkFilterFormValue() {
     let somethingFiltering: number = 0;
+    const filter = ['project', 'contact', 'category', 'state', 'documentType'];
 
     // tslint:disable-next-line:forin
     for (const key in this.filterForm.value) {
       somethingFiltering = 0;
 
       Object.keys(this.filterForm.value).forEach(attr => {
-        if (attr !== 'month') {
+        if (filter.includes(attr)) {
           somethingFiltering += this.filterForm.value[attr] != null ? 1 : 0;
         }
       });
@@ -182,7 +183,7 @@ export class GlobalFilterComponent implements OnInit {
     const date = new Date(momentData.year(), momentData.month(), momentData.date());
 
     return date.toLocaleString('default', {month: 'long'}) + ' ' + momentData.year();
-  }
+  };
 
   // convenience getter for easy access to form fields
   get f() {

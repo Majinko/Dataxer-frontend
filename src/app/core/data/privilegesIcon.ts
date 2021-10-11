@@ -8,6 +8,14 @@ export const PRIVILEGEICONS: { name: string, icon: string }[] = [
     icon: 'work'
   },
   {
+    name: 'Company',
+    icon: 'account_balance'
+  },
+  {
+    name: 'Category',
+    icon: 'folder'
+  },
+  {
     name: 'Cost',
     icon: 'equalizer'
   },
