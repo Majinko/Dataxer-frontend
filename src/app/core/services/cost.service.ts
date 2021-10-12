@@ -6,7 +6,6 @@ import {environment} from '../../../environments/environment';
 import {Paginate} from '../models/paginate';
 import * as moment from 'moment';
 import {map} from 'rxjs/operators';
-import {prepareStringFilter} from '../../../helper';
 import {ResourceService} from '../class/ResourceService';
 import {Serializer} from '../models/serializers/Serializer';
 
@@ -23,9 +22,7 @@ export class CostService extends ResourceService<Cost> {
   }
 
   paginate(page: number, size: number): Observable<Paginate<Cost>> {
-    const filter = prepareStringFilter('cost', this.filter);
-
-    return this.httpClient.get<Paginate<Cost>>(`${environment.baseUrl}/cost/paginate?page=${page}&size=${size}${filter !== '' ? '&filters=' + filter : ''}`).pipe(map(data => {
+    return this.httpClient.get<Paginate<Cost>>(`${environment.baseUrl}/cost/paginate?page=${page}&size=${size}${this.rsqlFilter ? '&filters=' + this.rsqlFilter : ''}`).pipe(map(data => {
       data.content.forEach(cost => {
         cost.dueAtDays = Math.ceil(moment(cost.dueDate).diff(new Date(), 'days', true));
       });

@@ -1,0 +1,83 @@
+<form [formGroup]="filterForm" class="form-row justify-content-end mt-5 mt-md-0">
+  <div class="col-md-4 col-lg-2" *ngIf="documentTypes && documentTypes.length > 0">
+    <ng-select [items]="documentTypes"
+               [clearable]="false"
+               bindLabel="value"
+               bindValue="key"
+               placeholder="Typ dokumentu"
+               formControlName="documentType"
+               class="filter-ng-select">
+    </ng-select>
+  </div>
+
+  <div class="col-md-4 col-lg-2" *ngIf="payedStates && payedStates.length > 0">
+    <ng-select [items]="payedStates"
+               [clearable]="false"
+               bindLabel="value"
+               bindValue="key"
+               placeholder="Úhrada"
+               formControlName="state"
+               class="filter-ng-select">
+    </ng-select>
+  </div>
+
+  <div class="col-md-4 col-lg-2" *ngIf="contacts && contacts.length > 0">
+    <ng-select [items]="contacts"
+               [clearable]="false"
+               bindLabel="name"
+               placeholder="Klient"
+               formControlName="contact"
+               class="filter-ng-select">
+    </ng-select>
+  </div>
+
+  <div class="col-md-4 col-lg-2" *ngIf="projects && projects.length > 0">
+    <ng-select [items]="projects"
+               [clearable]="false"
+               bindLabel="title"
+               placeholder="Projekt"
+               formControlName="project"
+               class="filter-ng-select">
+    </ng-select>
+  </div>
+
+  <div class="col-md-4 col-lg-3" *ngIf="months && months.length > 0">
+    <ng-select [items]="months"
+               [clearable]="false"
+               bindLabel="title"
+               placeholder="Mesiac"
+               formControlName="month"
+               class="filter-ng-select">
+    </ng-select>
+  </div>
+</form>
+
+
+<div class="d-block d-md-flex align-content-center mb-3" *ngIf="isFiltering">
+  <p class="mb-2 mb-md-0 d-md-inline mr-3">Filtre: </p>
+  <mat-chip-list aria-label="Filtering">
+    <mat-chip class="text-gray my-md-0  mb-md-0" *ngIf="documentTypes && documentTypes.length > 0 && filterForm.get('documentType').value">
+      <mat-icon class="mr-1">insert_drive_file</mat-icon>
+      {{filterForm.get('documentType').value | lowercase | translate | titlecase}}
+      <mat-icon (click)="resetFilterValue('documentType')" matChipRemove>cancel</mat-icon>
+    </mat-chip>
+
+    <mat-chip class="text-gray my-md-0  mb-md-0" *ngIf="payedStates && payedStates.length > 0 && filterForm.get('state').value">
+      <mat-icon class="mr-1">timelapse</mat-icon>
+      {{filterForm.get('state').value | lowercase | translate | titlecase}}
+      <mat-icon (click)="resetFilterValue('state')" matChipRemove>cancel</mat-icon>
+    </mat-chip>
+
+    <mat-chip class="text-gray my-md-0  mb-md-0" *ngIf="contacts && contacts.length > 0 && filterForm.get('contact').value">
+      <mat-icon class="mr-1">person</mat-icon>
+      {{filterForm.get('contact').value.name}}
+      <mat-icon (click)="resetFilterValue('contact')" matChipRemove>cancel</mat-icon>
+    </mat-chip>
+
+    <mat-chip class="text-gray my-md-0  mb-md-0" *ngIf="projects && projects.length > 0 && filterForm.get('project').value">
+      <mat-icon class="mr-1">layers</mat-icon>
+      {{filterForm.get('project').value.title}}
+      <mat-icon (click)="resetFilterValue('project')" matChipRemove>cancel</mat-icon>
+    </mat-chip>
+  </mat-chip-list>
+</div>

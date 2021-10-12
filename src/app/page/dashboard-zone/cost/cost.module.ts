@@ -12,6 +12,8 @@ import {CoreModule} from '../../../core/core.module';
 import {CostTableComponent} from './cost-index/components/cost-table/cost-table.component';
 import {CostShowComponent} from './cost-show/cost-show.component';
 import {NgSelectModule} from '@ng-select/ng-select';
+import { CostFilterComponent } from './cost-index/components/cost-filter/cost-filter.component';
+import {TranslateModule} from '@ngx-translate/core';
 
 const routes: Routes = [
   {
@@ -39,22 +41,24 @@ const routes: Routes = [
 ];
 
 @NgModule({
-    imports: [
-        CommonModule,
-        RouterModule.forChild(routes),
-        MaterialModule,
-        ReactiveFormsModule,
-        ThemeModule,
-        CoreModule,
-        NgSelectModule,
-    ],
+  imports: [
+    CommonModule,
+    RouterModule.forChild(routes),
+    MaterialModule,
+    ReactiveFormsModule,
+    ThemeModule,
+    CoreModule,
+    NgSelectModule,
+    TranslateModule,
+  ],
   declarations: [
     CostComponent,
     CostIndexComponent,
     CostCreateComponent,
     CostEditComponent,
     CostTableComponent,
-    CostShowComponent
+    CostShowComponent,
+    CostFilterComponent
   ],
 })
 export class CostModule {

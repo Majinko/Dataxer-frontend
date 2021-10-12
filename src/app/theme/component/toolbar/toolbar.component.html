@@ -4,7 +4,7 @@
       <div class="col px-md-3">
         <div class="d-flex position-relative justify-content-between align-items-center" [ngClass]="showSearchBar && searchBarService.showBar ? 'justify-content-md-center' : ''">
           <app-menu-logo routerLink="/" class="ml-1 ml-md-0 outline-none"></app-menu-logo>
-          <app-search-bar *ngIf="showSearchBar && searchBarService.showBar" class="w-100 mr-0 mr-sm-3"></app-search-bar>
+          <app-search-bar [hidden]="showSearchBar === false || searchBarService.showBar === false" class="w-100 mr-0 mr-sm-3"></app-search-bar>
           <div class="d-flex">
             <a *ngxPermissionsOnly="'Settings'" href="#" class="text-gray mr-5  mb-0 d-none d-md-inline t-d-n" mat-icon-button matTooltip="Nastavenie aplikácie" routerLink="/setting/role">
               <span class="text-dark mr-2">{{companyService.company.name}}</span>

@@ -7,12 +7,12 @@ import {environment} from '../../../environments/environment';
 import {map} from 'rxjs/operators';
 import {DocumentFilter} from '../models/filters/document-filter';
 import {IPaginate} from '../interface/IPaginate';
-import {prepareStringFilter} from '../../../helper';
 import {CustomFile} from '../models/customFile';
 import {UploadContext} from '../models/uploadContext';
 
 export class ResourceService<T extends Resource> implements IPaginate<T> {
   filter: DocumentFilter;
+  rsqlFilter: string;
 
   constructor(
     private http: HttpClient,
@@ -21,10 +21,8 @@ export class ResourceService<T extends Resource> implements IPaginate<T> {
   }
 
   paginate(page: number, size: number): Observable<Paginate<T>> {
-    const filter = prepareStringFilter(this.endpoint, this.filter);
-
     return this.http
-      .get<Paginate<T>>(`${environment.baseUrl}/${this.endpoint}/paginate?page=${page}&size=${size}${filter !== '' ? '&filters=' + filter : ''}`);
+      .get<Paginate<T>>(`${environment.baseUrl}/${this.endpoint}/paginate?page=${page}&size=${size}${this.rsqlFilter ? '&filters=' + this.rsqlFilter : ''}`);
   }
 
   getById(id: number): Observable<T> {

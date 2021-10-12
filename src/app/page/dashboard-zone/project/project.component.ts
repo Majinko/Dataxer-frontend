@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {GodButtonService} from '../../../core/services/god-button.service';
 import {ActivatedRoute} from '@angular/router';
 
@@ -16,7 +16,7 @@ import {ActivatedRoute} from '@angular/router';
 })
 export class ProjectComponent implements OnInit {
   constructor(
-    @Inject(GodButtonService) private readonly godButtonService: GodButtonService,
+    private readonly godButtonService: GodButtonService,
     private route: ActivatedRoute
   ) {
   }

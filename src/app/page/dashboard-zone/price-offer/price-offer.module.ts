@@ -5,7 +5,6 @@ import {PriceOfferIndexComponent} from './price-offer-index/price-offer-index.co
 import {PriceOfferRoutingModule} from './price-offer-routing.module';
 import {PriceOfferCreateComponent} from './price-offer-create/price-offer-create.component';
 import {MaterialModule} from '../../../theme/modules/material.module';
-import {PriceOfferTableComponent} from './price-offer-index/price-offer-table/price-offer-table.component';
 import {CoreModule} from '../../../core/core.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AvatarModule} from 'ngx-avatar';
@@ -16,6 +15,8 @@ import {PriceOfferShowComponent} from './price-offer-show/price-offer-show.compo
 import {DashboardModule} from '../dashboard.module';
 import {TranslateModule} from '@ngx-translate/core';
 import {NgSelectModule} from '@ng-select/ng-select';
+import { PriceOfferFilterComponent } from './price-offer-index/components/price-offer-filter/price-offer-filter.component';
+import {PriceOfferTableComponent} from './price-offer-index/components/price-offer-table/price-offer-table.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import {NgSelectModule} from '@ng-select/ng-select';
     PriceOfferTableComponent,
     PriceOfferEditComponent,
     PriceOfferShowComponent,
+    PriceOfferFilterComponent,
   ],
   imports: [
     CommonModule,

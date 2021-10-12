@@ -5,7 +5,6 @@ import {Paginate} from '../models/paginate';
 import {Invoice} from '../models/invoice';
 import * as moment from 'moment';
 import {map} from 'rxjs/operators';
-import {prepareStringFilter} from '../../../helper';
 import {ResourceService} from '../class/ResourceService';
 import {Serializer} from '../models/serializers/Serializer';
 import {HttpClient} from '@angular/common/http';
@@ -34,9 +33,7 @@ export class InvoiceService extends ResourceService<Invoice> {
   }
 
   paginate(page: number, size: number): Observable<Paginate<Invoice>> {
-    const filter = prepareStringFilter('invoice', this.filter);
-
-    return this.httpClient.get<Paginate<Invoice>>(`${environment.baseUrl}/invoice/paginate?page=${page}&size=${size}${filter !== '' ? '&filters=' + filter : ''}`).pipe(map(data => {
+    return this.httpClient.get<Paginate<Invoice>>(`${environment.baseUrl}/invoice/paginate?page=${page}&size=${size}${this.rsqlFilter ? '&filters=' + this.rsqlFilter : ''}`).pipe(map(data => {
       data.content.forEach(invoice => {
         invoice.dueAtDays = Math.ceil(moment(invoice.dueDate).diff(new Date(), 'days', true));
       });

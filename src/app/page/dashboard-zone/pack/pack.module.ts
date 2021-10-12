@@ -11,9 +11,10 @@ import {PackTableComponent} from './pack-index/components/pack-table/pack-table.
 import {PackCreateComponent} from './pack-create/pack-create.component';
 import { PackEditComponent } from './pack-edit/pack-edit.component';
 import { PackShowComponent } from './pack-show/pack-show.component';
+import { PackFilterComponent } from './pack-index/components/pack-filter/pack-filter.component';
 
 @NgModule({
-  declarations: [PackComponent, PackCreateComponent, PackItemsComponent, PackIndexComponent, PackTableComponent, PackEditComponent, PackShowComponent],
+  declarations: [PackComponent, PackCreateComponent, PackItemsComponent, PackIndexComponent, PackTableComponent, PackEditComponent, PackShowComponent, PackFilterComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,

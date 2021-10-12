@@ -28,7 +28,6 @@ export class InvoiceTableComponent extends PaginateClass<Invoice> implements OnI
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
   ngAfterViewInit() {
-    this.paginate();
   }
 
   constructor(

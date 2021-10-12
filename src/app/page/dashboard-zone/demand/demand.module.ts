@@ -10,10 +10,11 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {NgSelectModule} from "@ng-select/ng-select";
 import {ThemeModule} from "../../../theme/theme.module";
 import { DemandEditComponent } from './demand-edit/demand-edit.component';
+import { DemandFilterComponent } from './demand-index/component/demand-filter/demand-filter.component';
 
 
 @NgModule({
-  declarations: [DemandComponent, DemandIndexComponent, DemandTableComponent, DemandCreateComponent, DemandEditComponent],
+  declarations: [DemandComponent, DemandIndexComponent, DemandTableComponent, DemandCreateComponent, DemandEditComponent, DemandFilterComponent],
   imports: [
     CommonModule,
     DemandRoutingModule,

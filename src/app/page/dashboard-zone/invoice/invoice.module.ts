@@ -11,6 +11,9 @@ import {ThemeModule} from '../../../theme/theme.module';
 import {ReactiveFormsModule} from '@angular/forms';
 import {CoreModule} from '../../../core/core.module';
 import {InvoiceShowComponent} from './invoice-show/invoice-show.component';
+import { InvoiceFilterComponent } from './invoice-index/components/invoice-filter/invoice-filter.component';
+import {NgSelectModule} from '@ng-select/ng-select';
+import {TranslateModule} from '@ngx-translate/core';
 
 const routes: Routes = [{
   path: '',
@@ -44,14 +47,16 @@ const routes: Routes = [{
 }];
 
 @NgModule({
-  declarations: [InvoiceComponent, InvoiceIndexComponent, InvoiceTableComponent, InvoiceCreateComponent, InvoiceEditComponent, InvoiceShowComponent],
+  declarations: [InvoiceComponent, InvoiceIndexComponent, InvoiceTableComponent, InvoiceCreateComponent, InvoiceEditComponent, InvoiceShowComponent, InvoiceFilterComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
     MaterialModule,
     ThemeModule,
     ReactiveFormsModule,
-    CoreModule
+    CoreModule,
+    NgSelectModule,
+    TranslateModule,
   ]
 })
 export class InvoiceModule {

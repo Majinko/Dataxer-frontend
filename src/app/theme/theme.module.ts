@@ -32,14 +32,13 @@ import {DocumentRelationDialogComponent} from './component/document-relation/com
 import {MenuTabComponent} from './component/menu-tab/menu-tab.component';
 import {NgxPermissionsModule} from 'ngx-permissions';
 import {NestedCategoriesComponent} from './component/nested-categories/nested-categories.component';
-import {GlobalFilterComponent} from './component/global-filter/global-filter.component';
 import {TranslateModule} from '@ngx-translate/core';
 import {DocumentEmailDialogComponent} from './component/document-email-dialog/document-email-dialog.component';
 import {AngularEditorModule} from '@kolkov/angular-editor';
 import {ConfirmDialogComponent} from './component/confirm-dialog/confirm-dialog.component';
 import {PhotoUploaderComponent} from './component/photo-uploader/photo-uploader.component';
-import { ChatComponent } from './component/chat/chat.component';
-import { CategorySelectGroupComponent } from './component/category-select-group/category-select-group.component';
+import {ChatComponent} from './component/chat/chat.component';
+import {CategorySelectGroupComponent} from './component/category-select-group/category-select-group.component';
 
 @NgModule({
   imports: [
@@ -81,36 +80,34 @@ import { CategorySelectGroupComponent } from './component/category-select-group/
     DocumentRelationDialogComponent,
     MenuTabComponent,
     NestedCategoriesComponent,
-    GlobalFilterComponent,
     DocumentEmailDialogComponent,
     ConfirmDialogComponent,
     PhotoUploaderComponent,
     ChatComponent,
-    CategorySelectGroupComponent
+    CategorySelectGroupComponent,
   ],
-    exports: [
-        DrawerComponent,
-        ToolbarComponent,
-        MessageComponent,
-        ItemAutocompleteComponent,
-        NewContactSelectComponent,
-        PackAutocompleteComponent,
-        DocumentPackComponent,
-        SlovakiaDigitalAutocompleteComponent,
-        NewProjectSelectComponent,
-        NewCategorySelectComponent,
-        SpinnerButtonComponent,
-        ElementPaidStateComponent,
-        FileComponent,
-        PaymentsComponent,
-        DocumentRelationComponent,
-        MenuTabComponent,
-        NestedCategoriesComponent,
-        GlobalFilterComponent,
-        PhotoUploaderComponent,
-        ChatComponent,
-        CategorySelectGroupComponent,
-    ]
+  exports: [
+    DrawerComponent,
+    ToolbarComponent,
+    MessageComponent,
+    ItemAutocompleteComponent,
+    NewContactSelectComponent,
+    PackAutocompleteComponent,
+    DocumentPackComponent,
+    SlovakiaDigitalAutocompleteComponent,
+    NewProjectSelectComponent,
+    NewCategorySelectComponent,
+    SpinnerButtonComponent,
+    ElementPaidStateComponent,
+    FileComponent,
+    PaymentsComponent,
+    DocumentRelationComponent,
+    MenuTabComponent,
+    NestedCategoriesComponent,
+    PhotoUploaderComponent,
+    ChatComponent,
+    CategorySelectGroupComponent,
+  ]
 })
 export class ThemeModule {
 }

@@ -37,7 +37,24 @@ export class ProjectService extends ResourceService<Project> {
     return this.httpClient.get<Project[]>(`${environment.baseUrl}/project/all`);
   }
 
+  allHasCost(): Observable<Project[]> {
+    return this.httpClient.get<Project[]>(`${environment.baseUrl}/project/allHasCost`);
+  }
+
+  allHasInvoice(): Observable<Project[]> {
+    return this.httpClient.get<Project[]>(`${environment.baseUrl}/project/allHasInvoice`);
+  }
+
+  allHasPriceOffer(): Observable<Project[]> {
+    return this.httpClient.get<Project[]>(`${environment.baseUrl}/project/allHasPriceOffer`);
+  }
+
+  allHasUserTime() {
+    return this.httpClient.get<Project[]>(`${environment.baseUrl}/project/allHasUserTime`);
+  }
+
   getCategories(id: number): Observable<CategoryItemNode[]> {
+    // tslint:disable-next-line:max-line-length
     return this.httpClient.get<CategoryItemNode[]>(`${environment.baseUrl}/project/allProjectCategory?projectId=${id}`).pipe(map(categories => {
       return this.categoryHelper.prepareOptionTree(categories);
     }));
