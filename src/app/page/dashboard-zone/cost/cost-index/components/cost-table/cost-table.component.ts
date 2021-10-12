@@ -23,6 +23,7 @@ export class CostTableComponent extends PaginateClass<Cost> implements AfterView
     'deliveredDate',
     'dueDate',
     'state',
+    'price',
     'actions',
   ];
 
@@ -38,7 +39,6 @@ export class CostTableComponent extends PaginateClass<Cost> implements AfterView
   }
 
   ngAfterViewInit(): void {
-    this.paginate();
   }
 
   showCost(cost: Cost) {

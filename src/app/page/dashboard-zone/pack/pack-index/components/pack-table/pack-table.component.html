@@ -1,6 +1,6 @@
 <div class="row">
-  <div class="col-md-12 mb-3" style="margin-top: -75px">
-    <app-global-filter [queryStringName]="['title']" [filterData]="packService.filter" (onFilter)="filtering($event)"></app-global-filter>
+  <div class="col-md-12 mb-3">
+    <app-pack-filter (onFilter)="filterData($event)" [filterData]="packService.filter"></app-pack-filter>
   </div>
   <div class="col-md-12">
     <h3 class="text-gray mb-3">Vybrané sady</h3>

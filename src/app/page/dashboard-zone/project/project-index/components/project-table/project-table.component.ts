@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ViewChild} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {ProjectService} from '../../../../../../core/services/project.service';
 import {Project} from '../../../../../../core/models/project';
 import {MatPaginator} from '@angular/material/paginator';
@@ -12,7 +12,7 @@ import {MatDialog} from '@angular/material/dialog';
   templateUrl: './project-table.component.html',
   styleUrls: ['./project-table.component.scss']
 })
-export class ProjectTableComponent extends PaginateClass<Project> implements AfterViewInit {
+export class ProjectTableComponent extends PaginateClass<Project> {
   destroyMsg: string = 'Zákazka bola vymazana';
 
   displayedColumns: string[] = [
@@ -32,10 +32,6 @@ export class ProjectTableComponent extends PaginateClass<Project> implements Aft
     public dialog: MatDialog
   ) {
     super(messageService, projectService, dialog);
-  }
-
-  ngAfterViewInit() {
-    this.paginate();
   }
 
   show(project: Project) {

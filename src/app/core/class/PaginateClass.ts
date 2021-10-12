@@ -76,4 +76,11 @@ export class PaginateClass<T> {
 
     this.paginate();
   }
+
+  filterData(data: any) {
+    this.service.filter = data.documentFilter;
+    this.service.rsqlFilter = data.rsqlFilter;
+
+    this.paginate();
+  }
 }

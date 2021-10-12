@@ -9,13 +9,14 @@ import {TaskRoutingModule} from './task-routing.module';
 import {MaterialModule} from '../../../theme/modules/material.module';
 import {ReactiveFormsModule} from '@angular/forms';
 import {NgSelectModule} from '@ng-select/ng-select';
-import { TaskShowComponent } from './task-show/task-show.component';
+import {TaskShowComponent} from './task-show/task-show.component';
 import {ThemeModule} from '../../../theme/theme.module';
 import {AvatarModule} from 'ngx-avatar';
+import {TaskFilterComponent} from './task-index/components/task-filter/task-filter.component';
 
 
 @NgModule({
-  declarations: [TaskComponent, TaskIndexComponent, TaskTableComponent, TaskCreateComponent, TaskEditComponent, TaskShowComponent],
+  declarations: [TaskComponent, TaskIndexComponent, TaskTableComponent, TaskCreateComponent, TaskEditComponent, TaskShowComponent, TaskFilterComponent],
   imports: [
     CommonModule,
     TaskRoutingModule,

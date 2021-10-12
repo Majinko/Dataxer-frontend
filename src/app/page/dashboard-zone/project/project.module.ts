@@ -10,10 +10,12 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {ThemeModule} from '../../../theme/theme.module';
 import {ProjectEditComponent} from './project-edit/project-edit.component';
+import { ProjectFilterComponent } from './project-index/components/project-filter/project-filter.component';
+import {TranslateModule} from '@ngx-translate/core';
 
 
 @NgModule({
-  declarations: [ProjectComponent, ProjectIndexComponent, ProjectTableComponent, ProjectCreateComponent, ProjectEditComponent],
+  declarations: [ProjectComponent, ProjectIndexComponent, ProjectTableComponent, ProjectCreateComponent, ProjectEditComponent, ProjectFilterComponent],
   exports: [],
   imports: [
     CommonModule,
@@ -22,7 +24,8 @@ import {ProjectEditComponent} from './project-edit/project-edit.component';
     ReactiveFormsModule,
     NgSelectModule,
     ThemeModule,
-    FormsModule
+    FormsModule,
+    TranslateModule,
   ]
 })
 export class ProjectModule {

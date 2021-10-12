@@ -4,6 +4,7 @@ import {BaseFilter} from '../models/filters/baseFilter';
 
 export interface IPaginate<T> {
   filter: BaseFilter;
+  rsqlFilter?: string;
 
   destroy(id: number): Observable<void>;
 

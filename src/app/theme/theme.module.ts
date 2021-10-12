@@ -40,6 +40,7 @@ import {ConfirmDialogComponent} from './component/confirm-dialog/confirm-dialog.
 import {PhotoUploaderComponent} from './component/photo-uploader/photo-uploader.component';
 import { ChatComponent } from './component/chat/chat.component';
 import { CategorySelectGroupComponent } from './component/category-select-group/category-select-group.component';
+import { RsqlFilterComponent } from './component/rsql-filter/rsql-filter.component';
 
 @NgModule({
   imports: [
@@ -86,31 +87,33 @@ import { CategorySelectGroupComponent } from './component/category-select-group/
     ConfirmDialogComponent,
     PhotoUploaderComponent,
     ChatComponent,
-    CategorySelectGroupComponent
+    CategorySelectGroupComponent,
+    RsqlFilterComponent,
   ],
-    exports: [
-        DrawerComponent,
-        ToolbarComponent,
-        MessageComponent,
-        ItemAutocompleteComponent,
-        NewContactSelectComponent,
-        PackAutocompleteComponent,
-        DocumentPackComponent,
-        SlovakiaDigitalAutocompleteComponent,
-        NewProjectSelectComponent,
-        NewCategorySelectComponent,
-        SpinnerButtonComponent,
-        ElementPaidStateComponent,
-        FileComponent,
-        PaymentsComponent,
-        DocumentRelationComponent,
-        MenuTabComponent,
-        NestedCategoriesComponent,
-        GlobalFilterComponent,
-        PhotoUploaderComponent,
-        ChatComponent,
-        CategorySelectGroupComponent,
-    ]
+  exports: [
+    DrawerComponent,
+    ToolbarComponent,
+    MessageComponent,
+    ItemAutocompleteComponent,
+    NewContactSelectComponent,
+    PackAutocompleteComponent,
+    DocumentPackComponent,
+    SlovakiaDigitalAutocompleteComponent,
+    NewProjectSelectComponent,
+    NewCategorySelectComponent,
+    SpinnerButtonComponent,
+    ElementPaidStateComponent,
+    FileComponent,
+    PaymentsComponent,
+    DocumentRelationComponent,
+    MenuTabComponent,
+    NestedCategoriesComponent,
+    GlobalFilterComponent,
+    PhotoUploaderComponent,
+    ChatComponent,
+    CategorySelectGroupComponent,
+    RsqlFilterComponent,
+  ]
 })
 export class ThemeModule {
 }
