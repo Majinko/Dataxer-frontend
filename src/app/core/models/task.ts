@@ -1,6 +1,6 @@
-import {Project} from "./project";
-import {CategoryItemNode} from "./category-item-node";
-import {User} from "./user";
+import {Project} from './project';
+import {CategoryItemNode} from './category-item-node';
+import {User} from './user';
 import {CustomFile} from './customFile';
 
 export interface Task {

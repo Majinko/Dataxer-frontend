@@ -7,8 +7,8 @@ import {CustomFile} from '../models/customFile';
 import {UploadContext} from '../models/uploadContext';
 import {Item} from '../models/item';
 import {ResourceService} from '../class/ResourceService';
-import {Serializer} from '../models/serializers/Serializer';
 import {map} from 'rxjs/operators';
+import {TaskSerializer} from '../models/serializers/taskSerializer';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +19,7 @@ export class TaskService extends ResourceService<Task> {
     super(
       httpClient,
       'task',
-      new Serializer());
+      new TaskSerializer());
   }
 
   storeWithFiles(task: Task, files: CustomFile[]): Observable<void> {

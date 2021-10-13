@@ -5,7 +5,7 @@ import {Contact} from '../models/contact';
 import {environment} from '../../../environments/environment';
 import {SlovakiaDigital} from '../models/slovakiaDigital';
 import {ResourceService} from '../class/ResourceService';
-import {ContactSerializer} from '../models/serializers/contactSerializer';
+import {Serializer} from '../models/serializers/Serializer';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +19,7 @@ export class ContactService extends ResourceService<Contact> {
     super(
       httpClient,
       'contact',
-      new ContactSerializer());
+      new Serializer());
   }
 
   all(): Observable<Contact[]> {
