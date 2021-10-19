@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {AbstractControl, FormArray, FormBuilder, FormGroup,} from '@angular/forms';
+import {AbstractControl, FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {UNITS} from '../../../core/data/unit-items';
 import {DocumentHelper} from '../../../core/class/DocumentHelper';
 import {Pack} from '../../../core/models/pack';
@@ -40,27 +40,28 @@ export class DocumentPackComponent implements OnInit {
 
   createPack(): FormGroup {
     return this.formBuilder.group({
-      id: '',
+      id: null,
       title: null,
       customPrice: false,
-      price: 0,
+      showItems: true,
+      price: null,
       tax: this.companyService.company.isTaxPayer ? 20 : 0,
-      totalPrice: 0,
+      totalPrice: null,
       packItems: this.formBuilder.array([this.createItem()])
     });
   }
 
   createItem(): FormGroup {
     return this.formBuilder.group({
-      id: '',
+      id: null,
       title: null,
       item: null,
       qty: 1,
       unit: this.units[0].unit,
       discount: 0,
-      price: 0,
+      price: null,
       tax: this.companyService.company.isTaxPayer ? 20 : 0,
-      totalPrice: 0,
+      totalPrice: null,
     });
   }
 
@@ -176,5 +177,10 @@ export class DocumentPackComponent implements OnInit {
     });
 
     return false;
+  }
+
+  // show hide pack item
+  showHidePackItems(index: number) {
+    this.documentHelper.packs[index].showItems = !this.documentHelper.packs[index].showItems;
   }
 }

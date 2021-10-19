@@ -4,10 +4,11 @@ export interface Pack {
   id: number;
   title: string;
   customPrice?: boolean;
-  packItems: PackItem[];
+  showItems?: boolean;
   price?: number;
   tax?: number;
   totalPrice?: number;
+  packItems: PackItem[];
 }
 
 export interface PackItem {

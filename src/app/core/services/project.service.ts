@@ -34,7 +34,13 @@ export class ProjectService extends ResourceService<Project> {
   }
 
   all(): Observable<Project[]> {
-    return this.httpClient.get<Project[]>(`${environment.baseUrl}/project/all`);
+    return this.httpClient.get<Project[]>(`${environment.baseUrl}/project/all`).pipe(map(projects => {
+      projects.forEach(project => {
+        project.fullTitle = project.number + ' ' + project.title;
+      });
+
+      return projects;
+    }));
   }
 
   allHasCost(): Observable<Project[]> {

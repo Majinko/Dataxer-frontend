@@ -78,6 +78,11 @@
                     <mat-icon>save_alt</mat-icon>
                     <span>Stiahnuť PDF</span>
                   </button>
+
+                  <button mat-menu-item [routerLink]="['/invoice/create', element.documentType, element.id]">
+                    <mat-icon>file_copy</mat-icon>
+                    <span>Duplikovať</span>
+                  </button>
                 </mat-menu>
               </div>
             </td>

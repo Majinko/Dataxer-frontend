@@ -9,6 +9,8 @@ export class ShowHideTaxDirective {
     private companyService: CompanyService,
     private el: ElementRef
   ) {
-    this.el.nativeElement.style.display = this.companyService.company.isTaxPayer ? '' : 'none';
+    if (this.companyService.company) {
+      this.el.nativeElement.style.display = this.companyService.company.isTaxPayer ? '' : 'none';
+    }
   }
 }

@@ -8,6 +8,7 @@ import {map} from 'rxjs/operators';
 import {ResourceService} from '../class/ResourceService';
 import {Serializer} from '../models/serializers/Serializer';
 import {HttpClient} from '@angular/common/http';
+import {PriceOffer} from '../models/priceOffer';
 
 @Injectable({
   providedIn: 'root'
@@ -16,8 +17,12 @@ export class InvoiceService extends ResourceService<Invoice> {
   constructor(private httpClient: HttpClient) {
     super(
       httpClient,
-      'priceOffer',
+      'invoice',
       new Serializer());
+  }
+
+  duplicate(oldId: number): Observable<Invoice>{
+    return this.httpClient.get<Invoice>(`${environment.baseUrl}/invoice/duplicate/${oldId}`);
   }
 
   getById(id: number): Observable<Invoice> {

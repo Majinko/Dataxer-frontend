@@ -19,22 +19,22 @@
 
       <ng-container matColumnDef="hourNetto">
         <th mat-header-cell *matHeaderCellDef>Hodina netto</th>
-        <td mat-cell *matCellDef="let element"> {{element.hourNetto | formatPrice}} &euro;</td>
+        <td mat-cell *matCellDef="let element"> {{element.hourNetto | currency:'EUR':'symbol'}}</td>
       </ng-container>
 
       <ng-container matColumnDef="priceNetto">
         <th mat-header-cell *matHeaderCellDef>Suma netto</th>
-        <td mat-cell *matCellDef="let element"> {{element.priceNetto | formatPrice}} &euro;</td>
+        <td mat-cell *matCellDef="let element"> {{element.priceNetto | currency:'EUR':'symbol'}}</td>
       </ng-container>
 
       <ng-container matColumnDef="hourBrutto">
         <th mat-header-cell *matHeaderCellDef>Hodina brutto</th>
-        <td mat-cell *matCellDef="let element"> {{element.hourBrutto | formatPrice}} &euro;</td>
+        <td mat-cell *matCellDef="let element"> {{element.hourBrutto | currency:'EUR':'symbol'}}</td>
       </ng-container>
 
       <ng-container matColumnDef="priceBrutto">
         <th mat-header-cell *matHeaderCellDef>Suma brutto</th>
-        <td mat-cell *matCellDef="let element"> {{element.priceBrutto | formatPrice}} &euro;</td>
+        <td mat-cell *matCellDef="let element"> {{element.priceBrutto | currency:'EUR':'symbol'}}</td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

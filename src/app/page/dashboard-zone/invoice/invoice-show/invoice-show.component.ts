@@ -15,7 +15,7 @@ import {DocumentEmailDialogComponent} from '../../../../theme/component/document
 })
 export class InvoiceShowComponent implements OnInit {
   invoice: Invoice;
-  canCreateTaxDocument: boolean = false;
+  canCreateTaxDocument: boolean = true;
 
   constructor(
     private router: Router,

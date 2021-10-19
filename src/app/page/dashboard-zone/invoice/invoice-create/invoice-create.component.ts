@@ -112,7 +112,6 @@ export class InvoiceCreateComponent implements OnInit {
   private setInvoiceDataByType() {
     this.invoiceType = this.route.snapshot.paramMap.get('type') === 'PROFORMA' ? this.route.snapshot.paramMap.get('type') : 'INVOICE';
 
-
     if (!window.location.href.includes('create-from-proforma')) {
       if (+this.route.snapshot.paramMap.get('id')) {
         if (this.route.snapshot.paramMap.get('type') === 'TAX_DOCUMENT') {
@@ -124,7 +123,7 @@ export class InvoiceCreateComponent implements OnInit {
             this.pathFromOldObject(invoice);
           });
         } else {
-          this.invoiceService.getById(+this.route.snapshot.paramMap.get('id')).subscribe(invoice => {
+          this.invoiceService.duplicate(+this.route.snapshot.paramMap.get('id')).subscribe(invoice => {
             this.pathFromOldObject(invoice);
           });
         }

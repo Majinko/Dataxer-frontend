@@ -11,6 +11,7 @@ export interface Project {
   address: string;
   area: number;
   projectProfit: number;
+  fullTitle?: string;
   startedAt: Date;
   finishedAt: Date;
 

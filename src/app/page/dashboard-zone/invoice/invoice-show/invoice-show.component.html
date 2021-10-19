@@ -16,6 +16,10 @@
             <mat-icon>edit</mat-icon>
           </button>
 
+          <button (click)="pdf(invoice.id, invoice.title)" mat-icon-button matTooltip="Stiahnuť PDF">
+            <mat-icon>save_alt</mat-icon>
+          </button>
+
           <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
             <mat-icon>more_vert</mat-icon>
           </button>
@@ -175,7 +179,6 @@
               {{pack.totalPrice | currency:'EUR':'symbol'}}
             </td>
           </tr>
-
           <ng-template [ngIf]="!pack.customPrice">
             <ng-container *ngFor="let item of pack.packItems">
               <tr class="table-item">
@@ -230,20 +233,20 @@
     </div>
 
     <div class="col-12">
-      <div class="col-md-4 offset-md-8">
+      <div class="col-md-5 offset-md-7">
         <table class="table-summary no-bg-change mt-4 pr-3 w-100">
           <tr class="row-summary">
             <td class="text-right">
               <p>Zľava {{invoice.discount}} %</p>
             </td>
             <td class="text-right">
-              <p>{{invoice.discount > 0 ? '-' : ''}}{{invoice.discount > 0 && invoice.discount != null ? ((invoice.totalPrice | addPercent: invoice.discount) - invoice.totalPrice).toFixed(2)  : 0 | currency:'EUR':'symbol'}} &euro;</p>
+              <p>{{invoice.discount > 0 ? '-' : ''}}{{invoice.discount > 0 && invoice.discount != null ? ((invoice.totalPrice | addPercent: invoice.discount) - invoice.totalPrice).toFixed(2)  : 0 | currency:'EUR':'symbol'}}</p>
             </td>
           </tr>
 
           <tr class="row-summary" appShowHideTax>
             <td class="text-right">
-              <p>Celkom nez DPH:</p>
+              <p>Celkom bez DPH:</p>
             </td>
             <td class="text-right">
               <p>{{invoice.price | removePercent: invoice.discount | currency:'EUR':'symbol'}}</p>
@@ -255,11 +258,38 @@
               <p>DPH {{tax.tax}} %:</p>
             </td>
             <td class="text-right">
-              <p>{{tax.price | removePercent: invoice.discount | currency:'EUR':'symbol'}}</p>
+              <p>{{tax.totalPrice - tax.price | removePercent: invoice.discount | currency:'EUR':'symbol'}}</p>
             </td>
           </tr>
 
-          <tr class="row-summary">
+          <tr class="row-summary" *ngIf="invoice.documentType === 'TAX_DOCUMENT'">
+            <td class="text-right">
+              <p>Uhradená záloha:</p>
+            </td>
+            <td class="text-right">
+              <p class="tex">{{invoice.totalPrice | currency:'EUR':'symbol'}}</p>
+            </td>
+          </tr>
+
+          <tr class="row-summary" *ngIf="invoice.documentType === 'TAX_DOCUMENT'">
+            <td class="text-right">
+              <p>Celkom <span appShowHideTax>s DPH</span>:</p>
+            </td>
+            <td class="text-right">
+              <p class="tex">{{invoice.totalPrice  | currency:'EUR':'symbol'}}</p>
+            </td>
+          </tr>
+
+          <tr class="row-summary" *ngIf="invoice.documentType === 'TAX_DOCUMENT'">
+            <td class="text-right">
+              <h1 class="text-theme font-weight-bold">Suma na úhradu:</h1>
+            </td>
+            <td class="text-right">
+              <h1 class="text-theme font-weight-bold">{{0 | removePercent: invoice.discount | currency:'EUR':'symbol'}}</h1>
+            </td>
+          </tr>
+
+          <tr class="row-summary" *ngIf="invoice.documentType != 'TAX_DOCUMENT'">
             <td class="text-right">
               <h1 class="text-theme font-weight-bold">Celkom <span appShowHideTax>s DPH</span>:</h1>
             </td>

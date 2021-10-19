@@ -5,6 +5,22 @@
         <tbody class="no-border">
           <tr class="tbody-row set-row">
             <td>
+              <a
+                cdkDragHandle
+                class="mr-3"
+                mat-icon-button
+                matTooltip="Reorder pack">
+                <mat-icon class="text-theme">drag_indicator</mat-icon>
+              </a>
+
+              <a
+                (click)="showHidePackItems(i)"
+                cdkDragHandle
+                class="mr-3"
+                mat-icon-button
+                matTooltip="{{documentHelper.packs[i].showItems ? 'Hide' : 'Show'}} items in pack">
+                <mat-icon class="text-theme">{{documentHelper.packs[i].showItems ? 'visibility' : 'visibility_off'}}</mat-icon>
+              </a>
               <app-pack-autocomplete (findPack)="setPack(i, pack, $event)" formControlName="title"></app-pack-autocomplete>
             </td>
             <td colspan="3" class="thin">
@@ -12,17 +28,17 @@
             </td>
             <td class="thin">
               <mat-form-field  class="w-100">
-                <input matInput [attr.disabled]="!checkbox.checked ? true : null" formControlName="price" placeholder="Jednotková cena" value="{{documentHelper.packs[i].price}}" class="text-right">
+                <input type="number" matInput [attr.disabled]="!checkbox.checked ? true : null" formControlName="price" placeholder="Jednotková cena" value="{{documentHelper.packs[i].price}}" class="text-right">
               </mat-form-field>
             </td>
             <td class="thin" appShowHideTax>
               <mat-form-field  class="w-100">
-                <input matInput [attr.disabled]="!checkbox.checked ? true : null" formControlName="tax" placeholder="DPH" class="text-right">
+                <input type="number" matInput [attr.disabled]="!checkbox.checked ? true : null" formControlName="tax" placeholder="DPH" class="text-right">
               </mat-form-field>
             </td>
             <td>
               <mat-form-field class="w-100">
-                <input matInput [attr.disabled]="!checkbox.checked ? true : null" formControlName="totalPrice" placeholder="Celkom" value="{{documentHelper.packs[i].totalPrice}}" class="text-right">
+                <input type="number" matInput [attr.disabled]="!checkbox.checked ? true : null" formControlName="totalPrice" placeholder="Celkom" value="{{documentHelper.packs[i].totalPrice}}" class="text-right">
               </mat-form-field>
             </td>
             <td class="text-right thin">
@@ -36,9 +52,16 @@
           </tr>
         </tbody>
 
-        <tbody class="no-border table-item table-td-initial" formArrayName="packItems" cdkDropList (cdkDropListDropped)="dropItem(i, $event)">
+        <tbody [hidden]="!documentHelper.packs[i].showItems" class="no-border table-item table-td-initial" formArrayName="packItems" cdkDropList (cdkDropListDropped)="dropItem(i, $event)">
           <tr #trRow class="tbody-row set-row" [formGroupName]="i" *ngFor="let item of pack.get('packItems').controls; let i=index" cdkDrag>
             <td colspan="2" class="text-right">
+              <a
+                cdkDragHandle
+                class="mr-3"
+                mat-icon-button
+                matTooltip="Reorder item">
+                <mat-icon class="text-theme">drag_indicator</mat-icon>
+              </a>
               <app-item-autocomplete formControlName="title" (change)="setItemTitle(item, $event.target.value)" (findItem)="setItem(item, $event)"></app-item-autocomplete>
               <div class="jsDiscount" [ngClass]="{'d-none' : item.value.discount == 0}">
               <mat-form-field class="w-100">
@@ -70,24 +93,24 @@
             <td>
               <div>
                 <mat-form-field class="w-100">
-                  <input matInput #price [attr.disabled]="checkbox.checked ? true : null" formControlName="price" placeholder="Jednotková cena" class="text-right" />
+                  <input type="number" matInput #price [attr.disabled]="checkbox.checked ? true : null" formControlName="price" placeholder="Jednotková cena" class="text-right" />
                 </mat-form-field>
               </div>
               <div class="jsDiscount" [ngClass]="{'d-none' : item.value.discount == 0}">
               <mat-form-field class="w-100">
-                  <input matInput disabled value="{{(itemDiscount.value > 0 && price.value > 0 ? '-' : '') + (+price.value | removePercentGetNumber: +itemDiscount.value)}}" class="text-right" />
+                  <input type="number" matInput disabled value="{{(itemDiscount.value > 0 && price.value > 0 ? '-' : '') + (+price.value | removePercentGetNumber: +itemDiscount.value)}}" class="text-right" />
                 </mat-form-field>
               </div>
             </td>
             <td class="thin" appShowHideTax>
               <mat-form-field class="w-100">
-                <input matInput #tax [attr.disabled]="checkbox.checked ? true : null" formControlName="tax" placeholder="DPH" class="text-right" />
+                <input type="number" matInput #tax [attr.disabled]="checkbox.checked ? true : null" formControlName="tax" placeholder="DPH" class="text-right" />
               </mat-form-field>
             </td>
             <td>
               <div>
                 <mat-form-field class="w-100">
-                  <input matInput [attr.disabled]="checkbox.checked ? true : null" value="{{+qty.value * +price.value | addPercent: +tax.value}}" placeholder="Celkom" class="text-right" />
+                  <input matInput [attr.disabled]="checkbox.checked ? true : null" value="{{price.value > 0 ? (+qty.value * +price.value | addPercent: +tax.value) : null}}" placeholder="Celkom" class="text-right" />
                 </mat-form-field>
               </div>
               <div class="jsDiscount" [ngClass]="{'d-none' : item.value.discount == 0}">

@@ -19,6 +19,10 @@ const routes: Routes = [{
       component: PriceOfferCreateComponent
     },
     {
+      path: 'create/:id',
+      component: PriceOfferCreateComponent
+    },
+    {
       path: 'show/:id',
       component: PriceOfferShowComponent
     },

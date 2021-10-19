@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {PriceOfferService} from 'src/app/core/services/priceOffer.service';
 import {MessageService} from 'src/app/core/services/message.service';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {DocumentHelper} from '../../../../core/class/DocumentHelper';
 import {UserService} from '../../../../core/services/user.service';
 import {NumberingService} from '../../../../core/services/numbering.service';
@@ -11,6 +11,8 @@ import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/
 import {MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter} from '@angular/material-moment-adapter';
 import {addDays, APP_DATE_FORMATS} from '../../../../../helper';
 import {BankAccountService} from '../../../../core/services/bank-account.service';
+import {Pack} from '../../../../core/models/pack';
+import {PriceOffer} from '../../../../core/models/priceOffer';
 
 @Component({
   selector: 'app-create',
@@ -33,6 +35,7 @@ import {BankAccountService} from '../../../../core/services/bank-account.service
 export class PriceOfferCreateComponent implements OnInit {
   formGroup: FormGroup;
   submitted: boolean = false;
+  oldPacks: Pack[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -43,13 +46,18 @@ export class PriceOfferCreateComponent implements OnInit {
     private bankAccountService: BankAccountService,
     private companyService: CompanyService,
     private router: Router,
-    public documentHelper: DocumentHelper
+    public documentHelper: DocumentHelper,
+    public route: ActivatedRoute
   ) {
   }
 
   ngOnInit() {
     this.prepareForm();
-    this.preparePriceOfferData();
+    if (this.route.snapshot.paramMap.get('id') === null) {
+      this.preparePriceOfferData();
+    } else {
+      this.checkDuplicate();
+    }
     this.changeForm();
     this.getDefaultBankAccount();
   }
@@ -87,10 +95,19 @@ export class PriceOfferCreateComponent implements OnInit {
     });
   }
 
+  private checkDuplicate() {
+    if (+this.route.snapshot.paramMap.get('id')) {
+      this.priceOfferService.duplicate(+this.route.snapshot.paramMap.get('id')).subscribe((oldPriceOffer) => {
+        this.pathFromOldObject(oldPriceOffer);
+
+        this.preparePriceOfferData();
+      });
+    }
+  }
+
   // set user
   private preparePriceOfferData() {
     this.formGroup.get('documentData.user').patchValue(this.userService.user);
-
 
     this.numberingService.generateNextNumberByDocumentType('PRICE_OFFER').subscribe(r => {
       this.formGroup.patchValue({number: r});
@@ -121,6 +138,16 @@ export class PriceOfferCreateComponent implements OnInit {
           });
         }
       });
+  }
+
+  private pathFromOldObject(document: PriceOffer) {
+    this.oldPacks = document.packs;
+
+    this.formGroup.patchValue({
+      contact: document.contact,
+      project: document.project,
+      discount: document.discount === null ? 0 : document.discount,
+    });
   }
 
 

@@ -56,6 +56,11 @@
 <div class="d-block d-md-flex align-content-center mb-3" *ngIf="isFiltering">
   <p class="mb-2 mb-md-0 d-md-inline mr-3">Filtre: </p>
   <mat-chip-list aria-label="Filtering">
+    <mat-chip class="text-gray my-md-0  mb-md-0" *ngIf="months && months.length > 0 && filterForm.get('month').value">
+      <mat-icon class="mr-1">access_time</mat-icon>
+      {{(filterForm.get('month').value.start | date: 'dd.MM.y') + ' - ' + (filterForm.get('month').value.end | date: 'dd.MM.y' )}}
+    </mat-chip>
+
     <mat-chip class="text-gray my-md-0  mb-md-0" *ngIf="documentTypes && documentTypes.length > 0 && filterForm.get('documentType').value">
       <mat-icon class="mr-1">insert_drive_file</mat-icon>
       {{filterForm.get('documentType').value | lowercase | translate | titlecase}}

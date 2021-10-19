@@ -100,7 +100,12 @@
     </div>
   </div>
 
-  <app-document-pack [formGroup]="formGroup" [documentHelper]="documentHelper"></app-document-pack>
+  <app-document-pack *ngIf="route.snapshot.paramMap.get('id') === null; else copyPriceOfferBlock" [formGroup]="formGroup" [documentHelper]="documentHelper"></app-document-pack>
+  <ng-template #copyPriceOfferBlock>
+    <div *ngIf="this.oldPacks.length > 0">
+      <app-document-pack [formGroup]="formGroup" [packs]="this.oldPacks" [documentHelper]="documentHelper"></app-document-pack>
+    </div>
+  </ng-template>
 
   <div class="row">
     <div class="col-12">

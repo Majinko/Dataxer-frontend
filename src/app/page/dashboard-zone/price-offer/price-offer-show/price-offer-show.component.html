@@ -227,7 +227,7 @@
               <p>DPH {{tax.tax}} %:</p>
             </td>
             <td class="text-right">
-              <p>{{tax.price | removePercent: priceOffer.discount | currency:'EUR':'symbol'}}</p>
+              <p>{{tax.totalPrice - tax.price | removePercent: priceOffer.discount | currency:'EUR':'symbol'}}</p>
             </td>
           </tr>
 

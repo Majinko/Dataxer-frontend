@@ -4,7 +4,7 @@ import {PriceOffer} from '../models/priceOffer';
 import {Observable} from 'rxjs';
 import {environment} from 'src/environments/environment';
 import {ResourceService} from '../class/ResourceService';
-import {PriceOfferSerializer} from '../models/serializers/priceOfferSerializer';
+import {Serializer} from '../models/serializers/Serializer';
 
 @Injectable({
   providedIn: 'root',
@@ -14,10 +14,14 @@ export class PriceOfferService extends ResourceService<PriceOffer> {
     super(
       httpClient,
       'priceOffer',
-      new PriceOfferSerializer());
+      new Serializer());
   }
 
   findAllByProject(projectId: number): Observable<PriceOffer[]> {
     return this.httpClient.get<PriceOffer[]>(`${environment.baseUrl}/priceOffer/project/${projectId}`);
+  }
+
+  duplicate(oldId: number): Observable<PriceOffer>{
+    return this.httpClient.get<PriceOffer>(`${environment.baseUrl}/priceOffer/duplicate/${oldId}`);
   }
 }

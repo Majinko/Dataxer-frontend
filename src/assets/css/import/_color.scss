@@ -22,6 +22,7 @@ $text-color: (
 */
 $bg-colors: (
   'rejected' : $color-danger,
+  'unpaid' : $color-danger,
   'waiting': $color-warning,
   'approved': $color-success,
   'theme' : $global-primary-color,

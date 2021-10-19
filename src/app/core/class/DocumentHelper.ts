@@ -35,13 +35,15 @@ export class DocumentHelper {
             item.totalPrice = +this.addPercent(+item.price * +item.qty, +item.tax);
 
             pack.totalPrice += +this.removePercent(+item.totalPrice, +item.discount);
-            pack.totalPrice = +pack.totalPrice.toFixed(2);
 
             pack.price += (!isNaN(+item.price) && !isNaN(+item.qty)) ? +this.removePercent((+item.price * +item.qty), +item.discount) : 0;
 
             this.price += +this.removePercent(+item.price * +item.qty, +item.discount);
             this.totalPrice += +this.removePercent(+item.totalPrice, +item.discount);
           });
+
+          pack.price = +pack.price.toFixed(2);
+          pack.totalPrice = +pack.totalPrice.toFixed(2);
         }
       } else {
         pack.totalPrice += +this.addPercent(+pack.price, +pack.tax);
@@ -55,13 +57,13 @@ export class DocumentHelper {
   addPercent(value: any, args: any): number {
     const result: any = (parseFloat(value) / 100) * parseFloat(args) + parseFloat(value);
 
-    return !isNaN(result) ? result.toFixed(2) : 0;
+    return !isNaN(result) ? result : 0;
   }
 
   removePercent(value: any, args: any): number {
     const result: any = value - (parseFloat(value) / 100) * parseFloat(args);
 
-    return !isNaN(result) ? result.toFixed(2) : 0;
+    return !isNaN(result) ? result : 0;
   }
 
   prepareTaxes(packs: Pack[]) {
@@ -78,6 +80,7 @@ export class DocumentHelper {
 
   prepareTaxResult(item, isItem = false) {
     const tAxResult = this.taxResult.find(t => t.tax === item.tax);
+
     if (tAxResult !== undefined) {
       if (isItem) {
         tAxResult.price += +this.removePercent(+item.price, +item.discount);

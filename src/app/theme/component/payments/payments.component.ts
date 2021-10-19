@@ -93,7 +93,7 @@ export class PaymentsComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   canCreateTaxDoc() {
-    this.canCreateTaxDocument.emit(sum(this.payments, 'payedValue') < this.price);
+    this.canCreateTaxDocument.emit(sum(this.payments, 'payedValue') <= this.price);
   }
 
   ngOnDestroy(): void {
