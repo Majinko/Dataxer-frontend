@@ -77,6 +77,16 @@
                     <mat-icon>file_copy</mat-icon>
                     <span>Duplikovať</span>
                   </button>
+
+                  <button mat-menu-item [routerLink]="['/invoice/create-from-proforma', 'INVOICE', element.id]">
+                    <mat-icon>text_snippet</mat-icon>
+                    <span>Vystaviť ostrú faktúru</span>
+                  </button>
+
+                  <button mat-menu-item [routerLink]="['/invoice/create-from-proforma', 'PROFORMA', element.id]">
+                    <mat-icon>insert_drive_file</mat-icon>
+                    <span>Vystaviť zálohovú faktúru</span>
+                  </button>
                 </mat-menu>
               </div>
             </td>

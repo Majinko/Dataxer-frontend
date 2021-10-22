@@ -7,6 +7,8 @@ import {Router} from '@angular/router';
 import {DocumentHelper} from '../../../../../../core/class/DocumentHelper';
 import {PaginateClass} from '../../../../../../core/class/PaginateClass';
 import {MatDialog} from '@angular/material/dialog';
+import {PaymentService} from '../../../../../../core/services/payment.service';
+import {PaymentDialogComponent} from '../../../../../../theme/component/payments/components/payment-dialog/payment-dialog.component';
 
 @Component({
   selector: 'app-invoice-table',
@@ -35,12 +37,20 @@ export class InvoiceTableComponent extends PaginateClass<Invoice> implements OnI
     private documentHelper: DocumentHelper,
     public messageService: MessageService,
     public invoiceService: InvoiceService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private paymentService: PaymentService,
   ) {
     super(messageService, invoiceService, dialog);
   }
 
   ngOnInit(): void {
+    this.paymentService.newPayment.subscribe(() => {
+      this.paginate();
+    });
+
+    this.paymentService.destroyPayment.subscribe(() => {
+      this.paginate();
+    });
   }
 
   pdf(event: MouseEvent, id: number, name: string) {
@@ -48,6 +58,18 @@ export class InvoiceTableComponent extends PaginateClass<Invoice> implements OnI
 
     this.invoiceService.pdf(id).subscribe(r => {
       this.documentHelper.pdf(r, name);
+    });
+  }
+
+  showPaymentDialog(documentId: number, documentType: string) {
+    this.dialog.open(PaymentDialogComponent, {
+      width: '100%',
+      maxWidth: '500px',
+      autoFocus: false,
+      data: {
+        documentId,
+        documentType
+      }
     });
   }
 }

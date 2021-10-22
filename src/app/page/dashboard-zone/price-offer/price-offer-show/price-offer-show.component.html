@@ -19,11 +19,11 @@
             <mat-icon>more_vert</mat-icon>
           </button>
           <mat-menu #menu="matMenu" class="menu-not-rounded">
-            <button mat-menu-item [routerLink]="['/priceOffer/create-from-proforma', 'priceOffer', priceOffer.id]">
+            <button mat-menu-item [routerLink]="['/invoice/create-from-proforma', 'INVOICE', priceOffer.id]">
               <span>Vystaviť ostrú faktúru</span>
             </button>
 
-            <button mat-menu-item [routerLink]="['/priceOffer/create-from-proforma', 'PROFORMA', priceOffer.id]">
+            <button mat-menu-item [routerLink]="['/invoice/create-from-proforma', 'PROFORMA', priceOffer.id]">
               <span>Vystaviť zálohovú faktúru</span>
             </button>
           </mat-menu>

@@ -130,6 +130,14 @@ export class InvoiceCreateComponent implements OnInit {
       }
     } else {
       this.priceOfferService.getById(+this.route.snapshot.paramMap.get('id')).subscribe(proforma => {
+        proforma.packs.forEach((pack) => {
+          pack.id = null;
+
+          pack.packItems.forEach((item) => {
+            item.id = null;
+          });
+        });
+
         this.pathFromOldObject(proforma);
       });
     } // invoice is create from proforma

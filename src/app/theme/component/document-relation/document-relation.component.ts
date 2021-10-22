@@ -40,6 +40,7 @@ export class DocumentRelationComponent implements OnInit, OnChanges {
   }
 
   showDoc(relatedDocumentId: number, documentType: string) {
+    console.log(documentType);
     if (documentType === 'PRICE_OFFER') {
       this.router.navigate(['/price-offer/show', relatedDocumentId]).then();
     } else {

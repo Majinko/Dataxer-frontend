@@ -83,6 +83,11 @@
                     <mat-icon>file_copy</mat-icon>
                     <span>Duplikovať</span>
                   </button>
+
+                  <button mat-menu-item (click)="showPaymentDialog(element.id, element.documentType)" *ngIf="element.paymentDate === null">
+                    <mat-icon>credit_card</mat-icon>
+                    <span>Prijať platbu</span>
+                  </button>
                 </mat-menu>
               </div>
             </td>
