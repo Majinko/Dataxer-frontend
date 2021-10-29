@@ -8,7 +8,6 @@ import {map} from 'rxjs/operators';
 import {ResourceService} from '../class/ResourceService';
 import {Serializer} from '../models/serializers/Serializer';
 import {HttpClient} from '@angular/common/http';
-import {PriceOffer} from '../models/priceOffer';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +20,7 @@ export class InvoiceService extends ResourceService<Invoice> {
       new Serializer());
   }
 
-  duplicate(oldId: number): Observable<Invoice>{
+  duplicate(oldId: number): Observable<Invoice> {
     return this.httpClient.get<Invoice>(`${environment.baseUrl}/invoice/duplicate/${oldId}`);
   }
 
@@ -64,7 +63,7 @@ export class InvoiceService extends ResourceService<Invoice> {
     return this.httpClient.get<any>(`${environment.baseUrl}/invoice/pdf/${id}`, {responseType: 'blob'});
   }
 
-  findAllByProject(projectId: number): Observable<Invoice[]> {
-    return this.httpClient.get<Invoice[]>(`${environment.baseUrl}/invoice/project/${projectId}`);
+  findAllByProject(projectId: number, companyIds: number[] = null): Observable<Invoice[]> {
+    return this.httpClient.get<Invoice[]>(`${environment.baseUrl}/invoice/project/${projectId}${companyIds && companyIds.length > 0 ? '?companyIds=' + companyIds : ''}`);
   }
 }

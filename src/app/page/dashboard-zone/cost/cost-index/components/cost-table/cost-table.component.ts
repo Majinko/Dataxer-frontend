@@ -6,6 +6,7 @@ import {Cost} from '../../../../../../core/models/cost';
 import {Router} from '@angular/router';
 import {PaginateClass} from '../../../../../../core/class/PaginateClass';
 import {MatDialog} from '@angular/material/dialog';
+import {sum} from '../../../../../../../helper';
 
 @Component({
   selector: 'app-cost-table',
@@ -13,6 +14,7 @@ import {MatDialog} from '@angular/material/dialog';
   styleUrls: ['./cost-table.component.scss']
 })
 export class CostTableComponent extends PaginateClass<Cost> implements AfterViewInit {
+  totalPrice: number = 0;
   displayedColumns: string[] = [
     'title',
     'project',
@@ -39,6 +41,11 @@ export class CostTableComponent extends PaginateClass<Cost> implements AfterView
   }
 
   ngAfterViewInit(): void {
+    this.paginateFinish.subscribe((value) => {
+      if (value === true) {
+        this.totalPrice = sum(this.data, 'price');
+      }
+    });
   }
 
   showCost(cost: Cost) {
@@ -47,5 +54,10 @@ export class CostTableComponent extends PaginateClass<Cost> implements AfterView
 
   editCost(id: number) {
     this.router.navigate(['/cost/edit', id]).then();
+  }
+
+  getCostPrice() {
+    console.log(this.data);
+    return;
   }
 }

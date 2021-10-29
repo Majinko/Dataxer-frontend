@@ -30,7 +30,7 @@
 
 <app-project-chart *ngIf="requestDone===3" [costs]="costs" [invoices]="invoices" [priceOffers]="priceOffers"></app-project-chart>
 
-<div class="row">
+<div class="row" *ngIf="requestDone===3; else isLoading">
   <div class="col-12 mt-3">
     <mat-accordion>
       <mat-expansion-panel class="bg-box">
@@ -106,3 +106,9 @@
     </mat-accordion>
   </div>
 </div>
+
+<ng-template #isLoading>
+  <div class="loading-shade h-100">
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-template>

@@ -38,10 +38,11 @@ export class ProjectEvaluationComponent implements OnInit {
 
   ngOnInit(): void {
     this.getProject();
-    this.getTimes();
-    this.getInvoices();
-    this.getCosts();
-    this.getProjectManHours();
+    this.getTimes(null);
+    this.getInvoices(null);
+    this.getCosts(null);
+    this.getProjectManHours(null);
+    this.handleChangeCompany();
   }
 
   private getProject() {
@@ -50,8 +51,8 @@ export class ProjectEvaluationComponent implements OnInit {
     });
   }
 
-  private getTimes() {
-    this.timeService.getAllByProject(+this.route.parent.snapshot.paramMap.get('id')).subscribe((times) => {
+  private getTimes(companyIds: number[]) {
+    this.timeService.getAllByProject(+this.route.parent.snapshot.paramMap.get('id'), companyIds).subscribe((times) => {
 
       if (times.length) {
         this.projectStats.countUser = [...new Set(times.map(time => time?.user?.uid))].length;
@@ -65,8 +66,8 @@ export class ProjectEvaluationComponent implements OnInit {
     });
   }
 
-  private getCosts() {
-    this.costService.findAllByProject(+this.route.parent.snapshot.paramMap.get('id')).subscribe((costs) => {
+  private getCosts(companyIds: number[]) {
+    this.costService.findAllByProject(+this.route.parent.snapshot.paramMap.get('id'), companyIds).subscribe((costs) => {
       if (costs.length) {
         this.projectStats.sumCost = sum(costs, 'price');
         this.projectStats.sumInvoices = (this.projectStats.sumInvoices ? this.projectStats.sumInvoices : 0) - sum(costs, 'price');
@@ -76,8 +77,8 @@ export class ProjectEvaluationComponent implements OnInit {
     });
   }
 
-  private getInvoices() {
-    this.invoiceService.findAllByProject(+this.route.parent.snapshot.paramMap.get('id')).subscribe((invoices) => {
+  private getInvoices(companyIds: number[]) {
+    this.invoiceService.findAllByProject(+this.route.parent.snapshot.paramMap.get('id'), companyIds).subscribe((invoices) => {
       if (invoices.length) {
         this.projectStats.sumInvoices = (this.projectStats.sumInvoices ? this.projectStats.sumInvoices : 0) + sum(invoices, 'price');
       }
@@ -86,8 +87,8 @@ export class ProjectEvaluationComponent implements OnInit {
     });
   }
 
-  private getProjectManHours() {
-    this.projectService.getProjectManHours(+this.route.parent.snapshot.paramMap.get('id')).subscribe(manHours => {
+  private getProjectManHours(companyIds: number[]) {
+    this.projectService.getProjectManHours(+this.route.parent.snapshot.paramMap.get('id'), companyIds).subscribe(manHours => {
       this.projectManHours = manHours;
       // tslint:disable-next-line:max-line-length
       this.projectStats.profit = +((this.projectStats.sumInvoices || 0) - (this.projectStats.sumCost || 0) - (manHours.sumPriceBrutto || 0)).toFixed(2);
@@ -95,6 +96,17 @@ export class ProjectEvaluationComponent implements OnInit {
       this.projectStats.coefficient = this.projectStats.timeStamp !== 0 ? (this.projectStats.profit / 100 * this.project.projectProfit) / (this.projectStats.timeStamp / 60 / 60) : 0;
 
       this.countLoads++;
+    });
+  }
+
+  private handleChangeCompany() {
+    this.projectService.getInfoFromCompany.subscribe((ids) => {
+      this.countLoads = 0;
+
+      this.getTimes(ids);
+      this.getInvoices(ids);
+      this.getCosts(ids);
+      this.getProjectManHours(ids);
     });
   }
 }

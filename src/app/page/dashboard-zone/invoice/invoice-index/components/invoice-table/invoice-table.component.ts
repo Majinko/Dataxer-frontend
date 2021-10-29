@@ -9,6 +9,7 @@ import {PaginateClass} from '../../../../../../core/class/PaginateClass';
 import {MatDialog} from '@angular/material/dialog';
 import {PaymentService} from '../../../../../../core/services/payment.service';
 import {PaymentDialogComponent} from '../../../../../../theme/component/payments/components/payment-dialog/payment-dialog.component';
+import {sum} from '../../../../../../../helper';
 
 @Component({
   selector: 'app-invoice-table',
@@ -16,6 +17,7 @@ import {PaymentDialogComponent} from '../../../../../../theme/component/payments
   providers: [DocumentHelper]
 })
 export class InvoiceTableComponent extends PaginateClass<Invoice> implements OnInit, AfterViewInit {
+  totalPrice: number = 0;
   destroyMsg = 'Faktura bola odstránená';
   displayedColumns: string[] = [
     'id',
@@ -30,6 +32,11 @@ export class InvoiceTableComponent extends PaginateClass<Invoice> implements OnI
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
   ngAfterViewInit() {
+    this.paginateFinish.subscribe((value) => {
+      if (value === true) {
+        this.totalPrice = sum(this.data, 'price');
+      }
+    });
   }
 
   constructor(

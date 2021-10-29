@@ -83,9 +83,9 @@ export class CostCreateComponent implements OnInit {
       dueDate: [addDays(new Date(), 14)],
       taxableSupply: null,
       currency: this.currencies[0].value,
-      price: 0,
+      price: null,
       tax: 20,
-      totalPrice: 0
+      totalPrice: null
     });
   }
 
@@ -110,6 +110,7 @@ export class CostCreateComponent implements OnInit {
   }
 
   submit() {
+    console.log(this.formGroup.invalid);
     this.submitted = true;
     this.isLoading = true;
 

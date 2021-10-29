@@ -12,8 +12,8 @@
     </div>
   </div>
 
-  <div class="row">
-    <div class="col-md-6 form-group">
+  <div class="row" [class.mt-2]="!lastProjects && !lastCategories">
+    <div class="col-md-6 form-group" *ngIf="lastProjects">
       <h3 class="mb-1">Poslende zapisane projekty:</h3>
       <mat-radio-group #radioCategories aria-label="Select an option" (change)="setProject($event.value)" *ngIf="lastProjects">
         <mat-radio-button class="d-block mb-1" [value]="project" [checked]="i === 0" *ngFor="let project of lastProjects; let i = index">{{project.title}}</mat-radio-button>

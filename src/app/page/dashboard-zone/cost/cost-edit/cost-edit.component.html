@@ -22,7 +22,7 @@
       </div>
 
       <div class="col-md-4">
-        <mat-form-field class="form-group w-100">
+        <mat-form-field class="form-group w-100 mb-md-0">
           <mat-label>Typ nákladu</mat-label>
           <mat-select formControlName="type">
             <mat-option *ngFor="let type of costTypes" value="{{type.key}}">{{type.value}}</mat-option>
@@ -32,7 +32,7 @@
       </div>
 
       <div class="col-md-4">
-        <mat-form-field  class="form-group w-100">
+        <mat-form-field  class="form-group w-100 mb-md-0">
           <mat-label>Stav</mat-label>
           <mat-select formControlName="state">
             <mat-option *ngFor="let state of costStates" value="{{state.key}}">{{state.value}}</mat-option>
@@ -41,7 +41,7 @@
       </div>
 
       <div class="col-md-4">
-        <mat-form-field class="form-group w-100">
+        <mat-form-field class="form-group w-100 mb-md-0">
           <mat-label>Forma úhrady</mat-label>
           <mat-select formControlName="paymentMethod" matNativeControl>
             <mat-option value="BANK_PAYMENT" selected>Bankový prevod</mat-option>
@@ -93,12 +93,12 @@
 
       <div class="col-md-4">
         <app-select-new-contact formControlName="contact"></app-select-new-contact>
-        <mat-error *ngIf="submitted && f.contact.errors">Client je <strong>požadovaný.</strong></mat-error>
+        <mat-error *ngIf="submitted && f.contact.errors" class="mat-error-not-in-field">Client je <strong>požadovaný.</strong></mat-error>
       </div>
 
       <div class="col-md-4">
         <app-new-project-select formControlName="project"></app-new-project-select>
-        <mat-error *ngIf="submitted && f.project.errors">Projekt je <strong>požadovaný.</strong></mat-error>
+        <mat-error *ngIf="submitted && f.project.errors" class="mat-error-not-in-field">Projekt je <strong>požadovaný.</strong></mat-error>
       </div>
 
       <div class="col-md-4">
@@ -110,6 +110,7 @@
                    formControlName="categories"
         >
         </ng-select>
+        <mat-error *ngIf="submitted && f.categories.errors" class="mat-error-not-in-field">Kategória je <strong>požadovana.</strong></mat-error>
       </div>
 
       <div class="col-md-12">

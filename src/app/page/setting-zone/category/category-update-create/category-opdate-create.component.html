@@ -9,6 +9,38 @@
   </div>
 
   <div class="row align-items-center">
+    <div class="col-md-12">
+      <mat-form-field class="w-100">
+        <mat-label>Skupina kategórie</mat-label>
+        <select formControlName="categoryGroup" matNativeControl>
+          <option value="COMPANY">Firma</option>
+          <option value="COMPANY">Zákazky</option>
+          <option value="SALARY">Mzdy</option>
+        </select>
+      </mat-form-field>
+    </div>
+
+
+    <div class="col-md-12 mb-4">
+      <mat-radio-group *ngIf="formGroup.get('categoryGroup').value === 'COMPANY'" aria-label="Select an option" class="form-group" formControlName="categoryType">
+        <mat-radio-button class="mr-4" value="SERVICE">Tovar / služba</mat-radio-button>
+        <mat-radio-button class="mr-4" value="TIME">Časový záznam</mat-radio-button>
+        <mat-radio-button value="NOT_INCLUDED">Nezahrnuté</mat-radio-button>
+      </mat-radio-group>
+
+      <mat-radio-group *ngIf="formGroup.get('categoryGroup').value === 'PROJECT'" aria-label="Select an option" class="form-group" formControlName="categoryType">
+        <mat-radio-button class="mr-4" value="SERVICE">Tovar / služba</mat-radio-button>
+        <mat-radio-button class="mr-4" value="TIME">Časový záznam</mat-radio-button>
+        <mat-radio-button class="mr-4" value="MAIN_TIME">Časové záznamy hlavných činností</mat-radio-button>
+        <mat-radio-button class="mr-4" value="SECONDARY_TIME">Časové záznamy vedľajších činností</mat-radio-button>
+        <mat-radio-button class="mr-4" value="AFTER_END_TIME">Časové záznamy vedľajších činností</mat-radio-button>
+      </mat-radio-group>
+
+      <mat-radio-group *ngIf="formGroup.get('categoryGroup').value === 'SALARY'" aria-label="Select an option" class="form-group" formControlName="categoryType">
+        <mat-radio-button class="mr-4" value="SALARY">Mzdy prevádzka firmy</mat-radio-button>
+      </mat-radio-group>
+    </div>
+
     <div class="col-12" *ngIf="categories">
       <ng-select [items]="categories"
                  #select

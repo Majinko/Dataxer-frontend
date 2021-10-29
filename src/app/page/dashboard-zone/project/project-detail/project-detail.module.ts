@@ -14,6 +14,8 @@ import {DocumentTableComponent} from './project-info/components/document-table/d
 import { ProjectUserEvaluationTableComponent } from './components/project-user-evaluation-table/project-user-evaluation-table.component';
 import {AvatarModule} from 'ngx-avatar';
 import { ProjectEvaluationExpansionPanelComponent } from './project-category-evaluation/components/project-evaluation-expansion-panel/project-evaluation-expansion-panel.component';
+import {NgSelectModule} from '@ng-select/ng-select';
+import {FormsModule} from '@angular/forms';
 
 const routes: Routes = [
   {
@@ -54,7 +56,9 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     ThemeModule,
     CoreModule,
-    AvatarModule
+    AvatarModule,
+    NgSelectModule,
+    FormsModule
   ]
 })
 export class ProjectDetailModule {

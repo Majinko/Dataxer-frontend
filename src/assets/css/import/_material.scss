@@ -43,3 +43,9 @@ mat-list-item:hover {
 .mat-table .mat-row:nth-child(odd) {
   background: #f9fafb;
 }
+
+.mat-error-not-in-field{
+  position: relative;
+  top: -15px;
+  font-size: 11px;
+}

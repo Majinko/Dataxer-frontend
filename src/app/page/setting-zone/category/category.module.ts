@@ -4,13 +4,13 @@ import {CategoryComponent} from './category.component';
 import {CategoryRoutingModule} from './category-routing.module';
 import {CategoryIndexComponent} from './category-index/category-index.component';
 import {MaterialModule} from '../../../theme/modules/material.module';
-import { CategoryCreateComponent } from './category-create/category-create.component';
+import { CategoryUpdateCreateComponent } from './category-update-create/category-update-create.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {NgSelectModule} from '@ng-select/ng-select';
 
 
 @NgModule({
-  declarations: [CategoryComponent, CategoryIndexComponent, CategoryCreateComponent],
+  declarations: [CategoryComponent, CategoryIndexComponent, CategoryUpdateCreateComponent],
   imports: [
     CommonModule,
     CategoryRoutingModule,

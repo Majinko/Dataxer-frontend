@@ -182,12 +182,10 @@
                 </td>
                 <td></td>
                 <td
-                  class="text-right">{{(+(item.totalPrice | removePercent: item.discount) - +item.totalPrice) | number:'1.0-2'}}
-                  &euro;
+                  class="text-right">{{(+(item.totalPrice | removePercent: item.discount) - +item.totalPrice) | currency:'EUR':'symbol'}}
                 </td>
                 <td
-                  class="text-right">{{(+(item.totalPrice | removePercent: item.discount) - +item.totalPrice) | number:'1.0-2'}}
-                  &euro;
+                  class="text-right">{{(+(item.totalPrice | removePercent: item.discount) - +item.totalPrice) | currency:'EUR':'symbol'}}
                 </td>
               </tr>
             </ng-container>

@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 import {CategoryComponent} from './category.component';
 import {CategoryIndexComponent} from './category-index/category-index.component';
-import {CategoryCreateComponent} from './category-create/category-create.component';
+import {CategoryUpdateCreateComponent} from './category-update-create/category-update-create.component';
 
 const routes: Routes = [{
   path: '',
@@ -14,7 +14,11 @@ const routes: Routes = [{
     },
     {
       path: 'create',
-      component: CategoryCreateComponent
+      component: CategoryUpdateCreateComponent
+    },
+    {
+      path: 'update/:category_id',
+      component: CategoryUpdateCreateComponent
     },
   ]
 }];

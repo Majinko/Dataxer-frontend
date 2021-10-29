@@ -17,8 +17,8 @@ export class PriceOfferService extends ResourceService<PriceOffer> {
       new Serializer());
   }
 
-  findAllByProject(projectId: number): Observable<PriceOffer[]> {
-    return this.httpClient.get<PriceOffer[]>(`${environment.baseUrl}/priceOffer/project/${projectId}`);
+  findAllByProject(projectId: number, companyIds: number[] = null): Observable<PriceOffer[]> {
+    return this.httpClient.get<PriceOffer[]>(`${environment.baseUrl}/priceOffer/project/${projectId}${companyIds && companyIds.length > 0 ? '?companyIds=' + companyIds : ''}`);
   }
 
   duplicate(oldId: number): Observable<PriceOffer>{

@@ -8,12 +8,14 @@ import {MatPaginator} from '@angular/material/paginator';
 import {PaginateClass} from '../../../../../../core/class/PaginateClass';
 import {HttpClient} from '@angular/common/http';
 import {MatDialog} from '@angular/material/dialog';
+import {sum} from '../../../../../../../helper';
 
 @Component({
   selector: 'app-price-offer-table',
   templateUrl: './price-offer-table.component.html',
 })
 export class PriceOfferTableComponent extends PaginateClass<PriceOffer> implements AfterViewInit {
+  totalPrice: number = 0;
   destroyMsg = 'Cenová ponuka bola odstránená';
   displayedColumns: string[] = [
     'id',
@@ -28,6 +30,11 @@ export class PriceOfferTableComponent extends PaginateClass<PriceOffer> implemen
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
   ngAfterViewInit() {
+    this.paginateFinish.subscribe((value) => {
+      if (value === true) {
+        this.totalPrice = sum(this.data, 'price');
+      }
+    });
   }
 
   constructor(

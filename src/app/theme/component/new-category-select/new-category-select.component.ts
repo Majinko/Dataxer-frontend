@@ -3,7 +3,7 @@ import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 import {CategoryItemNode} from '../../../core/models/category-item-node';
 import {MatDialog} from '@angular/material/dialog';
 import {CategoryService} from '../../../core/services/category.service';
-import {CategoryCreateComponent} from '../../../page/setting-zone/category/category-create/category-create.component';
+import {CategoryUpdateCreateComponent} from '../../../page/setting-zone/category/category-update-create/category-update-create.component';
 
 @Component({
   selector: 'app-new-category-select',
@@ -48,7 +48,7 @@ export class NewCategorySelectComponent implements ControlValueAccessor, OnInit 
   }
 
   openDialog() {
-    this.dialog.open(CategoryCreateComponent, {
+    this.dialog.open(CategoryUpdateCreateComponent, {
       data: {inModal: true},
       autoFocus: false
     });

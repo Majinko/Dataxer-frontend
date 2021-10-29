@@ -3,7 +3,7 @@
     <app-invoice-filter (onFilter)="filterData($event)" [filterData]="service.filter"></app-invoice-filter>
   </div>
   <div class="col-md-12">
-    <h3 class="text-gray mb-3">Vybrané faktúry</h3>
+    <h3 class="text-gray mb-3">Vybrané faktúry: <span class="text-theme">{{totalPrice | currency:'EUR':'symbol'}}</span></h3>
     <div class="table-wrap">
       <div class="position-relative">
         <div class="loading-shade" *ngIf="isLoadingResults">

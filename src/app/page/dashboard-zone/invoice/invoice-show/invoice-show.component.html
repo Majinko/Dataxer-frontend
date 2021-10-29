@@ -233,7 +233,7 @@
     </div>
 
     <div class="col-12">
-      <div class="col-md-5 offset-md-7">
+      <div class="col-md-12 col-lg-5 offset-lg-7">
         <table class="table-summary no-bg-change mt-4 pr-3 w-100">
           <tr class="row-summary">
             <td class="text-right">
@@ -245,8 +245,8 @@
           </tr>
 
           <tr class="row-summary" appShowHideTax>
-            <td class="text-right">
-              <p>Celkom bez DPH:</p>
+            <td class="text-right ">
+              <p class="white-space-nowrap">Celkom bez DPH:</p>
             </td>
             <td class="text-right">
               <p>{{invoice.price | removePercent: invoice.discount | currency:'EUR':'symbol'}}</p>

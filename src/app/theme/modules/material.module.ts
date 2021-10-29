@@ -30,6 +30,7 @@ import {MaterialFileInputModule} from 'ngx-material-file-input';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatRadioModule} from '@angular/material/radio';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
 
 @NgModule({
   exports: [
@@ -63,7 +64,8 @@ import {MatRadioModule} from '@angular/material/radio';
     MaterialFileInputModule,
     MatTabsModule,
     MatExpansionModule,
-    MatRadioModule
+    MatRadioModule,
+    MatButtonToggleModule
   ]
 })
 export class MaterialModule {

@@ -14,6 +14,7 @@ import {CategoryHelper} from '../class/CategoryHelper';
 })
 export class ProjectService extends ResourceService<Project> {
   projectStore = new Subject<Project>();
+  getInfoFromCompany = new Subject<number[]>();
 
   constructor(
     private httpClient: HttpClient,
@@ -70,8 +71,8 @@ export class ProjectService extends ResourceService<Project> {
     return this.httpClient.get<ProjectEvaluation[]>(`${environment.baseUrl}/project/projectCategoryOverview/${id}${categoryId ? '?categoryParent=' + categoryId : ''}`);
   }
 
-  getProjectManHours(id: number): Observable<ProjectManHours> {
-    return this.httpClient.get<ProjectManHours>(`${environment.baseUrl}/project/projectManHours/${id}`);
+  getProjectManHours(id: number, companyIds: number[] = null): Observable<ProjectManHours> {
+    return this.httpClient.get<ProjectManHours>(`${environment.baseUrl}/project/projectManHours/${id}${companyIds && companyIds.length > 0 ? '?companyIds=' + companyIds : ''}`);
   }
 
   getEvaluation(id: number): Observable<any> {

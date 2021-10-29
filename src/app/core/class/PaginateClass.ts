@@ -1,13 +1,14 @@
 import {MatPaginator} from '@angular/material/paginator';
-import {merge} from 'rxjs';
+import {merge, Subject} from 'rxjs';
 import {map, startWith, switchMap} from 'rxjs/operators';
 import {IPaginate} from '../interface/IPaginate';
-import {DocumentFilter} from '../models/filters/document-filter';
 import {MessageService} from '../services/message.service';
 import {ConfirmDialogComponent} from '../../theme/component/confirm-dialog/confirm-dialog.component';
 import {MatDialog} from '@angular/material/dialog';
 
 export class PaginateClass<T> {
+  paginateFinish = new Subject<boolean>();
+
   destroyMsg: string = 'Položka bola odstránená';
   pageSize: number = 15;
   pageIndex: number = 0;
@@ -50,7 +51,10 @@ export class PaginateClass<T> {
           return data.content;
         })
       )
-      .subscribe((data) => (this.data = data));
+      .subscribe((data) => {
+        this.data = data;
+        this.paginateFinish.next(true);
+      });
   }
 
   destroy(event: MouseEvent, id: number) {
@@ -69,12 +73,6 @@ export class PaginateClass<T> {
         });
       }
     });
-  }
-
-  filtering(event: DocumentFilter) {
-    this.service.filter = event;
-
-    this.paginate();
   }
 
   filterData(data: any) {

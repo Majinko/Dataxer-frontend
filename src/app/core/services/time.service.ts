@@ -57,7 +57,7 @@ export class TimeService {
     return this.http.get<Time[]>(`${environment.baseUrl}/time/allByUser?uId=${uid}`);
   }
 
-  getAllByProject(projectId: number): Observable<Time[]> {
-    return this.http.get<Time[]>(`${environment.baseUrl}/time/allByProject/${projectId}`);
+  getAllByProject(projectId: number, companyIds: number[] = null): Observable<Time[]> {
+    return this.http.get<Time[]>(`${environment.baseUrl}/time/allByProject/${projectId}${companyIds && companyIds.length > 0 ? '?companyIds=' + companyIds : ''}`);
   }
 }

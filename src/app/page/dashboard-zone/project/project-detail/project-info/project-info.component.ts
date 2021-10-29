@@ -9,6 +9,7 @@ import {Cost} from '../../../../../core/models/cost';
 import {ProjectService} from '../../../../../core/services/project.service';
 import {Project, ProjectManHours} from '../../../../../core/models/project';
 import {sum} from '../../../../../../helper';
+import {Company} from '../../../../../core/models/company';
 
 @Component({
   selector: 'app-project-info',
@@ -16,6 +17,7 @@ import {sum} from '../../../../../../helper';
   styleUrls: ['./project-info.component.scss']
 })
 export class ProjectInfoComponent implements OnInit {
+  companies: Company[] = [];
   costs: Cost[] = [];
   payedCost: Cost[] = [];
   noPayedCost: Cost[] = [];
@@ -43,24 +45,27 @@ export class ProjectInfoComponent implements OnInit {
     private invoiceService: InvoiceService,
     private priceOfferService: PriceOfferService,
     private costService: CostService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
   ) {
   }
 
   ngOnInit(): void {
-    this.getData();
+    this.getData(null);
     this.getProject();
-    this.getProjectManHours();
+    this.getProjectManHours(null);
+    this.handleChangeCompany();
   }
 
-  private getProjectManHours(){
-    this.projectService.getProjectManHours(+this.route.snapshot.paramMap.get('id')).subscribe(manHours => {
+  private getProjectManHours(companyIds: number[]) {
+    this.projectService.getProjectManHours(+this.route.snapshot.paramMap.get('id'), companyIds).subscribe(manHours => {
       this.projectManHours = manHours;
     });
   }
 
-  private getData() {
-    this.invoiceService.findAllByProject(+this.route.snapshot.paramMap.get('id')).subscribe(invoices => {
+  private getData(companyIds: number[]) {
+    this.requestDone = 0;
+
+    this.invoiceService.findAllByProject(+this.route.snapshot.paramMap.get('id'), companyIds).subscribe(invoices => {
       this.requestDone += 1;
       this.invoices = invoices;
 
@@ -70,7 +75,7 @@ export class ProjectInfoComponent implements OnInit {
       this.invoiceNotPayedSum = sum(invoices.filter(i => i.paymentDate === null), 'price');
     });
 
-    this.costService.findAllByProject(+this.route.snapshot.paramMap.get('id')).subscribe(costs => {
+    this.costService.findAllByProject(+this.route.snapshot.paramMap.get('id'), companyIds).subscribe(costs => {
       this.costs = costs;
 
       this.requestDone += 1;
@@ -81,7 +86,7 @@ export class ProjectInfoComponent implements OnInit {
       this.costNotPayedSum = sum(costs.filter(cost => cost.paymentDate === null), 'price');
     });
 
-    this.priceOfferService.findAllByProject(+this.route.snapshot.paramMap.get('id')).subscribe(priceOffers => {
+    this.priceOfferService.findAllByProject(+this.route.snapshot.paramMap.get('id'), companyIds).subscribe(priceOffers => {
       this.priceOffers = priceOffers;
 
       this.requestDone += 1;
@@ -93,6 +98,13 @@ export class ProjectInfoComponent implements OnInit {
   private getProject() {
     this.projectService.getById(+this.route.snapshot.paramMap.get('id')).subscribe((project) => {
       this.project = project;
+    });
+  }
+
+  private handleChangeCompany() {
+    this.projectService.getInfoFromCompany.subscribe((ids) => {
+      this.getData(ids);
+      this.getProjectManHours(ids);
     });
   }
 }

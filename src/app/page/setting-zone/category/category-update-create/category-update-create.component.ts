@@ -8,10 +8,10 @@ import {MessageService} from '../../../../core/services/message.service';
 
 @Component({
   selector: 'app-create-category',
-  templateUrl: './category-create.component.html',
-  styleUrls: ['./category-create.component.scss']
+  templateUrl: './category-opdate-create.component.html',
+  styleUrls: ['./category-update-create.component.scss']
 })
-export class CategoryCreateComponent implements OnInit {
+export class CategoryUpdateCreateComponent implements OnInit {
   formGroup: FormGroup;
   categories: CategoryItemNode[];
 
@@ -20,10 +20,12 @@ export class CategoryCreateComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private messageService: MessageService,
-    @Optional() public dialogRef: MatDialogRef<CategoryCreateComponent>,
+    @Optional() public dialogRef: MatDialogRef<CategoryUpdateCreateComponent>,
   ) {
     this.formGroup = this.formBuilder.group({
       name: ['', Validators.required],
+      categoryGroup: 'COMPANY',
+      categoryType: 'SERVICE',
       parentId: null,
     });
   }
