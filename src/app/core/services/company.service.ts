@@ -24,7 +24,7 @@ export class CompanyService {
     }));
   }
 
-  all(): Observable<Company[]> {
+  all(): Observable<Company[]> { // todo brat z prihlaseneho usera pridal som mu to
     return this.http.get<Company[]>(environment.baseUrl + '/company/all');
   }
 

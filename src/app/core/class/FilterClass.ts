@@ -11,10 +11,13 @@ import {parse} from '@rsql/parser';
 import {BaseFilter} from '../models/filters/baseFilter';
 import {Project} from '../models/project';
 import {KeyValue} from '../models/keyValue';
+import {Company} from '../models/company';
+import * as moment from 'moment';
 
 @Directive()
 // tslint:disable-next-line:directive-class-suffix
 export class FilterClass {
+  companies: Company[] = [];
   contacts: Contact[] = [];
   projects: Project[] = [];
   payedStates: KeyValue[] = [];
@@ -190,4 +193,28 @@ export class FilterClass {
       }, {emitEvent: false});
     });
   }
+
+
+  // spolocne metody ktore pouzivaju viacere filtre
+  prepareMonths() {
+    for (let i = 0; i <= 12; i++) {
+      const monthStart: moment.Moment = moment().subtract(i, 'months').startOf('month');
+
+      this.months.push({
+        start: moment().subtract(i, 'months').startOf('month').format('YYYY-MM-DD'),
+        end: moment().subtract(i, 'months').endOf('month').format('YYYY-MM-DD'),
+        title: this.getMonthData(monthStart),
+      });
+    }
+
+    this.filterForm.patchValue({
+      month: this.months[0]
+    });
+  }
+
+  private getMonthData = (momentData: moment.Moment): string => {
+    const date = new Date(momentData.year(), momentData.month(), momentData.date());
+
+    return date.toLocaleString('default', {month: 'long'}) + ' ' + momentData.year();
+  };
 }

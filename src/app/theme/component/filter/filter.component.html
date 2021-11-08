@@ -41,7 +41,17 @@
     </ng-select>
   </div>
 
-  <div class="col-md-4 col-lg-3" *ngIf="months && months.length > 0">
+  <div class="col-md-4 col-lg-2" *ngIf="companies && companies.length > 0">
+    <ng-select [items]="companies"
+               [clearable]="false"
+               bindLabel="name"
+               placeholder="Spoločnosť"
+               formControlName="company"
+               class="filter-ng-select">
+    </ng-select>
+  </div>
+
+  <div class="col-md-4 col-lg-2" *ngIf="months && months.length > 0">
     <ng-select [items]="months"
                [clearable]="false"
                bindLabel="title"
@@ -83,6 +93,12 @@
       <mat-icon class="mr-1">layers</mat-icon>
       {{filterForm.get('project').value.title}}
       <mat-icon (click)="resetFilterValue('project')" matChipRemove>cancel</mat-icon>
+    </mat-chip>
+
+    <mat-chip class="text-gray my-md-0  mb-md-0" *ngIf="companies && companies.length > 0 && filterForm.get('company').value">
+      <mat-icon class="mr-1">account_balance</mat-icon>
+      {{filterForm.get('company').value.name}}
+      <mat-icon (click)="resetFilterValue('company')" matChipRemove>cancel</mat-icon>
     </mat-chip>
   </mat-chip-list>
 </div>

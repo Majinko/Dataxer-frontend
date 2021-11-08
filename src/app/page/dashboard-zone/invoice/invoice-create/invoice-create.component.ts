@@ -69,12 +69,12 @@ export class InvoiceCreateComponent implements OnInit {
     });
   }
 
-
   // prepare form
   private prepareForm() {
     this.formGroup = this.formBuilder.group({
       contact: [null, Validators.required],
       project: [null, Validators.required],
+      company: [null, Validators.required],
       documentType: null,
       title: ['', Validators.required],
       subject: null,

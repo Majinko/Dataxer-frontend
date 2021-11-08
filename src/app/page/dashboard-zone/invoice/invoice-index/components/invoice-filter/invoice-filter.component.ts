@@ -4,6 +4,7 @@ import {ContactService} from '../../../../../../core/services/contact.service';
 import {ProjectService} from '../../../../../../core/services/project.service';
 import {FormBuilder} from '@angular/forms';
 import {SearchBarService} from '../../../../../../core/services/search-bar.service';
+import {CompanyService} from '../../../../../../core/services/company.service';
 
 @Component({
   selector: 'app-invoice-filter',
@@ -13,10 +14,13 @@ export class InvoiceFilterComponent extends FilterClass implements OnInit {
   constructor(
     private contactService: ContactService,
     private projectService: ProjectService,
+    private companyService: CompanyService,
     public formBuilder: FormBuilder,
     public searchbarService: SearchBarService,
   ) {
-    super(searchbarService, formBuilder, 'invoice', ['title', 'contact.name'], ['contact.id', 'project.id', 'state', 'documentType']
+    super(searchbarService, formBuilder, 'invoice',
+      ['title', 'contact.name'],
+      ['contact.id', 'company.id', 'project.id', 'state', 'documentType', 'month']
     );
   }
 
@@ -25,7 +29,9 @@ export class InvoiceFilterComponent extends FilterClass implements OnInit {
       contact: null,
       project: null,
       state: null,
-      documentType: null
+      documentType: null,
+      company: null,
+      month: null
     });
 
     this.emitFilter();
@@ -36,6 +42,8 @@ export class InvoiceFilterComponent extends FilterClass implements OnInit {
     this.getProjects();
     this.preparePayedStates();
     this.prepareDocumentType();
+    this.getCompanies();
+    this.prepareMonths();
   }
 
   getContacts() {
@@ -59,5 +67,11 @@ export class InvoiceFilterComponent extends FilterClass implements OnInit {
 
   prepareDocumentType() {
     this.documentTypes = [{key: 'INVOICE', value: 'Faktúra'}, {key: 'PROFORMA', value: 'Zálohová faktúra'}];
+  }
+
+  private getCompanies() {
+    this.companyService.all().subscribe((c) => {
+      this.companies = c;
+    });
   }
 }

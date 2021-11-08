@@ -44,8 +44,25 @@ mat-list-item:hover {
   background: #f9fafb;
 }
 
-.mat-error-not-in-field{
+.mat-error-not-in-field {
   position: relative;
   top: -15px;
   font-size: 11px;
+}
+
+// category
+.category-wrap {
+  .mat-tree-node.cdk-tree-node {
+    .not-visible{
+      visibility: hidden !important;
+    }
+
+    &:hover {
+      background: #cccccc40 !important;
+
+      .not-visible {
+        visibility: visible !important;
+      }
+    }
+  }
 }

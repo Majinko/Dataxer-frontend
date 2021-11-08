@@ -9,13 +9,20 @@ import {Company} from '../../../../core/models/company';
   selector: 'app-project-detail',
   template: `
     <div>
-      <div *ngIf="companies && companies.length > 1">
-       <div class="d-flex align-items-center mb-3">
-         <h2 class="mb-0 mr-3">Spoločnosť:</h2>
-         <mat-button-toggle-group [(ngModel)]="selectedProjects" (ngModelChange)="getDataByFirm()"  name="ingredients" aria-label="Ingredients" multiple>
-           <mat-button-toggle [value]="company.id" *ngFor="let company of companies">{{company.name}}</mat-button-toggle>
-         </mat-button-toggle-group>
-       </div>
+      <div class="d-flex justify-content-end" *ngIf="companies && companies.length > 1">
+
+        <div class="col-md-4 col-lg-2">
+          <ng-select [items]="companies"
+                     [clearable]="false"
+                     [multiple]
+                     bindLabel="name"
+                     bindValue="id"
+                     placeholder="Spoločnosť"
+                     [(ngModel)]="selectedProjects"
+                     (ngModelChange)="getDataByFirm()"
+                     class="filter-ng-select">
+          </ng-select>
+        </div>
         <!--<div class="d-flex align-items-center">
           <mat-form-field appearance="fill">
             <mat-label>Vyber firmu</mat-label>

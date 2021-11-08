@@ -8,7 +8,6 @@ import {sum} from '../../../../../../../helper';
 import {MatDialog} from '@angular/material/dialog';
 import {ConfirmDialogComponent} from '../../../../../../theme/component/confirm-dialog/confirm-dialog.component';
 import {DocumentFilter} from '../../../../../../core/models/filters/document-filter';
-import * as moment from 'moment';
 
 @Component({
   selector: 'app-time-table',
@@ -24,9 +23,6 @@ export class TimeTableComponent implements OnInit {
   totalTime: number = 0;
   isLoadingResults = true;
   displayedColumns: string[] = ['dateWork', 'stats', 'project', 'description', 'category', 'actions'];
-
-  startDate: string = moment().startOf('month').format('YYYY-MM-DD');
-  endDate: string = moment().endOf('month').format('YYYY-MM-DD');
 
   constructor(
     public timeService: TimeService,
