@@ -2,13 +2,12 @@
   <div class="dropzone position-relative mb-2 d-flex justify-content-center cursor-pointer" appFileDragDrop (filesChangeEmmit)="onFileChange($event)" *ngIf="!isUploaded && !formGroup.get(nameAttr).value; else uploadBar">
     <label for="file" class="d-flex align-items-center justify-content-center cursor-pointer">
       <mat-icon class="mr-3">upload</mat-icon>
-      Select your file
-      or Drop it here!
+      {{title}}
     </label>
     <input id="file" type="file" accept="image/png, image/jpeg, image/jpg, image/git" (change)="onFileChange($event.target.files)">
   </div>
 
-  <div class="preview d-flex align-items-center justify-content-between" *ngIf="formGroup.get(nameAttr).value">
+  <div class="preview d-flex align-items-center justify-content-between pr-4" *ngIf="formGroup.get(nameAttr).value">
     <img [src]="formGroup.get(nameAttr).value">
 
     <button

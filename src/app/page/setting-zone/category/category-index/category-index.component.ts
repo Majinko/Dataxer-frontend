@@ -1,6 +1,6 @@
 import {SelectionModel} from '@angular/cdk/collections';
 import {FlatTreeControl} from '@angular/cdk/tree';
-import {Component, ElementRef, Inject, ViewChild} from '@angular/core';
+import {Component, ElementRef, Inject, OnInit, ViewChild} from '@angular/core';
 import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
 import {CategoryItemNode} from '../../../../core/models/category-item-node';
 import {CategoryItemFlatNode} from '../../../../core/models/category-item-flat-node';
@@ -9,6 +9,7 @@ import {CategoryService} from '../../../../core/services/category.service';
 import {MessageService} from '../../../../core/services/message.service';
 import {MatDialog} from '@angular/material/dialog';
 import {ConfirmDialogComponent} from '../../../../theme/component/confirm-dialog/confirm-dialog.component';
+import {CategoryHelper} from '../../../../core/class/CategoryHelper';
 
 @Component({
   selector: 'app-index',
@@ -16,7 +17,7 @@ import {ConfirmDialogComponent} from '../../../../theme/component/confirm-dialog
   styleUrls: ['./category-index.component.scss'],
   providers: [ChecklistDatabase]
 })
-export class CategoryIndexComponent {
+export class CategoryIndexComponent implements OnInit {
   /** All category load ? */
   isLoadingResults: boolean = true;
   /** Map from flat node to nested node. This helps us finding the nested node to be modified */
@@ -60,8 +61,9 @@ export class CategoryIndexComponent {
   constructor(
     @Inject(CategoryService) private readonly categoryService: CategoryService,
     @Inject(MessageService) private readonly messageService: MessageService,
+    private categoryHelper: CategoryHelper,
     private database: ChecklistDatabase,
-    public dialog: MatDialog
+    public dialog: MatDialog,
   ) {
     this.treeFlattener = new MatTreeFlattener(this.transformer, this.getLevel, this.isExpandable, this.getChildren);
     this.treeControl = new FlatTreeControl<CategoryItemFlatNode>(this.getLevel, this.isExpandable);
@@ -72,6 +74,12 @@ export class CategoryIndexComponent {
       this.dataSource.data = data;
 
       this.isLoadingResults = database.isLoad;
+    });
+  }
+
+  ngOnInit(): void {
+    this.categoryService.categoryUpdateOrStore.subscribe((category) => {
+      this.database.initialize(); // todo make better
     });
   }
 
@@ -94,11 +102,14 @@ export class CategoryIndexComponent {
     flatNode.id = node.id;
     flatNode.name = node.name;
     flatNode.level = level;
+    flatNode.parentId = node.parentId;
+    flatNode.categoryType = node.categoryType;
+    flatNode.categoryGroup = node.categoryGroup;
     flatNode.expandable = (node.children && node.children.length > 0);
     this.flatNodeMap.set(flatNode, node);
     this.nestedNodeMap.set(node, flatNode);
     return flatNode;
-  };
+  }
 
   /** Whether all the descendants of the node are selected */
   descendantsAllSelected(node: CategoryItemFlatNode): boolean {
@@ -137,7 +148,7 @@ export class CategoryIndexComponent {
 
     const nestedNode = this.flatNodeMap.get(node);
 
-    this.categoryService.store({name: itemValue, parentId: this.newNodeParent.id}).subscribe(category => {
+    this.categoryService.storeOrUpdate({name: itemValue, parentId: this.newNodeParent.id}).subscribe(category => {
       this.isStore = false;
 
       nestedNode.id = category.id;
@@ -172,6 +183,7 @@ export class CategoryIndexComponent {
     // Handle drag area
     const percentageX = event.offsetX / event.target.clientWidth;
     const percentageY = event.offsetY / event.target.clientHeight;
+
     if (percentageY < 0.25) {
       this.dragNodeExpandOverArea = 'above';
     } else if (percentageY > 0.75) {

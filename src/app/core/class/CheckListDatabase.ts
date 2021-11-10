@@ -98,6 +98,19 @@ export class ChecklistDatabase {
     return null;
   }
 
+  deepSearch(data: CategoryItemNode[], searchedId: number): CategoryItemNode {
+    if (data) {
+      return data.find((node) => {
+        if (node.id === searchedId) {
+          return node;
+        }
+        return this.deepSearch(node.children, searchedId);
+      });
+    }
+
+    return null;
+  }
+
   updateItem(node: CategoryItemNode, name: string) {
     node.name = name;
     this.dataChange.next(this.data);

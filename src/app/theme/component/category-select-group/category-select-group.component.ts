@@ -36,7 +36,7 @@ export class CategorySelectGroupComponent implements ControlValueAccessor, OnIni
     if (this.categoryItemNodes.length === 0) {
       this.getCategories();
 
-      this.categoryService.categoryStore.subscribe(categoryItemNode => {
+      this.categoryService.categoryUpdateOrStore.subscribe(categoryItemNode => {
         this.onChange(categoryItemNode);
         this.categoryItemNode = categoryItemNode;
 

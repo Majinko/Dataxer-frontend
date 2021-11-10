@@ -3,5 +3,8 @@ export class CategoryItemFlatNode {
   id: number;
   name: string;
   level: number;
+  parentId: number;
   expandable: boolean;
+  categoryType: string;
+  categoryGroup: string;
 }

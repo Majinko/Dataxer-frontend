@@ -5,6 +5,8 @@ export interface CategoryItemNode {
   position?: number;
   parentId?: number;
   parentName?: string;
+  categoryType?: string;
+  categoryGroup?: string;
   parent?: CategoryItemNode;
   children?: CategoryItemNode[];
 }

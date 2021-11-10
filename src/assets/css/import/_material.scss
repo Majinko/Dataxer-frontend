@@ -52,6 +52,10 @@ mat-list-item:hover {
 
 // category
 .category-wrap {
+  .mat-icon-button{
+    transition: none;
+  }
+
   .mat-tree-node.cdk-tree-node {
     .not-visible{
       visibility: hidden !important;
@@ -64,5 +68,15 @@ mat-list-item:hover {
         visibility: visible !important;
       }
     }
+  }
+}
+
+
+// form
+.option-with-questionnaire{
+  .mat-radio-label-content{
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }

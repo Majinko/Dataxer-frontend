@@ -34,7 +34,7 @@
       <mat-list class="pt-0">
         <mat-list-item *ngFor="let item of pack.packItems">
           <div mat-list-icon>
-            <img *ngIf="item.item.preview" [src]="item.item.preview" [alt]="item.item.title">
+            <img *ngIf="item.item.previewUrl" [src]="item.item.previewUrl" [alt]="item.item.title">
           </div>
           <div mat-line>{{item.item.title}}</div>
           <div mat-line> {{item.item.itemPrice.price  | currency:'EUR':'symbol' }} </div>

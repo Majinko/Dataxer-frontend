@@ -9,6 +9,7 @@ export interface Item {
   shortDescription?: string;
   description?: string;
   manufacturer?: string;
+  previewUrl?: string;
   web?: string;
   unit?: string;
   code?: string;
@@ -24,7 +25,7 @@ export interface Item {
   itemPrice?: ItemPrice;
   categories?: CategoryItemNode[];
   supplier?: Contact;
-  preview?: CustomFile;
+  files?: CustomFile[];
 }
 
 

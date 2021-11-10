@@ -35,7 +35,7 @@ export class NewCategorySelectComponent implements ControlValueAccessor, OnInit 
   ngOnInit(): void {
     this.getCategories();
 
-    this.categoryService.categoryStore.subscribe(categoryItemNode => {
+    this.categoryService.categoryUpdateOrStore.subscribe(categoryItemNode => {
       this.onChange(categoryItemNode);
       this.categoryItemNode = categoryItemNode;
 

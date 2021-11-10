@@ -62,6 +62,8 @@ export class ItemCreateComponent implements OnInit {
       series: null,
       color: null,
       material: null,
+      previewUrl: null,
+      files: null,
       itemPrice: this.formBuilder.group({
         wholesalePrice: 0,
         wholesaleTax: 20,
@@ -71,7 +73,6 @@ export class ItemCreateComponent implements OnInit {
         tax: 20,
         marge: 0
       }),
-      preview: null
     });
   }
 
@@ -79,14 +80,6 @@ export class ItemCreateComponent implements OnInit {
     if (+this.route.snapshot.paramMap.get('original_id')) {
       this.itemService.getById(+this.route.snapshot.paramMap.get('original_id')).subscribe((item) => {
         delete item.id; // remove old item id
-
-        console.log(item);
-
-        if (item.preview) {
-          delete item.preview;
-
-          this.messageService.add('Obrázky položky nebudú duplikované');
-        }
 
         this.formGroup.patchValue({
           ...item

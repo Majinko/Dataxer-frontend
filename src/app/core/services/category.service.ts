@@ -10,7 +10,7 @@ import {CategoryHelper} from '../class/CategoryHelper';
   providedIn: 'root'
 })
 export class CategoryService {
-  categoryStore = new Subject<CategoryItemNode>();
+  categoryUpdateOrStore = new Subject<CategoryItemNode>();
 
   constructor(
     private http: HttpClient,
@@ -20,6 +20,10 @@ export class CategoryService {
 
   all(): Observable<CategoryItemNode[]> {
     return this.http.get<CategoryItemNode[]>(environment.baseUrl + '/category/all');
+  }
+
+  findById(id: number): Observable<CategoryItemNode> {
+    return this.http.get<CategoryItemNode>(`${environment.baseUrl}/category/${id}`);
   }
 
   fallByType(type: string): Observable<CategoryItemNode[]> {
@@ -34,9 +38,9 @@ export class CategoryService {
     }));
   }
 
-  store(category: CategoryItemNode): Observable<CategoryItemNode> {
-    return this.http.post<CategoryItemNode>(`${environment.baseUrl}/category/store`, category).pipe(map((categoryItemNode) => {
-      this.categoryStore.next(categoryItemNode);
+  storeOrUpdate(category: CategoryItemNode): Observable<CategoryItemNode> {
+    return this.http.post<CategoryItemNode>(`${environment.baseUrl}/category/storeOrUpdate`, category).pipe(map((categoryItemNode) => {
+      this.categoryUpdateOrStore.next(categoryItemNode);
 
       return categoryItemNode;
     }));
@@ -45,7 +49,7 @@ export class CategoryService {
   updateTree(categories: CategoryItemNode[]): Observable<CategoryItemNode[]> {
     this.categoryHelper.setTreeDepth(categories);
 
-    return this.http.post<CategoryItemNode[]>(environment.baseUrl + '/category/updateTree', this.categoryHelper.resetTree(categories));
+    return this.http.post<CategoryItemNode[]>(environment.baseUrl + '/category/updateTree', categories);
   }
 
   destroy(id: number): Observable<CategoryItemNode> {

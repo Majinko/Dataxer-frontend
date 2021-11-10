@@ -10,12 +10,13 @@ import {MessageService} from '../../../core/services/message.service';
 })
 export class PhotoUploaderComponent implements OnInit {
   isUploaded: boolean = false;
-  maxFileSize: number = 5;
+  maxFileSize: number = 10;
 
   @Input() formGroup: FormGroup;
   @Input() nameAttr: string;
   @Input() path: string;
   @Input() isAvatar: boolean = false;
+  @Input() title: string = 'Select your file or Drop it here!';
 
   constructor(
     private readonly uploadService: UploadService,

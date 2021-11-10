@@ -9,7 +9,7 @@
 
   <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
     <mat-tree-node *matTreeNodeDef="let node"
-                   class="checklist-leaf-node"
+                   class="checklist-leaf-node position-relative"
                    [ngClass]="{'drop-above': dragNodeExpandOverArea === 'above' && dragNodeExpandOverNode === node,
                               'drop-below': dragNodeExpandOverArea === 'below' && dragNodeExpandOverNode === node,
                               'drop-center': dragNodeExpandOverArea === 'center' && dragNodeExpandOverNode === node}"
@@ -23,14 +23,7 @@
                    matTreeNodePadding>
       <button mat-icon-button disabled></button>
       {{node.name}}
-      <div class="not-visible">
-        <button mat-icon-button>
-          <mat-icon>edit</mat-icon>
-        </button>
-        <button mat-icon-button (click)="deleteNode(node)">
-          <mat-icon>delete</mat-icon>
-        </button>
-      </div>
+      <ng-container [ngTemplateOutlet]="divIcon" [ngTemplateOutletContext]="{onlyEdit: false, category: node}"></ng-container>
     </mat-tree-node>
 
     <mat-tree-node *matTreeNodeDef="let node; when: hasNoContent" matTreeNodePadding>
@@ -42,6 +35,7 @@
     </mat-tree-node>
 
     <mat-tree-node *matTreeNodeDef="let node; when: hasChild"
+                   class="position-relative"
                    [ngClass]="{'drop-above': dragNodeExpandOverArea === 'above' && dragNodeExpandOverNode === node,
                               'drop-below': dragNodeExpandOverArea === 'below' && dragNodeExpandOverNode === node,
                               'drop-center': dragNodeExpandOverArea === 'center' && dragNodeExpandOverNode === node}"
@@ -61,13 +55,21 @@
       <button mat-icon-button (click)="addNewItem(node)">
         <mat-icon>add</mat-icon>
       </button>
-      <div class="not-visible">
-        <button mat-icon-button>
-          <mat-icon>edit</mat-icon>
-        </button>
-      </div>
+      <ng-container [ngTemplateOutlet]="divIcon" [ngTemplateOutletContext]="{onlyEdit: true, category: node}"></ng-container>
     </mat-tree-node>
   </mat-tree>
 </div>
 
 <span #emptyItem></span>
+
+<ng-template #divIcon let-onlyEdit=onlyEdit let-category=category>
+  <div class="not-visible position-absolute" style="right: 0;">
+    <button mat-icon-button [routerLink]="['/setting/category/edit', category.id]">
+      <mat-icon>edit</mat-icon>
+    </button>
+
+    <button *ngIf="!onlyEdit" mat-icon-button (click)="deleteNode(category)">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </div>
+</ng-template>

@@ -17,7 +17,7 @@ const routes: Routes = [{
       component: CategoryUpdateCreateComponent
     },
     {
-      path: 'create',
+      path: 'edit/:id',
       component: CategoryUpdateCreateComponent
     },
     {

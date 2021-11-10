@@ -6,6 +6,7 @@ import {CompanyService} from '../../../../core/services/company.service';
 import {Router} from '@angular/router';
 import {COUNTRIES} from '../../../../core/data/countries';
 import {MatCheckbox} from '@angular/material/checkbox';
+import {SlovakiaDigital} from '../../../../core/models/slovakiaDigital';
 
 
 @Component({
@@ -17,6 +18,7 @@ export class CompanyCreateComponent implements OnInit {
   formGroup: FormGroup;
   legalForms = LEGALFORMS;
   countries = COUNTRIES;
+  isSubmit: boolean = false;
   @ViewChild('bInfo', {static: true}) bInfo: MatCheckbox;
 
   constructor(
@@ -47,16 +49,23 @@ export class CompanyCreateComponent implements OnInit {
     });
   }
 
-  // convenience getter for easy access to form fields
-  get f() {
-    return this.formGroup.controls;
-  }
-
-  get bI() {
-    return this.f.billingInformation as FormArray;
+  setFirmData(firm: SlovakiaDigital) {
+    console.log(firm);
+    this.formGroup.patchValue({
+      name: firm.name,
+      legalForm: firm.legal_form,
+      street: firm.formatted_street,
+      country: firm.country,
+      postalCode: firm.postal_code,
+      cin: firm.cin,
+      tin: firm.tin,
+      vatin: firm.vatin
+    });
   }
 
   onSubmit(companyFormData: Company) {
+    this.isSubmit = true;
+
     if (this.formGroup.invalid) {
       return;
     }
@@ -64,12 +73,12 @@ export class CompanyCreateComponent implements OnInit {
     this.companyService.store(companyFormData).subscribe(company => this.router.navigate(['/setting/company']));
   }
 
-  private createBillingInformation(): FormGroup {
-    return this.fb.group({
-      street: '',
-      city: '',
-      postalCode: '',
-      country: '',
-    });
+  // convenience getter for easy access to form fields
+  get f() {
+    return this.formGroup.controls;
+  }
+
+  get bI() {
+    return this.f.billingInformation as FormArray;
   }
 }

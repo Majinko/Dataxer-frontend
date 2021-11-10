@@ -1,7 +1,7 @@
-<form [formGroup]="formGroup" action="" autocomplete="off" (ngSubmit)="onSubmit(formGroup.value)">
+<form [formGroup]="formGroup" action="" autocomplete="off" (ngSubmit)="onSubmit(formGroup.value)" >
   <div class="row mb-4">
     <div class="col d-flex align-items-center mb-3" [class.justify-content-between]="dialogRef">
-      <h1 class="mb-0">Vytvorenie novej kategórie</h1>
+      <h1 class="mb-0">{{category ? 'Úprava kategórie'  : 'Vytvorenie novej kategórie'}}</h1>
       <a *ngIf="dialogRef" mat-icon-button class="close-icon cursor-pointer" mat-dialog-close>
         <mat-icon>close</mat-icon>
       </a>
@@ -20,12 +20,11 @@
       </mat-form-field>
     </div>
 
-
     <div class="col-md-12 mb-4">
-      <mat-radio-group *ngIf="formGroup.get('categoryGroup').value === 'COMPANY'" aria-label="Select an option" class="form-group" formControlName="categoryType">
-        <mat-radio-button class="mr-4" value="SERVICE">Tovar / služba</mat-radio-button>
-        <mat-radio-button class="mr-4" value="TIME">Časový záznam</mat-radio-button>
-        <mat-radio-button value="NOT_INCLUDED">Nezahrnuté</mat-radio-button>
+      <mat-radio-group *ngIf="formGroup.get('categoryGroup').value === 'COMPANY'" aria-label="Select an option" class="form-group option-with-questionnaire" formControlName="categoryType">
+        <mat-radio-button class="mr-4" value="SERVICE"><span class="mr-1">Tovar / služba</span> <mat-icon matTooltip="Podľa štruktúry nákladov potrebných pre chod firmy bude vytvorená štuktúra vo výkazoch.">help</mat-icon></mat-radio-button>
+        <mat-radio-button class="mr-4" value="TIME"><span class="mr-1">Časový záznam</span><mat-icon matTooltip="Časové záznamy o činnostiach potrebnými pre chod firmy budú započítané v čistých hodinových nákladoch k prevádzkovým nákladom spoločnosti">help</mat-icon></mat-radio-button>
+        <mat-radio-button value="NOT_INCLUDED"><span class="mr-1">Nezahrnuté</span> <mat-icon matTooltip="Náklady nie sú započítané do prevádzkových nákladov spoločnosti a nemajú vplyv na výšku nákladu k čistým hodinovým nákladom používateľov. Budú zobrazené v štatistike.">help</mat-icon></mat-radio-button>
       </mat-radio-group>
 
       <mat-radio-group *ngIf="formGroup.get('categoryGroup').value === 'PROJECT'" aria-label="Select an option" class="form-group" formControlName="categoryType">
@@ -41,6 +40,13 @@
       </mat-radio-group>
     </div>
 
+    <div class="col-12">
+      <mat-form-field class="form-group w-100">
+        <input matInput placeholder="Návoz kategórie" formControlName="name" required>
+        <mat-error *ngIf="formGroup.invalid">Návoz kategórie</mat-error>
+      </mat-form-field>
+    </div>
+
     <div class="col-12" *ngIf="categories">
       <ng-select [items]="categories"
                  #select
@@ -52,13 +58,6 @@
           <div><span>{{item.name}}</span></div>
         </ng-template>
       </ng-select>
-    </div>
-
-    <div class="col-12">
-      <mat-form-field class="form-group w-100">
-        <input matInput placeholder="Návoz kategórie" formControlName="name" required>
-        <mat-error *ngIf="formGroup.invalid">Návoz kategórie</mat-error>
-      </mat-form-field>
     </div>
   </div>
 

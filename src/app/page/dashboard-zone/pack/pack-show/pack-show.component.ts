@@ -30,7 +30,6 @@ export class PackShowComponent implements OnInit {
       this.pack = pack;
 
       this.preparePackPrice(pack);
-      this.preparePackItemImage(pack.packItems);
     });
   }
 
@@ -39,7 +38,7 @@ export class PackShowComponent implements OnInit {
       this.storageService.getPreviewImage(item.item.id, 'item').subscribe(response => {
         if (response) {
           this.storage.ref(response.path).getDownloadURL().subscribe(url => {
-            item.item.preview = url;
+            //item.item.preview = url;
           });
         }
       });

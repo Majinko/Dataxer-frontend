@@ -70,17 +70,21 @@
   </div>
 
   <div class="row">
-    <div class="col-md-4">
-      <div class="mb-3" *ngIf="this.uploadHelper.imageUrl">
-        <img src="{{this.uploadHelper.imageUrl}}" alt="">
-      </div>
+    <div class="col-12">
+      <h2 class="border-bottom-2 pb-2 mb-4">Médiá položky</h2>
+    </div>
+  </div>
 
+  <div class="row align-items-end mb-3">
+    <div class="col-md-4 form-group">
+      <app-photo-uploader [formGroup]="formGroup" nameAttr="previewUrl" path="company" title="Obrázok položky"></app-photo-uploader>
+    </div>
+
+    <div class="col-md-4 form-group">
       <mat-form-field class="form-pack-price-offer-create w-100">
-        <ngx-mat-file-input (change)="uploadFile($event.target.files, true)" placeholder="Obrázok položky"></ngx-mat-file-input>
+        <ngx-mat-file-input (change)="uploadHelper.uploadFile($event.target.files)" placeholder="Súbory položky" multiple></ngx-mat-file-input>
         <mat-icon matSuffix class="cursor-pointer">image</mat-icon>
       </mat-form-field>
-
-      <input type="hidden" formControlName="preview">
     </div>
 
 <!--    <div class="col-md-4">
@@ -95,7 +99,7 @@
         <ngx-mat-file-input formControlName="basicfile" placeholder="Súbory položky"></ngx-mat-file-input>
         <mat-icon matSuffix>add</mat-icon>
       </mat-form-field>
-    </div>-->
+    </div>
   </div>
 
   <div class="row">
@@ -226,10 +230,7 @@
         <mat-icon>cancel</mat-icon>
         Zrušiť
       </button>
-      <button mat-flat-button class="btn-icon btn-theme">
-        <mat-icon>save</mat-icon>
-        Uložiť
-      </button>
+      <app-spinner-button [loading]="isLoading"></app-spinner-button>
     </div>
   </div>
 </form>

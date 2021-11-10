@@ -15,12 +15,12 @@
   <div class="row">
     <div class="col-md-4 form-group">
       <app-select-new-contact formControlName="contact"></app-select-new-contact>
-      <mat-error *ngIf="submitted && f.contact.errors">Client je <strong>pozadovany.</strong></mat-error>
+      <mat-error *ngIf="submitted && f.contact.errors" class="mat-error-not-in-field">Client je <strong>pozadovany.</strong></mat-error>
     </div>
 
     <div class="col-md-4 form-group">
       <app-new-project-select formControlName="project"></app-new-project-select>
-      <mat-error *ngIf="submitted && f.project.errors">Projekt je <strong>požadovaný.</strong></mat-error>
+      <mat-error *ngIf="submitted && f.project.errors" class="mat-error-not-in-field">Projekt je <strong>požadovaný.</strong></mat-error>
     </div>
 
     <div class="col-md-4">
@@ -173,7 +173,7 @@
 
   <div class="row">
     <div class="col-md-12 text-right">
-      <button mat-stroked-button class="btn-icon btn-theme-stroked mr-3">
+      <button mat-stroked-button class="btn-icon btn-theme-stroked mr-3" routerLink="/price-offer">
         <mat-icon>cancel</mat-icon>
         Zrušiť
       </button>
