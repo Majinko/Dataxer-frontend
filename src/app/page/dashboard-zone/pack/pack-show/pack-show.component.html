@@ -37,7 +37,7 @@
             <img *ngIf="item.item.previewUrl" [src]="item.item.previewUrl" [alt]="item.item.title">
           </div>
           <div mat-line>{{item.item.title}}</div>
-          <div mat-line> {{item.item.itemPrice.price  | currency:'EUR':'symbol' }} </div>
+          <div mat-line>{{item.item.itemPrice.price  | currency:'EUR':'symbol' }}</div>
         </mat-list-item>
         <mat-divider></mat-divider>
       </mat-list>
