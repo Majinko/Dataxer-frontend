@@ -24,5 +24,4 @@ export class ItemFilterComponent extends FilterClass implements OnInit {
     this.searchBarServiceCatch();
     this.prepareData();
   }
-
 }
