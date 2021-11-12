@@ -69,6 +69,8 @@ export class ItemEditComponent implements OnInit {
       series: null,
       color: null,
       material: null,
+      previewUrl: null,
+      files: null,
       itemPrice: this.formBuilder.group({
         id: '',
         wholesalePrice: 0,
@@ -79,9 +81,7 @@ export class ItemEditComponent implements OnInit {
         tax: 20,
         marge: 0
       }),
-      preview: null
     });
-
   }
 
   getItem() {
@@ -109,7 +109,8 @@ export class ItemEditComponent implements OnInit {
       return;
     }
 
-    this.itemService.update(this.formGroup.value).subscribe(i => {
+    this.itemService.updateWithFiles(this.formGroup.value, this.uploadHelper.files).subscribe(i => {
+      this.isLoading = false;
       this.messageService.add('Položka bola aktualizovaná');
     });
   }

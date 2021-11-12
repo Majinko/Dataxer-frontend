@@ -34,6 +34,11 @@
       </td>
     </ng-container>
 
+    <!-- Price Column -->
+    <ng-container matColumnDef="price">
+      <th class="text-right" mat-header-cell *matHeaderCellDef>Suma <span appShowHideTax>bez DPH</span></th>
+      <td class="text-right" mat-cell *matCellDef="let element"> {{element.itemPrice?.price | currency:'EUR':'symbol'}} </td>
+    </ng-container>
 
     <!-- Action Column -->
     <ng-container matColumnDef="actions">

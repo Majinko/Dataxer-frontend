@@ -69,6 +69,7 @@
     <mat-chip class="text-gray my-md-0  mb-md-0" *ngIf="months && months.length > 0 && filterForm.get('month').value">
       <mat-icon class="mr-1">access_time</mat-icon>
       {{(filterForm.get('month').value.start | date: 'dd.MM.y') + ' - ' + (filterForm.get('month').value.end | date: 'dd.MM.y' )}}
+      <mat-icon (click)="resetFilterValue('month')" matChipRemove>cancel</mat-icon>
     </mat-chip>
 
     <mat-chip class="text-gray my-md-0  mb-md-0" *ngIf="documentTypes && documentTypes.length > 0 && filterForm.get('documentType').value">

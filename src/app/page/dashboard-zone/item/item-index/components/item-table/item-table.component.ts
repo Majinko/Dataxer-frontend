@@ -15,7 +15,7 @@ import {Item} from '../../../../../../core/models/item';
   providers: [UploadHelper]
 })
 export class ItemTableComponent extends PaginateClass<Item>{
-  displayedColumns: string[] = ['id', 'title', 'actions'];
+  displayedColumns: string[] = ['id', 'title', 'price', 'actions'];
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 

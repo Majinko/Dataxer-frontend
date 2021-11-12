@@ -10,6 +10,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {PaymentService} from '../../../../../../core/services/payment.service';
 import {PaymentDialogComponent} from '../../../../../../theme/component/payments/components/payment-dialog/payment-dialog.component';
 import {sum} from '../../../../../../../helper';
+import {PdfServiceService} from "../../../../../../core/services/pdf-service.service";
 
 @Component({
   selector: 'app-invoice-table',
@@ -46,6 +47,7 @@ export class InvoiceTableComponent extends PaginateClass<Invoice> implements OnI
     public invoiceService: InvoiceService,
     public dialog: MatDialog,
     private paymentService: PaymentService,
+    private pdfService: PdfServiceService
   ) {
     super(messageService, invoiceService, dialog);
   }
@@ -63,7 +65,7 @@ export class InvoiceTableComponent extends PaginateClass<Invoice> implements OnI
   pdf(event: MouseEvent, id: number, name: string) {
     event.stopPropagation();
 
-    this.invoiceService.pdf(id).subscribe(r => {
+    this.pdfService.downloadPdf(id).subscribe(r => {
       this.documentHelper.pdf(r, name);
     });
   }

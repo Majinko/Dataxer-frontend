@@ -69,20 +69,20 @@
     </div>
   </div>
 
-  <div class="row">
-    <div class="col-md-4">
-      <div class="mb-3" *ngIf="this.uploadHelper.imageUrl">
-        <mat-progress-bar *ngIf="!this.uploadHelper.imageUrl && !this.uploadHelper.isLoad" mode="indeterminate"></mat-progress-bar>
-        <img src="{{this.uploadHelper.imageUrl}}" alt="">
-      </div>
+  <div class="row align-items-end mb-3">
+    <div class="col-md-4 form-group">
+      <app-photo-uploader [formGroup]="formGroup" nameAttr="previewUrl" path="item" title="Obrázok položky"></app-photo-uploader>
+    </div>
 
+    <div class="col-md-4 form-group">
       <mat-form-field class="form-pack-price-offer-create w-100">
-        <ngx-mat-file-input (change)="uploadFile($event.target.files, true)"  placeholder="Obrázok položky"></ngx-mat-file-input>
-        <mat-icon matSuffix>image</mat-icon>
+        <ngx-mat-file-input (change)="uploadHelper.uploadFile($event.target.files)" placeholder="Súbory položky" multiple></ngx-mat-file-input>
+        <mat-icon matSuffix class="cursor-pointer">image</mat-icon>
       </mat-form-field>
 
-      <input type="hidden" formControlName="preview">
+      <app-file class="mb-3" [files]="item.files" deleteFile="true"></app-file>
     </div>
+  </div>
 
 <!--    <div class="col-md-4">
       <mat-form-field class="form-pack-price-offer-create w-100">
@@ -97,7 +97,6 @@
         <mat-icon matSuffix>add</mat-icon>
       </mat-form-field>
     </div>-->
-  </div>
 
   <div class="row">
     <div class="col-md-4">
