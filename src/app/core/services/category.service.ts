@@ -32,6 +32,12 @@ export class CategoryService {
     }));
   }
 
+  fallByTypeIn(types: string[]): Observable<CategoryItemNode[]> {
+    return this.http.get<CategoryItemNode[]>(`${environment.baseUrl}/category/allByTypes?types=${types.join(',')}`).pipe(map(categories => {
+      return this.categoryHelper.prepareOptionTree(categories);
+    }));
+  }
+
   nested(): Observable<CategoryItemNode[]> {
     return this.http.get<CategoryItemNode[]>(environment.baseUrl + '/category/all').pipe(map((categories) => {
       return this.categoryHelper.prepareTree(categories, null);

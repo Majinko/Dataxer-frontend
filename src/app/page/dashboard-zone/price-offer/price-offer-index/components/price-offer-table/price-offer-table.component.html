@@ -73,6 +73,11 @@
                 </button>
 
                 <mat-menu #menu="matMenu" class="menu-not-rounded">
+                  <button mat-menu-item (click)="pdf($event, element.id, element.title)">
+                    <mat-icon>save_alt</mat-icon>
+                    <span>Stiahnuť PDF</span>
+                  </button>
+
                   <button mat-menu-item [routerLink]="['/price-offer/create', element.id]">
                     <mat-icon>file_copy</mat-icon>
                     <span>Duplikovať</span>

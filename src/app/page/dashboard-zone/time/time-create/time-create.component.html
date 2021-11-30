@@ -35,7 +35,7 @@
     </div>
 
     <div class="col-md-6 form-group">
-      <app-category-select-group #categorySelect formControlName="category" type="TIME"></app-category-select-group>
+      <app-category-select-group #categorySelect formControlName="category" [types]="['TIME_FOR_COMPANY', 'TIME_CAPITAL_IN_PROJECT', 'TIME_NO_CAPITAL_IN_PROJECT']"></app-category-select-group>
 
       <mat-error *ngIf="isSubmit && f.category.errors">Kategória je <strong>požadovaná.</strong></mat-error>
     </div>

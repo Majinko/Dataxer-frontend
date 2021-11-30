@@ -46,5 +46,7 @@ export class DashboardComponent implements OnInit {
     this.userService.user.roles.forEach(r => {
       this.permissionService.addPermission(r.privileges.map(p => p.name));
     });
+
+    console.log(this.permissionService.getPermissions());
   }
 }

@@ -17,7 +17,7 @@ export class CategorySelectGroupComponent implements ControlValueAccessor, OnIni
   categoryItemNode: CategoryItemNode;
   categoryItemNodes: CategoryItemNode[] = [];
 
-  @Input() type: string;
+  @Input() types: string[];
 
   constructor(
     private categoryService: CategoryService
@@ -46,7 +46,7 @@ export class CategorySelectGroupComponent implements ControlValueAccessor, OnIni
   }
 
   private getCategories() {
-    this.categoryService.fallByType(this.type).subscribe(categories => this.categoryItemNodes = categories);
+    this.categoryService.fallByTypeIn(this.types).subscribe(categories => this.categoryItemNodes = categories);
   }
 
   registerOnChange(fn: any): void {

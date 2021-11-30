@@ -16,27 +16,39 @@
           <option value="COMPANY">Firma</option>
           <option value="PROJECT">Zákazky</option>
           <option value="SALARY">Mzdy</option>
+          <option value="TYPE_PROJECT">Druhy zákaziek</option>
+          <option value="CONTACT">Kategórie kontaktov</option>
         </select>
       </mat-form-field>
     </div>
 
     <div class="col-md-12 mb-4">
       <mat-radio-group *ngIf="formGroup.get('categoryGroup').value === 'COMPANY'" aria-label="Select an option" class="form-group option-with-questionnaire" formControlName="categoryType">
-        <mat-radio-button class="mr-4" value="SERVICE"><span class="mr-1">Tovar / služba</span> <mat-icon matTooltip="Podľa štruktúry nákladov potrebných pre chod firmy bude vytvorená štuktúra vo výkazoch.">help</mat-icon></mat-radio-button>
-        <mat-radio-button class="mr-4" value="TIME"><span class="mr-1">Časový záznam</span><mat-icon matTooltip="Časové záznamy o činnostiach potrebnými pre chod firmy budú započítané v čistých hodinových nákladoch k prevádzkovým nákladom spoločnosti">help</mat-icon></mat-radio-button>
-        <mat-radio-button value="NOT_INCLUDED"><span class="mr-1">Nezahrnuté</span> <mat-icon matTooltip="Náklady nie sú započítané do prevádzkových nákladov spoločnosti a nemajú vplyv na výšku nákladu k čistým hodinovým nákladom používateľov. Budú zobrazené v štatistike.">help</mat-icon></mat-radio-button>
+        <mat-radio-button class="mr-4 d-block" value="STUFF_SERVICE_FOR_COMPANY"><span class="mr-1">Tovar / služna pre chod firmy</span> <mat-icon matTooltip="Podľa štruktúry nákladov potrebných pre chod firmy bude vytvorená štuktúra vo výkazoch.">help</mat-icon></mat-radio-button>
+        <mat-radio-button class="mr-4 d-block" value="TIME_FOR_COMPANY"><span class="mr-1">Časový záznam pre chod firmy</span><mat-icon matTooltip="Časové záznamy o činnostiach potrebnými pre chod firmy budú započítané v čistých hodinových nákladoch k prevádzkovým nákladom spoločnosti">help</mat-icon></mat-radio-button>
+        <mat-radio-button value="STUFF_SERVICE_NOT_IN_COST"><span class="mr-1">Tovar / služba pre firmu nezahrnutá do nákladov</span> <mat-icon matTooltip="Náklady nie sú započítané do prevádzkových nákladov spoločnosti a nemajú vplyv na výšku nákladu k čistým hodinovým nákladom používateľov. Budú zobrazené v štatistike.">help</mat-icon></mat-radio-button>
       </mat-radio-group>
 
       <mat-radio-group *ngIf="formGroup.get('categoryGroup').value === 'PROJECT'" aria-label="Select an option" class="form-group option-with-questionnaire" formControlName="categoryType">
-        <mat-radio-button class="mr-4" value="SERVICE"><span class="mr-1">Tovar / služba</span> <mat-icon matTooltip="Podľa štruktúry nákladov bude vytvorená štuktúra v rozpočtoch.">help</mat-icon></mat-radio-button>
-        <mat-radio-button class="mr-4" value="TIME"><span class="mr-1">Časový záznam</span> <mat-icon matTooltip="Časové záznamy o činnostiach potrebnými pre chod firmy budú započítané v čistých hodinových nákladoch k prevádzkovým nákladom spoločnosti">help</mat-icon></mat-radio-button>
-        <mat-radio-button class="mr-4" value="MAIN_TIME"><span class="mr-1">Časové záznamy hlavných činností</span> <mat-icon matTooltip="Časové záznamy činností potrebných pre tvorbu zákazky počas jej tvorby. Sem nebude možné pridávať záznamy po ukončení zákazky. K časovým nákladom budú vo vyhodnotení pripočítané prevádzkové náklady spoločností.">help</mat-icon></mat-radio-button>
-        <mat-radio-button class="mr-4" value="SECONDARY_TIME"><span class="mr-1">Časové záznamy vedľajších činností</span> <mat-icon matTooltip="Časové záznamy činností, ktoré nesúvisia s výkonom zákazky. Časové náklady budú započítané v čistom k prevádzkovým nákladom spoločnosti. Sem patrí napríklad činnosti pred objednávkou zákazky, fotodokumentácia, propagácia a podobne. Tieto časové záznamy sa zobrazia v štatistike zákazky, ale náklady nebudú počítané k nákladom zákazky, ale ">help</mat-icon></mat-radio-button>
-        <mat-radio-button class="mr-4" value="AFTER_END_TIME"><span class="mr-1">Časové záznamy servisných činností po ukončení zákazky</span> <mat-icon matTooltip="Časové záznamy činností na zákazke po jej ukončení. Časové náklady budú započítané v čistom k prevádzkovým nákladom spoločnosti. Sem patrí záručný a pozáručný servis a vybavovanie reklamácii.">help</mat-icon></mat-radio-button>
+        <mat-radio-button class="mr-4 d-block" value="STUFF_SERVICE_IN_PROJECT_BALANCE"><span class="mr-1">Tovar / služba zákazky započítaná do bilancie zákazky</span> <mat-icon matTooltip="Podľa štruktúry nákladov bude vytvorená štuktúra v rozpočtoch.">help</mat-icon></mat-radio-button>
+        <mat-radio-button class="mr-4 d-block" value="STUFF_SERVICE_IN_OPERATING_COST_COMPANY"><span class="mr-1">Tovar / služba zákazky započítaná do prevádzkových nákladov firmy</span> <mat-icon matTooltip="Časové záznamy o činnostiach potrebnými pre chod firmy budú započítané v čistých hodinových nákladoch k prevádzkovým nákladom spoločnosti">help</mat-icon></mat-radio-button>
+        <mat-radio-button class="mr-4 d-block" value="TIME_CAPITAL_IN_PROJECT"><span class="mr-1">Časové záznamy hlavných činností na zákazke</span> <mat-icon matTooltip="Časové záznamy činností potrebných pre tvorbu zákazky počas jej tvorby. Sem nebude možné pridávať záznamy po ukončení zákazky. K časovým nákladom budú vo vyhodnotení pripočítané prevádzkové náklady spoločností.">help</mat-icon></mat-radio-button>
+        <mat-radio-button class="mr-4 d-block" value="TIME_NO_CAPITAL_IN_PROJECT"><span class="mr-1">Časové záznamy vedľajších činností na zákazke</span> <mat-icon matTooltip="Časové záznamy činností, ktoré nesúvisia s výkonom zákazky. Časové náklady budú započítané v čistom k prevádzkovým nákladom spoločnosti. Sem patrí napríklad činnosti pred objednávkou zákazky, fotodokumentácia, propagácia a podobne. Tieto časové záznamy sa zobrazia v štatistike zákazky, ale náklady nebudú počítané k nákladom zákazky, ale ">help</mat-icon></mat-radio-button>
+        <mat-radio-button class="mr-4 d-block" value="TIME_AFTER_PROJECT_END"><span class="mr-1">Časové záznamy servisných činností po ukončení zákazky</span> <mat-icon matTooltip="Časové záznamy činností na zákazke po jej ukončení. Časové náklady budú započítané v čistom k prevádzkovým nákladom spoločnosti. Sem patrí záručný a pozáručný servis a vybavovanie reklamácii.">help</mat-icon></mat-radio-button>
       </mat-radio-group>
 
       <mat-radio-group *ngIf="formGroup.get('categoryGroup').value === 'SALARY'" aria-label="Select an option" class="form-group option-with-questionnaire" formControlName="categoryType">
-        <mat-radio-button class="mr-4" value="SALARY"><span class="mr-1">Mzdy prevádzka firmy</span> <mat-icon matTooltip="Náklady na mzdy budú započítané k prevádzkovým nákladom spoločnosti. Napríklad mzdy officemanager, účtovnik.">help</mat-icon></mat-radio-button>
+        <mat-radio-button class="mr-4 d-block" value="SALARY_FOR_COMPANY"><span class="mr-1">Mzdy prevádzka firmy</span> <mat-icon matTooltip="Náklady na mzdy budú započítané k prevádzkovým nákladom spoločnosti. Napríklad mzdy officemanager, účtovnik.">help</mat-icon></mat-radio-button>
+        <mat-radio-button class="mr-4 d-block" value="SALARY_FOR_PROJECT"><span class="mr-1">Mzdy zákazky</span> <mat-icon matTooltip="Mzdy použivateľov, ktoré sú potrebné pre vykonávanie zákazok. Náklad sa nezapočítava k nákladom na spoločnosť a slúžia len pre účely výkazov v prehľadoch.">help</mat-icon></mat-radio-button>
+      </mat-radio-group>
+
+
+      <mat-radio-group *ngIf="formGroup.get('categoryGroup').value === 'TYPE_PROJECT'" aria-label="Select an option" class="form-group option-with-questionnaire" formControlName="categoryType">
+        <mat-radio-button class="mr-4 d-block" value="TYPE_PROJECT_CATEGORY_SUBCATEGORY_SEARCH"><span class="mr-1">Vytvorte si kategórie a podkategórie zákazok</span> <mat-icon matTooltip="Na ich základe budete vedieť vyhľadávať zákazky.">help</mat-icon></mat-radio-button>
+      </mat-radio-group>
+
+      <mat-radio-group *ngIf="formGroup.get('categoryGroup').value === 'CONTACT'" aria-label="Select an option" class="form-group option-with-questionnaire" formControlName="categoryType">
+        <mat-radio-button class="mr-4 d-block" value="TYPE_CONTACT"><span class="mr-1">Podľa výskytu</span> <mat-icon matTooltip="Kontakty sa automaticky zaradia podla toho, ci od nich mame naklad (vtedy budú automaticky v dodavateloch), ked im budeme fakturovat, budu automaticky v klientoch. Niektori mozu byt v oboch. Ale mali byt sme tam mat moznost pridat dalsie kategorie kontaktov, kde si ulozim kontakty na veci, ktore su napriklad statne institucie a podobne.">help</mat-icon></mat-radio-button>
       </mat-radio-group>
     </div>
 

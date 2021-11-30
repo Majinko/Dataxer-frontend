@@ -9,12 +9,12 @@
     </div>
   </div>
 
-  <div class="row align-items-center">
+  <div class="row align-items-center justify-content-between">
     <div class="col-3 col-md-1 mb-2">
       <app-photo-uploader [formGroup]="contactForm" path="contact" nameAttr="photoUrl" isAvatar="true"></app-photo-uploader>
     </div>
 
-    <div class="col-9 col-md-11">
+    <div class="col-9 col-md-10">
       <app-slovakia-digital-autocomplete [isError]="f.name.errors && f.name.errors.required && isSubmit" formControlName="name" (findFirm)="setFirmData($event)"></app-slovakia-digital-autocomplete>
     </div>
   </div>
@@ -54,7 +54,6 @@
         <input matInput placeholder="PSČ" formControlName="postalCode">
       </mat-form-field>
     </div>
-
 
     <div class="col-md-6">
       <mat-form-field class="form-group w-100">

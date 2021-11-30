@@ -6,6 +6,7 @@ import {environment} from '../../../environments/environment';
 import {SlovakiaDigital} from '../models/slovakiaDigital';
 import {ResourceService} from '../class/ResourceService';
 import {Serializer} from '../models/serializers/Serializer';
+import {map} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +21,15 @@ export class ContactService extends ResourceService<Contact> {
       httpClient,
       'contact',
       new Serializer());
+  }
+
+  store(contact: Contact): Observable<Contact> {
+    return this.httpClient
+      .post<Contact>(`${environment.baseUrl}/contact/store`, contact).pipe(map((c) => {
+        this.contractorStore.next(c);
+
+        return c;
+      }));
   }
 
   all(): Observable<Contact[]> {

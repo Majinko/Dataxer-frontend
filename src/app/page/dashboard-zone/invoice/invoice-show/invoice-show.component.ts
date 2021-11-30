@@ -6,7 +6,7 @@ import {DocumentHelper} from '../../../../core/class/DocumentHelper';
 import {PaymentService} from '../../../../core/services/payment.service';
 import {MatDialog} from '@angular/material/dialog';
 import {DocumentEmailDialogComponent} from '../../../../theme/component/document-email-dialog/document-email-dialog.component';
-import {PdfServiceService} from "../../../../core/services/pdf-service.service";
+import {PdfServiceService} from '../../../../core/services/pdf-service.service';
 
 @Component({
   selector: 'app-invoice-show',

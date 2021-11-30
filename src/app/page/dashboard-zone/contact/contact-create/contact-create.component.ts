@@ -65,10 +65,10 @@ export class ContactCreateComponent implements OnInit {
   setFirmData(firm: SlovakiaDigital) {
     this.contactForm.patchValue({
       name: firm.name,
-      street: firm.street,
+      street: firm.formatted_street,
       city: firm.municipality,
       postalCode: firm.postal_code,
-      regNumber: firm.street,
+      regNumber: firm.reg_number,
       cin: firm.cin,
       tin: firm.tin,
       vatin: firm.vatin

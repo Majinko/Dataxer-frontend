@@ -19,6 +19,6 @@ export class UploadService {
   pushUpload(path: string, upload: File): AngularFireUploadTask {
     return this
       .afStorage
-      .upload(`${this.companyService.company.name.toLowerCase().replace('[^a-zA-Z0-9]', '')}/${path}/${upload.name}`, upload);
+      .upload(`${this.companyService.company.cin}/${path}/${upload.name}`, upload);
   }
 }

@@ -9,6 +9,7 @@ import {
   ApexTooltip,
   ApexXAxis,
   ApexYAxis,
+  ApexFill,
   ChartComponent
 } from 'ng-apexcharts';
 import {Cost} from '../../../../../../core/models/cost';
@@ -25,6 +26,7 @@ export type ChartOptions = {
   xaxis: ApexXAxis;
   grid: ApexGrid;
   colors: string[];
+  fill: ApexFill;
   legend: ApexLegend;
   tooltip: ApexTooltip;
 };
@@ -78,7 +80,7 @@ export class ProjectChartComponent implements OnInit {
             this.invoiceNotPayedSum, // invoice not payed,
             this.costPayedSum, // cost payed
             this.costNotPayedSum // cost not payed
-          ]
+          ],
         }
       ],
       chart: {
@@ -98,7 +100,10 @@ export class ProjectChartComponent implements OnInit {
         show: false
       },
       grid: {
-        show: false
+        show: false,
+      },
+      fill: {
+        colors: ['#257ec3', '#42e6a5', '#E91E63', '#42e6a5', '#E91E63']
       },
       xaxis: {
         categories: [

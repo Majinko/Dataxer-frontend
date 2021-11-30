@@ -9,10 +9,13 @@ import {PaginateClass} from '../../../../../../core/class/PaginateClass';
 import {HttpClient} from '@angular/common/http';
 import {MatDialog} from '@angular/material/dialog';
 import {sum} from '../../../../../../../helper';
+import {PdfServiceService} from '../../../../../../core/services/pdf-service.service';
+import {DocumentHelper} from '../../../../../../core/class/DocumentHelper';
 
 @Component({
   selector: 'app-price-offer-table',
   templateUrl: './price-offer-table.component.html',
+  providers: [DocumentHelper]
 })
 export class PriceOfferTableComponent extends PaginateClass<PriceOffer> implements AfterViewInit {
   totalPrice: number = 0;
@@ -39,10 +42,20 @@ export class PriceOfferTableComponent extends PaginateClass<PriceOffer> implemen
 
   constructor(
     public http: HttpClient,
+    private documentHelper: DocumentHelper,
     public priceOfferService: PriceOfferService,
     public messageService: MessageService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private pdfService: PdfServiceService,
   ) {
     super(messageService, priceOfferService, dialog);
+  }
+
+  pdf(event: MouseEvent, id: number, name: string) {
+    event.stopPropagation();
+
+    this.pdfService.downloadPdf(id, 'priceOffer').subscribe(r => {
+      this.documentHelper.pdf(r, name);
+    });
   }
 }

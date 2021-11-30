@@ -10,7 +10,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {PaymentService} from '../../../../../../core/services/payment.service';
 import {PaymentDialogComponent} from '../../../../../../theme/component/payments/components/payment-dialog/payment-dialog.component';
 import {sum} from '../../../../../../../helper';
-import {PdfServiceService} from "../../../../../../core/services/pdf-service.service";
+import {PdfServiceService} from '../../../../../../core/services/pdf-service.service';
 
 @Component({
   selector: 'app-invoice-table',
