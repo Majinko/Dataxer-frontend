@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Injector, OnInit} from '@angular/core';
 import {FilterClass} from '../../../../../../core/class/FilterClass';
 import {FormBuilder} from '@angular/forms';
 import {SearchBarService} from '../../../../../../core/services/search-bar.service';
@@ -17,10 +17,12 @@ export class CostFilterComponent extends FilterClass implements OnInit {
     private companyService: CompanyService,
     public formBuilder: FormBuilder,
     public searchbarService: SearchBarService,
+    protected injector: Injector
   ) {
     super(searchbarService, formBuilder, 'cost',
       ['title', 'contact.name'],
-      ['contact.id', 'company.id', 'project.id', 'state', 'month']
+      ['contact.id', 'company.id', 'project.id', 'state', 'month'],
+      injector
     );
   }
 

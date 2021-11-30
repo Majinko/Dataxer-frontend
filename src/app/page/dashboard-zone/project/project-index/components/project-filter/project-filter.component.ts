@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Injector, OnInit} from '@angular/core';
 import {FormBuilder} from '@angular/forms';
 import {Contact} from '../../../../../../core/models/contact';
 import {ContactService} from '../../../../../../core/services/contact.service';
@@ -18,8 +18,9 @@ export class ProjectFilterComponent extends FilterClass implements OnInit {
     private contactService: ContactService,
     public formBuilder: FormBuilder,
     public searchbarService: SearchBarService,
+    protected injector: Injector
   ) {
-    super(searchbarService, formBuilder, 'project', ['title', 'number', 'contact.name'], ['contact.id']);
+    super(searchbarService, formBuilder, 'project', ['title', 'number', 'contact.name'], ['contact.id'], injector);
   }
 
   ngOnInit(): void {

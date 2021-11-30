@@ -48,7 +48,7 @@ export class UserCreateComponent implements OnInit {
     });
 
     this.salaryForm = this.formBuilder.group({
-      price: [0, Validators.required],
+      price: [null, Validators.required],
       salaryType: 'HOUR'
     });
   }

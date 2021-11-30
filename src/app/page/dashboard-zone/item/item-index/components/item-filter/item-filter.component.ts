@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Injector, OnInit} from '@angular/core';
 import {FilterClass} from '../../../../../../core/class/FilterClass';
 import {FormBuilder} from '@angular/forms';
 import {SearchBarService} from '../../../../../../core/services/search-bar.service';
@@ -12,8 +12,15 @@ export class ItemFilterComponent extends FilterClass implements OnInit {
   constructor(
     public formBuilder: FormBuilder,
     public searchbarService: SearchBarService,
+    protected injector: Injector
   ) {
-    super(searchbarService, formBuilder, 'item', ['code', 'title', 'manufacturer', 'contact.name'], []);
+    super(
+      searchbarService,
+      formBuilder,
+      'item',
+      ['code', 'title', 'manufacturer', 'contact.name'],
+      [],
+      injector);
   }
 
   ngOnInit(): void {

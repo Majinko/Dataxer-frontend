@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Injector, OnInit} from '@angular/core';
 import {ContactService} from '../../../../../../core/services/contact.service';
 import {ProjectService} from '../../../../../../core/services/project.service';
 import {FormBuilder} from '@angular/forms';
@@ -19,8 +19,15 @@ export class PriceOfferFilterComponent extends FilterClass implements OnInit {
     public userService: UserService,
     public formBuilder: FormBuilder,
     public searchbarService: SearchBarService,
+    protected injector: Injector
   ) {
-    super(searchbarService, formBuilder, 'priceOffer', ['title', 'contact.name'], ['contact.id', 'company.id', 'project.id', 'state', 'month']
+    super(
+      searchbarService,
+      formBuilder,
+      'priceOffer',
+      ['title', 'contact.name'],
+      ['contact.id', 'company.id', 'project.id', 'state', 'month'],
+      injector
     );
   }
 

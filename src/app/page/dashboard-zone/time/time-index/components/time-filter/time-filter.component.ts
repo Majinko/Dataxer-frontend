@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Injector, OnInit} from '@angular/core';
 import {FilterClass} from '../../../../../../core/class/FilterClass';
 import {ProjectService} from '../../../../../../core/services/project.service';
 import {FormBuilder} from '@angular/forms';
@@ -13,8 +13,15 @@ export class TimeFilterComponent extends FilterClass implements OnInit {
     private projectService: ProjectService,
     public formBuilder: FormBuilder,
     public searchbarService: SearchBarService,
+    protected injector: Injector
   ) {
-    super(searchbarService, formBuilder, 'time', ['description'], ['project.id', 'month']
+    super(
+      searchbarService,
+      formBuilder,
+      'time',
+      ['description'],
+      ['project.id', 'month'],
+      injector
     );
   }
 

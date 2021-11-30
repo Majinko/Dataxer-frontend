@@ -48,7 +48,9 @@ export class FilterClass {
     private model: string,
     private searchBarSearchValues: string[],
     private searchBarSelectValues: string[],
+    protected injector: Injector
   ) {
+    this.dialog = injector.get<MatDialog>(MatDialog);
   }
 
   prepareData() {
@@ -74,10 +76,27 @@ export class FilterClass {
    * Month range select
    */
   monthDateRange() {
-    this.dialog.open(DateRangeDialogComponent, {
+    let isRangeOk: boolean = false;
+
+    const dialogRef = this.dialog.open(DateRangeDialogComponent, {
       width: '100%',
       maxWidth: '500px',
       autoFocus: false,
+      disableClose: true
+    });
+
+    dialogRef.afterClosed().subscribe(dialogResult => {
+      isRangeOk = Object.values(dialogResult).some(v => v != null);
+
+      if (isRangeOk) {
+        this.filterForm.patchValue({
+          month: {
+            start: moment(dialogResult.start).format('YYYY-MM-DD'),
+            end: moment(dialogResult.end).format('YYYY-MM-DD'),
+            title: moment(dialogResult.start).format('DD.M.YYYY') + ' - ' + moment(dialogResult.end).format('DD.M.YYYY')
+          }
+        });
+      }
     });
   }
 
