@@ -2,7 +2,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {auditTime} from 'rxjs/operators';
 import {SearchBarService} from '../services/search-bar.service';
 import {Contact} from '../models/contact';
-import {Directive, EventEmitter, Input, Output} from '@angular/core';
+import {Directive, EventEmitter, Injector, Input, Output} from '@angular/core';
 import {DocumentFilter} from '../models/filters/document-filter';
 import {ExpressionNode} from '@rsql/ast';
 import builder from '@rsql/builder';
@@ -13,6 +13,8 @@ import {Project} from '../models/project';
 import {KeyValue} from '../models/keyValue';
 import {Company} from '../models/company';
 import * as moment from 'moment';
+import {MatDialog} from '@angular/material/dialog';
+import {DateRangeDialogComponent} from '../../theme/component/date-range-dialog/date-range-dialog.component';
 
 @Directive()
 // tslint:disable-next-line:directive-class-suffix
@@ -29,6 +31,9 @@ export class FilterClass {
   orExpression: ExpressionNode[] = [];
   andExpression: ExpressionNode[] = [];
   rsQlExpression: string = '';
+
+  // Injector
+  private dialog: MatDialog;
 
   // Input and Output
   @Input()
@@ -63,6 +68,17 @@ export class FilterClass {
     this.filterForm.patchValue({[key]: null});
 
     this.checkFilterFormValue();
+  }
+
+  /**
+   * Month range select
+   */
+  monthDateRange() {
+    this.dialog.open(DateRangeDialogComponent, {
+      width: '100%',
+      maxWidth: '500px',
+      autoFocus: false,
+    });
   }
 
   /**
@@ -216,5 +232,5 @@ export class FilterClass {
     const date = new Date(momentData.year(), momentData.month(), momentData.date());
 
     return date.toLocaleString('default', {month: 'long'}) + ' ' + momentData.year();
-  };
+  }
 }

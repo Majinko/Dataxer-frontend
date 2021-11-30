@@ -20,7 +20,7 @@ export class InvoiceFilterComponent extends FilterClass implements OnInit {
   ) {
     super(searchbarService, formBuilder, 'invoice',
       ['title', 'contact.name'],
-      ['contact.id', 'company.id', 'project.id', 'state', 'documentType', 'month']
+      ['contact.id', 'company.id', 'project.id', 'state', 'documentType', 'month'],
     );
   }
 

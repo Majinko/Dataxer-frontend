@@ -39,6 +39,7 @@ import {ConfirmDialogComponent} from './component/confirm-dialog/confirm-dialog.
 import {PhotoUploaderComponent} from './component/photo-uploader/photo-uploader.component';
 import {ChatComponent} from './component/chat/chat.component';
 import {CategorySelectGroupComponent} from './component/category-select-group/category-select-group.component';
+import { DateRangeDialogComponent } from './component/date-range-dialog/date-range-dialog.component';
 
 @NgModule({
   imports: [
@@ -85,6 +86,7 @@ import {CategorySelectGroupComponent} from './component/category-select-group/ca
     PhotoUploaderComponent,
     ChatComponent,
     CategorySelectGroupComponent,
+    DateRangeDialogComponent,
   ],
   exports: [
     DrawerComponent,
