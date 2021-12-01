@@ -61,7 +61,7 @@ export class PriceOfferFilterComponent extends FilterClass implements OnInit {
       this.projects = p;
     });
   }
-  
+
   private getCompanies() {
     this.companyService.all().subscribe((c) => {
       this.companies = c;
