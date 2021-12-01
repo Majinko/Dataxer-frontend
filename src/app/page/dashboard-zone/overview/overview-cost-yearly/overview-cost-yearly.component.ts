@@ -14,6 +14,7 @@ export class OverviewCostYearlyComponent implements OnInit {
   months: number[] = new Array(12);
   year: number = new Date().getFullYear();
   years: number[] = [];
+
   // tslint:disable-next-line:max-line-length
   skMonths: string[] = ['Január', 'Február', 'Marec', 'Apríl', 'Máj', 'Jún', 'Júl', 'August', 'September', 'Október', 'November', 'December'];
   categoryCostsOverview: CategoryCostsOverview;

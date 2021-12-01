@@ -26,7 +26,7 @@ export class PriceOfferFilterComponent extends FilterClass implements OnInit {
       formBuilder,
       'priceOffer',
       ['title', 'contact.name'],
-      ['contact.id', 'company.id', 'project.id', 'state', 'month'],
+      ['contact.id', 'company.id', 'project.id', 'month'],
       injector
     );
   }
@@ -46,7 +46,6 @@ export class PriceOfferFilterComponent extends FilterClass implements OnInit {
     this.prepareData();
     this.getContacts();
     this.getProjects();
-    this.preparePayedStates();
     this.getCompanies();
     this.prepareMonths();
   }
@@ -62,14 +61,7 @@ export class PriceOfferFilterComponent extends FilterClass implements OnInit {
       this.projects = p;
     });
   }
-
-  private preparePayedStates() {
-    this.payedStates = [
-      {key: 'PAYED', value: 'Uhradené'},
-      {key: 'UNPAID', value: 'Neuradené'},
-    ];
-  }
-
+  
   private getCompanies() {
     this.companyService.all().subscribe((c) => {
       this.companies = c;

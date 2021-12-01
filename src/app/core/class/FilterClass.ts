@@ -93,7 +93,7 @@ export class FilterClass {
           month: {
             start: moment(dialogResult.start).format('YYYY-MM-DD'),
             end: moment(dialogResult.end).format('YYYY-MM-DD'),
-            title: moment(dialogResult.start).format('DD.M.YYYY') + ' - ' + moment(dialogResult.end).format('DD.M.YYYY')
+            title: moment(dialogResult.start).format('DD.M.YYYY')
           }
         });
       }
