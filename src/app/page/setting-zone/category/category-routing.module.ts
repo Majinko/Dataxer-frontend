@@ -1,16 +1,16 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 import {CategoryComponent} from './category.component';
-import {CategoryIndexComponent} from './category-index/category-index.component';
 import {CategoryUpdateCreateComponent} from './category-update-create/category-update-create.component';
+import {CategoryTreeByTypeComponent} from './category-tree-by-type/category-tree-by-type.component';
 
 const routes: Routes = [{
   path: '',
   component: CategoryComponent,
   children: [
     {
-      path: '',
-      component: CategoryIndexComponent
+      path: 'group/:category_group',
+      component: CategoryTreeByTypeComponent
     },
     {
       path: 'create',

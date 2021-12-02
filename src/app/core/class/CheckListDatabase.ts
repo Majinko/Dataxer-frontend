@@ -20,17 +20,6 @@ export class ChecklistDatabase {
   constructor(
     private readonly categoryService: CategoryService,
   ) {
-    this.initialize();
-  }
-
-  initialize() {
-    // Build the tree nodes from Json object. The result is a list of `CategoryItemNode` with nested
-    // file node as children.
-    // Notify the change.
-    this.categoryService.nested().subscribe((categories) => {
-      this.isLoad = false;
-      this.dataChange.next(categories);
-    });
   }
 
   /** Add an item to to-do list */

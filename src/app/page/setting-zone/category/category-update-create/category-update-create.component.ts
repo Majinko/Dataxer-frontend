@@ -27,12 +27,12 @@ export class CategoryUpdateCreateComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getCategories();
     this.prepareForm();
-  }
+    this.getCategories('COMPANY');
 
-  getCategories() {
-    this.categoryService.all().subscribe(cat => this.categories = cat);
+    this.formGroup.get('categoryGroup').valueChanges.subscribe(v => {
+      this.getCategories(v);
+    });
   }
 
   private prepareForm() {
@@ -51,6 +51,12 @@ export class CategoryUpdateCreateComponent implements OnInit {
         this.formGroup.patchValue(c);
       });
     }
+  }
+
+  private getCategories(categoryGroup: string) {
+    this.categoryService
+      .allByGroupFromParent(categoryGroup, false)
+      .subscribe(cat => this.categories = cat);
   }
 
   onSubmit(category: CategoryItemNode) {
