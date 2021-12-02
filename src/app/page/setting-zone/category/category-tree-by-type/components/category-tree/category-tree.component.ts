@@ -19,6 +19,8 @@ import {CategoryHelper} from '../../../../../../core/class/CategoryHelper';
 import {ChecklistDatabase} from '../../../../../../core/class/CheckListDatabase';
 import {MatDialog} from '@angular/material/dialog';
 import {ConfirmDialogComponent} from '../../../../../../theme/component/confirm-dialog/confirm-dialog.component';
+import firebase from "firebase";
+import database = firebase.database;
 
 @Component({
   selector: 'app-category-tree',
@@ -82,13 +84,16 @@ export class CategoryTreeComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
+    this.database.dataChange.subscribe((data) => {
+      this.dataSource.data = [];
+      this.dataSource.data = data;
+
+      this.isLoadingResults = false;
+    });
   }
 
-
   ngOnChanges(changes: SimpleChanges) {
-    this.dataSource.data = [];
-    this.dataSource.data = changes.categories.currentValue;
-    this.isLoadingResults = false;
+    this.database.dataChange.next(changes.categories.currentValue);
   }
 
   getLevel = (node: CategoryItemFlatNode) => node.level;

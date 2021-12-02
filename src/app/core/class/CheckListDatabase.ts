@@ -17,9 +17,7 @@ export class ChecklistDatabase {
     return this.dataChange.value;
   }
 
-  constructor(
-    private readonly categoryService: CategoryService,
-  ) {
+  constructor() {
   }
 
   /** Add an item to to-do list */
