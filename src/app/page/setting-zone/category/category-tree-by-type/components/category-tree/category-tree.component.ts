@@ -1,23 +1,36 @@
-import {SelectionModel} from '@angular/cdk/collections';
+import {
+  Component,
+  ElementRef,
+  Inject,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+  ViewChild
+} from '@angular/core';
+import {CategoryItemFlatNode} from '../../../../../../core/models/category-item-flat-node';
+import {CategoryItemNode} from '../../../../../../core/models/category-item-node';
 import {FlatTreeControl} from '@angular/cdk/tree';
-import {Component, ElementRef, Inject, OnInit, ViewChild} from '@angular/core';
 import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
-import {CategoryItemNode} from '../../../../core/models/category-item-node';
-import {CategoryItemFlatNode} from '../../../../core/models/category-item-flat-node';
-import {ChecklistDatabase} from '../../../../core/class/CheckListDatabase';
-import {CategoryService} from '../../../../core/services/category.service';
-import {MessageService} from '../../../../core/services/message.service';
+import {SelectionModel} from '@angular/cdk/collections';
+import {CategoryService} from '../../../../../../core/services/category.service';
+import {MessageService} from '../../../../../../core/services/message.service';
+import {CategoryHelper} from '../../../../../../core/class/CategoryHelper';
+import {ChecklistDatabase} from '../../../../../../core/class/CheckListDatabase';
 import {MatDialog} from '@angular/material/dialog';
-import {ConfirmDialogComponent} from '../../../../theme/component/confirm-dialog/confirm-dialog.component';
-import {CategoryHelper} from '../../../../core/class/CategoryHelper';
+import {ConfirmDialogComponent} from '../../../../../../theme/component/confirm-dialog/confirm-dialog.component';
+import firebase from "firebase";
+import database = firebase.database;
 
 @Component({
-  selector: 'app-index',
-  templateUrl: './category-index.component.html',
-  styleUrls: ['./category-index.component.scss'],
+  selector: 'app-category-tree',
+  templateUrl: './category-tree.component.html',
+  styleUrls: ['./category-tree.component.scss'],
   providers: [ChecklistDatabase]
 })
-export class CategoryIndexComponent implements OnInit {
+export class CategoryTreeComponent implements OnInit, OnChanges {
+  @Input() categories: CategoryItemNode[] = [];
+
   /** All category load ? */
   isLoadingResults: boolean = true;
   /** Map from flat node to nested node. This helps us finding the nested node to be modified */
@@ -68,20 +81,19 @@ export class CategoryIndexComponent implements OnInit {
     this.treeFlattener = new MatTreeFlattener(this.transformer, this.getLevel, this.isExpandable, this.getChildren);
     this.treeControl = new FlatTreeControl<CategoryItemFlatNode>(this.getLevel, this.isExpandable);
     this.dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
-
-    database.dataChange.subscribe(data => {
-      console.log(data);
-      this.dataSource.data = [];
-      this.dataSource.data = data;
-
-      this.isLoadingResults = database.isLoad;
-    });
   }
 
   ngOnInit(): void {
-    this.categoryService.categoryUpdateOrStore.subscribe((category) => {
-      this.database.initialize(); // todo make better
+    this.database.dataChange.subscribe((data) => {
+      this.dataSource.data = [];
+      this.dataSource.data = data;
+
+      this.isLoadingResults = false;
     });
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    this.database.dataChange.next(changes.categories.currentValue);
   }
 
   getLevel = (node: CategoryItemFlatNode) => node.level;
@@ -196,6 +208,7 @@ export class CategoryIndexComponent implements OnInit {
 
   handleDrop(event, node) {
     event.preventDefault();
+    console.log(node);
 
     if (node !== this.dragNode) {
       let newItem: CategoryItemNode;

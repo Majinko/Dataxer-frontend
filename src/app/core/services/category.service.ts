@@ -61,4 +61,10 @@ export class CategoryService {
   destroy(id: number): Observable<CategoryItemNode> {
     return this.http.get<CategoryItemNode>(environment.baseUrl + '/category/destroy/' + id);
   }
+
+  allByGroupFromParent(group: string, tree: boolean = true): Observable<CategoryItemNode[]> {
+    return this.http.get<CategoryItemNode[]>(`${environment.baseUrl}/category/allByGroupFromParent/${group}`).pipe(map((categories) => {
+      return tree ? this.categoryHelper.prepareTree(categories, null) : categories;
+    }));
+  }
 }

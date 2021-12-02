@@ -23,16 +23,6 @@ import {Company} from '../../../../core/models/company';
                      class="filter-ng-select">
           </ng-select>
         </div>
-        <!--<div class="d-flex align-items-center">
-          <mat-form-field appearance="fill">
-            <mat-label>Vyber firmu</mat-label>
-            <mat-select multiple [(ngModel)]="selectedProjects" (ngModelChange)="getDataByFirm()">
-              <mat-option *ngFor="let company of companies" [value]="company.id">
-                {{company.name}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>-->
       </div>
       <app-menu-tab [navLinks]="navLinks"></app-menu-tab>
       <router-outlet></router-outlet>
