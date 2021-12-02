@@ -203,6 +203,7 @@ export class CategoryTreeComponent implements OnInit, OnChanges {
 
   handleDrop(event, node) {
     event.preventDefault();
+    console.log(node);
 
     if (node !== this.dragNode) {
       let newItem: CategoryItemNode;
