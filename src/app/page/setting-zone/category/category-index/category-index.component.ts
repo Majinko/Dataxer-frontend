@@ -70,6 +70,7 @@ export class CategoryIndexComponent implements OnInit {
     this.dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
 
     database.dataChange.subscribe(data => {
+      console.log(data);
       this.dataSource.data = [];
       this.dataSource.data = data;
 
