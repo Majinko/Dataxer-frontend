@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {PriceOffer} from '../../../../core/models/priceOffer';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {PriceOfferService} from '../../../../core/services/priceOffer.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {DocumentHelper} from '../../../../core/class/DocumentHelper';
@@ -36,6 +36,7 @@ export class PriceOfferEditComponent implements OnInit {
     private formBuilder: FormBuilder,
     private priceOfferService: PriceOfferService,
     private route: ActivatedRoute,
+    private router: Router,
     private messageService: MessageService,
     public documentHelper: DocumentHelper
   ) {
@@ -117,7 +118,9 @@ export class PriceOfferEditComponent implements OnInit {
     });
 
     this.priceOfferService.update(this.formGroup.value).subscribe((r) => {
-      this.messageService.add('Cenová ponuka bola uložená');
+      this.router.navigate(['/price-offer']).then(() => {
+        this.messageService.add('Cenová ponuka bola uložená');
+      });
     });
   }
 }
