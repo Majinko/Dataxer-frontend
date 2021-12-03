@@ -13,7 +13,7 @@
   </div>
 
   <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-4">
       <mat-form-field class="form-group w-100">
         <input formControlName="title" matInput placeholder="Názov nákladu">
         <mat-error *ngIf="f.title.errors">Názov nákladu je <strong>požadovaný.</strong></mat-error>
@@ -38,7 +38,9 @@
         </mat-select>
       </mat-form-field>
     </div>
+  </div>
 
+  <div class="row" *ngIf="formGroup.get('state').value === 'PAYED'">
     <div class="col-md-4">
       <mat-form-field class="form-group w-100 mb-md-0">
         <mat-label>Forma úhrady</mat-label>
@@ -50,6 +52,17 @@
       </mat-form-field>
     </div>
 
+    <div class="col-md-4">
+      <mat-form-field class="form-group w-100">
+        <mat-label>Dátum úhrady</mat-label>
+        <input formControlName="paymentDate" matInput [matDatepicker]="deliveredDate">
+        <mat-datepicker-toggle matSuffix [for]="deliveredDate"></mat-datepicker-toggle>
+        <mat-datepicker #deliveredDate></mat-datepicker>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="row">
     <div class="col-md-4">
       <mat-checkbox formControlName="isInternal">Interný náklad</mat-checkbox>
     </div>
@@ -105,6 +118,7 @@
                  [multiple]="true"
                  [items]="categories"
                  bindLabel="name"
+                 notFoundText="Zvoľte projekt"
                  placeholder="Kategórie"
                  formControlName="categories"
       >

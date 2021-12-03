@@ -67,12 +67,12 @@ export class ProjectInfoComponent implements OnInit {
 
     this.invoiceService.findAllByProject(+this.route.snapshot.paramMap.get('id'), companyIds).subscribe(invoices => {
       this.requestDone += 1;
-      this.invoices = invoices;
+      this.invoices = invoices.filter(i => i.documentType === 'INVOICE');
 
-      this.payedInvoices = invoices.filter(i => i.paymentDate != null);
-      this.noPayedInvoices = invoices.filter(i => i.paymentDate === null);
-      this.invoicePayedSum = sum(invoices.filter(i => i.paymentDate != null), 'price');
-      this.invoiceNotPayedSum = sum(invoices.filter(i => i.paymentDate === null), 'price');
+      this.payedInvoices = this.invoices.filter(i => i.paymentDate != null);
+      this.noPayedInvoices = this.invoices.filter(i => i.paymentDate === null);
+      this.invoicePayedSum = sum(this.invoices.filter(i => i.paymentDate != null), 'price');
+      this.invoiceNotPayedSum = sum(this.invoices.filter(i => i.paymentDate === null), 'price');
     });
 
     this.costService.findAllByProject(+this.route.snapshot.paramMap.get('id'), companyIds).subscribe(costs => {

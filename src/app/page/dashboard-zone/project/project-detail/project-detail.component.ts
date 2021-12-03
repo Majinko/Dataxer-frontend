@@ -14,7 +14,6 @@ import {Company} from '../../../../core/models/company';
         <div class="col-md-4 col-lg-2">
           <ng-select [items]="companies"
                      [clearable]="false"
-                     [multiple]
                      bindLabel="name"
                      bindValue="id"
                      placeholder="Spoločnosť"
@@ -30,7 +29,7 @@ import {Company} from '../../../../core/models/company';
 })
 export class ProjectDetailComponent implements OnInit, OnDestroy {
   companies: Company[] = [];
-  selectedProjects: number[] = [];
+  selectedProjects: number = null;
   navLinks: { label: string, link: string, index: number }[] = [];
 
   constructor(
@@ -76,6 +75,9 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
   }
 
   getDataByFirm() {
-    this.projectService.getInfoFromCompany.next(this.selectedProjects);
+    const ids: number[] = [];
+    ids.push(this.selectedProjects);
+
+    this.projectService.getInfoFromCompany.next(ids);
   }
 }

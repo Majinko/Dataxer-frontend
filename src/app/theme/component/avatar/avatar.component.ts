@@ -45,10 +45,11 @@ export class AvatarComponent implements OnInit {
 
   switchCompany(company: Company) {
     this.userService.switchCompany(company.id).subscribe(() => {
-      this.router.navigate(['/setting/company']).then(() => {
+      window.location.reload();
+      /*this.router.navigate(['/setting/company']).then(() => {
         this.companyService.company = company;
         this.messageService.add('Spoločnosť bola zmenená');
-      });
+      });*/
     });
   }
 }

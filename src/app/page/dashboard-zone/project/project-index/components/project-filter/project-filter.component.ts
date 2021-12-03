@@ -20,7 +20,7 @@ export class ProjectFilterComponent extends FilterClass implements OnInit {
     public searchbarService: SearchBarService,
     protected injector: Injector
   ) {
-    super(searchbarService, formBuilder, 'project', ['title', 'number', 'contact.name'], ['contact.id'], injector);
+    super(searchbarService, formBuilder, 'project', ['title', 'number', 'address', 'contact.name'], ['contact.id'], injector);
   }
 
   ngOnInit(): void {

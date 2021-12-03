@@ -12,7 +12,8 @@ import {MessageService} from '../../../../core/services/message.service';
 import {Router} from '@angular/router';
 import {CategoryItemNode} from '../../../../core/models/category-item-node';
 import {CategoryService} from '../../../../core/services/category.service';
-import {CompanyService} from '../../../../core/services/company.service';
+import {Project} from '../../../../core/models/project';
+import {ProjectService} from '../../../../core/services/project.service';
 
 @Component({
   selector: 'app-cost-create',
@@ -50,6 +51,7 @@ export class CostCreateComponent implements OnInit {
     private costService: CostService,
     private messageService: MessageService,
     private categoryService: CategoryService,
+    private projectService: ProjectService,
     private router: Router,
   ) {
   }
@@ -57,7 +59,7 @@ export class CostCreateComponent implements OnInit {
   ngOnInit() {
     this.prepareForm();
     this.changeValue();
-    this.getAllCategories();
+    this.handleChangeProject();
   }
 
   private prepareForm() {
@@ -65,7 +67,6 @@ export class CostCreateComponent implements OnInit {
       title: [null, Validators.required],
       type: null,
       state: null,
-      paymentMethod: null,
       isInternal: false,
       isRepeated: false,
       period: null,
@@ -85,10 +86,19 @@ export class CostCreateComponent implements OnInit {
       currency: this.currencies[0].value,
       price: null,
       tax: 20,
-      totalPrice: null
+      totalPrice: null,
+      paymentMethod: 'BANK_PAYMENT',
+      paymentDate: [new Date(), Validators.required],
     });
   }
 
+  private handleChangeProject() {
+    this.formGroup.get('project').valueChanges.subscribe((project: Project) => {
+      this.projectService.getCategories(project.id).subscribe((categories) => {
+        this.categories = categories;
+      });
+    });
+  }
 
   private changeValue() {
     this.formGroup.valueChanges.subscribe((value) => {
@@ -110,7 +120,6 @@ export class CostCreateComponent implements OnInit {
   }
 
   submit() {
-    console.log(this.formGroup.invalid);
     this.submitted = true;
     this.isLoading = true;
 
