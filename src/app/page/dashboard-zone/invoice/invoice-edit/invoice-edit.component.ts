@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {InvoiceService} from '../../../../core/services/invoice.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import {MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter} from '@angular/material-moment-adapter';
@@ -41,6 +41,7 @@ export class InvoiceEditComponent implements OnInit {
     private formBuilder: FormBuilder,
     private invoiceService: InvoiceService,
     private route: ActivatedRoute,
+    private router: Router,
     private messageService: MessageService
   ) {
   }
@@ -123,7 +124,9 @@ export class InvoiceEditComponent implements OnInit {
     });
 
     this.invoiceService.update(this.formGroup.value).subscribe((r) => {
-      this.messageService.add('Faktúra bola aktualizovaná');
+      this.router.navigate(['/invoice']).then(() => {
+        this.messageService.add('Faktúra bola aktualizovaná');
+      });
     });
   }
 
