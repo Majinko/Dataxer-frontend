@@ -18,7 +18,9 @@ import {MatDialog} from '@angular/material/dialog';
 })
 export class NewContactSelectComponent implements ControlValueAccessor, OnInit {
   contact: Contact;
+
   @Input() contacts: Contact[] = [];
+  @Input() placeholder: string = 'Objednávateľ';
 
   constructor(
     public dialog: MatDialog,
