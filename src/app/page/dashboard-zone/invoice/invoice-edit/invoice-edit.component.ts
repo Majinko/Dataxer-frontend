@@ -65,7 +65,6 @@ export class InvoiceEditComponent implements OnInit {
       documentType: null,
       constantSymbol: '0308',
       specificSymbol: '',
-      state: 'WAITING',
       paymentMethod: 'BANK_PAYMENT',
       paymentDate: null,
       deliveryMethod: 'MAIL',

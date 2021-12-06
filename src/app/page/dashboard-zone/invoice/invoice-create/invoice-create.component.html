@@ -35,34 +35,23 @@
   </div>
 
   <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-4">
       <mat-form-field class="form-group w-100">
         <input formControlName="number" matInput placeholder="Číslo">
         <mat-error *ngIf="submitted && f.number.errors">Číslo je <strong>pozadovany.</strong></mat-error>
       </mat-form-field>
     </div>
 
-    <div class="col-md-3">
+    <div class="col-md-4">
       <mat-form-field class="form-group w-100">
         <input formControlName="variableSymbol" matInput placeholder="Variabilný symbol">
         <mat-error *ngIf="submitted && f.number.errors">Variabilný symbol je <strong>pozadovany.</strong></mat-error>
       </mat-form-field>
     </div>
 
-    <div class="col-md-3">
+    <div class="col-md-4">
       <mat-form-field class="form-group w-100">
         <input formControlName="subject" matInput placeholder="Predmet">
-      </mat-form-field>
-    </div>
-
-    <div class="col-md-3">
-      <mat-form-field class="form-group w-100">
-        <mat-label>Stav</mat-label>
-        <select formControlName="state" matNativeControl>
-          <option value="WAITING">Čakajúca</option>
-          <option value="APPROVED">Schválená</option>
-          <option value="REJECTED">Zamietnutá</option>
-        </select>
       </mat-form-field>
     </div>
 

@@ -81,7 +81,6 @@ export class InvoiceCreateComponent implements OnInit {
       variableSymbol: ['', Validators.required],
       constantSymbol: '0308',
       specificSymbol: '',
-      state: 'UNPAID',
       paymentMethod: 'BANK_PAYMENT',
       deliveryMethod: 'MAIL',
       createdDate: [new Date(), Validators.required],
