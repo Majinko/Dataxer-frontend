@@ -30,8 +30,8 @@ export class UserService {
     }));
   }
 
-  paginate(page: number, size: number): Observable<Paginate<UserOverview>> {
-    return this.http.get<Paginate<UserOverview>>(`${environment.baseUrl}/user/overview?page=${page}&size=${size}`);
+  paginate(page: number, size: number, qString: string): Observable<Paginate<UserOverview>> {
+    return this.http.get<Paginate<UserOverview>>(`${environment.baseUrl}/user/overview?page=${page}&size=${size}${qString ? '&qString=' + qString : ''}`);
   }
 
   loggedUser(): Observable<User> {

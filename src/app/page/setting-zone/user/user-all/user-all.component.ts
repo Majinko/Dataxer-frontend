@@ -4,6 +4,7 @@ import {UserOverview} from '../../../../core/models/userOverview';
 import {merge} from 'rxjs';
 import {map, startWith, switchMap} from 'rxjs/operators';
 import {MatPaginator} from '@angular/material/paginator';
+import {FormBuilder, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-user-all',
@@ -11,6 +12,8 @@ import {MatPaginator} from '@angular/material/paginator';
   styleUrls: ['./user-all.component.scss']
 })
 export class UserAllComponent implements OnInit, AfterViewInit {
+  formGroup: FormGroup;
+
   pageSize = 15;
   userOverview: UserOverview[] = [];
 
@@ -22,10 +25,14 @@ export class UserAllComponent implements OnInit, AfterViewInit {
 
   constructor(
     private userService: UserService,
+    private formBuilder: FormBuilder
   ) {
   }
 
   ngOnInit(): void {
+    this.formGroup = this.formBuilder.group({
+      filter: ''
+    });
   }
 
   ngAfterViewInit(): void {
@@ -35,7 +42,7 @@ export class UserAllComponent implements OnInit, AfterViewInit {
   public paginate() {
     this.paginator.pageIndex = 0;
 
-    merge(this.paginator.page)
+    merge(this.paginator.page, this.formGroup.get('filter').valueChanges)
       .pipe(
         startWith({}),
         switchMap(() => {
@@ -44,6 +51,7 @@ export class UserAllComponent implements OnInit, AfterViewInit {
           return this.userService.paginate(
             this.paginator.pageIndex,
             this.paginator.pageSize,
+            this.formGroup.get('filter').value
           );
         }),
         map((data) => {

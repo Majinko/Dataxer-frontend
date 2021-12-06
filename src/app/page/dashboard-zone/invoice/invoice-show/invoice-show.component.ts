@@ -48,6 +48,7 @@ export class InvoiceShowComponent implements OnInit {
       this.invoice = invoice;
 
       this.documentHelper.prepareTaxes(invoice.packs);
+      this.documentHelper.prepareTaxesFromPackForSummaryInvoice(invoice.packs);
     });
   }
 

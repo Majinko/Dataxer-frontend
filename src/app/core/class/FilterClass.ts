@@ -242,9 +242,11 @@ export class FilterClass {
       });
     }
 
-    this.filterForm.patchValue({
-      month: this.months[0]
-    });
+    if (this.model === 'time') {
+      this.filterForm.patchValue({
+        month: this.months[0]
+      });
+    }
   }
 
   private getMonthData = (momentData: moment.Moment): string => {

@@ -6,9 +6,10 @@ import {Taxes} from '../models/taxes';
 @Injectable()
 export class DocumentHelper {
   packs: Pack[];
-  taxResult: Taxes[] = [];
   price: number = 0;
   totalPrice: number = 0;
+  taxResult: Taxes[] = [];
+  payedTaxResult: Taxes[] = [];
 
   // change input value packs
   handlePackChanges(packs: AbstractControl) {
@@ -109,5 +110,11 @@ export class DocumentHelper {
     link.href = downloadURL;
     link.download = name + '.pdf';
     link.click();
+  }
+
+  prepareTaxesFromPackForSummaryInvoice(packs: Pack[]) {
+    const payedPack = packs.filter(p => p.title === 'Uhradené zálohou');
+
+    console.log(payedPack);
   }
 }

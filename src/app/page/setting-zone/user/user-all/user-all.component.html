@@ -3,6 +3,12 @@
     <h3 class="text-gray mb-3">
       Použivaťelia: {{totalElements}}
     </h3>
+    <div class="form-group" [formGroup]="formGroup">
+      <mat-form-field class="w-100">
+        <mat-label>Meno, Email...</mat-label>
+        <input matInput formControlName="filter" autocomplete="off" placeholder="meno, názov, IČO">
+      </mat-form-field>
+    </div>
     <div class="table-wrap">
       <div class="position-relative">
         <div class="loading-shade" *ngIf="isLoadingResults">

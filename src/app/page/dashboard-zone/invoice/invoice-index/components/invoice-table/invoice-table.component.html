@@ -14,7 +14,14 @@
           <!-- Id Column -->
           <ng-container matColumnDef="id">
             <th mat-header-cell *matHeaderCellDef> Nazov</th>
-            <td mat-cell *matCellDef="let element"> {{element.title || '-'}} </td>
+            <td mat-cell *matCellDef="let element">
+              {{element.title || '-'}}
+              <div [ngSwitch]="element.documentType" class="text-theme">
+                <small *ngSwitchCase="'PROFORMA'">Zálohová faktúra</small>
+                <small *ngSwitchCase="'TAX_DOCUMENT'">Daňový doklad</small>
+                <small *ngSwitchCase="'SUMMARY_INVOICE'">Vyúčtovacia faktúra</small>
+              </div>
+            </td>
           </ng-container>
 
           <!-- Client Column -->
