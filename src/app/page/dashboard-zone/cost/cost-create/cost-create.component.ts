@@ -88,7 +88,7 @@ export class CostCreateComponent implements OnInit {
       tax: 20,
       totalPrice: null,
       paymentMethod: 'BANK_PAYMENT',
-      paymentDate: [new Date(), Validators.required],
+      paymentDate: null,
     });
   }
 
