@@ -14,6 +14,7 @@ import {CategoryItemNode} from '../../../../core/models/category-item-node';
 import {CategoryService} from '../../../../core/services/category.service';
 import {Project} from '../../../../core/models/project';
 import {ProjectService} from '../../../../core/services/project.service';
+import {CategoryHelper} from "../../../../core/class/CategoryHelper";
 
 @Component({
   selector: 'app-cost-create',
@@ -60,6 +61,7 @@ export class CostCreateComponent implements OnInit {
     this.prepareForm();
     this.changeValue();
     this.handleChangeProject();
+    this.handleChangeState();
   }
 
   private prepareForm() {
@@ -87,7 +89,7 @@ export class CostCreateComponent implements OnInit {
       price: null,
       tax: 20,
       totalPrice: null,
-      paymentMethod: 'BANK_PAYMENT',
+      paymentMethod: null,
       paymentDate: null,
     });
   }
@@ -108,9 +110,12 @@ export class CostCreateComponent implements OnInit {
     });
   }
 
-  private getAllCategories() {
-    this.categoryService.all().subscribe((nestedCategories) => {
-      this.categories = nestedCategories;
+  private handleChangeState() {
+    this.formGroup.get('state').valueChanges.subscribe(state => {
+      this.formGroup.patchValue({
+        paymentDate: state === 'PAYED' ? new Date() : null,
+        paymentMethod: state === 'PAYED' ? 'BANK_PAYMENT' : null,
+      });
     });
   }
 

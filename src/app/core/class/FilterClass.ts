@@ -242,11 +242,6 @@ export class FilterClass {
       });
     }
 
-    /*if (this.model === 'time') {
-      this.filterForm.patchValue({
-        month: this.months[0]
-      });
-    }*/
     this.filterForm.patchValue({
       month: this.months[0]
     });

@@ -47,8 +47,8 @@ export class InvoiceShowComponent implements OnInit {
     this.invoiceService.getById(+this.route.snapshot.paramMap.get('id')).subscribe(invoice => {
       this.invoice = invoice;
 
-      this.documentHelper.prepareTaxes(invoice.packs);
       this.documentHelper.prepareTaxesFromPackForSummaryInvoice(invoice.packs);
+      this.documentHelper.prepareTaxes(invoice.packs.filter(pack => pack.title !== 'Uhradené zálohou'));
     });
   }
 
