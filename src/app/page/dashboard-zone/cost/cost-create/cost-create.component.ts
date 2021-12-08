@@ -14,7 +14,6 @@ import {CategoryItemNode} from '../../../../core/models/category-item-node';
 import {CategoryService} from '../../../../core/services/category.service';
 import {Project} from '../../../../core/models/project';
 import {ProjectService} from '../../../../core/services/project.service';
-import {CategoryHelper} from "../../../../core/class/CategoryHelper";
 
 @Component({
   selector: 'app-cost-create',

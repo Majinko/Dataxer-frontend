@@ -71,7 +71,6 @@ export class CostEditComponent implements OnInit {
       title: [null, Validators.required],
       type: null,
       state: null,
-      paymentMethod: null,
       isInternal: false,
       isRepeated: false,
       period: null,
@@ -91,7 +90,9 @@ export class CostEditComponent implements OnInit {
       currency: this.currencies[0].value,
       price: 0,
       tax: 20,
-      totalPrice: 0
+      totalPrice: 0,
+      paymentMethod: null,
+      paymentDate: null,
     });
   }
 

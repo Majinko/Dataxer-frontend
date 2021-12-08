@@ -14,7 +14,7 @@
     </div>
 
     <div class="row">
-      <div class="col-md-12">
+      <div class="col-md-4">
         <mat-form-field class="form-group w-100">
           <input formControlName="title" matInput placeholder="Názov nákladu">
           <mat-error *ngIf="f.title.errors">Názov nákladu je <strong>požadovaný.</strong></mat-error>
@@ -39,18 +39,9 @@
           </mat-select>
         </mat-form-field>
       </div>
+    </div>
 
-      <div class="col-md-4">
-        <mat-form-field class="form-group w-100 mb-md-0">
-          <mat-label>Forma úhrady</mat-label>
-          <mat-select formControlName="paymentMethod" matNativeControl>
-            <mat-option value="BANK_PAYMENT" selected>Bankový prevod</mat-option>
-            <mat-option value="CASH">Hotovosť</mat-option>
-            <mat-option value="PAYPAL">Paypal</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-
+    <div class="row">
       <div class="col-md-4">
         <mat-checkbox formControlName="isInternal">Interný náklad</mat-checkbox>
       </div>
