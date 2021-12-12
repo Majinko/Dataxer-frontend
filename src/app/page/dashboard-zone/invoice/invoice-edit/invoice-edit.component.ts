@@ -71,7 +71,7 @@ export class InvoiceEditComponent implements OnInit {
       createdDate: [new Date(), Validators.required],
       deliveredDate: [new Date(), Validators.required],
       dueDate: null,
-      note: '',
+      note: null,
       headerComment: '',
       discount: 0,
       price: 0,

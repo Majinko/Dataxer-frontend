@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Salary} from '../models/salary';
 import {environment} from '../../../environments/environment';
@@ -10,6 +10,14 @@ import {environment} from '../../../environments/environment';
 export class SalaryService {
 
   constructor(private http: HttpClient) {
+  }
+
+  getActiveUserSalary(uid: string): Observable<Salary> {
+    let params = new HttpParams();
+
+    params = params.set('uid', uid);
+
+    return this.http.get<Salary>(`${environment.baseUrl}/salary/userActiveSalary`, {params});
   }
 
   getUserSalaries(uid: string, sort: string = 'asc'): Observable<Salary[]> {

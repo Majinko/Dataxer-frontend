@@ -8,6 +8,9 @@ import {sum} from '../../../../../../../helper';
 import {MatDialog} from '@angular/material/dialog';
 import {ConfirmDialogComponent} from '../../../../../../theme/component/confirm-dialog/confirm-dialog.component';
 import {DocumentFilter} from '../../../../../../core/models/filters/document-filter';
+import {SalaryService} from '../../../../../../core/services/salary.service';
+import {Salary} from '../../../../../../core/models/salary';
+import {UserService} from '../../../../../../core/services/user.service';
 
 @Component({
   selector: 'app-time-table',
@@ -18,20 +21,27 @@ import {DocumentFilter} from '../../../../../../core/models/filters/document-fil
   ]
 })
 export class TimeTableComponent implements OnInit {
+  salary: Salary;
   times: Time[] = [];
   totalPrice: number = 0;
   totalTime: number = 0;
   isLoadingResults = true;
+  daysPriceTime: { time: number, price: number }[] = [];
   displayedColumns: string[] = ['dateWork', 'stats', 'project', 'description', 'category', 'actions'];
 
   constructor(
     public timeService: TimeService,
+    private salaryService: SalaryService,
     private messageService: MessageService,
+    private userService: UserService,
     public dialog: MatDialog
   ) {
   }
 
   ngOnInit(): void {
+    this.salaryService.getActiveUserSalary(this.userService.user.uid).subscribe((s) => {
+      this.salary = s;
+    });
   }
 
   private paginate() {
@@ -51,7 +61,11 @@ export class TimeTableComponent implements OnInit {
           return data;
         })
       )
-      .subscribe(data => (this.times = data));
+      .subscribe(data => {
+        this.times = data;
+
+        this.prepareTimeInDay();
+      });
   }
 
   destroy(id: number) {
@@ -80,5 +94,23 @@ export class TimeTableComponent implements OnInit {
     if (this.timeService.rsqlFilter) {
       this.paginate();
     }
+  }
+
+  private prepareTimeInDay() {
+    this.daysPriceTime = [];
+
+    this.times.forEach((time) => {
+      const index = new Date(time.dateWork).getDay();
+
+      if (!this.daysPriceTime[index]) {
+        this.daysPriceTime[index] = {
+          time: time.time,
+          price: time.price
+        };
+      } else {
+        this.daysPriceTime[index].time += time.time;
+        this.daysPriceTime[index].price += time.price;
+      }
+    });
   }
 }

@@ -17,13 +17,21 @@
           <ng-container matColumnDef="dateWork">
             <th mat-header-cell *matHeaderCellDef>Dátum práce</th>
             <td mat-cell *matCellDef="let element; let i = index">
-              <span *ngIf="i === 0 || times[i -1].dateWork != times[i].dateWork">{{element.dateWork | date:'fullDate':'Europe/Slovak'}}</span>
+              <span *ngIf="i === 0 || times[i -1].dateWork != times[i].dateWork">
+                {{element.dateWork | date:'fullDate':'Europe/Slovak'}}
+
+               <b>{{daysPriceTime[element.day].price | currency:'EUR':'symbol'}} / {{(daysPriceTime[element.day].time | timeFromTimestamp) + ' h'}}</b>
+              </span>
             </td>
           </ng-container>
 
           <ng-container matColumnDef="stats">
             <th mat-header-cell *matHeaderCellDef>Info</th>
-            <td mat-cell *matCellDef="let element"> {{element.price + ' &euro;' + ' / ' + (element.time | timeFromTimestamp) + ' h'}} </td>
+            <td mat-cell *matCellDef="let element">
+
+              <span *ngIf="element.price != null; else flatPrice">{{element.price + ' &euro;' + ' / ' + (element.time | timeFromTimestamp) + ' h'}} </span>
+              <ng-template #flatPrice>{{(element.time | timeFromTimestamp) + ' h'}}</ng-template>
+            </td>
           </ng-container>
 
           <ng-container matColumnDef="project">

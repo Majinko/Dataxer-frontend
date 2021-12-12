@@ -13,5 +13,6 @@ export interface Time {
   price: number;
   description: string;
   km: number;
+  day: number;
   dateWork: Date;
 }

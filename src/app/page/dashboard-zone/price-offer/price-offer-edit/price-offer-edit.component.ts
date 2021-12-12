@@ -78,7 +78,7 @@ export class PriceOfferEditComponent implements OnInit {
       createdDate: [new Date(), Validators.required],
       deliveredDate: [new Date(), Validators.required],
       dueDate: [new Date()],
-      note: '',
+      note: null,
       noteToRecipient: '',
       discount: 0,
       price: 0,

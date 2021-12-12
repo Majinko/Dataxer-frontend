@@ -31,13 +31,12 @@
   <div class="row">
     <div class="col-md-6 form-group">
       <app-new-project-select formControlName="project" [showAddButton]="false"></app-new-project-select>
-      <mat-error *ngIf="isSubmit && f.project.errors">Projekt je <strong>požadovaný.</strong></mat-error>
+      <mat-error *ngIf="isSubmit && f.project.errors" class="mat-error-not-in-field">Projekt je <strong>požadovaný.</strong></mat-error>
     </div>
 
     <div class="col-md-6 form-group">
       <app-category-select-group #categorySelect formControlName="category" [types]="['TIME_FOR_COMPANY', 'TIME_CAPITAL_IN_PROJECT', 'TIME_NO_CAPITAL_IN_PROJECT']"></app-category-select-group>
-
-      <mat-error *ngIf="isSubmit && f.category.errors">Kategória je <strong>požadovaná.</strong></mat-error>
+      <mat-error *ngIf="isSubmit && f.category.errors" class="mat-error-not-in-field">Kategória je <strong>požadovaná.</strong></mat-error>
     </div>
 
     <div class="col-md-4">
@@ -105,14 +104,14 @@
 
   <div class="row">
     <div class="col-md-12 text-right">
-        <button routerLink="/time" mat-stroked-button class="btn-icon btn-theme-stroked mr-3">
-          <mat-icon>cancel</mat-icon>
-          Zrušiť
-        </button>
-        <button mat-flat-button class="btn-icon btn-theme">
-          <mat-icon>save</mat-icon>
-          Uložiť
-        </button>
-      </div>
+      <button routerLink="/time" mat-stroked-button class="btn-icon btn-theme-stroked mr-3">
+        <mat-icon>cancel</mat-icon>
+        Zrušiť
+      </button>
+      <button mat-flat-button class="btn-icon btn-theme">
+        <mat-icon>save</mat-icon>
+        Uložiť
+      </button>
+    </div>
   </div>
 </form>

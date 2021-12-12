@@ -68,7 +68,7 @@ export class CategoryUpdateCreateComponent implements OnInit {
       this.messageService.add(`Kategória bola ${this.category ? 'Upravená' : 'Vytvorená'}`);
 
       if (this.dialogRef === null) {
-        this.router.navigate(['/setting/category']);
+        this.router.navigate(['/setting/category/group/TYPE_PROJECT']);
       }
     });
   }

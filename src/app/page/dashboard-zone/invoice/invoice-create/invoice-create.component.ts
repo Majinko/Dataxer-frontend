@@ -86,7 +86,7 @@ export class InvoiceCreateComponent implements OnInit {
       createdDate: [new Date(), Validators.required],
       deliveredDate: [new Date(), Validators.required],
       dueDate: [addDays(new Date(), 14)],
-      note: '',
+      note: null,
       headerComment: '',
       discount: 0,
       price: 0,

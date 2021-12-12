@@ -37,7 +37,7 @@ import {MatRadioButton} from '@angular/material/radio';
 })
 export class TimeCreateComponent implements OnInit {
   formGroup: FormGroup;
-  timeRange: string[] = timeRange();
+  timeRange: { timesForHuman: string; timesForPc: string }[] = timeRange();
   filteredOptions: string[];
   isSubmit: boolean = false;
   lastProjects: Project[];
@@ -148,8 +148,11 @@ export class TimeCreateComponent implements OnInit {
 
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
+    const regex = new RegExp(filterValue + '.*', 'g');
 
-    return this.timeRange.filter(range => range.toLowerCase().replace(':', '') >= filterValue);
+    return this.timeRange.filter(range => range.timesForPc.replace(':', '').match(regex)).map(range => {
+      return range.timesForHuman;
+    });
   }
 
   private prepareTimeToUnix() {

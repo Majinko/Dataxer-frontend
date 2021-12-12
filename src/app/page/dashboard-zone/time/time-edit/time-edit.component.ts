@@ -31,7 +31,7 @@ import * as moment from 'moment';
 })
 export class TimeEditComponent implements OnInit {
   formGroup: FormGroup;
-  timeRange: string[] = timeRange();
+  timeRange: { timesForHuman: string; timesForPc: string }[] = timeRange();
   filteredOptions: string[];
   isSubmit: boolean = false;
   time: Time;
@@ -74,8 +74,11 @@ export class TimeEditComponent implements OnInit {
 
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
+    const regex = new RegExp(filterValue + '.*', 'g');
 
-    return this.timeRange.filter(range => range.toLowerCase().replace(':', '') >= filterValue);
+    return this.timeRange.filter(range => range.timesForPc.replace(':', '').match(regex)).map(range => {
+      return range.timesForHuman;
+    });
   }
 
   private prepareTimeToUnix() {

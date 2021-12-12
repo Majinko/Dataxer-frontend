@@ -6,6 +6,7 @@ import {environment} from '../../../environments/environment';
 import {Project} from '../models/project';
 import {CategoryItemNode} from '../models/category-item-node';
 import {DocumentFilter} from '../models/filters/document-filter';
+import {map} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +23,14 @@ export class TimeService {
   }
 
   allForPeriod(): Observable<Time[]> {
-    return this.http.get<Time[]>(`${environment.baseUrl}/time/allForPeriod${this.rsqlFilter ? '?filters=' + this.rsqlFilter : ''}`);
+    return this.http.get<Time[]>(`${environment.baseUrl}/time/allForPeriod${this.rsqlFilter ? '?filters=' + this.rsqlFilter : ''}`)
+      .pipe(map((times) => {
+        times.forEach(time => {
+          time.day = new Date(time.dateWork).getDay();
+        });
+
+        return times;
+      }));
   }
 
   getById(id: number): Observable<Time> {

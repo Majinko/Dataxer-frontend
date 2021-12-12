@@ -70,9 +70,9 @@ export function addDays(date, days) {
 }
 
 // day in time range
-export function timeRange(): string[] {
+export function timeRange(): { timesForHuman: string; timesForPc: string }[] {
   const x = 5; // minutes interval
-  const times: string[] = []; // time array
+  const times: { timesForHuman: string, timesForPc: string }[] = []; // time array
   let tt = 0; // start time
 
   // loop to increment the time and push results in array
@@ -80,7 +80,11 @@ export function timeRange(): string[] {
     const hh = Math.floor(tt / 60);
     const mm = (tt % 60); // getting minutes of the hour in 0-55 format
 
-    times[i] = ('0' + (hh)).slice(-2) + ':' + ('0' + mm).slice(-2);
+    times.push({
+      timesForPc: ('' + (hh)).slice(-2) + ':' +  ('0' + mm).slice(-2),
+      timesForHuman: ('' + (hh)).slice(-2) + ':' + ('0' + mm).slice(-2)
+    });
+
     tt = tt + x;
   }
 

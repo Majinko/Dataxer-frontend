@@ -40,9 +40,9 @@ mat-list-item:hover {
   }
 }
 
-.mat-table .mat-row:nth-child(odd) {
-  background: #f9fafb;
-}
+/*.mat-table:not(.no-borderless) .mat-row:nth-child(odd) {
+  background: none;
+}*/
 
 .mat-error-not-in-field {
   position: relative;

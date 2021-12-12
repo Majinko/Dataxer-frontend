@@ -44,7 +44,7 @@
 
 
       <mat-radio-group *ngIf="formGroup.get('categoryGroup').value === 'TYPE_PROJECT'" aria-label="Select an option" class="form-group option-with-questionnaire" formControlName="categoryType">
-        <mat-radio-button class="mr-4 d-block" value="TYPE_PROJECT_CATEGORY_SUBCATEGORY_SEARCH"><span class="mr-1">Vytvorte si kategórie a podkategórie zákazok</span> <mat-icon matTooltip="Na ich základe budete vedieť vyhľadávať zákazky.">help</mat-icon></mat-radio-button>
+        <mat-radio-button class="mr-4 d-block hide" value="TYPE_PROJECT_CATEGORY_SUBCATEGORY_SEARCH"><mat-icon matTooltip="Vytvorte si kategórie a podkategórie zákazok. Na ich základe budete vedieť vyhľadávať zákazky.">help</mat-icon></mat-radio-button>
       </mat-radio-group>
 
       <mat-radio-group *ngIf="formGroup.get('categoryGroup').value === 'CONTACT'" aria-label="Select an option" class="form-group option-with-questionnaire" formControlName="categoryType">
