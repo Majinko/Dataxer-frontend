@@ -12,6 +12,9 @@ import {CoreModule} from '../../../core/core.module';
 import {OverviewCostTableRowComponent} from './overview-cost-yearly/components/overview-cost-table-row/overview-cost-table-row.component';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {FormsModule} from '@angular/forms';
+import { OverviewChartsComponent } from './overview-charts/overview-charts.component';
+import { OverviewChartComponent } from './overview-charts/components/overview-chart/overview-chart.component';
+import {NgApexchartsModule} from 'ng-apexcharts';
 
 const routes: Routes = [
   {
@@ -29,23 +32,28 @@ const routes: Routes = [
       {
         path: 'cost-yearly',
         component: OverviewCostYearlyComponent
+      },
+      {
+        path: 'charts',
+        component: OverviewChartsComponent
       }
     ]
   }
 ];
 
 @NgModule({
-  declarations: [OverviewComponent, OverviewUserTimeMonthlyComponent, OverviewUserTimeYearlyComponent, OverviewCostYearlyComponent, OverviewCostTableRowComponent],
-  imports: [
-    CommonModule,
-    RouterModule.forChild(routes),
-    ThemeModule,
-    MaterialModule,
-    AvatarModule,
-    CoreModule,
-    NgSelectModule,
-    FormsModule,
-  ]
+  declarations: [OverviewComponent, OverviewUserTimeMonthlyComponent, OverviewUserTimeYearlyComponent, OverviewCostYearlyComponent, OverviewCostTableRowComponent, OverviewChartsComponent, OverviewChartComponent],
+    imports: [
+        CommonModule,
+        RouterModule.forChild(routes),
+        ThemeModule,
+        MaterialModule,
+        AvatarModule,
+        CoreModule,
+        NgSelectModule,
+        FormsModule,
+        NgApexchartsModule,
+    ]
 })
 export class OverviewModule {
 }

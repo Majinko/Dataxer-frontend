@@ -48,6 +48,9 @@ export class OverviewCostYearlyComponent implements OnInit {
   loadData(categoryMonth: CategoryMonthsCosts) {
     categoryMonth.isOpen = !categoryMonth.isOpen;
 
+    console.log('categoryMonth');
+    console.log(categoryMonth);
+
     if (!categoryMonth.children) {
       this.isLoad = true;
       this.overviewService.getCostsOverview(categoryMonth.categoryId, this.year).subscribe(response => {

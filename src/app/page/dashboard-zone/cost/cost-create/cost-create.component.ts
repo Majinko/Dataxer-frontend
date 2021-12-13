@@ -53,7 +53,9 @@ export class CostCreateComponent implements OnInit {
     private categoryService: CategoryService,
     private projectService: ProjectService,
     private router: Router,
+    private adapter: DateAdapter<any>
   ) {
+    this.adapter.setLocale('sk');
   }
 
   ngOnInit() {

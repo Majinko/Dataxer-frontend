@@ -43,6 +43,11 @@ export class OverviewComponent implements OnInit, OnDestroy {
         link: '/overview/cost-yearly',
         index: 2
       },
+      {
+        label: 'Grafický prehľad nákladov',
+        link: '/overview/charts',
+        index: 3
+      },
     ];
   }
 
