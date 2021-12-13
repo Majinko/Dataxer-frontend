@@ -110,7 +110,7 @@
             <td>
               <div>
                 <mat-form-field class="w-100">
-                  <input matInput [attr.disabled]="checkbox.checked ? true : null" value="{{price.value > 0 ? (+qty.value * +price.value | addPercent: +tax.value) : null}}" placeholder="Celkom" class="text-right" />
+                  <input matInput [attr.disabled]="checkbox.checked ? true : null" value="{{(+qty.value * +price.value | addPercent: +tax.value)}}" placeholder="Celkom" class="text-right" />
                 </mat-form-field>
               </div>
               <div class="jsDiscount" [ngClass]="{'d-none' : item.value.discount == 0}">

@@ -47,7 +47,6 @@ export class ProjectEditComponent implements OnInit {
   ngOnInit(): void {
     this.prepareForm();
     this.getProject();
-    this.getAllCategories();
   }
 
 
@@ -56,6 +55,7 @@ export class ProjectEditComponent implements OnInit {
       id: null,
       title: [null, Validators.required],
       number: [null, Validators.required],
+      categoryGroup: null,
       description: null,
       contact: null,
       state: null,
@@ -73,15 +73,22 @@ export class ProjectEditComponent implements OnInit {
       this.project = p;
 
       this.formGroup.patchValue(p);
+
+      if (this.formGroup.get('categoryGroup').value === null) {
+        this.formGroup.patchValue({
+          categoryGroup: 'PROJECT'
+        });
+      }
+
+      this.getAllCategories([this.formGroup.get('categoryGroup').value]);
     });
   }
 
-  private getAllCategories() {
-    this.categoryService.all().subscribe((nestedCategories) => {
+  getAllCategories(groups: string[]) {
+    this.categoryService.fallByGroupIn(groups).subscribe((nestedCategories) => {
       this.categories = nestedCategories;
     });
   }
-
 
   submit() {
     this.submitted = true;

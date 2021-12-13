@@ -100,7 +100,7 @@
 
   <div class="row">
     <div class="col-12">
-      <h2 class="border-bottom-2 pb-2 mb-4">Kategórie položky</h2>
+      <h2 class="border-bottom-2 pb-2 mb-4">Kategórie zákazky</h2>
     </div>
   </div>
 
@@ -108,23 +108,14 @@
     <div class="col-md-12">
       <mat-form-field class="form-group w-100 mb-md-0">
         <mat-label>Skupina kategórie</mat-label>
-        <mat-select [(ngModel)]="categoryGroup" [ngModelOptions]="{standalone: true}" (ngModelChange)="getAllCategories([categoryGroup])" >
+        <mat-select formControlName="categoryGroup" (ngModelChange)="getAllCategories([f.categoryGroup.value])" >
           <mat-option value="PROJECT">Zákazky</mat-option>
           <mat-option value="TYPE_PROJECT">Druhy zákaziek</mat-option>
         </mat-select>
       </mat-form-field>
     </div>
     <div class="col-12">
-      <app-category-tree-control [categories]="categories" *ngIf="categories.length"></app-category-tree-control>
-
-    <!--  <ng-select class="form-group w-100 mb-0"
-                   [multiple]="true"
-                   [items]="categories"
-                   bindLabel="name"
-                   placeholder="Kategórie"
-                   formControlName="categories"
-        >
-        </ng-select>-->
+      <app-category-tree-control formControlName="categories" [categories]="categories" *ngIf="categories.length"></app-category-tree-control>
     </div>
   </div>
 

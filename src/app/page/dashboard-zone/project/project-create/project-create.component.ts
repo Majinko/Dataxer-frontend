@@ -26,7 +26,6 @@ import {CategoryItemNode} from '../../../../core/models/category-item-node';
       useClass: MomentDateAdapter,
       deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]
     },
-
     {provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS},
     AddPercentPipe
   ],
@@ -36,7 +35,6 @@ export class ProjectCreateComponent implements OnInit {
   submitted: boolean = false;
   categories: CategoryItemNode[] = [];
   users: User[] = [];
-  categoryGroup: string = 'PROJECT';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -59,6 +57,7 @@ export class ProjectCreateComponent implements OnInit {
       title: ['', Validators.required],
       number: [null, Validators.required],
       description: '',
+      categoryGroup: 'PROJECT',
       contact: null,
       state: null,
       address: '',
