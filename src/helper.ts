@@ -5,7 +5,7 @@ import {AbstractControl} from '@angular/forms';
 export const APP_DATE_FORMATS = {
   locale: 'sk',
   parse: {
-    dateInput: 'LL',
+    dateInput: 'DD.MM.YYYY',
   },
   display: {
     dateInput: 'DD.MM.YYYY',
