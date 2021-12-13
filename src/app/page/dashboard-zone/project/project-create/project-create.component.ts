@@ -36,6 +36,7 @@ export class ProjectCreateComponent implements OnInit {
   submitted: boolean = false;
   categories: CategoryItemNode[] = [];
   users: User[] = [];
+  categoryGroup: string = 'PROJECT';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -50,7 +51,7 @@ export class ProjectCreateComponent implements OnInit {
 
   ngOnInit(): void {
     this.prepareForm();
-    this.getAllCategories();
+    this.getAllCategories(['PROJECT']);
   }
 
   private prepareForm() {
@@ -69,15 +70,9 @@ export class ProjectCreateComponent implements OnInit {
     });
   }
 
-  private getAllCategories() {
-    this.categoryService.all().subscribe((nestedCategories) => {
+  getAllCategories(groups: string[]) {
+    this.categoryService.fallByGroupIn(groups).subscribe((nestedCategories) => {
       this.categories = nestedCategories;
-    });
-  }
-
-  private getUsers() {
-    return this.userService.all().subscribe(data => {
-      this.users = data;
     });
   }
 

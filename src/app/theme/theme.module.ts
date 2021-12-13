@@ -40,6 +40,7 @@ import {PhotoUploaderComponent} from './component/photo-uploader/photo-uploader.
 import {ChatComponent} from './component/chat/chat.component';
 import {CategorySelectGroupComponent} from './component/category-select-group/category-select-group.component';
 import { DateRangeDialogComponent } from './component/date-range-dialog/date-range-dialog.component';
+import { CategoryTreeControlComponent } from './component/category-tree-control/category-tree-control.component';
 
 @NgModule({
   imports: [
@@ -87,29 +88,31 @@ import { DateRangeDialogComponent } from './component/date-range-dialog/date-ran
     ChatComponent,
     CategorySelectGroupComponent,
     DateRangeDialogComponent,
+    CategoryTreeControlComponent,
   ],
-  exports: [
-    DrawerComponent,
-    ToolbarComponent,
-    MessageComponent,
-    ItemAutocompleteComponent,
-    NewContactSelectComponent,
-    PackAutocompleteComponent,
-    DocumentPackComponent,
-    SlovakiaDigitalAutocompleteComponent,
-    NewProjectSelectComponent,
-    NewCategorySelectComponent,
-    SpinnerButtonComponent,
-    ElementPaidStateComponent,
-    FileComponent,
-    PaymentsComponent,
-    DocumentRelationComponent,
-    MenuTabComponent,
-    NestedCategoriesComponent,
-    PhotoUploaderComponent,
-    ChatComponent,
-    CategorySelectGroupComponent,
-  ]
+    exports: [
+        DrawerComponent,
+        ToolbarComponent,
+        MessageComponent,
+        ItemAutocompleteComponent,
+        NewContactSelectComponent,
+        PackAutocompleteComponent,
+        DocumentPackComponent,
+        SlovakiaDigitalAutocompleteComponent,
+        NewProjectSelectComponent,
+        NewCategorySelectComponent,
+        SpinnerButtonComponent,
+        ElementPaidStateComponent,
+        FileComponent,
+        PaymentsComponent,
+        DocumentRelationComponent,
+        MenuTabComponent,
+        NestedCategoriesComponent,
+        PhotoUploaderComponent,
+        ChatComponent,
+        CategorySelectGroupComponent,
+        CategoryTreeControlComponent,
+    ]
 })
 export class ThemeModule {
 }
