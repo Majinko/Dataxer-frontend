@@ -35,6 +35,18 @@ export class ProjectCreateComponent implements OnInit {
   submitted: boolean = false;
   categories: CategoryItemNode[] = [];
   users: User[] = [];
+  groups: { group: string, title: string, categories: CategoryItemNode[], fillCategories: CategoryItemNode[] }[] = [
+    {
+      group: 'PROJECT',
+      title: 'zákazky',
+      categories: [],
+      fillCategories: []
+    }, {
+      group: 'TYPE_PROJECT',
+      title: 'druhy zákaziek',
+      categories: [],
+      fillCategories: []
+    }];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -49,7 +61,17 @@ export class ProjectCreateComponent implements OnInit {
 
   ngOnInit(): void {
     this.prepareForm();
-    this.getAllCategories(['PROJECT']);
+    this.getAllCategories(['PROJECT', 'TYPE_PROJECT']);
+  }
+
+  getAllCategories(groups: string[]) {
+    this.categoryService.fallByGroupIn(groups).subscribe((nestedCategories) => {
+      this.categories = nestedCategories;
+
+      this.groups.forEach((item) => {
+        item.categories = this.categories.filter((c) => c.categoryGroup === item.group);
+      });
+    });
   }
 
   private prepareForm() {
@@ -65,17 +87,25 @@ export class ProjectCreateComponent implements OnInit {
       area: [0, Validators.pattern(/^[0-9]\d*$/)],
       startedAt: new Date(),
       finishedAt: new Date(),
-      categories: null
+      categories: null,
     });
   }
 
-  getAllCategories(groups: string[]) {
-    this.categoryService.fallByGroupIn(groups).subscribe((nestedCategories) => {
-      this.categories = nestedCategories;
+  private prepareCategoriesBeforeStore() {
+    const categories: CategoryItemNode[] = [];
+
+    this.groups.forEach((item) => {
+      item.fillCategories.forEach(category => {
+        categories.push(category);
+      });
     });
+
+    this.formGroup.patchValue({categories});
   }
 
   submit() {
+    this.prepareCategoriesBeforeStore();
+
     this.submitted = true;
 
     if (this.formGroup.invalid) {

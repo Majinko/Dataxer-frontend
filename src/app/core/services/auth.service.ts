@@ -33,6 +33,7 @@ export class AuthService {
   }
 
   logInWithEmail(email: string, password: string) {
+
     return this.afAuth
       .signInWithEmailAndPassword(email, password);
   }
