@@ -1,5 +1,10 @@
 
+<h3 class="mt-4">Prehľad</h3>
 <div *ngIf="categoryCostsOverview">
   <app-overview-chart [costsOverview]="categoryCostsOverview"></app-overview-chart>
 </div>
 
+<h3>Zisk</h3>
+<div *ngIf="categoryCostsOverview">
+  <app-overview-profit-chart [costsOverview]="categoryCostsOverview"></app-overview-profit-chart>
+</div>

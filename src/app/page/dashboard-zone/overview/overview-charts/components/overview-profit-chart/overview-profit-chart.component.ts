@@ -1,11 +1,11 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { ApexAxisChartSeries, ApexChart, ApexDataLabels, ApexGrid, ApexStroke, ApexTitleSubtitle, ApexXAxis, ApexYAxis, ApexLegend, ApexAnnotations } from 'ng-apexcharts';
+import { ApexAxisChartSeries, ApexChart, ApexDataLabels, ApexGrid, ApexStroke, ApexTitleSubtitle, ApexXAxis, ApexAnnotations, ApexLegend } from 'ng-apexcharts';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
   chart: ApexChart;
   xaxis: ApexXAxis;
-  yaxis: ApexYAxis;
+  yaxis: any;
   dataLabels: ApexDataLabels;
   grid: ApexGrid;
   stroke: ApexStroke;
@@ -15,19 +15,17 @@ export type ChartOptions = {
   annotations: ApexAnnotations;
 };
 
-
 @Component({
-  selector: 'app-overview-chart',
-  templateUrl: './overview-chart.component.html',
-  styleUrls: ['./overview-chart.component.scss']
+  selector: 'app-overview-profit-chart',
+  templateUrl: './overview-profit-chart.component.html',
+  styleUrls: ['./overview-profit-chart.component.scss']
 })
-export class OverviewChartComponent implements OnInit {
-  @ViewChild('chart') chart: OverviewChartComponent;
+export class OverviewProfitChartComponent implements OnInit {
+  @ViewChild('chart') chart: OverviewProfitChartComponent;
   public chartOptions: Partial<ChartOptions>;
   costs;
   contracts;
-  wages;
-  toggleVal = false;
+  profit = [];
   profitSeries = [
     {
       id: 0,
@@ -40,9 +38,15 @@ export class OverviewChartComponent implements OnInit {
       id: 2,
       show: true
     },
+    {
+      id: 3,
+      show: true
+    }
   ];
   enabledSeries = [0, 1, 2, 3];
+  manhour = [50, 25, 37, 64, 19, 100, 86, 45, 99, 78, 32, 55];
   skMonths: string[] = ['Január', 'Február', 'Marec', 'Apríl', 'Máj', 'Jún', 'Júl', 'August', 'September', 'Október', 'November', 'December'];
+  toggleVal = false;
 
   @Input() costsOverview;
 
@@ -53,17 +57,17 @@ export class OverviewChartComponent implements OnInit {
   ngOnInit(): void {
     this.contracts = Object.values(this.costsOverview.categoryMonthsCostsDTOS[0].totalMonthsCosts);
     this.costs = Object.values(this.costsOverview.categoryMonthsCostsDTOS[1].totalMonthsCosts);
-    this.wages = Object.values(this.costsOverview.categoryMonthsCostsDTOS[2].totalMonthsCosts);
     this.skMonths.forEach((graph, index) => {
       if (!this.contracts[index]) {
         this.contracts[index] = 0;
       }
       if (!this.costs[index]) {
         this.costs[index] = 0;
+      } else {
+        this.costs[index] = this.costs[index] * -1;
       }
-      if (!this.wages[index]) {
-        this.wages[index] = 0;
-      }
+      const profit = this.contracts[index] + this.costs[index];
+      this.profit[index] = profit.toFixed(2);
     });
 
 
@@ -82,13 +86,20 @@ export class OverviewChartComponent implements OnInit {
           data: this.costs
         },
         {
-          name: 'Mzdy architekti',
-          data: this.wages
+          name: 'Zisk',
+          data: this.profit
+        },
+        {
+          name: 'Človekohodina',
+          data: this.manhour
         }
       ],
       chart: {
         height: 350,
         type: 'line',
+        animations: {
+          enabled: true,
+        },
         zoom: {
           enabled: false
         }
@@ -97,7 +108,11 @@ export class OverviewChartComponent implements OnInit {
         enabled: this.toggleVal,
         enabledOnSeries: this.enabledSeries,
         formatter(val, opts) {
-          return val + ' €';
+          if (opts.seriesIndex === 3) {
+            return val + ' h';
+          } else {
+            return val + ' €';
+          }
         },
       },
       stroke: {
@@ -127,13 +142,43 @@ export class OverviewChartComponent implements OnInit {
         },
         categories: this.skMonths,
       },
-      yaxis: {
-        labels: {
-          formatter(val: number): string {
-            return val + ' €';
+      yaxis: [
+        {
+          seriesName: 'Zákazky',
+          labels: {
+            formatter(val: number): string {
+              return val + ' €';
+            }
+          }
+        },
+        {
+          seriesName: 'Zákazky',
+          show: false,
+          labels: {
+            formatter(val: number): string {
+              return val + ' €';
+            }
+          }
+        },
+        {
+          seriesName: 'Zákazky',
+          show: false,
+          labels: {
+            formatter(val: number): string {
+              return val + ' €';
+            }
+          }
+        },
+        {
+          opposite: true,
+          seriesName: 'TEAM B',
+          labels: {
+            formatter(val: number): string {
+              return val + ' hodín';
+            }
           }
         }
-      },
+      ],
       annotations: {
         yaxis: [
           {
@@ -146,7 +191,9 @@ export class OverviewChartComponent implements OnInit {
         ],
       }
     };
+
   }
+
 
   toggle(item: any) {
     if (typeof item === 'string') {
@@ -157,7 +204,7 @@ export class OverviewChartComponent implements OnInit {
       if (!item.show) {
         this.enabledSeries.push(item.id);
       } else {
-        this.enabledSeries = this.enabledSeries.filter( f => f !== item.id);
+        this.enabledSeries = this.enabledSeries.filter(f => f !== item.id);
       }
 
       item.show = !item.show;
@@ -165,5 +212,4 @@ export class OverviewChartComponent implements OnInit {
 
     this.prepareChart();
   }
-
 }

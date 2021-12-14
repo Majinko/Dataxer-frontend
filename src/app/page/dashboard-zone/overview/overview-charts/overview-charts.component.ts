@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {OverviewService} from '../../../../core/services/overview.service';
-import {CategoryCostsOverview} from '../../../../core/models/overview';
-import {CostService} from '../../../../core/services/cost.service';
+import { OverviewService } from '../../../../core/services/overview.service';
+import { CategoryCostsOverview } from '../../../../core/models/overview';
+import { CostService } from '../../../../core/services/cost.service';
 
 @Component({
   selector: 'app-overview-charts',
@@ -28,17 +28,12 @@ export class OverviewChartsComponent implements OnInit {
     this.overviewService.getCostsOverview(null, this.year).subscribe(response => {
       this.isLoad = false;
 
-      console.log('response');
-      console.log(response);
-
       this.categoryCostsOverview = response;
     });
   }
 
   private getYears(): void {
     this.costService.getCostsYears().subscribe(years => {
-      console.log('years');
-      console.log(years);
       this.years = years;
     });
   }

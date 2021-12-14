@@ -1,0 +1,26 @@
+.apexcharts-legend.position-bottom.apexcharts-align-center, .apexcharts-legend.position-top.apexcharts-align-center {
+  padding-top: 20px !important;
+}
+.apexcharts-legend.position-bottom .apexcharts-legend-series, .apexcharts-legend.position-top .apexcharts-legend-series {
+  align-items: flex-start !important;
+  .apexcharts-legend-marker {
+    top: 2px !important;
+  }
+}
+
+.option-wrap {
+  display: flex;
+}
+
+.color-0 {
+  color: #008ffb;
+}
+.color-1 {
+  color: #00e396;
+}
+.color-2 {
+  color: #feb019;
+}
+.color-3 {
+  color: #ff4560;
+}
