@@ -27,7 +27,7 @@ export class OverviewChartComponent implements OnInit {
   public chartOptions: Partial<ChartOptions>;
   costs;
   contracts;
-  wages
+  wages;
   skMonths: string[] = ['Január', 'Február', 'Marec', 'Apríl', 'Máj', 'Jún', 'Júl', 'August', 'September', 'Október', 'November', 'December'];
 
   @Input() costsOverview;
@@ -37,9 +37,9 @@ export class OverviewChartComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.contracts = Object.values(this.costsOverview.categoryMonthsCostsDTOS[0].totalMonthsCosts)
-    this.costs = Object.values(this.costsOverview.categoryMonthsCostsDTOS[1].totalMonthsCosts)
-    this.wages = Object.values(this.costsOverview.categoryMonthsCostsDTOS[2].totalMonthsCosts)
+    this.contracts = Object.values(this.costsOverview.categoryMonthsCostsDTOS[0].totalMonthsCosts);
+    this.costs = Object.values(this.costsOverview.categoryMonthsCostsDTOS[1].totalMonthsCosts);
+    this.wages = Object.values(this.costsOverview.categoryMonthsCostsDTOS[2].totalMonthsCosts);
     this.skMonths.forEach((graph, index) => {
       if (!this.contracts[index]) {
         this.contracts[index] = 0;
@@ -48,7 +48,6 @@ export class OverviewChartComponent implements OnInit {
         this.costs[index] = 0;
       }
       if (!this.wages[index]) {
-        console.log
         this.wages[index] = 0;
       }
     });
@@ -94,12 +93,12 @@ export class OverviewChartComponent implements OnInit {
         }
       },
       legend: {
-        tooltipHoverFormatter: function(val, opts) {
+        tooltipHoverFormatter(val, opts) {
           return (
             val +
-            " - <strong>" +
+            ' - <strong>' +
             opts.w.globals.series[opts.seriesIndex][opts.dataPointIndex] +
-            "</strong>"
+            '</strong>'
           );
         }
       },
