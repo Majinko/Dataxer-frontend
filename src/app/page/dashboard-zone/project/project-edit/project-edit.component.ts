@@ -34,6 +34,21 @@ export class ProjectEditComponent implements OnInit {
   project: Project;
   submitted: boolean = false;
   categories: CategoryItemNode[] = [];
+  groups: { group: string, title: string, categories: CategoryItemNode[], fillCategories: CategoryItemNode[] }[] = [
+    {
+      group: 'TYPE_PROJECT',
+      title: 'Druhy zákaziek',
+      categories: [],
+      fillCategories: []
+    },
+    {
+      group: 'PROJECT',
+      title: 'Kategórie zákazky',
+      categories: [],
+      fillCategories: []
+    }
+  ];
+
 
   constructor(
     private formBuilder: FormBuilder,
@@ -47,6 +62,7 @@ export class ProjectEditComponent implements OnInit {
   ngOnInit(): void {
     this.prepareForm();
     this.getProject();
+    this.getAllCategories(['PROJECT', 'TYPE_PROJECT']);
   }
 
 
@@ -55,7 +71,6 @@ export class ProjectEditComponent implements OnInit {
       id: null,
       title: [null, Validators.required],
       number: [null, Validators.required],
-      categoryGroup: null,
       description: null,
       contact: null,
       state: null,
@@ -74,23 +89,38 @@ export class ProjectEditComponent implements OnInit {
 
       this.formGroup.patchValue(p);
 
-      if (this.formGroup.get('categoryGroup').value === null) {
-        this.formGroup.patchValue({
-          categoryGroup: 'PROJECT'
-        });
-      }
-
-      this.getAllCategories([this.formGroup.get('categoryGroup').value]);
+      this.prepareGroup('fillCategories', p.categories);
     });
   }
 
   getAllCategories(groups: string[]) {
     this.categoryService.fallByGroupIn(groups).subscribe((nestedCategories) => {
       this.categories = nestedCategories;
+
+      this.prepareGroup('categories', this.categories);
     });
   }
 
+  prepareGroup(attribute: string, categories: CategoryItemNode[]) {
+    this.groups.forEach((item) => {
+      item[attribute] = categories.filter((c) => c.categoryGroup === item.group);
+    });
+  }
+
+  private prepareCategoriesBeforeStore() {
+    const categories: CategoryItemNode[] = [];
+
+    this.groups.forEach((item) => {
+      item.fillCategories.forEach(category => {
+        categories.push(category);
+      });
+    });
+
+    this.formGroup.patchValue({categories});
+  }
+
   submit() {
+    this.prepareCategoriesBeforeStore();
     this.submitted = true;
 
     if (this.formGroup.invalid) {

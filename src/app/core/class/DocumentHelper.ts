@@ -114,7 +114,5 @@ export class DocumentHelper {
 
   prepareTaxesFromPackForSummaryInvoice(packs: Pack[]) {
     const payedPack = packs.filter(p => p.title === 'Uhradené zálohou');
-
-    console.log(payedPack);
   }
 }
