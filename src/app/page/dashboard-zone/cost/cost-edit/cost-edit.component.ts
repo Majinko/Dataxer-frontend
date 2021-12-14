@@ -14,6 +14,9 @@ import {MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter} from '@angular/mater
 import {CategoryService} from '../../../../core/services/category.service';
 import {CategoryItemNode} from '../../../../core/models/category-item-node';
 import {CompanyService} from '../../../../core/services/company.service';
+import {Project} from "../../../../core/models/project";
+import {Projects} from "@angular/cli/lib/config/workspace-schema";
+import {ProjectService} from "../../../../core/services/project.service";
 
 @Component({
   selector: 'app-cost-edit',
@@ -55,6 +58,7 @@ export class CostEditComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private messageService: MessageService,
+    private projectService: ProjectService
   ) {
   }
 
@@ -62,7 +66,6 @@ export class CostEditComponent implements OnInit {
     this.getCost();
     this.prepareForm();
     this.changeValue();
-    this.getAllCategories();
   }
 
   private prepareForm() {
@@ -104,9 +107,15 @@ export class CostEditComponent implements OnInit {
     });
   }
 
-  private getAllCategories() {
-    this.categoryService.all().subscribe((nestedCategories) => {
-      this.categories = nestedCategories;
+  private handleChangeProject() {
+    this.formGroup.get('project').valueChanges.subscribe((project: Project) => {
+      this.projectService.getCategories(project.id).subscribe((categories) => {
+        this.categories = categories;
+
+        this.formGroup.patchValue({
+          categories: this.cost.categories[0]
+        });
+      });
     });
   }
 
@@ -114,6 +123,7 @@ export class CostEditComponent implements OnInit {
     this.costService.getById(+this.route.snapshot.paramMap.get('id')).subscribe(cost => {
       this.cost = cost;
 
+      this.handleChangeProject();
       this.formGroup.patchValue(this.cost);
     });
   }
@@ -124,6 +134,10 @@ export class CostEditComponent implements OnInit {
   }
 
   submit() {
+    this.formGroup.patchValue({
+      categories: [this.formGroup.get('categories').value]
+    });
+
     this.submitted = true;
     this.isLoading = true;
 
