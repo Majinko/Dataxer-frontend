@@ -26,36 +26,32 @@ export class OverviewChartComponent implements OnInit {
   @ViewChild('chart') chart: OverviewChartComponent;
   public chartOptions: Partial<ChartOptions>;
   costs;
-  aaa;
-  bbb;
-  ccc
+  contracts;
+  wages
+  skMonths: string[] = ['Január', 'Február', 'Marec', 'Apríl', 'Máj', 'Jún', 'Júl', 'August', 'September', 'Október', 'November', 'December'];
 
   @Input() costsOverview;
+
 
   constructor() {
   }
 
   ngOnInit(): void {
-    console.log('aaa');
-    console.log(this.costsOverview);
-    this.costs = Object.values(this.costsOverview.monthsTotalCosts)
-    console.log(this.costsOverview.categoryMonthsCostsDTOS[1].totalMonthsCosts);
-    this.aaa = Object.values(this.costsOverview.categoryMonthsCostsDTOS[0].totalMonthsCosts)
-    this.bbb = Object.values(this.costsOverview.categoryMonthsCostsDTOS[1].totalMonthsCosts)
-    this.ccc = Object.values(this.costsOverview.categoryMonthsCostsDTOS[2].totalMonthsCosts)
-    console.log(this.bbb);
-    console.log('aaasaf');
-    console.log(this.ccc);
-    if (this.ccc.lenght != 12) {
-      console.log('aaaaaaaa');
-    }
-
-
-
-    for (const [key, value] of Object.entries(this.costsOverview.categoryMonthsCostsDTOS[2].totalMonthsCosts)) {
-      console.log('bbbb');
-      console.log(key, value);
-    }
+    this.contracts = Object.values(this.costsOverview.categoryMonthsCostsDTOS[0].totalMonthsCosts)
+    this.costs = Object.values(this.costsOverview.categoryMonthsCostsDTOS[1].totalMonthsCosts)
+    this.wages = Object.values(this.costsOverview.categoryMonthsCostsDTOS[2].totalMonthsCosts)
+    this.skMonths.forEach((graph, index) => {
+      if (!this.contracts[index]) {
+        this.contracts[index] = 0;
+      }
+      if (!this.costs[index]) {
+        this.costs[index] = 0;
+      }
+      if (!this.wages[index]) {
+        console.log
+        this.wages[index] = 0;
+      }
+    });
 
 
     this.prepareChart();
@@ -66,15 +62,15 @@ export class OverviewChartComponent implements OnInit {
       series: [
         {
           name: 'Zákazky',
-          data: this.aaa
+          data: this.contracts
         },
         {
           name: 'Firemné náklady',
-          data: this.bbb
+          data: this.costs
         },
         {
-          name: 'Mzdy architekti ',
-          data: this.ccc
+          name: 'Mzdy architekti',
+          data: this.wages
         }
       ],
       chart: {
@@ -111,20 +107,7 @@ export class OverviewChartComponent implements OnInit {
         labels: {
           trim: false
         },
-        categories: [
-          "Jan",
-          "Feb",
-          "Mar",
-          "Apr",
-          "May",
-          "Jun",
-          "Jul",
-          "Aug",
-          "Sep",
-          'Okt',
-          'Nov',
-          'Dec'
-        ],
+        categories: this.skMonths,
       },
       yaxis: {
         labels: {
