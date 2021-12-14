@@ -37,16 +37,18 @@ export class ProjectCreateComponent implements OnInit {
   users: User[] = [];
   groups: { group: string, title: string, categories: CategoryItemNode[], fillCategories: CategoryItemNode[] }[] = [
     {
-      group: 'PROJECT',
-      title: 'zákazky',
-      categories: [],
-      fillCategories: []
-    }, {
       group: 'TYPE_PROJECT',
-      title: 'druhy zákaziek',
+      title: 'Druhy zákaziek',
       categories: [],
       fillCategories: []
-    }];
+    },
+    {
+      group: 'PROJECT',
+      title: 'Kategórie zákazky',
+      categories: [],
+      fillCategories: []
+    }
+  ];
 
   constructor(
     private formBuilder: FormBuilder,

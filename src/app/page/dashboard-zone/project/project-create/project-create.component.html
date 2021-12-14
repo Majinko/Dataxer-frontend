@@ -101,7 +101,7 @@
 
   <div class="row">
     <div class="col-12 mb-5" *ngFor="let group of groups">
-      <h2 class="border-bottom-2 pb-2 ">Kategórie {{group.title}}</h2>
+      <h2 class="border-bottom-2 pb-2 ">{{group.title}}</h2>
 
       <app-category-tree-control [categories]="group.categories" [(ngModel)]="group.fillCategories" [ngModelOptions]="{standalone: true}" *ngIf="categories.length"></app-category-tree-control>
     </div>
