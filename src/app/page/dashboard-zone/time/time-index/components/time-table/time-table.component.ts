@@ -100,17 +100,18 @@ export class TimeTableComponent implements OnInit {
     this.daysPriceTime = [];
 
     this.times.forEach((time) => {
-      const index = new Date(time.dateWork).getDay();
 
-      if (!this.daysPriceTime[index]) {
-        this.daysPriceTime[index] = {
+      if (!this.daysPriceTime[time.day]) {
+        this.daysPriceTime[time.day] = {
           time: time.time,
           price: time.price
         };
       } else {
-        this.daysPriceTime[index].time += time.time;
-        this.daysPriceTime[index].price += time.price;
+        this.daysPriceTime[time.day].time += time.time;
+        this.daysPriceTime[time.day].price += time.price;
       }
     });
+
+    console.log(this.daysPriceTime);
   }
 }

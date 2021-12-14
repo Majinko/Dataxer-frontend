@@ -26,7 +26,7 @@ export class TimeService {
     return this.http.get<Time[]>(`${environment.baseUrl}/time/allForPeriod${this.rsqlFilter ? '?filters=' + this.rsqlFilter : ''}`)
       .pipe(map((times) => {
         times.forEach(time => {
-          time.day = new Date(time.dateWork).getDay();
+          time.day = new Date(time.dateWork).getUTCDate();
         });
 
         return times;
