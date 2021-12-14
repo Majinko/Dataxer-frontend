@@ -126,6 +126,10 @@ export class CostCreateComponent implements OnInit {
   }
 
   submit() {
+    this.formGroup.patchValue({
+      categories: [this.formGroup.get('categories').value]
+    });
+
     this.submitted = true;
     this.isLoading = true;
 

@@ -16,41 +16,6 @@ export const APP_DATE_FORMATS = {
 };
 
 /**
- * Todo make refakt grcam
- * @param objectName
- * @param filter
- */
-export function prepareStringFilter(objectName: string, filter: BaseFilter): string {
-  let searchString: string = '';
-
-  const useAttrs = [];
-  const ands = ['state'];
-  const useContainsCase = ['title', 'name', 'contact.name', 'description'];
-
-  if (filter != null) {
-    for (const key in filter) {
-      if (filter[key] !== null) {
-        if (!useContainsCase.includes(key)) {
-          if (typeof filter[key] === 'string') {
-            useAttrs.push(key); // if use this attr content with and
-            searchString += `${searchString === '' ? '' : ' and '}${objectName}.${key}=="${filter[key]}"`;
-          } else if (key === 'month') {
-            searchString += `${searchString === '' ? '' : ' and '}${objectName}.start>=${filter[key].start} + and + ${objectName}.end<=${filter[key].end}`;
-          } else {
-            searchString += `${searchString === '' ? '' : ' and '}${objectName}.${key}.id==${filter[key].id}`;
-          }
-        } else {
-          searchString += `${searchString === '' ? '' : (useAttrs.some(r => ands.indexOf(r) >= 0) ? ' and ' : ' or ')}${objectName}.${key}=="*${filter[key]}*"`;
-          useAttrs.pop();
-        }
-      }
-    }
-  }
-
-  return searchString;
-}
-
-/**
  * Check value is not undefined
  * @param value
  */

@@ -68,6 +68,7 @@ export class SlovakiaDigitalAutocompleteComponent implements ControlValueAccesso
 
   onInputChange() {
     this.isLoading = true;
+    this.onChange(this.value);
     this.searchTerms.next(this.value);
   }
 
