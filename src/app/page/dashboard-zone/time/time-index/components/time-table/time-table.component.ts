@@ -100,7 +100,6 @@ export class TimeTableComponent implements OnInit {
     this.daysPriceTime = [];
 
     this.times.forEach((time) => {
-
       if (!this.daysPriceTime[time.day]) {
         this.daysPriceTime[time.day] = {
           time: time.time,
