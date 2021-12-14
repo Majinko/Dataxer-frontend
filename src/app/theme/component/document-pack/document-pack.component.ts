@@ -89,11 +89,13 @@ export class DocumentPackComponent implements OnInit {
     this.itemsByIndex(packIndex).push(this.createItem());
   }
 
-  removePack(i: number) {
+  removePack(event: MouseEvent, i: number) {
+    event.preventDefault();
     this.formPacks.removeAt(i);
   }
 
-  removeItem(i: number) {
+  removeItem(event: MouseEvent, i: number) {
+    event.preventDefault();
     this.items.removeAt(i);
   }
 

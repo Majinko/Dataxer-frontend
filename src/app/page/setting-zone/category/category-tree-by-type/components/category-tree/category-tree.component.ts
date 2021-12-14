@@ -19,8 +19,7 @@ import {CategoryHelper} from '../../../../../../core/class/CategoryHelper';
 import {ChecklistDatabase} from '../../../../../../core/class/CheckListDatabase';
 import {MatDialog} from '@angular/material/dialog';
 import {ConfirmDialogComponent} from '../../../../../../theme/component/confirm-dialog/confirm-dialog.component';
-import firebase from "firebase";
-import database = firebase.database;
+import firebase from 'firebase';
 
 @Component({
   selector: 'app-category-tree',
@@ -151,7 +150,7 @@ export class CategoryTreeComponent implements OnInit, OnChanges {
     const parentNode = this.flatNodeMap.get(node);
     this.newNodeParent = {id: parentNode.id, name: parentNode.name};
 
-    this.database.insertItem(parentNode, null, '');
+    this.database.insertItem(parentNode, null, '', null, null);
     this.treeControl.expand(node);
   }
 
@@ -208,7 +207,6 @@ export class CategoryTreeComponent implements OnInit, OnChanges {
 
   handleDrop(event, node) {
     event.preventDefault();
-    console.log(node);
 
     if (node !== this.dragNode) {
       let newItem: CategoryItemNode;

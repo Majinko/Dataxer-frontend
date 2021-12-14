@@ -133,6 +133,7 @@
   </div>
 
   <app-document-pack *ngIf="route.snapshot.paramMap.get('id') === null; else copyInvoiceBlock" [formGroup]="formGroup" [documentHelper]="documentHelper"></app-document-pack>
+
   <ng-template #copyInvoiceBlock>
     <div *ngIf="this.oldPacks.length > 0">
       <app-document-pack [formGroup]="formGroup" [packs]="this.oldPacks" [documentHelper]="documentHelper"></app-document-pack>

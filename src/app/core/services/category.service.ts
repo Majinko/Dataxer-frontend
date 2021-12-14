@@ -63,8 +63,16 @@ export class CategoryService {
   }
 
   allByGroupFromParent(group: string, tree: boolean = true): Observable<CategoryItemNode[]> {
-    return this.http.get<CategoryItemNode[]>(`${environment.baseUrl}/category/allByGroupFromParent/${group}`).pipe(map((categories) => {
-      return tree ? this.categoryHelper.prepareTree(categories, null) : categories;
-    }));
+    return this.http.get<CategoryItemNode[]>(`${environment.baseUrl}/category/allByGroupFromParent/${group}`)
+      .pipe(map((categories) => {
+        return tree ? this.categoryHelper.prepareTree(categories, null) : categories;
+      }));
+  }
+
+  fallByGroupIn(groups: string[]): Observable<CategoryItemNode[]> {
+    return this.http.get<CategoryItemNode[]>(`${environment.baseUrl}/category/allByGroups?groups=${groups.join(',')}`)
+      .pipe(map(categories => {
+        return this.categoryHelper.prepareTree(categories, null);
+      }));
   }
 }

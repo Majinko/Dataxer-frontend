@@ -26,7 +26,6 @@ import {CategoryItemNode} from '../../../../core/models/category-item-node';
       useClass: MomentDateAdapter,
       deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]
     },
-
     {provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS},
     AddPercentPipe
   ],
@@ -50,7 +49,7 @@ export class ProjectCreateComponent implements OnInit {
 
   ngOnInit(): void {
     this.prepareForm();
-    this.getAllCategories();
+    this.getAllCategories(['PROJECT']);
   }
 
   private prepareForm() {
@@ -58,6 +57,7 @@ export class ProjectCreateComponent implements OnInit {
       title: ['', Validators.required],
       number: [null, Validators.required],
       description: '',
+      categoryGroup: 'PROJECT',
       contact: null,
       state: null,
       address: '',
@@ -69,15 +69,9 @@ export class ProjectCreateComponent implements OnInit {
     });
   }
 
-  private getAllCategories() {
-    this.categoryService.all().subscribe((nestedCategories) => {
+  getAllCategories(groups: string[]) {
+    this.categoryService.fallByGroupIn(groups).subscribe((nestedCategories) => {
       this.categories = nestedCategories;
-    });
-  }
-
-  private getUsers() {
-    return this.userService.all().subscribe(data => {
-      this.users = data;
     });
   }
 
