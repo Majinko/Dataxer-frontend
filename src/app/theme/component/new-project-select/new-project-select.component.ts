@@ -50,7 +50,8 @@ export class NewProjectSelectComponent implements ControlValueAccessor, OnInit {
   openDialog() {
     this.dialog.open(ProjectCreateComponent, {
       data: {inModal: true},
-      autoFocus: false
+      autoFocus: false,
+      maxHeight: '90vh'
     });
   }
 

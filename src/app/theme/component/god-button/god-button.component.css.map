@@ -1,7 +1,1 @@
-{
-"version": 3,
-"mappings": "AAAA;;EAEE;AAWF;;EAEE;ACbF,MAAM;EACJ,SAAS,EAAE,IAAI;EACf,WAAW,EAAE,GAAG;EAChB,WAAW,EAAE,IAAI;EACjB,OAAO,EAAE,MAAM;EACf,UAAU,EDHW,OAAO;ECK5B,YAAQ;IACN,gBAAgB,EAAE,OAAmC",
-"sources": ["../../../../assets/css/import/_variables.scss","god-button.component.scss"],
-"names": [],
-"file": "god-button.component.css"
-}
+{"version":3,"sourceRoot":"","sources":["../../../../assets/css/import/_variables.scss","god-button.component.scss"],"names":[],"mappings":"AAGA;AAAA;AAAA;AAmBA;AAAA;AAAA;AAoBA;AAAA;AAAA;ACxCA;EACE;EACA;EACA;EACA;EACA,YDDqB","file":"god-button.component.css"}

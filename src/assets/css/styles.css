@@ -1,67 +1,1071 @@
 /*
-Error: File to import not found or unreadable: ~@angular/material/theming.
-        on line 2 of import/_variables.scss
-        from line 1 of styles.scss
-
-1: @import 'import/variables';
-2: @import "import/typografy";
-3: @import "import/global";
-4: @import "import/toolbar";
-5: @import 'import/sidenav';
-6: @import "import/button";
-7: @import "import/color";
-
-Backtrace:
-import/_variables.scss:2
-styles.scss:1
-/Library/Ruby/Gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/import_node.rb:67:in `rescue in import'
-/Library/Ruby/Gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/import_node.rb:44:in `import'
-/Library/Ruby/Gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/import_node.rb:28:in `imported_file'
-/Library/Ruby/Gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/import_node.rb:37:in `css_import?'
-/Library/Ruby/Gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:310:in `visit_import'
-/Library/Ruby/Gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/visitors/base.rb:36:in `visit'
-/Library/Ruby/Gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:158:in `block in visit'
-/Library/Ruby/Gems/2.6.0/gems/sass-3.7.4/lib/sass/stack.rb:79:in `block in with_base'
-/Library/Ruby/Gems/2.6.0/gems/sass-3.7.4/lib/sass/stack.rb:135:in `with_frame'
-/Library/Ruby/Gems/2.6.0/gems/sass-3.7.4/lib/sass/stack.rb:79:in `with_base'
-/Library/Ruby/Gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:158:in `visit'
-/Library/Ruby/Gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:325:in `block (2 levels) in visit_import'
-/Library/Ruby/Gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:325:in `map'
-/Library/Ruby/Gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:325:in `block in visit_import'
-/Library/Ruby/Gems/2.6.0/gems/sass-3.7.4/lib/sass/stack.rb:88:in `block in with_import'
-/Library/Ruby/Gems/2.6.0/gems/sass-3.7.4/lib/sass/stack.rb:135:in `with_frame'
-/Library/Ruby/Gems/2.6.0/gems/sass-3.7.4/lib/sass/stack.rb:88:in `with_import'
-/Library/Ruby/Gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:322:in `visit_import'
-/Library/Ruby/Gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/visitors/base.rb:36:in `visit'
-/Library/Ruby/Gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:158:in `block in visit'
-/Library/Ruby/Gems/2.6.0/gems/sass-3.7.4/lib/sass/stack.rb:79:in `block in with_base'
-/Library/Ruby/Gems/2.6.0/gems/sass-3.7.4/lib/sass/stack.rb:135:in `with_frame'
-/Library/Ruby/Gems/2.6.0/gems/sass-3.7.4/lib/sass/stack.rb:79:in `with_base'
-/Library/Ruby/Gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:158:in `visit'
-/Library/Ruby/Gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/visitors/base.rb:52:in `block in visit_children'
-/Library/Ruby/Gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/visitors/base.rb:52:in `map'
-/Library/Ruby/Gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/visitors/base.rb:52:in `visit_children'
-/Library/Ruby/Gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:167:in `block in visit_children'
-/Library/Ruby/Gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:179:in `with_environment'
-/Library/Ruby/Gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:166:in `visit_children'
-/Library/Ruby/Gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/visitors/base.rb:36:in `block in visit'
-/Library/Ruby/Gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:186:in `visit_root'
-/Library/Ruby/Gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/visitors/base.rb:36:in `visit'
-/Library/Ruby/Gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:157:in `visit'
-/Library/Ruby/Gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:10:in `visit'
-/Library/Ruby/Gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/root_node.rb:36:in `css_tree'
-/Library/Ruby/Gems/2.6.0/gems/sass-3.7.4/lib/sass/tree/root_node.rb:29:in `render_with_sourcemap'
-/Library/Ruby/Gems/2.6.0/gems/sass-3.7.4/lib/sass/engine.rb:389:in `_render_with_sourcemap'
-/Library/Ruby/Gems/2.6.0/gems/sass-3.7.4/lib/sass/engine.rb:307:in `render_with_sourcemap'
-/Library/Ruby/Gems/2.6.0/gems/sass-3.7.4/lib/sass/exec/sass_scss.rb:387:in `run'
-/Library/Ruby/Gems/2.6.0/gems/sass-3.7.4/lib/sass/exec/sass_scss.rb:63:in `process_result'
-/Library/Ruby/Gems/2.6.0/gems/sass-3.7.4/lib/sass/exec/base.rb:50:in `parse'
-/Library/Ruby/Gems/2.6.0/gems/sass-3.7.4/lib/sass/exec/base.rb:18:in `parse!'
-/Library/Ruby/Gems/2.6.0/gems/sass-3.7.4/bin/sass:13:in `<top (required)>'
-/usr/local/bin/sass:23:in `load'
-/usr/local/bin/sass:23:in `<main>'
+* === Color ===
 */
-body:before {
-  white-space: pre;
-  font-family: monospace;
-  content: "Error: File to import not found or unreadable: ~@angular/material/theming.\A         on line 2 of import/_variables.scss\A         from line 1 of styles.scss\A \A 1: @import 'import/variables';\A 2: @import \"import/typografy\";\A 3: @import \"import/global\";\A 4: @import \"import/toolbar\";\A 5: @import 'import/sidenav';\A 6: @import \"import/button\";\A 7: @import \"import/color\";"; }
+/*
+* === Fonts ===
+*/
+/*
+* === Grid break ===
+*/
+@import "~@ng-select/ng-select/themes/material.theme.css";
+body {
+  font-size: 14px;
+  line-height: 24px;
+}
+
+h1, .h1 {
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 28px;
+}
+
+h2, .h2 {
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 23px;
+}
+
+h3, .h3 {
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 23px;
+}
+
+.md-f-s {
+  font-size: 16px;
+}
+
+.sm-f-s {
+  font-size: 14px;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+p {
+  color: #757575;
+}
+
+h2 {
+  color: #19A5E5;
+}
+
+/*
+* === helper ===
+*/
+.border-radius-0 {
+  border-radius: 0 !important;
+}
+
+.cursor-pointer {
+  cursor: pointer !important;
+}
+
+.cursor-move {
+  cursor: move !important;
+}
+
+.t-d-n {
+  text-decoration: none !important;
+}
+
+.border-bottom-2 {
+  border-bottom: 2px solid #19A5E5;
+}
+
+.no-border {
+  border: none !important;
+}
+
+.border-top {
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.border-right {
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.border-bottom {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.border-left {
+  border-left: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.white-space-nowrap {
+  white-space: nowrap !important;
+}
+
+.outline-none {
+  outline: none !important;
+}
+
+.text-underline-hover:hover {
+  text-decoration: underline !important;
+}
+
+.not-visible {
+  visibility: hidden !important;
+}
+
+/*
+* === Grid ===
+*/
+.w-5 {
+  width: 5px !important;
+}
+
+.font-size-1 {
+  font-size: 1px !important;
+}
+
+.w-10 {
+  width: 10px !important;
+}
+
+.font-size-2 {
+  font-size: 2px !important;
+}
+
+.w-15 {
+  width: 15px !important;
+}
+
+.font-size-3 {
+  font-size: 3px !important;
+}
+
+.w-20 {
+  width: 20px !important;
+}
+
+.font-size-4 {
+  font-size: 4px !important;
+}
+
+.w-25 {
+  width: 25px !important;
+}
+
+.font-size-5 {
+  font-size: 5px !important;
+}
+
+.w-30 {
+  width: 30px !important;
+}
+
+.font-size-6 {
+  font-size: 6px !important;
+}
+
+.w-35 {
+  width: 35px !important;
+}
+
+.font-size-7 {
+  font-size: 7px !important;
+}
+
+.w-40 {
+  width: 40px !important;
+}
+
+.font-size-8 {
+  font-size: 8px !important;
+}
+
+.w-45 {
+  width: 45px !important;
+}
+
+.font-size-9 {
+  font-size: 9px !important;
+}
+
+.w-50 {
+  width: 50px !important;
+}
+
+.font-size-10 {
+  font-size: 10px !important;
+}
+
+.w-55 {
+  width: 55px !important;
+}
+
+.font-size-11 {
+  font-size: 11px !important;
+}
+
+.w-60 {
+  width: 60px !important;
+}
+
+.font-size-12 {
+  font-size: 12px !important;
+}
+
+.w-65 {
+  width: 65px !important;
+}
+
+.font-size-13 {
+  font-size: 13px !important;
+}
+
+.w-70 {
+  width: 70px !important;
+}
+
+.font-size-14 {
+  font-size: 14px !important;
+}
+
+.w-75 {
+  width: 75px !important;
+}
+
+.font-size-15 {
+  font-size: 15px !important;
+}
+
+.w-80 {
+  width: 80px !important;
+}
+
+.font-size-16 {
+  font-size: 16px !important;
+}
+
+.w-85 {
+  width: 85px !important;
+}
+
+.font-size-17 {
+  font-size: 17px !important;
+}
+
+.w-90 {
+  width: 90px !important;
+}
+
+.font-size-18 {
+  font-size: 18px !important;
+}
+
+.w-95 {
+  width: 95px !important;
+}
+
+.font-size-19 {
+  font-size: 19px !important;
+}
+
+.font-size-20 {
+  font-size: 20px !important;
+}
+
+.w-105 {
+  width: 105px !important;
+}
+
+.font-size-21 {
+  font-size: 21px !important;
+}
+
+.w-110 {
+  width: 110px !important;
+}
+
+.font-size-22 {
+  font-size: 22px !important;
+}
+
+.w-115 {
+  width: 115px !important;
+}
+
+.font-size-23 {
+  font-size: 23px !important;
+}
+
+.w-120 {
+  width: 120px !important;
+}
+
+.font-size-24 {
+  font-size: 24px !important;
+}
+
+.w-125 {
+  width: 125px !important;
+}
+
+.font-size-25 {
+  font-size: 25px !important;
+}
+
+.w-130 {
+  width: 130px !important;
+}
+
+.font-size-26 {
+  font-size: 26px !important;
+}
+
+.w-135 {
+  width: 135px !important;
+}
+
+.font-size-27 {
+  font-size: 27px !important;
+}
+
+.w-140 {
+  width: 140px !important;
+}
+
+.font-size-28 {
+  font-size: 28px !important;
+}
+
+.w-145 {
+  width: 145px !important;
+}
+
+.font-size-29 {
+  font-size: 29px !important;
+}
+
+.w-150 {
+  width: 150px !important;
+}
+
+.font-size-30 {
+  font-size: 30px !important;
+}
+
+.w-155 {
+  width: 155px !important;
+}
+
+.font-size-31 {
+  font-size: 31px !important;
+}
+
+.w-160 {
+  width: 160px !important;
+}
+
+.font-size-32 {
+  font-size: 32px !important;
+}
+
+.w-165 {
+  width: 165px !important;
+}
+
+.font-size-33 {
+  font-size: 33px !important;
+}
+
+.w-170 {
+  width: 170px !important;
+}
+
+.font-size-34 {
+  font-size: 34px !important;
+}
+
+.w-175 {
+  width: 175px !important;
+}
+
+.font-size-35 {
+  font-size: 35px !important;
+}
+
+.w-180 {
+  width: 180px !important;
+}
+
+.font-size-36 {
+  font-size: 36px !important;
+}
+
+.w-185 {
+  width: 185px !important;
+}
+
+.font-size-37 {
+  font-size: 37px !important;
+}
+
+.w-190 {
+  width: 190px !important;
+}
+
+.font-size-38 {
+  font-size: 38px !important;
+}
+
+.w-195 {
+  width: 195px !important;
+}
+
+.font-size-39 {
+  font-size: 39px !important;
+}
+
+.w-200 {
+  width: 200px !important;
+}
+
+.font-size-40 {
+  font-size: 40px !important;
+}
+
+.w-205 {
+  width: 205px !important;
+}
+
+.font-size-41 {
+  font-size: 41px !important;
+}
+
+.w-210 {
+  width: 210px !important;
+}
+
+.font-size-42 {
+  font-size: 42px !important;
+}
+
+.w-215 {
+  width: 215px !important;
+}
+
+.font-size-43 {
+  font-size: 43px !important;
+}
+
+.w-220 {
+  width: 220px !important;
+}
+
+.font-size-44 {
+  font-size: 44px !important;
+}
+
+.w-225 {
+  width: 225px !important;
+}
+
+.font-size-45 {
+  font-size: 45px !important;
+}
+
+.w-230 {
+  width: 230px !important;
+}
+
+.font-size-46 {
+  font-size: 46px !important;
+}
+
+.w-235 {
+  width: 235px !important;
+}
+
+.font-size-47 {
+  font-size: 47px !important;
+}
+
+.w-240 {
+  width: 240px !important;
+}
+
+.font-size-48 {
+  font-size: 48px !important;
+}
+
+.w-245 {
+  width: 245px !important;
+}
+
+.font-size-49 {
+  font-size: 49px !important;
+}
+
+.w-250 {
+  width: 250px !important;
+}
+
+.font-size-50 {
+  font-size: 50px !important;
+}
+
+.min-height-100vh {
+  min-height: 100vh;
+}
+
+.loading-shade {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 56px;
+  right: 0;
+  background: rgba(0, 0, 0, 0.15);
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+mat-toolbar {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.logo-wrap {
+  width: 256px;
+}
+
+@media only screen and (max-width: 576px) {
+  .logo-wrap {
+    width: inherit;
+  }
+}
+mat-sidenav-container {
+  height: 100%;
+}
+mat-sidenav-container mat-sidenav {
+  width: 256px;
+}
+mat-sidenav-container mat-sidenav .mat-list-item {
+  border-top-right-radius: 25px;
+  border-bottom-right-radius: 25px;
+}
+mat-sidenav-container mat-sidenav .mat-list-item.active {
+  color: black !important;
+  background: #E1F4FC;
+  border-left: 4px solid #19A5E5;
+}
+mat-sidenav-container mat-sidenav .mat-list-item.active mat-icon {
+  margin-left: -4px;
+  color: #19A5E5;
+}
+mat-sidenav-container mat-sidenav .mat-list-base .mat-list-item.mat-list-item-with-avatar {
+  height: 35px;
+}
+mat-sidenav-container mat-sidenav .mat-list-base .mat-list-item {
+  font-size: 14px;
+  line-height: 20px;
+}
+
+button, .btn {
+  font-weight: 500;
+  outline: none !important;
+  border-radius: 25px !important;
+  transition: all ease 0.5s;
+}
+@keyframes spinner {
+  to {
+    transform: rotate(360deg);
+  }
+}
+button.spinner:before, .btn.spinner:before {
+  content: "";
+  box-sizing: border-box;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin-top: -10px;
+  margin-left: -10px;
+  border-radius: 50%;
+  border: 2px solid #ffffff;
+  border-top-color: #000000;
+  animation: spinner 0.8s linear infinite;
+}
+button.btn-big, .btn.btn-big {
+  padding: 0.7rem 0.75rem;
+}
+button.btn-icon, .btn.btn-icon {
+  position: relative;
+  padding-left: 45px !important;
+}
+button.btn-icon mat-icon, .btn.btn-icon mat-icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  margin-top: -10px;
+  font-size: 20px;
+}
+button.btn-theme, .btn.btn-theme {
+  color: white;
+  border-color: #19A5E5 !important;
+  background-color: #19A5E5 !important;
+}
+button.btn-theme:hover, .btn.btn-theme:hover {
+  background-color: #46b7eb !important;
+}
+button.btn-theme-stroked, .btn.btn-theme-stroked {
+  color: #19A5E5;
+  border-color: #19A5E5 !important;
+}
+
+.btn-link:hover {
+  text-decoration: underline !important;
+}
+
+/*
+* === Text ===
+*/
+.text-gray {
+  color: #757575 !important;
+}
+
+.text-theme {
+  color: #19A5E5 !important;
+}
+
+.text-red-light {
+  color: #f4cdc7 !important;
+}
+
+.text-red-dark {
+  color: #4b330f !important;
+}
+
+.text-green-light {
+  color: #ade2dc !important;
+}
+
+.text-green-dark {
+  color: #0e5d52 !important;
+}
+
+/*
+* === Bg ===
+*/
+.bg-rejected {
+  background: #D0021B !important;
+}
+
+.bg-unpaid {
+  background: #D0021B !important;
+}
+
+.bg-waiting {
+  background: #F59A22 !important;
+}
+
+.bg-approved {
+  background: #70B602 !important;
+}
+
+.bg-theeme {
+  background: #19A5E5 !important;
+}
+
+.bg-red-light {
+  background: #f4cdc7 !important;
+}
+
+.bg-red-dark {
+  background: #4b330f !important;
+}
+
+.bg-green-light {
+  background: #ade2dc !important;
+}
+
+.bg-green-dark {
+  background: #0e5d52 !important;
+}
+
+.bg-theme-gray {
+  background: #757575 !important;
+}
+
+.bg-light-gray {
+  background: #ebebeb !important;
+}
+
+.bg-medium-gray {
+  background: #d7d7d7 !important;
+}
+
+.bg-box {
+  background: #f9fafb !important;
+}
+
+.mat-two-line span {
+  line-height: 20px !important;
+}
+
+.mat-icon {
+  outline: none;
+}
+
+.mat-menu-avatar {
+  border-radius: 25px !important;
+}
+
+.mat-card-image {
+  max-width: inherit !important;
+}
+
+.custom-material-form-field .mat-form-field-flex {
+  border: 1px solid #19A5E5;
+  border-radius: 25px !important;
+  background: transparent !important;
+}
+.custom-material-form-field .mat-form-field-underline {
+  display: none !important;
+}
+
+mat-list-item:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.menu-not-rounded .mat-menu-item {
+  border-radius: 0 !important;
+}
+
+/*.mat-table:not(.no-borderless) .mat-row:nth-child(odd) {
+  background: none;
+}*/
+.mat-error-not-in-field {
+  position: relative;
+  top: -15px;
+  font-size: 11px;
+}
+
+.category-wrap .mat-icon-button {
+  transition: none;
+}
+.category-wrap .mat-tree-node.cdk-tree-node .not-visible {
+  visibility: hidden !important;
+}
+.category-wrap .mat-tree-node.cdk-tree-node:hover {
+  background: #cccccc40 !important;
+}
+.category-wrap .mat-tree-node.cdk-tree-node:hover .not-visible {
+  visibility: visible !important;
+}
+
+.option-with-questionnaire .mat-radio-label-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.table-show-data th, .table-show-data td {
+  padding: 10px 10px;
+  vertical-align: middle;
+}
+.table-show-data th:nth-child(2), .table-show-data td:nth-child(2) {
+  min-width: 390px !important;
+  padding-left: 340px !important;
+}
+.table-show-data.table-default th, .table-show-data.table-default td {
+  width: 70px !important;
+}
+.table-show-data.table-default th:nth-child(2), .table-show-data.table-default td:nth-child(2) {
+  min-width: 50px !important;
+  padding-left: inherit !important;
+}
+.table-show-data th {
+  font-size: 12px;
+  padding: 0 10px 5px 10px;
+}
+.table-show-data td {
+  border-top: 1px solid #ddd;
+  height: 50px;
+}
+.table-show-data td:not(:first-child) {
+  width: 50px;
+  min-width: 50px;
+  text-align: center;
+  padding: 2px;
+  border-left: 1px solid #ececec;
+  font-size: 10px;
+}
+.table-show-data tbody .row-head {
+  border-right: 1px solid #ddd;
+}
+.table-show-data .row-head {
+  left: 0;
+  background: #fff;
+  overflow-y: hidden;
+  overflow-x: auto;
+  max-width: 200px;
+  min-width: 200px;
+  position: absolute;
+  -moz-transform: translateZ(0px);
+  -webkit-transform: translateZ(0px);
+  transform: translateZ(0px);
+}
+
+table img {
+  max-width: 2000px;
+}
+
+table tbody td.thin,
+table tbody th.thin,
+table tfoot td.thin,
+table tfoot th.thin {
+  width: 0.01% !important;
+}
+
+table tbody td.max,
+table tbody th.max {
+  width: 100% !important;
+}
+
+table tbody td.space,
+table tbody th.space {
+  width: 30px !important;
+}
+
+.table-scroll {
+  max-width: 100%;
+  overflow: auto;
+  background-image: linear-gradient(to right, #fff, #fff), linear-gradient(to right, #fff, #fff), linear-gradient(to right, rgba(0, 0, 0, 0.1), #fff0), linear-gradient(to left, rgba(0, 0, 0, 0.1), #fff0);
+  background-position: left center, right center, left center, right center;
+  background-repeat: no-repeat;
+  background-color: #fff;
+  background-size: 20px 100%, 20px 100%, 10px 100%, 10px 100%;
+  background-attachment: local, local, scroll, scroll;
+}
+.table-scroll .table-scroller {
+  margin-left: 200px;
+}
+
+.table-data th, .table-data td {
+  padding: 8px 15px;
+}
+.table-data th:first-child {
+  padding-left: 4px !important;
+}
+.table-data .pack-row td:first-child {
+  padding-left: 4px !important;
+}
+.table-data .table-borderless tr {
+  box-shadow: inset 0 -1px 0 0 rgba(100, 121, 143, 0.2);
+}
+.table-data .table-borderless td {
+  border: none !important;
+}
+
+.table-hover tr:hover td {
+  background-color: rgba(0, 0, 0, 0.05) !important;
+}
+
+.table-wrap {
+  overflow-x: auto;
+  border-top: 3px solid #19A5E5;
+}
+.table-wrap .table-item.table-td-initial td {
+  vertical-align: initial;
+  padding-top: 20px;
+}
+.table-wrap tbody {
+  border-bottom: 3px solid #19A5E5;
+}
+.table-wrap .table-hover-gray:hover {
+  background-color: rgba(0, 0, 0, 0.05) !important;
+}
+.table-wrap.no-border-bottom tbody {
+  border-bottom: none !important;
+}
+.table-wrap.small-border-bottom tbody {
+  border-bottom: 1px solid #19A5E5 !important;
+}
+.table-wrap .header-row {
+  height: 56px;
+}
+.table-wrap .tbody-row {
+  height: 70px;
+}
+.table-wrap .table-data td, .table-wrap .table-data th {
+  padding-left: 10px;
+  padding-right: 10px;
+  white-space: nowrap !important;
+}
+.table-wrap .table-data th:first-child, .table-wrap .table-data td:first-child {
+  padding-left: 10px;
+}
+.table-wrap .table-borderless tr {
+  box-shadow: inset 0 -1px 0 0 rgba(100, 121, 143, 0.2);
+}
+.table-wrap .table-borderless td {
+  border: none !important;
+}
+.table-wrap .table-flex th {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+}
+.table-wrap .table-flex td {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+}
+.table-wrap tr button {
+  transition: none;
+}
+.table-wrap tr:hover .d-none-hover {
+  display: none;
+}
+.table-wrap tr:hover .action-link .invisible {
+  visibility: visible !important;
+}
+
+label {
+  margin-bottom: 0;
+}
+
+.ng-select-custom mat-icon {
+  cursor: pointer;
+  position: relative;
+  top: 15px;
+  left: -15px;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.ng-select:not(.filter-ng-select) .ng-select-container .ng-value-container {
+  padding: 0 !important;
+  border-top: 1em solid transparent;
+}
+.ng-select:not(.filter-ng-select) .ng-select-container .ng-value-container .ng-input {
+  bottom: 0 !important;
+}
+
+.ng-select:not(.filter-ng-select) .ng-select-container {
+  min-height: 38.5px !important;
+}
+
+.ng-select:not(.filter-ng-select).ng-select-single .ng-select-container .ng-arrow-wrapper {
+  bottom: 4px !important;
+}
+
+.ng-select.disable-arrow .ng-arrow-wrapper .ng-arrow {
+  display: none;
+}
+
+.ng-select.disable-dropdown ng-dropdown-panel {
+  display: none;
+}
+
+.ng-select.disable-clear-all .ng-clear-wrapper {
+  display: none;
+}
+
+.filter-ng-select.ng-select-focused .ng-select-container .ng-placeholder, .filter-ng-select.ng-select-opened .ng-select-container .ng-placeholder {
+  transform: translateY(-1em) scale(0.75) perspective(100px) translateZ(0.001px) !important;
+}
+.filter-ng-select.ng-select-focused .ng-select-container .ng-value-container, .filter-ng-select.ng-select-opened .ng-select-container .ng-value-container {
+  border-top: 1em solid transparent;
+}
+.filter-ng-select .ng-select-container {
+  border-radius: 25px;
+  border: 1px solid #19A5E5;
+  padding-left: 15px;
+  padding-right: 10px;
+}
+.filter-ng-select .ng-select-container.ng-has-value .ng-placeholder {
+  transform: translateY(-1em) scale(0.75) perspective(100px) translateZ(0.001px);
+}
+.filter-ng-select .ng-select-container.ng-has-value .ng-value-container {
+  border-top: 1em solid transparent;
+}
+.filter-ng-select .ng-select-container:after {
+  border-bottom: none;
+}
+.filter-ng-select .ng-select-container .ng-value-container {
+  border-top: 0.6em solid transparent;
+}
+.filter-ng-select .ng-select-container .ng-arrow-wrapper {
+  bottom: 15px !important;
+}
+.filter-ng-select .ng-select-container .ng-input {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+/*
+* === Element ===
+*/
+.custom-badge {
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.box {
+  border-radius: 0.55rem;
+  background: #f9fafb !important;
+  transition: 0.5s;
+  border: 0;
+  position: relative;
+  width: 100%;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+}
+
+/*
+* === Shuffle ===
+*/
+.theme-border-bottom-3 {
+  border-bottom: 3px solid #19A5E5;
+}
+
+/*
+* === Avatar ===
+*/
+.avatar-photo-edit {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  position: relative;
+}
+.avatar-photo-edit:hover:before {
+  content: url("../img/icon/photo_camera-24px.svg");
+  position: absolute;
+  text-align: center;
+  width: 51px;
+  height: 51px;
+  margin-left: 2px;
+  margin-top: 2px;
+  padding-top: 15px;
+  border-radius: 50%;
+  background: #00000042;
+  color: white;
+}
+
+/*
+* === Photo uploader ===
+*/
+
+/*# sourceMappingURL=styles.css.map */
