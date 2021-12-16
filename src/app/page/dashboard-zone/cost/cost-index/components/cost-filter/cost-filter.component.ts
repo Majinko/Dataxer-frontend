@@ -5,6 +5,7 @@ import {SearchBarService} from '../../../../../../core/services/search-bar.servi
 import {ContactService} from '../../../../../../core/services/contact.service';
 import {ProjectService} from '../../../../../../core/services/project.service';
 import {CompanyService} from '../../../../../../core/services/company.service';
+import {COSTTYPES} from "../../../../../../core/data/costs";
 
 @Component({
   selector: 'app-cost-filter',
@@ -21,7 +22,7 @@ export class CostFilterComponent extends FilterClass implements OnInit {
   ) {
     super(searchbarService, formBuilder, 'cost',
       ['title', 'contact.name'],
-      ['contact.id', 'company.id', 'project.id', 'state', 'month'],
+      ['contact.id', 'company.id', 'project.id', 'state', 'month', 'documentType'],
       injector
     );
   }
@@ -31,6 +32,7 @@ export class CostFilterComponent extends FilterClass implements OnInit {
       contact: null,
       project: null,
       state: null,
+      documentType: null,
       company: null,
       month: null
     });
@@ -41,6 +43,7 @@ export class CostFilterComponent extends FilterClass implements OnInit {
     this.prepareData();
     this.getContacts();
     this.getProjects();
+    this.prepareDocumentType();
     this.preparePayedStates();
     this.getCompanies();
     this.prepareMonths();
@@ -64,6 +67,11 @@ export class CostFilterComponent extends FilterClass implements OnInit {
       {key: 'UNPAID', value: 'Neuradené'},
     ];
   }
+
+  prepareDocumentType() {
+    this.documentTypes = COSTTYPES;
+  }
+
 
   private getCompanies() {
     this.companyService.all().subscribe((c) => {

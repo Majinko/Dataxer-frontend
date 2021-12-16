@@ -70,7 +70,7 @@ export class ProjectEditComponent implements OnInit {
     this.formGroup = this.formBuilder.group({
       id: null,
       title: [null, Validators.required],
-      number: [null, Validators.required],
+      number: null,
       description: null,
       contact: null,
       state: null,

@@ -5,8 +5,6 @@ import {CategoryItemNode} from '../models/category-item-node';
   providedIn: 'root'
 })
 export class CategoryHelper {
-  private position = 0;
-
   public resetTree(items: CategoryItemNode[], list: CategoryItemNode[] = [], parentId: number = null) {
     if (items) {
       items.forEach((item, index) => {
@@ -43,14 +41,14 @@ export class CategoryHelper {
     }
   }
 
-  public setTreeDepth(items: CategoryItemNode[], depth: number = 0) {
+  public setTreeDepth(items: CategoryItemNode[], depth: number = 0, position: number = 0) {
     if (items) {
       items.forEach(item => {
-        item.position = this.position++;
+        item.position = position++;
         item.depth = depth;
 
         if (item.children) {
-          this.setTreeDepth(item.children, depth + 1);
+          this.setTreeDepth(item.children, depth + 1, position);
         }
       });
     }

@@ -110,7 +110,5 @@ export class TimeTableComponent implements OnInit {
         this.daysPriceTime[time.day].price += time.price;
       }
     });
-
-    console.log(this.daysPriceTime);
   }
 }

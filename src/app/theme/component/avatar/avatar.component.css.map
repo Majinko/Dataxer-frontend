@@ -1,7 +1,1 @@
-{
-"version": 3,
-"mappings": "AAAA;;EAEE;AAWF;;EAEE;ACbF,OAAO;EACL,MAAM,EAAE,IAAI;EACZ,KAAK,EAAE,IAAI;EACX,SAAS,EAAE,IAAI;EACf,WAAW,EAAE,IAAI;EACjB,WAAW,EAAE,GAAG;EAChB,MAAM,EAAE,OAAO;EAEf,aAAa,EAAE,GAAG;EAClB,UAAU,EDPW,OAAO",
-"sources": ["../../../../assets/css/import/_variables.scss","avatar.component.scss"],
-"names": [],
-"file": "avatar.component.css"
-}
+{"version":3,"sourceRoot":"","sources":["../../../../assets/css/import/_variables.scss","avatar.component.scss"],"names":[],"mappings":"AAGA;AAAA;AAAA;AAmBA;AAAA;AAAA;AAoBA;AAAA;AAAA;ACxCA;EACE;EACA;EACA;EACA;EACA;EACA;EAEA;EACA,YDLqB;;;ACQvB;EACE;;;AAGF;EACE;;;AAGF;EACE;;;AAGF;EACE;EACA","file":"avatar.component.css"}

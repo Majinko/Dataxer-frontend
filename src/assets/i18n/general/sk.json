@@ -7,5 +7,11 @@
   "invoice": "Faktúra",
   "proforma": "Zálohová faktúra",
   "payed": "Uhradené",
-  "unpaid": "Neuhradené"
+  "unpaid": "Neuhradené",
+  "bill": "Neuhradené",
+  "internal": "Neuhradené",
+  "contribution": "Odvody",
+  "received_credit_note": "Prijatý dobropis",
+  "nondeductible": "Nedaňový náklad",
+  "other": "Iné"
 }

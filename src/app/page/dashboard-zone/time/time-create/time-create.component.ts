@@ -63,6 +63,7 @@ export class TimeCreateComponent implements OnInit {
     this.getLastUserTime();
     this.getLastUsersProject();
     this.changeProjectGetCategories();
+    this.handleFormChange();
   }
 
   prepareForm() {
@@ -86,6 +87,13 @@ export class TimeCreateComponent implements OnInit {
     });
   }
 
+  private handleFormChange() {
+    // handle project ng select change
+    this.formGroup.get('project').valueChanges.subscribe((project) => {
+      this.getLatestProjectCategories(project.id);
+    });
+  }
+
   private getLastUsersProject() {
     this.timeService.getLastUsersProject(this.userService.user.id).subscribe(projects => {
       if (projects.length > 0) {
@@ -99,11 +107,9 @@ export class TimeCreateComponent implements OnInit {
 
   private getLatestProjectCategories(projectId: number) {
     this.timeService.getLatestProjectCategories(projectId).subscribe(categories => {
-      if (categories.length > 0) {
-        this.lastCategories = categories;
+      this.lastCategories = categories;
 
-        this.formGroup.patchValue({category: categories[0]});
-      }
+      this.formGroup.patchValue({category: categories[0]});
     });
   }
 
@@ -138,8 +144,6 @@ export class TimeCreateComponent implements OnInit {
 
   setProject(project: Project) {
     this.formGroup.patchValue({project});
-
-    this.getLatestProjectCategories(project.id);
   }
 
   setCategory(category: CategoryItemNode) {

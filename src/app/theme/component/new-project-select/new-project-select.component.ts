@@ -1,9 +1,10 @@
-import {Component, forwardRef, Input, OnInit} from '@angular/core';
+import {Component, forwardRef, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 import {Project} from '../../../core/models/project';
 import {ProjectService} from '../../../core/services/project.service';
 import {MatDialog} from '@angular/material/dialog';
 import {ProjectCreateComponent} from '../../../page/dashboard-zone/project/project-create/project-create.component';
+import {Contact} from '../../../core/models/contact';
 
 @Component({
   selector: 'app-new-project-select',
@@ -15,10 +16,13 @@ import {ProjectCreateComponent} from '../../../page/dashboard-zone/project/proje
     multi: true
   }]
 })
-export class NewProjectSelectComponent implements ControlValueAccessor, OnInit {
+export class NewProjectSelectComponent implements ControlValueAccessor, OnInit, OnChanges {
   project: Project;
   projects: Project[] = [];
+  allProjects: Project[] = [];
+  selectedClients: Contact[] = [];
 
+  @Input() client: Contact = null;
   @Input() showAddButton: boolean = true;
 
   constructor(
@@ -28,9 +32,9 @@ export class NewProjectSelectComponent implements ControlValueAccessor, OnInit {
   }
 
   onTouched = () => {
-  };
+  }
   onChange = _ => {
-  };
+  }
 
   ngOnInit(): void {
     this.getProjects();
@@ -43,14 +47,44 @@ export class NewProjectSelectComponent implements ControlValueAccessor, OnInit {
     });
   }
 
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.client.currentValue != null && changes.client.firstChange === false) {
+      this.getClientProjects(changes.client.currentValue);
+    }
+  }
+
+  private getClientProjects(client: Contact) {
+    this.projectService.allByClient(client.id).subscribe((projects) => {
+      const p = this.allProjects;
+
+      projects.map((project) => {
+        project.group = client.name;
+      });
+
+      this.projects = [];
+      this.projects = projects.concat(p);
+
+      this.selectedClients.push(client);
+    });
+  }
+
   private getProjects() {
-    this.projectService.all().subscribe(projects => this.projects = projects);
+    this.projectService.all().subscribe((projects) => {
+      this.projects = projects.map(project => {
+        project.group = 'Všetky zákazky';
+
+        return project;
+      });
+
+      this.allProjects = this.projects;
+    });
   }
 
   openDialog() {
     this.dialog.open(ProjectCreateComponent, {
       data: {inModal: true},
-      autoFocus: false
+      autoFocus: false,
+      maxHeight: '90vh'
     });
   }
 
@@ -63,6 +97,10 @@ export class NewProjectSelectComponent implements ControlValueAccessor, OnInit {
   }
 
   writeValue(project: Project) {
+    if (project) {
+      project.fullTitle = project.number + ' ' + project.title;
+    }
+
     this.project = project;
   }
 

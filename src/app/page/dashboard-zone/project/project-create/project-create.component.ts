@@ -1,11 +1,11 @@
-import {Component, OnInit, Optional} from '@angular/core';
+import {Component, Inject, OnInit, Optional} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MessageService} from '../../../../core/services/message.service';
 import {Router} from '@angular/router';
 import {ProjectService} from '../../../../core/services/project.service';
 import {User} from '../../../../core/models/user';
 import {UserService} from '../../../../core/services/user.service';
-import {MatDialogRef} from '@angular/material/dialog';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import {MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter} from '@angular/material-moment-adapter';
 import {APP_DATE_FORMATS} from '../../../../../helper';
@@ -79,7 +79,7 @@ export class ProjectCreateComponent implements OnInit {
   private prepareForm() {
     this.formGroup = this.formBuilder.group({
       title: ['', Validators.required],
-      number: [null, Validators.required],
+      number: null,
       description: '',
       categoryGroup: 'PROJECT',
       contact: null,
