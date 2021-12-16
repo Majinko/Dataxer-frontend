@@ -17,7 +17,6 @@
                    matTreeNodePadding>
       <button mat-icon-button disabled></button>
       <div>
-        {{node.categoryType}}
         <div class="icons" [ngSwitch]="node.categoryType">
           <span *ngSwitchCase="['STUFF_SERVICE_IN_PROJECT_BALANCE', 'SALARY_FOR_PROJECT'].includes(node.categoryType) ? node.categoryType : !node.categoryType">
             <mat-icon>euro_symbol</mat-icon>
