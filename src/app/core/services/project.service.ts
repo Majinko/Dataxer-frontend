@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable, Subject} from 'rxjs';
 import {environment} from '../../../environments/environment';
 import {Project, ProjectEvaluation, ProjectManHours} from '../models/project';
@@ -36,6 +36,20 @@ export class ProjectService extends ResourceService<Project> {
 
   all(): Observable<Project[]> {
     return this.httpClient.get<Project[]>(`${environment.baseUrl}/project/all`).pipe(map(projects => {
+      projects.forEach(project => {
+        project.fullTitle = project.number + ' ' + project.title;
+      });
+
+      return projects;
+    }));
+  }
+
+  allByClient(clientId: number): Observable<Project[]> {
+    let params = new HttpParams();
+
+    params = params.set('clientId', clientId);
+
+    return this.httpClient.get<Project[]>(`${environment.baseUrl}/project/allByClient`, {params}).pipe(map(projects => {
       projects.forEach(project => {
         project.fullTitle = project.number + ' ' + project.title;
       });

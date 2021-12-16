@@ -1,7 +1,7 @@
 <div class="row mb-4">
   <div class="col d-flex align-items-center mb-3">
     <mat-icon routerLink="/price-offer" class="mr-2 mr-md-5 cursor-pointer">keyboard_backspace</mat-icon>
-    <h1 class="mb-0">Uprava cenovej ponuky</h1>
+    <h1 class="mb-0">Úprava kalkulácie</h1>
   </div>
 </div>
 
@@ -26,7 +26,7 @@
     </div>
 
     <div class="col-md-4 form-group">
-      <app-new-project-select formControlName="project"></app-new-project-select>
+      <app-new-project-select [client]="f.contact.value"  formControlName="project"></app-new-project-select>
       <mat-error *ngIf="submitted && f.project.errors" class="mat-error-not-in-field">Projekt je <strong>požadovaný.</strong></mat-error>
     </div>
   </div>

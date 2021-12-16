@@ -104,7 +104,7 @@ const routes: Routes = [
         path: 'price-offer',
         //canActivate: [NgxPermissionsGuard],
         data: {
-          godButtonTitle: 'Nová cenová ponuka',
+          godButtonTitle: 'Nová kalkulácia',
           gotButtonRouteLink: '/price-offer/create',
           permissions: {
             only: 'Document'

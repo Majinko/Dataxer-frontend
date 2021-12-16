@@ -6,10 +6,8 @@
              [clearable]="false"
              [searchable]="true"
              [(ngModel)]="project"
+             groupBy="group"
              (change)="selectProject($event)">
-    <ng-template ng-label-tmp let-item="item">
-      <span >{{ (item.number ?? '') + ' ' + item.title }}</span>
-    </ng-template>
   </ng-select>
   <mat-icon *ngIf="showAddButton" class="text-gray md-f-s position-absolute btn-add" (click)="openDialog()">add</mat-icon>
 </div>

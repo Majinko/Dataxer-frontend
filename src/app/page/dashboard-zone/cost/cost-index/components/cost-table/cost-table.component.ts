@@ -7,6 +7,8 @@ import {Router} from '@angular/router';
 import {PaginateClass} from '../../../../../../core/class/PaginateClass';
 import {MatDialog} from '@angular/material/dialog';
 import {sum} from '../../../../../../../helper';
+import {PaymentDialogComponent} from "../../../../../../theme/component/payments/components/payment-dialog/payment-dialog.component";
+import {PaymentService} from "../../../../../../core/services/payment.service";
 
 @Component({
   selector: 'app-cost-table',
@@ -32,6 +34,7 @@ export class CostTableComponent extends PaginateClass<Cost> implements AfterView
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
   constructor(
+    private paymentService: PaymentService,
     public costService: CostService,
     public messageService: MessageService,
     public router: Router,
@@ -46,6 +49,10 @@ export class CostTableComponent extends PaginateClass<Cost> implements AfterView
         this.totalPrice = sum(this.data, 'price');
       }
     });
+
+    this.paymentService.newPayment.subscribe(() => {
+      this.paginate();
+    });
   }
 
   showCost(cost: Cost) {
@@ -59,5 +66,17 @@ export class CostTableComponent extends PaginateClass<Cost> implements AfterView
   getCostPrice() {
     console.log(this.data);
     return;
+  }
+
+  showPaymentDialog(documentId: number, documentType: string) {
+    this.dialog.open(PaymentDialogComponent, {
+      width: '100%',
+      maxWidth: '500px',
+      autoFocus: false,
+      data: {
+        documentId,
+        documentType
+      }
+    });
   }
 }

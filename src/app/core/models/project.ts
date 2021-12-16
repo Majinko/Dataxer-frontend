@@ -12,6 +12,7 @@ export interface Project {
   area: number;
   projectProfit: number;
   fullTitle?: string;
+  group?: string;
   startedAt: Date;
   finishedAt: Date;
 
