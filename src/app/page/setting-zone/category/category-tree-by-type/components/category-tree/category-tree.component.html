@@ -17,34 +17,33 @@
                    matTreeNodePadding>
       <button mat-icon-button disabled></button>
       <div>
-        {{node.categoryType}}
         <div class="icons" [ngSwitch]="node.categoryType">
-          <span *ngSwitchCase="node.categoryType === 'STUFF_SERVICE_IN_PROJECT_BALANCE' ||  node.categoryType === 'SALARY_FOR_PROJECT'">
+          <span *ngSwitchCase="['STUFF_SERVICE_IN_PROJECT_BALANCE', 'SALARY_FOR_PROJECT'].includes(node.categoryType) ? node.categoryType : !node.categoryType">
             <mat-icon>euro_symbol</mat-icon>
             <mat-icon>layers</mat-icon>
           </span>
 
-          <span *ngSwitchCase="node.categoryType === 'STUFF_SERVICE_IN_OPERATING_COST_COMPANY' || node.categoryType === 'SALARY_FOR_COMPANY' || node.categoryType == 'STUFF_SERVICE_FOR_COMPANY'">
+          <span *ngSwitchCase="['STUFF_SERVICE_IN_OPERATING_COST_COMPANY', 'SALARY_FOR_COMPANY', 'STUFF_SERVICE_FOR_COMPANY'].includes(node.categoryType) ? node.categoryType : !node.categoryType">
             <mat-icon>euro_symbol</mat-icon>
             <mat-icon>work_outline</mat-icon>
           </span>
 
-          <span *ngSwitchCase="node.categoryType === 'TIME_CAPITAL_IN_PROJECT'">
+          <span *ngSwitchCase="'TIME_CAPITAL_IN_PROJECT'">
             <mat-icon>query_builder</mat-icon>
             <mat-icon>layers</mat-icon>
           </span>
 
-          <span *ngSwitchCase="node.categoryType === 'TIME_NO_CAPITAL_IN_PROJECT' ||  node.categoryType === 'TIME_FOR_COMPANY'">
+          <span *ngSwitchCase="['TIME_NO_CAPITAL_IN_PROJECT', 'TIME_FOR_COMPANY'].includes(node.categoryType) ? node.categoryType : !node.categoryType">
             <mat-icon>query_builder</mat-icon>
             <mat-icon>work_outline</mat-icon>
           </span>
 
-          <span *ngSwitchCase="node.categoryType === 'TIME_AFTER_PROJECT_END'">
+          <span *ngSwitchCase="'TIME_AFTER_PROJECT_END'">
             <mat-icon>query_builder</mat-icon>
             <mat-icon>build_circle</mat-icon>
           </span>
 
-          <span *ngSwitchCase="node.categoryType === 'STUFF_SERVICE_NOT_IN_COST'">
+          <span *ngSwitchCase="'STUFF_SERVICE_NOT_IN_COST'">
             <mat-icon>euro_symbol</mat-icon>
             <mat-icon>work_off</mat-icon>
           </span>
