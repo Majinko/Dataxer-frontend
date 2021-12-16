@@ -21,7 +21,7 @@ export class MessageComponent implements OnInit {
   }
 
   openSnackBar(message: string) {
-    this.snackBar.open(message, 'close', {
+    this.snackBar.open(message, 'Zatvoriť', {
       duration: this.durationInSeconds * 1000
     });
   }
