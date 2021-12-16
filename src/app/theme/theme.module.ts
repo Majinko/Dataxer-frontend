@@ -41,6 +41,8 @@ import {ChatComponent} from './component/chat/chat.component';
 import {CategorySelectGroupComponent} from './component/category-select-group/category-select-group.component';
 import { DateRangeDialogComponent } from './component/date-range-dialog/date-range-dialog.component';
 import { CategoryTreeControlComponent } from './component/category-tree-control/category-tree-control.component';
+import {DndDirective} from '../core/directives/dnd.directive';
+import { UploadFilesComponent } from './component/upload-files/upload-files.component';
 
 @NgModule({
   imports: [
@@ -75,6 +77,7 @@ import { CategoryTreeControlComponent } from './component/category-tree-control/
     SpinnerButtonComponent,
     ElementPaidStateComponent,
     FileComponent,
+    DndDirective,
     PaymentsComponent,
     PaymentDialogComponent,
     PaymentDialogStoreComponent,
@@ -89,30 +92,33 @@ import { CategoryTreeControlComponent } from './component/category-tree-control/
     CategorySelectGroupComponent,
     DateRangeDialogComponent,
     CategoryTreeControlComponent,
+    UploadFilesComponent,
   ],
-    exports: [
-        DrawerComponent,
-        ToolbarComponent,
-        MessageComponent,
-        ItemAutocompleteComponent,
-        NewContactSelectComponent,
-        PackAutocompleteComponent,
-        DocumentPackComponent,
-        SlovakiaDigitalAutocompleteComponent,
-        NewProjectSelectComponent,
-        NewCategorySelectComponent,
-        SpinnerButtonComponent,
-        ElementPaidStateComponent,
-        FileComponent,
-        PaymentsComponent,
-        DocumentRelationComponent,
-        MenuTabComponent,
-        NestedCategoriesComponent,
-        PhotoUploaderComponent,
-        ChatComponent,
-        CategorySelectGroupComponent,
-        CategoryTreeControlComponent,
-    ]
+  exports: [
+    DrawerComponent,
+    ToolbarComponent,
+    MessageComponent,
+    ItemAutocompleteComponent,
+    NewContactSelectComponent,
+    PackAutocompleteComponent,
+    DocumentPackComponent,
+    SlovakiaDigitalAutocompleteComponent,
+    NewProjectSelectComponent,
+    NewCategorySelectComponent,
+    SpinnerButtonComponent,
+    ElementPaidStateComponent,
+    FileComponent,
+    DndDirective,
+    PaymentsComponent,
+    DocumentRelationComponent,
+    MenuTabComponent,
+    NestedCategoriesComponent,
+    PhotoUploaderComponent,
+    ChatComponent,
+    CategorySelectGroupComponent,
+    CategoryTreeControlComponent,
+    UploadFilesComponent,
+  ]
 })
 export class ThemeModule {
 }

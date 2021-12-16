@@ -29,6 +29,22 @@
   }
 }
 
+.mat-form-field.form-pack-price-offer-create {
+  border-color: #e5e5e5;
+}
+
+.mat-form-field.fileover {
+  border: 1px dashed #e5e5e5;
+  padding: 2px 5px;
+  background-color: #f9fafb;
+  margin: -3px -6px;
+  width: calc(100% + 12px) !important;
+
+}
+app-upload-files .mat-form-field-appearance-fill.fileover .mat-form-field-flex {
+  background-color: #f9fafb;
+}
+
 // list item
 mat-list-item:hover {
   background: rgba(0, 0, 0, .04);
@@ -52,12 +68,12 @@ mat-list-item:hover {
 
 // category
 .category-wrap {
-  .mat-icon-button{
+  .mat-icon-button {
     transition: none;
   }
 
   .mat-tree-node.cdk-tree-node {
-    .not-visible{
+    .not-visible {
       visibility: hidden !important;
     }
 
@@ -73,10 +89,64 @@ mat-list-item:hover {
 
 
 // form
-.option-with-questionnaire{
-  .mat-radio-label-content{
+.option-with-questionnaire {
+  .mat-radio-label-content {
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+}
+
+app-upload-files {
+  display: block;
+  width: 100%;
+
+  .mat-form-field-appearance-fill .mat-form-field-flex {
+    background-color: #fff;
+    padding-left: 0;
+    padding-right: 0;
+    padding-bottom: 8px;
+  }
+
+  .mat-form-field {
+    width: 100%;
+  }
+
+  .mat-form-field-wrapper {
+    position: relative;
+  }
+
+  .mat-form-field-infix > .mat-chip-list > .mat-chip-list-wrapper {
+    margin-top: 0;
+    margin-bottom: -14px;
+    padding-right: 35px;
+    & > label {
+      display: flex;
+      justify-content: flex-end;
+      position: absolute;
+      top: -20px;
+      left: -12px;
+      right: -12px;
+      bottom: 0;
+      margin: auto;
+      z-index: 1;
+      .mat-icon {
+        position: absolute;
+        bottom: 0;
+        right: 10px;
+      }
+    }
+  }
+
+  .mat-chip {
+    position: relative;
+    z-index: 2;
+    .file-size {
+      padding-left: 10px;
+      color: rgba(0,0,0,.47);
+    }
+  }
+  .mat-form-field-appearance-fill:not(.mat-form-field-disabled) .mat-form-field-flex:hover ~ .mat-form-field-underline .mat-form-field-ripple {
+    opacity: 0;
   }
 }

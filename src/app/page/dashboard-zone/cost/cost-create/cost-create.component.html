@@ -136,10 +136,7 @@
     </div>
 
     <div class="col-md-4 form-group">
-      <mat-form-field class="form-pack-price-offer-create w-100">
-        <ngx-mat-file-input (change)="uploadHelper.uploadFile($event.target.files)" placeholder="Súbory nákladu" multiple></ngx-mat-file-input>
-        <mat-icon matSuffix class="cursor-pointer">image</mat-icon>
-      </mat-form-field>
+      <app-upload-files></app-upload-files>
     </div>
   </div>
 

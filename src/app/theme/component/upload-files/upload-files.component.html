@@ -1,0 +1,14 @@
+<mat-form-field class="example-chip-list" (fileDropped)="uploadFiles($event)" appDnd appearance="fill">
+  <mat-label>Súbory nákladu</mat-label>
+  <mat-chip-list #chipList aria-label="Fruit selection">
+    <mat-chip *ngFor="let file of files; let i = index" (removed)="remove(i)">
+      {{file.fileName}}
+      <span class="file-size">{{ formatBytes(file?.size, 2) }}</span>
+      <mat-icon matChipRemove>cancel</mat-icon>
+    </mat-chip>
+    <label for="fileDropRef">
+      <mat-icon matSuffix class="cursor-pointer">image</mat-icon>
+    </label>
+    <input id="fileDropRef" (change)="uploadFiles($event.target.files)" class="d-none" multiple type="file" [matChipInputFor]="chipList">
+  </mat-chip-list>
+</mat-form-field>
