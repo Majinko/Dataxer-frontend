@@ -28,6 +28,34 @@ import firebase from 'firebase';
   providers: [ChecklistDatabase]
 })
 export class CategoryTreeComponent implements OnInit, OnChanges {
+  // todo trochu upravit alebo dat inam, mozno nejaka pypes aby to bolo pouzitelne vsade ????
+  categoryTypeIcons: {key: string[], icons: string[]}[] = [
+    {
+      key: ['STUFF_SERVICE_IN_PROJECT_BALANCE', 'SALARY_FOR_PROJECT'],
+      icons: ['euro_symbol', 'layers']
+    },
+    {
+      key: ['STUFF_SERVICE_IN_OPERATING_COST_COMPANY', 'SALARY_FOR_COMPANY', 'STUFF_SERVICE_FOR_COMPANY'],
+      icons: ['euro_symbol', 'work_outline']
+    },
+    {
+      key: ['TIME_CAPITAL_IN_PROJECT'],
+      icons: ['query_builder', 'layers']
+    },
+    {
+      key: ['TIME_NO_CAPITAL_IN_PROJECT', 'TIME_FOR_COMPANY'],
+      icons: ['query_builder', 'work_outline']
+    },
+    {
+      key: ['TIME_AFTER_PROJECT_END'],
+      icons: ['query_builder', 'build_circle']
+    },
+    {
+      key: ['STUFF_SERVICE_NOT_IN_COST'],
+      icons: ['euro_symbol', 'work_off']
+    },
+  ];
+
   @Input() categories: CategoryItemNode[] = [];
 
   /** All category load ? */
