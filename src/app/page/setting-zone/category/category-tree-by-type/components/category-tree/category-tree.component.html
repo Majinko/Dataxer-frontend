@@ -16,8 +16,8 @@
                    matTreeNodeToggle
                    matTreeNodePadding>
       <button mat-icon-button disabled></button>
-      <div>
-        <div class="icons" [ngSwitch]="node.categoryType">
+      <div class="d-flex align-items-center justify-content-center">
+        <div class="icons mr-3 l-h-0" [ngSwitch]="node.categoryType">
           <span *ngSwitchCase="['STUFF_SERVICE_IN_PROJECT_BALANCE', 'SALARY_FOR_PROJECT'].includes(node.categoryType) ? node.categoryType : !node.categoryType">
             <mat-icon>euro_symbol</mat-icon>
             <mat-icon>layers</mat-icon>

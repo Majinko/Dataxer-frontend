@@ -111,6 +111,10 @@ h2 {
   visibility: hidden !important;
 }
 
+.l-h-0 {
+  line-height: 0 !important;
+}
+
 /*
 * === Grid ===
 */
@@ -737,6 +741,10 @@ mat-list-item:hover {
 
 .menu-not-rounded .mat-menu-item {
   border-radius: 0 !important;
+}
+
+.mat-snack-bar-container .mat-button {
+  color: #19A5E5 !important;
 }
 
 /*.mat-table:not(.no-borderless) .mat-row:nth-child(odd) {

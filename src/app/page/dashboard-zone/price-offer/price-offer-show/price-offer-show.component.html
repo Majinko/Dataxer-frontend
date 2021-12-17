@@ -30,6 +30,10 @@
             <button mat-menu-item [routerLink]="['/invoice/create-from-proforma', 'PROFORMA', priceOffer.id]">
               <span>Vystaviť zálohovú faktúru</span>
             </button>
+
+            <button mat-menu-item [routerLink]="['/invoice/create', 'SUMMARY_INVOICE', priceOffer.id, 'priceOffer']">
+              <span>Vystaviť vyúčtovaciu faktúru</span>
+            </button>
           </mat-menu>
         </div>
       </div>
