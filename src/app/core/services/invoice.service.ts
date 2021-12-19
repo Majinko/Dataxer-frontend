@@ -54,8 +54,8 @@ export class InvoiceService extends ResourceService<Invoice> {
     return this.httpClient.get<Invoice>(`${environment.baseUrl}/invoice/tax-invoice/${id}`);
   }
 
-  summaryInvoice(id: number): Observable<Invoice> {
-    return this.httpClient.get<Invoice>(`${environment.baseUrl}/invoice/summary-invoice/${id}`);
+  summaryInvoice(id: number, type: string = null): Observable<Invoice> {
+    return this.httpClient.get<Invoice>(`${environment.baseUrl}/invoice/summary-invoice/${type ? type + '/' : ''}${id}`);
   }
 
   pdf(id: number): Observable<any> {

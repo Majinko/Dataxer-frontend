@@ -117,7 +117,7 @@ export class InvoiceCreateComponent implements OnInit {
             this.pathFromOldObject(invoice);
           });
         } else if (this.route.snapshot.paramMap.get('type') === 'SUMMARY_INVOICE') {
-          this.invoiceService.summaryInvoice(+this.route.snapshot.paramMap.get('id')).subscribe(invoice => {
+          this.invoiceService.summaryInvoice(+this.route.snapshot.paramMap.get('id'), this.route.snapshot.paramMap.get('fromType')).subscribe(invoice => {
             this.pathFromOldObject(invoice);
           });
         } else {
