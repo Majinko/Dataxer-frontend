@@ -36,7 +36,7 @@ export class RoleIndexComponent implements OnInit {
 
   getAll() {
     this.roleService.getAll().subscribe(roles => {
-      this.roles = roles;
+      this.roles = roles.filter((r) => r.name !== 'ROLE_ADMIN');
     });
   }
 
