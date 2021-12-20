@@ -242,7 +242,7 @@ export class FilterClass {
       });
     }
 
-    if (this.model === 'time') {
+    if (this.model !== 'cost') {
       this.filterForm.patchValue({
         month: this.months[0]
       });
