@@ -889,7 +889,7 @@ table tbody th.space {
   border-bottom: 3px solid #19A5E5;
 }
 .table-wrap .table-hover-gray:hover {
-  background-color: rgba(0, 0, 0, 0.05) !important;
+  background-color: rgba(0, 0, 0, 0.02) !important;
 }
 .table-wrap.no-border-bottom tbody {
   border-bottom: none !important;
