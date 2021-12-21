@@ -22,6 +22,7 @@ export class PriceOfferTableComponent extends PaginateClass<PriceOffer> implemen
   destroyMsg = 'Cenová ponuka bola odstránená';
   displayedColumns: string[] = [
     'id',
+    'title',
     'client',
     'action',
     'created',
