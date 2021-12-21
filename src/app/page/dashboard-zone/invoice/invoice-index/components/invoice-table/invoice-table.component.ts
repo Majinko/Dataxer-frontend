@@ -35,7 +35,7 @@ export class InvoiceTableComponent extends PaginateClass<Invoice> implements OnI
   ngAfterViewInit() {
     this.paginateFinish.subscribe((value) => {
       if (value === true) {
-        this.totalPrice = sum(this.data, 'price');
+        this.totalPrice = sum(this.data.filter((invoice) => invoice.documentType !== 'PRICE_OFFER'), 'price');
       }
     });
   }
