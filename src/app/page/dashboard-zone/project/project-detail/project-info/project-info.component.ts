@@ -67,7 +67,9 @@ export class ProjectInfoComponent implements OnInit {
 
     this.invoiceService.findAllByProject(+this.route.snapshot.paramMap.get('id'), companyIds).subscribe(invoices => {
       this.requestDone += 1;
-      this.invoices = invoices.filter(i => i.documentType === 'INVOICE');
+      this.invoices = invoices
+        .filter(i => i.documentType === 'INVOICE')
+        .sort((a, b) =>  +b.id - +a.id);
 
       this.payedInvoices = this.invoices.filter(i => i.paymentDate != null);
       this.noPayedInvoices = this.invoices.filter(i => i.paymentDate === null);
@@ -76,7 +78,7 @@ export class ProjectInfoComponent implements OnInit {
     });
 
     this.costService.findAllByProject(+this.route.snapshot.paramMap.get('id'), companyIds).subscribe(costs => {
-      this.costs = costs;
+      this.costs = costs.sort((a, b) =>  +b.id - +a.id);
 
       this.requestDone += 1;
 
@@ -87,7 +89,7 @@ export class ProjectInfoComponent implements OnInit {
     });
 
     this.priceOfferService.findAllByProject(+this.route.snapshot.paramMap.get('id'), companyIds).subscribe(priceOffers => {
-      this.priceOffers = priceOffers;
+      this.priceOffers = priceOffers.sort((a, b) =>  +b.id - +a.id);
 
       this.requestDone += 1;
 
