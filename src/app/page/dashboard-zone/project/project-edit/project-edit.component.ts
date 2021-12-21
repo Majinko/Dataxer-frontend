@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ProjectService} from '../../../../core/services/project.service';
 import {MessageService} from '../../../../core/services/message.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Project} from '../../../../core/models/project';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatOptionSelectionChange} from '@angular/material/core';
@@ -55,7 +55,8 @@ export class ProjectEditComponent implements OnInit {
     private projectService: ProjectService,
     private messageService: MessageService,
     private categoryService: CategoryService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router,
   ) {
   }
 
@@ -128,7 +129,9 @@ export class ProjectEditComponent implements OnInit {
     }
 
     this.projectService.update(this.formGroup.value).subscribe(() => {
-      this.messageService.add('Zákazka bola aktualizovaná');
+      this.router.navigate(['/project']).then(() => {
+        this.messageService.add('Zákazka bola aktualizovaná');
+      });
     });
   }
 

@@ -30,6 +30,13 @@ export class AuthService {
         }
       })
     );
+
+    this.handleAuthStateChanged();
+  }
+
+  handleAuthStateChanged() {
+    this.afAuth.onAuthStateChanged((user) => {
+    }).then();
   }
 
   logInWithEmail(email: string, password: string) {
@@ -45,24 +52,6 @@ export class AuthService {
   /* registerWithEmail(email: string, password: string): Promise<auth.UserCredential> {
      return this.afAuth.createUserWithEmailAndPassword(email, password);
    }*/
-
-  public updateUserData(user) {
-    const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${user.uid}`);
-
-    const data = {
-      appKey: user.uid,
-      uid: user.uid,
-      email: user.email,
-      fullName: user.displayName,
-      phone: nonUndefined(user.phone),
-      street: nonUndefined(user.street),
-      city: nonUndefined(user.city),
-      postalCode: nonUndefined(user.postalCode),
-      country: nonUndefined(user.country),
-    };
-
-    return userRef.set(data);
-  }
 
   loggedUser() {
     return this.afs.doc<User>(`users/${this.user.uid}`).valueChanges();
