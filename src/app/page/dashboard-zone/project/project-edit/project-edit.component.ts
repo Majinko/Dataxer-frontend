@@ -76,8 +76,8 @@ export class ProjectEditComponent implements OnInit {
       contact: null,
       state: null,
       address: null,
+      projectProfit: 0,
       area: null,
-      projectProfit: [0, Validators.pattern(/^[0-9]\d*$/)],
       startedAt: null,
       finishedAt: null,
       categories: null
