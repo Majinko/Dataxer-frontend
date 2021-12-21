@@ -42,6 +42,8 @@ export class InvoiceService extends ResourceService<Invoice> {
         invoice.dueAtDays = Math.ceil(moment(invoice.dueDate).diff(new Date(), 'days', true));
       });
 
+      data.content =  data.content.sort((a, b) =>  +b.number - +a.number);
+
       return data;
     }));
   }
