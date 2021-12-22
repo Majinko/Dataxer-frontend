@@ -10,8 +10,7 @@ import {ProjectService} from '../../../../../core/services/project.service';
 import {Project, ProjectManHours} from '../../../../../core/models/project';
 import {sum} from '../../../../../../helper';
 import {Company} from '../../../../../core/models/company';
-import {UserService} from "../../../../../core/services/user.service";
-import {CompanyService} from "../../../../../core/services/company.service";
+import {CompanyService} from '../../../../../core/services/company.service';
 
 @Component({
   selector: 'app-project-info',
@@ -67,21 +66,13 @@ export class ProjectInfoComponent implements OnInit {
     });
   }
 
-  private getFilterDataColumnsForInvoices(): string[] {
-    if (!this.companyService.company.isTaxPayer) {
-      return ['INVOICE', 'SUMMARY_INVOICE', 'TAX_DOCUMENT', 'PROFORMA'];
-    }
-
-    return ['INVOICE', 'SUMMARY_INVOICE', 'TAX_DOCUMENT'];
-  }
-
   private getData(companyIds: number[]) {
     this.requestDone = 0;
 
     this.invoiceService.findAllByProject(+this.route.snapshot.paramMap.get('id'), companyIds).subscribe(invoices => {
       this.requestDone += 1;
       this.invoices = invoices
-        .filter(i => this.getFilterDataColumnsForInvoices().includes(i.documentType))
+        .filter(i => ['INVOICE', 'SUMMARY_INVOICE', 'TAX_DOCUMENT'].includes(i.documentType))
         .sort((a, b) => +b.id - +a.id);
 
       this.payedInvoices = this.invoices.filter(i => i.paymentDate != null);
