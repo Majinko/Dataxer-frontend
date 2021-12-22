@@ -14,6 +14,7 @@ import {CategoryItemNode} from '../../../../core/models/category-item-node';
 import {CategoryService} from '../../../../core/services/category.service';
 import {Project} from '../../../../core/models/project';
 import {ProjectService} from '../../../../core/services/project.service';
+import {CompanyService} from "../../../../core/services/company.service";
 
 @Component({
   selector: 'app-cost-create',
@@ -45,6 +46,7 @@ export class CostCreateComponent implements OnInit {
   currencies = CRURRENCIES;
 
   constructor(
+    private companyService: CompanyService,
     public uploadHelper: UploadHelper,
     private formBuilder: FormBuilder,
     private addPercent: AddPercentPipe,
@@ -86,7 +88,7 @@ export class CostCreateComponent implements OnInit {
       taxableSupply: null,
       currency: this.currencies[0].value,
       price: null,
-      tax: 20,
+      tax: this.companyService.company.isTaxPayer ? 20 : 0,
       totalPrice: null,
       paymentMethod: null,
       paymentDate: null,
