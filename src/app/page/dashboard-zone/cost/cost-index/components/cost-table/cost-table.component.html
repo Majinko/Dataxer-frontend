@@ -94,7 +94,7 @@
                   <mat-icon class="text-theme">delete</mat-icon>
                 </button>
 
-                <button onclick="event.stopPropagation();" mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                <button  *ngIf="element.paymentDate === null" onclick="event.stopPropagation();" mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
                   <mat-icon>more_vert</mat-icon>
                 </button>
 
