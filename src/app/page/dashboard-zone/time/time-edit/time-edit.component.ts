@@ -83,6 +83,7 @@ export class TimeEditComponent implements OnInit {
 
   private prepareTimeToUnix() {
     this.formGroup.patchValue({
+      dateWork: moment(this.f.dateWork.value).format('YYYY-MM-DD'),
       timeFrom: moment(this.f.timeFromForUser.value, 'hh:mm').unix(),
       timeTo: moment(this.f.timeToForUser.value, 'hh:mm').unix(),
       time: moment(this.f.timeToForUser.value, 'hh:mm').unix() - moment(this.f.timeFromForUser.value, 'hh:mm').unix()
