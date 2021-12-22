@@ -25,7 +25,6 @@
         <mat-label>Typ nákladu</mat-label>
         <mat-select formControlName="type">
           <mat-option *ngFor="let type of costTypes" value="{{type.key}}">{{type.value}}</mat-option>
-          <mat-option value="OTHER">Iné</mat-option>
         </mat-select>
       </mat-form-field>
     </div>
