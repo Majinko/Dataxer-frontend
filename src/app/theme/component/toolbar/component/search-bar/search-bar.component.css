@@ -1,16 +1,26 @@
 .search-bar {
-  max-width: 620px; }
-  .search-bar mat-icon {
-    top: 50%;
-    margin-top: -12px;
-    margin-left: 15px; }
-  .search-bar .form-control {
-    height: calc(2em + .75rem + 2px);
-    border: 1px solid #DFE1E5;
-    transition: all ease 0.2s;
-    border-radius: 50px; }
-    .search-bar .form-control:focus, .search-bar .form-control:hover {
-      border: 1px solid white;
-      box-shadow: 1px 2px 5px 0px #D3D3D3; }
+  max-width: 620px;
+}
+.search-bar mat-icon {
+  top: 50%;
+  margin-top: -12px;
+}
+.search-bar mat-icon.left-icon {
+  margin-left: 15px;
+}
+.search-bar mat-icon.right-icon {
+  right: 0;
+  margin-right: 15px;
+}
+.search-bar .form-control {
+  height: calc(2em + 0.75rem + 2px);
+  border: 1px solid #DFE1E5;
+  transition: all ease 0.2s;
+  border-radius: 50px;
+}
+.search-bar .form-control:focus, .search-bar .form-control:hover, .search-bar .form-control.active {
+  border: 1px solid white;
+  box-shadow: 1px 2px 5px 0px #D3D3D3;
+}
 
 /*# sourceMappingURL=search-bar.component.css.map */
