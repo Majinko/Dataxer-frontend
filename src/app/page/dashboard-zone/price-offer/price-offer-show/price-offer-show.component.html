@@ -215,7 +215,7 @@
               <p>Zľava {{priceOffer.discount}} %</p>
             </td>
             <td class="text-right">
-              <p>{{priceOffer.discount > 0 ? '-' : ''}}{{priceOffer.discount > 0 && priceOffer.discount != null ? ((priceOffer.totalPrice | addPercent: priceOffer.discount) - priceOffer.totalPrice).toFixed(2)  : 0 | currency:'EUR':'symbol'}} &euro;</p>
+              <p>{{priceOffer.discount > 0 ? '-' : ''}}{{priceOffer.discount > 0 && priceOffer.discount != null ? (((priceOffer.totalPrice | addPercent: priceOffer.discount) - priceOffer.totalPrice).toFixed(2) | currency:'EUR':'symbol')  : 0 | currency:'EUR':'symbol'}}</p>
             </td>
           </tr>
 
