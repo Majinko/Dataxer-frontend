@@ -230,9 +230,11 @@
 
           <tr class="row-summary" *ngFor="let tax of documentHelper.taxResult" appShowHideTax>
             <td class="text-right">
-              <p>DPH {{tax.tax}} %:</p>
+              <p>Základ pre DPH {{tax.tax}} %:</p>
+              <p>Výška DPH {{tax.tax}} %:</p>
             </td>
             <td class="text-right">
+              <p>{{tax.price | removePercent: priceOffer.discount | currency:'EUR':'symbol'}}</p>
               <p>{{tax.totalPrice - tax.price | removePercent: priceOffer.discount | currency:'EUR':'symbol'}}</p>
             </td>
           </tr>

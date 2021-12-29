@@ -48,8 +48,6 @@ export class InvoiceShowComponent implements OnInit {
       this.invoice = invoice;
 
       this.documentHelper.prepareTaxes(invoice.packs.filter(pack => pack.title !== 'Uhradené zálohou'));
-
-      console.log(this.documentHelper.taxResult);
     });
   }
 
