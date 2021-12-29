@@ -240,7 +240,7 @@
               <p>Zľava {{invoice.discount}} %</p>
             </td>
             <td class="text-right">
-              <p>{{invoice.discount > 0 ? '-' : ''}}{{invoice.discount > 0 && invoice.discount != null ? ((invoice.totalPrice | addPercent: invoice.discount) - invoice.totalPrice).toFixed(2)  : 0 | currency:'EUR':'symbol'}}</p>
+              <p>{{invoice.discount > 0 ? '-' : ''}}{{invoice.discount > 0 && invoice.discount != null ? (((invoice.totalPrice | addPercent: invoice.discount) - invoice.totalPrice).toFixed(2) | currency:'EUR':'symbol')  : 0 | currency:'EUR':'symbol'}}</p>
             </td>
           </tr>
 
