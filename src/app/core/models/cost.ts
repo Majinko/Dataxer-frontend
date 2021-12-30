@@ -20,6 +20,7 @@ export interface Cost {
   type: string;
   period: string;
   price: number;
+  currency: string;
   tax: number;
   totalPrice: number;
   dueAtDays: number;

@@ -51,7 +51,6 @@
       <h3 class="text-dark"><b>{{cost.note}}</b></h3>
     </div>
 
-
     <div class="col-12">
       <h2 class="border-bottom-2 pb-2 mb-4">Označenie nákladu</h2>
     </div>
@@ -89,6 +88,31 @@
     <div class="col-md-4">
       <p class="mb-0">Dátum splatnosti:</p>
       <h3 class="text-dark"><b>{{cost.dueDate | date:'dd.MM.y' || '-'}}</b></h3>
+    </div>
+
+
+    <div class="col-12">
+      <h2 class="border-bottom-2 pb-2 mb-4">Suma</h2>
+    </div>
+
+    <div class="col-md-3">
+      <p class="mb-0">Mena:</p>
+      <h3 class="text-dark"><b>{{cost.currency}}</b></h3>
+    </div>
+
+    <div class="col-md-3">
+      <p class="mb-0">Jednotková cena:</p>
+      <h3 class="text-dark"><b>{{cost.price | currency:'EUR':'symbol'}}</b></h3>
+    </div>
+
+    <div class="col-md-3">
+      <p class="mb-0">DPH:</p>
+      <h3 class="text-dark"><b>{{cost.tax}} %</b></h3>
+    </div>
+
+    <div class="col-md-3">
+      <p class="mb-0">Celkom:</p>
+      <h3 class="text-dark"><b>{{cost.totalPrice | currency:'EUR':'symbol'}}</b></h3>
     </div>
 
     <div class="col-12">
