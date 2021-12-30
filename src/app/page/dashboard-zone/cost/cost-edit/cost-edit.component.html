@@ -42,7 +42,7 @@
 
     <div class="row">
       <div class="col-md-4">
-        <mat-checkbox formControlName="isInternal">Interný náklad</mat-checkbox>
+        <mat-checkbox formControlName="isInternal" (change)="getFirmGroupCategories()" #isInternalCheckbox>Firemný náklad</mat-checkbox>
       </div>
     </div>
 
@@ -86,8 +86,8 @@
         <mat-error *ngIf="submitted && f.contact.errors" class="mat-error-not-in-field">Client je <strong>požadovaný.</strong></mat-error>
       </div>
 
-      <div class="col-md-4">
-        <app-new-project-select formControlName="project"></app-new-project-select>
+      <div class="col-md-4" *ngIf="!isInternalCheckbox.checked">
+        <app-new-project-select formControlName="project" ></app-new-project-select>
         <mat-error *ngIf="submitted && f.project.errors" class="mat-error-not-in-field">Projekt je <strong>požadovaný.</strong></mat-error>
       </div>
 

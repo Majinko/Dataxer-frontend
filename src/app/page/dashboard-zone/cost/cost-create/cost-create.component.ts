@@ -3,7 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {COSTSTATES, COSTTYPES} from '../../../../core/data/costs';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import {MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter} from '@angular/material-moment-adapter';
-import {addDays, APP_DATE_FORMATS} from '../../../../../helper';
+import {addDays, APP_DATE_FORMATS, findInvalidControls} from '../../../../../helper';
 import {CRURRENCIES} from '../../../../core/data/currencies';
 import {AddPercentPipe} from '../../../../core/pipes/add-percent.pipe';
 import {UploadHelper} from '../../../../core/class/UploadHelper';
@@ -131,10 +131,13 @@ export class CostCreateComponent implements OnInit {
     if (this.f.isInternal.value === true) {
       this.getInternalCategories();
       this.formGroup.get('project').clearValidators();
+      this.formGroup.get('project').patchValue(null, {emitEvent: false});
     } else {
       this.handleChangeProject();
       this.formGroup.get('project').addValidators(Validators.required);
     }
+
+    this.formGroup.controls.project.updateValueAndValidity({emitEvent: false});
   }
 
   submit() {
