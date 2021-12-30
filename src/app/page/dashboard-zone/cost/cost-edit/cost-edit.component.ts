@@ -8,7 +8,7 @@ import {CRURRENCIES} from '../../../../core/data/currencies';
 import {UploadHelper} from '../../../../core/class/UploadHelper';
 import {AddPercentPipe} from '../../../../core/pipes/add-percent.pipe';
 import {MessageService} from '../../../../core/services/message.service';
-import {addDays, APP_DATE_FORMATS} from '../../../../../helper';
+import {addDays, APP_DATE_FORMATS, findInvalidControls} from '../../../../../helper';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import {MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter} from '@angular/material-moment-adapter';
 import {CategoryService} from '../../../../core/services/category.service';
@@ -117,7 +117,7 @@ export class CostEditComponent implements OnInit {
     });
   }
 
-  private patchCategory(){
+  private patchCategory() {
     if (this.formGroup.dirty === false) { // nastavim to len prvy krat
       this.formGroup.patchValue({
         categories: this.cost.categories[0]
@@ -145,6 +145,8 @@ export class CostEditComponent implements OnInit {
   }
 
   submit() {
+    console.log(findInvalidControls(this.formGroup.controls));
+
     this.formGroup.patchValue({
       categories: [this.formGroup.get('categories').value]
     });
@@ -170,6 +172,11 @@ export class CostEditComponent implements OnInit {
       this.categories = categories;
 
       this.patchCategory(); // po prvy krat sa len nastavuje kategoria
+
+      if (this.formGroup.dirty === false) {
+        this.formGroup.get('project').clearValidators();
+        this.formGroup.get('project').patchValue(null, {emitEvent: false});
+      }
     });
   }
 
