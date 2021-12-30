@@ -62,7 +62,8 @@ export class TimeTableComponent implements OnInit {
         })
       )
       .subscribe(data => {
-        this.times = data;
+        // @ts-ignore
+        this.times = data.sort((a, b) => (b.timeFrom - b.timeTo) - (a.timeFrom - b.timeTo));
 
         this.prepareTimeInDay();
       });
