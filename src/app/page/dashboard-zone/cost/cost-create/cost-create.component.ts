@@ -15,6 +15,7 @@ import {CategoryService} from '../../../../core/services/category.service';
 import {Project} from '../../../../core/models/project';
 import {ProjectService} from '../../../../core/services/project.service';
 import {CompanyService} from "../../../../core/services/company.service";
+import {MatCheckbox} from "@angular/material/checkbox";
 
 @Component({
   selector: 'app-cost-create',
@@ -120,9 +121,20 @@ export class CostCreateComponent implements OnInit {
     });
   }
 
-  // convenience getter for easy access to form fields
-  get f() {
-    return this.formGroup.controls;
+  private getInternalCategories() {
+    this.categoryService.fallByGroupIn(['COMPANY'], false).subscribe((categories) => {
+      this.categories = categories;
+    });
+  }
+
+  getFirmGroupCategories() {
+    if (this.f.isInternal.value === true) {
+      this.getInternalCategories();
+      this.formGroup.get('project').clearValidators();
+    } else {
+      this.handleChangeProject();
+      this.formGroup.get('project').addValidators(Validators.required);
+    }
   }
 
   submit() {
@@ -141,5 +153,10 @@ export class CostCreateComponent implements OnInit {
     this.costService.storeWithFiles(this.formGroup.value, this.uploadHelper.files).subscribe(() => {
       this.router.navigate(['/cost']).then(() => this.messageService.add('Náklad bol pridaný'));
     });
+  }
+
+  // convenience getter for easy access to form fields
+  get f() {
+    return this.formGroup.controls;
   }
 }

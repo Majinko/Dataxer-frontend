@@ -69,10 +69,14 @@ export class CategoryService {
       }));
   }
 
-  fallByGroupIn(groups: string[]): Observable<CategoryItemNode[]> {
+  fallByGroupIn(groups: string[], prepareTree = true): Observable<CategoryItemNode[]> {
     return this.http.get<CategoryItemNode[]>(`${environment.baseUrl}/category/allByGroups?groups=${groups.join(',')}`)
       .pipe(map(categories => {
-        return this.categoryHelper.prepareTree(categories, null);
+        if (!prepareTree) {
+          return this.categoryHelper.prepareOptionTree(categories);
+        } else {
+          return this.categoryHelper.prepareTree(categories, null);
+        }
       }));
   }
 }

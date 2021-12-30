@@ -35,6 +35,7 @@ export class OverviewUserTimeMonthlyComponent implements OnInit {
   }
 
   prepareMonths() {
+    // todo spravit metodu v helper pouziva sa na viacerych miestach
     for (let i = 0; i <= 12; i++) {
       const monthStart: moment.Moment = moment().subtract(i, 'months').startOf('month');
 
