@@ -123,6 +123,8 @@ export class ProjectEditComponent implements OnInit {
   }
 
   submit() {
+    this.prepareCategoriesBeforeStore();
+
     this.submitted = true;
 
     if (this.formGroup.invalid) {
