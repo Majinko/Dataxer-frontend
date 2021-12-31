@@ -72,11 +72,6 @@ export class CategoryTreeControlComponent implements OnInit, OnChanges, ControlV
 
   /** Toggle a leaf to-do item selection. Check all the parents to see if they changed */
   todoLeafItemSelectionToggle(node: CategoryFlatNode, isEdit: boolean = false): void {
-    if (node && node.parent) {
-      // todo ukladam aj parenta aby sa mi lepsie skaldalo optionTree porozmyslat ci je to ok ?
-      this.checklistSelection.toggle(node.parent as CategoryFlatNode);
-    }
-
     this.checklistSelection.toggle(node);
     this.checkAllParentsSelection(node);
 
@@ -178,6 +173,7 @@ export class CategoryTreeControlComponent implements OnInit, OnChanges, ControlV
   }
 
   selectCategory() {
+
     this.onChange(this.checklistSelection.selected);
   }
 }

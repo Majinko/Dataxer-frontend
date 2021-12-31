@@ -100,9 +100,7 @@ export class ProjectCreateComponent implements OnInit {
 
     this.groups.forEach((item) => {
       item.fillCategories.forEach(category => {
-        if (categories.find((existCategory) => existCategory.id === category.id) === undefined) { //todo !categories.includes(category) toto nefungovalo , preverit toto this.checklistSelection.toggle(node.parent as CategoryFlatNode); vracia rovnake objety lebo tiez zrejme nefunguje include
-          categories.push(category);
-        }
+        categories.push(category);
       });
     });
 
@@ -111,7 +109,7 @@ export class ProjectCreateComponent implements OnInit {
 
   submit() {
     this.prepareCategoriesBeforeStore();
-
+    
     this.submitted = true;
 
     if (this.formGroup.invalid) {

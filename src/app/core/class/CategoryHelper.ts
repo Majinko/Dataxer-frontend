@@ -30,17 +30,6 @@ export class CategoryHelper {
 
       items.forEach((item, index) => {
         if (item.parentId === parenId) {
-          if (parent != null){
-            item.parent = {
-              id: parent.id,
-              name: parent.name,
-              depth: parent.depth,
-              position: parent.position,
-              categoryType: parent.categoryType,
-              categoryGroup: parent.categoryGroup,
-            };
-          }
-
           tree[i] = item;
           tree[i].children = this.prepareTree(items, item.id, item);
 
