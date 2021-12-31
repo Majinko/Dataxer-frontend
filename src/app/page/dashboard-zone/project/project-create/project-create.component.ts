@@ -71,8 +71,8 @@ export class ProjectCreateComponent implements OnInit {
       this.categories = nestedCategories;
 
       if (this.categories) {
-        this.groups.forEach((item) => {
-          item.categories = this.categories.filter((c) => c.categoryGroup === item.group);
+        this.groups.forEach((group) => {
+          group.categories = this.categories.filter((c) => c.categoryGroup === group.group);
         });
       }
     });
@@ -100,7 +100,9 @@ export class ProjectCreateComponent implements OnInit {
 
     this.groups.forEach((item) => {
       item.fillCategories.forEach(category => {
-        categories.push(category);
+        if (categories.find((existCategory) => existCategory.id === category.id) === undefined) { //todo !categories.includes(category) toto nefungovalo , preverit toto this.checklistSelection.toggle(node.parent as CategoryFlatNode); vracia rovnake objety lebo tiez zrejme nefunguje include
+          categories.push(category);
+        }
       });
     });
 

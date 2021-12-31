@@ -113,7 +113,9 @@ export class ProjectEditComponent implements OnInit {
 
     this.groups.forEach((item) => {
       item.fillCategories.forEach(category => {
-        categories.push(category);
+        if (categories.find((existCategory) => existCategory.id === category.id) === undefined) {
+          categories.push(category);
+        }
       });
     });
 
@@ -121,7 +123,6 @@ export class ProjectEditComponent implements OnInit {
   }
 
   submit() {
-    this.prepareCategoriesBeforeStore();
     this.submitted = true;
 
     if (this.formGroup.invalid) {

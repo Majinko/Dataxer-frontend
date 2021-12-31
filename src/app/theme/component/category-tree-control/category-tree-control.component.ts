@@ -12,6 +12,7 @@ export interface CategoryFlatNode {
   expandable: boolean;
   categoryGroup: string;
   categoryType: string;
+  parent: CategoryItemNode;
 }
 
 @Component({
@@ -34,6 +35,7 @@ export class CategoryTreeControlComponent implements OnInit, OnChanges, ControlV
       expandable: !!node.children && node.children.length > 0,
       id: node.id,
       name: node.name,
+      parent: node.parent,
       categoryGroup: node.categoryGroup,
       categoryType: node.categoryType,
       level,
@@ -57,6 +59,7 @@ export class CategoryTreeControlComponent implements OnInit, OnChanges, ControlV
 
   onTouched = () => {
   }
+
   onChange = _ => {
   }
 
@@ -69,6 +72,11 @@ export class CategoryTreeControlComponent implements OnInit, OnChanges, ControlV
 
   /** Toggle a leaf to-do item selection. Check all the parents to see if they changed */
   todoLeafItemSelectionToggle(node: CategoryFlatNode, isEdit: boolean = false): void {
+    if (node && node.parent) {
+      // todo ukladam aj parenta aby sa mi lepsie skaldalo optionTree porozmyslat ci je to ok ?
+      this.checklistSelection.toggle(node.parent as CategoryFlatNode);
+    }
+
     this.checklistSelection.toggle(node);
     this.checkAllParentsSelection(node);
 

@@ -23,15 +23,26 @@ export class CategoryHelper {
     }
   }
 
-  public prepareTree(items: CategoryItemNode[], parenId: number): CategoryItemNode[] {
+  public prepareTree(items: CategoryItemNode[], parenId: number, parent: CategoryItemNode = null): CategoryItemNode[] {
     if (items.length > 0) {
       let i = 0;
       const tree: CategoryItemNode[] = [];
 
       items.forEach((item, index) => {
         if (item.parentId === parenId) {
+          if (parent != null){
+            item.parent = {
+              id: parent.id,
+              name: parent.name,
+              depth: parent.depth,
+              position: parent.position,
+              categoryType: parent.categoryType,
+              categoryGroup: parent.categoryGroup,
+            };
+          }
+
           tree[i] = item;
-          tree[i].children = this.prepareTree(items, item.id);
+          tree[i].children = this.prepareTree(items, item.id, item);
 
           i++;
         }

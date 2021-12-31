@@ -56,8 +56,6 @@ export class ProjectInfoComponent implements OnInit {
     this.getProject();
     this.getProjectManHours(null);
     this.handleChangeCompany();
-
-    console.log(this.companyService.company.isTaxPayer);
   }
 
   private getProjectManHours(companyIds: number[]) {
