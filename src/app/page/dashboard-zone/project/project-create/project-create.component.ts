@@ -69,6 +69,7 @@ export class ProjectCreateComponent implements OnInit {
   getAllCategories(groups: string[]) {
     this.categoryService.fallByGroupIn(groups).subscribe((nestedCategories) => {
       this.categories = nestedCategories;
+      console.log(nestedCategories);
 
       this.groups.forEach((item) => {
         item.categories = this.categories.filter((c) => c.categoryGroup === item.group);
