@@ -168,7 +168,7 @@ export class CostEditComponent implements OnInit {
   }
 
   private getInternalCategories() {
-    this.categoryService.fallByGroupIn(['COMPANY'], false).subscribe((categories) => {
+    this.categoryService.fallByGroupIn(['COMPANY', 'SALARY'], false).subscribe((categories) => {
       this.categories = categories;
 
       this.patchCategory(); // po prvy krat sa len nastavuje kategoria

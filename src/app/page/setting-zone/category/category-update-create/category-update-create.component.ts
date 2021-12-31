@@ -40,7 +40,7 @@ export class CategoryUpdateCreateComponent implements OnInit {
       id: null,
       name: ['', Validators.required],
       categoryGroup: 'COMPANY',
-      categoryType: 'SERVICE',
+      categoryType: 'STUFF_SERVICE_FOR_COMPANY',
       parentId: null,
     });
 
@@ -68,7 +68,7 @@ export class CategoryUpdateCreateComponent implements OnInit {
       this.messageService.add(`Kategória bola ${this.category ? 'Upravená' : 'Vytvorená'}`);
 
       if (this.dialogRef === null) {
-        this.router.navigate(['/setting/category/group/TYPE_PROJECT']);
+        this.router.navigate([`/setting/category/group/${this.f.categoryGroup.value}`]);
       }
     });
   }
