@@ -1,13 +1,15 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import {Observable, Subject} from 'rxjs';
 import {Salary} from '../models/salary';
 import {environment} from '../../../environments/environment';
+import {map} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SalaryService {
+  storeOrUpdate = new Subject<boolean>();
 
   constructor(private http: HttpClient) {
   }
@@ -25,10 +27,14 @@ export class SalaryService {
   }
 
   store(salary: Salary): Observable<void> {
-    return this.http.post<void>(`${environment.baseUrl}/salary/store`, salary);
+    return this.http.post<void>(`${environment.baseUrl}/salary/store`, salary).pipe(map(() => {
+      this.storeOrUpdate.next(true);
+    }));
   }
 
   update(salary: Salary): Observable<void> {
-    return this.http.post<void>(`${environment.baseUrl}/salary/update`, salary);
+    return this.http.post<void>(`${environment.baseUrl}/salary/update`, salary).pipe(map(() => {
+      this.storeOrUpdate.next(true);
+    }));
   }
 }

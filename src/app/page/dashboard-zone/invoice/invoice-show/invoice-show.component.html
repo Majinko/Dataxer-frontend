@@ -237,7 +237,7 @@
         <table class="table-summary no-bg-change mt-4 pr-3 w-100">
           <tr class="row-summary">
             <td class="text-right">
-              <p>Zľava {{invoice.discount}} %</p>
+              <p>Zľava {{invoice.discount}} % </p>
             </td>
             <td class="text-right">
               <p>{{invoice.discount > 0 ? '-' : ''}}{{invoice.discount > 0 && invoice.discount != null ? (((invoice.totalPrice | addPercent: invoice.discount) - invoice.totalPrice).toFixed(2) | currency:'EUR':'symbol')  : 0 | currency:'EUR':'symbol'}}</p>
@@ -255,7 +255,7 @@
             </td>
           </tr>
 
-          <tr class="row-summary" *ngIf="invoice.documentType === 'TAX_DOCUMENT'">
+          <tr class="row-summary" *ngIf="['TAX_DOCUMENT', 'SUMMARY_INVOICE'].includes(invoice.documentType)">
             <td class="text-right">
               <p>Uhradená záloha:</p>
             </td>

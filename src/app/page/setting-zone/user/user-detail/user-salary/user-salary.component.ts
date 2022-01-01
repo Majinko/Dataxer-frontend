@@ -34,8 +34,17 @@ export class UserSalaryComponent implements OnInit, OnDestroy {
     this.godButtonService.showModal = true;
     this.godButtonService.component = UserSalaryDialogComponent;
 
+    this.handleUpdateOrStore();
     this.getUserSalaries();
     this.getUser();
+  }
+
+  private handleUpdateOrStore() {
+    this.salaryService.storeOrUpdate.subscribe(() => {
+      this.getUserSalaries();
+
+      this.dialog.closeAll();
+    });
   }
 
   private getUser() {
