@@ -26,7 +26,7 @@ export class AuthService {
 
           return of(this.user);
         } else {
-          return of(null);
+          user.getIdToken(true).then();
         }
       })
     );
