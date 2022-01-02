@@ -2,43 +2,41 @@ import {Injectable} from '@angular/core';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {Observable, of} from 'rxjs';
 import {switchMap} from 'rxjs/operators';
-import {AngularFirestore, AngularFirestoreDocument} from '@angular/fire/firestore';
+import {AngularFirestore} from '@angular/fire/firestore';
 import {User} from '../models/user';
-import {nonUndefined} from '../../../helper';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-
   public user: User;
   user$: Observable<User>;
 
   constructor(
+    private http: HttpClient,
     private afAuth: AngularFireAuth,
     private afs: AngularFirestore,
   ) {
     //// Get auth data, then get firestore user document || null
     this.user$ = this.afAuth.authState.pipe(
-      switchMap(user => {
-        user.getIdToken(true).then();
-
+      switchMap((user) => {
         if (user) {
           this.setUser = user;
 
           return of(this.user);
         } else {
+          user.getIdToken(true).then(token => {
+            console.log(token);
+            this.http.post<void>(`https://securetoken.googleapis.com/v1/token?key=${token}`, null).subscribe((res) => {
+              console.log(res);
+            });
+          });
+
           return of(null);
         }
       })
     );
-
-    this.handleAuthStateChanged();
-  }
-
-  handleAuthStateChanged() {
-    this.afAuth.onAuthStateChanged((user) => {
-    }).then();
   }
 
   logInWithEmail(email: string, password: string) {

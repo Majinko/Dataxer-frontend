@@ -25,7 +25,7 @@ export class AuthGuardService {
       map(user => !!user),
       tap(loggedIn => {
         if (!loggedIn) {
-          this.router.navigate(['/auth/login']);
+          this.router.navigate(['/auth/login']).then();
         }
       })
     );
