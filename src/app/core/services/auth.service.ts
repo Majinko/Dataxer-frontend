@@ -21,7 +21,7 @@ export class AuthService {
     //// Get auth data, then get firestore user document || null
     this.user$ = this.afAuth.authState.pipe(
       switchMap((user) => {
-        user.getIdToken(true).then();
+        //user.getIdToken(true).then();
 
         if (user) {
           this.setUser = user;
