@@ -28,12 +28,12 @@ export class AuthService {
 
           return of(this.user);
         } else {
-          // user.getIdToken(true).then(token => {
-          //   console.log(token);
-          //   this.http.post<void>(`https://securetoken.googleapis.com/v1/token?key=${token}`, null).subscribe((res) => {
-          //     console.log(res);
-          //   });
-          // });
+          user.getIdToken(true).then(token => {
+            console.log(token);
+            this.http.post<void>(`https://securetoken.googleapis.com/v1/token?key=${token}`, null).subscribe((res) => {
+              console.log(res);
+            });
+          });
 
           return of(null);
         }
