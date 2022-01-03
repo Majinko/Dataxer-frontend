@@ -17,8 +17,7 @@ import {DocumentHelper} from '../../../../../../core/class/DocumentHelper';
   templateUrl: './price-offer-table.component.html',
   providers: [DocumentHelper]
 })
-export class PriceOfferTableComponent extends PaginateClass<PriceOffer> implements AfterViewInit {
-  totalPrice: number = 0;
+export class PriceOfferTableComponent extends PaginateClass<PriceOffer> {
   destroyMsg = 'Cenová ponuka bola odstránená';
   displayedColumns: string[] = [
     'id',
@@ -32,14 +31,6 @@ export class PriceOfferTableComponent extends PaginateClass<PriceOffer> implemen
   ];
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-
-  ngAfterViewInit() {
-    this.paginateFinish.subscribe((value) => {
-      if (value === true) {
-        this.totalPrice = sum(this.data, 'price');
-      }
-    });
-  }
 
   constructor(
     public http: HttpClient,

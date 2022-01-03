@@ -158,7 +158,7 @@
       <table class="w-100">
         <tr class="text-right">
           <td class="pb-1">Zľava {{discount.value}} %</td>
-          <td class="pb-1">{{discount.value > 0 ? '-' : ''}}{{ discount.value > 0 ? ((documentHelper.totalPrice | addPercent: discount.value) - documentHelper.totalPrice).toFixed(2) : 0}} €</td>
+          <td class="pb-1">{{discount.value && discount.value > 0 ? '-' : ''}}{{ discount.value > 0 ? ((documentHelper.totalPrice | addPercent: discount.value) - documentHelper.totalPrice).toFixed(2) : 0}} €</td>
         </tr>
 
         <tr class="text-right" appShowHideTax>

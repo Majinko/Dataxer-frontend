@@ -7,8 +7,8 @@ import {Router} from '@angular/router';
 import {PaginateClass} from '../../../../../../core/class/PaginateClass';
 import {MatDialog} from '@angular/material/dialog';
 import {sum} from '../../../../../../../helper';
-import {PaymentDialogComponent} from "../../../../../../theme/component/payments/components/payment-dialog/payment-dialog.component";
-import {PaymentService} from "../../../../../../core/services/payment.service";
+import {PaymentDialogComponent} from '../../../../../../theme/component/payments/components/payment-dialog/payment-dialog.component';
+import {PaymentService} from '../../../../../../core/services/payment.service';
 
 @Component({
   selector: 'app-cost-table',
@@ -16,7 +16,6 @@ import {PaymentService} from "../../../../../../core/services/payment.service";
   styleUrls: ['./cost-table.component.scss']
 })
 export class CostTableComponent extends PaginateClass<Cost> implements AfterViewInit {
-  totalPrice: number = 0;
   displayedColumns: string[] = [
     'title',
     'project',
@@ -44,12 +43,6 @@ export class CostTableComponent extends PaginateClass<Cost> implements AfterView
   }
 
   ngAfterViewInit(): void {
-    this.paginateFinish.subscribe((value) => {
-      if (value === true) {
-        this.totalPrice = sum(this.data, 'price');
-      }
-    });
-
     this.paymentService.newPayment.subscribe(() => {
       this.paginate();
     });
@@ -61,11 +54,6 @@ export class CostTableComponent extends PaginateClass<Cost> implements AfterView
 
   editCost(id: number) {
     this.router.navigate(['/cost/edit', id]).then();
-  }
-
-  getCostPrice() {
-    console.log(this.data);
-    return;
   }
 
   showPaymentDialog(documentId: number, documentType: string) {

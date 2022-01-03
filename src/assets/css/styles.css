@@ -647,6 +647,10 @@ button.btn-theme-stroked, .btn.btn-theme-stroked {
   color: #4b330f !important;
 }
 
+.text-red-danger {
+  color: #D0021B !important;
+}
+
 .text-green-light {
   color: #ade2dc !important;
 }
@@ -662,8 +666,16 @@ button.btn-theme-stroked, .btn.btn-theme-stroked {
   background: #D0021B !important;
 }
 
+.bg-red-danger {
+  background: #D0021B !important;
+}
+
 .bg-unpaid {
   background: #D0021B !important;
+}
+
+.bg-yellow {
+  background: #F59A22 !important;
 }
 
 .bg-waiting {

@@ -13,6 +13,7 @@ export class PaginateClass<T> {
   pageSize: number = 15;
   pageIndex: number = 0;
   totalElements: number;
+  totalPrice: number;
   isLoadingResults: boolean = false;
   data: T[];
 
@@ -46,6 +47,7 @@ export class PaginateClass<T> {
             this.isLoadingResults = false;
           }, 1);
 
+          this.totalPrice = data.totalPrice ?? 0;
           this.totalElements = data.totalElements;
 
           return data.content;

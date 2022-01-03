@@ -8,6 +8,7 @@ import {map} from 'rxjs/operators';
 import {ResourceService} from '../class/ResourceService';
 import {Serializer} from '../models/serializers/Serializer';
 import {HttpClient} from '@angular/common/http';
+import {sum} from '../../../helper';
 
 @Injectable({
   providedIn: 'root'
@@ -39,6 +40,7 @@ export class InvoiceService extends ResourceService<Invoice> {
   paginate(page: number, size: number): Observable<Paginate<Invoice>> {
     return this.httpClient.get<Paginate<Invoice>>(`${environment.baseUrl}/invoice/paginate?page=${page}&size=${size}${this.rsqlFilter ? '&filters=' + this.rsqlFilter : ''}`).pipe(map(data => {
       data.content.forEach(invoice => {
+        invoice.paymentPrice =  sum(invoice.payments, 'payedValue');
         invoice.dueAtDays = Math.ceil(moment(invoice.dueDate).diff(new Date(), 'days', true));
       });
 

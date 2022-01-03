@@ -75,6 +75,7 @@ export class InvoiceCreateComponent implements OnInit {
       contact: [null, Validators.required],
       project: [null, Validators.required],
       documentType: null,
+      state: 'UNPAID',
       title: ['', Validators.required],
       subject: null,
       number: ['', Validators.required],

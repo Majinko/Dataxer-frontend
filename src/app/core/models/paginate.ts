@@ -1,5 +1,6 @@
 export interface Paginate<T> {
   content: T[];
+  totalPrice: number;
   totalElements: number;
 }
 
