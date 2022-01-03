@@ -84,7 +84,7 @@ export class DocumentHelper {
 
     if (tAxResult !== undefined) {
       if (isItem) {
-        tAxResult.price += +this.removePercent(+item.price, +item.discount);
+        tAxResult.price += +this.removePercent(+item.price * +item.qty, +item.discount);
         tAxResult.totalPrice += +this.removePercent(+item.totalPrice, +item.discount);
       } else {
         tAxResult.price += +item.price;

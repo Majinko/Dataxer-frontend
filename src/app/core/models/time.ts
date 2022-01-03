@@ -15,4 +15,5 @@ export interface Time {
   km: number;
   day: number;
   dateWork: Date;
+  createdDate: Date;
 }

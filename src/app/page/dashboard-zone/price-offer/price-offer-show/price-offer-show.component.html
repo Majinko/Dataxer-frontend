@@ -30,6 +30,10 @@
             <button mat-menu-item [routerLink]="['/invoice/create-from-proforma', 'PROFORMA', priceOffer.id]">
               <span>Vystaviť zálohovú faktúru</span>
             </button>
+
+            <button mat-menu-item [routerLink]="['/invoice/create', 'SUMMARY_INVOICE', priceOffer.id, 'priceOffer']">
+              <span>Vystaviť vyúčtovaciu faktúru</span>
+            </button>
           </mat-menu>
         </div>
       </div>
@@ -211,13 +215,13 @@
               <p>Zľava {{priceOffer.discount}} %</p>
             </td>
             <td class="text-right">
-              <p>{{priceOffer.discount > 0 ? '-' : ''}}{{priceOffer.discount > 0 && priceOffer.discount != null ? ((priceOffer.totalPrice | addPercent: priceOffer.discount) - priceOffer.totalPrice).toFixed(2)  : 0 | currency:'EUR':'symbol'}} &euro;</p>
+              <p>{{priceOffer.discount > 0 ? '-' : ''}}{{priceOffer.discount > 0 && priceOffer.discount != null ? (((priceOffer.totalPrice | addPercent: priceOffer.discount) - priceOffer.totalPrice).toFixed(2) | currency:'EUR':'symbol')  : 0 | currency:'EUR':'symbol'}}</p>
             </td>
           </tr>
 
           <tr class="row-summary" appShowHideTax>
             <td class="text-right">
-              <p>Celkom nez DPH:</p>
+              <p>Celkom bez DPH:</p>
             </td>
             <td class="text-right">
               <p>{{priceOffer.price | removePercent: priceOffer.discount | currency:'EUR':'symbol'}}</p>
@@ -226,9 +230,11 @@
 
           <tr class="row-summary" *ngFor="let tax of documentHelper.taxResult" appShowHideTax>
             <td class="text-right">
-              <p>DPH {{tax.tax}} %:</p>
+              <p>Základ pre DPH {{tax.tax}} %:</p>
+              <p>Výška DPH {{tax.tax}} %:</p>
             </td>
             <td class="text-right">
+              <p>{{tax.price | removePercent: priceOffer.discount | currency:'EUR':'symbol'}}</p>
               <p>{{tax.totalPrice - tax.price | removePercent: priceOffer.discount | currency:'EUR':'symbol'}}</p>
             </td>
           </tr>

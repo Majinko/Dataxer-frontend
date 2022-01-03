@@ -71,7 +71,10 @@ export class InvoiceFilterComponent extends FilterClass implements OnInit {
   }
 
   prepareDocumentType() {
-    this.documentTypes = [{key: 'INVOICE', value: 'Faktúra'}, {key: 'PROFORMA', value: 'Zálohová faktúra'}];
+    this.documentTypes = [
+      {key: 'INVOICE', value: 'Faktúra'},
+      {key: 'PROFORMA', value: 'Zálohová faktúra'}
+    ];
   }
 
   private getCompanies() {

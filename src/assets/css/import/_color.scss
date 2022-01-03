@@ -6,6 +6,7 @@ $text-color: (
   'theme': $global-primary-color,
   'red-light': $color-red-light,
   'red-dark': $color-red-dark,
+  'red-danger': $color-danger,
   'green-light' : $color-green-light,
   'green-dark' : $color-green-dark
 );
@@ -22,7 +23,9 @@ $text-color: (
 */
 $bg-colors: (
   'rejected' : $color-danger,
+  'red-danger': $color-danger,
   'unpaid' : $color-danger,
+  'yellow': $color-warning,
   'waiting': $color-warning,
   'approved': $color-success,
   'theeme' : $global-primary-color,

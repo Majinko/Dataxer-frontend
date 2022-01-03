@@ -5,7 +5,7 @@ import {SearchBarService} from '../../../../../../core/services/search-bar.servi
 import {ContactService} from '../../../../../../core/services/contact.service';
 import {ProjectService} from '../../../../../../core/services/project.service';
 import {CompanyService} from '../../../../../../core/services/company.service';
-import {COSTTYPES} from "../../../../../../core/data/costs";
+import {COSTTYPES} from '../../../../../../core/data/costs';
 
 @Component({
   selector: 'app-cost-filter',

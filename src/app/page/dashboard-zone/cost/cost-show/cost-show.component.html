@@ -35,7 +35,10 @@
 
     <div class="col-md-4">
       <p class="mb-0">Zákazka:</p>
-      <h3 class="text-dark cursor-pointer text-underline-hover" [routerLink]="['/project/show', cost.project.id]"><b>{{cost.project.title}}</b></h3>
+      <h3 class="text-dark cursor-pointer text-underline-hover" *ngIf="cost.project; else notCostProject"  [routerLink]="['/project/show', cost.project.id]"><b>{{cost.project.title}}</b></h3>
+      <ng-template #notCostProject>
+        <h3 class="text-dark"><b>Firemný náklad</b></h3>
+      </ng-template>
     </div>
 
     <div class="col-md-4">
@@ -48,7 +51,6 @@
       <h3 class="text-dark"><b>{{cost.note}}</b></h3>
     </div>
 
-
     <div class="col-12">
       <h2 class="border-bottom-2 pb-2 mb-4">Označenie nákladu</h2>
     </div>
@@ -59,12 +61,12 @@
     </div>
 
     <div class="col-md-4">
-      <p class="mb-0">Číslo nákladu:</p>
+      <p class="mb-0">Variabilný symbol:</p>
       <h3 class="text-dark"><b>{{cost.variableSymbol || '-'}}</b></h3>
     </div>
 
     <div class="col-md-4">
-      <p class="mb-0">Číslo nákladu:</p>
+      <p class="mb-0">Konštantný symbol:</p>
       <h3 class="text-dark"><b>{{cost.constantSymbol || '-'}}</b></h3>
     </div>
 
@@ -86,6 +88,31 @@
     <div class="col-md-4">
       <p class="mb-0">Dátum splatnosti:</p>
       <h3 class="text-dark"><b>{{cost.dueDate | date:'dd.MM.y' || '-'}}</b></h3>
+    </div>
+
+
+    <div class="col-12">
+      <h2 class="border-bottom-2 pb-2 mb-4">Suma</h2>
+    </div>
+
+    <div class="col-md-3">
+      <p class="mb-0">Mena:</p>
+      <h3 class="text-dark"><b>{{cost.currency}}</b></h3>
+    </div>
+
+    <div class="col-md-3">
+      <p class="mb-0">Jednotková cena:</p>
+      <h3 class="text-dark"><b>{{cost.price | currency:'EUR':'symbol'}}</b></h3>
+    </div>
+
+    <div class="col-md-3">
+      <p class="mb-0">DPH:</p>
+      <h3 class="text-dark"><b>{{cost.tax}} %</b></h3>
+    </div>
+
+    <div class="col-md-3">
+      <p class="mb-0">Celkom:</p>
+      <h3 class="text-dark"><b>{{cost.totalPrice | currency:'EUR':'symbol'}}</b></h3>
     </div>
 
     <div class="col-12">

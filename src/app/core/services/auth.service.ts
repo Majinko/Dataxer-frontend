@@ -2,30 +2,32 @@ import {Injectable} from '@angular/core';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {Observable, of} from 'rxjs';
 import {switchMap} from 'rxjs/operators';
-import {AngularFirestore, AngularFirestoreDocument} from '@angular/fire/firestore';
+import {AngularFirestore} from '@angular/fire/firestore';
 import {User} from '../models/user';
-import {nonUndefined} from '../../../helper';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-
   public user: User;
   user$: Observable<User>;
 
   constructor(
+    private http: HttpClient,
     private afAuth: AngularFireAuth,
     private afs: AngularFirestore,
   ) {
     //// Get auth data, then get firestore user document || null
     this.user$ = this.afAuth.authState.pipe(
-      switchMap(user => {
+      switchMap((user) => {
         if (user) {
           this.setUser = user;
+          user.getIdToken(true).then();
 
           return of(this.user);
         } else {
+
           return of(null);
         }
       })
@@ -45,24 +47,6 @@ export class AuthService {
   /* registerWithEmail(email: string, password: string): Promise<auth.UserCredential> {
      return this.afAuth.createUserWithEmailAndPassword(email, password);
    }*/
-
-  public updateUserData(user) {
-    const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${user.uid}`);
-
-    const data = {
-      appKey: user.uid,
-      uid: user.uid,
-      email: user.email,
-      fullName: user.displayName,
-      phone: nonUndefined(user.phone),
-      street: nonUndefined(user.street),
-      city: nonUndefined(user.city),
-      postalCode: nonUndefined(user.postalCode),
-      country: nonUndefined(user.country),
-    };
-
-    return userRef.set(data);
-  }
 
   loggedUser() {
     return this.afs.doc<User>(`users/${this.user.uid}`).valueChanges();

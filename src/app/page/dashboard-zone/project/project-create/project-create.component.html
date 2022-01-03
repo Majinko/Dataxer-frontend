@@ -93,7 +93,7 @@
 
     <div class="col-md-6 form-group">
       <mat-form-field class="form-group w-100">
-        <input formControlName="area" matInput placeholder="Rozloha zákazky">
+        <input type="number" formControlName="area" matInput placeholder="Rozloha zákazky">
         <mat-error *ngIf="f.area.errors">Rozloha zákazky musi byt <strong>cislo.</strong></mat-error>
       </mat-form-field>
     </div>
@@ -103,7 +103,7 @@
     <div class="col-12 mb-5" *ngFor="let group of groups">
       <h2 class="border-bottom-2 pb-2 ">{{group.title}}</h2>
 
-      <app-category-tree-control [categories]="group.categories" [(ngModel)]="group.fillCategories" [ngModelOptions]="{standalone: true}" *ngIf="categories.length"></app-category-tree-control>
+      <app-category-tree-control [categories]="group.categories" [(ngModel)]="group.fillCategories" [ngModelOptions]="{standalone: true}" *ngIf="categories && categories.length"></app-category-tree-control>
     </div>
   </div>
 

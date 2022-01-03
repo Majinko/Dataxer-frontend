@@ -5,7 +5,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {DocumentHelper} from '../../../../core/class/DocumentHelper';
 import {InvoiceService} from '../../../../core/services/invoice.service';
 import {UserService} from '../../../../core/services/user.service';
-import {addDays, APP_DATE_FORMATS, findInvalidControls} from '../../../../../helper';
+import {addDays, APP_DATE_FORMATS} from '../../../../../helper';
 import {NumberingService} from '../../../../core/services/numbering.service';
 import {CompanyService} from '../../../../core/services/company.service';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
@@ -75,6 +75,7 @@ export class InvoiceCreateComponent implements OnInit {
       contact: [null, Validators.required],
       project: [null, Validators.required],
       documentType: null,
+      state: 'UNPAID',
       title: ['', Validators.required],
       subject: null,
       number: ['', Validators.required],
@@ -117,7 +118,8 @@ export class InvoiceCreateComponent implements OnInit {
             this.pathFromOldObject(invoice);
           });
         } else if (this.route.snapshot.paramMap.get('type') === 'SUMMARY_INVOICE') {
-          this.invoiceService.summaryInvoice(+this.route.snapshot.paramMap.get('id')).subscribe(invoice => {
+          // tslint:disable-next-line:max-line-length
+          this.invoiceService.summaryInvoice(+this.route.snapshot.paramMap.get('id'), this.route.snapshot.paramMap.get('fromType')).subscribe(invoice => {
             this.pathFromOldObject(invoice);
           });
         } else {

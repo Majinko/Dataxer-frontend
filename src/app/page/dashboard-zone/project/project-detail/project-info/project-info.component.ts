@@ -10,6 +10,7 @@ import {ProjectService} from '../../../../../core/services/project.service';
 import {Project, ProjectManHours} from '../../../../../core/models/project';
 import {sum} from '../../../../../../helper';
 import {Company} from '../../../../../core/models/company';
+import {CompanyService} from '../../../../../core/services/company.service';
 
 @Component({
   selector: 'app-project-info',
@@ -46,6 +47,7 @@ export class ProjectInfoComponent implements OnInit {
     private priceOfferService: PriceOfferService,
     private costService: CostService,
     private route: ActivatedRoute,
+    private companyService: CompanyService
   ) {
   }
 
@@ -67,7 +69,9 @@ export class ProjectInfoComponent implements OnInit {
 
     this.invoiceService.findAllByProject(+this.route.snapshot.paramMap.get('id'), companyIds).subscribe(invoices => {
       this.requestDone += 1;
-      this.invoices = invoices.filter(i => i.documentType === 'INVOICE');
+      this.invoices = invoices
+        .filter(i => ['INVOICE', 'SUMMARY_INVOICE', 'TAX_DOCUMENT'].includes(i.documentType))
+        .sort((a, b) => +b.id - +a.id);
 
       this.payedInvoices = this.invoices.filter(i => i.paymentDate != null);
       this.noPayedInvoices = this.invoices.filter(i => i.paymentDate === null);
@@ -76,7 +80,7 @@ export class ProjectInfoComponent implements OnInit {
     });
 
     this.costService.findAllByProject(+this.route.snapshot.paramMap.get('id'), companyIds).subscribe(costs => {
-      this.costs = costs;
+      this.costs = costs.sort((a, b) => +b.id - +a.id);
 
       this.requestDone += 1;
 
@@ -87,7 +91,7 @@ export class ProjectInfoComponent implements OnInit {
     });
 
     this.priceOfferService.findAllByProject(+this.route.snapshot.paramMap.get('id'), companyIds).subscribe(priceOffers => {
-      this.priceOffers = priceOffers;
+      this.priceOffers = priceOffers.sort((a, b) => +b.id - +a.id);
 
       this.requestDone += 1;
 

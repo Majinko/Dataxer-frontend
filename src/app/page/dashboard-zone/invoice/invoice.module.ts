@@ -32,6 +32,10 @@ const routes: Routes = [{
       component: InvoiceCreateComponent
     },
     {
+      path: 'create/:type/:id/:fromType',
+      component: InvoiceCreateComponent
+    },
+    {
       path: 'create-from-proforma/:type/:id',
       component: InvoiceCreateComponent
     },

@@ -12,6 +12,7 @@ export interface CategoryFlatNode {
   expandable: boolean;
   categoryGroup: string;
   categoryType: string;
+  parent: CategoryItemNode;
 }
 
 @Component({
@@ -34,6 +35,7 @@ export class CategoryTreeControlComponent implements OnInit, OnChanges, ControlV
       expandable: !!node.children && node.children.length > 0,
       id: node.id,
       name: node.name,
+      parent: node.parent,
       categoryGroup: node.categoryGroup,
       categoryType: node.categoryType,
       level,
@@ -57,6 +59,7 @@ export class CategoryTreeControlComponent implements OnInit, OnChanges, ControlV
 
   onTouched = () => {
   }
+
   onChange = _ => {
   }
 
@@ -170,6 +173,7 @@ export class CategoryTreeControlComponent implements OnInit, OnChanges, ControlV
   }
 
   selectCategory() {
+
     this.onChange(this.checklistSelection.selected);
   }
 }

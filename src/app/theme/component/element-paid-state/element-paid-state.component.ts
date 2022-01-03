@@ -9,6 +9,9 @@ export class ElementPaidStateComponent implements OnInit {
   @Input() isPaid: boolean;
   @Input() dueAtDays: number;
 
+  @Input() price: number = 0;
+  @Input() sumPayments: number = 0;
+
   constructor() { }
 
   ngOnInit(): void {

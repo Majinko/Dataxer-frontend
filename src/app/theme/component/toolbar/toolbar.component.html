@@ -6,7 +6,7 @@
           <app-menu-logo class="ml-1 ml-md-0 outline-none"></app-menu-logo>
           <app-search-bar [hidden]="showSearchBar === false || searchBarService.showBar === false" class="w-100 mr-0 mr-sm-3"></app-search-bar>
           <div class="d-flex">
-            <div>
+            <div >
               <small><span class="text-dark mr-2" style="position: relative; top: 1px;">{{companyService.company.name}}</span></small>
               <a *ngxPermissionsOnly="'Settings'" href="#" class="text-gray mr-3 mb-0 d-none d-md-inline t-d-n" mat-icon-button matTooltip="Nastavenie aplikácie" routerLink="/setting/role">
                 <mat-icon>settings</mat-icon>

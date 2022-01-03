@@ -4,7 +4,15 @@
   mat-icon{
     top: 50%;
     margin-top: -12px;
-    margin-left: 15px;
+
+    &.left-icon{
+      margin-left: 15px;
+    }
+
+    &.right-icon{
+      right: 0;
+      margin-right: 15px;
+    }
   }
 
   .form-control{
@@ -13,7 +21,7 @@
     transition: all ease 0.2s;
     border-radius: 50px;
 
-    &:focus, &:hover{
+    &:focus, &:hover, &.active{
       border: 1px solid white;
       box-shadow: 1px 2px 5px 0px #D3D3D3;
     }

@@ -70,9 +70,11 @@ export class ProjectCreateComponent implements OnInit {
     this.categoryService.fallByGroupIn(groups).subscribe((nestedCategories) => {
       this.categories = nestedCategories;
 
-      this.groups.forEach((item) => {
-        item.categories = this.categories.filter((c) => c.categoryGroup === item.group);
-      });
+      if (this.categories) {
+        this.groups.forEach((group) => {
+          group.categories = this.categories.filter((c) => c.categoryGroup === group.group);
+        });
+      }
     });
   }
 
@@ -85,8 +87,8 @@ export class ProjectCreateComponent implements OnInit {
       contact: null,
       state: null,
       address: '',
-      projectProfit: [0, Validators.pattern(/^[0-9]\d*$/)],
-      area: [0, Validators.pattern(/^[0-9]\d*$/)],
+      projectProfit: 0,
+      area: null,
       startedAt: new Date(),
       finishedAt: new Date(),
       categories: null,
@@ -107,7 +109,7 @@ export class ProjectCreateComponent implements OnInit {
 
   submit() {
     this.prepareCategoriesBeforeStore();
-
+    
     this.submitted = true;
 
     if (this.formGroup.invalid) {

@@ -8,7 +8,7 @@ import {CRURRENCIES} from '../../../../core/data/currencies';
 import {UploadHelper} from '../../../../core/class/UploadHelper';
 import {AddPercentPipe} from '../../../../core/pipes/add-percent.pipe';
 import {MessageService} from '../../../../core/services/message.service';
-import {addDays, APP_DATE_FORMATS} from '../../../../../helper';
+import {addDays, APP_DATE_FORMATS, findInvalidControls} from '../../../../../helper';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import {MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter} from '@angular/material-moment-adapter';
 import {CategoryService} from '../../../../core/services/category.service';
@@ -112,18 +112,29 @@ export class CostEditComponent implements OnInit {
       this.projectService.getCategories(project.id).subscribe((categories) => {
         this.categories = categories;
 
-        this.formGroup.patchValue({
-          categories: this.cost.categories[0]
-        });
+        this.patchCategory();
       });
     });
+  }
+
+  private patchCategory() {
+    if (this.formGroup.dirty === false) { // nastavim to len prvy krat
+      this.formGroup.patchValue({
+        categories: this.cost.categories[0]
+      });
+    }
   }
 
   private getCost() {
     this.costService.getById(+this.route.snapshot.paramMap.get('id')).subscribe(cost => {
       this.cost = cost;
 
-      this.handleChangeProject();
+      if (!this.cost.isInternal) {
+        this.handleChangeProject();
+      } else {
+        this.getInternalCategories();
+      }
+
       this.formGroup.patchValue(this.cost);
     });
   }
@@ -134,6 +145,8 @@ export class CostEditComponent implements OnInit {
   }
 
   submit() {
+    console.log(findInvalidControls(this.formGroup.controls));
+
     this.formGroup.patchValue({
       categories: [this.formGroup.get('categories').value]
     });
@@ -152,5 +165,31 @@ export class CostEditComponent implements OnInit {
         this.isLoading = false;
       });
     });
+  }
+
+  private getInternalCategories() {
+    this.categoryService.fallByGroupIn(['COMPANY', 'SALARY'], false).subscribe((categories) => {
+      this.categories = categories;
+
+      this.patchCategory(); // po prvy krat sa len nastavuje kategoria
+
+      if (this.formGroup.dirty === false) {
+        this.formGroup.get('project').clearValidators();
+        this.formGroup.get('project').patchValue(null, {emitEvent: false});
+      }
+    });
+  }
+
+  getFirmGroupCategories() {
+    if (this.f.isInternal.value === true) {
+      this.getInternalCategories();
+      this.formGroup.get('project').clearValidators();
+      this.formGroup.get('project').patchValue(null, {emitEvent: false});
+    } else {
+      this.handleChangeProject();
+      this.formGroup.get('project').addValidators(Validators.required);
+    }
+
+    this.formGroup.controls.project.updateValueAndValidity({emitEvent: false});
   }
 }

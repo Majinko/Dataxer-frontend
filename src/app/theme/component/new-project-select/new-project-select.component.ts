@@ -48,7 +48,7 @@ export class NewProjectSelectComponent implements ControlValueAccessor, OnInit, 
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes.client.currentValue != null && changes.client.firstChange === false) {
+    if (changes.client && changes.client.currentValue != null && changes.client.firstChange === false) {
       this.getClientProjects(changes.client.currentValue);
     }
   }

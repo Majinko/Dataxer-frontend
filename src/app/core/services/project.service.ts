@@ -50,28 +50,33 @@ export class ProjectService extends ResourceService<Project> {
     params = params.set('clientId', clientId);
 
     return this.httpClient.get<Project[]>(`${environment.baseUrl}/project/allByClient`, {params}).pipe(map(projects => {
-      projects.forEach(project => {
-        project.fullTitle = project.number + ' ' + project.title;
-      });
-
-      return projects;
+      return this.prepareProjects(projects);
     }));
   }
 
   allHasCost(): Observable<Project[]> {
-    return this.httpClient.get<Project[]>(`${environment.baseUrl}/project/allHasCost`);
+    return this.httpClient.get<Project[]>(`${environment.baseUrl}/project/allHasCost`).pipe(map(projects => {
+      return this.prepareProjects(projects);
+    }));
   }
 
   allHasInvoice(): Observable<Project[]> {
-    return this.httpClient.get<Project[]>(`${environment.baseUrl}/project/allHasInvoice`);
+    return this.httpClient.get<Project[]>(`${environment.baseUrl}/project/allHasInvoice`)
+      .pipe(map(projects => {
+        return this.prepareProjects(projects);
+      }));
   }
 
   allHasPriceOffer(): Observable<Project[]> {
-    return this.httpClient.get<Project[]>(`${environment.baseUrl}/project/allHasPriceOffer`);
+    return this.httpClient.get<Project[]>(`${environment.baseUrl}/project/allHasPriceOffer`).pipe(map(projects => {
+      return this.prepareProjects(projects);
+    }));
   }
 
   allHasUserTime() {
-    return this.httpClient.get<Project[]>(`${environment.baseUrl}/project/allHasUserTime`);
+    return this.httpClient.get<Project[]>(`${environment.baseUrl}/project/allHasUserTime`).pipe(map(projects => {
+      return this.prepareProjects(projects);
+    }));
   }
 
   getCategories(id: number): Observable<CategoryItemNode[]> {
@@ -91,5 +96,13 @@ export class ProjectService extends ResourceService<Project> {
 
   getEvaluation(id: number): Observable<any> {
     return this.httpClient.get<any>(`${environment.baseUrl}/project/prepareEvaluation/${id}`);
+  }
+
+  private prepareProjects(projects: Project[]): Project[] {
+    projects.forEach(project => {
+      project.fullTitle = project.number + ' ' + project.title;
+    });
+
+    return projects;
   }
 }

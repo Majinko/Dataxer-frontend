@@ -16,4 +16,8 @@ export class SearchBarComponent implements OnInit {
   ngOnInit() {
   }
 
+  resetSearch(searchInput: HTMLInputElement) {
+    searchInput.value = null;
+    this.searchBarService.applyFilter(null);
+  }
 }

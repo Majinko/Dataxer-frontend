@@ -50,12 +50,12 @@ export class CompanyCreateComponent implements OnInit {
   }
 
   setFirmData(firm: SlovakiaDigital) {
-    console.log(firm);
     this.formGroup.patchValue({
       name: firm.name,
       legalForm: firm.legal_form,
       street: firm.formatted_street,
       country: firm.country,
+      city: firm.municipality,
       postalCode: firm.postal_code,
       cin: firm.cin,
       tin: firm.tin,

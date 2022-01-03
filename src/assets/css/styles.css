@@ -111,6 +111,10 @@ h2 {
   visibility: hidden !important;
 }
 
+.l-h-0 {
+  line-height: 0 !important;
+}
+
 /*
 * === Grid ===
 */
@@ -541,7 +545,7 @@ mat-toolbar {
   }
 }
 mat-sidenav-container {
-  height: 100%;
+  height: calc(100vh - 64px);
 }
 mat-sidenav-container mat-sidenav {
   width: 256px;
@@ -643,6 +647,10 @@ button.btn-theme-stroked, .btn.btn-theme-stroked {
   color: #4b330f !important;
 }
 
+.text-red-danger {
+  color: #D0021B !important;
+}
+
 .text-green-light {
   color: #ade2dc !important;
 }
@@ -658,8 +666,16 @@ button.btn-theme-stroked, .btn.btn-theme-stroked {
   background: #D0021B !important;
 }
 
+.bg-red-danger {
+  background: #D0021B !important;
+}
+
 .bg-unpaid {
   background: #D0021B !important;
+}
+
+.bg-yellow {
+  background: #F59A22 !important;
 }
 
 .bg-waiting {
@@ -731,12 +747,32 @@ button.btn-theme-stroked, .btn.btn-theme-stroked {
   display: none !important;
 }
 
+.mat-form-field.form-pack-price-offer-create {
+  border-color: #e5e5e5;
+}
+
+.mat-form-field.fileover {
+  border: 1px dashed #e5e5e5;
+  padding: 2px 5px;
+  background-color: #f9fafb;
+  margin: -3px -6px;
+  width: calc(100% + 12px) !important;
+}
+
+app-upload-files .mat-form-field-appearance-fill.fileover .mat-form-field-flex {
+  background-color: #f9fafb;
+}
+
 mat-list-item:hover {
   background: rgba(0, 0, 0, 0.04);
 }
 
 .menu-not-rounded .mat-menu-item {
   border-radius: 0 !important;
+}
+
+.mat-snack-bar-container .mat-button {
+  color: #19A5E5 !important;
 }
 
 /*.mat-table:not(.no-borderless) .mat-row:nth-child(odd) {
@@ -765,6 +801,55 @@ mat-list-item:hover {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+app-upload-files {
+  display: block;
+  width: 100%;
+}
+app-upload-files .mat-form-field-appearance-fill .mat-form-field-flex {
+  background-color: #fff;
+  padding-left: 0;
+  padding-right: 0;
+  padding-bottom: 8px;
+}
+app-upload-files .mat-form-field {
+  width: 100%;
+}
+app-upload-files .mat-form-field-wrapper {
+  position: relative;
+}
+app-upload-files .mat-form-field-infix > .mat-chip-list > .mat-chip-list-wrapper {
+  margin-top: 0;
+  margin-bottom: -14px;
+  padding-right: 35px;
+}
+app-upload-files .mat-form-field-infix > .mat-chip-list > .mat-chip-list-wrapper > label {
+  display: flex;
+  justify-content: flex-end;
+  position: absolute;
+  top: -20px;
+  left: -12px;
+  right: -12px;
+  bottom: 0;
+  margin: auto;
+  z-index: 1;
+}
+app-upload-files .mat-form-field-infix > .mat-chip-list > .mat-chip-list-wrapper > label .mat-icon {
+  position: absolute;
+  bottom: 0;
+  right: 10px;
+}
+app-upload-files .mat-chip {
+  position: relative;
+  z-index: 2;
+}
+app-upload-files .mat-chip .file-size {
+  padding-left: 10px;
+  color: rgba(0, 0, 0, 0.47);
+}
+app-upload-files .mat-form-field-appearance-fill:not(.mat-form-field-disabled) .mat-form-field-flex:hover ~ .mat-form-field-underline .mat-form-field-ripple {
+  opacity: 0;
 }
 
 .table-show-data th, .table-show-data td {
@@ -881,7 +966,7 @@ table tbody th.space {
   border-bottom: 3px solid #19A5E5;
 }
 .table-wrap .table-hover-gray:hover {
-  background-color: rgba(0, 0, 0, 0.05) !important;
+  background-color: rgba(0, 0, 0, 0.02) !important;
 }
 .table-wrap.no-border-bottom tbody {
   border-bottom: none !important;
@@ -950,6 +1035,37 @@ input::-webkit-inner-spin-button {
 /* Firefox */
 input[type=number] {
   -moz-appearance: textfield;
+}
+
+.apexcharts-legend.position-bottom.apexcharts-align-center, .apexcharts-legend.position-top.apexcharts-align-center {
+  padding-top: 20px !important;
+}
+
+.apexcharts-legend.position-bottom .apexcharts-legend-series, .apexcharts-legend.position-top .apexcharts-legend-series {
+  align-items: flex-start !important;
+}
+.apexcharts-legend.position-bottom .apexcharts-legend-series .apexcharts-legend-marker, .apexcharts-legend.position-top .apexcharts-legend-series .apexcharts-legend-marker {
+  top: 2px !important;
+}
+
+.option-wrap {
+  display: flex;
+}
+
+.color-0 {
+  color: #008ffb;
+}
+
+.color-1 {
+  color: #00e396;
+}
+
+.color-2 {
+  color: #feb019;
+}
+
+.color-3 {
+  color: #ff4560;
 }
 
 .ng-select:not(.filter-ng-select) .ng-select-container .ng-value-container {

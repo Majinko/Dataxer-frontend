@@ -67,11 +67,15 @@ export class UserSalaryDialogComponent implements OnInit {
 
     if (this.data.salary) {
       this.salaryService.update(this.formGroup.value).subscribe(r => {
+        this.messageService.add('Mzda bola aktualizivaná');
+
       }, error => {
         this.messageService.add(error.error.message);
       });
     } else {
       this.salaryService.store(this.formGroup.value).subscribe(r => {
+        this.messageService.add('Mzda bola vytvorená');
+
       }, error => {
         this.messageService.add(error.error.message);
       });

@@ -1,20 +1,21 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { COSTSTATES, COSTTYPES } from '../../../../core/data/costs';
-import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
-import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter } from '@angular/material-moment-adapter';
-import { addDays, APP_DATE_FORMATS } from '../../../../../helper';
-import { CRURRENCIES } from '../../../../core/data/currencies';
-import { AddPercentPipe } from '../../../../core/pipes/add-percent.pipe';
-import { UploadHelper } from '../../../../core/class/UploadHelper';
-import { CostService } from '../../../../core/services/cost.service';
-import { MessageService } from '../../../../core/services/message.service';
-import { Router } from '@angular/router';
-import { CategoryItemNode } from '../../../../core/models/category-item-node';
-import { CategoryService } from '../../../../core/services/category.service';
-import { Project } from '../../../../core/models/project';
-import { ProjectService } from '../../../../core/services/project.service';
-import { FileInputComponent } from 'ngx-material-file-input';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {COSTSTATES, COSTTYPES} from '../../../../core/data/costs';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+import {MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter} from '@angular/material-moment-adapter';
+import {addDays, APP_DATE_FORMATS} from '../../../../../helper';
+import {CRURRENCIES} from '../../../../core/data/currencies';
+import {AddPercentPipe} from '../../../../core/pipes/add-percent.pipe';
+import {UploadHelper} from '../../../../core/class/UploadHelper';
+import {CostService} from '../../../../core/services/cost.service';
+import {MessageService} from '../../../../core/services/message.service';
+import {Router} from '@angular/router';
+import {CategoryItemNode} from '../../../../core/models/category-item-node';
+import {CategoryService} from '../../../../core/services/category.service';
+import {Project} from '../../../../core/models/project';
+import {ProjectService} from '../../../../core/services/project.service';
+import {CompanyService} from '../../../../core/services/company.service';
+import {FileInputComponent} from "ngx-material-file-input";
 
 @Component({
   selector: 'app-cost-create',
@@ -29,8 +30,8 @@ import { FileInputComponent } from 'ngx-material-file-input';
       useClass: MomentDateAdapter,
       deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]
     },
-    { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },
-    { provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS },
+    {provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: {useUtc: true}},
+    {provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS},
     AddPercentPipe
   ],
 })
@@ -46,6 +47,7 @@ export class CostCreateComponent implements OnInit {
   currencies = CRURRENCIES;
 
   constructor(
+    private companyService: CompanyService,
     public uploadHelper: UploadHelper,
     private formBuilder: FormBuilder,
     private addPercent: AddPercentPipe,
@@ -89,7 +91,7 @@ export class CostCreateComponent implements OnInit {
       taxableSupply: null,
       currency: this.currencies[0].value,
       price: null,
-      tax: 20,
+      tax: this.companyService.company.isTaxPayer ? 20 : 0,
       totalPrice: null,
       paymentMethod: null,
       paymentDate: null,
@@ -108,7 +110,7 @@ export class CostCreateComponent implements OnInit {
     this.formGroup.valueChanges.subscribe((value) => {
       this.formGroup.patchValue({
         totalPrice: +this.addPercent.transform(value.price, value.tax)
-      }, { emitEvent: false });
+      }, {emitEvent: false});
     });
   }
 
@@ -121,9 +123,23 @@ export class CostCreateComponent implements OnInit {
     });
   }
 
-  // convenience getter for easy access to form fields
-  get f() {
-    return this.formGroup.controls;
+  private getInternalCategories() {
+    this.categoryService.fallByGroupIn(['COMPANY', 'SALARY'], false).subscribe((categories) => {
+      this.categories = categories;
+    });
+  }
+
+  getFirmGroupCategories() {
+    if (this.f.isInternal.value === true) {
+      this.getInternalCategories();
+      this.formGroup.get('project').clearValidators();
+      this.formGroup.get('project').patchValue(null, {emitEvent: false});
+    } else {
+      this.handleChangeProject();
+      this.formGroup.get('project').addValidators(Validators.required);
+    }
+
+    this.formGroup.controls.project.updateValueAndValidity({emitEvent: false});
   }
 
   submit() {
@@ -144,9 +160,15 @@ export class CostCreateComponent implements OnInit {
     });
   }
 
+
   fileDroppe($event: any, file: FileInputComponent) {
     console.log($event);
     console.log(file);
     this.uploadHelper.uploadFile($event);
+  }
+
+  // convenience getter for easy access to form fields
+  get f() {
+    return this.formGroup.controls;
   }
 }

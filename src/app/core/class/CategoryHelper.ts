@@ -23,7 +23,7 @@ export class CategoryHelper {
     }
   }
 
-  public prepareTree(items: CategoryItemNode[], parenId: number): CategoryItemNode[] {
+  public prepareTree(items: CategoryItemNode[], parenId: number, parent: CategoryItemNode = null): CategoryItemNode[] {
     if (items.length > 0) {
       let i = 0;
       const tree: CategoryItemNode[] = [];
@@ -31,7 +31,7 @@ export class CategoryHelper {
       items.forEach((item, index) => {
         if (item.parentId === parenId) {
           tree[i] = item;
-          tree[i].children = this.prepareTree(items, item.id);
+          tree[i].children = this.prepareTree(items, item.id, item);
 
           i++;
         }

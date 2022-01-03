@@ -6,7 +6,7 @@ import {environment} from '../../../environments/environment';
 import {Project} from '../models/project';
 import {CategoryItemNode} from '../models/category-item-node';
 import {DocumentFilter} from '../models/filters/document-filter';
-import {map} from "rxjs/operators";
+import {map} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +26,9 @@ export class TimeService {
     return this.http.get<Time[]>(`${environment.baseUrl}/time/allForPeriod${this.rsqlFilter ? '?filters=' + this.rsqlFilter : ''}`)
       .pipe(map((times) => {
         times.forEach(time => {
-          time.day = new Date(time.dateWork).getUTCDate();
+          const date = new Date(time.dateWork);
+
+          time.day = +(date.getUTCDate().toString() + date.getUTCMonth().toString() + date.getUTCFullYear().toString());
         });
 
         return times;

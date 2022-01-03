@@ -1,7 +1,15 @@
 <mat-chip-list class="mat-chip-list-stacked" aria-label="Color selection">
-  <mat-chip selected class="d-flex justify-content-center bg-{{isPaid ? 'green-light' : 'red-light'}}">
-      <span class="text-{{isPaid ? 'green-dark' : 'red-dark'}}">
+  <mat-chip *ngIf="isPaid || sumPayments === 0; else hasPayments" selected class="d-flex justify-content-center bg-{{isPaid ? 'green-light' : (dueAtDays < 0 ? 'red-danger' : 'red-light')}}">
+      <span class="text-{{isPaid ? 'green-dark' : (dueAtDays < 0 ? 'red-light' : 'red-dark')}}">
         {{isPaid ? 'Uhradené' : (dueAtDays > 0 ? 'Neuhradené' : ('Po splatnosti ' + dueAtDays * -1 + ' ' + (dueAtDays * -1 === 1 ? 'deň' : (dueAtDays * -1) > 5 ? 'dni' : 'dní')))}}
       </span>
   </mat-chip>
+
+  <ng-template #hasPayments>
+    <mat-chip selected class="d-flex justify-content-center bg-yellow">
+      <span class="text-light">
+        Zostáva uhradiť: {{(price - sumPayments) | currency:'EUR':'symbol'}}
+      </span>
+    </mat-chip>
+  </ng-template>
 </mat-chip-list>
