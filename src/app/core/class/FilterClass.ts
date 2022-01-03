@@ -15,6 +15,7 @@ import {Company} from '../models/company';
 import * as moment from 'moment';
 import {MatDialog} from '@angular/material/dialog';
 import {DateRangeDialogComponent} from '../../theme/component/date-range-dialog/date-range-dialog.component';
+import {checkFormIsNotFill} from "../../../helper";
 
 @Directive()
 // tslint:disable-next-line:directive-class-suffix
@@ -242,7 +243,7 @@ export class FilterClass {
       });
     }
 
-    if (this.model !== 'cost') {
+    if (this.model !== 'cost' && checkFormIsNotFill(this.filterForm.controls)) {
       this.filterForm.patchValue({
         month: this.months[0]
       });

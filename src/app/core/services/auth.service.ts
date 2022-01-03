@@ -27,7 +27,7 @@ export class AuthService {
 
           return of(this.user);
         } else {
-          
+
           return of(null);
         }
       })

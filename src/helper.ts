@@ -46,7 +46,7 @@ export function timeRange(): { timesForHuman: string; timesForPc: string }[] {
     const mm = (tt % 60); // getting minutes of the hour in 0-55 format
 
     times.push({
-      timesForPc: ('' + (hh)).slice(-2) + ':' +  ('0' + mm).slice(-2),
+      timesForPc: ('' + (hh)).slice(-2) + ':' + ('0' + mm).slice(-2),
       timesForHuman: ('' + (hh)).slice(-2) + ':' + ('0' + mm).slice(-2)
     });
 
@@ -146,5 +146,21 @@ export function findInvalidControls(checkControls: { [p: string]: AbstractContro
     }
   }
   return invalid;
+}
+
+/**
+ * Kontrola ci aspon jeden attribut z formu je vyplneny
+ *
+ */
+export function checkFormIsNotFill(checkControls: { [p: string]: AbstractControl }): boolean {
+  const controls = checkControls;
+
+  for (const name in controls) {
+    if (controls[name].value != null) {
+      return false;
+    }
+  }
+
+  return true;
 }
 
