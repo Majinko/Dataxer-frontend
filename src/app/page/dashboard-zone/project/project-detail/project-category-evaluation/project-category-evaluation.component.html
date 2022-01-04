@@ -9,7 +9,7 @@
     <div [class.box]="!isLoadingResults && projectEvaluation.length === 0" class="p-3">
       <h1 *ngIf="!isLoadingResults && projectEvaluation.length === 0">Vyhodnotenie projektu na základe kategórii</h1>
 
-      <div *ngFor="let categoryEvaluation of projectEvaluation">
+      <div *ngFor="let categoryEvaluation of projectEvaluation" class="mb-2">
         <mat-accordion>
           <mat-expansion-panel (opened)="loadData(categoryEvaluation.categoryId)">
             <mat-expansion-panel-header>
