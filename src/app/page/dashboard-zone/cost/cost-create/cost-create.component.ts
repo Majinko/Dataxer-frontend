@@ -15,7 +15,7 @@ import {CategoryService} from '../../../../core/services/category.service';
 import {Project} from '../../../../core/models/project';
 import {ProjectService} from '../../../../core/services/project.service';
 import {CompanyService} from '../../../../core/services/company.service';
-import {FileInputComponent} from "ngx-material-file-input";
+import {FileInputComponent} from 'ngx-material-file-input';
 
 @Component({
   selector: 'app-cost-create',

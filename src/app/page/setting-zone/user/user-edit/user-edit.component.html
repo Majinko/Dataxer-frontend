@@ -12,12 +12,10 @@
   </div>
 
   <div class="row align-items-center" *ngIf="user">
-    <div class="col-md-3 col-lg-2 pr-lg-0">
-      <div class="cursor-pointer jsFile d-flex justify-content-center d-md-block mb-4 mb-md-0">
-        <ngx-avatar size="100" name="{{user.firstName + ' ' + user.lastName}}" textSizeRatio="2"></ngx-avatar>
-        <input type="file" name='file' class="d-none">
-      </div>
+    <div class="col-3 col-md-1 mb-3">
+      <app-photo-uploader (uploadFinish)="storeUploadPhoto()" [formGroup]="formGroup" path="user" nameAttr="photoUrl" isAvatar="true"></app-photo-uploader>
     </div>
+
     <div class="col-md-4 col-lg-5 pl-lg-0">
       <mat-form-field class="form-group w-100">
         <input matInput placeholder="Meno" formControlName="firstName" required>

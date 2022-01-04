@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {UploadService} from '../../../core/services/upload.service';
 import {FormGroup} from '@angular/forms';
 import {MessageService} from '../../../core/services/message.service';
@@ -17,6 +17,8 @@ export class PhotoUploaderComponent implements OnInit {
   @Input() path: string;
   @Input() isAvatar: boolean = false;
   @Input() title: string = 'Select your file or Drop it here!';
+
+  @Output() uploadFinish: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   constructor(
     private readonly uploadService: UploadService,
@@ -41,6 +43,7 @@ export class PhotoUploaderComponent implements OnInit {
             });
 
             this.formGroup.markAsDirty();
+            this.uploadFinish.emit(true);
           });
         });
       } else {

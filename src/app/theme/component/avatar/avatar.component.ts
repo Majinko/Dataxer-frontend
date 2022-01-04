@@ -5,7 +5,6 @@ import {AuthService} from '../../../core/services/auth.service';
 import {Router} from '@angular/router';
 import {CompanyService} from '../../../core/services/company.service';
 import {Company} from '../../../core/models/company';
-import {MessageService} from '../../../core/services/message.service';
 
 @Component({
   selector: 'app-avatar',
@@ -21,7 +20,6 @@ export class AvatarComponent implements OnInit {
     @Inject(AuthService) private readonly authService: AuthService,
     public readonly companyService: CompanyService,
     private router: Router,
-    private messageService: MessageService
   ) {
   }
 
@@ -46,10 +44,6 @@ export class AvatarComponent implements OnInit {
   switchCompany(company: Company) {
     this.userService.switchCompany(company.id).subscribe(() => {
       window.location.reload();
-      /*this.router.navigate(['/setting/company']).then(() => {
-        this.companyService.company = company;
-        this.messageService.add('Spoločnosť bola zmenená');
-      });*/
     });
   }
 }

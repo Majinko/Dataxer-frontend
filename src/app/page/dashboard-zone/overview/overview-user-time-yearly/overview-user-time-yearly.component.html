@@ -11,7 +11,7 @@
     <tr *ngFor="let userYearlyOverview of userYearlyOverviews">
       <td class="table-fixed-col text-left white-space-nowrap">
           <span class="d-flex align-items-center">
-            <ngx-avatar size="30" name="{{userYearlyOverview.fullName}}" class="mr-3"></ngx-avatar>
+            <ngx-avatar [src]="userYearlyOverview.photoUrl" size="40" name="{{userYearlyOverview.fullName}}" class="mr-3"></ngx-avatar>
             {{userYearlyOverview.fullName}}
           </span>
       </td>

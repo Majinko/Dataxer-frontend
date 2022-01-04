@@ -42,6 +42,7 @@ export class UserEditComponent implements OnInit {
       firstName: [null, Validators.required],
       lastName: [null, Validators.required],
       email: [{value: null, disabled: true}, Validators.required],
+      photoUrl: null,
       uid: null,
       phone: null,
       street: null,
@@ -80,6 +81,12 @@ export class UserEditComponent implements OnInit {
 
     this.userService.update(this.formGroup.value).subscribe(() => {
       this.messageService.add('Údaje boli aktualizované');
+    });
+  }
+
+  storeUploadPhoto() {
+    this.userService.update(this.formGroup.value).subscribe(() => {
+      this.messageService.add('Fotka bola aktualizovaná');
     });
   }
 

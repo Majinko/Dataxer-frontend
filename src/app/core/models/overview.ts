@@ -2,6 +2,7 @@ export interface UserMonthlyOverview {
   firstName: string;
   lastName: string;
   fullName: string;
+  photoUrl: string;
   totalUserHours: string;
   totalUserPrice: number;
   activeHourPrice: number;
@@ -12,6 +13,7 @@ export interface UserYearlyOverview {
   firstName: string;
   lastName: string;
   fullName: string;
+  photoUrl: string;
   yearHours: { key: number, value: string }[];
 }
 

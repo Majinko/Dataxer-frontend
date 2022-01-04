@@ -11,8 +11,7 @@
             <th mat-header-cell *matHeaderCellDef>Mzda {{user.displayName}}</th>
             <td mat-cell *matCellDef="let element"> {{element.price}} &euro;</td>
           </ng-container>
-
-
+          
           <ng-container matColumnDef="from">
             <th mat-header-cell *matHeaderCellDef>Od</th>
             <td mat-cell *matCellDef="let element"> {{element.start | date:'dd.MM.y'}}</td>

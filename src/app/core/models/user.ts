@@ -8,6 +8,7 @@ export interface User {
   firstName?: string;
   lastName?: string;
   displayName?: string;
+  photoUrl?: string;
   appKey?: string;
   email: string;
   token?: string;
