@@ -45,6 +45,7 @@ export class OverviewProfitChartComponent implements OnInit {
   ];
   enabledSeries = [0, 1, 2, 3];
   manhour = [50, 25, 37, 64, 19, 100, 86, 45, 99, 78, 32, 55];
+  // tslint:disable-next-line:max-line-length
   skMonths: string[] = ['Január', 'Február', 'Marec', 'Apríl', 'Máj', 'Jún', 'Júl', 'August', 'September', 'Október', 'November', 'December'];
   toggleVal = false;
 
@@ -55,8 +56,21 @@ export class OverviewProfitChartComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.contracts = Object.values(this.costsOverview.categoryMonthsCostsDTOS[0].totalMonthsCosts);
-    this.costs = Object.values(this.costsOverview.categoryMonthsCostsDTOS[1].totalMonthsCosts);
+
+    const contracts = this.costsOverview.categoryMonthsCostsDTOS.find( f => f.categoryName === 'Realizácia');
+    if (contracts && contracts.totalMonthsCosts) {
+      this.contracts = Object.values(contracts.totalMonthsCosts);
+    } else {
+      this.contracts = [];
+    }
+
+    const costs = this.costsOverview.categoryMonthsCostsDTOS.find( f => f.categoryName === 'Mzdy architekti');
+    if (costs && costs.totalMonthsCosts) {
+      this.costs = Object.values(costs.totalMonthsCosts);
+    }else {
+      this.costs = [];
+    }
+
     this.skMonths.forEach((graph, index) => {
       if (!this.contracts[index]) {
         this.contracts[index] = 0;

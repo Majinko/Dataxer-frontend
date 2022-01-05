@@ -27,8 +27,11 @@ export class OverviewChartsComponent implements OnInit {
   public getCosts() {
     this.overviewService.getCostsOverview(null, this.year).subscribe(response => {
       this.isLoad = false;
-
-      this.categoryCostsOverview = response;
+      console.log(response);
+      this.categoryCostsOverview = null;
+      setTimeout(() => {
+        this.categoryCostsOverview = response;
+      }, 1);
     });
   }
 
