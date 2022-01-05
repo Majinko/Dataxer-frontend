@@ -9,8 +9,9 @@ import {DocumentFilter} from '../models/filters/document-filter';
 import {IPaginate} from '../interface/IPaginate';
 import {CustomFile} from '../models/customFile';
 import {UploadContext} from '../models/uploadContext';
+import {IDestroy} from '../interface/IDestroy';
 
-export class ResourceService<T extends Resource> implements IPaginate<T> {
+export class ResourceService<T extends Resource> implements IPaginate<T>, IDestroy {
   filter: DocumentFilter;
   rsqlFilter: string;
 

@@ -43,6 +43,7 @@ import { DateRangeDialogComponent } from './component/date-range-dialog/date-ran
 import { CategoryTreeControlComponent } from './component/category-tree-control/category-tree-control.component';
 import {DndDirective} from '../core/directives/dnd.directive';
 import { UploadFilesComponent } from './component/upload-files/upload-files.component';
+import { DocumentDestroyButtonComponent } from './document-destroy-button/document-destroy-button.component';
 
 @NgModule({
   imports: [
@@ -93,32 +94,34 @@ import { UploadFilesComponent } from './component/upload-files/upload-files.comp
     DateRangeDialogComponent,
     CategoryTreeControlComponent,
     UploadFilesComponent,
+    DocumentDestroyButtonComponent,
   ],
-  exports: [
-    DrawerComponent,
-    ToolbarComponent,
-    MessageComponent,
-    ItemAutocompleteComponent,
-    NewContactSelectComponent,
-    PackAutocompleteComponent,
-    DocumentPackComponent,
-    SlovakiaDigitalAutocompleteComponent,
-    NewProjectSelectComponent,
-    NewCategorySelectComponent,
-    SpinnerButtonComponent,
-    ElementPaidStateComponent,
-    FileComponent,
-    DndDirective,
-    PaymentsComponent,
-    DocumentRelationComponent,
-    MenuTabComponent,
-    NestedCategoriesComponent,
-    PhotoUploaderComponent,
-    ChatComponent,
-    CategorySelectGroupComponent,
-    CategoryTreeControlComponent,
-    UploadFilesComponent,
-  ]
+    exports: [
+        DrawerComponent,
+        ToolbarComponent,
+        MessageComponent,
+        ItemAutocompleteComponent,
+        NewContactSelectComponent,
+        PackAutocompleteComponent,
+        DocumentPackComponent,
+        SlovakiaDigitalAutocompleteComponent,
+        NewProjectSelectComponent,
+        NewCategorySelectComponent,
+        SpinnerButtonComponent,
+        ElementPaidStateComponent,
+        FileComponent,
+        DndDirective,
+        PaymentsComponent,
+        DocumentRelationComponent,
+        MenuTabComponent,
+        NestedCategoriesComponent,
+        PhotoUploaderComponent,
+        ChatComponent,
+        CategorySelectGroupComponent,
+        CategoryTreeControlComponent,
+        UploadFilesComponent,
+        DocumentDestroyButtonComponent,
+    ]
 })
 export class ThemeModule {
 }

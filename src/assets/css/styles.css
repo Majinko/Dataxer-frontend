@@ -99,6 +99,10 @@ h2 {
   white-space: nowrap !important;
 }
 
+.reset-white-space {
+  white-space: inherit !important;
+}
+
 .outline-none {
   outline: none !important;
 }
@@ -724,6 +728,10 @@ button.btn-theme-stroked, .btn.btn-theme-stroked {
 
 .mat-two-line span {
   line-height: 20px !important;
+}
+
+.table-scroll .mat-table {
+  background: transparent !important;
 }
 
 .mat-icon {

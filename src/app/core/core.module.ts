@@ -13,7 +13,7 @@ import {StrftimePipe} from './pipes/strftime.pipe';
 import {FormatPricePipe} from './pipes/format-price.pipe';
 import {AdHostDirective} from './directives/ad-host.directive';
 import { FileDragDropDirective } from './directives/file-drag-drop.directive';
-import { ShowHideTaxDirective } from './directives/show-hide-tax.directive';
+import { ShowHideTaxDirective } from './directives/show-hide-tax.directive';;
 
 @NgModule({
   declarations: [

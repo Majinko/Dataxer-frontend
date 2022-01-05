@@ -10,6 +10,7 @@ import {ProjectStats} from '../../../../../core/data/projectStats';
 import {monthDiff, sum} from '../../../../../../helper';
 import {ProjectService} from '../../../../../core/services/project.service';
 import {Project, ProjectManHours} from '../../../../../core/models/project';
+import {DocumentTypeEnum} from '../../../../../core/enums/documentType.enum';
 
 @Component({
   selector: 'app-project-evaluation',
@@ -70,7 +71,7 @@ export class ProjectEvaluationComponent implements OnInit {
     this.costService.findAllByProject(+this.route.parent.snapshot.paramMap.get('id'), companyIds).subscribe((costs) => {
       if (costs.length) {
         this.projectStats.sumCost = sum(costs, 'price');
-        this.projectStats.sumInvoices = (this.projectStats.sumInvoices ? this.projectStats.sumInvoices : 0) - sum(costs, 'price');
+        this.projectStats.sumInvoices = (this.projectStats.sumInvoices ?? 0) - this.projectStats.sumCost;
       }
 
       this.countLoads++;
@@ -79,8 +80,10 @@ export class ProjectEvaluationComponent implements OnInit {
 
   private getInvoices(companyIds: number[]) {
     this.invoiceService.findAllByProject(+this.route.parent.snapshot.paramMap.get('id'), companyIds).subscribe((invoices) => {
+      invoices = invoices.filter((invoice) => invoice.documentType !== DocumentTypeEnum.PROFORMA);
+
       if (invoices.length) {
-        this.projectStats.sumInvoices = (this.projectStats.sumInvoices ? this.projectStats.sumInvoices : 0) + sum(invoices, 'price');
+        this.projectStats.sumInvoices = (this.projectStats.sumInvoices ?? 0) + sum(invoices, 'price');
       }
 
       this.countLoads++;
@@ -91,7 +94,7 @@ export class ProjectEvaluationComponent implements OnInit {
     this.projectService.getProjectManHours(+this.route.parent.snapshot.paramMap.get('id'), companyIds).subscribe(manHours => {
       this.projectManHours = manHours;
       // tslint:disable-next-line:max-line-length
-      this.projectStats.profit = +((this.projectStats.sumInvoices || 0) - (this.projectStats.sumCost || 0) - (manHours.sumPriceBrutto || 0)).toFixed(2);
+      this.projectStats.profit = +((this.projectStats.sumInvoices || 0) - (manHours.sumPriceBrutto || 0)).toFixed(2);
       // tslint:disable-next-line:max-line-length
       this.projectStats.coefficient = this.projectStats.timeStamp !== 0 ? (this.projectStats.profit / 100 * this.project.projectProfit) / (this.projectStats.timeStamp / 60 / 60) : 0;
 
@@ -101,6 +104,8 @@ export class ProjectEvaluationComponent implements OnInit {
 
   private handleChangeCompany() {
     this.projectService.getInfoFromCompany.subscribe((ids) => {
+      this.resetProjectStat();
+
       this.countLoads = 0;
 
       this.getTimes(ids);
@@ -108,5 +113,12 @@ export class ProjectEvaluationComponent implements OnInit {
       this.getCosts(ids);
       this.getProjectManHours(ids);
     });
+  }
+
+  private resetProjectStat() {
+    this.projectStats.profit = 0;
+    this.projectStats.coefficient = 0;
+    this.projectStats.sumInvoices = 0;
+    this.projectStats.sumCost = 0;
   }
 }

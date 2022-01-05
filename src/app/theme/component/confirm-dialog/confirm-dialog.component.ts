@@ -7,8 +7,8 @@ import {MatDialogRef} from '@angular/material/dialog';
   styleUrls: ['./confirm-dialog.component.scss']
 })
 export class ConfirmDialogComponent implements OnInit {
-  title: string = 'Confirm Action';
-  message: string = 'Are you sure you want to do this?';
+  title: string = 'Potvrďt akciu';
+  message: string = 'Naozaj to chceš urobiť?';
 
   constructor(
     public dialogRef: MatDialogRef<ConfirmDialogComponent>

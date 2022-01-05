@@ -72,7 +72,7 @@ export class TimeCreateComponent implements OnInit {
       dateWork: [new Date(), Validators.required],
       timeFromForUser: '8:00',
       timeFrom: null,
-      timeToForUser: '16:00',
+      timeToForUser: moment().format('hh:mm'),
       timeTo: null,
       time: null,
       project: [null, Validators.required],

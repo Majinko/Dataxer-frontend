@@ -21,7 +21,7 @@ export class InvoiceShowComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private invoiceService: InvoiceService,
+    public invoiceService: InvoiceService,
     private paymentService: PaymentService,
     public documentHelper: DocumentHelper,
     private dialog: MatDialog,

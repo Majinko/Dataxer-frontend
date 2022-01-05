@@ -8,7 +8,7 @@
   <div class="col-md-4 mb-3" *ngFor="let company of companies">
     <mat-card class="example-card">
       <mat-card-header class="d-flex align-items-center">
-        <div mat-card-avatar><ngx-avatar size="40" name="{{company.name}}"></ngx-avatar></div>
+        <div mat-card-avatar><ngx-avatar [src]="company.logoUrl" size="40" name="{{company.name}}"></ngx-avatar></div>
         <mat-card-title class="mb-0">{{company.name}}</mat-card-title>
       </mat-card-header>
       <mat-card-content>
