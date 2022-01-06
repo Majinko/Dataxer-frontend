@@ -73,6 +73,7 @@ export class CostCreateComponent implements OnInit {
       title: [null, Validators.required],
       type: null,
       state: null,
+      company: null,
       isInternal: false,
       isRepeated: false,
       period: null,

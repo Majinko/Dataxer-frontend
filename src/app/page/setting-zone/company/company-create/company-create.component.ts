@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit, ViewChild} from '@angular/core';
+import {Component, Inject, OnInit, Optional, ViewChild} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {LEGALFORMS} from '../../../../core/data/legal-forms';
 import {Company} from '../../../../core/models/company';
@@ -9,6 +9,8 @@ import {MatCheckbox} from '@angular/material/checkbox';
 import {SlovakiaDigital} from '../../../../core/models/slovakiaDigital';
 import {IbanValidator} from '../../../../core/class/validator';
 import {ValidatorService} from 'angular-iban';
+import {MatDialogRef} from '@angular/material/dialog';
+import {MessageService} from '../../../../core/services/message.service';
 
 
 @Component({
@@ -26,6 +28,8 @@ export class CompanyCreateComponent implements OnInit {
 
   constructor(
     @Inject(CompanyService) private readonly companyService: CompanyService,
+    @Optional() public dialogRef: MatDialogRef<CompanyCreateComponent>,
+    private readonly messageService: MessageService,
     private fb: FormBuilder,
     private router: Router
   ) {
@@ -80,7 +84,13 @@ export class CompanyCreateComponent implements OnInit {
       return;
     }
 
-    this.companyService.store(companyFormData).subscribe(company => this.router.navigate(['/setting/company']));
+    this.companyService.store(companyFormData).subscribe(company => {
+      this.messageService.add('Spoločnosť bola uložená');
+
+      if (this.dialogRef === null) {
+        this.router.navigate(['/setting/company']).then();
+      }
+    });
   }
 
   // convenience getter for easy access to form fields
@@ -114,5 +124,11 @@ export class CompanyCreateComponent implements OnInit {
     target.value = target.value.replace(/[^\dA-Z]/g, '').replace(/(.{4})/g, '$1 ').trim();
     target.selectionEnd = position += ((target.value.charAt(position - 1) === ' '
       && target.value.charAt(length - 1) === ' ' && length !== target.value.length) ? 1 : 0);
+  }
+
+  close() {
+    if (this.formGroup.valid) {
+      this.dialogRef.close();
+    }
   }
 }

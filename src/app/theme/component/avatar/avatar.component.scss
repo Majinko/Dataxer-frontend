@@ -40,3 +40,9 @@ span {
     margin-right: 6px;
   }
 }
+
+@media screen and (max-width: $break-small) {
+  .avatar-wrap {
+    border: 0px solid #dadce0;
+  }
+}

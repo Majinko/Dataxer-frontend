@@ -37,6 +37,10 @@
         </mat-select>
       </mat-form-field>
     </div>
+
+    <div class="col-md-4 mb-2">
+      <app-company-select-group formControlName="company"></app-company-select-group>
+    </div>
   </div>
 
   <div class="row" *ngIf="formGroup.get('state').value === 'PAYED'">

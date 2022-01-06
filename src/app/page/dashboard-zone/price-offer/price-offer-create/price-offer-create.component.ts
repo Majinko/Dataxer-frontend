@@ -71,6 +71,7 @@ export class PriceOfferCreateComponent implements OnInit {
       subject: '',
       number: ['', Validators.required],
       state: null,
+      company: null,
       createdDate: [new Date(), Validators.required],
       deliveredDate: [new Date(), Validators.required],
       dueDate: [addDays(new Date(), 14)],

@@ -55,7 +55,11 @@
       </mat-form-field>
     </div>
 
-    <div class="col-md-12 {{moreOptions ? 'mb-3' : 'mb-5'}}">
+    <div class="col-md-4">
+      <app-company-select-group formControlName="company"></app-company-select-group>
+    </div>
+
+    <div class="col-md-12 mt-3 {{moreOptions ? 'mb-3' : 'mb-5'}}">
       <a class="cursor-pointer text-dark btn-link" (click)="moreOptions = !moreOptions"><b>Viac možností</b></a>
     </div>
 
