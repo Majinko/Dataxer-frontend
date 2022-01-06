@@ -118,7 +118,7 @@ export class TimeCreateComponent implements OnInit {
       if (time != null) {
         this.formGroup.patchValue({
           timeFromForUser: this.strftimePipe.transform(time.timeTo),
-          timeToForUser: this.strftimePipe.transform(time.timeTo + 3600)
+          timeToForUser: this.prepareTime()
         });
       }
     });
@@ -197,7 +197,7 @@ export class TimeCreateComponent implements OnInit {
   private prepareTime(): string {
     const hour: number = +moment().format('HH');
     const minutes: number = Math.ceil((+moment().format('mm') / 5)) * 5;
-    
+
     return hour.toString() + ':' + minutes.toString();
   }
 }
