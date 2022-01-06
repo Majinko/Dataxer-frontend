@@ -17,7 +17,7 @@ export class PriceOfferShowComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private priceOfferService: PriceOfferService,
+    public priceOfferService: PriceOfferService,
     public documentHelper: DocumentHelper,
     private pdfService: PdfServiceService
   ) {

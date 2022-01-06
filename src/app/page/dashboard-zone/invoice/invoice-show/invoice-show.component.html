@@ -20,6 +20,8 @@
             <mat-icon>save_alt</mat-icon>
           </button>
 
+          <app-document-destroy-button redirectUrl="/invoice" tooltip="Vymazať faktúru" destroyMsg="Faktúra bola vymazaná" [id]="invoice.id" [service]="invoiceService"></app-document-destroy-button>
+
           <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
             <mat-icon>more_vert</mat-icon>
           </button>

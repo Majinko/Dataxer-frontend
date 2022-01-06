@@ -12,10 +12,10 @@
 
         <table mat-table [dataSource]="data" class="table-hover table-data table-borderless w-100">
           <!-- Id Column -->
-          <ng-container matColumnDef="id">
-            <th mat-header-cell *matHeaderCellDef> Nazov</th>
+          <ng-container matColumnDef="variableSymbol">
+            <th mat-header-cell *matHeaderCellDef> Číslo</th>
             <td mat-cell *matCellDef="let element">
-              {{element.title || '-'}}
+              {{element.variableSymbol || '-'}}
               <div [ngSwitch]="element.documentType" class="text-theme">
                 <small *ngSwitchCase="'PROFORMA'">Zálohová faktúra</small>
                 <small *ngSwitchCase="'TAX_DOCUMENT'">Daňový doklad</small>
@@ -42,7 +42,6 @@
             <th class="text-right" mat-header-cell *matHeaderCellDef> Vytvorené</th>
             <td class="text-right" mat-cell *matCellDef="let element"> {{element.createdDate | date:'dd.MM.y'}} </td>
           </ng-container>
-
 
           <!-- Price Column -->
           <ng-container matColumnDef="price">

@@ -19,6 +19,8 @@
             <mat-icon>save_alt</mat-icon>
           </button>
 
+          <app-document-destroy-button redirectUrl="/price-offer" tooltip="Vymazať cenovú ponuku" destroyMsg="Cenová ponuka bola vymazaná" [id]="priceOffer.id" [service]="priceOfferService"></app-document-destroy-button>
+
           <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
             <mat-icon>more_vert</mat-icon>
           </button>

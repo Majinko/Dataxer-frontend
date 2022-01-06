@@ -13,7 +13,7 @@ export class CostShowComponent implements OnInit {
   cost: Cost;
 
   constructor(
-    private costService: CostService,
+    public costService: CostService,
     private route: ActivatedRoute,
     private paymentService: PaymentService,
   ) {

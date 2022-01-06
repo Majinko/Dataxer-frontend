@@ -8,7 +8,7 @@
       Čas sumarizacia: <span class="text-theme">{{totalPrice | currency:'EUR':'symbol'}} / </span><span class="text-theme">{{(totalTime | timeFromTimestamp) + ' h'}}</span>
     </h3>
     <div class="table-wrap">
-      <div class="position-relative">
+      <div class="position-relative table-scroll">
         <div class="loading-shade" *ngIf="isLoadingResults">
           <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
         </div>
@@ -41,7 +41,7 @@
 
           <ng-container matColumnDef="description">
             <th mat-header-cell *matHeaderCellDef>Popis</th>
-            <td mat-cell *matCellDef="let element"> {{element.description == null ? 'Popis nepridaný' : element.description}}<br><span class="small text-gray">{{element.timeFrom | strftime}} - {{element.timeTo | strftime}}</span></td>
+            <td mat-cell *matCellDef="let element" class="thin"> {{element.description == null ? 'Popis nepridaný' : element.description}}<br><span class="small text-gray">{{element.timeFrom | strftime}} - {{element.timeTo | strftime}}</span></td>
           </ng-container>
 
           <ng-container matColumnDef="category">
