@@ -72,7 +72,7 @@ export class TimeCreateComponent implements OnInit {
       dateWork: [new Date(), Validators.required],
       timeFromForUser: '8:00',
       timeFrom: null,
-      timeToForUser: moment().format('hh:mm'),
+      timeToForUser: this.prepareTime(),
       timeTo: null,
       time: null,
       project: [null, Validators.required],
@@ -192,5 +192,12 @@ export class TimeCreateComponent implements OnInit {
   // convenience getter for easy access to form fields
   get f() {
     return this.formGroup.controls;
+  }
+
+  private prepareTime(): string {
+    const hour: number = +moment().format('HH');
+    const minutes: number = Math.ceil((+moment().format('mm') / 5)) * 5;
+    
+    return hour.toString() + ':' + minutes.toString();
   }
 }
