@@ -28,3 +28,15 @@ span {
   color: black !important;
   font-weight: bold !important;
 }
+
+.avatar-wrap {
+  border: 1px solid #dadce0;
+  padding: 4px 7px;
+  padding-right: 8px;
+  border-radius: 8px;
+  img {
+    height: 100%;
+    max-height: 40px;
+    margin-right: 6px;
+  }
+}
