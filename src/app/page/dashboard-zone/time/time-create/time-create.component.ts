@@ -202,6 +202,10 @@ export class TimeCreateComponent implements OnInit {
     let hour: any = +moment().format('HH');
     let minutes: any = Math.ceil((50 / 5)) * 5;
 
+    if (minutes < 10) {
+      minutes = '0' + minutes;
+    }
+
     if (minutes >= 60) {
       minutes = '00';
 
