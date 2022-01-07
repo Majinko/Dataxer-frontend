@@ -32,7 +32,11 @@
       <td class="text-center white-space-nowrap text-center" [class.bg-medium-gray]="isWeekendDay(index)" *ngFor="let day of countMonthDays; let index = index"><strong class="font-weight-bold">{{userMonthlyOverview.userHours[index+1] || ''}}</strong></td>
       <td class="white-space-nowrap text-center">
         <!--<strong>{{userMonthlyOverview.activeHourPrice}} &euro;</strong> <br>-->
-        <strong>{{userMonthlyOverview.totalUserHours}} / {{userMonthlyOverview.totalUserPrice}} &euro;</strong><br>
+        <strong>
+          {{userMonthlyOverview.totalUserHours}} <br>
+          {{userMonthlyOverview.totalUserPrice | currency:'EUR':'symbol'}} <br>
+          {{userMonthlyOverview.activeHourPrice | currency:'EUR':'symbol'}}
+        </strong>
       </td>
     </tr>
     </tbody>

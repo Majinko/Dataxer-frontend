@@ -28,7 +28,7 @@ export class OverviewUserTimeMonthlyComponent implements OnInit {
 
   isWeekendDay(index: any) {
     // todo funkcie v html sa nemaju pouzivat, pridat do objektu
-    const newDay = new Date(this.startDate);
+    const newDay = new Date(this.month.start);
     newDay.setDate(index + 1);
 
     return newDay.getDay() % 6 === 0;

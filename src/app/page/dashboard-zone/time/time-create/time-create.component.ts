@@ -194,9 +194,23 @@ export class TimeCreateComponent implements OnInit {
     return this.formGroup.controls;
   }
 
+  /**
+   * Prepare time to
+   * @private
+   */
   private prepareTime(): string {
-    const hour: number = +moment().format('HH');
-    const minutes: number = Math.ceil((+moment().format('mm') / 5)) * 5;
+    let hour: any = +moment().format('HH');
+    let minutes: any = Math.ceil((50 / 5)) * 5;
+
+    if (minutes >= 60) {
+      minutes = '00';
+
+      hour += 1;
+
+      if (hour >= 24) {
+        hour = '00';
+      }
+    }
 
     return hour.toString() + ':' + minutes.toString();
   }
