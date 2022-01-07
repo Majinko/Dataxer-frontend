@@ -199,23 +199,11 @@ export class TimeCreateComponent implements OnInit {
    * @private
    */
   private prepareTime(): string {
-    let hour: any = +moment().format('HH');
-    let minutes: any = Math.ceil((50 / 5)) * 5;
+    const coefficient = 1000 * 60 * 5;
 
-    if (minutes < 10) {
-      minutes = '0' + minutes;
-    }
+    const date = new Date();
+    const rounded = new Date(Math.round(date.getTime() / coefficient) * coefficient);
 
-    if (minutes >= 60) {
-      minutes = '00';
-
-      hour += 1;
-
-      if (hour >= 24) {
-        hour = '00';
-      }
-    }
-
-    return hour.toString() + ':' + minutes.toString();
+    return moment(rounded).format('HH:mm');
   }
 }
