@@ -69,7 +69,6 @@ export class TimeCreateComponent implements OnInit {
   prepareForm() {
     this.formGroup = this.formBuilder.group({
       description: null,
-      company: [null, Validators.required],
       dateWork: [new Date(), Validators.required],
       timeFromForUser: '8:00',
       timeFrom: null,

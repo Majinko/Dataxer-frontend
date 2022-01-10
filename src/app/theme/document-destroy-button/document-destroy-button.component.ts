@@ -3,7 +3,8 @@ import {ConfirmDialogComponent} from '../component/confirm-dialog/confirm-dialog
 import {MatDialog} from '@angular/material/dialog';
 import {IDestroy} from '../../core/interface/IDestroy';
 import {MessageService} from '../../core/services/message.service';
-import {Router} from '@angular/router';
+import {InvoiceService} from "../../core/services/invoice.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-document-destroy-button',

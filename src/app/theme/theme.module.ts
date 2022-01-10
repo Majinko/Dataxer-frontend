@@ -44,7 +44,6 @@ import { CategoryTreeControlComponent } from './component/category-tree-control/
 import {DndDirective} from '../core/directives/dnd.directive';
 import { UploadFilesComponent } from './component/upload-files/upload-files.component';
 import { DocumentDestroyButtonComponent } from './document-destroy-button/document-destroy-button.component';
-import { CompanySelectGroupComponent } from './component/company-select-group/company-select-group.component';
 
 @NgModule({
   imports: [
@@ -96,7 +95,6 @@ import { CompanySelectGroupComponent } from './component/company-select-group/co
     CategoryTreeControlComponent,
     UploadFilesComponent,
     DocumentDestroyButtonComponent,
-    CompanySelectGroupComponent,
   ],
     exports: [
         DrawerComponent,
@@ -123,7 +121,6 @@ import { CompanySelectGroupComponent } from './component/company-select-group/co
         CategoryTreeControlComponent,
         UploadFilesComponent,
         DocumentDestroyButtonComponent,
-        CompanySelectGroupComponent,
     ]
 })
 export class ThemeModule {

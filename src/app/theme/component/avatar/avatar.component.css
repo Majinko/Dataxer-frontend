@@ -35,22 +35,4 @@ span {
   font-weight: bold !important;
 }
 
-.avatar-wrap {
-  border: 1px solid #dadce0;
-  padding: 4px 7px;
-  padding-right: 8px;
-  border-radius: 8px;
-}
-.avatar-wrap img {
-  height: 100%;
-  max-height: 40px;
-  margin-right: 6px;
-}
-
-@media screen and (max-width: 576px) {
-  .avatar-wrap {
-    border: 0px solid #dadce0;
-  }
-}
-
 /*# sourceMappingURL=avatar.component.css.map */

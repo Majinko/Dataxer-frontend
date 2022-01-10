@@ -8,20 +8,5 @@ app-menu-logo, app-avatar {
 app-search-bar{
   @media screen and (max-width: $break-small) {
     position: absolute;
-    left: 0;
-    right: 0;
-
   }
-}
-
-@media screen and (max-width: $break-small) {
-  .search-avatar-wrap {
-    justify-content: flex-end !important;
-  }
-}
-
-app-search-bar {
-  display: block;
-  width: 100%;
-  max-width: 620px;
 }

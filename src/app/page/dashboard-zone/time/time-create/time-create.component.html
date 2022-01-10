@@ -5,7 +5,7 @@
   </div>
 </div>
 
-<form autocomplete="off" [formGroup]="formGroup" #ngForm="ngForm" (ngSubmit)="submit()">
+<form autocomplete="off" [formGroup]="formGroup" (ngSubmit)="submit()">
   <div class="row">
     <div class="col-12">
       <h2 class="border-bottom-2 pb-2 mb-2">Základné info</h2>
@@ -29,18 +29,14 @@
   </div>
 
   <div class="row">
-    <div class="col-md-4 form-group">
+    <div class="col-md-6 form-group">
       <app-new-project-select formControlName="project" [showAddButton]="false"></app-new-project-select>
       <mat-error *ngIf="isSubmit && f.project.errors" class="mat-error-not-in-field">Projekt je <strong>požadovaný.</strong></mat-error>
     </div>
 
-    <div class="col-md-4 form-group">
+    <div class="col-md-6 form-group">
       <app-category-select-group #categorySelect formControlName="category" [types]="['TIME_FOR_COMPANY', 'TIME_CAPITAL_IN_PROJECT', 'TIME_NO_CAPITAL_IN_PROJECT']"></app-category-select-group>
       <mat-error *ngIf="isSubmit && f.category.errors" class="mat-error-not-in-field">Kategória je <strong>požadovaná.</strong></mat-error>
-    </div>
-
-    <div class="col-md-4 mb-3">
-      <app-company-select-group formControlName="company" [ngForm]="ngForm" [showAddButton]="false"></app-company-select-group>
     </div>
 
     <div class="col-md-4">

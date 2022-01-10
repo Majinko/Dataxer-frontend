@@ -4,7 +4,6 @@ import {SettingComponent} from './setting.component';
 import {AuthGuardService} from '../../core/guards/auth-guard.service';
 import {UserResolver} from '../../core/resolver/user.resolver';
 import {CompanyResolver} from '../../core/resolver/company.resolver';
-import {AppUserProfileResolver} from '../../core/resolver/appUserProfile.resolver';
 
 const routes: Routes = [
   {
@@ -13,17 +12,6 @@ const routes: Routes = [
     canActivate: [AuthGuardService],
     resolve: {user: UserResolver, company: CompanyResolver},
     children: [
-      {
-        path: 'profile',
-        data: {
-          godButtonTitle: 'Nový profil', gotButtonRouteLink: '/setting/profile/create',
-          permissions: {
-            only: 'Settings'
-          },
-        },
-        loadChildren: () => import('./profile/profile.module')
-          .then(m => m.ProfileModule),
-      },
       {
         path: 'company',
         data: {

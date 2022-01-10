@@ -29,7 +29,6 @@ export class RoleDialogComponent implements OnInit {
     this.formGroup = this.formBuilder.group({
       id: null,
       name: ['', Validators.required],
-      company: [null, Validators.required],
       privileges: null,
     });
 

@@ -15,20 +15,7 @@ app-menu-logo, app-avatar {
 @media screen and (max-width: 576px) {
   app-search-bar {
     position: absolute;
-    left: 0;
-    right: 0;
   }
-}
-
-@media screen and (max-width: 576px) {
-  .search-avatar-wrap {
-    justify-content: flex-end !important;
-  }
-}
-app-search-bar {
-  display: block;
-  width: 100%;
-  max-width: 620px;
 }
 
 /*# sourceMappingURL=toolbar.component.css.map */

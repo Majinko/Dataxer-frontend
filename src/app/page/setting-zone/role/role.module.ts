@@ -7,7 +7,6 @@ import {MaterialModule} from '../../../theme/modules/material.module';
 import {RoleDialogComponent} from './role-dialog/role-dialog.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {NgSelectModule} from '@ng-select/ng-select';
-import {ThemeModule} from '../../../theme/theme.module';
 
 const routes: Routes = [
   {
@@ -24,14 +23,13 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [RoleComponent, RoleIndexComponent, RoleDialogComponent],
-    imports: [
-        CommonModule,
-        RouterModule.forChild(routes),
-        MaterialModule,
-        ReactiveFormsModule,
-        NgSelectModule,
-        ThemeModule
-    ],
+  imports: [
+    CommonModule,
+    RouterModule.forChild(routes),
+    MaterialModule,
+    ReactiveFormsModule,
+    NgSelectModule
+  ],
   entryComponents: [RoleDialogComponent]
 })
 export class RoleModule {

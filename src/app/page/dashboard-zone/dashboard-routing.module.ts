@@ -157,7 +157,7 @@ const routes: Routes = [
           }
         },
         loadChildren: () => import('./overview/overview.module').then(m => m.OverviewModule),
-      },
+      }
     ],
   }];
 
