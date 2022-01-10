@@ -40,7 +40,7 @@ export class ProfileDialogComponent implements OnInit {
 
     this.profileService.storeOrUpdate(this.formGroup.value).subscribe(r => {
       this.dialogRef.close();
-      this.profileService.reloadRoles.next(true);
+      this.profileService.reloadProfile.next(true);
 
       this.messageService.add(this.f.id === null ? 'Profil bol pridaný.' : 'Profil bol aktualizovaný');
     });

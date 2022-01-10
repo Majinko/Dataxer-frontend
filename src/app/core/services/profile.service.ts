@@ -8,7 +8,7 @@ import {Profile} from '../models/profile';
   providedIn: 'root'
 })
 export class ProfileService {
-  reloadRoles = new Subject<boolean>();
+  reloadProfile = new Subject<boolean>();
 
   constructor(private http: HttpClient) {
   }
@@ -17,8 +17,8 @@ export class ProfileService {
     return this.http.get<Profile[]>(`${environment.baseUrl}/profile/all`);
   }
 
-  storeOrUpdate(role: Profile): Observable<void> {
-    return this.http.post<void>(`${environment.baseUrl}/profile/storeOrUpdate`, role);
+  storeOrUpdate(profile: Profile): Observable<void> {
+    return this.http.post<void>(`${environment.baseUrl}/profile/storeOrUpdate`, profile);
   }
 
   destroy(id: number): Observable<void> {

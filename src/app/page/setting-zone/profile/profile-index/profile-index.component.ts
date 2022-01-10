@@ -25,7 +25,7 @@ export class ProfileIndexComponent implements OnInit {
   ngOnInit(): void {
     this.getAll();
 
-    this.profileService.reloadRoles.subscribe(() => this.getAll());
+    this.profileService.reloadProfile.subscribe(() => this.getAll());
   }
 
   getAll() {
