@@ -2,7 +2,7 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MessageService} from '../../../../core/services/message.service';
-import {ProfileService} from '../../../../core/services/profile.service';
+import {AppUserProfileService} from '../../../../core/services/app-user-profile.service';
 
 @Component({
   selector: 'app-profile-dialog',
@@ -15,7 +15,7 @@ export class ProfileDialogComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<ProfileDialogComponent>,
     private formBuilder: FormBuilder,
-    private profileService: ProfileService,
+    private profileService: AppUserProfileService,
     private messageService: MessageService,
     @Inject(MAT_DIALOG_DATA) public data: any,
   ) {

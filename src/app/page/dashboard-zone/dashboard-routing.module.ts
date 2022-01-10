@@ -3,15 +3,15 @@ import {NgModule} from '@angular/core';
 import {DashboardComponent} from './dashboard.component';
 import {AuthGuardService} from '../../core/guards/auth-guard.service';
 import {UserResolver} from '../../core/resolver/user.resolver';
-import {CompanyResolver} from '../../core/resolver/company.resolver';
 import {NgxPermissionsGuard} from 'ngx-permissions';
+import {AppUserProfileResolver} from '../../core/resolver/appUserProfile.resolver';
 
 const routes: Routes = [
   {
     path: '',
     component: DashboardComponent,
     canActivate: [AuthGuardService],
-    resolve: {user: UserResolver, company: CompanyResolver},
+    resolve: {user: UserResolver, appProfile: AppUserProfileResolver},
     children: [
       {
         path: 'task',
@@ -164,7 +164,7 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
-  providers: [CompanyResolver, UserResolver]
+  providers: [AppUserProfileResolver, UserResolver]
 })
 export class DashboardRoutingModule {
 }

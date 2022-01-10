@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {MessageService} from '../../../../core/services/message.service';
 import {MatDialog} from '@angular/material/dialog';
-import {ProfileService} from '../../../../core/services/profile.service';
+import {AppUserProfileService} from '../../../../core/services/app-user-profile.service';
 import {ProfileDialogComponent} from '../profile-dialog/profile-dialog.component';
-import {Profile} from '../../../../core/models/profile';
+import {AppProfile} from '../../../../core/models/appProfile';
 
 @Component({
   selector: 'app-profile-index',
@@ -11,12 +11,12 @@ import {Profile} from '../../../../core/models/profile';
   styleUrls: ['./profile-index.component.scss']
 })
 export class ProfileIndexComponent implements OnInit {
-  profiles: Profile[] = [];
+  profiles: AppProfile[] = [];
 
   displayedColumns: string[] = ['name', 'actions'];
 
   constructor(
-    private profileService: ProfileService,
+    private profileService: AppUserProfileService,
     private dialog: MatDialog,
     private messageService: MessageService,
   ) {
@@ -34,7 +34,7 @@ export class ProfileIndexComponent implements OnInit {
     });
   }
 
-  edit(profile: Profile) {
+  edit(profile: AppProfile) {
     this.dialog.open(ProfileDialogComponent, {
       width: '100%',
       maxWidth: '500px',
