@@ -73,7 +73,7 @@ export class CostCreateComponent implements OnInit {
       title: [null, Validators.required],
       type: null,
       state: null,
-      company: null,
+      company: [null, Validators.required],
       isInternal: false,
       isRepeated: false,
       period: null,
@@ -163,8 +163,6 @@ export class CostCreateComponent implements OnInit {
 
 
   fileDroppe($event: any, file: FileInputComponent) {
-    console.log($event);
-    console.log(file);
     this.uploadHelper.uploadFile($event);
   }
 

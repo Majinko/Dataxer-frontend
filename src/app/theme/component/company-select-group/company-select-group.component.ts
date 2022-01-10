@@ -1,6 +1,6 @@
 import {Component, forwardRef, Input, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
-import {NG_VALUE_ACCESSOR} from '@angular/forms';
+import {FormGroupDirective, NG_VALUE_ACCESSOR} from '@angular/forms';
 import {Company} from '../../../core/models/company';
 import {CompanyService} from '../../../core/services/company.service';
 import {CompanyCreateComponent} from '../../../page/setting-zone/company/company-create/company-create.component';
@@ -20,6 +20,7 @@ export class CompanySelectGroupComponent implements OnInit {
   companies: Company[] = [];
 
   @Input() showAddButton: boolean = true;
+  @Input() ngForm: FormGroupDirective;
 
   constructor(
     public dialog: MatDialog,
@@ -45,6 +46,10 @@ export class CompanySelectGroupComponent implements OnInit {
     });
     this.companyService.all().subscribe(companies => {
       this.companies = companies;
+      if (this.companies.length === 1) {
+        this.company = this.companies[0];
+        this.onChange(this.company);
+      }
     });
   }
 

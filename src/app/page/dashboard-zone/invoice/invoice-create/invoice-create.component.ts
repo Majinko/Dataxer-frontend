@@ -79,7 +79,7 @@ export class InvoiceCreateComponent implements OnInit {
       state: 'UNPAID',
       title: ['', Validators.required],
       subject: null,
-      company: null,
+      company: [null, Validators.required],
       number: ['', Validators.required],
       variableSymbol: ['', Validators.required],
       constantSymbol: '0308',

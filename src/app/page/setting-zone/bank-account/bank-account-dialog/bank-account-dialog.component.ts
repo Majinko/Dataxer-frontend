@@ -38,6 +38,7 @@ export class BankAccountDialogComponent implements OnInit {
     this.formGroup = this.formBuilder.group({
       id: null,
       iban: this.ibanReactive,
+      company: [null, Validators.required],
       bankCode: [null, Validators.pattern('^[0-9]{1,6}$')],
       bankName: null,
       swift: null,

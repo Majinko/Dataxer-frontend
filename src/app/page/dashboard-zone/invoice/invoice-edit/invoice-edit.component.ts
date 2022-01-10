@@ -60,6 +60,7 @@ export class InvoiceEditComponent implements OnInit {
       project: [null, Validators.required],
       title: ['', Validators.required],
       subject: '',
+      company: [null, Validators.required],
       number: ['', Validators.required],
       variableSymbol: ['', Validators.required],
       documentType: null,

@@ -1,7 +1,7 @@
 <form (ngSubmit)="submit()" [formGroup]="formGroup" #ngForm="ngForm" autocomplete="off">
   <div mat-dialog-title class="row mb-4">
     <div class="d-flex align-items-center justify-content-between mb-3">
-      <h1 class="mb-0">Rola</h1>
+      <h1 class="mb-0">Profil</h1>
       <a mat-icon-button class="close-icon cursor-pointer" mat-dialog-close>
         <mat-icon>close</mat-icon>
       </a>
@@ -12,26 +12,14 @@
     <div class="row mb-3">
       <div class="col-md-12">
         <mat-form-field class="form-group w-100">
-          <input matInput placeholder="Názov" formControlName="name">
-          <mat-error *ngIf="f.name.errors">Názov role je požadovaný</mat-error>
+          <input matInput placeholder="Názov" formControlName="title">
+          <mat-error *ngIf="f.title.errors">Názov profilu je požadovaný</mat-error>
         </mat-form-field>
       </div>
-
-      <div class="col-12">
-        <mat-form-field class="form-group w-100">
-          <mat-label>Oprávnenia role</mat-label>
-          <mat-select
-            [compareWith]="objectComparisonFunction"
-            formControlName="privileges"
-            multiple>
-            <mat-option [value]="privilege" *ngFor="let privilege of privileges">{{privilege.name}}</mat-option>
-          </mat-select>
-        </mat-form-field>
+      <div class="col-md-12">
+        <app-photo-uploader [formGroup]="formGroup" path="profile" nameAttr="logoUrl"></app-photo-uploader>
       </div>
 
-      <div class="col-12">
-        <app-company-select-group formControlName="company" [ngForm]="ngForm" [showAddButton]="false"></app-company-select-group>
-      </div>
     </div>
 
     <div class="row">

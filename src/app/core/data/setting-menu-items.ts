@@ -2,6 +2,12 @@ import {MenuItem} from '../models/menu-item';
 
 export const SettingMenuItems: MenuItem[] = [
   {
+    routerLink: ['/setting/profile'],
+    title: 'Profil',
+    icon: 'account_circle',
+    permission: 'Settings'
+  },
+  {
     routerLink: ['/setting/role'],
     title: 'Role',
     icon: 'admin_panel_settings',

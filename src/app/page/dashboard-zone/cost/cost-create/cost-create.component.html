@@ -5,7 +5,7 @@
   </div>
 </div>
 
-<form autocomplete="off" [formGroup]="formGroup" (ngSubmit)="submit()">
+<form autocomplete="off" [formGroup]="formGroup" #ngForm="ngForm" (ngSubmit)="submit()">
   <div class="row">
     <div class="col-12">
       <h2 class="border-bottom-2 pb-2 mb-4">Základné info</h2>
@@ -39,7 +39,7 @@
     </div>
 
     <div class="col-md-4 mb-2">
-      <app-company-select-group formControlName="company"></app-company-select-group>
+      <app-company-select-group formControlName="company" [ngForm]="ngForm"></app-company-select-group>
     </div>
   </div>
 

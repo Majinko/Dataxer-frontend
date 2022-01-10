@@ -8,6 +8,7 @@ import {NumberingCreateComponent} from './numbering-create/numbering-create.comp
 import {MaterialModule} from '../../../theme/modules/material.module';
 import {ReactiveFormsModule} from '@angular/forms';
 import {NumberingEditComponent} from './numbering-edit/numbering-edit.component';
+import {ThemeModule} from '../../../theme/theme.module';
 
 const routes: Routes = [{
   path: '',
@@ -37,12 +38,13 @@ const routes: Routes = [{
     NumberingCreateComponent,
     NumberingEditComponent
   ],
-  imports: [
-    CommonModule,
-    RouterModule.forChild(routes),
-    MaterialModule,
-    ReactiveFormsModule
-  ]
+    imports: [
+        CommonModule,
+        RouterModule.forChild(routes),
+        MaterialModule,
+        ReactiveFormsModule,
+        ThemeModule
+    ]
 })
 export class NumberingModule {
 }
