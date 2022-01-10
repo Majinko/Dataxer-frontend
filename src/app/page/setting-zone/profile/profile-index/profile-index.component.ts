@@ -47,7 +47,7 @@ export class ProfileIndexComponent implements OnInit {
 
   destroy(id: number) {
     this.profileService.destroy(id).subscribe(() => {
-      this.profiles = this.profiles.filter(role => role.id !== id);
+      this.profiles = this.profiles.filter(profile => profile.id !== id);
 
       this.messageService.add('Rola bola odstránená');
     });
