@@ -2,7 +2,7 @@ import {Resolve} from '@angular/router';
 import {Observable} from 'rxjs';
 import {AppUserProfileService} from '../services/app-user-profile.service';
 import {AppProfile} from '../models/appProfile';
-import {Injectable} from "@angular/core";
+import {Injectable} from '@angular/core';
 
 @Injectable()
 export class AppUserProfileResolver implements Resolve<Observable<any>> {
