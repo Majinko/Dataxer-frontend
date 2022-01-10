@@ -5,9 +5,10 @@ import {MaterialModule} from '../../theme/modules/material.module';
 import {SettingRoutingModule} from './setting-routing.module';
 import {ThemeModule} from '../../theme/theme.module';
 import {NgxPermissionsModule} from 'ngx-permissions';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
-  declarations: [SettingComponent],
+  declarations: [SettingComponent, ProfileComponent],
   imports: [
     CommonModule,
     MaterialModule,

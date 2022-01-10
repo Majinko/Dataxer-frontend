@@ -74,6 +74,7 @@ export class CostEditComponent implements OnInit {
       title: [null, Validators.required],
       type: null,
       state: null,
+      company: [null, Validators.required],
       isInternal: false,
       isRepeated: false,
       period: null,

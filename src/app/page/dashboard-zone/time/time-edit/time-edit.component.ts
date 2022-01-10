@@ -57,6 +57,7 @@ export class TimeEditComponent implements OnInit {
       this.formGroup = this.formBuilder.group({
         id: t.id,
         description: t.description,
+        company: [null, Validators.required],
         dateWork: [t.dateWork, Validators.required],
         timeFromForUser: strftime('%H:%M', new Date(t.timeFrom * 1000)),
         timeFrom: t.timeFrom,

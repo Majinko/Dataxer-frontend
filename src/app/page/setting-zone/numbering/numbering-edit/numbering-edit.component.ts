@@ -38,6 +38,7 @@ export class NumberingEditComponent implements OnInit {
         title: [docNumbering.title, Validators.required],
         format: docNumbering.format,
         type: docNumbering.type,
+        company: [docNumbering.company, Validators.required],
         period: docNumbering.period,
         otherFormat: docNumbering.format,
         isDefault: docNumbering.isDefault
