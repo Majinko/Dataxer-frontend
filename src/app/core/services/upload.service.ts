@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
-import {Upload} from '../models/upload';
 import {AngularFireStorage} from '@angular/fire/storage';
 import {AngularFireUploadTask} from '@angular/fire/storage/task';
-import {CompanyService} from './company.service';
+import {AppProfileService} from './app-profile.service';
+import {slugify} from '../../../helper';
 
 @Injectable({
   providedIn: 'root'
@@ -12,13 +12,13 @@ export class UploadService {
 
   constructor(
     private afStorage: AngularFireStorage,
-    private companyService: CompanyService,
+    private appProfileService: AppProfileService
   ) {
   }
 
   pushUpload(path: string, upload: File): AngularFireUploadTask {
     return this
       .afStorage
-      .upload(`${this.companyService.company.cin}/${path}/${upload.name}`, upload);
+      .upload(`${slugify(this.appProfileService.appProfile.title)}/${path}/${upload.name}`, upload);
   }
 }
