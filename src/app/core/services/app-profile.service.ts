@@ -8,6 +8,8 @@ import {AppProfile} from "../models/appProfile";
   providedIn: 'root'
 })
 export class AppProfileService {
+  appProfile: AppProfile;
+
   reloadProfile = new Subject<boolean>();
 
   constructor(private http: HttpClient) {

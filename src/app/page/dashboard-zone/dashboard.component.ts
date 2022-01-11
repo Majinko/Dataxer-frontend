@@ -6,6 +6,7 @@ import {UserService} from '../../core/services/user.service';
 import {ActivatedRoute} from '@angular/router';
 import {GodButtonService} from '../../core/services/god-button.service';
 import {NgxPermissionsService} from 'ngx-permissions';
+import {AppProfileService} from "../../core/services/app-profile.service";
 
 @Component({
   selector: 'app-page',
@@ -27,7 +28,7 @@ export class DashboardComponent implements OnInit {
   constructor(
     @Inject(GodButtonService) private readonly godButtonService: GodButtonService,
     public sidenavService: SidenavService,
-    private companyService: CompanyService,
+    private appProfileService: AppProfileService,
     private userService: UserService,
     private route: ActivatedRoute,
     private permissionService: NgxPermissionsService
@@ -36,7 +37,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.userService.user = this.route.snapshot.data.user;
-    this.companyService.company = this.route.snapshot.data.company;
+    this.appProfileService.appProfile = this.route.snapshot.data.appProfile;
     this.godButtonService.showModal = false;
 
     this.preparePermission();
