@@ -39,9 +39,9 @@ export class TimeTableComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.salaryService.getActiveUserSalary(this.userService.user.uid).subscribe((s) => {
+    /*this.salaryService.getActiveUserSalary(this.userService.user.uid).subscribe((s) => {
       this.salary = s;
-    });
+    });*/
   }
 
   private paginate() {

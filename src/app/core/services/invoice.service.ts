@@ -50,10 +50,6 @@ export class InvoiceService extends ResourceService<Invoice> {
     }));
   }
 
-  changeInvoiceTypeAndCreate(id: number, type: string): Observable<Invoice> {
-    return this.httpClient.get<Invoice>(`${environment.baseUrl}/invoice/change-type-create-new/${id}/${type}`);
-  }
-
   taxInvoice(id: number): Observable<Invoice> {
     return this.httpClient.get<Invoice>(`${environment.baseUrl}/invoice/tax-invoice/${id}`);
   }
