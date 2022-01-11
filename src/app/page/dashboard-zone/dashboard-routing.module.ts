@@ -3,19 +3,19 @@ import {NgModule} from '@angular/core';
 import {DashboardComponent} from './dashboard.component';
 import {AuthGuardService} from '../../core/guards/auth-guard.service';
 import {UserResolver} from '../../core/resolver/user.resolver';
-import {CompanyResolver} from '../../core/resolver/company.resolver';
 import {NgxPermissionsGuard} from 'ngx-permissions';
+import {AppProfileResolver} from '../../core/resolver/appProfile.resolver';
 
 const routes: Routes = [
   {
     path: '',
     component: DashboardComponent,
     canActivate: [AuthGuardService],
-    resolve: {user: UserResolver, company: CompanyResolver},
+    resolve: {user: UserResolver, appProfile: AppProfileResolver},
     children: [
       {
         path: 'task',
-        //canActivate: [NgxPermissionsGuard],
+        // canActivate: [NgxPermissionsGuard],
         data: {
           godButtonTitle: 'Nová úloha',
           gotButtonRouteLink: '/task/create',
@@ -27,7 +27,7 @@ const routes: Routes = [
       },
       {
         path: 'todo',
-        //canActivate: [NgxPermissionsGuard],
+        // canActivate: [NgxPermissionsGuard],
         data: {
           godButtonTitle: 'Nová úloha',
           gotButtonRouteLink: '/todo/create',
@@ -39,7 +39,7 @@ const routes: Routes = [
       },
       {
         path: 'contact',
-        //canActivate: [NgxPermissionsGuard],
+        // canActivate: [NgxPermissionsGuard],
         data: {
           godButtonTitle: 'Nový kontakt',
           gotButtonRouteLink: '/contact/create',
@@ -51,7 +51,7 @@ const routes: Routes = [
       },
       {
         path: 'project',
-        //canActivate: [NgxPermissionsGuard],
+        // canActivate: [NgxPermissionsGuard],
         data: {
           godButtonTitle: 'Nová zákazka',
           gotButtonRouteLink: '/project/create',
@@ -63,7 +63,7 @@ const routes: Routes = [
       },
       {
         path: 'demand',
-        //canActivate: [NgxPermissionsGuard],
+        // canActivate: [NgxPermissionsGuard],
         data: {
           godButtonTitle: 'Nový dopyt',
           gotButtonRouteLink: '/demand/create',
@@ -75,7 +75,7 @@ const routes: Routes = [
       },
       {
         path: 'invoice',
-        //canActivate: [NgxPermissionsGuard],
+        // canActivate: [NgxPermissionsGuard],
         data: {
           godButtonTitle: 'Nová faktúra',
           gotButtonRouteLink: '/invoice/create',
@@ -91,7 +91,7 @@ const routes: Routes = [
       },
       {
         path: 'cost',
-        //canActivate: [NgxPermissionsGuard],
+        // canActivate: [NgxPermissionsGuard],
         data: {
           godButtonTitle: 'Nový náklad', gotButtonRouteLink: '/cost/create',
           permissions: {
@@ -102,7 +102,7 @@ const routes: Routes = [
       },
       {
         path: 'price-offer',
-        //canActivate: [NgxPermissionsGuard],
+        // canActivate: [NgxPermissionsGuard],
         data: {
           godButtonTitle: 'Nová kalkulácia',
           gotButtonRouteLink: '/price-offer/create',
@@ -114,7 +114,7 @@ const routes: Routes = [
       },
       {
         path: 'time',
-        //canActivate: [NgxPermissionsGuard],
+        // canActivate: [NgxPermissionsGuard],
         data: {
           godButtonTitle: 'Zaznamenať čas',
           gotButtonRouteLink: '/time/create',
@@ -126,7 +126,7 @@ const routes: Routes = [
       },
       {
         path: 'item',
-        //canActivate: [NgxPermissionsGuard],
+        // canActivate: [NgxPermissionsGuard],
         data: {
           godButtonTitle: 'Nová položka',
           gotButtonRouteLink: '/item/create',
@@ -138,7 +138,7 @@ const routes: Routes = [
       },
       {
         path: 'pack',
-        //canActivate: [NgxPermissionsGuard],
+        // canActivate: [NgxPermissionsGuard],
         data: {
           godButtonTitle: 'Nová sada poloziek',
           gotButtonRouteLink: '/pack/create',
@@ -150,7 +150,7 @@ const routes: Routes = [
       },
       {
         path: 'overview',
-        //canActivate: [NgxPermissionsGuard],
+        // canActivate: [NgxPermissionsGuard],
         data: {
           permissions: {
             only: 'Overview'
@@ -164,7 +164,7 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
-  providers: [CompanyResolver, UserResolver]
+  providers: [AppProfileResolver, UserResolver]
 })
 export class DashboardRoutingModule {
 }
