@@ -98,7 +98,7 @@ export class NewProjectSelectComponent implements ControlValueAccessor, OnInit, 
 
   writeValue(project: Project) {
     if (project) {
-      project.fullTitle = project.number + ' ' + project.title;
+      project.fullTitle = ((project.number ?? '') + ' ' + project.title).trim();
     }
 
     this.project = project;

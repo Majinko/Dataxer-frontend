@@ -37,7 +37,7 @@ export class ProjectService extends ResourceService<Project> {
   all(): Observable<Project[]> {
     return this.httpClient.get<Project[]>(`${environment.baseUrl}/project/all`).pipe(map(projects => {
       projects.forEach(project => {
-        project.fullTitle = project.number + ' ' + project.title;
+        project.fullTitle = ((project.number ?? '') + ' ' + project.title).trim();
       });
 
       return projects;
@@ -100,7 +100,7 @@ export class ProjectService extends ResourceService<Project> {
 
   private prepareProjects(projects: Project[]): Project[] {
     projects.forEach(project => {
-      project.fullTitle = project.number + ' ' + project.title;
+      project.fullTitle = ((project.number ?? '') + ' ' + project.title).trim();
     });
 
     return projects;

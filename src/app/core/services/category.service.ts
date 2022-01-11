@@ -75,7 +75,8 @@ export class CategoryService {
         if (!prepareTree) {
           return this.categoryHelper.prepareOptionTree(categories);
         } else {
-          return this.categoryHelper.prepareTree(categories, null);
+          return categories;
+          // return this.categoryHelper.prepareTree(categories, null);
         }
       }));
   }

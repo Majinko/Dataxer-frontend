@@ -4,6 +4,7 @@ import {FlatTreeControl} from '@angular/cdk/tree';
 import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
 import {SelectionModel} from '@angular/cdk/collections';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
+import {CategoryHelper} from '../../../core/class/CategoryHelper';
 
 export interface CategoryFlatNode {
   id: number;
@@ -12,7 +13,7 @@ export interface CategoryFlatNode {
   expandable: boolean;
   categoryGroup: string;
   categoryType: string;
-  parent: CategoryItemNode;
+  parentId: number;
 }
 
 @Component({
@@ -27,6 +28,7 @@ export interface CategoryFlatNode {
 })
 export class CategoryTreeControlComponent implements OnInit, OnChanges, ControlValueAccessor {
   categoryItemNodes: CategoryItemNode[] = [];
+  cleanCategories: CategoryItemNode[] = [];
 
   @Input() categories: CategoryItemNode[] = [];
 
@@ -35,7 +37,7 @@ export class CategoryTreeControlComponent implements OnInit, OnChanges, ControlV
       expandable: !!node.children && node.children.length > 0,
       id: node.id,
       name: node.name,
-      parent: node.parent,
+      parentId: node.parentId,
       categoryGroup: node.categoryGroup,
       categoryType: node.categoryType,
       level,
@@ -51,7 +53,9 @@ export class CategoryTreeControlComponent implements OnInit, OnChanges, ControlV
   treeFlattener: MatTreeFlattener<CategoryItemNode, CategoryFlatNode>;
   dataSource: MatTreeFlatDataSource<CategoryItemNode, CategoryFlatNode>;
 
-  constructor() {
+  constructor(
+    public categoryHelper: CategoryHelper
+  ) {
     this.treeFlattener = new MatTreeFlattener(this.transformer, this.getLevel, this.isExpandable, this.getChildren);
     this.treeControl = new FlatTreeControl<CategoryFlatNode>(this.getLevel, this.isExpandable);
     this.dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
@@ -67,11 +71,19 @@ export class CategoryTreeControlComponent implements OnInit, OnChanges, ControlV
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.dataSource.data = changes.categories.currentValue;
+    this.cleanCategories = changes.categories.currentValue;
+    this.dataSource.data = this.categoryHelper.prepareTree(changes.categories.currentValue, null);
   }
 
   /** Toggle a leaf to-do item selection. Check all the parents to see if they changed */
   todoLeafItemSelectionToggle(node: CategoryFlatNode, isEdit: boolean = false): void {
+    const parent: CategoryItemNode = this.cleanCategories.find(f => f.id === node.parentId);
+    
+    if (parent){
+      this.checklistSelection.toggle(parent as CategoryFlatNode);
+      this.checkAllParentsSelection(parent as CategoryFlatNode);
+    }
+
     this.checklistSelection.toggle(node);
     this.checkAllParentsSelection(node);
 
@@ -173,7 +185,7 @@ export class CategoryTreeControlComponent implements OnInit, OnChanges, ControlV
   }
 
   selectCategory() {
-
+    console.log(this.checklistSelection.selected);
     this.onChange(this.checklistSelection.selected);
   }
 }
