@@ -19,8 +19,12 @@ export class AppProfileService {
     return this.http.get<AppProfile[]>(`${environment.baseUrl}/appProfile/all`);
   }
 
-  storeOrUpdate(profile: AppProfile): Observable<void> {
-    return this.http.post<void>(`${environment.baseUrl}/appProfile/storeOrUpdate`, profile);
+  store(profile: AppProfile): Observable<void> {
+    return this.http.post<void>(`${environment.baseUrl}/appProfile/store`, profile);
+  }
+
+  update(profile: AppProfile): Observable<void> {
+    return this.http.post<void>(`${environment.baseUrl}/appProfile/update`, profile);
   }
 
   destroy(id: number): Observable<void> {

@@ -2,6 +2,7 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {GodButtonService} from '../../../core/services/god-button.service';
 import {ActivatedRoute} from '@angular/router';
 import {ProfileDialogComponent} from './profile-dialog/profile-dialog.component';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-profile',
@@ -19,8 +20,11 @@ export class ProfileComponent implements OnInit {
 
   constructor(
     @Inject(GodButtonService) private readonly godButtonService: GodButtonService,
-    private route: ActivatedRoute
-  ) { }
+    private route: ActivatedRoute,
+    private titleService: Title
+  ) {
+    this.titleService.setTitle('Profil | Dataxer');
+  }
 
   ngOnInit() {
     this.godButtonService.title = this.route.snapshot.data.godButtonTitle;

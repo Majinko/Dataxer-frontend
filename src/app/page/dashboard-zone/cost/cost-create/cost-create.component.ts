@@ -92,7 +92,7 @@ export class CostCreateComponent implements OnInit {
       taxableSupply: null,
       currency: this.currencies[0].value,
       price: null,
-      tax: this.companyService.company.isTaxPayer ? 20 : 0,
+      tax: this.companyService.company?.isTaxPayer ? 20 : 0,
       totalPrice: null,
       paymentMethod: null,
       paymentDate: null,

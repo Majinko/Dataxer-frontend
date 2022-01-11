@@ -38,12 +38,23 @@ export class ProfileDialogComponent implements OnInit {
       return;
     }
 
-    this.profileService.storeOrUpdate(this.formGroup.value).subscribe(r => {
-      this.dialogRef.close();
-      this.profileService.reloadProfile.next(true);
+    if (this.data && this.data.profile) {
+      this.profileService.update(this.formGroup.value).subscribe(r => {
+        this.dialogRef.close();
+        this.profileService.reloadProfile.next(true);
 
-      this.messageService.add(this.f.id === null ? 'Profil bol pridaný.' : 'Profil bol aktualizovaný');
-    });
+        this.messageService.add('Profil bol aktualizovaný.');
+      });
+    } else {
+      this.profileService.store(this.formGroup.value).subscribe(r => {
+        this.dialogRef.close();
+        this.profileService.reloadProfile.next(true);
+
+        this.messageService.add('Profil bol pridaný.');
+      });
+    }
+
+
   }
 
   objectComparisonFunction(option, value): boolean {

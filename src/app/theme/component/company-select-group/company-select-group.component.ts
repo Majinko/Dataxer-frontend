@@ -1,9 +1,9 @@
-import {Component, forwardRef, Input, OnInit} from '@angular/core';
-import {MatDialog} from '@angular/material/dialog';
-import {FormGroupDirective, NG_VALUE_ACCESSOR} from '@angular/forms';
-import {Company} from '../../../core/models/company';
-import {CompanyService} from '../../../core/services/company.service';
-import {CompanyCreateComponent} from '../../../page/setting-zone/company/company-create/company-create.component';
+import { Component, forwardRef, Input, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { FormGroupDirective, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Company } from '../../../core/models/company';
+import { CompanyService } from '../../../core/services/company.service';
+import { CompanyCreateComponent } from '../../../page/setting-zone/company/company-create/company-create.component';
 
 @Component({
   selector: 'app-company-select-group',
@@ -45,17 +45,20 @@ export class CompanySelectGroupComponent implements OnInit {
       this.companies = this.companies.concat(c);
     });
     this.companyService.all().subscribe(companies => {
+      console.log(this.ngForm.form.controls.company.value);
       this.companies = companies;
-      if (this.companies.length === 1) {
-        this.company = this.companies[0];
-        this.onChange(this.company);
+      if (!this.ngForm.form.controls.company.value) {
+        setTimeout(() => {
+          this.company = this.companies[0];
+          this.onChange(this.company);
+        }, 1);
       }
     });
   }
 
   openDialog() {
     this.dialog.open(CompanyCreateComponent, {
-      data: {inModal: true},
+      data: { inModal: true },
       autoFocus: false
     });
   }
