@@ -45,7 +45,7 @@ export class DocumentPackComponent implements OnInit {
       customPrice: false,
       showItems: true,
       price: null,
-      tax: this.companyService.company.isTaxPayer ? 20 : 0,
+      tax: this.companyService.company?.isTaxPayer ? 20 : 0,
       totalPrice: null,
       packItems: this.formBuilder.array([this.createItem()])
     });
@@ -60,7 +60,7 @@ export class DocumentPackComponent implements OnInit {
       unit: this.units[0].unit,
       discount: 0,
       price: null,
-      tax: this.companyService.company.isTaxPayer ? 20 : 0,
+      tax: this.companyService.company?.isTaxPayer ? 20 : 0,
       totalPrice: null,
     });
   }

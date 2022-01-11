@@ -1,4 +1,4 @@
-import {BrowserModule} from '@angular/platform-browser';
+import {BrowserModule, Title} from '@angular/platform-browser';
 import {LOCALE_ID, NgModule} from '@angular/core';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -49,6 +49,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     AngularFireStorageModule, // imports firebase/storage only needed for storage features
   ],
   providers: [
+    Title,
     {provide: LOCALE_ID, useValue: 'sk'},
     {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},

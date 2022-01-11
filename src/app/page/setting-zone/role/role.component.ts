@@ -2,6 +2,7 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {GodButtonService} from '../../../core/services/god-button.service';
 import {ActivatedRoute} from '@angular/router';
 import {RoleDialogComponent} from './role-dialog/role-dialog.component';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-role',
@@ -18,8 +19,11 @@ export class RoleComponent implements OnInit {
 
   constructor(
     @Inject(GodButtonService) private readonly godButtonService: GodButtonService,
-    private route: ActivatedRoute
-  ) { }
+    private route: ActivatedRoute,
+    private titleService: Title
+  ) {
+    this.titleService.setTitle('Role | Dataxer');
+  }
 
   ngOnInit(): void {
     this.godButtonService.title = this.route.snapshot.data.godButtonTitle;

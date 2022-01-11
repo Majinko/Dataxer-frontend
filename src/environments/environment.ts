@@ -16,7 +16,7 @@ export const environment = {
   },
    baseUrl: 'http://localhost:8080/api'
   // baseUrl: 'https://dataid.dataxer.com/api'
-  //baseUrl: 'https://dataxer.herokuapp.com/api'
+  // baseUrl: 'https://dataxer.herokuapp.com/api'
 };
 
 /*

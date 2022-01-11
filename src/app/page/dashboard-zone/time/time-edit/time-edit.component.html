@@ -13,18 +13,14 @@
   </div>
 
   <div class="row">
-    <div class="col-md-4 form-group">
+    <div class="col-md-6 form-group">
       <app-new-project-select formControlName="project" [showAddButton]="false"></app-new-project-select>
       <mat-error *ngIf="isSubmit && f.project.errors">Projekt je <strong>požadovaný.</strong></mat-error>
     </div>
 
-    <div class="col-md-4 form-group">
+    <div class="col-md-6 form-group">
       <app-new-category-select formControlName="category" [showAddButton]="false"></app-new-category-select>
       <mat-error *ngIf="isSubmit && f.category.errors">Kategória je <strong>požadovaná.</strong></mat-error>
-    </div>
-
-    <div class="col-md-4 mb-3">
-      <app-company-select-group formControlName="company" [ngForm]="ngForm" [showAddButton]="false"></app-company-select-group>
     </div>
 
     <div class="col-md-4">
@@ -67,6 +63,10 @@
                (input)="search($event.target.value)"
         >
       </mat-form-field>
+    </div>
+
+    <div class="col-md-4 mb-3">
+      <app-company-select-group formControlName="company" [ngForm]="ngForm" [showAddButton]="false"></app-company-select-group>
     </div>
 
     <div class="col-md-12">
