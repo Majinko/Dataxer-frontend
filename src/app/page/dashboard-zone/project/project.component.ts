@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {GodButtonService} from '../../../core/services/god-button.service';
 import {ActivatedRoute} from '@angular/router';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-project',
@@ -17,8 +18,10 @@ import {ActivatedRoute} from '@angular/router';
 export class ProjectComponent implements OnInit {
   constructor(
     private readonly godButtonService: GodButtonService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private titleService: Title
   ) {
+    this.titleService.setTitle('Zákazky | Dataxer');
   }
 
   ngOnInit() {

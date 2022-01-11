@@ -1,6 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {GodButtonService} from '../../../core/services/god-button.service';
 import {ActivatedRoute} from '@angular/router';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-todo',
@@ -18,7 +19,9 @@ export class TodoComponent implements OnInit {
   constructor(
     @Inject(GodButtonService) private readonly godButtonService: GodButtonService,
     private route: ActivatedRoute,
+    private titleService: Title
   ) {
+    this.titleService.setTitle('Todo | Dataxer');
   }
 
   ngOnInit() {

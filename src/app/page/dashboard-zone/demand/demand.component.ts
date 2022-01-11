@@ -1,6 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {GodButtonService} from "../../../core/services/god-button.service";
 import {ActivatedRoute} from "@angular/router";
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-demand',
@@ -18,8 +19,11 @@ export class DemandComponent implements OnInit {
 
   constructor(
     @Inject(GodButtonService) private readonly godButtonService: GodButtonService,
-    private route: ActivatedRoute
-  ) { }
+    private route: ActivatedRoute,
+    private titleService: Title
+  ) {
+    this.titleService.setTitle('Dopyt | Dataxer');
+  }
 
   ngOnInit(): void {
     this.godButtonService.menuItem = [];

@@ -1,6 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {GodButtonService} from '../../../core/services/god-button.service';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-time',
@@ -18,7 +19,9 @@ export class TimeComponent implements OnInit {
   constructor(
     @Inject(GodButtonService) private readonly godButtonService: GodButtonService,
     private route: ActivatedRoute,
+    private titleService: Title
   ) {
+    this.titleService.setTitle('Čas | Dataxer');
   }
 
   ngOnInit() {
