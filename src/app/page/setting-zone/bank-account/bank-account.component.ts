@@ -2,6 +2,7 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {GodButtonService} from '../../../core/services/god-button.service';
 import {ActivatedRoute} from '@angular/router';
 import {BankAccountDialogComponent} from './bank-account-dialog/bank-account-dialog.component';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-bank-account',
@@ -18,8 +19,10 @@ import {BankAccountDialogComponent} from './bank-account-dialog/bank-account-dia
 export class BankAccountComponent implements OnInit {
   constructor(
     @Inject(GodButtonService) private readonly godButtonService: GodButtonService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private titleService: Title
   ) {
+    this.titleService.setTitle('Bankové účty | Dataxer');
   }
 
   ngOnInit() {

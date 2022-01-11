@@ -8,6 +8,7 @@ import {NgSelectModule} from '@ng-select/ng-select';
 import {ReactiveFormsModule} from '@angular/forms';
 import {MaterialModule} from '../../../theme/modules/material.module';
 import { ProfileDialogComponent } from './profile-dialog/profile-dialog.component';
+import {AvatarModule} from 'ngx-avatar';
 
 const routes: Routes = [{
   path: '',
@@ -25,13 +26,14 @@ const routes: Routes = [{
     ProfileIndexComponent,
     ProfileDialogComponent
   ],
-  imports: [
-    CommonModule,
-    RouterModule.forChild(routes),
-    MaterialModule,
-    ReactiveFormsModule,
-    NgSelectModule,
-    ThemeModule
-  ]
+    imports: [
+        CommonModule,
+        RouterModule.forChild(routes),
+        MaterialModule,
+        ReactiveFormsModule,
+        NgSelectModule,
+        ThemeModule,
+        AvatarModule
+    ]
 })
 export class ProfileModule { }

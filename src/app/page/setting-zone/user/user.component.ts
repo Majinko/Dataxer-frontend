@@ -21,7 +21,7 @@ export class UserComponent implements OnInit {
     private route: ActivatedRoute,
     private titleService: Title
   ) {
-    this.titleService.setTitle('Osobné údaje | Dataxer');
+    this.titleService.setTitle('Používatelia | Dataxer');
   }
 
   ngOnInit() {

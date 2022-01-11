@@ -1,6 +1,7 @@
 import {Component, Inject, OnDestroy, OnInit} from '@angular/core';
 import {GodButtonService} from '../../../core/services/god-button.service';
 import {SearchBarService} from '../../../core/services/search-bar.service';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-overview',
@@ -19,8 +20,10 @@ export class OverviewComponent implements OnInit, OnDestroy {
 
   constructor(
     @Inject(GodButtonService) private readonly godButtonService: GodButtonService,
-    private readonly searchBarService: SearchBarService
+    private readonly searchBarService: SearchBarService,
+    private titleService: Title
   ) {
+    this.titleService.setTitle('Prehľady | Dataxer');
   }
 
   ngOnInit(): void {
