@@ -1,12 +1,11 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {SidenavService} from '../../core/services/sidenav.service';
 import {MenuItems} from '../../core/data/menu-items';
-import {CompanyService} from '../../core/services/company.service';
 import {UserService} from '../../core/services/user.service';
 import {ActivatedRoute} from '@angular/router';
 import {GodButtonService} from '../../core/services/god-button.service';
 import {NgxPermissionsService} from 'ngx-permissions';
-import {AppProfileService} from "../../core/services/app-profile.service";
+import {AppProfileService} from '../../core/services/app-profile.service';
 
 @Component({
   selector: 'app-page',

@@ -63,6 +63,12 @@ export class PriceOfferEditComponent implements OnInit {
         contact: v.contact
       }, {emitEvent: false});
     });
+
+    this.formGroup.get('company').valueChanges.subscribe((company) => {
+      this.formGroup.get('documentData').patchValue({
+        firm: company
+      }, {emitEvent: false});
+    });
   }
 
   // prepare form

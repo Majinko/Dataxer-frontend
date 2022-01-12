@@ -13,6 +13,7 @@ import {addDays, APP_DATE_FORMATS} from '../../../../../helper';
 import {BankAccountService} from '../../../../core/services/bank-account.service';
 import {Pack} from '../../../../core/models/pack';
 import {PriceOffer} from '../../../../core/models/priceOffer';
+import {Company} from "../../../../core/models/company";
 
 @Component({
   selector: 'app-create',
@@ -89,7 +90,7 @@ export class PriceOfferCreateComponent implements OnInit {
         }),
         contact: null,
         bankAccount: null,
-        firm: this.companyService.company
+        firm: null
       }),
 
       packs: this.formBuilder.array([])
@@ -109,15 +110,30 @@ export class PriceOfferCreateComponent implements OnInit {
   // set user
   private preparePriceOfferData() {
     this.formGroup.get('documentData.user').patchValue(this.userService.user);
+  }
 
-    this.numberingService.generateNextNumberByDocumentType('PRICE_OFFER').subscribe(r => {
-      this.formGroup.patchValue({number: r});
-      this.formGroup.patchValue({title: 'Cenová ponuka ' + r});
+  // next company number
+  private prepareDocumentNumber(company: Company) {
+    this.numberingService.generateNextNumberByDocumentType('PRICE_OFFER', company.id).subscribe(r => {
+      this.formGroup.patchValue({
+        number: r,
+        title: 'Cenová ponuka ' + r
+      }, {emitEvent: false});
+
+      this.formGroup.get('company').valueChanges.subscribe((company) => {
+        this.formGroup.get('documentData').patchValue({
+          firm: company
+        }, {emitEvent: false});
+      });
     });
   }
 
   // detect change form
   private changeForm() {
+    this.formGroup.get('company').valueChanges.subscribe((company) => {
+      this.prepareDocumentNumber(company);
+    });
+
     this.formGroup.valueChanges.subscribe(v => {
       this.formGroup.get('documentData').patchValue({
         contact: v.contact

@@ -7,8 +7,8 @@
           <div class="search-avatar-wrap d-flex align-items-center justify-content-end w-100" [ngClass]="showSearchBar && searchBarService.showBar ? 'justify-content-between' : ''">
             <app-search-bar [hidden]="showSearchBar === false || searchBarService.showBar === false" class="mr-0 mr-sm-3"></app-search-bar>
             <div class="d-flex align-items-center">
-              <div >
-                <a *ngxPermissionsOnly="'Settings'" href="#" class="text-gray mr-3 mb-0 d-none d-md-inline t-d-n" mat-icon-button matTooltip="Nastavenie aplikácie" routerLink="/setting/role">
+              <div>
+                <a *ngxPermissionsOnly="'Settings'" href="#" class="text-gray mr-3 mb-0 d-none d-md-inline t-d-n" mat-icon-button matTooltip="Nastavenie aplikácie" routerLink="/setting/profile">
                   <mat-icon>settings</mat-icon>
                 </a>
               </div>

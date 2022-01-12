@@ -61,10 +61,8 @@ export class ProfileDialogComponent implements OnInit {
     return option.id === value.id;
   }
 
-
   // convenience getter for easy access to form fields
   get f() {
     return this.formGroup.controls;
   }
-
 }
