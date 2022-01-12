@@ -15,7 +15,7 @@
   <table class="table-show-data table-default w-100 border-bottom" *ngIf="userMonthlyOverviews.length; else emptyList">
     <thead>
     <tr>
-      <th class="table-fixed-col text-left">Užívateľ</th>
+      <th class="table-fixed-col text-left"><span>Užívateľ</span></th>
       <th class="text-center" *ngFor="let day of countMonthDays; let index = index">{{index + 1}}</th>
       <th class="text-center">Spolu</th>
     </tr>

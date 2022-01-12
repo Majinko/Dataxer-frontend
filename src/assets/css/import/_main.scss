@@ -9,7 +9,59 @@ app-invoice-edit app-company-select-group {
   .ng-select-container .ng-value-container .ng-placeholder {
     color: #f44336;
   }
+
   .ng-select-container::after {
     border-color: #f44336;
+  }
+}
+
+
+.table-show-data {
+  tr {
+    .table-fixed-col {
+      position: sticky;
+      left: 0;
+      padding: 0;
+
+      & > span {
+        background: #fff;
+      }
+    }
+
+    th {
+      &.table-fixed-col {
+        border-color: #fff;
+
+        & > span {
+          display: block;
+          width: 100%;
+          padding: 0 10px;
+          height: 26px;
+        }
+      }
+    }
+
+    td {
+      &.table-fixed-col {
+        & > span {
+          padding: 10px 10px;
+          padding-right: 18px;
+          height: 65px;
+          box-shadow: inset -1px 0 0 0 #ddd, inset -8px 0 0 0 #ececec;
+        }
+      }
+    }
+  }
+}
+app-overview-cost-yearly {
+  .table-show-data tr td.table-fixed-col > span {
+    padding: 2px;
+    padding-right: 15px;
+    display: block;
+    height: 50px;
+    line-height: 46px;
+  }
+  .table-show-data tr th.table-fixed-col > span {
+    height: 46px;
   }
 }
