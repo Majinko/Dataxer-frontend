@@ -45,7 +45,6 @@ export class CompanySelectGroupComponent implements OnInit {
       this.companies = this.companies.concat(c);
     });
     this.companyService.all().subscribe(companies => {
-      console.log(this.ngForm.form.controls.company.value);
       this.companies = companies;
       if (!this.ngForm.form.controls.company.value) {
         setTimeout(() => {

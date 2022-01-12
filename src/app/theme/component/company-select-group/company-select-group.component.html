@@ -10,6 +10,6 @@
              (change)="selectCompany($event)"
   >
   </ng-select>
-  <mat-icon *ngIf="showAddButton" class="text-gray md-f-s position-absolute btn-add" (click)="openDialog()">add</mat-icon>
+  <mat-icon *ngIf="showAddButton" class="d-none text-gray md-f-s position-absolute btn-add" (click)="openDialog()">add</mat-icon>
 </div>
 <mat-error class="mat-error-not-in-field" *ngIf="ngForm.submitted && ngForm.form.controls.company.errors">Spoločnosť je <strong>požadovaná.</strong></mat-error>
