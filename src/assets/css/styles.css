@@ -1193,6 +1193,34 @@ app-company .cdk-drop-list .mat-focus-indicator {
   margin-right: 0 !important;
 }
 
+.company-option {
+  display: flex;
+  align-items: center;
+}
+.company-option .img-wrap {
+  width: 40px;
+  padding: 5px 15px;
+  padding-left: 0;
+}
+.company-option .text-wrap {
+  width: calc(100% - 40px);
+}
+
+app-invoice-filter .filter-ng-select .ng-value-container > .ng-value {
+  width: 100%;
+}
+app-invoice-filter .filter-ng-select .ng-value-container .img-wrap {
+  width: 30px;
+  padding: 0;
+  padding-right: 10px;
+}
+app-invoice-filter .filter-ng-select .ng-value-container .img-wrap img {
+  width: 20px;
+}
+app-invoice-filter .filter-ng-select .ng-value-container .text-wrap {
+  width: calc(100% - 30px);
+}
+
 /*
 * === Element ===
 */

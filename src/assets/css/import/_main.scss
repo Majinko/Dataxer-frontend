@@ -77,3 +77,37 @@ app-company {
     }
   }
 }
+
+.company-option {
+  display: flex;
+  align-items: center;
+  .img-wrap {
+    width: 40px;
+    padding: 5px 15px;
+    padding-left: 0;
+  }
+  .text-wrap {
+    width: calc(100% - 40px);
+  }
+}
+
+app-invoice-filter {
+  .filter-ng-select {
+    .ng-value-container {
+      & > .ng-value {
+        width: 100%;
+      }
+      .img-wrap {
+        width: 30px;
+        padding: 0;
+        padding-right: 10px;
+        img {
+          width: 20px;
+        }
+      }
+      .text-wrap {
+        width: calc(100% - 30px);
+      }
+    }
+  }
+}
