@@ -5,7 +5,7 @@
   </div>
 </div>
 
-<form autocomplete="off" *ngIf="priceOffer" [formGroup]="formGroup" (ngSubmit)="submit()">
+<form autocomplete="off" *ngIf="priceOffer" [formGroup]="formGroup" #ngForm="ngForm" (ngSubmit)="submit()">
   <div class="row">
     <div class="col-12">
       <h2 class="border-bottom-2 pb-2 mb-4">Súhrnné info</h2>
@@ -54,6 +54,10 @@
           <option value="REJECTED">Zamietnutá</option>
         </select>
       </mat-form-field>
+    </div>
+
+    <div class="col-md-4 mb-3">
+      <app-company-select-group formControlName="company" [ngForm]="ngForm"></app-company-select-group>
     </div>
   </div>
 

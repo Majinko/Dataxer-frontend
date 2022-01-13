@@ -1,8 +1,10 @@
 @keyframes spinner {
   to {
-    transform: rotate(360deg); } }
+    transform: rotate(360deg);
+  }
+}
 .spinner:before {
-  content: '';
+  content: "";
   box-sizing: border-box;
   position: absolute;
   top: 50%;
@@ -14,6 +16,7 @@
   border-radius: 50%;
   border: 2px solid #ffffff;
   border-top-color: #000000;
-  animation: spinner .8s linear infinite; }
+  animation: spinner 0.8s linear infinite;
+}
 
 /*# sourceMappingURL=spinner-button.component.css.map */

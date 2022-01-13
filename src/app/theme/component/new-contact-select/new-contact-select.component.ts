@@ -37,7 +37,6 @@ export class NewContactSelectComponent implements ControlValueAccessor, OnInit {
     this.getContacts();
 
     this.contactService.contractorStore.subscribe(c => {
-      console.log(c);
       this.onChange(c);
       this.contact = c;
 

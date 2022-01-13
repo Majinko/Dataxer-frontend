@@ -30,6 +30,7 @@ export class NumberingCreateComponent implements OnInit {
       title: [null, Validators.required],
       format: 'YYYYCCC',
       otherFormat: '',
+      company: [null, Validators.required],
       type: [this.typeDocuments[0].key],
       period: 'YEAR',
       isDefault: true

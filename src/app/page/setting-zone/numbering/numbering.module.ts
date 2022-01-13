@@ -8,7 +8,7 @@ import {MaterialModule} from '../../../theme/modules/material.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NumberingEditComponent} from './numbering-edit/numbering-edit.component';
 import {ThemeModule} from '../../../theme/theme.module';
-import {NgSelectModule} from '@ng-select/ng-select';
+import {NgSelectModule} from "@ng-select/ng-select";
 
 const routes: Routes = [{
   path: '',

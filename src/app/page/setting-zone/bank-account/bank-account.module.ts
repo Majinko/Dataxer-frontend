@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {BankAccountComponent} from './bank-account.component';
-import {RouterModule, Routes} from "@angular/router";
+import {RouterModule, Routes} from '@angular/router';
 import {BankAccountIndexComponent} from './bank-account-index/bank-account-index.component';
 import {BankAccountDialogComponent} from './bank-account-dialog/bank-account-dialog.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';

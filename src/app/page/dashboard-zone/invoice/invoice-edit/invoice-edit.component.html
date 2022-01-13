@@ -6,7 +6,7 @@
     </div>
   </div>
 
-  <form autocomplete="off" [formGroup]="formGroup" (ngSubmit)="submit()">
+  <form autocomplete="off" [formGroup]="formGroup" #ngForm="ngForm" (ngSubmit)="submit()">
     <div class="row">
       <div class="col-12">
         <h2 class="border-bottom-2 pb-2 mb-4">Súhrnné info</h2>
@@ -51,6 +51,10 @@
         <mat-form-field class="form-group w-100">
           <input formControlName="subject" matInput placeholder="Predmet">
         </mat-form-field>
+      </div>
+
+      <div class="col-md-4">
+        <app-company-select-group formControlName="company" [ngForm]="ngForm"></app-company-select-group>
       </div>
 
       <div class="col-md-12 {{moreOptions ? 'mb-3' : 'mb-5'}}">

@@ -72,6 +72,7 @@ export class PriceOfferCreateComponent implements OnInit {
       subject: '',
       number: ['', Validators.required],
       state: null,
+      company: [null, Validators.required],
       createdDate: [new Date(), Validators.required],
       deliveredDate: [new Date(), Validators.required],
       dueDate: [addDays(new Date(), 14)],
@@ -119,7 +120,7 @@ export class PriceOfferCreateComponent implements OnInit {
         title: 'Cenová ponuka ' + r
       }, {emitEvent: false});
 
-      this.formGroup.get('company').valueChanges.subscribe((c) => {
+      this.formGroup.get('company').valueChanges.subscribe((company) => {
         this.formGroup.get('documentData').patchValue({
           firm: company
         }, {emitEvent: false});

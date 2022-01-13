@@ -1136,6 +1136,91 @@ input[type=number] {
   padding-right: 15px;
 }
 
+app-invoice-create app-company-select-group,
+app-invoice-edit app-company-select-group {
+  display: block;
+  width: 100%;
+  margin-bottom: 1.25em;
+}
+
+.ng-select.state-error .ng-select-container .ng-value-container .ng-placeholder {
+  color: #f44336;
+}
+.ng-select.state-error .ng-select-container::after {
+  border-color: #f44336;
+}
+
+.table-show-data tr .table-fixed-col {
+  position: sticky;
+  left: 0;
+  padding: 0;
+}
+.table-show-data tr .table-fixed-col > span {
+  background: #fff;
+}
+.table-show-data tr th.table-fixed-col {
+  border-color: #fff;
+}
+.table-show-data tr th.table-fixed-col > span {
+  display: block;
+  width: 100%;
+  padding: 0 10px;
+  height: 26px;
+}
+.table-show-data tr td.table-fixed-col > span {
+  padding: 10px 10px;
+  padding-right: 18px;
+  height: 65px;
+  box-shadow: inset -1px 0 0 0 #ddd, inset 0px 0 0 0 #ececec;
+}
+
+app-overview-cost-yearly .table-show-data tr td.table-fixed-col > span {
+  padding: 2px;
+  padding-right: 15px;
+  display: block;
+  height: 50px;
+  line-height: 46px;
+}
+app-overview-cost-yearly .table-show-data tr th.table-fixed-col > span {
+  height: 46px;
+}
+
+app-company .cdk-drop-list {
+  max-width: 500px;
+}
+app-company .cdk-drop-list .mat-focus-indicator {
+  margin-left: auto;
+  margin-right: 0 !important;
+}
+
+.company-option {
+  display: flex;
+  align-items: center;
+}
+.company-option .img-wrap {
+  width: 40px;
+  padding: 5px 15px;
+  padding-left: 0;
+}
+.company-option .text-wrap {
+  width: calc(100% - 40px);
+}
+
+app-invoice-filter .filter-ng-select .ng-value-container > .ng-value {
+  width: 100%;
+}
+app-invoice-filter .filter-ng-select .ng-value-container .img-wrap {
+  width: 30px;
+  padding: 0;
+  padding-right: 10px;
+}
+app-invoice-filter .filter-ng-select .ng-value-container .img-wrap img {
+  width: 20px;
+}
+app-invoice-filter .filter-ng-select .ng-value-container .text-wrap {
+  width: calc(100% - 30px);
+}
+
 /*
 * === Element ===
 */

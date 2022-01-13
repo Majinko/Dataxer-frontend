@@ -1,7 +1,1 @@
-{
-"version": 3,
-"mappings": "AACE,gBAAO;EACL,YAAY,EAAE,IAAI;EAClB,SAAS,EAAE,eAAe;EAC1B,WAAW,EAAE,cAAc;EAC3B,KAAK,EAAE,OAAO;EACd,UAAU,EAAE,OAAO;EACnB,MAAM,EAAE,iBAAiB;EACzB,UAAU,EAAE,eAAe;EAC3B,aAAa,EAAE,IAAI",
-"sources": ["payments.component.scss"],
-"names": [],
-"file": "payments.component.css"
-}
+{"version":3,"sourceRoot":"","sources":["payments.component.scss"],"names":[],"mappings":"AACE;EACE;EACA;EACA;EACA;EACA;EACA;EACA;EACA","file":"payments.component.css"}

@@ -14,7 +14,7 @@ import {BankAccountService} from '../../../../core/services/bank-account.service
 import {DatePipe} from '@angular/common';
 import {PriceOfferService} from '../../../../core/services/priceOffer.service';
 import {Pack} from '../../../../core/models/pack';
-import {Company} from "../../../../core/models/company";
+import {Company} from '../../../../core/models/company';
 
 @Component({
   selector: 'app-invoice-create',
@@ -79,6 +79,7 @@ export class InvoiceCreateComponent implements OnInit {
       state: 'UNPAID',
       title: ['', Validators.required],
       subject: null,
+      company: [null, Validators.required],
       number: ['', Validators.required],
       variableSymbol: ['', Validators.required],
       constantSymbol: '0308',

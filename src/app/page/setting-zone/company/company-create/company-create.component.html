@@ -2,6 +2,9 @@
   <div class="row mb-4">
     <div class="col d-flex justify-content-between">
       <h1>Nová spoločnosť</h1>
+      <a *ngIf="dialogRef" mat-icon-button class="close-icon cursor-pointer" mat-dialog-close>
+        <mat-icon>close</mat-icon>
+      </a>
     </div>
   </div>
 
@@ -130,21 +133,40 @@
       <div class="row">
         <div class="col-md-12">
           <mat-form-field class="form-group w-100">
-            <input matInput placeholder="IBAN" formControlName="iban">
+            <input matInput (input)="ibanFormat($event)" placeholder="IBAN" formControlName="iban">
           </mat-form-field>
+          <small *ngIf="f.iban.errors && f.iban.value && f.iban.value.length > 2"
+                 class="form-text mat-error mt-2">
+            {{ ibanValidatorMsg(f.iban.value) }}
+          </small>
         </div>
       </div>
 
       <div class="row">
         <div class="col-md-12 text-right">
-          <button routerLink="/setting/company" mat-stroked-button class="btn-icon btn-theme-stroked mr-3">
-            <mat-icon>cancel</mat-icon>
-            Zrušiť
-          </button>
-          <button mat-flat-button class="btn-icon btn-theme">
-            <mat-icon>save</mat-icon>
-            Uložiť
-          </button>
+          <div *ngIf="dialogRef === null; else dialogContact">
+
+            <button routerLink="/setting/company" mat-stroked-button class="btn-icon btn-theme-stroked mr-3">
+              <mat-icon>cancel</mat-icon>
+              Zrušiť
+            </button>
+            <button mat-flat-button class="btn-icon btn-theme">
+              <mat-icon>save</mat-icon>
+              Uložiť
+            </button>
+          </div>
+
+          <ng-template #dialogContact>
+            <button (click)="dialogRef.close()" mat-stroked-button class="btn-icon btn-theme-stroked mr-3">
+              <mat-icon>cancel</mat-icon>
+              Zrušiť
+            </button>
+            <button (click)="close()" [disabled]="!formGroup.dirty" mat-stroked-button class="btn-icon btn-theme-stroked">
+              <mat-icon>save</mat-icon>
+              Uložiť
+            </button>
+          </ng-template>
+
         </div>
       </div>
     </div>

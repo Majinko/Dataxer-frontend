@@ -1,5 +1,5 @@
-import {Component, Inject, OnInit, ViewChild} from '@angular/core';
-import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Component, Inject, OnInit, Optional, ViewChild} from '@angular/core';
+import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {LEGALFORMS} from '../../../../core/data/legal-forms';
 import {Company} from '../../../../core/models/company';
 import {CompanyService} from '../../../../core/services/company.service';
@@ -7,6 +7,10 @@ import {Router} from '@angular/router';
 import {COUNTRIES} from '../../../../core/data/countries';
 import {MatCheckbox} from '@angular/material/checkbox';
 import {SlovakiaDigital} from '../../../../core/models/slovakiaDigital';
+import {IbanValidator} from '../../../../core/class/validator';
+import {ValidatorService} from 'angular-iban';
+import {MatDialogRef} from '@angular/material/dialog';
+import {MessageService} from '../../../../core/services/message.service';
 
 
 @Component({
@@ -15,6 +19,7 @@ import {SlovakiaDigital} from '../../../../core/models/slovakiaDigital';
   styleUrls: ['./company-create.component.scss']
 })
 export class CompanyCreateComponent implements OnInit {
+  public ibanReactive: FormControl;
   formGroup: FormGroup;
   legalForms = LEGALFORMS;
   countries = COUNTRIES;
@@ -23,12 +28,21 @@ export class CompanyCreateComponent implements OnInit {
 
   constructor(
     @Inject(CompanyService) private readonly companyService: CompanyService,
+    @Optional() public dialogRef: MatDialogRef<CompanyCreateComponent>,
+    private readonly messageService: MessageService,
     private fb: FormBuilder,
     private router: Router
   ) {
   }
 
   ngOnInit() {
+    this.ibanReactive = new FormControl(
+      null,
+      [
+        ValidatorService.validateIban
+      ]
+    );
+
     this.formGroup = this.fb.group({
       name: ['', Validators.required],
       legalForm: ['', Validators.required],
@@ -45,7 +59,7 @@ export class CompanyCreateComponent implements OnInit {
       cin: '',
       tin: '',
       vatin: '',
-      iban: '',
+      iban: this.ibanReactive,
     });
   }
 
@@ -70,7 +84,13 @@ export class CompanyCreateComponent implements OnInit {
       return;
     }
 
-    this.companyService.store(companyFormData).subscribe(company => this.router.navigate(['/setting/company']));
+    this.companyService.store(companyFormData).subscribe(company => {
+      this.messageService.add('Spoločnosť bola uložená');
+
+      if (this.dialogRef === null) {
+        this.router.navigate(['/setting/company']).then();
+      }
+    });
   }
 
   // convenience getter for easy access to form fields
@@ -80,5 +100,35 @@ export class CompanyCreateComponent implements OnInit {
 
   get bI() {
     return this.f.billingInformation as FormArray;
+  }
+
+   // iban validator
+   ibanValidatorMsg(value: string) {
+    // tslint:disable-next-line:one-variable-per-declaration
+    const countryCode = value.substr(0, 2),
+      ibanLenght = IbanValidator.codeLengths[countryCode],
+      valueLenght = value.replace(/\s/g, '').length;
+
+    if (ibanLenght && (+ibanLenght - valueLenght !== 0)) {
+      return `Dĺžka IBAN pre tuto krajinu je ${ibanLenght} znakov. Zostávajúci počet znakov: ${+ibanLenght - valueLenght}`;
+    } else {
+      return 'Neplatný IBAN';
+    }
+  }
+
+  ibanFormat(e) {
+    // tslint:disable-next-line:one-variable-per-declaration
+    let target = e.target, position = target.selectionEnd, length = target.value.length;
+    target.value = target.value.toUpperCase();
+
+    target.value = target.value.replace(/[^\dA-Z]/g, '').replace(/(.{4})/g, '$1 ').trim();
+    target.selectionEnd = position += ((target.value.charAt(position - 1) === ' '
+      && target.value.charAt(length - 1) === ' ' && length !== target.value.length) ? 1 : 0);
+  }
+
+  close() {
+    if (this.formGroup.valid) {
+      this.dialogRef.close();
+    }
   }
 }

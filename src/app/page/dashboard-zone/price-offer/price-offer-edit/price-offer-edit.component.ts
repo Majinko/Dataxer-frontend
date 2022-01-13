@@ -81,6 +81,7 @@ export class PriceOfferEditComponent implements OnInit {
       subject: '',
       number: ['', Validators.required],
       state: '',
+      company: [null, Validators.required],
       createdDate: [new Date(), Validators.required],
       deliveredDate: [new Date(), Validators.required],
       dueDate: [new Date()],

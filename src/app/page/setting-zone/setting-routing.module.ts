@@ -13,6 +13,17 @@ const routes: Routes = [
     resolve: {user: UserResolver, appProfile: AppProfileResolver},
     children: [
       {
+        path: 'profile',
+        data: {
+          godButtonTitle: 'Nový profil', gotButtonRouteLink: '/setting/profile/create',
+          permissions: {
+            only: 'Settings'
+          },
+        },
+        loadChildren: () => import('./profile/profile.module')
+          .then(m => m.ProfileModule),
+      },
+      {
         path: 'company',
         data: {
           godButtonTitle: 'Nová spoločnosť', gotButtonRouteLink: '/setting/company/create',

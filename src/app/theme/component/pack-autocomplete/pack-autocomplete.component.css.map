@@ -1,7 +1,1 @@
-{
-"version": 3,
-"mappings": "AAAA,KAAM;EACJ,KAAK,EAAE,KAAK;EACZ,MAAM,EAAE,IAAI;EAEZ,cAAQ;IACN,SAAS,EAAE,IAAI",
-"sources": ["pack-autocomplete.component.scss"],
-"names": [],
-"file": "pack-autocomplete.component.css"
-}
+{"version":3,"sourceRoot":"","sources":["pack-autocomplete.component.scss"],"names":[],"mappings":"AAAA;EACE;EACA;;AAEA;EACE","file":"pack-autocomplete.component.css"}
