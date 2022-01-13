@@ -1150,6 +1150,40 @@ app-invoice-edit app-company-select-group {
   border-color: #f44336;
 }
 
+.table-show-data tr .table-fixed-col {
+  position: sticky;
+  left: 0;
+  padding: 0;
+}
+.table-show-data tr .table-fixed-col > span {
+  background: #fff;
+}
+.table-show-data tr th.table-fixed-col {
+  border-color: #fff;
+}
+.table-show-data tr th.table-fixed-col > span {
+  display: block;
+  width: 100%;
+  padding: 0 10px;
+  height: 26px;
+}
+.table-show-data tr td.table-fixed-col > span {
+  padding: 10px 10px;
+  padding-right: 18px;
+  height: 65px;
+}
+
+app-overview-cost-yearly .table-show-data tr td.table-fixed-col > span {
+  padding: 2px;
+  padding-right: 15px;
+  display: block;
+  height: 50px;
+  line-height: 46px;
+}
+app-overview-cost-yearly .table-show-data tr th.table-fixed-col > span {
+  height: 46px;
+}
+
 /*
 * === Element ===
 */

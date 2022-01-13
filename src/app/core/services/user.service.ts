@@ -87,4 +87,8 @@ export class UserService {
   userOverview(uid: string): Observable<UserOverview> {
     return this.http.get<UserOverview>(`${environment.baseUrl}/user/overview/${uid}`);
   }
+
+  switchProfile(id: number) {
+    return this.http.get<void>(`${environment.baseUrl}/user/switchProfile/${id}`);
+  }
 }

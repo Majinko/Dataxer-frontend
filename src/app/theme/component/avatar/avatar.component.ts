@@ -4,6 +4,7 @@ import {User} from '../../../core/models/user';
 import {AuthService} from '../../../core/services/auth.service';
 import {Router} from '@angular/router';
 import {AppProfileService} from '../../../core/services/app-profile.service';
+import {AppProfile} from '../../../core/models/appProfile';
 
 @Component({
   selector: 'app-avatar',
@@ -12,6 +13,7 @@ import {AppProfileService} from '../../../core/services/app-profile.service';
 })
 export class AvatarComponent implements OnInit {
   user: User;
+  appProfiles: AppProfile[] = [];
 
   constructor(
     @Inject(UserService) public readonly userService: UserService,
@@ -22,9 +24,23 @@ export class AvatarComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getProfiles();
   }
 
   logout() {
     this.authService.signOut().then(() => this.router.navigate(['/auth/login']));
+  }
+
+
+  private getProfiles() {
+    this.appProfileService.getAll().subscribe((profiles) => {
+      this.appProfiles = profiles;
+    });
+  }
+
+  switchCompany(profile: AppProfile) {
+    this.userService.switchProfile(profile.id).subscribe(() => {
+      window.location.reload();
+    });
   }
 }
