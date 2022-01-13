@@ -47,4 +47,8 @@ export class CompanyService {
   destroy(id: number): Observable<void> {
     return this.http.get<void>(`${environment.baseUrl}/company/destroy/${id}`);
   }
+
+  updatePosition(companies: Company[]): Observable<void> {
+    return this.http.post<void>(`${environment.baseUrl}/company/updatePosition`, companies);
+  }
 }

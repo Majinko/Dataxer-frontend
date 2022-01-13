@@ -41,5 +41,9 @@ export class CompanyIndexComponent implements OnInit {
     this.companies.forEach((company, index) => {
       company.position = index;
     });
+
+    this.companyService.updatePosition(this.companies).subscribe(() => {
+      this.messageService.add('Spoločnosti boli aktualizované.');
+    });
   }
 }
