@@ -14,6 +14,7 @@ import {CostShowComponent} from './cost-show/cost-show.component';
 import {NgSelectModule} from '@ng-select/ng-select';
 import { CostFilterComponent } from './cost-index/components/cost-filter/cost-filter.component';
 import {TranslateModule} from '@ngx-translate/core';
+import {AvatarModule} from 'ngx-avatar';
 
 const routes: Routes = [
   {
@@ -41,16 +42,17 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    RouterModule.forChild(routes),
-    MaterialModule,
-    ReactiveFormsModule,
-    ThemeModule,
-    CoreModule,
-    NgSelectModule,
-    TranslateModule,
-  ],
+    imports: [
+        CommonModule,
+        RouterModule.forChild(routes),
+        MaterialModule,
+        ReactiveFormsModule,
+        ThemeModule,
+        CoreModule,
+        NgSelectModule,
+        TranslateModule,
+        AvatarModule,
+    ],
   declarations: [
     CostComponent,
     CostIndexComponent,
