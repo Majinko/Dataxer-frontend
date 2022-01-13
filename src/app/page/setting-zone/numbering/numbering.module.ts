@@ -7,11 +7,8 @@ import {NumberingCreateComponent} from './numbering-create/numbering-create.comp
 import {MaterialModule} from '../../../theme/modules/material.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NumberingEditComponent} from './numbering-edit/numbering-edit.component';
-<<<<<<< HEAD
-=======
 import {ThemeModule} from '../../../theme/theme.module';
-import {NgSelectModule} from "@ng-select/ng-select";
->>>>>>> createProfile
+import {NgSelectModule} from '@ng-select/ng-select';
 
 const routes: Routes = [{
   path: '',
@@ -44,14 +41,10 @@ const routes: Routes = [{
     CommonModule,
     RouterModule.forChild(routes),
     MaterialModule,
-<<<<<<< HEAD
-    ReactiveFormsModule
-=======
     ReactiveFormsModule,
     ThemeModule,
     NgSelectModule,
     FormsModule
->>>>>>> createProfile
   ]
 })
 export class NumberingModule {

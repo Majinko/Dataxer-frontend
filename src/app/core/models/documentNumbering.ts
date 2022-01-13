@@ -1,10 +1,13 @@
+import {Company} from './company';
+
 export interface DocumentNumbering {
   id: number;
   title: string;
   type: string;
   format: string;
   period: string;
-  isDefault: boolean
+  isDefault: boolean;
+  company: Company;
 }
 
 export enum DocumentNumberingType{

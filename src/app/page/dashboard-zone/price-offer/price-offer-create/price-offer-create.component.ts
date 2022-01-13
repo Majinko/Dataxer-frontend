@@ -119,7 +119,7 @@ export class PriceOfferCreateComponent implements OnInit {
         title: 'Cenová ponuka ' + r
       }, {emitEvent: false});
 
-      this.formGroup.get('company').valueChanges.subscribe((company) => {
+      this.formGroup.get('company').valueChanges.subscribe((c) => {
         this.formGroup.get('documentData').patchValue({
           firm: company
         }, {emitEvent: false});
