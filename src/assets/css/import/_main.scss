@@ -66,3 +66,14 @@ app-overview-cost-yearly {
     height: 46px;
   }
 }
+
+
+app-company {
+  .cdk-drop-list {
+    max-width: 500px;
+    .mat-focus-indicator {
+      margin-left: auto;
+      margin-right: 0 !important;
+    }
+  }
+}
