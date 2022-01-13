@@ -1,3 +1,5 @@
+import {Company} from "./company";
+
 export interface BankAccount{
   id: number;
   bankCode: number;
@@ -7,4 +9,5 @@ export interface BankAccount{
   iban: string;
   swift: string;
   isDefault: boolean;
+  company: Company;
 }

@@ -1,11 +1,25 @@
 <div class="row mb-3 pb-2">
-  <div class="col">
-    <h1>Bankové účty</h1>
+  <div class="col d-flex align-items-center justify-content-between">
+    <div class="pl-0 pr-0 col-md-2">
+      <h1 class="mb-4">Bankové účty</h1>
+    </div>
+
+    <div class="col-md-4 col-lg-2">
+      <ng-select [items]="companies"
+                 [clearable]="false"
+                 bindLabel="name"
+                 bindValue="id"
+                 placeholder="Spoločnosť"
+                 [(ngModel)]="selectedCompanyId"
+                 (ngModelChange)="getBankAccountsByFirm()"
+                 class="filter-ng-select">
+      </ng-select>
+    </div>
   </div>
 </div>
 
 <div class="table-wrap">
-  <table mat-table [dataSource]="bankAccounts" class="table-hover table-data table-borderless w-100" matSort matSortDisableClear matSortDirection="desc">
+  <table mat-table [dataSource]="filteredBankAccount" class="table-hover table-data table-borderless w-100" matSort matSortDisableClear matSortDirection="desc">
     <!-- BankName Column -->
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef> Názov účtu</th>

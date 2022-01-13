@@ -24,7 +24,7 @@
       <mat-icon>build</mat-icon> Nastavenia
     </a>
   </div>
-  <div class="menu-item border-top">
+  <div class="menu-item border-top" *ngIf="appProfiles && appProfiles.length && appProfiles.length > 1">
     <h5 class="pl-3 pr-3 mt-0 mb-2 pt-3"><b>Moje profily</b></h5>
 
     <a class="border-radius-0 t-d-n text-dark" [class.default-company]="profile.id === appProfileService.appProfile.id" mat-menu-item *ngFor="let profile of appProfiles" (click)="switchCompany(profile)">
