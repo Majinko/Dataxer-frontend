@@ -2,6 +2,7 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {Company} from '../../../../core/models/company';
 import {CompanyService} from '../../../../core/services/company.service';
 import {MessageService} from '../../../../core/services/message.service';
+import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-index',
@@ -32,6 +33,17 @@ export class CompanyIndexComponent implements OnInit {
       this.messageService.add('Spoločnosť bola odstránená.');
     }, error => {
       this.messageService.add(error.error.message);
+    });
+  }
+
+  drop(event: CdkDragDrop<Company[]>) {
+    moveItemInArray(this.companies, event.previousIndex, event.currentIndex);
+    this.companies.forEach((company, index) => {
+      company.position = index;
+    });
+
+    this.companyService.updatePosition(this.companies).subscribe(() => {
+      this.messageService.add('Spoločnosti boli aktualizované.');
     });
   }
 }

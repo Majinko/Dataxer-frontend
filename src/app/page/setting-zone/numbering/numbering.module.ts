@@ -3,11 +3,15 @@ import {CommonModule} from '@angular/common';
 import {NumberingComponent} from './numbering.component';
 import {RouterModule, Routes} from '@angular/router';
 import {NumberingIndexComponent} from './numbering-index/numbering-index.component';
-import {NumberingTableComponent} from './numbering-index/component/numbering-table/numbering-table.component';
 import {NumberingCreateComponent} from './numbering-create/numbering-create.component';
 import {MaterialModule} from '../../../theme/modules/material.module';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NumberingEditComponent} from './numbering-edit/numbering-edit.component';
+<<<<<<< HEAD
+=======
+import {ThemeModule} from '../../../theme/theme.module';
+import {NgSelectModule} from "@ng-select/ng-select";
+>>>>>>> createProfile
 
 const routes: Routes = [{
   path: '',
@@ -33,7 +37,6 @@ const routes: Routes = [{
   declarations: [
     NumberingComponent,
     NumberingIndexComponent,
-    NumberingTableComponent,
     NumberingCreateComponent,
     NumberingEditComponent
   ],
@@ -41,7 +44,14 @@ const routes: Routes = [{
     CommonModule,
     RouterModule.forChild(routes),
     MaterialModule,
+<<<<<<< HEAD
     ReactiveFormsModule
+=======
+    ReactiveFormsModule,
+    ThemeModule,
+    NgSelectModule,
+    FormsModule
+>>>>>>> createProfile
   ]
 })
 export class NumberingModule {

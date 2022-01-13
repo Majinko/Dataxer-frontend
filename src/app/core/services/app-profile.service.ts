@@ -1,0 +1,37 @@
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Observable, Subject} from 'rxjs';
+import {environment} from '../../../environments/environment';
+import {AppProfile} from '../models/appProfile';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class AppProfileService {
+  appProfile: AppProfile;
+
+  reloadProfile = new Subject<boolean>();
+
+  constructor(private http: HttpClient) {
+  }
+
+  getAll(): Observable<AppProfile[]> {
+    return this.http.get<AppProfile[]>(`${environment.baseUrl}/appProfile/all`);
+  }
+
+  store(profile: AppProfile): Observable<void> {
+    return this.http.post<void>(`${environment.baseUrl}/appProfile/store`, profile);
+  }
+
+  update(profile: AppProfile): Observable<void> {
+    return this.http.post<void>(`${environment.baseUrl}/appProfile/update`, profile);
+  }
+
+  destroy(id: number): Observable<void> {
+    return this.http.get<void>(`${environment.baseUrl}/appProfile/destroy/${id}`);
+  }
+
+  defaultProfile(): Observable<AppProfile> {
+    return this.http.get<AppProfile>(`${environment.baseUrl}/appProfile/defaultProfile`);
+  }
+}

@@ -2,6 +2,7 @@ import { Inject } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GodButtonService } from 'src/app/core/services/god-button.service';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-cost',
@@ -19,8 +20,11 @@ export class CostComponent implements OnInit {
 
   constructor(
     @Inject(GodButtonService) private readonly godButtonService: GodButtonService,
-    private route: ActivatedRoute
-  ) { }
+    private route: ActivatedRoute,
+    private titleService: Title
+  ) {
+    this.titleService.setTitle('Náklady | Dataxer');
+  }
 
   ngOnInit() {
     this.godButtonService.menuItem = [];

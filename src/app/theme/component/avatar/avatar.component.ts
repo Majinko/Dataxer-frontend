@@ -3,8 +3,8 @@ import {UserService} from '../../../core/services/user.service';
 import {User} from '../../../core/models/user';
 import {AuthService} from '../../../core/services/auth.service';
 import {Router} from '@angular/router';
-import {CompanyService} from '../../../core/services/company.service';
-import {Company} from '../../../core/models/company';
+import {AppProfileService} from '../../../core/services/app-profile.service';
+import {AppProfile} from '../../../core/models/appProfile';
 
 @Component({
   selector: 'app-avatar',
@@ -13,36 +13,33 @@ import {Company} from '../../../core/models/company';
 })
 export class AvatarComponent implements OnInit {
   user: User;
-  companies: Company[] = [];
+  appProfiles: AppProfile[] = [];
 
   constructor(
     @Inject(UserService) public readonly userService: UserService,
     @Inject(AuthService) private readonly authService: AuthService,
-    public readonly companyService: CompanyService,
+    public readonly appProfileService: AppProfileService,
     private router: Router,
   ) {
   }
 
   ngOnInit() {
-    this.getCompanies();
-
-    this.companyService.companyStore.subscribe(c => {
-      this.companies.push(c);
-    });
+    this.getProfiles();
   }
 
   logout() {
     this.authService.signOut().then(() => this.router.navigate(['/auth/login']));
   }
 
-  getCompanies() {
-    this.companyService.all().subscribe(companies => {
-      this.companies = companies;
+
+  private getProfiles() {
+    this.appProfileService.getAll().subscribe((profiles) => {
+      this.appProfiles = profiles;
     });
   }
 
-  switchCompany(company: Company) {
-    this.userService.switchCompany(company.id).subscribe(() => {
+  switchCompany(profile: AppProfile) {
+    this.userService.switchProfile(profile.id).subscribe(() => {
       window.location.reload();
     });
   }

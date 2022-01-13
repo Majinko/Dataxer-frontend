@@ -41,13 +41,22 @@
     </ng-select>
   </div>
 
-  <div class="col-md-4 col-lg-2" *ngIf="companies && companies.length > 0">
-    <ng-select [items]="companies"
-               [clearable]="false"
+  <div class="col-md-4 col-lg-2" *ngIf="companies && companies.length > 1">
+    <ng-select [clearable]="false"
                bindLabel="name"
                placeholder="Spoločnosť"
                formControlName="company"
                class="filter-ng-select">
+        <ng-option *ngFor="let company of companies" [value]="company">
+          <div class="company-option">
+            <div class="img-wrap">
+              <img *ngIf="company.logoUrl" [src]="company.logoUrl" size="40" alt="company.name">
+            </div>
+            <div class="text-wrap">
+              {{ company.name }}
+            </div>
+          </div>
+        </ng-option>
     </ng-select>
   </div>
 

@@ -4,8 +4,8 @@ import {SettingMenuItems} from '../../core/data/setting-menu-items';
 import {GodButtonService} from '../../core/services/god-button.service';
 import {UserService} from '../../core/services/user.service';
 import {ActivatedRoute} from '@angular/router';
-import {CompanyService} from '../../core/services/company.service';
 import {NgxPermissionsService} from 'ngx-permissions';
+import {AppProfileService} from '../../core/services/app-profile.service';
 
 
 @Component({
@@ -29,7 +29,7 @@ export class SettingComponent implements OnInit {
   constructor(
     @Inject(SidenavService) public sidenavService: SidenavService,
     @Inject(GodButtonService) public godButtonService: GodButtonService,
-    private companyService: CompanyService,
+    private appProfileService: AppProfileService,
     private userService: UserService,
     private route: ActivatedRoute,
     private permissionService: NgxPermissionsService
@@ -39,7 +39,7 @@ export class SettingComponent implements OnInit {
 
   ngOnInit(): void {
     this.userService.user = this.route.snapshot.data.user;
-    this.companyService.company = this.route.snapshot.data.company;
+    this.appProfileService.appProfile = this.route.snapshot.data.appProfile;
 
     this.preparePermission();
   }

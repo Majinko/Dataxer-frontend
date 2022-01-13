@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 <div class="text-center cursor-pointer text-light d-flex align-items-center" *ngIf="userService.user" [matMenuTriggerFor]="userMenu">
+=======
+<div class="avatar-wrap text-center cursor-pointer text-light d-flex align-items-center" *ngIf="userService.user" [matMenuTriggerFor]="userMenu">
+  <img *ngIf="this.appProfileService.appProfile.logoUrl" [src]="this.appProfileService.appProfile.logoUrl" alt="Company">
+>>>>>>> createProfile
   <ngx-avatar [src]="userService.user.photoUrl" size="40" bgColor="#19A5E5" name="{{userService.user.displayName}}" class=""></ngx-avatar>
 </div>
 
@@ -19,15 +24,15 @@
     <a class="border-radius-0 t-d-n text-dark" mat-menu-item routerLink="/setting/user" *ngxPermissionsOnly="'Settings'">
       <mat-icon>person</mat-icon> Osobné údaje
     </a>
-    <a class="border-radius-0 t-d-n text-dark" mat-menu-item routerLink="/setting/role" *ngxPermissionsOnly="'Settings'">
+    <a class="border-radius-0 t-d-n text-dark" mat-menu-item routerLink="/setting/profile" *ngxPermissionsOnly="'Settings'">
       <mat-icon>build</mat-icon> Nastavenia
     </a>
   </div>
-  <div class="menu-item border-top">
-    <h5 class="pl-3 pr-3 mt-0 mb-2 pt-3"><b>Moje firmy</b></h5>
+  <div class="menu-item border-top" *ngIf="appProfiles && appProfiles.length && appProfiles.length > 1">
+    <h5 class="pl-3 pr-3 mt-0 mb-2 pt-3"><b>Moje profily</b></h5>
 
-    <a class="border-radius-0 t-d-n text-dark" [class.default-company]="company.id === companyService.company.id" mat-menu-item *ngFor="let company of companies" (click)="switchCompany(company)">
-      {{company.name}}
+    <a class="border-radius-0 t-d-n text-dark" [class.default-company]="profile.id === appProfileService.appProfile.id" mat-menu-item *ngFor="let profile of appProfiles" (click)="switchCompany(profile)">
+      {{profile.title}}
     </a>
   </div>
   <div class="menu-item">

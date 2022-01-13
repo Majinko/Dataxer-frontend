@@ -21,4 +21,5 @@ export interface Company {
   logoUrl: string;
   signatureUrl: string;
   isTaxPayer: boolean;
+  position?: number;
 }

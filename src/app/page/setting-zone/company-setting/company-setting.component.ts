@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-company-setting',
@@ -17,8 +18,10 @@ export class CompanySettingComponent implements OnInit {
   navLinks: { label: string, link: string, index: number }[] = [];
 
   constructor(
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private titleService: Title
   ) {
+    this.titleService.setTitle('Spoločnosti | Dataxer');
   }
 
   ngOnInit(): void {

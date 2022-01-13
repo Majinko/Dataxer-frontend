@@ -156,19 +156,32 @@ export class InvoiceCreateComponent implements OnInit {
   // set user
   private prepareInvoiceData() {
     this.formGroup.get('documentData.user').patchValue(this.userService.user);
+  }
 
-    this.numberingService.generateNextNumberByDocumentType(this.invoiceType).subscribe(r => {
+  // prepare company number
+  private prepareDocumentNumber(company: Company) {
+    this.numberingService.generateNextNumberByDocumentType(this.invoiceType, company.id).subscribe(r => {
       this.formGroup.patchValue({
         number: r,
         documentType: this.route.snapshot.paramMap.get('type'),
         variableSymbol: r.toString().replace(/\D/g, ''),
         title: (this.invoiceType === 'PROFORMA' ? 'Zálohová faktúra ' : 'Faktúra ') + r,
+      }, {emitEvent: false});
+
+      this.formGroup.get('company').valueChanges.subscribe((company) => {
+        this.formGroup.get('documentData').patchValue({
+          firm: company
+        }, {emitEvent: false});
       });
     });
   }
 
   // detect change form
   private changeForm() {
+    this.formGroup.get('company').valueChanges.subscribe((company) => {
+      this.prepareDocumentNumber(company);
+    });
+
     this.formGroup.valueChanges.subscribe(v => {
       this.formGroup.get('documentData').patchValue({
         contact: v.contact

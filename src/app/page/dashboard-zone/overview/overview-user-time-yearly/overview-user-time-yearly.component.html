@@ -2,7 +2,7 @@
   <table class="table-show-data table-default w-100 border-bottom" *ngIf="userYearlyOverviews.length; else emptyList">
     <thead>
     <tr>
-      <th class="table-fixed-col text-left row-head">Užívateľ</th>
+      <th class="table-fixed-col text-left row-head"><span>Užívateľ</span></th>
       <th class="text-center" *ngFor="let year of years; let index = index">{{year}}</th>
     </tr>
     </thead>

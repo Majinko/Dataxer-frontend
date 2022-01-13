@@ -3,14 +3,14 @@ import {RouterModule, Routes} from '@angular/router';
 import {SettingComponent} from './setting.component';
 import {AuthGuardService} from '../../core/guards/auth-guard.service';
 import {UserResolver} from '../../core/resolver/user.resolver';
-import {CompanyResolver} from '../../core/resolver/company.resolver';
+import {AppProfileResolver} from '../../core/resolver/appProfile.resolver';
 
 const routes: Routes = [
   {
     path: '',
     component: SettingComponent,
     canActivate: [AuthGuardService],
-    resolve: {user: UserResolver, company: CompanyResolver},
+    resolve: {user: UserResolver, appProfile: AppProfileResolver},
     children: [
       {
         path: 'company',
@@ -109,7 +109,7 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
-  providers: [CompanyResolver, UserResolver]
+  providers: [AppProfileResolver, UserResolver]
 })
 export class SettingRoutingModule {
 }
