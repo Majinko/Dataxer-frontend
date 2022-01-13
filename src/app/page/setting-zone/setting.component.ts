@@ -4,9 +4,8 @@ import {SettingMenuItems} from '../../core/data/setting-menu-items';
 import {GodButtonService} from '../../core/services/god-button.service';
 import {UserService} from '../../core/services/user.service';
 import {ActivatedRoute} from '@angular/router';
-import {CompanyService} from '../../core/services/company.service';
 import {NgxPermissionsService} from 'ngx-permissions';
-import {AppProfileService} from "../../core/services/app-profile.service";
+import {AppProfileService} from '../../core/services/app-profile.service';
 
 
 @Component({
