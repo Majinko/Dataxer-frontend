@@ -12,7 +12,7 @@ import {Company} from '../../../../core/models/company';
       <div class="d-flex justify-content-end" *ngIf="companies && companies.length > 1">
 
         <div class="col-md-4 col-lg-2">
-          <ng-select [items]="companies"
+          <ng-select
                      [clearable]="false"
                      bindLabel="name"
                      bindValue="id"
@@ -20,6 +20,17 @@ import {Company} from '../../../../core/models/company';
                      [(ngModel)]="selectedCompany"
                      (ngModelChange)="getDataByFirm()"
                      class="filter-ng-select">
+
+            <ng-option *ngFor="let company of companies" [value]="company">
+              <div class="company-option">
+                <div class="img-wrap">
+                  <img *ngIf="company.logoUrl" [src]="company.logoUrl" size="40" alt="company.name">
+                </div>
+                <div class="text-wrap">
+                  {{ company.name }}
+                </div>
+              </div>
+            </ng-option>
           </ng-select>
         </div>
       </div>
