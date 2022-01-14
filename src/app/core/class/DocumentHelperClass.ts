@@ -32,9 +32,9 @@ export abstract class DocumentHelperClass {
       }
     });
 
-    this.formGroup.valueChanges.subscribe(v => {
+    this.formGroup.get('contact').valueChanges.subscribe((contact) => {
       this.formGroup.get('documentData').patchValue({
-        contact: v.contact
+        contact
       }, {emitEvent: false});
     });
   }
