@@ -28,7 +28,7 @@ export class AuthService {
         if (user) {
           this.setUser = user;
 
-          this.resetToken();
+          // this.resetToken();
 
           return of(this.user);
         } else {
@@ -38,7 +38,7 @@ export class AuthService {
       })
     );
 
-    this.checkToken();
+    // this.checkToken();
   }
 
   private checkToken(): void {
@@ -67,9 +67,10 @@ export class AuthService {
   }
 
   logInWithEmail(email: string, password: string) {
-
-    return this.afAuth
-      .signInWithEmailAndPassword(email, password);
+    return this.afAuth.setPersistence('local').then(() => {
+      return this.afAuth
+        .signInWithEmailAndPassword(email, password);
+    });
   }
 
   sendPasswordResetEmail(email: string) {
