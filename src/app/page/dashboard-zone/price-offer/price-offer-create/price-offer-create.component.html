@@ -104,9 +104,9 @@
     </div>
   </div>
 
-  <app-document-pack *ngIf="route.snapshot.paramMap.get('id') === null; else copyPriceOfferBlock" [formGroup]="formGroup" [documentHelper]="documentHelper"></app-document-pack>
+  <app-document-pack *ngIf="route.snapshot.paramMap.get('id') === null && f.company.value != null; else copyPriceOfferBlock" [formGroup]="formGroup" [documentHelper]="documentHelper"></app-document-pack>
   <ng-template #copyPriceOfferBlock>
-    <div *ngIf="this.oldPacks.length > 0">
+    <div *ngIf="this.oldPacks.length > 0 && f.company.value != null;">
       <app-document-pack [formGroup]="formGroup" [packs]="this.oldPacks" [documentHelper]="documentHelper"></app-document-pack>
     </div>
   </ng-template>
