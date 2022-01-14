@@ -5,7 +5,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {DocumentHelper} from '../../../../core/class/DocumentHelper';
 import {InvoiceService} from '../../../../core/services/invoice.service';
 import {UserService} from '../../../../core/services/user.service';
-import {addDays, APP_DATE_FORMATS} from '../../../../../helper';
+import {addDays, APP_DATE_FORMATS, containsObject} from '../../../../../helper';
 import {NumberingService} from '../../../../core/services/numbering.service';
 import {CompanyService} from '../../../../core/services/company.service';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
