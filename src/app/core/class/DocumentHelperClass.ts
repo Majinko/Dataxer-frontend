@@ -25,9 +25,9 @@ export abstract class DocumentHelperClass {
   protected changeForm() {
     this.formGroup.get('company').valueChanges.subscribe((company) => {
       this.pathDocumentData(company);
+      this.prepareDocumentNumber(company);
 
       if (this.isEdit === false) {
-        this.prepareDocumentNumber(company);
         this.getDefaultBankAccount(company);
       }
     });

@@ -1,17 +1,21 @@
 import {Injectable} from '@angular/core';
 import {AngularFireAuth} from '@angular/fire/auth';
-import {Observable, of} from 'rxjs';
-import {switchMap} from 'rxjs/operators';
+import {from, Observable, of} from 'rxjs';
+import {map, switchMap} from 'rxjs/operators';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {User} from '../models/user';
 import {HttpClient} from '@angular/common/http';
+import firebase from 'firebase';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  public user: User;
   user$: Observable<User>;
+  public user: User;
+  public tokenExpirationTime: Date;
+
+  private resetAtMinutes: number = 10;
 
   constructor(
     private http: HttpClient,
@@ -23,7 +27,8 @@ export class AuthService {
       switchMap((user) => {
         if (user) {
           this.setUser = user;
-          user.getIdToken(true).then();
+
+          this.resetToken();
 
           return of(this.user);
         } else {
@@ -32,6 +37,33 @@ export class AuthService {
         }
       })
     );
+
+    this.checkToken();
+  }
+
+  private checkToken(): void {
+    setInterval(() => {
+      // @ts-ignore
+      const tokenValidityInMinutes = Math.round((((this.tokenExpirationTime - new Date()) % 86400000) % 3600000) / 60000);
+
+      if (tokenValidityInMinutes <= this.resetAtMinutes) {
+        this.resetToken();
+      }
+    }, 60000);
+  }
+
+  private resetToken(): void {
+    this.getToken$().subscribe(r => {
+      this.tokenExpirationTime = new Date(r.expirationTime);
+    });
+  }
+
+  public getToken$(): Observable<firebase.auth.IdTokenResult> {
+    return from(this.afAuth.currentUser).pipe(switchMap(user => {
+      return from(user.getIdTokenResult(true)).pipe(map(token => {
+        return token;
+      }));
+    }));
   }
 
   logInWithEmail(email: string, password: string) {
