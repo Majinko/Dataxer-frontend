@@ -170,11 +170,9 @@ export class InvoiceCreateComponent implements OnInit {
         title: (this.invoiceType === 'PROFORMA' ? 'Zálohová faktúra ' : 'Faktúra ') + r,
       }, {emitEvent: false});
 
-      this.formGroup.get('company').valueChanges.subscribe((company) => {
-        this.formGroup.get('documentData').patchValue({
-          firm: company
-        }, {emitEvent: false});
-      });
+      this.formGroup.get('documentData').patchValue({
+        firm: company
+      }, {emitEvent: false});
     });
   }
 
@@ -213,6 +211,8 @@ export class InvoiceCreateComponent implements OnInit {
   }
 
   submit() {
+    console.log(this.formGroup.value);
+    return;
     this.submitted = true;
 
     if (this.formGroup.invalid) {
