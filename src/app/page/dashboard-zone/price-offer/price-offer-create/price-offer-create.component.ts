@@ -14,6 +14,7 @@ import {BankAccountService} from '../../../../core/services/bank-account.service
 import {Pack} from '../../../../core/models/pack';
 import {PriceOffer} from '../../../../core/models/priceOffer';
 import {Company} from "../../../../core/models/company";
+import {DocumentHelperClass} from "../../../../core/class/DocumentHelperClass";
 
 @Component({
   selector: 'app-create',
@@ -33,34 +34,35 @@ import {Company} from "../../../../core/models/company";
     DocumentHelper
   ],
 })
-export class PriceOfferCreateComponent implements OnInit {
+export class PriceOfferCreateComponent extends DocumentHelperClass implements OnInit {
   formGroup: FormGroup;
   submitted: boolean = false;
   oldPacks: Pack[] = [];
+  documentType: string = 'PRICE_OFFER';
 
   constructor(
+    protected numberingService: NumberingService,
+    protected bankAccountService: BankAccountService,
+    protected messageService: MessageService,
+    protected router: Router,
+    public route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private userService: UserService,
     private priceOfferService: PriceOfferService,
-    private messageService: MessageService,
-    private numberingService: NumberingService,
-    private bankAccountService: BankAccountService,
-    private companyService: CompanyService,
-    private router: Router,
     public documentHelper: DocumentHelper,
-    public route: ActivatedRoute
   ) {
+    super(bankAccountService, numberingService, messageService, router, route);
   }
 
   ngOnInit() {
     this.prepareForm();
+    this.changeForm();
+
     if (this.route.snapshot.paramMap.get('id') === null) {
       this.preparePriceOfferData();
     } else {
       this.checkDuplicate();
     }
-    this.changeForm();
-    this.getDefaultBankAccount();
   }
 
   // prepare form
@@ -110,49 +112,6 @@ export class PriceOfferCreateComponent implements OnInit {
   // set user
   private preparePriceOfferData() {
     this.formGroup.get('documentData.user').patchValue(this.userService.user);
-  }
-
-  // next company number
-  private prepareDocumentNumber(company: Company) {
-    this.numberingService.generateNextNumberByDocumentType('PRICE_OFFER', company.id).subscribe(r => {
-      this.formGroup.patchValue({
-        number: r,
-        title: 'Cenová ponuka ' + r
-      }, {emitEvent: false});
-
-      this.formGroup.get('documentData').patchValue({
-        firm: company
-      }, {emitEvent: false});
-    });
-  }
-
-  // detect change form
-  private changeForm() {
-    this.formGroup.get('company').valueChanges.subscribe((company) => {
-      this.prepareDocumentNumber(company);
-    });
-
-    this.formGroup.valueChanges.subscribe(v => {
-      this.formGroup.get('documentData').patchValue({
-        contact: v.contact
-      }, {emitEvent: false});
-    });
-  }
-
-  // get default bank account
-  private getDefaultBankAccount() {
-    this.bankAccountService.getDefaultBankAccount().subscribe(bA => {
-        this.formGroup.get('documentData').patchValue({
-          bankAccount: bA
-        }, {emitEvent: false});
-      },
-      error => {
-        if (error) {
-          this.router.navigate(['/setting/bank-account']).then(() => {
-            this.messageService.add('Pri vytváraní faktúr je potrebné mať nastavený defaultny účet.');
-          });
-        }
-      });
   }
 
   private pathFromOldObject(document: PriceOffer) {

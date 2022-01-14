@@ -9,6 +9,9 @@ import {DocumentHelper} from '../../../../core/class/DocumentHelper';
 import {Invoice} from '../../../../core/models/invoice';
 import {MessageService} from '../../../../core/services/message.service';
 import {CompanyService} from '../../../../core/services/company.service';
+import {BankAccountService} from '../../../../core/services/bank-account.service';
+import {DocumentHelperClass} from '../../../../core/class/DocumentHelperClass';
+import {NumberingService} from '../../../../core/services/numbering.service';
 
 @Component({
   selector: 'app-invoice-edit',
@@ -28,22 +31,26 @@ import {CompanyService} from '../../../../core/services/company.service';
     DocumentHelper
   ],
 })
-export class InvoiceEditComponent implements OnInit {
+export class InvoiceEditComponent extends DocumentHelperClass implements OnInit {
   formGroup: FormGroup;
+  isEdit = true;
   submitted: boolean = false;
   moreOptions: boolean = false;
 
   invoice: Invoice;
 
   constructor(
+    protected numberingService: NumberingService,
+    protected bankAccountService: BankAccountService,
+    protected messageService: MessageService,
+    protected route: ActivatedRoute,
+    protected router: Router,
     public documentHelper: DocumentHelper,
     private companyService: CompanyService,
     private formBuilder: FormBuilder,
     private invoiceService: InvoiceService,
-    private route: ActivatedRoute,
-    private router: Router,
-    private messageService: MessageService
   ) {
+    super(bankAccountService, numberingService, messageService, router, route);
   }
 
   ngOnInit(): void {
@@ -57,7 +64,7 @@ export class InvoiceEditComponent implements OnInit {
     this.formGroup = this.formBuilder.group({
       id: null,
       contact: [null, Validators.required],
-      project: [null, Validators.required],
+      project: [null],
       title: ['', Validators.required],
       subject: '',
       company: [null, Validators.required],
@@ -89,21 +96,6 @@ export class InvoiceEditComponent implements OnInit {
       }),
 
       packs: this.formBuilder.array([])
-    });
-  }
-
-  // detect change form
-  private changeForm() {
-    this.formGroup.valueChanges.subscribe(v => {
-      this.formGroup.get('documentData').patchValue({
-        contact: v.contact
-      }, {emitEvent: false});
-    });
-
-    this.formGroup.get('company').valueChanges.subscribe((company) => {
-      this.formGroup.get('documentData').patchValue({
-        firm: company
-      }, {emitEvent: false});
     });
   }
 

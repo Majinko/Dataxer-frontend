@@ -14,7 +14,7 @@ import {BankAccountService} from '../../../../core/services/bank-account.service
 import {DatePipe} from '@angular/common';
 import {PriceOfferService} from '../../../../core/services/priceOffer.service';
 import {Pack} from '../../../../core/models/pack';
-import {Company} from '../../../../core/models/company';
+import {DocumentHelperClass} from '../../../../core/class/DocumentHelperClass';
 
 @Component({
   selector: 'app-invoice-create',
@@ -35,27 +35,28 @@ import {Company} from '../../../../core/models/company';
     DatePipe
   ],
 })
-export class InvoiceCreateComponent implements OnInit {
+export class InvoiceCreateComponent extends DocumentHelperClass implements OnInit {
   formGroup: FormGroup;
   submitted: boolean = false;
   moreOptions: boolean = false;
   oldPacks: Pack[] = [];
-  invoiceType: string = 'INVOICE';
+  documentType: string = 'INVOICE';
 
   constructor(
+    protected numberingService: NumberingService,
+    protected bankAccountService: BankAccountService,
+    protected messageService: MessageService,
+    protected router: Router,
+    public route: ActivatedRoute,
     private datePipe: DatePipe,
     private formBuilder: FormBuilder,
     private userService: UserService,
     public companyService: CompanyService,
-    private messageService: MessageService,
-    private router: Router,
-    public route: ActivatedRoute,
     private invoiceService: InvoiceService,
     private priceOfferService: PriceOfferService,
-    private numberingService: NumberingService,
-    private bankAccountService: BankAccountService,
     public documentHelper: DocumentHelper
   ) {
+    super(bankAccountService, numberingService, messageService, router, route);
   }
 
   ngOnInit(): void {
@@ -63,10 +64,14 @@ export class InvoiceCreateComponent implements OnInit {
     this.prepareForm();
     this.prepareInvoiceData();
     this.changeForm();
-    this.getDefaultBankAccount();
 
     this.route.params.subscribe(params => {
       this.prepareInvoiceData();
+      this.documentType = params.type;
+
+      if (this.f.company.value) {
+        this.prepareDocumentNumber(this.f.company.value);
+      }
     });
   }
 
@@ -74,7 +79,7 @@ export class InvoiceCreateComponent implements OnInit {
   private prepareForm() {
     this.formGroup = this.formBuilder.group({
       contact: [null, Validators.required],
-      project: [null, Validators.required],
+      project: [null],
       documentType: null,
       state: 'UNPAID',
       title: ['', Validators.required],
@@ -111,7 +116,7 @@ export class InvoiceCreateComponent implements OnInit {
 
   // set type of invoice
   private setInvoiceDataByType() {
-    this.invoiceType = this.route.snapshot.paramMap.get('type') === 'PROFORMA' ? this.route.snapshot.paramMap.get('type') : 'INVOICE';
+    this.documentType = this.route.snapshot.paramMap.get('type') === 'PROFORMA' ? this.route.snapshot.paramMap.get('type') : 'INVOICE';
 
     if (!window.location.href.includes('create-from-proforma')) {
       if (+this.route.snapshot.paramMap.get('id')) {
@@ -158,51 +163,6 @@ export class InvoiceCreateComponent implements OnInit {
   // set user
   private prepareInvoiceData() {
     this.formGroup.get('documentData.user').patchValue(this.userService.user);
-  }
-
-  // prepare company number
-  private prepareDocumentNumber(company: Company) {
-    this.numberingService.generateNextNumberByDocumentType(this.invoiceType, company.id).subscribe(r => {
-      this.formGroup.patchValue({
-        number: r,
-        documentType: this.route.snapshot.paramMap.get('type'),
-        variableSymbol: r.toString().replace(/\D/g, ''),
-        title: (this.invoiceType === 'PROFORMA' ? 'Zálohová faktúra ' : 'Faktúra ') + r,
-      }, {emitEvent: false});
-
-      this.formGroup.get('documentData').patchValue({
-        firm: company
-      }, {emitEvent: false});
-    });
-  }
-
-  // detect change form
-  private changeForm() {
-    this.formGroup.get('company').valueChanges.subscribe((company) => {
-      this.prepareDocumentNumber(company);
-    });
-
-    this.formGroup.valueChanges.subscribe(v => {
-      this.formGroup.get('documentData').patchValue({
-        contact: v.contact
-      }, {emitEvent: false});
-    });
-  }
-
-  // get default bank account
-  private getDefaultBankAccount() {
-    this.bankAccountService.getDefaultBankAccount().subscribe(bA => {
-        this.formGroup.get('documentData').patchValue({
-          bankAccount: bA
-        }, {emitEvent: false});
-      },
-      error => {
-        if (error) {
-          this.router.navigate(['/setting/bank-account']).then(() => {
-            this.messageService.add('Pri vytváraní faktúr je potrebné mať nastavený defaultny účet.');
-          });
-        }
-      });
   }
 
   // convenience getter for easy access to form fields

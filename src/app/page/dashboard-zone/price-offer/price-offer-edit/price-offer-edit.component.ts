@@ -8,6 +8,9 @@ import {MessageService} from '../../../../core/services/message.service';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import {MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter} from '@angular/material-moment-adapter';
 import {APP_DATE_FORMATS} from '../../../../../helper';
+import {BankAccountService} from '../../../../core/services/bank-account.service';
+import {DocumentHelperClass} from '../../../../core/class/DocumentHelperClass';
+import {NumberingService} from '../../../../core/services/numbering.service';
 
 @Component({
   selector: 'app-price-offer-edit',
@@ -27,19 +30,24 @@ import {APP_DATE_FORMATS} from '../../../../../helper';
     DocumentHelper
   ],
 })
-export class PriceOfferEditComponent implements OnInit {
+export class PriceOfferEditComponent extends DocumentHelperClass implements OnInit {
   priceOffer: PriceOffer;
   formGroup: FormGroup;
+  documentType: string = 'INVOICE';
+  isEdit: boolean = true;
   submitted: boolean = false;
 
   constructor(
+    protected numberingService: NumberingService,
+    protected bankAccountService: BankAccountService,
+    protected messageService: MessageService,
+    protected router: Router,
+    public route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private priceOfferService: PriceOfferService,
-    private route: ActivatedRoute,
-    private router: Router,
-    private messageService: MessageService,
-    public documentHelper: DocumentHelper
+    public documentHelper: DocumentHelper,
   ) {
+    super(bankAccountService, numberingService, messageService, router, route);
   }
 
   ngOnInit() {
@@ -53,21 +61,6 @@ export class PriceOfferEditComponent implements OnInit {
       this.priceOffer = p;
 
       this.formGroup.patchValue(p);
-    });
-  }
-
-  // detect change form
-  private changeForm() {
-    this.formGroup.valueChanges.subscribe(v => {
-      this.formGroup.get('documentData').patchValue({
-        contact: v.contact
-      }, {emitEvent: false});
-    });
-
-    this.formGroup.get('company').valueChanges.subscribe((company) => {
-      this.formGroup.get('documentData').patchValue({
-        firm: company
-      }, {emitEvent: false});
     });
   }
 

@@ -29,8 +29,8 @@ export class BankAccountService {
     return this.http.get<void>(`${environment.baseUrl}/bank-account/set-default/${id}`);
   }
 
-  getDefaultBankAccount(): Observable<BankAccount> {
-    return this.http.get<BankAccount>(`${environment.baseUrl}/bank-account/get-default`);
+  getDefaultBankAccount(companyId: number = null): Observable<BankAccount> {
+    return this.http.get<BankAccount>(`${environment.baseUrl}/bank-account/get-default?companyId=${companyId}`);
   }
 
   destroy(id: number): Observable<void> {
