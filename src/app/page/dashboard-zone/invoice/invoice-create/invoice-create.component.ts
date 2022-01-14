@@ -211,8 +211,6 @@ export class InvoiceCreateComponent implements OnInit {
   }
 
   submit() {
-    console.log(this.formGroup.value);
-    return;
     this.submitted = true;
 
     if (this.formGroup.invalid) {
