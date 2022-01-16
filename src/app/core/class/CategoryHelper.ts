@@ -60,11 +60,11 @@ export class CategoryHelper {
       const tree: CategoryItemNode[] = [];
 
       items.forEach((item, index) => {
-        const parent = items.filter(itemParent => itemParent.id === item.parentId);
+        const parents = items.filter(itemParent => (itemParent.id === item.parentId));
 
-        if (parent.length) {
+        if (parents.length) {
           tree[counter] = item;
-          tree[counter].parentName = items.filter(itemParent => itemParent.id === item.parentId).shift().name;
+          tree[counter].parentName = items.find(itemParent => itemParent.id === item.parentId).name;
 
           counter++;
         }
