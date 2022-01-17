@@ -28,7 +28,7 @@ export class AuthService {
         if (user) {
           this.setUser = user;
 
-          // this.resetToken();
+          this.resetToken();
 
           return of(this.user);
         } else {
@@ -38,7 +38,7 @@ export class AuthService {
       })
     );
 
-    // this.checkToken();
+    this.checkToken();
   }
 
   private checkToken(): void {
@@ -55,6 +55,8 @@ export class AuthService {
   private resetToken(): void {
     this.getToken$().subscribe(r => {
       this.tokenExpirationTime = new Date(r.expirationTime);
+
+      console.log(r);
     });
   }
 
