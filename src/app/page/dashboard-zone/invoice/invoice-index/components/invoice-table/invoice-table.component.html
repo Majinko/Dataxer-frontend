@@ -34,7 +34,7 @@
           <!-- Action Column -->
           <ng-container matColumnDef="action">
             <th mat-header-cell *matHeaderCellDef> Projekt</th>
-            <td class="max" mat-cell *matCellDef="let element"> {{element.project?.title || 'Projekt nebol priradeny'}} </td>
+            <td class="max" mat-cell *matCellDef="let element"> {{element.subject ? element.subject : (element.project?.title || 'Projekt nebol priradeny')}} </td>
           </ng-container>
 
           <!-- Created Column -->
