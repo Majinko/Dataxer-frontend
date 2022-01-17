@@ -1,4 +1,5 @@
 export enum DocumentTypeEnum {
   PROFORMA = 'PROFORMA',
-  INVOICE = 'INVOICE'
+  INVOICE = 'INVOICE',
+  SUMMARY_INVOICE = 'SUMMARY_INVOICE'
 }

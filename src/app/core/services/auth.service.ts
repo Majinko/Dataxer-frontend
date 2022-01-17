@@ -55,8 +55,6 @@ export class AuthService {
   private resetToken(): void {
     this.getToken$().subscribe(r => {
       this.tokenExpirationTime = new Date(r.expirationTime);
-
-      console.log(r);
     });
   }
 

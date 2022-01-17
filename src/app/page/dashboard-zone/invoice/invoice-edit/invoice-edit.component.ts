@@ -103,7 +103,9 @@ export class InvoiceEditComponent extends DocumentHelperClass implements OnInit 
     this.invoiceService.getById(+this.route.snapshot.paramMap.get('id')).subscribe((invoice => {
       this.invoice = invoice;
 
-      this.formGroup.patchValue(invoice);
+      setTimeout(() => {
+        this.formGroup.patchValue(invoice);
+      }, 1);
     }));
   }
 
