@@ -79,7 +79,6 @@ export class PriceOfferCreateComponent extends DocumentHelperClass implements On
       deliveredDate: [new Date(), Validators.required],
       dueDate: [addDays(new Date(), 14)],
       note: null,
-      noteToRecipient: '',
       discount: 0,
       price: 0,
       totalPrice: 0,

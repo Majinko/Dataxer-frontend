@@ -51,47 +51,45 @@ export class PriceOfferEditComponent extends DocumentHelperClass implements OnIn
   }
 
   ngOnInit() {
-    this.prepareForm();
-    this.changeForm();
     this.getById();
+    this.changeForm();
   }
 
   getById() {
     this.priceOfferService.getById(+this.route.snapshot.paramMap.get('id')).subscribe(p => {
       this.priceOffer = p;
 
-      this.formGroup.patchValue(p);
+      this.prepareForm(p);
     });
   }
 
   // prepare form
-  private prepareForm() {
+  private prepareForm(priceOffer: PriceOffer) {
     this.formGroup = this.formBuilder.group({
-      id: null,
-      contact: [null, Validators.required],
-      project: [null, Validators.required],
-      title: ['', Validators.required],
-      subject: '',
-      number: ['', Validators.required],
-      state: '',
-      company: [null, Validators.required],
-      createdDate: [new Date(), Validators.required],
-      deliveredDate: [new Date(), Validators.required],
-      dueDate: [new Date()],
-      note: null,
-      noteToRecipient: '',
-      discount: 0,
-      price: 0,
-      totalPrice: 0,
+      id: priceOffer.id,
+      contact: [priceOffer.contact, Validators.required],
+      project: [priceOffer.project, Validators.required],
+      title: [priceOffer.title, Validators.required],
+      subject: priceOffer.subject,
+      number: [priceOffer.number, Validators.required],
+      state: priceOffer.state,
+      company: [priceOffer.company, Validators.required],
+      createdDate: [priceOffer.createdDate, Validators.required],
+      deliveredDate: [priceOffer.deliveredDate, Validators.required],
+      dueDate: priceOffer.dueDate,
+      note: priceOffer.note,
+      discount: priceOffer.discount,
+      price: priceOffer.price,
+      totalPrice: priceOffer.totalPrice,
       documentData: this.formBuilder.group({
         user: this.formBuilder.group({
-          displayName: '',
-          phone: '',
-          email: '',
+          displayName: priceOffer.documentData.user.displayName,
+          phone: priceOffer.documentData.user.phone,
+          email: priceOffer.documentData.user.email,
         }),
-        firm: null,
-        contact: null,
-        bankAccount: null,
+        firm: priceOffer.documentData.firm,
+        contact: priceOffer.documentData.contact,
+        bankAccount: priceOffer.documentData.bankAccount,
       }),
 
       packs: this.formBuilder.array([])

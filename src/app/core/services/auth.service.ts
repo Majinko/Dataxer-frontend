@@ -6,6 +6,7 @@ import {AngularFirestore} from '@angular/fire/firestore';
 import {User} from '../models/user';
 import {HttpClient} from '@angular/common/http';
 import firebase from 'firebase';
+import {environment} from "../../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -41,7 +42,11 @@ export class AuthService {
     this.checkToken();
   }
 
-  private checkToken(): void {
+  public tryResetToken(): Observable<void> {
+    return this.http.get<void>(`${environment.baseUrl}/user/resetToken/${this.user.uid}`);
+  }
+
+  public checkToken(): void {
     setInterval(() => {
       // @ts-ignore
       const tokenValidityInMinutes = Math.round((((this.tokenExpirationTime - new Date()) % 86400000) % 3600000) / 60000);

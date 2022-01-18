@@ -148,7 +148,7 @@
               {{pack.price | currency:'EUR':'symbol'}}
             </td>
             <td class="text-center font-weight-bold" style="white-space: nowrap" appShowHideTax>
-              {{pack.tax}} %
+              {{pack.customPrice ? pack.tax + ' %' : ''}}
             </td>
             <td class="text-right font-weight-bold" appShowHideTax>
               {{pack.totalPrice | currency:'EUR':'symbol'}}

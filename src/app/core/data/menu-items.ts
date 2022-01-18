@@ -27,7 +27,7 @@ export const MenuItems: MenuItem[] = [
   },
   {
     routerLink: ['/price-offer'],
-    title: 'Kalkulácie',
+    title: 'Cenové ponuky',
     icon: 'account_balance',
     permission: 'Document'
   },

@@ -55,44 +55,42 @@ export class InvoiceEditComponent extends DocumentHelperClass implements OnInit 
 
   ngOnInit(): void {
     this.getById();
-    this.prepareForm();
     this.changeForm();
   }
 
   // prepare form
-  private prepareForm() {
+  private prepareForm(invoice: Invoice) {
     this.formGroup = this.formBuilder.group({
-      id: null,
-      contact: [null, Validators.required],
-      project: [null],
-      title: ['', Validators.required],
-      subject: '',
-      company: [null, Validators.required],
-      number: ['', Validators.required],
-      variableSymbol: ['', Validators.required],
-      documentType: null,
-      constantSymbol: '0308',
-      specificSymbol: '',
+      id: invoice.id,
+      contact: [invoice.contact, Validators.required],
+      project: [invoice.project],
+      title: [invoice.title, Validators.required],
+      subject: invoice.subject,
+      company: [invoice.company, Validators.required],
+      number: [invoice.number, Validators.required],
+      variableSymbol: [invoice.variableSymbol, Validators.required],
+      documentType: invoice.documentType,
+      constantSymbol: invoice.constantSymbol,
+      specificSymbol: invoice.specificSymbol,
       paymentMethod: 'BANK_PAYMENT',
-      paymentDate: null,
+      paymentDate: invoice.paymentDate,
       deliveryMethod: 'MAIL',
-      createdDate: [new Date(), Validators.required],
-      deliveredDate: [new Date(), Validators.required],
-      dueDate: null,
-      note: null,
-      headerComment: '',
-      discount: 0,
-      price: 0,
-      totalPrice: 0,
+      createdDate: [invoice.createdDate, Validators.required],
+      deliveredDate: [invoice.deliveredDate, Validators.required],
+      dueDate: invoice.dueDate,
+      note: invoice.note,
+      discount: invoice.discount,
+      price: invoice.price,
+      totalPrice: invoice.totalPrice,
       documentData: this.formBuilder.group({
         user: this.formBuilder.group({
-          displayName: '',
-          phone: '',
-          email: '',
+          displayName: invoice.documentData.user.displayName,
+          phone: invoice.documentData.user.phone,
+          email: invoice.documentData.user.email,
         }),
-        firm: null,
-        contact: null,
-        bankAccount: null,
+        firm: invoice.documentData.firm,
+        contact: invoice.documentData.contact,
+        bankAccount: invoice.documentData.bankAccount,
       }),
 
       packs: this.formBuilder.array([])
@@ -103,9 +101,7 @@ export class InvoiceEditComponent extends DocumentHelperClass implements OnInit 
     this.invoiceService.getById(+this.route.snapshot.paramMap.get('id')).subscribe((invoice => {
       this.invoice = invoice;
 
-      setTimeout(() => {
-        this.formGroup.patchValue(invoice);
-      }, 1);
+      this.prepareForm(invoice);
     }));
   }
 

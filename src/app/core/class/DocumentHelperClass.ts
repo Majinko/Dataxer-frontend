@@ -23,20 +23,22 @@ export abstract class DocumentHelperClass {
 
   // detect change form
   protected changeForm() {
-    this.formGroup.get('company').valueChanges.subscribe((company) => {
-      this.pathDocumentData(company);
+    if (this.formGroup) {
+      this.formGroup.get('company').valueChanges.subscribe((company) => {
+        this.pathDocumentData(company);
 
-      if (this.isEdit === false) {
-        this.prepareDocumentNumber(company);
-        this.getDefaultBankAccount(company);
-      }
-    });
+        if (this.isEdit === false) {
+          this.prepareDocumentNumber(company);
+          this.getDefaultBankAccount(company);
+        }
+      });
 
-    this.formGroup.get('contact').valueChanges.subscribe((contact) => {
-      this.formGroup.get('documentData').patchValue({
-        contact
-      }, {emitEvent: false});
-    });
+      this.formGroup.get('contact').valueChanges.subscribe((contact) => {
+        this.formGroup.get('documentData').patchValue({
+          contact
+        }, {emitEvent: false});
+      });
+    }
   }
 
   // get default bank account

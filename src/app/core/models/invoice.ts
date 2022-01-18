@@ -31,6 +31,7 @@ export interface Invoice extends DocumentBase {
   paymentPrice?: number;
   totalPrice: number;
   dueAtDays: number;
+  company: Company;
   contact: Contact;
   project: Project;
   packs: Pack[];

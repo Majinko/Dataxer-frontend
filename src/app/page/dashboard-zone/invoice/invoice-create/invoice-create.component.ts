@@ -153,10 +153,13 @@ export class InvoiceCreateComponent extends DocumentHelperClass implements OnIni
   private pathFromOldObject(document: any) {
     this.oldPacks = document.packs;
 
-    this.formGroup.patchValue({
-      contact: document.contact,
-      project: document.project,
-      discount: document.discount === null ? 0 : document.discount,
+    setTimeout(() => {
+      this.formGroup.patchValue({
+        company: document.company,
+        contact: document.contact,
+        project: document.project,
+        discount: document.discount === null ? 0 : document.discount,
+      });
     });
   }
 

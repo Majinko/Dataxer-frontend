@@ -25,6 +25,7 @@ export class PriceOffer extends DocumentBase {
   price: number;
   totalPrice: number;
   discount: number;
+  company: Company;
   project: Project;
   contact: Contact;
   packs: Pack[];

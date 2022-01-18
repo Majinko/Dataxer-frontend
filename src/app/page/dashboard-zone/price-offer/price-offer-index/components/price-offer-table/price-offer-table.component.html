@@ -3,7 +3,7 @@
     <app-price-offer-filter (onFilter)="filterData($event)" [filterData]="service.filter"></app-price-offer-filter>
   </div>
   <div class="col-md-12">
-    <h3 class="text-gray mb-3">Zvolené kalkulácie: <span class="text-theme">{{totalPrice | currency:'EUR':'symbol'}}</span></h3>
+    <h3 class="text-gray mb-3">Zvolené cenové ponuky: <span class="text-theme">{{totalPrice | currency:'EUR':'symbol'}}</span></h3>
     <div class="table-wrap">
       <div class="position-relative">
         <div class="loading-shade" *ngIf="isLoadingResults">
