@@ -25,4 +25,8 @@ export class PackService extends ResourceService<Pack> {
 
     return this.httpClient.get<Pack[]>(`${environment.baseUrl}/pack/search?q=${q}`);
   }
+
+  deleteItemFromPack(documentId: number, packId: number, packItemId: number): Observable<void> {
+    return this.httpClient.get<void>(`${environment.baseUrl}/documentPackItem/deleteItemFromDocument?documentId=${documentId}&packId=${packId}&packItemId=${packItemId}`);
+  }
 }

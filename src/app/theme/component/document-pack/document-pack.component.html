@@ -52,7 +52,7 @@
         </tbody>
 
         <tbody [hidden]="!documentHelper.packs[i].showItems" class="no-border table-item table-td-initial" formArrayName="packItems" cdkDropList (cdkDropListDropped)="dropItem(i, $event)">
-          <tr #trRow class="tbody-row set-row" [formGroupName]="i" *ngFor="let item of pack.get('packItems').controls; let i=index" cdkDrag>
+          <tr #trRow class="tbody-row set-row" [formGroupName]="j" *ngFor="let item of pack.get('packItems').controls; let j=index" cdkDrag>
             <td colspan="2" class="text-right">
               <a
                 cdkDragHandle
@@ -127,7 +127,7 @@
                 <mat-icon class="text-theme">local_offer</mat-icon>
               </a>
               <button
-                (click)="removeItem($event, i)"
+                (click)="removeItem($event, j, documentHelper.packs[i].id)"
                 mat-icon-button
                 matTooltip="Delete item">
                 <mat-icon class="text-theme">delete</mat-icon>

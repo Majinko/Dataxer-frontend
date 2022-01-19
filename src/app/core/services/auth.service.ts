@@ -6,7 +6,7 @@ import {AngularFirestore} from '@angular/fire/firestore';
 import {User} from '../models/user';
 import {HttpClient} from '@angular/common/http';
 import firebase from 'firebase';
-import {environment} from "../../../environments/environment";
+import {environment} from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
