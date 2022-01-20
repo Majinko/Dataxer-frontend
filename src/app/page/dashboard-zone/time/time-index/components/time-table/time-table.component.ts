@@ -33,7 +33,6 @@ export class TimeTableComponent implements OnInit {
     public timeService: TimeService,
     private salaryService: SalaryService,
     private messageService: MessageService,
-    private userService: UserService,
     public dialog: MatDialog
   ) {
   }

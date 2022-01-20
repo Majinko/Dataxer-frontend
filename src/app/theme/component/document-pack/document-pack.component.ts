@@ -93,18 +93,8 @@ export class DocumentPackComponent implements OnInit {
     this.formPacks.removeAt(i);
   }
 
-  removeItem(event: MouseEvent, itemId: number, packId: number) {
+  removeItem(event: MouseEvent, itemId: number) {
     event.preventDefault();
-
-    const packItem: PackItem = this.items.at(itemId).value;
-
-    if (packItem.id != null) {
-      this.packService.deleteItemFromPack(
-        this.documentId,
-        packId,
-        packItem.id
-      ).subscribe();
-    }
 
     this.items.removeAt(itemId);
   }

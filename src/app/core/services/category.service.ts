@@ -22,6 +22,10 @@ export class CategoryService {
     return this.http.get<CategoryItemNode[]>(environment.baseUrl + '/category/all');
   }
 
+  allUserCategoryByTime(uid: string): Observable<CategoryItemNode[]> {
+    return this.http.get<CategoryItemNode[]>(environment.baseUrl + '/category/allUserCategoryByTime?uid=' + uid);
+  }
+
   findById(id: number): Observable<CategoryItemNode> {
     return this.http.get<CategoryItemNode>(`${environment.baseUrl}/category/${id}`);
   }

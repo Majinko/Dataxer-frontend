@@ -15,7 +15,8 @@ import {Company} from '../models/company';
 import * as moment from 'moment';
 import {MatDialog} from '@angular/material/dialog';
 import {DateRangeDialogComponent} from '../../theme/component/date-range-dialog/date-range-dialog.component';
-import {checkFormIsNotFill} from "../../../helper";
+import {checkFormIsNotFill} from '../../../helper';
+import {CategoryItemNode} from '../models/category-item-node';
 
 @Directive()
 // tslint:disable-next-line:directive-class-suffix
@@ -23,6 +24,7 @@ export class FilterClass {
   companies: Company[] = [];
   contacts: Contact[] = [];
   projects: Project[] = [];
+  categories: CategoryItemNode[] = [];
   payedStates: KeyValue[] = [];
   documentTypes: KeyValue[] = [];
   months: { start: string, end: string, title: string } [] = [];

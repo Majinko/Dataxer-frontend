@@ -31,6 +31,16 @@
     </ng-select>
   </div>
 
+  <div class="col-md-4 col-lg-2" *ngIf="categories && categories.length > 0">
+    <ng-select [items]="categories"
+               [clearable]="false"
+               bindLabel="name"
+               placeholder="Kategória"
+               formControlName="category"
+               class="filter-ng-select">
+    </ng-select>
+  </div>
+
   <div class="col-md-4 col-lg-2" *ngIf="projects && projects.length > 0">
     <ng-select [items]="projects"
                [clearable]="false"
@@ -100,6 +110,12 @@
       <mat-icon class="mr-1">person</mat-icon>
       {{filterForm.get('contact').value.name}}
       <mat-icon (click)="resetFilterValue('contact')" matChipRemove>cancel</mat-icon>
+    </mat-chip>
+
+    <mat-chip class="text-gray my-md-0  mb-md-0" *ngIf="categories && categories.length > 0 && filterForm.get('category').value">
+      <mat-icon class="mr-1">folder</mat-icon>
+      {{filterForm.get('category').value.name}}
+      <mat-icon (click)="resetFilterValue('category')" matChipRemove>cancel</mat-icon>
     </mat-chip>
 
     <mat-chip class="text-gray my-md-0  mb-md-0" *ngIf="projects && projects.length > 0 && filterForm.get('project').value">

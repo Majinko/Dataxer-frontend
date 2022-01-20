@@ -3,6 +3,8 @@ import {FilterClass} from '../../../../../../core/class/FilterClass';
 import {ProjectService} from '../../../../../../core/services/project.service';
 import {FormBuilder} from '@angular/forms';
 import {SearchBarService} from '../../../../../../core/services/search-bar.service';
+import {CategoryService} from '../../../../../../core/services/category.service';
+import {UserService} from '../../../../../../core/services/user.service';
 
 @Component({
   selector: 'app-time-filter',
@@ -11,16 +13,18 @@ import {SearchBarService} from '../../../../../../core/services/search-bar.servi
 export class TimeFilterComponent extends FilterClass implements OnInit {
   constructor(
     private projectService: ProjectService,
+    private categoryService: CategoryService,
+    private userService: UserService,
     public formBuilder: FormBuilder,
     public searchbarService: SearchBarService,
-    protected injector: Injector
+    protected injector: Injector,
   ) {
     super(
       searchbarService,
       formBuilder,
       'time',
       ['description'],
-      ['project.id', 'month'],
+      ['project.id', 'category.id', 'month'],
       injector
     );
   }
@@ -30,7 +34,8 @@ export class TimeFilterComponent extends FilterClass implements OnInit {
       contact: null,
       project: null,
       state: null,
-      month: null
+      month: null,
+      category: null
     });
 
     this.getProjects();
@@ -39,11 +44,18 @@ export class TimeFilterComponent extends FilterClass implements OnInit {
     this.searchBarServiceCatch();
     this.prepareData();
     this.prepareMonths();
+    this.getUserCategories();
   }
 
   getProjects() {
     this.projectService.allHasUserTime().subscribe((p) => {
       this.projects = p;
+    });
+  }
+
+  getUserCategories() {
+    this.categoryService.allUserCategoryByTime(this.userService.user.uid).subscribe((categories) => {
+      this.categories = categories;
     });
   }
 }
