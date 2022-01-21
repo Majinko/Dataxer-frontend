@@ -13,6 +13,20 @@
   </div>
 
   <div class="row">
+    <div class="col-md-4 mb-2">
+      <app-company-select-group formControlName="company" [ngForm]="ngForm"></app-company-select-group>
+    </div>
+
+    <div class="col-md-4">
+      <app-select-new-contact placeholder="Dodávaťeľ" formControlName="contact"></app-select-new-contact>
+      <mat-error *ngIf="submitted && f.contact.errors" class="mat-error-not-in-field">Client je <strong>požadovaný.</strong></mat-error>
+    </div>
+
+    <div class="col-md-4" *ngIf="!isInternalCheckbox.checked">
+      <app-new-project-select [client]="f.contact.value" formControlName="project"></app-new-project-select>
+      <mat-error *ngIf="submitted && f.project.errors" class="mat-error-not-in-field">Projekt je <strong>požadovaný.</strong></mat-error>
+    </div>
+
     <div class="col-md-4">
       <mat-form-field class="form-group w-100">
         <input formControlName="title" matInput placeholder="Názov nákladu">
@@ -36,10 +50,6 @@
           <mat-option *ngFor="let state of costStates" value="{{state.key}}">{{state.value}}</mat-option>
         </mat-select>
       </mat-form-field>
-    </div>
-
-    <div class="col-md-4 mb-2">
-      <app-company-select-group formControlName="company" [ngForm]="ngForm"></app-company-select-group>
     </div>
   </div>
 
@@ -104,16 +114,6 @@
   <div class="row mt-3">
     <div class="col-12">
       <h2 class="border-bottom-2 pb-2 mb-4">Popis</h2>
-    </div>
-
-    <div class="col-md-4">
-      <app-select-new-contact placeholder="Dodávaťeľ" formControlName="contact"></app-select-new-contact>
-      <mat-error *ngIf="submitted && f.contact.errors" class="mat-error-not-in-field">Client je <strong>požadovaný.</strong></mat-error>
-    </div>
-
-    <div class="col-md-4" *ngIf="!isInternalCheckbox.checked">
-      <app-new-project-select [client]="f.contact.value" formControlName="project"></app-new-project-select>
-      <mat-error *ngIf="submitted && f.project.errors" class="mat-error-not-in-field">Projekt je <strong>požadovaný.</strong></mat-error>
     </div>
 
     <div class="col-md-4">
