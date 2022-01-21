@@ -26,13 +26,13 @@ export const MenuItems: MenuItem[] = [
     permission: 'Project'
   },
   {
-    routerLink: ['/price-offer'],
+    routerLink: ['/document/priceOffer'],
     title: 'Cenové ponuky',
     icon: 'account_balance',
     permission: 'Document'
   },
   {
-    routerLink: ['/invoice'],
+    routerLink: ['/document/invoice'],
     title: 'Fakturácia',
     icon: 'description',
     permission: 'Document'

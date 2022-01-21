@@ -5,24 +5,16 @@ import {IPaginate} from '../interface/IPaginate';
 import {MessageService} from '../services/message.service';
 import {ConfirmDialogComponent} from '../../theme/component/confirm-dialog/confirm-dialog.component';
 import {MatDialog} from '@angular/material/dialog';
+import {PaginateClassData} from './PaginateClassData';
 
-export class PaginateClass<T> {
-  paginateFinish = new Subject<boolean>();
-
-  destroyMsg: string = 'Položka bola odstránená';
-  pageSize: number = 15;
-  pageIndex: number = 0;
-  totalElements: number;
-  totalPrice: number;
-  isLoadingResults: boolean = false;
+export class PaginateClass<T> extends PaginateClassData {
   data: T[];
-
-  paginator: MatPaginator;
 
   constructor(
     public messageService: MessageService,
     public service: IPaginate<T>,
     public dialog: MatDialog) {
+    super();
   }
 
   public paginate() {

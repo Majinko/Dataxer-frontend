@@ -41,7 +41,7 @@ export class TimeSettingComponent implements OnInit {
     companySetting.companySettingType = 'TIME';
     companySetting.data = this.formGroup.value;
 
-    console.log(companySetting);
+
   }
 
 

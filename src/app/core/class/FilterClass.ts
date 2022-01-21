@@ -48,9 +48,12 @@ export class FilterClass {
   constructor(
     protected searchbarService: SearchBarService,
     protected formBuilder: FormBuilder,
-    private model: string,
-    private searchBarSearchValues: string[],
-    private searchBarSelectValues: string[],
+    // tslint:disable-next-line:variable-name
+    private _model: string,
+    // tslint:disable-next-line:variable-name
+    private _searchBarSearchValues: string[],
+    // tslint:disable-next-line:variable-name
+    private _searchBarSelectValues: string[],
     protected injector: Injector
   ) {
     this.dialog = injector.get<MatDialog>(MatDialog);
@@ -63,6 +66,19 @@ export class FilterClass {
       this.filterForm.patchValue(this.filterData, {emitEvent: false});
       this.checkFilterFormValue();
     }
+  }
+
+
+  set model(value: string) {
+    this._model = value;
+  }
+
+  set searchBarSearchValues(value: string[]) {
+    this._searchBarSearchValues = value;
+  }
+
+  set searchBarSelectValues(value: string[]) {
+    this._searchBarSelectValues = value;
   }
 
   /**
@@ -108,7 +124,7 @@ export class FilterClass {
    * @protected
    */
   protected createFormControls() {
-    this.searchBarSearchValues.forEach(qS => {
+    this._searchBarSearchValues.forEach(qS => {
       this.filterForm.addControl(qS, this.formBuilder.control(null));
     });
   }
@@ -119,7 +135,7 @@ export class FilterClass {
    */
   protected searchBarServiceCatch() {
     this.searchbarService.appSearch.subscribe((qString) => {
-      this.searchBarSearchValues.forEach((qS) => {
+      this._searchBarSearchValues.forEach((qS) => {
         this.filterForm.patchValue({
           [qS]: qString
         });
@@ -149,7 +165,7 @@ export class FilterClass {
       somethingFiltering = 0;
 
       Object.keys(this.filterForm.value).forEach(attr => {
-        if (!this.searchBarSearchValues.includes(attr)) {
+        if (!this._searchBarSearchValues.includes(attr)) {
           somethingFiltering += this.filterForm.value[attr] != null ? 1 : 0;
         }
       });
@@ -163,29 +179,29 @@ export class FilterClass {
    * @private
    * @param filter
    */
-  private prepareDataForRsqlFilter(filter: DocumentFilter) {
+  protected prepareDataForRsqlFilter(filter: DocumentFilter) {
     this.orExpression = [];
     this.andExpression = [];
 
     for (const key in filter) {
       if (filter[key] !== null) {
-        if (this.searchBarSearchValues.includes(key)) { // this as value from global filter
-          this.orExpression.push(parse(`${this.model}.${key}=="*${this.returnCleanValue(filter[key])}*"`));
+        if (this._searchBarSearchValues.includes(key)) { // this as value from global filter
+          this.orExpression.push(parse(`${this._model}.${key}=="*${this.returnCleanValue(filter[key])}*"`));
         }
 
-        if (this.searchBarSelectValues.includes(key)) {
+        if (this._searchBarSelectValues.includes(key)) {
           if (key !== 'month') {
-            this.andExpression.push(parse(`${this.model}.${key}==${filter[key]}`));
+            this.andExpression.push(parse(`${this._model}.${key}==${filter[key]}`));
           } else {
             // todo make nicely
             this.andExpression.push(
-              builder.and(builder.ge(`${this.model}.start`, filter[key].start), builder.le(`${this.model}.end`, filter[key].end))
+              builder.and(builder.ge(`${this._model}.start`, filter[key].start), builder.le(`${this._model}.end`, filter[key].end))
             );
           }
         }
 
-        if (this.searchBarSelectValues.includes(key + '.id')) {
-          this.andExpression.push(parse(`${this.model}.${key + '.id'}==${filter[key].id}`));
+        if (this._searchBarSelectValues.includes(key + '.id')) {
+          this.andExpression.push(parse(`${this._model}.${key + '.id'}==${filter[key].id}`));
         }
       }
     }
@@ -225,7 +241,7 @@ export class FilterClass {
    * @private
    */
   private prepareSearchBarSearchValues() {
-    this.searchBarSearchValues.forEach((v) => {
+    this._searchBarSearchValues.forEach((v) => {
       this.filterForm.patchValue({
         [v]: this.searchbarService.filterValue === '' ? null : this.searchbarService.filterValue
       }, {emitEvent: false});
@@ -245,7 +261,7 @@ export class FilterClass {
       });
     }
 
-    if (this.model !== 'cost' && checkFormIsNotFill(this.filterForm.controls)) {
+    if (this._model !== 'cost' && checkFormIsNotFill(this.filterForm.controls)) {
       this.filterForm.patchValue({
         month: this.months[0]
       });

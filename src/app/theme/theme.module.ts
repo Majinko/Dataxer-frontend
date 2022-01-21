@@ -39,13 +39,12 @@ import {ConfirmDialogComponent} from './component/confirm-dialog/confirm-dialog.
 import {PhotoUploaderComponent} from './component/photo-uploader/photo-uploader.component';
 import {ChatComponent} from './component/chat/chat.component';
 import {CategorySelectGroupComponent} from './component/category-select-group/category-select-group.component';
-import { DateRangeDialogComponent } from './component/date-range-dialog/date-range-dialog.component';
-import { CategoryTreeControlComponent } from './component/category-tree-control/category-tree-control.component';
+import {DateRangeDialogComponent} from './component/date-range-dialog/date-range-dialog.component';
+import {CategoryTreeControlComponent} from './component/category-tree-control/category-tree-control.component';
 import {DndDirective} from '../core/directives/dnd.directive';
-import { UploadFilesComponent } from './component/upload-files/upload-files.component';
-import { DocumentDestroyButtonComponent } from './document-destroy-button/document-destroy-button.component';
-import { CompanySelectGroupComponent } from './component/company-select-group/company-select-group.component';
-import { GlobalDocumentFilterComponent } from './component/filter/global-document-filter/global-document-filter.component';
+import {UploadFilesComponent} from './component/upload-files/upload-files.component';
+import {DocumentDestroyButtonComponent} from './document-destroy-button/document-destroy-button.component';
+import {CompanySelectGroupComponent} from './component/company-select-group/company-select-group.component';
 
 @NgModule({
   imports: [
@@ -98,35 +97,34 @@ import { GlobalDocumentFilterComponent } from './component/filter/global-documen
     UploadFilesComponent,
     DocumentDestroyButtonComponent,
     CompanySelectGroupComponent,
-    GlobalDocumentFilterComponent,
   ],
-    exports: [
-        DrawerComponent,
-        ToolbarComponent,
-        MessageComponent,
-        ItemAutocompleteComponent,
-        NewContactSelectComponent,
-        PackAutocompleteComponent,
-        DocumentPackComponent,
-        SlovakiaDigitalAutocompleteComponent,
-        NewProjectSelectComponent,
-        NewCategorySelectComponent,
-        SpinnerButtonComponent,
-        ElementPaidStateComponent,
-        FileComponent,
-        DndDirective,
-        PaymentsComponent,
-        DocumentRelationComponent,
-        MenuTabComponent,
-        NestedCategoriesComponent,
-        PhotoUploaderComponent,
-        ChatComponent,
-        CategorySelectGroupComponent,
-        CategoryTreeControlComponent,
-        UploadFilesComponent,
-        DocumentDestroyButtonComponent,
-        CompanySelectGroupComponent,
-    ]
+  exports: [
+    DrawerComponent,
+    ToolbarComponent,
+    MessageComponent,
+    ItemAutocompleteComponent,
+    NewContactSelectComponent,
+    PackAutocompleteComponent,
+    DocumentPackComponent,
+    SlovakiaDigitalAutocompleteComponent,
+    NewProjectSelectComponent,
+    NewCategorySelectComponent,
+    SpinnerButtonComponent,
+    ElementPaidStateComponent,
+    FileComponent,
+    DndDirective,
+    PaymentsComponent,
+    DocumentRelationComponent,
+    MenuTabComponent,
+    NestedCategoriesComponent,
+    PhotoUploaderComponent,
+    ChatComponent,
+    CategorySelectGroupComponent,
+    CategoryTreeControlComponent,
+    UploadFilesComponent,
+    DocumentDestroyButtonComponent,
+    CompanySelectGroupComponent,
+  ]
 })
 export class ThemeModule {
 }
