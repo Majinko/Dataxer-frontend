@@ -15,10 +15,7 @@
 
     <div class="row">
       <div class="col-md-4">
-        <mat-form-field class="form-group w-100">
-          <input formControlName="title" matInput placeholder="Názov faktury">
-          <mat-error *ngIf="f.title.errors">Názov faktury je <strong>pozadovany.</strong></mat-error>
-        </mat-form-field>
+        <app-company-select-group formControlName="company" [ngForm]="ngForm"></app-company-select-group>
       </div>
 
       <div class="col-md-4 form-group">
@@ -35,8 +32,8 @@
     <div class="row">
       <div class="col-md-4">
         <mat-form-field class="form-group w-100">
-          <input formControlName="number" matInput placeholder="Číslo">
-          <mat-error *ngIf="submitted && f.number.errors">Číslo je <strong>pozadovany.</strong></mat-error>
+          <input formControlName="title" matInput placeholder="Názov faktury">
+          <mat-error *ngIf="f.title.errors">Názov faktury je <strong>pozadovany.</strong></mat-error>
         </mat-form-field>
       </div>
 
@@ -54,7 +51,10 @@
       </div>
 
       <div class="col-md-4">
-        <app-company-select-group formControlName="company" [ngForm]="ngForm"></app-company-select-group>
+        <mat-form-field class="form-group w-100">
+          <input formControlName="number" matInput placeholder="Číslo">
+          <mat-error *ngIf="submitted && f.number.errors">Číslo je <strong>pozadovany.</strong></mat-error>
+        </mat-form-field>
       </div>
 
       <div class="col-md-12 {{moreOptions ? 'mb-3' : 'mb-5'}}">
