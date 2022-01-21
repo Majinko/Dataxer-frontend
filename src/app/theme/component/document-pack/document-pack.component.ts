@@ -99,7 +99,7 @@ export class DocumentPackComponent implements OnInit {
 
     const pack: AbstractControl = this.formPacks.at(packIndex);
     const packItem: FormArray = pack.get('packItems') as FormArray;
-    
+
     packItem.removeAt(itemIndex);
   }
 
