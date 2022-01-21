@@ -1,6 +1,6 @@
 <div class="row mb-4">
   <div class="col d-flex align-items-center mb-3">
-    <mat-icon routerLink="/price-offer" class="mr-2 mr-md-5 cursor-pointer">keyboard_backspace</mat-icon>
+    <mat-icon routerLink="/document/priceOffer" class="mr-2 mr-md-5 cursor-pointer">keyboard_backspace</mat-icon>
     <h1 class="mb-0">Nová cenová ponuka</h1>
   </div>
 </div>
@@ -13,11 +13,8 @@
   </div>
 
   <div class="row">
-    <div class="col-md-4">
-      <mat-form-field class="form-group w-100">
-        <input formControlName="title" matInput placeholder="Názov kalkulácie">
-        <mat-error *ngIf="f.title.errors">Názov kalkulácie je <strong>požadovaný.</strong></mat-error>
-      </mat-form-field>
+    <div class="col-md-4 mb-3">
+      <app-company-select-group formControlName="company" [ngForm]="ngForm"></app-company-select-group>
     </div>
 
     <div class="col-md-4 form-group">
@@ -34,14 +31,8 @@
   <div class="row">
     <div class="col-md-4">
       <mat-form-field class="form-group w-100">
-        <input formControlName="number" matInput placeholder="Číslo">
-        <mat-error *ngIf="submitted && f.number.errors">Číslo je <strong>pozadovany.</strong></mat-error>
-      </mat-form-field>
-    </div>
-
-    <div class="col-md-4">
-      <mat-form-field class="form-group w-100">
-        <input formControlName="subject" matInput placeholder="Predmet">
+        <input formControlName="title" matInput placeholder="Názov kalkulácie">
+        <mat-error *ngIf="f.title.errors">Názov kalkulácie je <strong>požadovaný.</strong></mat-error>
       </mat-form-field>
     </div>
 
@@ -56,9 +47,19 @@
       </mat-form-field>
     </div>
 
-    <div class="col-md-4 mb-3">
-      <app-company-select-group formControlName="company" [ngForm]="ngForm"></app-company-select-group>
+    <div class="col-md-4">
+      <mat-form-field class="form-group w-100">
+        <input formControlName="subject" matInput placeholder="Predmet">
+      </mat-form-field>
     </div>
+
+    <div class="col-md-4">
+      <mat-form-field class="form-group w-100">
+        <input formControlName="number" matInput placeholder="Číslo">
+        <mat-error *ngIf="submitted && f.number.errors">Číslo je <strong>pozadovany.</strong></mat-error>
+      </mat-form-field>
+    </div>
+
   </div>
 
   <div class="row">

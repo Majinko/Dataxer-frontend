@@ -1,6 +1,6 @@
 <div class="row mb-4">
   <div class="col d-flex align-items-center mb-3">
-    <mat-icon routerLink="/invoice" class="mr-2 mr-md-5 cursor-pointer">keyboard_backspace</mat-icon>
+    <mat-icon routerLink="/document/invoice" class="mr-2 mr-md-5 cursor-pointer">keyboard_backspace</mat-icon>
     <h1 class="mb-0" [ngSwitch]="f.documentType.value">
       <span *ngSwitchCase="'PROFORMA'">Nová zálohová faktúra</span>
       <span *ngSwitchDefault>Nová faktúra</span>
