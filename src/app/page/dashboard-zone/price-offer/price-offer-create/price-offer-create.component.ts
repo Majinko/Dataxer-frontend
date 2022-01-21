@@ -71,7 +71,7 @@ export class PriceOfferCreateComponent extends DocumentHelperClass implements On
       title: ['', Validators.required],
       subject: '',
       number: ['', Validators.required],
-      state: null,
+      state: 'WAITING',
       company: [null, Validators.required],
       createdDate: [new Date(), Validators.required],
       deliveredDate: [new Date(), Validators.required],
