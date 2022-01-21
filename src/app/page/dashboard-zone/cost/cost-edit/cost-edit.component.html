@@ -13,12 +13,35 @@
       </div>
     </div>
 
+
     <div class="row">
+      <div class="col-md-4 mb-2">
+        <app-company-select-group formControlName="company" [ngForm]="ngForm"></app-company-select-group>
+      </div>
+
       <div class="col-md-4">
-        <mat-form-field class="form-group w-100">
-          <input formControlName="title" matInput placeholder="Názov nákladu">
-          <mat-error *ngIf="f.title.errors">Názov nákladu je <strong>požadovaný.</strong></mat-error>
-        </mat-form-field>
+        <app-select-new-contact placeholder="Dodávaťeľ" formControlName="contact"></app-select-new-contact>
+        <mat-error *ngIf="submitted && f.contact.errors" class="mat-error-not-in-field">Client je <strong>požadovaný.</strong></mat-error>
+      </div>
+
+      <div class="col-md-4">
+        <app-new-project-select formControlName="project" ></app-new-project-select>
+        <mat-error *ngIf="submitted && f.project.errors" class="mat-error-not-in-field">Projekt je <strong>požadovaný.</strong></mat-error>
+      </div>
+
+      <div class="col-md-4">
+        <ng-select class="form-group w-100 mb-0"
+                   [items]="categories"
+                   bindLabel="name"
+                   placeholder="Kategórie"
+                   groupBy="parentName"
+                   formControlName="categories"
+        >
+          <ng-template ng-optgroup-tmp let-item="item">
+            {{item.parentName || 'Unnamed group'}}
+          </ng-template>
+        </ng-select>
+        <mat-error *ngIf="submitted && f.categories.errors" class="mat-error-not-in-field">Kategória je <strong>požadovana.</strong></mat-error>
       </div>
 
       <div class="col-md-4">
@@ -38,10 +61,6 @@
           </mat-select>
         </mat-form-field>
       </div>-->
-
-      <div class="col-md-4 mb-2">
-        <app-company-select-group formControlName="company" [ngForm]="ngForm"></app-company-select-group>
-      </div>
     </div>
 
     <div class="row">
@@ -86,31 +105,13 @@
       </div>
 
       <div class="col-md-4">
-        <app-select-new-contact placeholder="Dodávaťeľ" formControlName="contact"></app-select-new-contact>
-        <mat-error *ngIf="submitted && f.contact.errors" class="mat-error-not-in-field">Client je <strong>požadovaný.</strong></mat-error>
-      </div>
-
-      <div class="col-md-4" *ngIf="!isInternalCheckbox.checked">
-        <app-new-project-select formControlName="project" ></app-new-project-select>
-        <mat-error *ngIf="submitted && f.project.errors" class="mat-error-not-in-field">Projekt je <strong>požadovaný.</strong></mat-error>
+        <mat-form-field class="form-group w-100">
+          <input formControlName="title" matInput placeholder="Názov nákladu">
+          <mat-error *ngIf="f.title.errors">Názov nákladu je <strong>požadovaný.</strong></mat-error>
+        </mat-form-field>
       </div>
 
       <div class="col-md-4">
-        <ng-select class="form-group w-100 mb-0"
-                   [items]="categories"
-                   bindLabel="name"
-                   placeholder="Kategórie"
-                   groupBy="parentName"
-                   formControlName="categories"
-        >
-          <ng-template ng-optgroup-tmp let-item="item">
-            {{item.parentName || 'Unnamed group'}}
-          </ng-template>
-        </ng-select>
-        <mat-error *ngIf="submitted && f.categories.errors" class="mat-error-not-in-field">Kategória je <strong>požadovana.</strong></mat-error>
-      </div>
-
-      <div class="col-md-12">
         <mat-form-field class="form-group w-100">
           <input formControlName="note" matInput placeholder="Poznámka">
         </mat-form-field>
