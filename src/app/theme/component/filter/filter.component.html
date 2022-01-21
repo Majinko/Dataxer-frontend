@@ -48,6 +48,20 @@
     </ng-select>
   </div>
 
+  <div class="col-md-4 col-lg-2" *ngIf="months && months.length > 0">
+    <ng-select [items]="months"
+               [clearable]="false"
+               bindLabel="title"
+               placeholder="Mesiac"
+               formControlName="month"
+               class="filter-ng-select">
+
+      <ng-template ng-footer-tmp>
+        <div class="cursor-pointer" (click)="monthDateRange()"><span>Od - do</span></div>
+      </ng-template>
+    </ng-select>
+  </div>
+
   <div class="col-md-4 col-lg-2" *ngIf="documentTypes && documentTypes.length > 0">
     <ng-select [items]="documentTypes"
                [clearable]="false"
@@ -67,20 +81,6 @@
                placeholder="Úhrada"
                formControlName="state"
                class="filter-ng-select">
-    </ng-select>
-  </div>
-
-  <div class="col-md-4 col-lg-2" *ngIf="months && months.length > 0">
-    <ng-select [items]="months"
-               [clearable]="false"
-               bindLabel="title"
-               placeholder="Mesiac"
-               formControlName="month"
-               class="filter-ng-select">
-
-      <ng-template ng-footer-tmp>
-        <div class="cursor-pointer" (click)="monthDateRange()"><span>Od - do</span></div>
-      </ng-template>
     </ng-select>
   </div>
 </form>
