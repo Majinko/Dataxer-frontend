@@ -21,6 +21,8 @@ import {CategoryItemNode} from '../models/category-item-node';
 @Directive()
 // tslint:disable-next-line:directive-class-suffix
 export class FilterClass {
+  clientFormControlName: string = 'Klient';
+
   companies: Company[] = [];
   contacts: Contact[] = [];
   projects: Project[] = [];

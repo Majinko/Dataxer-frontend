@@ -22,7 +22,7 @@
     <ng-select [items]="contacts"
                [clearable]="false"
                bindLabel="name"
-               placeholder="Klient"
+               [placeholder]="clientFormControlName"
                formControlName="contact"
                class="filter-ng-select">
     </ng-select>

@@ -73,8 +73,17 @@ export class DocumentFilterComponent extends FilterClass implements OnInit, OnCh
   }
 
   private initFilterDataByType() {
+    if (this.modelName === 'cost') {
+      this.clientFormControlName = 'Dodávateľ';
+      this.documentTypes = [];
+    }
+
     if (['invoice', 'cost'].includes(this.modelName)) {
       this.preparePayedStates();
+
+      if (['cost'].includes(this.modelName)) {
+        this.documentTypes = [];
+      }
 
       if (['invoice'].includes(this.modelName)) {
         this.prepareDocumentType();
