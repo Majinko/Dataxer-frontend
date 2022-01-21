@@ -13,11 +13,8 @@
   </div>
 
   <div class="row">
-    <div class="col-md-4">
-      <mat-form-field class="form-group w-100">
-        <input formControlName="title" matInput placeholder="Názov kalkulácie">
-        <mat-error *ngIf="f.title.errors">Názov kalkulácie je <strong>požadovaný.</strong></mat-error>
-      </mat-form-field>
+    <div class="col-md-4 mb-3">
+      <app-company-select-group formControlName="company" [ngForm]="ngForm"></app-company-select-group>
     </div>
 
     <div class="col-md-4 form-group">
@@ -32,6 +29,13 @@
   </div>
 
   <div class="row">
+    <div class="col-md-4">
+      <mat-form-field class="form-group w-100">
+        <input formControlName="title" matInput placeholder="Názov kalkulácie">
+        <mat-error *ngIf="f.title.errors">Názov kalkulácie je <strong>požadovaný.</strong></mat-error>
+      </mat-form-field>
+    </div>
+
     <div class="col-md-4">
       <mat-form-field class="form-group w-100">
         <input formControlName="number" matInput placeholder="Číslo">
@@ -54,10 +58,6 @@
           <option value="REJECTED">Zamietnutá</option>
         </select>
       </mat-form-field>
-    </div>
-
-    <div class="col-md-4 mb-3">
-      <app-company-select-group formControlName="company" [ngForm]="ngForm"></app-company-select-group>
     </div>
   </div>
 
