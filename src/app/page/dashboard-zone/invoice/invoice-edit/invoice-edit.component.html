@@ -50,20 +50,20 @@
         </mat-form-field>
       </div>
 
-      <div class="col-md-4">
-        <mat-form-field class="form-group w-100">
-          <input formControlName="number" matInput placeholder="Číslo">
-          <mat-error *ngIf="submitted && f.number.errors">Číslo je <strong>pozadovany.</strong></mat-error>
-        </mat-form-field>
-      </div>
-
       <div class="col-md-12 {{moreOptions ? 'mb-3' : 'mb-5'}}">
         <a class="cursor-pointer text-dark btn-link" (click)="moreOptions = !moreOptions"><b>Viac možností</b></a>
       </div>
 
       <div class="col-12" *ngIf="moreOptions">
         <div class="row">
-          <div class="col-md-4">
+          <div class="col-md-6">
+            <mat-form-field class="form-group w-100">
+              <input formControlName="number" matInput placeholder="Číslo">
+              <mat-error *ngIf="submitted && f.number.errors">Číslo je <strong>pozadovany.</strong></mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-6">
             <mat-form-field class="form-group w-100">
               <mat-label>Spôsob dodania</mat-label>
               <select formControlName="deliveryMethod" matNativeControl>
@@ -74,7 +74,7 @@
               </select>
             </mat-form-field>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-6">
             <mat-form-field class="form-group w-100">
               <mat-label>Forma úhrady</mat-label>
               <mat-select formControlName="paymentMethod" matNativeControl>
@@ -87,7 +87,7 @@
         </div>
 
         <div class="row">
-          <div class="col-md-4">
+          <div class="col-md-6">
             <mat-form-field class="form-group w-100">
               <input formControlName="constantSymbol" matInput placeholder="Konštantný symbol">
             </mat-form-field>
