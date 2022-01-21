@@ -116,7 +116,7 @@ export class PriceOfferEditComponent extends DocumentHelperClass implements OnIn
     });
 
     this.priceOfferService.update(this.formGroup.value).subscribe((r) => {
-      this.router.navigate(['/price-offer']).then(() => {
+      this.router.navigate(['/document/priceOffer']).then(() => {
         this.messageService.add('Cenová ponuka bola uložená');
       });
     });

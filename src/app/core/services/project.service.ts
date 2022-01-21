@@ -73,6 +73,12 @@ export class ProjectService extends ResourceService<Project> {
     }));
   }
 
+  allHasPriceOfferCostInvoice(): Observable<Project[]> {
+    return this.httpClient.get<Project[]>(`${environment.baseUrl}/project/allHasPriceOfferCostInvoice`).pipe(map(projects => {
+      return this.prepareProjects(projects);
+    }));
+  }
+
   allHasUserTime() {
     return this.httpClient.get<Project[]>(`${environment.baseUrl}/project/allHasUserTime`).pipe(map(projects => {
       return this.prepareProjects(projects);

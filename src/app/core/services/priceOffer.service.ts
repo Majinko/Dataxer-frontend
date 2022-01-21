@@ -6,7 +6,7 @@ import {environment} from 'src/environments/environment';
 import {ResourceService} from '../class/ResourceService';
 import {Serializer} from '../models/serializers/Serializer';
 import {Paginate} from '../models/paginate';
-import {map} from "rxjs/operators";
+import {map} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',

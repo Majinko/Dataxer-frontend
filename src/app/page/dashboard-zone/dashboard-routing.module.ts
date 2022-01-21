@@ -3,7 +3,6 @@ import {NgModule} from '@angular/core';
 import {DashboardComponent} from './dashboard.component';
 import {AuthGuardService} from '../../core/guards/auth-guard.service';
 import {UserResolver} from '../../core/resolver/user.resolver';
-import {NgxPermissionsGuard} from 'ngx-permissions';
 import {AppProfileResolver} from '../../core/resolver/appProfile.resolver';
 
 const routes: Routes = [
@@ -72,6 +71,10 @@ const routes: Routes = [
           }
         },
         loadChildren: () => import('./demand/demand.module').then(m => m.DemandModule),
+      },
+      {
+        path: 'document/:documentType',
+        loadChildren: () => import('./document-paginate/document-paginate.module').then(m => m.DocumentPaginateModule)
       },
       {
         path: 'invoice',

@@ -12,10 +12,10 @@ import {CoreModule} from '../../../core/core.module';
 import {OverviewCostTableRowComponent} from './overview-cost-yearly/components/overview-cost-table-row/overview-cost-table-row.component';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {FormsModule} from '@angular/forms';
-import { OverviewChartsComponent } from './overview-charts/overview-charts.component';
-import { OverviewChartComponent } from './overview-charts/components/overview-chart/overview-chart.component';
+import {OverviewChartsComponent} from './overview-charts/overview-charts.component';
+import {OverviewChartComponent} from './overview-charts/components/overview-chart/overview-chart.component';
 import {NgApexchartsModule} from 'ng-apexcharts';
-import { OverviewProfitChartComponent } from './overview-charts/components/overview-profit-chart/overview-profit-chart.component';
+import {OverviewProfitChartComponent} from './overview-charts/components/overview-profit-chart/overview-profit-chart.component';
 
 const routes: Routes = [
   {
@@ -43,18 +43,27 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [OverviewComponent, OverviewUserTimeMonthlyComponent, OverviewUserTimeYearlyComponent, OverviewCostYearlyComponent, OverviewCostTableRowComponent, OverviewChartsComponent, OverviewChartComponent, OverviewProfitChartComponent],
-    imports: [
-        CommonModule,
-        RouterModule.forChild(routes),
-        ThemeModule,
-        MaterialModule,
-        AvatarModule,
-        CoreModule,
-        NgSelectModule,
-        FormsModule,
-        NgApexchartsModule,
-    ]
+  declarations: [
+    OverviewComponent,
+    OverviewUserTimeMonthlyComponent,
+    OverviewUserTimeYearlyComponent,
+    OverviewCostYearlyComponent,
+    OverviewCostTableRowComponent,
+    OverviewChartsComponent,
+    OverviewChartComponent,
+    OverviewProfitChartComponent
+  ],
+  imports: [
+    CommonModule,
+    RouterModule.forChild(routes),
+    ThemeModule,
+    MaterialModule,
+    AvatarModule,
+    CoreModule,
+    NgSelectModule,
+    FormsModule,
+    NgApexchartsModule,
+  ]
 })
 export class OverviewModule {
 }

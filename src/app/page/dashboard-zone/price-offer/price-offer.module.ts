@@ -15,7 +15,6 @@ import {PriceOfferShowComponent} from './price-offer-show/price-offer-show.compo
 import {DashboardModule} from '../dashboard.module';
 import {TranslateModule} from '@ngx-translate/core';
 import {NgSelectModule} from '@ng-select/ng-select';
-import { PriceOfferFilterComponent } from './price-offer-index/components/price-offer-filter/price-offer-filter.component';
 import {PriceOfferTableComponent} from './price-offer-index/components/price-offer-table/price-offer-table.component';
 
 @NgModule({
@@ -26,7 +25,6 @@ import {PriceOfferTableComponent} from './price-offer-index/components/price-off
     PriceOfferTableComponent,
     PriceOfferEditComponent,
     PriceOfferShowComponent,
-    PriceOfferFilterComponent,
   ],
   imports: [
     CommonModule,

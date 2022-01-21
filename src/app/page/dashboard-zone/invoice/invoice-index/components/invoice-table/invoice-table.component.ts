@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Invoice} from '../../../../../../core/models/invoice';
 import {MatPaginator} from '@angular/material/paginator';
 import {InvoiceService} from '../../../../../../core/services/invoice.service';

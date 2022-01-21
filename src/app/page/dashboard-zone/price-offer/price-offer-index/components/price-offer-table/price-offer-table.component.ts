@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ViewChild} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 
 import {PriceOfferService} from 'src/app/core/services/priceOffer.service';
 import {MessageService} from 'src/app/core/services/message.service';
@@ -8,7 +8,6 @@ import {MatPaginator} from '@angular/material/paginator';
 import {PaginateClass} from '../../../../../../core/class/PaginateClass';
 import {HttpClient} from '@angular/common/http';
 import {MatDialog} from '@angular/material/dialog';
-import {sum} from '../../../../../../../helper';
 import {PdfServiceService} from '../../../../../../core/services/pdf-service.service';
 import {DocumentHelper} from '../../../../../../core/class/DocumentHelper';
 

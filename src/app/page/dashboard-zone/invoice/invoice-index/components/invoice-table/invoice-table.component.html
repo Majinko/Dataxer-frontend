@@ -1,7 +1,4 @@
 <div class="row">
-  <div class="col-md-12 mb-3" style="margin-top: -20px">
-    <app-invoice-filter (onFilter)="filterData($event)" [filterData]="service.filter"></app-invoice-filter>
-  </div>
   <div class="col-md-12">
     <h3 class="text-gray mb-3">Zvolené faktúry: <span class="text-theme">{{totalPrice | currency:'EUR':'symbol'}}</span></h3>
     <div class="table-wrap">
