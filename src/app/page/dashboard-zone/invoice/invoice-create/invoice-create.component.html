@@ -17,16 +17,14 @@
 
   <div class="row">
     <div class="col-md-4">
-      <mat-form-field class="form-group w-100">
-        <input formControlName="title" matInput placeholder="Názov faktury">
-        <mat-error *ngIf="f.title.errors">Názov faktury je <strong>pozadovany.</strong></mat-error>
-      </mat-form-field>
+      <app-company-select-group formControlName="company" [ngForm]="ngForm"></app-company-select-group>
     </div>
 
     <div class="col-md-4 form-group">
       <app-select-new-contact formControlName="contact"></app-select-new-contact>
       <mat-error *ngIf="submitted && f.contact.errors" class="mat-error-not-in-field">Client je <strong>pozadovany.</strong></mat-error>
     </div>
+
 
     <div class="col-md-4 form-group">
       <app-new-project-select [client]="f.contact.value" formControlName="project"></app-new-project-select>
@@ -51,12 +49,15 @@
 
     <div class="col-md-4">
       <mat-form-field class="form-group w-100">
-        <input formControlName="subject" matInput placeholder="Predmet">
+        <input formControlName="title" matInput placeholder="Názov faktury">
+        <mat-error *ngIf="f.title.errors">Názov faktury je <strong>pozadovany.</strong></mat-error>
       </mat-form-field>
     </div>
 
     <div class="col-md-4">
-      <app-company-select-group formControlName="company" [ngForm]="ngForm"></app-company-select-group>
+      <mat-form-field class="form-group w-100">
+        <input formControlName="subject" matInput placeholder="Predmet">
+      </mat-form-field>
     </div>
 
     <div class="col-md-12 {{moreOptions ? 'mb-3' : 'mb-5'}}">
