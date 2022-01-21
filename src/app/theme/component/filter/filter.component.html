@@ -1,26 +1,4 @@
 <form [formGroup]="filterForm" class="form-row justify-content-end mt-5 mt-md-0">
-  <div class="col-md-4 col-lg-2" *ngIf="documentTypes && documentTypes.length > 0">
-    <ng-select [items]="documentTypes"
-               [clearable]="false"
-               bindLabel="value"
-               bindValue="key"
-               placeholder="Typ dokumentu"
-               formControlName="documentType"
-               class="filter-ng-select">
-    </ng-select>
-  </div>
-
-  <div class="col-md-4 col-lg-2" *ngIf="payedStates && payedStates.length > 0">
-    <ng-select [items]="payedStates"
-               [clearable]="false"
-               bindLabel="value"
-               bindValue="key"
-               placeholder="Úhrada"
-               formControlName="state"
-               class="filter-ng-select">
-    </ng-select>
-  </div>
-
   <div class="col-md-4 col-lg-2" *ngIf="companies && companies.length > 1">
     <ng-select [clearable]="false"
                bindLabel="name"
@@ -66,6 +44,28 @@
                bindLabel="fullTitle"
                placeholder="Zákazka"
                formControlName="project"
+               class="filter-ng-select">
+    </ng-select>
+  </div>
+
+  <div class="col-md-4 col-lg-2" *ngIf="documentTypes && documentTypes.length > 0">
+    <ng-select [items]="documentTypes"
+               [clearable]="false"
+               bindLabel="value"
+               bindValue="key"
+               placeholder="Typ dokumentu"
+               formControlName="documentType"
+               class="filter-ng-select">
+    </ng-select>
+  </div>
+
+  <div class="col-md-4 col-lg-2" *ngIf="payedStates && payedStates.length > 0">
+    <ng-select [items]="payedStates"
+               [clearable]="false"
+               bindLabel="value"
+               bindValue="key"
+               placeholder="Úhrada"
+               formControlName="state"
                class="filter-ng-select">
     </ng-select>
   </div>
