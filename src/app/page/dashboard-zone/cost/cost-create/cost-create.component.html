@@ -27,6 +27,21 @@
       <mat-error *ngIf="submitted && f.project.errors" class="mat-error-not-in-field">Projekt je <strong>požadovaný.</strong></mat-error>
     </div>
 
+    <div class="col-md-4">
+      <ng-select class="form-group w-100 mb-0"
+                 [items]="categories"
+                 bindLabel="name"
+                 notFoundText="Zvoľte projekt"
+                 placeholder="Kategória"
+                 groupBy="parentName"
+                 formControlName="categories"
+      >
+        <ng-template ng-optgroup-tmp let-item="item">
+          {{item.parentName || 'Unnamed group'}}
+        </ng-template>
+      </ng-select>
+      <mat-error *ngIf="submitted && f.categories.errors" class="mat-error-not-in-field">Kategória je <strong>požadovana.</strong></mat-error>
+    </div>
 
     <div class="col-md-4">
       <mat-form-field class="form-group w-100 mb-md-0">
@@ -66,22 +81,6 @@
         <mat-datepicker-toggle matSuffix [for]="deliveredDate"></mat-datepicker-toggle>
         <mat-datepicker #deliveredDate></mat-datepicker>
       </mat-form-field>
-    </div>
-
-    <div class="col-md-4">
-      <ng-select class="form-group w-100 mb-0"
-                 [items]="categories"
-                 bindLabel="name"
-                 notFoundText="Zvoľte projekt"
-                 placeholder="Kategória"
-                 groupBy="parentName"
-                 formControlName="categories"
-      >
-        <ng-template ng-optgroup-tmp let-item="item">
-          {{item.parentName || 'Unnamed group'}}
-        </ng-template>
-      </ng-select>
-      <mat-error *ngIf="submitted && f.categories.errors" class="mat-error-not-in-field">Kategória je <strong>požadovana.</strong></mat-error>
     </div>
   </div>
 
