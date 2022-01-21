@@ -66,6 +66,12 @@ export class CostCreateComponent implements OnInit {
     this.changeValue();
     this.handleChangeProject();
     this.handleChangeState();
+
+    this.formGroup.get('company').valueChanges.subscribe((company) => {
+     this.formGroup.patchValue({
+       tax: company.companyTaxType === 'NO_TAX_PAYER' ? 0 : 20
+     });
+    });
   }
 
   private prepareForm() {
@@ -92,7 +98,7 @@ export class CostCreateComponent implements OnInit {
       taxableSupply: null,
       currency: this.currencies[0].value,
       price: null,
-      tax: this.companyService.company?.isTaxPayer ? 20 : 0,
+      tax: 0,
       totalPrice: null,
       paymentMethod: null,
       paymentDate: null,

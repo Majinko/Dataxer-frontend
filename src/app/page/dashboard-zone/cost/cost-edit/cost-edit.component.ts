@@ -66,6 +66,12 @@ export class CostEditComponent implements OnInit {
     this.getCost();
     this.prepareForm();
     this.changeValue();
+
+    this.formGroup.get('company').valueChanges.subscribe((company) => {
+      this.formGroup.patchValue({
+        tax: company.companyTaxType === 'NO_TAX_PAYER' ? 0 : 20
+      });
+    });
   }
 
   private prepareForm() {
