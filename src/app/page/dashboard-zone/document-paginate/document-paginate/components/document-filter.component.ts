@@ -11,9 +11,6 @@ import {ProjectService} from '../../../../../core/services/project.service';
   templateUrl: '../../../../../theme/component/filter/filter.component.html',
 })
 export class DocumentFilterComponent extends FilterClass implements OnInit, OnChanges {
-  // tslint:disable-next-line:variable-name
-  private _title: string;
-
   @Input() modelName: string;
   @Input() inputSearchBarValues: string[];
   @Input() inputSearchBarSelectValues: string[];
@@ -37,12 +34,7 @@ export class DocumentFilterComponent extends FilterClass implements OnInit, OnCh
   }
 
 
-  set title(value: string) {
-    this._title = value;
-  }
-
   ngOnInit(): void {
-    this._title = this.title;
     this.model = this.modelName;
     this.searchBarSearchValues = this.inputSearchBarValues;
     this.searchBarSelectValues = this.inputSearchBarSelectValues;
@@ -74,16 +66,19 @@ export class DocumentFilterComponent extends FilterClass implements OnInit, OnCh
 
       // potrebujeme resetnut rsql filter z aktualnym modelom
       this.prepareDataForRsqlFilter(this.filterForm.value);
-
-      // iniciliziovanie metod ktore potrebujem pre kontretny typ dokumentu ... todo uplne pojde prec ked sa faktury a nakaldy spoja
-      this.initFilterDataByType();
     }
+
+    // iniciliziovanie metod ktore potrebujem pre kontretny typ dokumentu ... todo uplne pojde prec ked sa faktury a nakaldy spoja
+    this.initFilterDataByType();
   }
 
   private initFilterDataByType() {
-    if (['invoice'].includes(this.modelName)) {
+    if (['invoice', 'cost'].includes(this.modelName)) {
       this.preparePayedStates();
-      this.prepareDocumentType();
+
+      if (['invoice'].includes(this.modelName)) {
+        this.prepareDocumentType();
+      }
     } else {
       this.payedStates = [];
       this.documentTypes = [];

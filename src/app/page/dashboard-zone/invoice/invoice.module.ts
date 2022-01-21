@@ -11,10 +11,9 @@ import {ThemeModule} from '../../../theme/theme.module';
 import {ReactiveFormsModule} from '@angular/forms';
 import {CoreModule} from '../../../core/core.module';
 import {InvoiceShowComponent} from './invoice-show/invoice-show.component';
-import { InvoiceFilterComponent } from './invoice-index/components/invoice-filter/invoice-filter.component';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {TranslateModule} from '@ngx-translate/core';
-import {DocumentPaginateModule} from "../document-paginate/document-paginate.module";
+import {DocumentPaginateModule} from '../document-paginate/document-paginate.module';
 
 const routes: Routes = [{
   path: '',
@@ -52,18 +51,25 @@ const routes: Routes = [{
 }];
 
 @NgModule({
-  declarations: [InvoiceComponent, InvoiceIndexComponent, InvoiceTableComponent, InvoiceCreateComponent, InvoiceEditComponent, InvoiceShowComponent, InvoiceFilterComponent],
-    imports: [
-        CommonModule,
-        RouterModule.forChild(routes),
-        MaterialModule,
-        ThemeModule,
-        ReactiveFormsModule,
-        CoreModule,
-        NgSelectModule,
-        TranslateModule,
-        DocumentPaginateModule,
-    ]
+  declarations: [
+    InvoiceComponent,
+    InvoiceIndexComponent,
+    InvoiceTableComponent,
+    InvoiceCreateComponent,
+    InvoiceEditComponent,
+    InvoiceShowComponent
+  ],
+  imports: [
+    CommonModule,
+    RouterModule.forChild(routes),
+    MaterialModule,
+    ThemeModule,
+    ReactiveFormsModule,
+    CoreModule,
+    NgSelectModule,
+    TranslateModule,
+    DocumentPaginateModule,
+  ]
 })
 export class InvoiceModule {
 }

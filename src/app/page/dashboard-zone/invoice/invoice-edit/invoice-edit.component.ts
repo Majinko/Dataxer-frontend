@@ -120,7 +120,7 @@ export class InvoiceEditComponent extends DocumentHelperClass implements OnInit 
     });
 
     this.invoiceService.update(this.formGroup.value).subscribe((r) => {
-      this.router.navigate(['/invoice']).then(() => {
+      this.router.navigate(['/document/invoice']).then(() => {
         this.messageService.add('Faktúra bola aktualizovaná');
       });
     });

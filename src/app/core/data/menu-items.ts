@@ -38,7 +38,7 @@ export const MenuItems: MenuItem[] = [
     permission: 'Document'
   },
   {
-    routerLink: ['/cost'],
+    routerLink: ['/document/cost'],
     title: 'Náklady',
     icon: 'equalizer',
     permission: 'Cost'

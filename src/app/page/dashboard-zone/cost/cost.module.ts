@@ -12,7 +12,6 @@ import {CoreModule} from '../../../core/core.module';
 import {CostTableComponent} from './cost-index/components/cost-table/cost-table.component';
 import {CostShowComponent} from './cost-show/cost-show.component';
 import {NgSelectModule} from '@ng-select/ng-select';
-import { CostFilterComponent } from './cost-index/components/cost-filter/cost-filter.component';
 import {TranslateModule} from '@ngx-translate/core';
 import {AvatarModule} from 'ngx-avatar';
 
@@ -60,7 +59,6 @@ const routes: Routes = [
     CostEditComponent,
     CostTableComponent,
     CostShowComponent,
-    CostFilterComponent
   ],
 })
 export class CostModule {

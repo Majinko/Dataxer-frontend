@@ -6,15 +6,13 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {DocumentHelper} from '../../../../core/class/DocumentHelper';
 import {UserService} from '../../../../core/services/user.service';
 import {NumberingService} from '../../../../core/services/numbering.service';
-import {CompanyService} from '../../../../core/services/company.service';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import {MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter} from '@angular/material-moment-adapter';
 import {addDays, APP_DATE_FORMATS} from '../../../../../helper';
 import {BankAccountService} from '../../../../core/services/bank-account.service';
 import {Pack} from '../../../../core/models/pack';
 import {PriceOffer} from '../../../../core/models/priceOffer';
-import {Company} from "../../../../core/models/company";
-import {DocumentHelperClass} from "../../../../core/class/DocumentHelperClass";
+import {DocumentHelperClass} from '../../../../core/class/DocumentHelperClass';
 
 @Component({
   selector: 'app-create',
@@ -141,7 +139,7 @@ export class PriceOfferCreateComponent extends DocumentHelperClass implements On
 
     this.priceOfferService.store(this.formGroup.value).subscribe((r) => {
       this.router
-        .navigate(['/price-offer'])
+        .navigate(['/document/priceOffer'])
         .then(() => this.messageService.add('Cenová ponuka bola uložená'));
     });
   }
