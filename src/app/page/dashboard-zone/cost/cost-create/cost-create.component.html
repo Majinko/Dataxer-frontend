@@ -27,12 +27,6 @@
       <mat-error *ngIf="submitted && f.project.errors" class="mat-error-not-in-field">Projekt je <strong>požadovaný.</strong></mat-error>
     </div>
 
-    <div class="col-md-4">
-      <mat-form-field class="form-group w-100">
-        <input formControlName="title" matInput placeholder="Názov nákladu">
-        <mat-error *ngIf="f.title.errors">Názov nákladu je <strong>požadovaný.</strong></mat-error>
-      </mat-form-field>
-    </div>
 
     <div class="col-md-4">
       <mat-form-field class="form-group w-100 mb-md-0">
@@ -73,16 +67,7 @@
         <mat-datepicker #deliveredDate></mat-datepicker>
       </mat-form-field>
     </div>
-  </div>
 
-
-  <div class="row">
-    <div class="col-md-4 mb-2">
-      <mat-checkbox formControlName="isInternal" (change)="getFirmGroupCategories()" #isInternalCheckbox>Firemný náklad</mat-checkbox>
-    </div>
-  </div>
-
-  <div class="row">
     <div class="col-md-4">
       <ng-select class="form-group w-100 mb-0"
                  [items]="categories"
@@ -97,6 +82,12 @@
         </ng-template>
       </ng-select>
       <mat-error *ngIf="submitted && f.categories.errors" class="mat-error-not-in-field">Kategória je <strong>požadovana.</strong></mat-error>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-4">
+      <mat-checkbox formControlName="isInternal" (change)="getFirmGroupCategories()" #isInternalCheckbox>Firemný náklad</mat-checkbox>
     </div>
   </div>
 
@@ -135,7 +126,14 @@
       <h2 class="border-bottom-2 pb-2 mb-4">Popis</h2>
     </div>
 
-    <div class="col-md-12">
+    <div class="col-md-4">
+      <mat-form-field class="form-group w-100">
+        <input formControlName="title" matInput placeholder="Názov nákladu">
+        <mat-error *ngIf="f.title.errors">Názov nákladu je <strong>požadovaný.</strong></mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-4">
       <mat-form-field class="form-group w-100">
         <input formControlName="note" matInput placeholder="Poznámka">
       </mat-form-field>
