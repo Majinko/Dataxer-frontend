@@ -1,11 +1,12 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {AbstractControl, FormArray, FormBuilder, FormGroup} from '@angular/forms';
+import {AbstractControl, Form, FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {UNITS} from '../../../core/data/unit-items';
 import {DocumentHelper} from '../../../core/class/DocumentHelper';
 import {Pack, PackItem} from '../../../core/models/pack';
 import {PackService} from '../../../core/services/pack.service';
 import {Item} from '../../../core/models/item';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
+import {containsObject} from "../../../../helper";
 
 @Component({
   selector: 'app-document-pack',
@@ -93,10 +94,13 @@ export class DocumentPackComponent implements OnInit {
     this.formPacks.removeAt(i);
   }
 
-  removeItem(event: MouseEvent, itemId: number) {
+  removeItem(event: MouseEvent, itemIndex: number, packIndex: number) {
     event.preventDefault();
 
-    this.items.removeAt(itemId);
+    const pack: AbstractControl = this.formPacks.at(packIndex);
+    const packItem: FormArray = pack.get('packItems') as FormArray;
+    
+    packItem.removeAt(itemIndex);
   }
 
   itemsByIndex(index: number): FormArray {
