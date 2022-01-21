@@ -22,7 +22,7 @@
       <mat-error *ngIf="submitted && f.contact.errors" class="mat-error-not-in-field">Client je <strong>požadovaný.</strong></mat-error>
     </div>
 
-    <div class="col-md-4" *ngIf="!isInternalCheckbox.checked">
+    <div class="col-md-4">
       <app-new-project-select [client]="f.contact.value" formControlName="project"></app-new-project-select>
       <mat-error *ngIf="submitted && f.project.errors" class="mat-error-not-in-field">Projekt je <strong>požadovaný.</strong></mat-error>
     </div>
@@ -75,9 +75,28 @@
     </div>
   </div>
 
+
+  <div class="row">
+    <div class="col-md-4 mb-2">
+      <mat-checkbox formControlName="isInternal" (change)="getFirmGroupCategories()" #isInternalCheckbox>Firemný náklad</mat-checkbox>
+    </div>
+  </div>
+
   <div class="row">
     <div class="col-md-4">
-      <mat-checkbox formControlName="isInternal" (change)="getFirmGroupCategories()" #isInternalCheckbox>Firemný náklad</mat-checkbox>
+      <ng-select class="form-group w-100 mb-0"
+                 [items]="categories"
+                 bindLabel="name"
+                 notFoundText="Zvoľte projekt"
+                 placeholder="Kategória"
+                 groupBy="parentName"
+                 formControlName="categories"
+      >
+        <ng-template ng-optgroup-tmp let-item="item">
+          {{item.parentName || 'Unnamed group'}}
+        </ng-template>
+      </ng-select>
+      <mat-error *ngIf="submitted && f.categories.errors" class="mat-error-not-in-field">Kategória je <strong>požadovana.</strong></mat-error>
     </div>
   </div>
 
@@ -114,22 +133,6 @@
   <div class="row mt-3">
     <div class="col-12">
       <h2 class="border-bottom-2 pb-2 mb-4">Popis</h2>
-    </div>
-
-    <div class="col-md-4">
-      <ng-select class="form-group w-100 mb-0"
-                 [items]="categories"
-                 bindLabel="name"
-                 notFoundText="Zvoľte projekt"
-                 placeholder="Kategória"
-                 groupBy="parentName"
-                 formControlName="categories"
-      >
-        <ng-template ng-optgroup-tmp let-item="item">
-          {{item.parentName || 'Unnamed group'}}
-        </ng-template>
-      </ng-select>
-      <mat-error *ngIf="submitted && f.categories.errors" class="mat-error-not-in-field">Kategória je <strong>požadovana.</strong></mat-error>
     </div>
 
     <div class="col-md-12">
