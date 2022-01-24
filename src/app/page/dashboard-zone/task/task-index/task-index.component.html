@@ -1,7 +1,20 @@
-<div class="row mb-3 pb-2">
+<div class="row">
   <div class="col">
-    <h1>Úlohy</h1>
+    <h1>Zoznam úloh</h1>
   </div>
 </div>
-
-<app-task-table></app-task-table>
+<div cdkDropList class="todolists-wrap" (cdkDropListDropped)="drop($event)">
+  <div class="todolist-box" *ngFor="let todolist of todolists" cdkDrag>
+    <div class="todolist-placeholder" *cdkDragPlaceholder></div>
+    <div class="todolist-indicator">
+      <mat-icon>drag_indicator</mat-icon>
+    </div>
+    <div class="todolist-title" [routerLink]="['/task/show', todolist.id]">
+      <h3>{{todolist.title}}</h3>
+    </div>
+    <app-task-todo></app-task-todo>
+    <div class="button-wrap">
+      <button mat-raised-button>Pridať úlohu</button>
+    </div>
+  </div>
+</div>

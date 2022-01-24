@@ -16,7 +16,7 @@ const routes: Routes = [
         path: 'task',
         // canActivate: [NgxPermissionsGuard],
         data: {
-          godButtonTitle: 'Nová úloha',
+          godButtonTitle: 'Nový zoznam úloh',
           gotButtonRouteLink: '/task/create',
           permissions: {
             only: 'Task'

@@ -1,0 +1,123 @@
+<div class="nav-link">
+  <div class="nav-button" [routerLink]="['/task/show', todo.listId]">
+    <mat-icon class="mr-2 cursor-pointer">keyboard_backspace</mat-icon>
+    Naspäť na úlohy
+  </div>
+</div>
+
+<div class="task-detail-wrap">
+  <div class="task-detail-title">
+    <div class="task-checkbox-wrap">
+      <mat-checkbox [checked]="todo.checked" [color]="'green'" (change)="checkedTodo($event.checked)">
+      </mat-checkbox>
+    </div>
+    <div><h3>{{ todo.title }}</h3></div>
+  </div>
+  <div class="task-detail-options">
+    <div class="task-row task-added">
+      <div>
+        <strong>Pridal</strong>
+      </div>
+      <div>
+        <p>Marek H. 21. januára</p>
+      </div>
+    </div>
+    <div class="task-row task-added">
+      <div>
+        <strong>Priradený</strong>
+      </div>
+      <div>
+        <p>PeterM</p>
+      </div>
+    </div>
+    <div class="task-row task-added">
+      <div>
+        <strong>Po dokončení upozornite</strong>
+      </div>
+      <div>
+        <p>Napíšte mená, ktoré chcete upozorniť…</p>
+      </div>
+    </div>
+    <div class="task-row task-added">
+      <div>
+        <strong>Čas</strong>
+      </div>
+      <div>
+        <p>Vyberte dátum…</p>
+      </div>
+    </div>
+    <div class="task-row task-added">
+      <div>
+        <strong>Poznámky</strong>
+      </div>
+      <div>
+        <p>Pridajte ďalšie podrobnosti </p>
+      </div>
+    </div>
+  </div>
+  <div class="task-comments-wrap">
+    <div class="task-comment">
+      <div class="task-item">
+        <div class="task-time">
+          <span>Oct 11, 2021</span>
+        </div>
+        <div class="task-text-wrap">
+          <div class="task-avatar">
+            <ngx-avatar [src]="userService.user.photoUrl" size="40" bgColor="#19A5E5"
+            name="{{ userService.user.displayName }}" class=""></ngx-avatar>
+          </div>
+          <div class="task-text">
+            <div class="task-text-title">
+              <h4>MArek Hlavčo</h4>
+            </div>
+            <div class="task-text-content">
+              <p>pri listingu spolocnosti to malo byt aj ked pridavas naklad cenovu ponuku....</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="task-comment">
+      <div class="task-item">
+        <div class="task-time">
+          <span>Oct 11, 2021</span>
+        </div>
+        <div class="task-text-wrap">
+          <div class="task-avatar">
+            <ngx-avatar [src]="userService.user.photoUrl" size="40" bgColor="#19A5E5"
+            name="{{ userService.user.displayName }}" class=""></ngx-avatar>
+          </div>
+          <div class="task-text">
+            <div class="task-text-title">
+              <h4>MArek Hlavčo</h4>
+            </div>
+            <div class="task-text-content">
+              <p>pri listingu spolocnosti to malo byt aj ked pridavas naklad cenovu ponuku....</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="task-comment">
+      <div class="task-item">
+        <div class="task-time">
+          <span>Oct 11, 2021</span>
+        </div>
+        <div class="task-text-wrap">
+          <div class="task-avatar">
+            <ngx-avatar [src]="userService.user.photoUrl" size="40" bgColor="#19A5E5"
+            name="{{ userService.user.displayName }}" class=""></ngx-avatar>
+          </div>
+          <div class="task-text">
+            <div class="task-text-title">
+              <h4>MArek Hlavčo</h4>
+            </div>
+            <div class="task-text-content">
+              <p>pri listingu spolocnosti to malo byt aj ked pridavas naklad cenovu ponuku....</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

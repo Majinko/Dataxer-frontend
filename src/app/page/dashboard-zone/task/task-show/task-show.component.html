@@ -1,76 +1,18 @@
-<div *ngIf="task" class="mb-5">
-  <div class="row">
-    <div class="col-12">
-      <h2 class="border-bottom-2 pb-2 mb-4">Základné informácie</h2>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-md-4">
-      <p class="mb-1">Zadávateľ:</p>
-      <h3 class="text-dark d-flex align-items-center">
-        <ngx-avatar size="40" bgColor="#19A5E5" name="{{task.userFrom.displayName}}" class="mr-2"></ngx-avatar>
-        <b>{{task.userFrom.displayName || '-'}}</b></h3>
-    </div>
-
-    <div class="col-md-4">
-      <p class="mb-1">Riešiteľ:</p>
-      <h3 class="text-dark d-flex align-items-center">
-        <ngx-avatar size="40" bgColor="#19A5E5" name="{{task.userFrom.displayName}}" class="mr-2"></ngx-avatar>
-        <b>{{task.userFrom.displayName || '-'}}</b></h3>
-    </div>
-
-    <div class="col-md-4">
-      <p>Datum do:</p>
-      <h3 class="text-dark d-flex align-items-center"><b>{{task.finishedAt | date:'dd.MM.y' || '-'}}</b></h3>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-12">
-      <h2 class="border-bottom-2 pb-2 mb-4">Špeciﬁkácia úlohy</h2>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-md-4">
-      <p class="mb-0">Názov:</p>
-      <h3 class="text-dark"><b>{{task.title || '-'}}</b></h3>
-    </div>
-
-    <div class="col-md-4">
-      <p class="mb-0">Zákazka:</p>
-      <h3 class="text-dark"><b>{{task.project.title || '-'}}</b></h3>
-    </div>
-
-    <div class="col-md-4">
-      <p class="mb-0">Kategória:</p>
-      <h3 class="text-dark"><b>{{task.category.name || '-'}}</b></h3>
-    </div>
-
-    <div class="col-md-12">
-      <p class="mb-0">Popis:</p>
-      <h3 class="text-dark"><b>{{task.description || '-'}}</b></h3>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-12">
-      <h2 class="border-bottom-2 pb-2 mb-4">Súbory úlohy</h2>
-    </div>
-
-    <div class="col-12 mb-3" *ngIf="task.files.length > 0">
-      <app-file [files]="task.files"></app-file>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-12">
-      <h2 class="border-bottom-2 pb-2 mb-4">Chat</h2>
-    </div>
-
-    <div class="col-12">
-      <app-chat></app-chat>
+<div class="nav-link">
+<div class="nav-button" [routerLink]="['/task']">
+  <mat-icon class="mr-2 cursor-pointer">keyboard_backspace</mat-icon>
+  Naspäť na zoznam úloh
+</div>
+</div>
+<div class="todolist-row-title">
+  <h1>{{todolist.title}}</h1>
+</div>
+<div class="todolists-wrap">
+  <div class="todolist-box">
+    <div class="todolist-placeholder" *cdkDragPlaceholder></div>
+    <app-task-todo></app-task-todo>
+    <div class="button-wrap">
+      <button mat-raised-button>Pridať úlohu</button>
     </div>
   </div>
 </div>

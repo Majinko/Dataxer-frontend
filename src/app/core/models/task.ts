@@ -16,3 +16,14 @@ export interface Task {
   finishedAt: Date;
   files?: CustomFile[];
 }
+
+export interface Todos {
+  listId: number;
+  id: number;
+  title: string;
+  checked: boolean;
+}
+export interface Todolist {
+  id: number;
+  title: string;
+}
