@@ -38,6 +38,13 @@ export abstract class DocumentHelperClass {
           contact
         }, {emitEvent: false});
       });
+
+      // ked menime variabilny rovno nastavujeme aj cislo
+      this.formGroup.get('variableSymbol').valueChanges.subscribe((variable) => {
+        this.formGroup.patchValue({
+          number: variable
+        }, {emitEvent: false});
+      });
     }
   }
 

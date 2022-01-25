@@ -109,6 +109,10 @@ export class DocumentPaginateComponent implements OnInit, AfterViewInit {
           factory = this.resolver.resolveComponentFactory(CostTableComponent);
           this.componentRef = viewContainerRef.createComponent<CostTableComponent>(factory);
           break;
+        default:
+          factory = this.resolver.resolveComponentFactory(InvoiceTableComponent);
+          this.componentRef = viewContainerRef.createComponent<InvoiceTableComponent>(factory);
+          break;
       }
     });
   }

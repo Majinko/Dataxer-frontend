@@ -1,6 +1,6 @@
-<div class="ng-select-custom position-relative" [ngClass]="{ 'd-none': this.companies.length === 1}">
+<div class="ng-select-custom position-relative">
   <ng-select class="form-group w-100 disable-arrow mb-0"
-            [ngClass]="{'state-error' : ngForm.submitted && ngForm.form.controls.company.errors }"
+             [ngClass]="{'state-error' : ngForm.submitted && ngForm.form.controls.company.errors }"
              [items]="companies"
              bindLabel="name"
              placeholder="Spoločnosť"
@@ -9,32 +9,16 @@
              [(ngModel)]="company"
              (change)="selectCompany($event)"
   >
-    <div class="ng-select-custom position-relative" [ngClass]="{ 'd-none': this.companies.length === 1}">
-      <ng-select class="form-group w-100 disable-arrow mb-0"
-                 [ngClass]="{'state-error' : ngForm.submitted && ngForm.form.controls.company.errors }"
-                 [items]="companies"
-                 bindLabel="name"
-                 placeholder="Spoločnosť"
-                 [clearable]="false"
-                 [searchable]="true"
-                 [(ngModel)]="company"
-                 (change)="selectCompany($event)"
-      >
-        <ng-option *ngFor="let company of companies" [value]="company">
-          <div class="company-option">
-            <div class="img-wrap">
-              <img *ngIf="company.logoUrl" [src]="company.logoUrl" size="40" alt="company.name">
-            </div>
-            <div class="text-wrap">
-              {{ company.name }}
-            </div>
-          </div>
-        </ng-option>
-      </ng-select>
-      <mat-icon *ngIf="showAddButton" class="d-none text-gray md-f-s position-absolute btn-add" (click)="openDialog()">add</mat-icon>
-    </div>
-    <mat-error class="mat-error-not-in-field" *ngIf="ngForm.submitted && ngForm.form.controls.company.errors">Spoločnosť je <strong>požadovaná.</strong></mat-error>
-
+    <ng-option *ngFor="let company of companies" [value]="company">
+      <div class="company-option">
+        <div class="img-wrap">
+          <img *ngIf="company.logoUrl" [src]="company.logoUrl" size="40" alt="company.name">
+        </div>
+        <div class="text-wrap">
+          {{ company.name }}
+        </div>
+      </div>
+    </ng-option>
   </ng-select>
   <mat-icon *ngIf="showAddButton" class="d-none text-gray md-f-s position-absolute btn-add" (click)="openDialog()">add</mat-icon>
 </div>
