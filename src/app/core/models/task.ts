@@ -19,11 +19,20 @@ export interface Task {
 
 export interface Todos {
   listId: number;
-  id: number;
+  id?: number;
   title: string;
   checked: boolean;
+  position: number;
 }
 export interface Todolist {
-  id: number;
+  id?: number;
   title: string;
+  position: number;
+}
+
+export interface TodoComment {
+  id: number;
+  time: string;
+  name: string;
+  text: string;
 }

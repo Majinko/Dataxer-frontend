@@ -10,7 +10,8 @@ export class TaskShowComponent implements OnInit {
 
   todolist: Todolist =  {
      id: 1,
-     title: 'toto treba'
+     title: 'toto treba',
+     position: 1,
     }
   ;
 

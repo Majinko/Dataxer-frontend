@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import {Todolist} from '../../../../core/models/task';
+import {ActivatedRoute, Router} from '@angular/router';
+import {FormBuilder, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-task-index',
@@ -8,27 +10,61 @@ import {Todolist} from '../../../../core/models/task';
   styleUrls: ['./task-index.component.scss']
 })
 export class TaskIndexComponent implements OnInit {
+  formGroup: FormGroup;
+  create: string;
   todolists: Todolist[] = [
     {
       id: 1,
-      title: 'toto treba'
+      title: 'toto treba',
+      position: 1,
     },
     {
       id: 2,
-      title: 'toto treba tiež'
+      title: 'toto treba tiež',
+      position: 2,
     },
     {
       id: 3,
-      title: 'toto treba určite'
+      title: 'toto treba určite',
+      position: 3,
     },
   ];
 
-  constructor() { }
+  constructor(
+    private formBuilder: FormBuilder,
+    public route: ActivatedRoute,
+    public router: Router,
+  ) { }
 
   ngOnInit(): void {
+    this.create = this.route.snapshot.paramMap.get('type');
+    this.prepareForm();
+  }
+
+  prepareForm(): void {
+    this.formGroup = this.formBuilder.group({
+      title: '',
+    });
   }
 
   drop(event: CdkDragDrop<Todolist[]>) {
     moveItemInArray(this.todolists, event.previousIndex, event.currentIndex);
+    this.todolists.forEach((todolist, index) => {
+      todolist.position = index + 1;
+    });
+  }
+
+  createTodolist($event: MouseEvent) {
+    const todolist = {
+      title: this.formGroup.get('title').value,
+      position: 1
+    };
+    this.todolists.forEach(f => {
+      f.position = f.position + 1
+    });
+    this.todolists.unshift(todolist);
+    console.log(this.todolists);
+    this.create = null;
+    // this.router.navigate(['/task']).then();
   }
 }

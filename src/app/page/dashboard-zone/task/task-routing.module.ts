@@ -14,6 +14,10 @@ const routes: Routes = [{
       component: TaskIndexComponent,
     },
     {
+      path: ':type',
+      component: TaskIndexComponent,
+    },
+    {
       path: 'show/:id',
       component: TaskShowComponent,
     },

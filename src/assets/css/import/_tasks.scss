@@ -1,5 +1,5 @@
 .todolists-wrap {
-  padding-top: 40px;
+  padding-top: 20px;
   max-width: 800px;
 
   &>.todolist-box {
@@ -28,9 +28,9 @@
 .todolist-box {
   position: relative;
   margin: 40px 0;
-  padding-left: 25px;
 
   .todolist-title {
+    padding-left: 30px;
     h3 {
       font-size: 18px;
       font-weight: 700;
@@ -51,13 +51,6 @@
         top: 5px;
         left: 0;
       }
-    }
-  }
-
-  & .button-wrap {
-    button {
-      border: 1px solid rgba(39, 31, 31, 0.2);
-      box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.15), 0px 2px 2px 0px rgba(0, 0, 0, 0.10), 0px 1px 5px 0px rgba(0, 0, 0, 0.08);
     }
   }
 }
@@ -94,23 +87,28 @@
 .todo-wrap {
   padding: 5px 0 15px;
 }
+.todolist-box .todolist-title h3 {
+  cursor: pointer;
+}
 
 .todo-box {
   display: flex;
   position: relative;
   padding: 2px 0;
+  padding-left: 30px;
 
   .todo-title {
     padding-left: 10px;
 
     h3 {
       margin-bottom: 0;
+      cursor: pointer;
     }
   }
 
   .todolist-indicator {
     top: 8px;
-    left: -25px;
+    left: 0;
   }
 
   .mat-checkbox {
@@ -151,6 +149,7 @@ body {
 
 
 .task-detail-wrap {
+  max-width: 900px;
   .task-detail-title {
     border-bottom: 1px solid #ccc;
   }
@@ -178,6 +177,8 @@ body {
     }
   }
 }
+
+
 
 .task-detail-title {
   display: flex;
@@ -252,4 +253,110 @@ body {
   .task-avatar {
     padding-right: 20px;
   }
+}
+.create-todolist-box {
+  border: 1px solid #ccc;
+  padding: 20px 30px;
+  max-width: 600px;
+  .button-wrap {
+    padding-top: 20px;
+  }
+}
+
+.todo-create-wrap {
+  .todo-create-box {
+    border: 1px solid #ccc;
+    max-width: 600px;
+    .todo-title {
+      border-bottom: 1px solid #ccc;
+      padding: 10px 30px 5px;
+      input.mat-input-element {
+        height: 30px;
+      }
+    }
+    .todo-content {
+      padding: 10px 30px 20px;
+      .form-group {
+        margin-bottom: 0;
+
+      }
+      .mat-chip {
+        .mat-icon {
+          position: absolute;
+          top: 3px;
+          right: 5px;
+        }
+      }
+      .mat-form-field-appearance-legacy.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label {
+        display: none;
+      }
+      .row {
+        .col-4 {
+          width: 100%;
+          display: flex;
+          align-items: center;
+          text-align: right;
+          p {
+            width: 100%;
+            margin-bottom: 0;
+          }
+        }
+      }
+    }
+    .cursor-pointer {
+      padding-top: 10px;
+      padding-bottom: 10px;
+      color: rgba(0,0,0,.54);
+    }
+    .button-wrap {
+      padding-top: 20px;
+    }
+  }
+}
+
+.task-edit-detail {
+  border: 1px solid #ccc;
+  padding: 20px 20px;
+  .task-detail-title {
+    textarea {
+      font-size: 32px;
+      border: 0;
+      outline: 0;
+      padding: 0;
+      padding: 20px;
+      margin: 0;
+    }
+  }
+  .todo-create-wrap .todo-create-box {
+    border: 0;
+    .todo-content {
+      padding: 0;
+      .row .col-4 p {
+        font-weight: bolder;
+        color: rgba(0,0,0,.87);
+      }
+    }
+    .todo-title {
+      display: none;
+    }
+  }
+}
+.task-detail-wrap .task-edit-detail .task-detail-title {
+  border-bottom: 0;
+}
+
+
+.todolist-row-title {
+  h1 {
+    font-size: 36px;
+    margin-top: 0;
+    margin-bottom: 10px;
+  }
+}
+
+.nav-button {
+  display: flex;
+  align-items: center;
+  padding-bottom: 30px;
+  cursor: pointer;
 }

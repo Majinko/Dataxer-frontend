@@ -12,3 +12,12 @@
     </div>
   </div>
 </div>
+<div *ngIf="createTodo">
+  <app-task-todo-create (action)="todoCreate($event)"></app-task-todo-create>
+</div>
+<div *ngIf="!createTodo" class="button-wrap">
+  <button mat-stroked-button (click)="addTodo($event)" class="btn-icon btn-theme-stroked">
+    <mat-icon>add</mat-icon>
+    Pridať úlohu
+  </button>
+</div>
