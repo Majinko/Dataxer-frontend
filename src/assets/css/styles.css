@@ -1193,6 +1193,10 @@ app-company .cdk-drop-list .mat-focus-indicator {
   margin-right: 0 !important;
 }
 
+.company-indicator {
+  margin-left: auto !important;
+}
+
 .company-option {
   display: flex;
   align-items: center;

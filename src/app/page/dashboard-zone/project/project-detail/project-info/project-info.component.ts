@@ -11,11 +11,13 @@ import {Project, ProjectManHours} from '../../../../../core/models/project';
 import {sum} from '../../../../../../helper';
 import {Company} from '../../../../../core/models/company';
 import {CompanyService} from '../../../../../core/services/company.service';
+import {DocumentHelper} from '../../../../../core/class/DocumentHelper';
 
 @Component({
   selector: 'app-project-info',
   templateUrl: './project-info.component.html',
-  styleUrls: ['./project-info.component.scss']
+  styleUrls: ['./project-info.component.scss'],
+  providers: [DocumentHelper]
 })
 export class ProjectInfoComponent implements OnInit {
   companies: Company[] = [];
@@ -42,6 +44,7 @@ export class ProjectInfoComponent implements OnInit {
   ];
 
   constructor(
+    private documentHelper: DocumentHelper,
     private projectService: ProjectService,
     private invoiceService: InvoiceService,
     private priceOfferService: PriceOfferService,
@@ -70,6 +73,11 @@ export class ProjectInfoComponent implements OnInit {
     this.invoiceService.findAllByProject(+this.route.snapshot.paramMap.get('id'), companyIds).subscribe(invoices => {
       this.requestDone += 1;
       this.invoices = invoices
+        .map((i) => {
+          i.price = this.documentHelper.removePercent(i.price, i.discount);
+
+          return i;
+        })
         .filter(i => ['INVOICE', 'SUMMARY_INVOICE', 'TAX_DOCUMENT'].includes(i.documentType))
         .sort((a, b) => +b.id - +a.id);
 
