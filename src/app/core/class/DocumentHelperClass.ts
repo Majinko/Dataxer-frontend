@@ -90,12 +90,11 @@ export abstract class DocumentHelperClass {
       case 'PROFORMA':
         title = 'Zálohová faktúra';
         break;
-      case 'INVOICE':
-        title = 'Faktúra';
-        break;
       case 'PRICE_OFFER':
         title = 'Cenová ponuka';
         break;
+      default:
+        title = 'Faktúra';
     }
 
     return title + ' ' + documentNumber;
