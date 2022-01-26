@@ -44,7 +44,7 @@ export class TimeFilterComponent extends FilterClass implements OnInit {
     this.searchBarServiceCatch();
     this.prepareData();
     this.prepareMonths();
-    //this.getUserCategories();
+    this.getUserCategories();
   }
 
   getProjects() {

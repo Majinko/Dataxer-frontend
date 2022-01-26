@@ -2,7 +2,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {auditTime} from 'rxjs/operators';
 import {SearchBarService} from '../services/search-bar.service';
 import {Contact} from '../models/contact';
-import {Directive, EventEmitter, Injector, Input, Output} from '@angular/core';
+import {Directive, EventEmitter, Injector, Input, OnInit, Output} from '@angular/core';
 import {DocumentFilter} from '../models/filters/document-filter';
 import {ExpressionNode} from '@rsql/ast';
 import builder from '@rsql/builder';
@@ -20,7 +20,7 @@ import {CategoryItemNode} from '../models/category-item-node';
 
 @Directive()
 // tslint:disable-next-line:directive-class-suffix
-export class FilterClass {
+export class FilterClass  {
   clientFormControlName: string = 'Klient';
 
   companies: Company[] = [];
@@ -69,7 +69,6 @@ export class FilterClass {
       this.checkFilterFormValue();
     }
   }
-
 
   set model(value: string) {
     this._model = value;
