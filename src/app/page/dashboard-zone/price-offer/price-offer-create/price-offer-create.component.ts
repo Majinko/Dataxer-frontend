@@ -115,6 +115,8 @@ export class PriceOfferCreateComponent extends DocumentHelperClass implements On
     this.oldPacks = document.packs;
 
     this.formGroup.patchValue({
+      subject: document.subject,
+      company: document.company,
       contact: document.contact,
       project: document.project,
       discount: document.discount === null ? 0 : document.discount,

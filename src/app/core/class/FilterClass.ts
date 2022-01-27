@@ -20,7 +20,7 @@ import {CategoryItemNode} from '../models/category-item-node';
 
 @Directive()
 // tslint:disable-next-line:directive-class-suffix
-export class FilterClass  {
+export class FilterClass {
   clientFormControlName: string = 'Klient';
 
   companies: Company[] = [];
@@ -29,7 +29,7 @@ export class FilterClass  {
   categories: CategoryItemNode[] = [];
   payedStates: KeyValue[] = [];
   documentTypes: KeyValue[] = [];
-  months: { start: string, end: string, title: string } [] = [];
+  dates: { start: string, end: string, title: string, type: string } [] = [];
 
   filterForm: FormGroup;
   isFiltering: boolean = false;
@@ -191,7 +191,7 @@ export class FilterClass  {
         }
 
         if (this._searchBarSelectValues.includes(key)) {
-          if (key !== 'month') {
+          if (key !== 'date') {
             this.andExpression.push(parse(`${this._model}.${key}==${filter[key]}`));
           } else {
             // todo make nicely
@@ -251,20 +251,34 @@ export class FilterClass  {
 
 
   // spolocne metody ktore pouzivaju viacere filtre
-  prepareMonths() {
+  prepareDates() {
     for (let i = 0; i <= 12; i++) {
       const monthStart: moment.Moment = moment().subtract(i, 'months').startOf('month');
 
-      this.months.push({
+      this.dates.push({
         start: moment().subtract(i, 'months').startOf('month').format('YYYY-MM-DD'),
         end: moment().subtract(i, 'months').endOf('month').format('YYYY-MM-DD'),
         title: this.getMonthData(monthStart),
+        type: 'Mesiace'
       });
     }
 
     if (this._model !== 'cost' && checkFormIsNotFill(this.filterForm.controls)) {
       this.filterForm.patchValue({
-        month: this.months[0]
+        date: this.dates[0]
+      });
+    }
+
+
+    // todo dat podmienku aby zbytocne nedavalo roky ktore uzivatel nema
+    for (let i = 0; i <= 5; i++) {
+      const yearStart: moment.Moment = moment().subtract(i, 'years').startOf('year');
+
+      this.dates.push({
+        start: moment().subtract(i, 'years').startOf('year').format('YYYY-MM-DD'),
+        end: moment().subtract(i, 'years').endOf('year').format('YYYY-MM-DD'),
+        title: 'rok ' + yearStart.format('YYYY'),
+        type: 'Roky'
       });
     }
   }

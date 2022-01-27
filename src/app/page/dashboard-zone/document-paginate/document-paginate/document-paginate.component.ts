@@ -49,7 +49,7 @@ export class DocumentPaginateComponent implements OnInit, AfterViewInit {
 
           this.modelName = 'invoice';
           this.inputSearchBarValues = ['title', 'contact.name'];
-          this.inputSearchBarSelectValues = ['contact.id', 'company.id', 'project.id', 'state', 'documentType', 'month'];
+          this.inputSearchBarSelectValues = ['contact.id', 'company.id', 'project.id', 'state', 'documentType', 'date'];
 
           this.godButtonService.title = 'Nová faktúra';
           this.godButtonService.routerLink = '/invoice/create';
@@ -68,7 +68,7 @@ export class DocumentPaginateComponent implements OnInit, AfterViewInit {
 
           this.modelName = 'priceOffer';
           this.inputSearchBarValues = ['title', 'contact.name'];
-          this.inputSearchBarSelectValues = ['contact.id', 'company.id', 'project.id', 'month'];
+          this.inputSearchBarSelectValues = ['contact.id', 'company.id', 'project.id', 'date'];
 
           this.godButtonService.title = 'Nová cenová ponuka';
           this.godButtonService.routerLink = '/price-offer/create';
@@ -80,7 +80,7 @@ export class DocumentPaginateComponent implements OnInit, AfterViewInit {
 
           this.modelName = 'cost';
           this.inputSearchBarValues = ['title', 'contact.name'];
-          this.inputSearchBarSelectValues = ['contact.id', 'company.id', 'project.id', 'state', 'month', 'documentType'];
+          this.inputSearchBarSelectValues = ['contact.id', 'company.id', 'project.id', 'state', 'date', 'documentType'];
 
           this.godButtonService.title = 'Nový náklad';
           this.godButtonService.routerLink = '/cost/create';
