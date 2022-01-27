@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import {MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter} from '@angular/material-moment-adapter';
 import {APP_DATE_FORMATS} from '../../../../../../helper';
+import {EDITORCONFIG} from '../../../../../core/data/editor-config';
 
 @Component({
   selector: 'app-task-todo-create',
@@ -23,6 +24,7 @@ import {APP_DATE_FORMATS} from '../../../../../../helper';
 })
 export class TaskTodoCreateComponent implements OnInit, AfterViewInit {
   formGroup: FormGroup;
+  editorConfig = EDITORCONFIG;
   noteShow = false;
   assignees = {
     type: 'assignees',
@@ -31,7 +33,7 @@ export class TaskTodoCreateComponent implements OnInit, AfterViewInit {
   completion = {
     type: 'completion',
     placeholder: 'Zadajte mená, ktoré chcete upozorniť'
-  };;
+  };
 
   @ViewChild('titleInput') titleInput: ElementRef<HTMLInputElement>;
 
@@ -58,9 +60,11 @@ export class TaskTodoCreateComponent implements OnInit, AfterViewInit {
   }
 
   submit() {
+    console.log(this.formGroup.value);
     if (this.formGroup.invalid) {
       return;
     }
+    console.log(this.formGroup.value);
   }
 
   get f() {

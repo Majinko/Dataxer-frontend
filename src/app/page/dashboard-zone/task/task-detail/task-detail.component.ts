@@ -1,6 +1,8 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {TodoComment, Todos} from '../../../../core/models/task';
 import {UserService} from '../../../../core/services/user.service';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {EDITORCONFIG} from '../../../../core/data/editor-config';
 
 @Component({
   selector: 'app-task-detail',
@@ -8,7 +10,10 @@ import {UserService} from '../../../../core/services/user.service';
   styleUrls: ['./task-detail.component.scss']
 })
 export class TaskDetailComponent implements OnInit {
+  formGroup: FormGroup;
+  editorConfig = EDITORCONFIG;
   editTodo = false;
+  writeComment = false;
   todo: Todos = {
     listId: 2,
     id: 102,
@@ -39,9 +44,13 @@ export class TaskDetailComponent implements OnInit {
 
   constructor(
     @Inject(UserService) public readonly userService: UserService,
+    private formBuilder: FormBuilder,
   ) { }
 
   ngOnInit(): void {
+    this.formGroup = this.formBuilder.group({
+      comment: ['', Validators.required],
+    });
   }
 
   checkedTodo(checked: boolean) {
@@ -56,5 +65,16 @@ export class TaskDetailComponent implements OnInit {
 
   editButton($event: MouseEvent) {
     this.editTodo = true;
+  }
+
+  addComment($event: MouseEvent) {
+    this.writeComment = true;
+  }
+
+  submit() {
+    if (this.formGroup.invalid) {
+      return;
+    }
+    console.log(this.formGroup.value);
   }
 }

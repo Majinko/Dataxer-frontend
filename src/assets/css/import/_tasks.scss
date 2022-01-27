@@ -216,6 +216,35 @@ body {
   }
 }
 
+.task-detail-options {
+  & > .row {
+    & > .col-4 {
+      flex: 0 0 200px;
+      max-width: 200px;
+      text-align: right;
+    }
+    & > .col-8 {
+      flex: 0 0 calc(100% - 200px);
+      max-width: calc(100% - 200px);
+    }
+  }
+}
+
+.todo-create-wrap .todo-create-box .todo-content {
+  & > .row {
+    & > .col-4 {
+      flex: 0 0 200px;
+      max-width: 200px;
+    }
+    & > .col-8 {
+      flex: 0 0 calc(100% - 200px);
+      max-width: calc(100% - 200px);
+    }
+  }
+}
+
+
+
 .task-item {
   display: flex;
 
@@ -329,6 +358,7 @@ body {
   }
   .todo-create-wrap .todo-create-box {
     border: 0;
+    max-width: 100%;
     .todo-content {
       padding: 0;
       .row .col-4 p {

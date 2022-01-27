@@ -1,6 +1,6 @@
 import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
-import {FormControl} from '@angular/forms';
+import {FormControl, FormGroup} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import {MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
@@ -18,6 +18,7 @@ export class TaskChipSelectComponent implements OnInit {
   allItems: string[] = ['Janko', 'Ferko', 'Jožko', 'Karok', 'Edo'];
 
   @Input() type: any;
+  @Input() formGroup: FormGroup;
 
   @ViewChild('itemInput') itemInput: ElementRef<HTMLInputElement>;
 
@@ -31,32 +32,20 @@ export class TaskChipSelectComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  add(event: any): void {
-    const value = (event.value || '').trim();
-
-    // Add our item
-    if (value) {
-      this.items.push(value);
-    }
-
-    // Clear the input value
-    event.chipInput!.clear();
-
-    this.itemCtrl.setValue(null);
-  }
-
   remove(item: string): void {
     const index = this.items.indexOf(item);
 
     if (index >= 0) {
       this.items.splice(index, 1);
     }
+    this.formGroup.get(this.type.type).patchValue(this.items);
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {
     this.items.push(event.option.viewValue);
     this.itemInput.nativeElement.value = '';
     this.itemCtrl.setValue(null);
+    this.formGroup.get(this.type.type).patchValue(this.items);
   }
 
   private _filter(value: string): string[] {

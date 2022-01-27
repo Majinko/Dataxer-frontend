@@ -7,8 +7,7 @@
       </button>
     </mat-chip>
     <input placeholder="{{ this.type.placeholder }}" #itemInput [formControl]="itemCtrl" [matAutocomplete]="auto"
-      [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-      (matChipInputTokenEnd)="add($event)">
+      [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes">
   </mat-chip-list>
   <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
     <mat-option *ngFor="let item of filteredItems | async" [value]="item">

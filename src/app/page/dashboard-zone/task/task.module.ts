@@ -13,19 +13,21 @@ import { TaskShowComponent } from './task-show/task-show.component';
 import { TaskDetailComponent } from './task-detail/task-detail.component';
 import { TaskTodoCreateComponent } from './components/task-todo-create/task-todo-create.component';
 import { TaskChipSelectComponent } from './components/task-chip-select/task-chip-select.component';
+import {AngularEditorModule} from '@kolkov/angular-editor';
 
 
 @NgModule({
   declarations: [TaskComponent, TaskIndexComponent, TaskTodoComponent, TaskShowComponent, TaskDetailComponent, TaskTodoCreateComponent, TaskChipSelectComponent],
-  imports: [
-    CommonModule,
-    TaskRoutingModule,
-    MaterialModule,
-    ReactiveFormsModule,
-    NgSelectModule,
-    ThemeModule,
-    AvatarModule
-  ]
+    imports: [
+        CommonModule,
+        TaskRoutingModule,
+        MaterialModule,
+        ReactiveFormsModule,
+        NgSelectModule,
+        ThemeModule,
+        AvatarModule,
+        AngularEditorModule
+    ]
 })
 export class TaskModule {
 }
