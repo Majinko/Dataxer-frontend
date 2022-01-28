@@ -21,7 +21,7 @@ import {CategoryItemNode} from '../models/category-item-node';
 @Directive()
 // tslint:disable-next-line:directive-class-suffix
 export class FilterClass {
-  clientFormControlName: string = 'Klient';
+  clientFormControlName: string = 'Zákazník';
 
   companies: Company[] = [];
   contacts: Contact[] = [];
@@ -248,7 +248,6 @@ export class FilterClass {
       }, {emitEvent: false});
     });
   }
-
 
   // spolocne metody ktore pouzivaju viacere filtre
   prepareDates() {

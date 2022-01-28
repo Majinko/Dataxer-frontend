@@ -79,8 +79,8 @@ export class DocumentPaginateComponent implements OnInit, AfterViewInit {
           this.title = 'Náklady';
 
           this.modelName = 'cost';
-          this.inputSearchBarValues = ['title', 'contact.name'];
-          this.inputSearchBarSelectValues = ['contact.id', 'company.id', 'project.id', 'state', 'date', 'documentType'];
+          this.inputSearchBarValues = ['title', 'contractor.name'];
+          this.inputSearchBarSelectValues = ['contractor.id', 'company.id', 'project.id', 'state', 'date', 'documentType'];
 
           this.godButtonService.title = 'Nový náklad';
           this.godButtonService.routerLink = '/cost/create';

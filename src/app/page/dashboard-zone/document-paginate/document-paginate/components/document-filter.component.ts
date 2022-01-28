@@ -6,6 +6,7 @@ import {CompanyService} from '../../../../../core/services/company.service';
 import {ContactService} from '../../../../../core/services/contact.service';
 import {ProjectService} from '../../../../../core/services/project.service';
 import {Project} from '../../../../../core/models/project';
+import {first} from "rxjs/operators";
 
 @Component({
   selector: 'app-global-document-filter',
@@ -29,6 +30,7 @@ export class DocumentFilterComponent extends FilterClass implements OnInit, OnCh
     super(
       searchbarService,
       formBuilder,
+      // this value is here setting from DocumentPaginateComponent
       '',
       [],
       [],
@@ -44,6 +46,7 @@ export class DocumentFilterComponent extends FilterClass implements OnInit, OnCh
 
     this.filterForm = this.formBuilder.group({
       contact: null,
+      contractor: null,
       project: null,
       state: null,
       documentType: null,
@@ -70,19 +73,21 @@ export class DocumentFilterComponent extends FilterClass implements OnInit, OnCh
       // potrebujeme resetnut rsql filter z aktualnym modelom
       this.prepareDataForRsqlFilter(this.filterForm.value);
     }
-    // odchytavanie zmeny klienta vo filtry
-    this.clientChange();
 
     // iniciliziovanie metod ktore potrebujem pre kontretny typ dokumentu ... todo uplne pojde prec ked sa faktury a nakaldy spoja
     this.initFilterDataByType();
+
+    // odchytavanie zmeny klienta vo filtry
+    this.clientChange();
   }
 
   private initFilterDataByType() {
+
+    this.clientFormControlName = 'Zákazník';
+
     if (this.modelName === 'cost') {
       this.clientFormControlName = 'Dodávateľ';
       this.documentTypes = [];
-    } else {
-      this.clientFormControlName = 'Zákazník';
     }
 
     if (['invoice', 'cost'].includes(this.modelName)) {
@@ -102,7 +107,7 @@ export class DocumentFilterComponent extends FilterClass implements OnInit, OnCh
 
   clientChange() {
     if (this.filterForm) {
-      this.filterForm.get('contact').valueChanges.subscribe((client) => {
+      this.filterForm.get('contact').valueChanges.pipe(first()).subscribe((client) => {
         if (client) {
           this.projectService.allByClient(client.id).subscribe((neProjects) => {
             const p = this.allProjects;

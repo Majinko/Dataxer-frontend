@@ -45,6 +45,7 @@ export class PaginateClass<T> extends PaginateClassData {
         })
       )
       .subscribe((data) => {
+
         this.data = data;
         this.paginateFinish.next(true);
       });

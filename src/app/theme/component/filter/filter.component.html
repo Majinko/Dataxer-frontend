@@ -18,15 +18,28 @@
     </ng-select>
   </div>
 
-  <div class="col-md-4 col-lg-2" *ngIf="contacts && contacts.length > 0">
+
+  <div class="col-md-4 col-lg-2" *ngIf="contacts && contacts.length > 0 && clientFormControlName === 'Dodávateľ'; else contactSelect">
     <ng-select [items]="contacts"
                [clearable]="false"
                bindLabel="name"
                [placeholder]="clientFormControlName"
-               formControlName="contact"
+               formControlName="contractor"
                class="filter-ng-select">
     </ng-select>
   </div>
+
+  <ng-template #contactSelect>
+    <div class="col-md-4 col-lg-2" *ngIf="contacts && contacts.length > 0;">
+      <ng-select [items]="contacts"
+                 [clearable]="false"
+                 bindLabel="name"
+                 [placeholder]="clientFormControlName"
+                 formControlName="contact"
+                 class="filter-ng-select">
+      </ng-select>
+    </div>
+  </ng-template>
 
   <div class="col-md-4 col-lg-2" *ngIf="projects && projects.length > 0">
     <ng-select [items]="projects"
@@ -96,11 +109,19 @@
       <mat-icon (click)="resetFilterValue('company')" matChipRemove>cancel</mat-icon>
     </mat-chip>
 
-    <mat-chip class="text-gray my-md-0  mb-md-0" *ngIf="contacts && contacts.length > 0 && filterForm.get('contact').value">
+    <mat-chip class="text-gray my-md-0  mb-md-0" *ngIf="contacts && contacts.length > 0 && filterForm.get('contractor').value && clientFormControlName === 'Dodávateľ'; else contactChip">
       <mat-icon class="mr-1">person</mat-icon>
-      {{filterForm.get('contact').value.name}}
-      <mat-icon (click)="resetFilterValue('contact')" matChipRemove>cancel</mat-icon>
+      {{filterForm.get('contractor').value.name}}
+      <mat-icon (click)="resetFilterValue('contractor')" matChipRemove>cancel</mat-icon>
     </mat-chip>
+
+    <ng-template #contactChip>
+      <mat-chip class="text-gray my-md-0  mb-md-0" *ngIf="contacts && contacts.length > 0 && filterForm.get('contact').value && clientFormControlName === 'Zákazník'">
+        <mat-icon class="mr-1">person</mat-icon>
+        {{filterForm.get('contact').value.name}}
+        <mat-icon (click)="resetFilterValue('contact')" matChipRemove>cancel</mat-icon>
+      </mat-chip>
+    </ng-template>
 
     <mat-chip class="text-gray my-md-0  mb-md-0" *ngIf="projects && projects.length > 0 && filterForm.get('project').value">
       <mat-icon class="mr-1">layers</mat-icon>
