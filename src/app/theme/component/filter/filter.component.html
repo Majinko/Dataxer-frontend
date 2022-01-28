@@ -101,7 +101,6 @@
 </form>
 
 <div class="d-block d-md-flex align-content-center mb-3" *ngIf="isFiltering">
-  <p class="mb-2 mb-md-0 d-md-inline mr-3">Filtre: </p>
   <mat-chip-list aria-label="Filtering">
     <mat-chip class="text-gray my-md-0  mb-md-0" *ngIf="companies && companies.length > 0 && filterForm.get('company').value">
       <mat-icon class="mr-1">account_balance</mat-icon>
@@ -109,7 +108,7 @@
       <mat-icon (click)="resetFilterValue('company')" matChipRemove>cancel</mat-icon>
     </mat-chip>
 
-    <mat-chip class="text-gray my-md-0  mb-md-0" *ngIf="contacts && contacts.length > 0 && filterForm.get('contractor').value && clientFormControlName === 'Dodávateľ'; else contactChip">
+    <mat-chip class="text-gray my-md-0  mb-md-0" *ngIf="clientFormControlName === 'Dodávateľ' && contacts && contacts.length > 0 && filterForm.get('contractor').value; else contactChip">
       <mat-icon class="mr-1">person</mat-icon>
       {{filterForm.get('contractor').value.name}}
       <mat-icon (click)="resetFilterValue('contractor')" matChipRemove>cancel</mat-icon>

@@ -6,7 +6,7 @@ import {CompanyService} from '../../../../../core/services/company.service';
 import {ContactService} from '../../../../../core/services/contact.service';
 import {ProjectService} from '../../../../../core/services/project.service';
 import {Project} from '../../../../../core/models/project';
-import {first} from "rxjs/operators";
+import {first} from 'rxjs/operators';
 
 @Component({
   selector: 'app-global-document-filter',

@@ -24,6 +24,8 @@ export class ProjectFilterComponent extends FilterClass implements OnInit {
   }
 
   ngOnInit(): void {
+    this.clientFormControlName = 'Zákazník';
+
     this.filterForm = this.formBuilder.group({
       contact: null,
     });
