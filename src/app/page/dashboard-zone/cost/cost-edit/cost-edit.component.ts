@@ -63,15 +63,15 @@ export class CostEditComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getCost();
     this.prepareForm();
+    this.getCost();
     this.changeValue();
 
-    this.formGroup.get('company').valueChanges.subscribe((company) => {
+   /* this.formGroup.get('company').valueChanges.subscribe((company) => {
       this.formGroup.patchValue({
         tax: company.companyTaxType === 'NO_TAX_PAYER' ? 0 : 20
       });
-    });
+    });*/
   }
 
   private prepareForm() {
