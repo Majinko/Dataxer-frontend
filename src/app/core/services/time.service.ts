@@ -70,4 +70,19 @@ export class TimeService {
   getAllByProject(projectId: number, companyIds: number[] = null): Observable<Time[]> {
     return this.http.get<Time[]>(`${environment.baseUrl}/time/allByProject/${projectId}${companyIds && companyIds.length > 0 ? '?companyIds=' + companyIds : ''}`);
   }
+
+  getAllByProjectInDetail(projectId: number): Observable<Time[]> {
+    return this.http.get<Time[]>(`${environment.baseUrl}/time/allByProjectDetail/${projectId}`).pipe(map((times) => {
+      times.forEach(time => {
+        const date = new Date(time.dateWork);
+
+        time.day = +(date.getUTCDate().toString() + date.getUTCMonth().toString() + date.getUTCFullYear().toString());
+
+        // prepare user
+        time.user.displayName = time.user.firstName + ' ' + time.user.lastName;
+      });
+
+      return times;
+    }));
+  }
 }

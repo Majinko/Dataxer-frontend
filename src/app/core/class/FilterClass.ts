@@ -58,7 +58,9 @@ export class FilterClass {
     private _searchBarSelectValues: string[],
     protected injector: Injector
   ) {
-    this.dialog = injector.get<MatDialog>(MatDialog);
+    if (this.injector) {
+      this.dialog = injector.get<MatDialog>(MatDialog);
+    }
   }
 
   prepareData() {
@@ -135,13 +137,15 @@ export class FilterClass {
    * @private
    */
   protected searchBarServiceCatch() {
-    this.searchbarService.appSearch.subscribe((qString) => {
-      this._searchBarSearchValues.forEach((qS) => {
-        this.filterForm.patchValue({
-          [qS]: qString
+    if (this.searchbarService) {
+      this.searchbarService.appSearch.subscribe((qString) => {
+        this._searchBarSearchValues.forEach((qS) => {
+          this.filterForm.patchValue({
+            [qS]: qString
+          });
         });
       });
-    });
+    }
   }
 
   /**
