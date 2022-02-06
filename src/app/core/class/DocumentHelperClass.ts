@@ -26,10 +26,10 @@ export abstract class DocumentHelperClass {
     if (this.formGroup) {
       this.formGroup.get('company').valueChanges.subscribe((company) => {
         this.pathDocumentData(company);
+        this.getDefaultBankAccount(company);
 
         if (this.isEdit === false) {
           this.prepareDocumentNumber(company);
-          this.getDefaultBankAccount(company);
         }
       });
 
