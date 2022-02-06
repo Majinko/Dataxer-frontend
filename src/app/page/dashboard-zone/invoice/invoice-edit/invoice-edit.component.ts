@@ -55,7 +55,6 @@ export class InvoiceEditComponent extends DocumentHelperClass implements OnInit 
 
   ngOnInit(): void {
     this.getById();
-    this.changeForm();
   }
 
   // prepare form
@@ -102,6 +101,7 @@ export class InvoiceEditComponent extends DocumentHelperClass implements OnInit 
       this.invoice = invoice;
 
       this.prepareForm(invoice);
+      this.changeForm();
     }));
   }
 
