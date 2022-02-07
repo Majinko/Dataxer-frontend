@@ -145,17 +145,17 @@ export class DocumentPackComponent implements OnInit {
         if (p.packItems.length > packFormGroup.get('packItems').value.length) {
           this.addItemByIndex(packIndex);
         }
-
-        packFormGroup.patchValue({
-          packItems: p.packItems.map(item => {
-            item.id = '';
-            item.title = item.item.title;
-            item.price = item.item.itemPrice.price;
-
-            return item;
-          })
-        });
       }
+
+      packFormGroup.patchValue({
+        packItems: p.packItems.map(item => {
+          item.id = '';
+          item.title = item.item.title;
+          item.price = item.item.itemPrice.price;
+
+          return item;
+        })
+      });
     });
   }
 
