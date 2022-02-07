@@ -22,8 +22,8 @@
     </div>
 
     <div class="col-md-4">
-      <p class="mb-0">Kategórie:</p>
-      <h3 class="text-dark"><b class="d-block" *ngFor="let category of item.categories">{{category.name}}</b></h3>
+      <p class="mb-0">Kategória:</p>
+      <h3 class="text-dark"><b class="d-block">{{item.category.name || ''}}</b></h3>
     </div>
 
     <div class="col-md-4">

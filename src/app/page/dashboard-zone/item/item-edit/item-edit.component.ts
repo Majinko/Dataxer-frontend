@@ -52,7 +52,7 @@ export class ItemEditComponent implements OnInit {
     this.formGroup = this.formBuilder.group({
       id: '',
       title: [null, Validators.required],
-      categories: [null],
+      category: null,
       type: null,
       shortDescription: null,
       description: null,

@@ -18,8 +18,14 @@ export class CategoryService {
   ) {
   }
 
-  all(): Observable<CategoryItemNode[]> {
-    return this.http.get<CategoryItemNode[]>(environment.baseUrl + '/category/all');
+  all(prepareOptionTree: boolean = false): Observable<CategoryItemNode[]> {
+    if (!prepareOptionTree) {
+      return this.http.get<CategoryItemNode[]>(environment.baseUrl + '/category/all');
+    } else {
+      return this.http.get<CategoryItemNode[]>(`${environment.baseUrl}/category/all`).pipe(map(categories => {
+        return this.categoryHelper.prepareOptionTree(categories);
+      }));
+    }
   }
 
   allUserCategoryByTime(uid: string): Observable<CategoryItemNode[]> {

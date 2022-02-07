@@ -115,3 +115,8 @@ $max: 50;
   align-items: center;
   justify-content: center;
 }
+
+// ng select
+.ng-option-disabled.ng-optgroup.ng-star-inserted{
+  text-align: left;
+}
