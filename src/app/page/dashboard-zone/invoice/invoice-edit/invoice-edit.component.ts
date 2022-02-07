@@ -12,6 +12,7 @@ import {CompanyService} from '../../../../core/services/company.service';
 import {BankAccountService} from '../../../../core/services/bank-account.service';
 import {DocumentHelperClass} from '../../../../core/class/DocumentHelperClass';
 import {NumberingService} from '../../../../core/services/numbering.service';
+import {ProjectService} from "../../../../core/services/project.service";
 
 @Component({
   selector: 'app-invoice-edit',
@@ -43,6 +44,7 @@ export class InvoiceEditComponent extends DocumentHelperClass implements OnInit 
     protected numberingService: NumberingService,
     protected bankAccountService: BankAccountService,
     protected messageService: MessageService,
+    protected projectService: ProjectService,
     protected route: ActivatedRoute,
     protected router: Router,
     public documentHelper: DocumentHelper,
@@ -50,7 +52,7 @@ export class InvoiceEditComponent extends DocumentHelperClass implements OnInit 
     private formBuilder: FormBuilder,
     private invoiceService: InvoiceService,
   ) {
-    super(bankAccountService, numberingService, messageService, router, route);
+    super(bankAccountService, numberingService, messageService, router, route, projectService);
   }
 
   ngOnInit(): void {
@@ -116,7 +118,6 @@ export class InvoiceEditComponent extends DocumentHelperClass implements OnInit 
     this.formGroup.patchValue({
       price: this.documentHelper.price,
       totalPrice: this.documentHelper.totalPrice,
-      packs: this.documentHelper.packs
     });
 
     this.invoiceService.update(this.formGroup.value).subscribe((r) => {

@@ -16,6 +16,7 @@ import {PriceOfferService} from '../../../../core/services/priceOffer.service';
 import {Pack} from '../../../../core/models/pack';
 import {DocumentHelperClass} from '../../../../core/class/DocumentHelperClass';
 import {DocumentBase} from '../../../../core/models/documentBase';
+import {ProjectService} from "../../../../core/services/project.service";
 
 @Component({
   selector: 'app-invoice-create',
@@ -55,9 +56,10 @@ export class InvoiceCreateComponent extends DocumentHelperClass implements OnIni
     public companyService: CompanyService,
     private invoiceService: InvoiceService,
     private priceOfferService: PriceOfferService,
+    protected projectService: ProjectService,
     public documentHelper: DocumentHelper
   ) {
-    super(bankAccountService, numberingService, messageService, router, route);
+    super(bankAccountService, numberingService, messageService, router, route, projectService);
   }
 
   ngOnInit(): void {
@@ -65,6 +67,7 @@ export class InvoiceCreateComponent extends DocumentHelperClass implements OnIni
     this.prepareForm();
     this.prepareInvoiceData();
     this.changeForm();
+    this.getProject();
 
     this.route.params.subscribe(params => {
       this.prepareInvoiceData();
@@ -186,7 +189,6 @@ export class InvoiceCreateComponent extends DocumentHelperClass implements OnIni
     this.formGroup.patchValue({
       price: this.documentHelper.price,
       totalPrice: this.documentHelper.totalPrice,
-      packs: this.documentHelper.packs
     });
 
     this.invoiceService.store(this.formGroup.value, +this.route.snapshot.paramMap.get('id')).subscribe((r) => {

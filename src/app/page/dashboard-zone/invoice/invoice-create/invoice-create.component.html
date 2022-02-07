@@ -26,8 +26,8 @@
     </div>
 
 
-    <div class="col-md-4 form-group">
-      <app-new-project-select [client]="f.contact.value" formControlName="project"></app-new-project-select>
+    <div class="col-md-4 form-group" *ngIf="projects">
+      <app-new-project-select [projects]="projects" [client]="f.contact.value" formControlName="project"></app-new-project-select>
       <mat-error *ngIf="submitted && f.project.errors" class="mat-error-not-in-field">Projekt je <strong>požadovaný.</strong></mat-error>
     </div>
   </div>
@@ -137,7 +137,7 @@
     </div>
   </div>
 
-  <app-document-pack *ngIf="route.snapshot.paramMap.get('id') === null && f.company.value != null; else copyInvoiceBlock" [formGroup]="formGroup" [documentHelper]="documentHelper"></app-document-pack>
+  <app-document-pack *ngIf="route.snapshot.paramMap.get('id') === null && f.company.value != null; else copyInvoiceBlock" [formGroup]="formGroup" [documentHelper]="documentHelper" [projects]="projects"></app-document-pack>
 
   <ng-template #copyInvoiceBlock>
     <div *ngIf="this.oldPacks.length > 0 && f.company.value != null">

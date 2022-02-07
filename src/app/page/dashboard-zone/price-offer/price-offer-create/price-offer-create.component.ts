@@ -13,6 +13,7 @@ import {BankAccountService} from '../../../../core/services/bank-account.service
 import {Pack} from '../../../../core/models/pack';
 import {PriceOffer} from '../../../../core/models/priceOffer';
 import {DocumentHelperClass} from '../../../../core/class/DocumentHelperClass';
+import {ProjectService} from "../../../../core/services/project.service";
 
 @Component({
   selector: 'app-create',
@@ -42,6 +43,7 @@ export class PriceOfferCreateComponent extends DocumentHelperClass implements On
     protected numberingService: NumberingService,
     protected bankAccountService: BankAccountService,
     protected messageService: MessageService,
+    protected projectService: ProjectService,
     protected router: Router,
     public route: ActivatedRoute,
     private formBuilder: FormBuilder,
@@ -49,7 +51,7 @@ export class PriceOfferCreateComponent extends DocumentHelperClass implements On
     private priceOfferService: PriceOfferService,
     public documentHelper: DocumentHelper,
   ) {
-    super(bankAccountService, numberingService, messageService, router, route);
+    super(bankAccountService, numberingService, messageService, router, route, projectService);
   }
 
   ngOnInit() {
@@ -136,7 +138,6 @@ export class PriceOfferCreateComponent extends DocumentHelperClass implements On
     this.formGroup.patchValue({
       price: this.documentHelper.price,
       totalPrice: this.documentHelper.totalPrice,
-      packs: this.documentHelper.packs
     });
 
     this.priceOfferService.store(this.formGroup.value).subscribe((r) => {

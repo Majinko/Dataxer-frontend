@@ -8,6 +8,7 @@ import {Item} from '../../../core/models/item';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import {CategoryItemNode} from '../../../core/models/category-item-node';
 import {CategoryService} from '../../../core/services/category.service';
+import {Project} from '../../../core/models/project';
 
 @Component({
   selector: 'app-document-pack',
@@ -19,8 +20,10 @@ export class DocumentPackComponent implements OnInit {
 
   categories: CategoryItemNode[];
 
+
   @Input() documentId: number;
   @Input() packs: Pack[];
+  @Input() projects: Project[];
   @Input() documentHelper: DocumentHelper;
   @Input() formGroup: FormGroup;
 
@@ -160,19 +163,19 @@ export class DocumentPackComponent implements OnInit {
         if (p.packItems.length > packFormGroup.get('packItems').value.length) {
           this.addItemByIndex(packIndex);
         }
+
+        // then sen pack item values
+        packFormGroup.patchValue({
+          packItems: p.packItems.map(item => {
+            item.id = '';
+            item.title = item.item.title;
+            item.price = item.item.itemPrice.price;
+            item.category = item.item.category;
+
+            return item;
+          })
+        }, {emitEvent: false});
       }
-
-      // then sen pack item values
-      packFormGroup.patchValue({
-        packItems: p.packItems.map(item => {
-          item.id = '';
-          item.title = item.item.title;
-          item.price = item.item.itemPrice.price;
-          item.category = item.item.category;
-
-          return item;
-        })
-      }, {emitEvent: false});
     });
   }
 

@@ -112,9 +112,9 @@
                 </mat-form-field>
               </div>
 
-              <div class="jsSettings d-none">
+              <div class="jsSettings d-none" *ngIf="projects">
                 <!--// todo vo fakture aj tu sa zbytocne duplicitne vola request na vsetky projekty -->
-                <app-new-project-select formControlName="project" dropDownPosition="top" [showAddButton]="false"></app-new-project-select>
+                <app-new-project-select [projects]="projects" formControlName="project" dropDownPosition="top" [showAddButton]="false"></app-new-project-select>
               </div>
             </td>
             <td>
