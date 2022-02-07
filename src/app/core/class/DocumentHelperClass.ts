@@ -76,6 +76,7 @@ export abstract class DocumentHelperClass {
     }, {emitEvent: false});
   }
 
+  // get document title
   private getTitle(documentNumber: string): string {
     let title: string = '';
 
