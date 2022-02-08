@@ -76,6 +76,14 @@ export class UserService {
     return this.http.get<User>(`${environment.baseUrl}/user/edit/${uid}`);
   }
 
+  deactivate(uid: string): Observable<void> {
+    return this.http.get<void>(`${environment.baseUrl}/user/deactivate/${uid}`);
+  }
+
+  activate(uid: string): Observable<void> {
+    return this.http.get<void>(`${environment.baseUrl}/user/activate/${uid}`);
+  }
+
   destroy(uid: string): Observable<void> {
     return this.http.get<void>(`${environment.baseUrl}/user/destroy/${uid}`);
   }
