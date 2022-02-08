@@ -189,7 +189,6 @@ export class CategoryTreeControlComponent implements OnInit, OnChanges, ControlV
   }
 
   selectCategory() {
-    console.log(this.checklistSelection.selected);
     this.onChange(this.checklistSelection.selected);
   }
 }
