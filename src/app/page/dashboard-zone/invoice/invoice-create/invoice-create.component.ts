@@ -16,7 +16,7 @@ import {PriceOfferService} from '../../../../core/services/priceOffer.service';
 import {Pack} from '../../../../core/models/pack';
 import {DocumentHelperClass} from '../../../../core/class/DocumentHelperClass';
 import {DocumentBase} from '../../../../core/models/documentBase';
-import {ProjectService} from "../../../../core/services/project.service";
+import {ProjectService} from '../../../../core/services/project.service';
 
 @Component({
   selector: 'app-invoice-create',

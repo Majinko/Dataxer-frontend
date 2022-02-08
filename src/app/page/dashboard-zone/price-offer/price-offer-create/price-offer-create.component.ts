@@ -13,7 +13,7 @@ import {BankAccountService} from '../../../../core/services/bank-account.service
 import {Pack} from '../../../../core/models/pack';
 import {PriceOffer} from '../../../../core/models/priceOffer';
 import {DocumentHelperClass} from '../../../../core/class/DocumentHelperClass';
-import {ProjectService} from "../../../../core/services/project.service";
+import {ProjectService} from '../../../../core/services/project.service';
 
 @Component({
   selector: 'app-create',
@@ -57,6 +57,7 @@ export class PriceOfferCreateComponent extends DocumentHelperClass implements On
   ngOnInit() {
     this.prepareForm();
     this.changeForm();
+    this.getProject();
 
     if (this.route.snapshot.paramMap.get('id') === null) {
       this.preparePriceOfferData();

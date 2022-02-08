@@ -230,6 +230,7 @@
     <div class="col-md-3">
       <mat-form-field class="w-100">
         <input matInput #price formControlName="price" type="number" placeholder="Jednotková cena" class="text-right" />
+        <mat-error *ngIf="submitted && f.contact.errors" class="mat-error-not-in-field">Jednotková cena je <strong>požadovaná.</strong></mat-error>
       </mat-form-field>
     </div>
 

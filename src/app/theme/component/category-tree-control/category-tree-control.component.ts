@@ -78,7 +78,7 @@ export class CategoryTreeControlComponent implements OnInit, OnChanges, ControlV
   /** Toggle a leaf to-do item selection. Check all the parents to see if they changed */
   todoLeafItemSelectionToggle(node: CategoryFlatNode, isEdit: boolean = false): void {
     const parent: CategoryItemNode = this.cleanCategories.find(f => f.id === node.parentId);
-    
+
     if (parent){
       this.checklistSelection.toggle(parent as CategoryFlatNode);
       this.checkAllParentsSelection(parent as CategoryFlatNode);

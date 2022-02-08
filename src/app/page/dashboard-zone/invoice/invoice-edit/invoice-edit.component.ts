@@ -12,7 +12,7 @@ import {CompanyService} from '../../../../core/services/company.service';
 import {BankAccountService} from '../../../../core/services/bank-account.service';
 import {DocumentHelperClass} from '../../../../core/class/DocumentHelperClass';
 import {NumberingService} from '../../../../core/services/numbering.service';
-import {ProjectService} from "../../../../core/services/project.service";
+import {ProjectService} from '../../../../core/services/project.service';
 
 @Component({
   selector: 'app-invoice-edit',
@@ -56,6 +56,7 @@ export class InvoiceEditComponent extends DocumentHelperClass implements OnInit 
   }
 
   ngOnInit(): void {
+    this.getProject();
     this.getById();
   }
 
