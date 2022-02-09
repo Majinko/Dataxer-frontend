@@ -44,5 +44,6 @@ span {
 @media screen and (max-width: $break-small) {
   .avatar-wrap {
     border: 0px solid #dadce0;
+    padding-right: 0;
   }
 }

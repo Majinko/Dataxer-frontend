@@ -96,7 +96,7 @@
                 </mat-form-field>
               </div>
               <div class="jsDiscount" [ngClass]="{'d-none' : item.value.discount == 0}">
-              <mat-form-field class="w-100">
+                <mat-form-field class="w-100">
                   <input type="number" matInput disabled value="{{(itemDiscount.value > 0 && price.value > 0 ? '-' : '') + (+price.value | removePercentGetNumber: +itemDiscount.value)}}" class="text-right" />
                 </mat-form-field>
               </div>
@@ -109,7 +109,7 @@
             <td>
               <div>
                 <mat-form-field class="w-100">
-                  <input matInput [attr.disabled]="checkbox.checked ? true : null" value="{{(+qty.value * +price.value | addPercent: +tax.value)}}" placeholder="Celkom" class="text-right" />
+                  <input type="number" matInput [attr.disabled]="checkbox.checked ? true : null" value="{{documentHelper.packs[i].packItems[j].totalPrice}}" placeholder="Celkom" class="text-right" />
                 </mat-form-field>
               </div>
               <div class="jsDiscount" [ngClass]="{'d-none' : item.value.discount == 0}">

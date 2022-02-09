@@ -1,12 +1,11 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {AbstractControl, Form, FormArray, FormBuilder, FormGroup} from '@angular/forms';
+import {Component, ElementRef, HostListener, Input, OnInit} from '@angular/core';
+import {AbstractControl, FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {UNITS} from '../../../core/data/unit-items';
 import {DocumentHelper} from '../../../core/class/DocumentHelper';
-import {Pack, PackItem} from '../../../core/models/pack';
+import {Pack} from '../../../core/models/pack';
 import {PackService} from '../../../core/services/pack.service';
 import {Item} from '../../../core/models/item';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
-import {containsObject} from "../../../../helper";
 
 @Component({
   selector: 'app-document-pack',
@@ -23,7 +22,8 @@ export class DocumentPackComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private packService: PackService
+    private packService: PackService,
+    private ref: ElementRef
   ) {
   }
 

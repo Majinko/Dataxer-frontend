@@ -9,7 +9,6 @@ export class DocumentHelper {
   price: number = 0;
   totalPrice: number = 0;
   taxResult: Taxes[] = [];
-  payedTaxResult: Taxes[] = [];
 
   // change input value packs
   handlePackChanges(packs: AbstractControl) {
@@ -36,7 +35,6 @@ export class DocumentHelper {
             item.totalPrice = +this.addPercent(+item.price * +item.qty, +item.tax);
 
             pack.totalPrice += +this.removePercent(+item.totalPrice, +item.discount);
-
             pack.price += (!isNaN(+item.price) && !isNaN(+item.qty)) ? +this.removePercent((+item.price * +item.qty), +item.discount) : 0;
 
             this.price += +this.removePercent(+item.price * +item.qty, +item.discount);
@@ -58,13 +56,13 @@ export class DocumentHelper {
   addPercent(value: any, args: any): number {
     const result: any = (parseFloat(value) / 100) * parseFloat(args) + parseFloat(value);
 
-    return !isNaN(result) ? result : 0;
+    return !isNaN(result) ? result.toFixed(2) : 0;
   }
 
   removePercent(value: any, args: any): number {
     const result: any = value - (parseFloat(value) / 100) * parseFloat(args);
 
-    return !isNaN(result) ? result : 0;
+    return !isNaN(result) ? result.toFixed(2) : 0;
   }
 
   prepareTaxes(packs: Pack[]) {
