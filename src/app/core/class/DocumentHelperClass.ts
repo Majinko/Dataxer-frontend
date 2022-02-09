@@ -26,10 +26,10 @@ export abstract class DocumentHelperClass {
     if (this.formGroup) {
       this.formGroup.get('company').valueChanges.subscribe((company) => {
         this.pathDocumentData(company);
+        this.getDefaultBankAccount(company);
 
         if (this.isEdit === false) {
           this.prepareDocumentNumber(company);
-          this.getDefaultBankAccount(company);
         }
       });
 
@@ -76,6 +76,7 @@ export abstract class DocumentHelperClass {
     }, {emitEvent: false});
   }
 
+  // get document title
   private getTitle(documentNumber: string): string {
     let title: string = '';
 
@@ -83,12 +84,11 @@ export abstract class DocumentHelperClass {
       case 'PROFORMA':
         title = 'Zálohová faktúra';
         break;
-      case 'INVOICE':
-        title = 'Faktúra';
-        break;
       case 'PRICE_OFFER':
         title = 'Cenová ponuka';
         break;
+      default:
+        title = 'Faktúra';
     }
 
     return title + ' ' + documentNumber;

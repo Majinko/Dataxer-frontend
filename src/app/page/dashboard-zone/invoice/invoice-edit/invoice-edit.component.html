@@ -1,7 +1,7 @@
 <div *ngIf="invoice">
   <div class="row mb-4">
     <div class="col d-flex align-items-center mb-3">
-      <mat-icon routerLink="/invoice" class="mr-2 mr-md-5 cursor-pointer">keyboard_backspace</mat-icon>
+      <mat-icon routerLink="/document/invoice" class="mr-2 mr-md-5 cursor-pointer">keyboard_backspace</mat-icon>
       <h1 class="mb-0">Úprava faktúry</h1>
     </div>
   </div>
@@ -30,21 +30,28 @@
     </div>
 
     <div class="row">
-      <div class="col-md-4">
+      <div class="col-md-3">
         <mat-form-field class="form-group w-100">
           <input formControlName="title" matInput placeholder="Názov faktury">
           <mat-error *ngIf="f.title.errors">Názov faktury je <strong>pozadovany.</strong></mat-error>
         </mat-form-field>
       </div>
 
-      <div class="col-md-4">
+      <div class="col-md-3">
+        <mat-form-field class="form-group w-100">
+          <input formControlName="number" matInput placeholder="Číslo">
+          <mat-error *ngIf="submitted && f.number.errors">Číslo je <strong>pozadovany.</strong></mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-3">
         <mat-form-field class="form-group w-100">
           <input formControlName="variableSymbol" matInput placeholder="Variabilný symbol">
           <mat-error *ngIf="submitted && f.number.errors">Variabilný symbol je <strong>pozadovany.</strong></mat-error>
         </mat-form-field>
       </div>
 
-      <div class="col-md-4">
+      <div class="col-md-3">
         <mat-form-field class="form-group w-100">
           <input formControlName="subject" matInput placeholder="Predmet">
         </mat-form-field>
@@ -56,12 +63,6 @@
 
       <div class="col-12" *ngIf="moreOptions">
         <div class="row">
-          <div class="col-md-6">
-            <mat-form-field class="form-group w-100">
-              <input formControlName="number" matInput placeholder="Číslo">
-              <mat-error *ngIf="submitted && f.number.errors">Číslo je <strong>pozadovany.</strong></mat-error>
-            </mat-form-field>
-          </div>
 
           <div class="col-md-6">
             <mat-form-field class="form-group w-100">

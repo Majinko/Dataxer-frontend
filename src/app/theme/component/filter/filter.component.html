@@ -18,13 +18,52 @@
     </ng-select>
   </div>
 
-  <div class="col-md-4 col-lg-2" *ngIf="contacts && contacts.length > 0">
+
+  <div class="col-md-4 col-lg-2" *ngIf="contacts && contacts.length > 0 && clientFormControlName === 'Dodávateľ'; else contactSelect">
     <ng-select [items]="contacts"
                [clearable]="false"
                bindLabel="name"
                [placeholder]="clientFormControlName"
-               formControlName="contact"
+               formControlName="contractor"
                class="filter-ng-select">
+    </ng-select>
+  </div>
+
+  <ng-template #contactSelect>
+    <div class="col-md-4 col-lg-2" *ngIf="contacts && contacts.length > 0;">
+      <ng-select [items]="contacts"
+                 [clearable]="false"
+                 bindLabel="name"
+                 [placeholder]="clientFormControlName"
+                 formControlName="contact"
+                 class="filter-ng-select">
+      </ng-select>
+    </div>
+  </ng-template>
+
+  <div class="col-md-4 col-lg-2" *ngIf="projects && projects.length > 0">
+    <ng-select [items]="projects"
+               [clearable]="false"
+               bindLabel="fullTitle"
+               placeholder="Zákazka"
+               formControlName="project"
+               groupBy="group"
+               class="filter-ng-select">
+    </ng-select>
+  </div>
+
+  <div class="col-md-4 col-lg-2" *ngIf="dates && dates.length > 0">
+    <ng-select [items]="dates"
+               [clearable]="false"
+               bindLabel="title"
+               placeholder="Dátum"
+               formControlName="date"
+               groupBy="type"
+               class="filter-ng-select">
+
+      <ng-template ng-footer-tmp>
+        <div class="cursor-pointer" (click)="monthDateRange()"><span>Od - do</span></div>
+      </ng-template>
     </ng-select>
   </div>
 
@@ -35,30 +74,6 @@
                placeholder="Kategória"
                formControlName="category"
                class="filter-ng-select">
-    </ng-select>
-  </div>
-
-  <div class="col-md-4 col-lg-2" *ngIf="projects && projects.length > 0">
-    <ng-select [items]="projects"
-               [clearable]="false"
-               bindLabel="fullTitle"
-               placeholder="Zákazka"
-               formControlName="project"
-               class="filter-ng-select">
-    </ng-select>
-  </div>
-
-  <div class="col-md-4 col-lg-2" *ngIf="months && months.length > 0">
-    <ng-select [items]="months"
-               [clearable]="false"
-               bindLabel="title"
-               placeholder="Mesiac"
-               formControlName="month"
-               class="filter-ng-select">
-
-      <ng-template ng-footer-tmp>
-        <div class="cursor-pointer" (click)="monthDateRange()"><span>Od - do</span></div>
-      </ng-template>
     </ng-select>
   </div>
 
@@ -86,12 +101,43 @@
 </form>
 
 <div class="d-block d-md-flex align-content-center mb-3" *ngIf="isFiltering">
-  <p class="mb-2 mb-md-0 d-md-inline mr-3">Filtre: </p>
   <mat-chip-list aria-label="Filtering">
-    <mat-chip class="text-gray my-md-0  mb-md-0" *ngIf="months && months.length > 0 && filterForm.get('month').value">
+    <mat-chip class="text-gray my-md-0  mb-md-0" *ngIf="companies && companies.length > 0 && filterForm.get('company').value">
+      <mat-icon class="mr-1">account_balance</mat-icon>
+      {{filterForm.get('company').value.name}}
+      <mat-icon (click)="resetFilterValue('company')" matChipRemove>cancel</mat-icon>
+    </mat-chip>
+
+    <mat-chip class="text-gray my-md-0  mb-md-0" *ngIf="clientFormControlName === 'Dodávateľ' && contacts && contacts.length > 0 && filterForm.get('contractor').value; else contactChip">
+      <mat-icon class="mr-1">person</mat-icon>
+      {{filterForm.get('contractor').value.name}}
+      <mat-icon (click)="resetFilterValue('contractor')" matChipRemove>cancel</mat-icon>
+    </mat-chip>
+
+    <ng-template #contactChip>
+      <mat-chip class="text-gray my-md-0  mb-md-0" *ngIf="contacts && contacts.length > 0 && filterForm.get('contact').value && clientFormControlName === 'Zákazník'">
+        <mat-icon class="mr-1">person</mat-icon>
+        {{filterForm.get('contact').value.name}}
+        <mat-icon (click)="resetFilterValue('contact')" matChipRemove>cancel</mat-icon>
+      </mat-chip>
+    </ng-template>
+
+    <mat-chip class="text-gray my-md-0  mb-md-0" *ngIf="projects && projects.length > 0 && filterForm.get('project').value">
+      <mat-icon class="mr-1">layers</mat-icon>
+      {{filterForm.get('project').value.title}}
+      <mat-icon (click)="resetFilterValue('project')" matChipRemove>cancel</mat-icon>
+    </mat-chip>
+
+    <mat-chip class="text-gray my-md-0  mb-md-0" *ngIf="dates && dates.length > 0 && filterForm.get('date').value">
       <mat-icon class="mr-1">access_time</mat-icon>
-      {{(filterForm.get('month').value.start | date: 'dd.MM.y') + ' - ' + (filterForm.get('month').value.end | date: 'dd.MM.y' )}}
-      <mat-icon (click)="resetFilterValue('month')" matChipRemove>cancel</mat-icon>
+      {{(filterForm.get('date').value.start | date: 'dd.MM.y') + ' - ' + (filterForm.get('date').value.end | date: 'dd.MM.y' )}}
+      <mat-icon (click)="resetFilterValue('date')" matChipRemove>cancel</mat-icon>
+    </mat-chip>
+
+    <mat-chip class="text-gray my-md-0  mb-md-0" *ngIf="categories && categories.length > 0 && filterForm.get('category').value">
+      <mat-icon class="mr-1">folder</mat-icon>
+      {{filterForm.get('category').value.name}}
+      <mat-icon (click)="resetFilterValue('category')" matChipRemove>cancel</mat-icon>
     </mat-chip>
 
     <mat-chip class="text-gray my-md-0  mb-md-0" *ngIf="documentTypes && documentTypes.length > 0 && filterForm.get('documentType').value">
@@ -104,30 +150,6 @@
       <mat-icon class="mr-1">timelapse</mat-icon>
       {{filterForm.get('state').value | lowercase | translate | titlecase}}
       <mat-icon (click)="resetFilterValue('state')" matChipRemove>cancel</mat-icon>
-    </mat-chip>
-
-    <mat-chip class="text-gray my-md-0  mb-md-0" *ngIf="contacts && contacts.length > 0 && filterForm.get('contact').value">
-      <mat-icon class="mr-1">person</mat-icon>
-      {{filterForm.get('contact').value.name}}
-      <mat-icon (click)="resetFilterValue('contact')" matChipRemove>cancel</mat-icon>
-    </mat-chip>
-
-    <mat-chip class="text-gray my-md-0  mb-md-0" *ngIf="categories && categories.length > 0 && filterForm.get('category').value">
-      <mat-icon class="mr-1">folder</mat-icon>
-      {{filterForm.get('category').value.name}}
-      <mat-icon (click)="resetFilterValue('category')" matChipRemove>cancel</mat-icon>
-    </mat-chip>
-
-    <mat-chip class="text-gray my-md-0  mb-md-0" *ngIf="projects && projects.length > 0 && filterForm.get('project').value">
-      <mat-icon class="mr-1">layers</mat-icon>
-      {{filterForm.get('project').value.title}}
-      <mat-icon (click)="resetFilterValue('project')" matChipRemove>cancel</mat-icon>
-    </mat-chip>
-
-    <mat-chip class="text-gray my-md-0  mb-md-0" *ngIf="companies && companies.length > 0 && filterForm.get('company').value">
-      <mat-icon class="mr-1">account_balance</mat-icon>
-      {{filterForm.get('company').value.name}}
-      <mat-icon (click)="resetFilterValue('company')" matChipRemove>cancel</mat-icon>
     </mat-chip>
   </mat-chip-list>
 </div>

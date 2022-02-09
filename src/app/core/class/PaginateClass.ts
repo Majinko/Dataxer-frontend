@@ -1,4 +1,3 @@
-import {MatPaginator} from '@angular/material/paginator';
 import {merge, Subject} from 'rxjs';
 import {map, startWith, switchMap} from 'rxjs/operators';
 import {IPaginate} from '../interface/IPaginate';
@@ -46,6 +45,7 @@ export class PaginateClass<T> extends PaginateClassData {
         })
       )
       .subscribe((data) => {
+
         this.data = data;
         this.paginateFinish.next(true);
       });

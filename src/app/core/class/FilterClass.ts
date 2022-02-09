@@ -2,7 +2,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {auditTime} from 'rxjs/operators';
 import {SearchBarService} from '../services/search-bar.service';
 import {Contact} from '../models/contact';
-import {Directive, EventEmitter, Injector, Input, Output} from '@angular/core';
+import {Directive, EventEmitter, Injector, Input, OnInit, Output} from '@angular/core';
 import {DocumentFilter} from '../models/filters/document-filter';
 import {ExpressionNode} from '@rsql/ast';
 import builder from '@rsql/builder';
@@ -21,7 +21,7 @@ import {CategoryItemNode} from '../models/category-item-node';
 @Directive()
 // tslint:disable-next-line:directive-class-suffix
 export class FilterClass {
-  clientFormControlName: string = 'Klient';
+  clientFormControlName: string = 'Zákazník';
 
   companies: Company[] = [];
   contacts: Contact[] = [];
@@ -29,7 +29,7 @@ export class FilterClass {
   categories: CategoryItemNode[] = [];
   payedStates: KeyValue[] = [];
   documentTypes: KeyValue[] = [];
-  months: { start: string, end: string, title: string } [] = [];
+  dates: { start: string, end: string, title: string, type: string } [] = [];
 
   filterForm: FormGroup;
   isFiltering: boolean = false;
@@ -58,7 +58,9 @@ export class FilterClass {
     private _searchBarSelectValues: string[],
     protected injector: Injector
   ) {
-    this.dialog = injector.get<MatDialog>(MatDialog);
+    if (this.injector) {
+      this.dialog = injector.get<MatDialog>(MatDialog);
+    }
   }
 
   prepareData() {
@@ -69,7 +71,6 @@ export class FilterClass {
       this.checkFilterFormValue();
     }
   }
-
 
   set model(value: string) {
     this._model = value;
@@ -136,13 +137,15 @@ export class FilterClass {
    * @private
    */
   protected searchBarServiceCatch() {
-    this.searchbarService.appSearch.subscribe((qString) => {
-      this._searchBarSearchValues.forEach((qS) => {
-        this.filterForm.patchValue({
-          [qS]: qString
+    if (this.searchbarService) {
+      this.searchbarService.appSearch.subscribe((qString) => {
+        this._searchBarSearchValues.forEach((qS) => {
+          this.filterForm.patchValue({
+            [qS]: qString
+          });
         });
       });
-    });
+    }
   }
 
   /**
@@ -192,7 +195,7 @@ export class FilterClass {
         }
 
         if (this._searchBarSelectValues.includes(key)) {
-          if (key !== 'month') {
+          if (key !== 'date') {
             this.andExpression.push(parse(`${this._model}.${key}==${filter[key]}`));
           } else {
             // todo make nicely
@@ -250,22 +253,35 @@ export class FilterClass {
     });
   }
 
-
   // spolocne metody ktore pouzivaju viacere filtre
-  prepareMonths() {
+  prepareDates() {
     for (let i = 0; i <= 12; i++) {
       const monthStart: moment.Moment = moment().subtract(i, 'months').startOf('month');
 
-      this.months.push({
+      this.dates.push({
         start: moment().subtract(i, 'months').startOf('month').format('YYYY-MM-DD'),
         end: moment().subtract(i, 'months').endOf('month').format('YYYY-MM-DD'),
         title: this.getMonthData(monthStart),
+        type: 'Mesiace'
       });
     }
 
     if (this._model !== 'cost' && checkFormIsNotFill(this.filterForm.controls)) {
       this.filterForm.patchValue({
-        month: this.months[0]
+        date: this.dates[0]
+      });
+    }
+
+
+    // todo dat podmienku aby zbytocne nedavalo roky ktore uzivatel nema
+    for (let i = 0; i <= 5; i++) {
+      const yearStart: moment.Moment = moment().subtract(i, 'years').startOf('year');
+
+      this.dates.push({
+        start: moment().subtract(i, 'years').startOf('year').format('YYYY-MM-DD'),
+        end: moment().subtract(i, 'years').endOf('year').format('YYYY-MM-DD'),
+        title: 'rok ' + yearStart.format('YYYY'),
+        type: 'Roky'
       });
     }
   }

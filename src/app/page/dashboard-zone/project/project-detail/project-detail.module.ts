@@ -16,6 +16,7 @@ import {AvatarModule} from 'ngx-avatar';
 import { ProjectEvaluationExpansionPanelComponent } from './project-category-evaluation/components/project-evaluation-expansion-panel/project-evaluation-expansion-panel.component';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {FormsModule} from '@angular/forms';
+import { ProjectTimeComponent } from './project-time/project-time.component';
 
 const routes: Routes = [
   {
@@ -33,6 +34,10 @@ const routes: Routes = [
       {
         path: 'category-evaluation',
         component: ProjectCategoryEvaluationComponent
+      },
+      {
+        path: 'time-evaluation',
+        component: ProjectTimeComponent
       }
     ]
   }
@@ -48,6 +53,7 @@ const routes: Routes = [
     DocumentTableComponent,
     ProjectUserEvaluationTableComponent,
     ProjectEvaluationExpansionPanelComponent,
+    ProjectTimeComponent,
   ],
   imports: [
     NgApexchartsModule,

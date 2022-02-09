@@ -81,6 +81,7 @@ export class PriceOfferEditComponent extends DocumentHelperClass implements OnIn
       discount: priceOffer.discount,
       price: priceOffer.price,
       totalPrice: priceOffer.totalPrice,
+      documentType: 'PRICE_OFFER',
       documentData: this.formBuilder.group({
         user: this.formBuilder.group({
           displayName: priceOffer.documentData.user.displayName,

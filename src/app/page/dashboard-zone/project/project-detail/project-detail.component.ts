@@ -69,6 +69,11 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
         label: 'Kategórie',
         link: `/project/show/${+this.route.snapshot.paramMap.get('id')}/category-evaluation`,
         index: 2
+      },
+      {
+        label: 'Čas na projekte',
+        link: `/project/show/${+this.route.snapshot.paramMap.get('id')}/time-evaluation`,
+        index: 3
       }
     ];
 

@@ -71,15 +71,19 @@ export class CategoryTreeControlComponent implements OnInit, OnChanges, ControlV
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.cleanCategories = changes.categories.currentValue;
-    this.dataSource.data = this.categoryHelper.prepareTree(changes.categories.currentValue, null);
+    if (changes.categories.currentValue.length === 0) {
+      this.dataSource.data = [];
+    } else {
+      this.cleanCategories = changes.categories.currentValue;
+      this.dataSource.data = this.categoryHelper.prepareTree(changes.categories.currentValue, null);
+    }
   }
 
   /** Toggle a leaf to-do item selection. Check all the parents to see if they changed */
-  todoLeafItemSelectionToggle(node: CategoryFlatNode, isEdit: boolean = false): void {
+  todoLeafItemSelectionToggle(node: CategoryFlatNode, isWrite: boolean = false): void {
     const parent: CategoryItemNode = this.cleanCategories.find(f => f.id === node.parentId);
-    
-    if (parent){
+
+    if (parent && !isWrite) {
       this.checklistSelection.toggle(parent as CategoryFlatNode);
       this.checkAllParentsSelection(parent as CategoryFlatNode);
     }
@@ -87,7 +91,7 @@ export class CategoryTreeControlComponent implements OnInit, OnChanges, ControlV
     this.checklistSelection.toggle(node);
     this.checkAllParentsSelection(node);
 
-    if (!isEdit) {
+    if (!isWrite) {
       this.selectCategory();
     }
   }
@@ -178,14 +182,13 @@ export class CategoryTreeControlComponent implements OnInit, OnChanges, ControlV
       categories.forEach((category) => {
         const node: CategoryFlatNode = this.treeControl.dataNodes.find(n => n.id === category.id);
 
-        this.todoLeafItemSelectionToggle(node, false);
+        this.todoLeafItemSelectionToggle(node, true);
         this.treeControl.expand(node);
       });
     }
   }
 
   selectCategory() {
-    console.log(this.checklistSelection.selected);
     this.onChange(this.checklistSelection.selected);
   }
 }

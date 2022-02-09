@@ -24,7 +24,7 @@ export class TimeFilterComponent extends FilterClass implements OnInit {
       formBuilder,
       'time',
       ['description'],
-      ['project.id', 'category.id', 'month'],
+      ['project.id', 'category.id', 'date'],
       injector
     );
   }
@@ -34,7 +34,7 @@ export class TimeFilterComponent extends FilterClass implements OnInit {
       contact: null,
       project: null,
       state: null,
-      month: null,
+      date: null,
       category: null
     });
 
@@ -43,8 +43,8 @@ export class TimeFilterComponent extends FilterClass implements OnInit {
     this.createFormControls();
     this.searchBarServiceCatch();
     this.prepareData();
-    this.prepareMonths();
-    //this.getUserCategories();
+    this.prepareDates();
+    this.getUserCategories();
   }
 
   getProjects() {
