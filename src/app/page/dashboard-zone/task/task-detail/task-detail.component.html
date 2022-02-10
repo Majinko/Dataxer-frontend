@@ -100,16 +100,16 @@
           name="{{ userService.user.displayName }}" class=""></ngx-avatar>
         </div>
         <div class="task-text">
-          <div *ngIf="!writeComment">
+          <div class="add-comment" *ngIf="!writeComment">
             <div (click)="addComment($event)" class="cursor-pointer">Pridať komentár</div>
           </div>
           <div *ngIf="writeComment">
             <form autocomplete="off" [formGroup]="formGroup" (ngSubmit)="submit()">
-              <angular-editor formControlName="comment" [config]="editorConfig"></angular-editor>
+              <angular-editor placeholder="Text komentára" formControlName="comment" [config]="editorConfig"></angular-editor>
               <div class="button-wrap">
                 <button mat-flat-button class="btn-icon btn-theme mr-3">
                   <mat-icon>save</mat-icon>
-                  Pridať úlohu
+                  Pridať komentár
                 </button>
               </div>
             </form>

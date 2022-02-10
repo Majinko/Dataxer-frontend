@@ -275,7 +275,19 @@ body {
     }
   }
 }
-
+.task-add-comment {
+  padding-top: 20px;
+  .task-text {
+    .add-comment {
+      height: 100%;
+      display: flex;
+      align-items: center;
+    }
+  }
+  .button-wrap {
+    padding-top: 30px;
+  }
+}
 .task-text-wrap {
   display: flex;
 

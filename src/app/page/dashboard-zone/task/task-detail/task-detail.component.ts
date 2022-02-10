@@ -48,6 +48,7 @@ export class TaskDetailComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+
     this.formGroup = this.formBuilder.group({
       comment: ['', Validators.required],
     });
