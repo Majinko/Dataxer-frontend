@@ -4,22 +4,24 @@ import {SearchBarService} from '../../../../core/services/search-bar.service';
 import {ProjectService} from '../../../../core/services/project.service';
 import {CompanyService} from '../../../../core/services/company.service';
 import {Company} from '../../../../core/models/company';
+import { Project } from 'src/app/core/models/project';
 
 @Component({
   selector: 'app-project-detail',
   template: `
     <div>
-      <div class="d-flex justify-content-end" *ngIf="companies && companies.length > 1">
+      <div class="d-flex align-items-center justify-content-between">
+        <h1 *ngIf="project">{{project.title}}</h1>
 
-        <div class="col-md-4 col-lg-2">
+        <div *ngIf="companies && companies.length > 1" class="col-md-4 col-lg-2">
           <ng-select
-                     [clearable]="false"
-                     bindLabel="name"
-                     bindValue="id"
-                     placeholder="Spoločnosť"
-                     [(ngModel)]="selectedCompany"
-                     (ngModelChange)="getDataByFirm()"
-                     class="filter-ng-select">
+            [clearable]="false"
+            bindLabel="name"
+            bindValue="id"
+            placeholder="Spoločnosť"
+            [(ngModel)]="selectedCompany"
+            (ngModelChange)="getDataByFirm()"
+            class="filter-ng-select">
 
             <ng-option *ngFor="let company of companies" [value]="company">
               <div class="company-option">
@@ -39,6 +41,7 @@ import {Company} from '../../../../core/models/company';
     </div>`,
 })
 export class ProjectDetailComponent implements OnInit, OnDestroy {
+  project: Project;
   companies: Company[] = [];
   selectedCompany: number = null;
   navLinks: { label: string, link: string, index: number }[] = [];
@@ -78,10 +81,17 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
     ];
 
     this.getCompanies();
+    this.getProject();
   }
 
   ngOnDestroy(): void {
     this.searchBarService.showBar = true;
+  }
+
+  getProject(){
+    this.projectService.getById(+this.route.snapshot.paramMap.get('id')).subscribe((project) => {
+      this.project = project;
+    })
   }
 
   getCompanies() {

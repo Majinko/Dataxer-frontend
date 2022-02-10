@@ -24,7 +24,7 @@ export class TimeFilterComponent extends FilterClass implements OnInit {
       formBuilder,
       'time',
       ['description'],
-      ['project.id', 'category.id', 'date'],
+      ['project.id', 'user.id', 'category.id', 'date'],
       injector
     );
   }
@@ -35,7 +35,8 @@ export class TimeFilterComponent extends FilterClass implements OnInit {
       project: null,
       state: null,
       date: null,
-      category: null
+      category: null,
+      user: null
     });
 
     this.getProjects();
@@ -45,6 +46,10 @@ export class TimeFilterComponent extends FilterClass implements OnInit {
     this.prepareData();
     this.prepareDates();
     this.getUserCategories();
+    this.getUsers();
+
+    // only admin has right to filter other user time
+    this.isAdmin = this.userService.user.roles.some(r => r.name.includes('ROLE_ADMIN'));
   }
 
   getProjects() {
@@ -56,6 +61,12 @@ export class TimeFilterComponent extends FilterClass implements OnInit {
   getUserCategories() {
     this.categoryService.allUserCategoryByTime(this.userService.user.uid).subscribe((categories) => {
       this.categories = categories;
+    });
+  }
+
+  getUsers() {
+    this.userService.all().subscribe((users) => {
+      this.users = users;
     });
   }
 }

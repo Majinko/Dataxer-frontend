@@ -17,12 +17,13 @@ import {MatDialog} from '@angular/material/dialog';
 import {DateRangeDialogComponent} from '../../theme/component/date-range-dialog/date-range-dialog.component';
 import {checkFormIsNotFill} from '../../../helper';
 import {CategoryItemNode} from '../models/category-item-node';
+import {User} from '../models/user';
 
 @Directive()
 // tslint:disable-next-line:directive-class-suffix
 export class FilterClass {
   clientFormControlName: string = 'Zákazník';
-
+  users: User[] = [];
   companies: Company[] = [];
   contacts: Contact[] = [];
   projects: Project[] = [];
@@ -31,6 +32,7 @@ export class FilterClass {
   documentTypes: KeyValue[] = [];
   dates: { start: string, end: string, title: string, type: string } [] = [];
 
+  isAdmin: boolean = false;
   filterForm: FormGroup;
   isFiltering: boolean = false;
   orExpression: ExpressionNode[] = [];
