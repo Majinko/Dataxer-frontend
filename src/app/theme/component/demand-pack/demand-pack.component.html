@@ -1,0 +1,101 @@
+<div class="row">
+  <div class="col-12" [formGroup]="formGroup">
+    <div class="table-wrap no-border" formArrayName="packs" cdkDropList (cdkDropListDropped)="dropPack($event)">
+      <table class="table-hover table-hover-gray table-data table-borderless w-100 mat-table" cdkDrag [formGroupName]="i" *ngFor="let pack of formPacks.controls; let i=index" >
+        <tbody class="no-border">
+          <tr class="tbody-row set-row">
+            <td>
+              <a
+                cdkDragHandle
+                class="mr-3"
+                mat-icon-button
+                matTooltip="Reorder pack">
+                <mat-icon class="text-theme">drag_indicator</mat-icon>
+              </a>
+              <a
+                (click)="showHidePackItems(i)"
+                cdkDragHandle
+                class="mr-3"
+                mat-icon-button
+                matTooltip="{{documentHelper.packs[i].showItems ? 'Hide' : 'Show'}} items in pack">
+                <mat-icon class="text-theme">{{documentHelper.packs[i].showItems ? 'visibility' : 'visibility_off'}}</mat-icon>
+              </a>
+              <app-pack-autocomplete (findPack)="setPack(i, pack, $event)" formControlName="title"></app-pack-autocomplete>
+            </td>
+            <td class="text-right thin">
+              <a
+                (click)="removePack($event, i)"
+                mat-icon-button
+                matTooltip="Delete item">
+                <mat-icon class="text-theme">delete</mat-icon>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+
+        <tbody [hidden]="!documentHelper.packs[i].showItems" class="no-border table-item table-td-initial" formArrayName="packItems" cdkDropList (cdkDropListDropped)="dropItem(i, $event)">
+          <tr #trRow class="tbody-row set-row" [formGroupName]="j" *ngFor="let item of pack.get('packItems').controls; let j=index" cdkDrag>
+            <td colspan="2" class="text-right">
+              <a
+                cdkDragHandle
+                class="mr-3"
+                mat-icon-button
+                matTooltip="Reorder item">
+                <mat-icon class="text-theme">drag_indicator</mat-icon>
+              </a>
+              <app-item-autocomplete formControlName="title" (change)="setItemTitle(item, $event.target.value)" (findItem)="setItem(item, $event)"></app-item-autocomplete>
+              <div class="jsDiscount" [ngClass]="{'d-none' : item.value.discount == 0}">
+              <mat-form-field class="w-100">
+                  <input matInput readonly placeholder="Zľava {{item.value.discount}} %" class="text-right" />
+                </mat-form-field>
+              </div>
+            </td>
+            <td class="text-right thin">
+              <mat-form-field style="width: 65px">
+                <input type="text" #qty formControlName="qty" placeholder="Počet" matInput>
+              </mat-form-field>
+            </td>
+            <td class="thin">
+              <div>
+                <mat-form-field style="width: 65px">
+                  <mat-select formControlName="unit">
+                    <mat-option *ngFor="let option of units" [value]="option.unit">
+                      {{ option.unit }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </td>
+            <td class="text-center thin">
+              <a
+                (click)="showDiscount(trRow)"
+                class="mr-3"
+                mat-icon-button
+                matTooltip="Discount item">
+                <mat-icon class="text-theme">local_offer</mat-icon>
+              </a>
+              <button
+                (click)="removeItem($event, j, i)"
+                mat-icon-button
+                matTooltip="Delete item">
+                <mat-icon class="text-theme">delete</mat-icon>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="col-md-12 text-center mt-3 mb-5">
+    <a mat-flat-button class="btn btn-icon btn-theme mr-3" (click)="addItem()">
+      <mat-icon>add_circle</mat-icon>
+      Položka
+    </a>
+
+    <a mat-flat-button class="btn btn-icon btn-theme" (click)="addPack()">
+      <mat-icon>create_new_folder</mat-icon>
+      Sada položiek
+    </a>
+  </div>
+</div>

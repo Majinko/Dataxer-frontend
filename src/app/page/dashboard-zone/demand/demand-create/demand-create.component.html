@@ -1,66 +1,58 @@
 <div class="row mb-4">
   <div class="col d-flex align-items-center mb-3">
-    <mat-icon routerLink="/demand" class="mr-2 mr-md-5 cursor-pointer">keyboard_backspace</mat-icon>
+    <mat-icon routerLink="/document/priceOffer" class="mr-2 mr-md-5 cursor-pointer">keyboard_backspace</mat-icon>
     <h1 class="mb-0">Nový dopyt</h1>
   </div>
 </div>
 
-
-<form autocomplete="off" [formGroup]="formGroup" (ngSubmit)="submit()">
+<form autocomplete="off" [formGroup]="formGroup" #ngForm="ngForm" (ngSubmit)="submit()">
   <div class="row">
     <div class="col-12">
-      <h2 class="border-bottom-2 pb-2 mb-4">Špeciﬁkácia dopytu</h2>
+      <h2 class="border-bottom-2 pb-2 mb-4">Súhrnné info</h2>
     </div>
   </div>
 
   <div class="row">
-    <div class="col-md-8 form-group">
-      <mat-form-field class="form-group w-100">
-        <input formControlName="title" matInput placeholder="Názov dopytu">
-        <mat-error *ngIf="f.title.errors">Názov dopytu je <strong>pozadovany.</strong></mat-error>
-      </mat-form-field>
+    <div class="col-md-4 mb-3">
+      <app-company-select-group formControlName="company" [ngForm]="ngForm"></app-company-select-group>
     </div>
 
     <div class="col-md-4 form-group">
-      <ng-select class="form-group w-100 mb-0" [items]="categories"
-                 #select
+      <ng-select class="form-group w-100 mb-0"
+                 [multiple]="true"
+                 [items]="contacts"
                  bindLabel="name"
-                 placeholder="Kategória"
-                 [clearable]="false"
-                 formControlName="category">
-        <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
-          <div><span>{{item.name}}</span></div>
-        </ng-template>
+                 placeholder="Dodávatelia"
+                 formControlName="contact"
+      >
       </ng-select>
-      <mat-error *ngIf="isSubmit && f.category.errors">Kategória je <strong>požadovaná.</strong></mat-error>
+      <mat-error *ngIf="submitted && f.contact.errors" class="mat-error-not-in-field">Dodávateľ je <strong>požadovaný.</strong></mat-error>
     </div>
 
+    <div class="col-md-4 form-group">
+      <app-new-project-select [client]="f.contact.value"  formControlName="project"></app-new-project-select>
+      <mat-error *ngIf="submitted && f.project.errors" class="mat-error-not-in-field">Projekt je <strong>požadovaný.</strong></mat-error>
+    </div>
+  </div>
 
-    <div class="col-md-12 form-group">
+  <div class="row">
+    <div class="col-md-4">
       <mat-form-field class="form-group w-100">
-        <input formControlName="description" matInput placeholder="Požiadavka">
+        <input formControlName="title" matInput placeholder="Názov">
+        <mat-error *ngIf="f.title.errors">Názov je <strong>požadovaný.</strong></mat-error>
       </mat-form-field>
     </div>
 
     <div class="col-md-4">
       <mat-form-field class="form-group w-100">
-        <mat-select placeholder="Zdroj" formControlName="source">
-          <mat-option value="E-mail">
-            E-mail
-          </mat-option>
-          <mat-option value="Web">
-            Web
-          </mat-option>
-          <mat-option value="Online reklama">
-            Online reklama
-          </mat-option>
-          <mat-option value="Telefón">
-            Telefón
-          </mat-option>
-          <mat-option value="Osobný kontak">
-            Osobný kontak
-          </mat-option>
-        </mat-select>
+        <input formControlName="number" matInput placeholder="Číslo">
+        <mat-error *ngIf="submitted && f.number.errors">Číslo je <strong>pozadovany.</strong></mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-4">
+      <mat-form-field class="form-group w-100">
+        <input formControlName="subject" matInput placeholder="Predmet">
       </mat-form-field>
     </div>
 
@@ -74,15 +66,120 @@
         </select>
       </mat-form-field>
     </div>
+  </div>
 
-    <div class="form-group col-md-4">
-      <app-select-new-contact formControlName="contact"></app-select-new-contact>
+  <div class="row">
+    <div class="col-12">
+      <h2 class="border-bottom-2 pb-2 mb-4">Dátumy</h2>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-4">
+      <mat-form-field class="form-group w-100">
+        <mat-label>Dátum vystavenia</mat-label>
+        <input formControlName="createdDate" matInput [matDatepicker]="createdDate">
+        <mat-datepicker-toggle matSuffix [for]="createdDate"></mat-datepicker-toggle>
+        <mat-datepicker #createdDate></mat-datepicker>
+        <mat-error *ngIf="f.createdDate.errors">Dátum vystavenia je <strong>pozadovany.</strong></mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-4">
+      <mat-form-field class="form-group w-100">
+        <mat-label>Dátum dodania</mat-label>
+        <input formControlName="deliveredDate" matInput [matDatepicker]="deliveredDate">
+        <mat-datepicker-toggle matSuffix [for]="deliveredDate"></mat-datepicker-toggle>
+        <mat-datepicker #deliveredDate></mat-datepicker>
+        <mat-error *ngIf="f.deliveredDate.errors">Dátum dodania je <strong>pozadovany.</strong></mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-4">
+      <mat-form-field class="form-group w-100">
+        <mat-label>Platnosť</mat-label>
+        <input formControlName="deliveredDate" matInput [matDatepicker]="dueDate">
+        <mat-datepicker-toggle matSuffix [for]="dueDate"></mat-datepicker-toggle>
+        <mat-datepicker #dueDate></mat-datepicker>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <h2 class="border-bottom-2 pb-2 mb-4">Položky</h2>
+    </div>
+  </div>
+
+  <app-demand-pack [formGroup]="formGroup" [documentHelper]="documentHelper">></app-demand-pack>
+
+  <div class="row">
+    <div class="col-12">
+      <h2 class="border-bottom-2 pb-2 mb-4">Doplňujúce informácie</h2>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-4 mb-5">
+      <mat-form-field class="example-full-width">
+        <input type="number" matInput #discount formControlName="discount">
+        <i matSuffix>%</i>
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-8 mb-5">
+      <table class="w-100">
+        <tr class="text-right">
+          <td class="pb-1">Zľava {{discount.value}} %</td>
+          <td class="pb-1">{{discount.value > 0 ? '-' : ''}}{{((documentHelper.totalPrice | addPercent: discount.value) - documentHelper.totalPrice).toFixed(2)}} €</td>
+        </tr>
+
+        <tr class="text-right" appShowHideTax>
+          <td>Celkom bez DPH:</td>
+          <td>{{documentHelper.price | removePercent: +discount.value}} €</td>
+        </tr>
+
+        <tr class="text-right">
+          <td><h2 class="text-theme mb-0"><b>Celkom <span appShowHideTax>s DPH</span>:</b></h2></td>
+          <td>{{documentHelper.totalPrice | removePercent: +discount.value}} €</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="col-md-12">
+      <mat-form-field class="form-group w-100">
+        <input formControlName="note" matInput placeholder="Poznámka pre príjemcu">
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="row" formGroupName="documentData">
+    <div class="col-12" formGroupName="user">
+      <div class="row">
+        <div class="col-md-4">
+          <mat-form-field class="form-group w-100">
+            <input formControlName="displayName" matInput placeholder="Vystavil">
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-4">
+          <mat-form-field class="form-group w-100">
+            <input formControlName="phone" matInput placeholder="Telefón">
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-4">
+          <mat-form-field class="form-group w-100">
+            <input formControlName="email" matInput placeholder="E-mail">
+          </mat-form-field>
+        </div>
+      </div>
     </div>
   </div>
 
   <div class="row">
     <div class="col-md-12 text-right">
-      <button routerLink="/demand" mat-stroked-button class="btn-icon btn-theme-stroked mr-3">
+      <button mat-stroked-button class="btn-icon btn-theme-stroked mr-3" routerLink="/document/priceOffer">
         <mat-icon>cancel</mat-icon>
         Zrušiť
       </button>

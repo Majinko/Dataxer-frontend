@@ -11,18 +11,20 @@ import {NgSelectModule} from "@ng-select/ng-select";
 import {ThemeModule} from "../../../theme/theme.module";
 import { DemandEditComponent } from './demand-edit/demand-edit.component';
 import { DemandFilterComponent } from './demand-index/component/demand-filter/demand-filter.component';
+import {CoreModule} from '../../../core/core.module';
 
 
 @NgModule({
   declarations: [DemandComponent, DemandIndexComponent, DemandTableComponent, DemandCreateComponent, DemandEditComponent, DemandFilterComponent],
-  imports: [
-    CommonModule,
-    DemandRoutingModule,
-    MaterialModule,
-    ReactiveFormsModule,
-    NgSelectModule,
-    ThemeModule
-  ]
+    imports: [
+        CommonModule,
+        DemandRoutingModule,
+        MaterialModule,
+        ReactiveFormsModule,
+        NgSelectModule,
+        ThemeModule,
+        CoreModule
+    ]
 })
 export class DemandModule {
 }

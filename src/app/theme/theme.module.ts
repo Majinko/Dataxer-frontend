@@ -45,6 +45,7 @@ import {DndDirective} from '../core/directives/dnd.directive';
 import {UploadFilesComponent} from './component/upload-files/upload-files.component';
 import {DocumentDestroyButtonComponent} from './document-destroy-button/document-destroy-button.component';
 import {CompanySelectGroupComponent} from './component/company-select-group/company-select-group.component';
+import { DemandPackComponent } from './component/demand-pack/demand-pack.component';
 
 @NgModule({
   imports: [
@@ -97,6 +98,7 @@ import {CompanySelectGroupComponent} from './component/company-select-group/comp
     UploadFilesComponent,
     DocumentDestroyButtonComponent,
     CompanySelectGroupComponent,
+    DemandPackComponent,
   ],
   exports: [
     DrawerComponent,
@@ -124,6 +126,7 @@ import {CompanySelectGroupComponent} from './component/company-select-group/comp
     UploadFilesComponent,
     DocumentDestroyButtonComponent,
     CompanySelectGroupComponent,
+    DemandPackComponent,
   ]
 })
 export class ThemeModule {
