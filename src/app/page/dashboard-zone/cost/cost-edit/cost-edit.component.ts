@@ -13,10 +13,8 @@ import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/
 import {MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter} from '@angular/material-moment-adapter';
 import {CategoryService} from '../../../../core/services/category.service';
 import {CategoryItemNode} from '../../../../core/models/category-item-node';
-import {CompanyService} from '../../../../core/services/company.service';
-import {Project} from "../../../../core/models/project";
-import {Projects} from "@angular/cli/lib/config/workspace-schema";
-import {ProjectService} from "../../../../core/services/project.service";
+import {Project} from '../../../../core/models/project';
+import {ProjectService} from '../../../../core/services/project.service';
 
 @Component({
   selector: 'app-cost-edit',
@@ -92,7 +90,7 @@ export class CostEditComponent implements OnInit {
       dueDate: null,
       taxableSupply: null,
       currency: this.currencies[0].value,
-      price: 0,
+      price: [null, Validators.required],
       tax: 20,
       totalPrice: 0,
       paymentMethod: null,
@@ -146,8 +144,6 @@ export class CostEditComponent implements OnInit {
   }
 
   submit() {
-    console.log(findInvalidControls(this.formGroup.controls));
-
     this.formGroup.patchValue({
       categories: [this.formGroup.get('categories').value]
     });

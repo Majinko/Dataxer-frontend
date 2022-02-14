@@ -97,7 +97,7 @@ export class CostCreateComponent implements OnInit {
       dueDate: [addDays(new Date(), 14)],
       taxableSupply: null,
       currency: this.currencies[0].value,
-      price: null,
+      price: [null, Validators.required],
       tax: 0,
       totalPrice: null,
       paymentMethod: null,
