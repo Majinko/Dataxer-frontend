@@ -41,11 +41,7 @@ export class DemandPackComponent implements OnInit {
     return this.formBuilder.group({
       id: null,
       title: null,
-      customPrice: false,
       showItems: true,
-      price: null,
-      tax: this.formGroup.value.company.companyTaxType === 'TAX_PAYER' ? 20 : 0,
-      totalPrice: null,
       packItems: this.formBuilder.array([this.createItem()])
     });
   }
@@ -57,10 +53,6 @@ export class DemandPackComponent implements OnInit {
       item: null,
       qty: 1,
       unit: this.units[0].unit,
-      discount: 0,
-      price: null,
-      tax: this.formGroup.value.company.companyTaxType === 'TAX_PAYER' ? 20 : 0,
-      totalPrice: null,
     });
   }
 
@@ -170,18 +162,6 @@ export class DemandPackComponent implements OnInit {
     moveItemInArray(this.itemsByIndex(packIndex).controls, event.previousIndex, event.currentIndex);
 
     this.itemsByIndex(packIndex).patchValue(this.itemsByIndex(packIndex).controls);
-  }
-
-  // show discount
-  showDiscount(trRow: HTMLTableRowElement) {
-    const discountInputs = trRow.querySelectorAll('.jsDiscount');
-
-    // tslint:disable-next-line:no-unused-expression
-    discountInputs && discountInputs.forEach(discountInput => {
-      discountInput.classList.toggle('d-none');
-    });
-
-    return false;
   }
 
   // show hide pack item

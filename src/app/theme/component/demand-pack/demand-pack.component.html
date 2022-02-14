@@ -44,11 +44,6 @@
                 <mat-icon class="text-theme">drag_indicator</mat-icon>
               </a>
               <app-item-autocomplete formControlName="title" (change)="setItemTitle(item, $event.target.value)" (findItem)="setItem(item, $event)"></app-item-autocomplete>
-              <div class="jsDiscount" [ngClass]="{'d-none' : item.value.discount == 0}">
-              <mat-form-field class="w-100">
-                  <input matInput readonly placeholder="Zľava {{item.value.discount}} %" class="text-right" />
-                </mat-form-field>
-              </div>
             </td>
             <td class="text-right thin">
               <mat-form-field style="width: 65px">
@@ -67,13 +62,6 @@
               </div>
             </td>
             <td class="text-center thin">
-              <a
-                (click)="showDiscount(trRow)"
-                class="mr-3"
-                mat-icon-button
-                matTooltip="Discount item">
-                <mat-icon class="text-theme">local_offer</mat-icon>
-              </a>
               <button
                 (click)="removeItem($event, j, i)"
                 mat-icon-button
