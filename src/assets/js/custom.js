@@ -13,7 +13,7 @@ let uploader = {
         });
       }
     })
-  }
+  },
 }
 
 uploader.file();

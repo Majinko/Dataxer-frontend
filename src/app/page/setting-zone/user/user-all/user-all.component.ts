@@ -5,6 +5,8 @@ import {merge} from 'rxjs';
 import {map, startWith, switchMap} from 'rxjs/operators';
 import {MatPaginator} from '@angular/material/paginator';
 import {FormBuilder, FormGroup} from '@angular/forms';
+import {User} from '../../../../core/models/user';
+import {MessageService} from '../../../../core/services/message.service';
 
 @Component({
   selector: 'app-user-all',
@@ -25,6 +27,7 @@ export class UserAllComponent implements OnInit, AfterViewInit {
 
   constructor(
     private userService: UserService,
+    private snackBarService: MessageService,
     private formBuilder: FormBuilder
   ) {
   }
@@ -63,6 +66,22 @@ export class UserAllComponent implements OnInit, AfterViewInit {
         })
       )
       .subscribe((data) => (this.userOverview = data));
+  }
+
+  deactivateOrActivateUser($event: MouseEvent, user: User) {
+    event.stopPropagation();
+
+    if (user.isDisabled === false) {
+      this.userService.deactivate(user.uid).subscribe(() => {
+        this.snackBarService.add('Použivateľ bol deaktivovaný');
+      });
+    } else {
+      this.userService.activate(user.uid).subscribe(() => {
+        this.snackBarService.add('Použivateľ bol aktivovaný');
+      });
+    }
+
+    user.isDisabled = !user.isDisabled;
   }
 
   destroy(event: MouseEvent, uid: string) {

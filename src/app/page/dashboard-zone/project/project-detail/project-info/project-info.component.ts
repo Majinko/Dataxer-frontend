@@ -74,7 +74,7 @@ export class ProjectInfoComponent implements OnInit {
       this.requestDone += 1;
       this.invoices = invoices
         .map((i) => {
-          i.price = this.documentHelper.removePercent(i.price, i.discount);
+          i.price = +this.documentHelper.removePercent(i.price, i.discount);
 
           return i;
         })
@@ -83,8 +83,8 @@ export class ProjectInfoComponent implements OnInit {
 
       this.payedInvoices = this.invoices.filter(i => i.paymentDate != null);
       this.noPayedInvoices = this.invoices.filter(i => i.paymentDate === null);
-      this.invoicePayedSum = sum(this.invoices.filter(i => i.paymentDate != null), 'price');
-      this.invoiceNotPayedSum = sum(this.invoices.filter(i => i.paymentDate === null), 'price');
+      this.invoicePayedSum = sum(this.payedInvoices, 'price');
+      this.invoiceNotPayedSum = sum(this.noPayedInvoices, 'price');
     });
 
     this.costService.findAllByProject(+this.route.snapshot.paramMap.get('id'), companyIds).subscribe(costs => {
@@ -94,8 +94,8 @@ export class ProjectInfoComponent implements OnInit {
 
       this.payedCost = costs.filter(cost => cost.paymentDate != null);
       this.noPayedCost = costs.filter(cost => cost.paymentDate === null);
-      this.costPayedSum = sum(costs.filter(cost => cost.paymentDate != null), 'price');
-      this.costNotPayedSum = sum(costs.filter(cost => cost.paymentDate === null), 'price');
+      this.costPayedSum = sum(this.payedCost, 'price');
+      this.costNotPayedSum = sum(this.noPayedCost, 'price');
     });
 
     this.priceOfferService.findAllByProject(+this.route.snapshot.paramMap.get('id'), companyIds).subscribe(priceOffers => {

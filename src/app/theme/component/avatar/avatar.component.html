@@ -1,5 +1,5 @@
 <div class="avatar-wrap text-center cursor-pointer text-light d-flex align-items-center" *ngIf="userService.user" [matMenuTriggerFor]="userMenu">
-  <img *ngIf="this.appProfileService.appProfile.logoUrl" [src]="this.appProfileService.appProfile.logoUrl" alt="Company">
+  <img *ngIf="this.appProfileService.appProfile.logoUrl" class="d-none d-md-block" [src]="this.appProfileService.appProfile.logoUrl" alt="Company">
   <ngx-avatar [src]="userService.user.photoUrl" size="40" bgColor="#19A5E5" name="{{userService.user.displayName}}" class=""></ngx-avatar>
 </div>
 

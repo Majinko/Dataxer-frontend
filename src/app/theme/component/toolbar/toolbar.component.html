@@ -1,20 +1,16 @@
 <mat-toolbar class="bg-white position-relative">
   <div class="container-fluid px-0">
-    <div class="row">
-      <div class="col px-md-3">
-        <div class="d-flex position-relative justify-content-between align-items-center" >
-          <app-menu-logo class="ml-1 ml-md-0 outline-none"></app-menu-logo>
-          <div class="search-avatar-wrap d-flex align-items-center justify-content-end w-100" [ngClass]="showSearchBar && searchBarService.showBar ? 'justify-content-between' : ''">
-            <app-search-bar [hidden]="showSearchBar === false || searchBarService.showBar === false" class="mr-0 mr-sm-3"></app-search-bar>
-            <div class="d-flex align-items-center">
-              <div>
-                <a *ngxPermissionsOnly="'Settings'" href="#" class="text-gray mr-3 mb-0 d-none d-md-inline t-d-n" mat-icon-button matTooltip="Nastavenie aplikácie" routerLink="/setting/profile">
-                  <mat-icon>settings</mat-icon>
-                </a>
-              </div>
-              <app-avatar class="mr-1 mr-md-0"></app-avatar>
-            </div>
+    <div class="d-flex position-relative justify-content-between align-items-center">
+      <app-menu-logo class="ml-1 ml-md-0 outline-none"></app-menu-logo>
+      <div class="search-avatar-wrap row d-flex align-items-center justify-content-end w-100" [ngClass]="showSearchBar && searchBarService.showBar ? 'justify-content-between' : ''">
+        <app-search-bar class="px-0 col col-sm-6 col-md-8-8" [hidden]="showSearchBar === false || searchBarService.showBar === false"></app-search-bar>
+        <div class="d-flex align-items-center col-2 col-md-auto justify-content-end">
+          <div>
+            <a *ngxPermissionsOnly="'Settings'" href="#" class="text-gray mr-3 mb-0 d-none d-md-inline t-d-n" mat-icon-button matTooltip="Nastavenie aplikácie" routerLink="/setting/profile">
+              <mat-icon>settings</mat-icon>
+            </a>
           </div>
+          <app-avatar class="mr-1 mr-md-0"></app-avatar>
         </div>
       </div>
     </div>

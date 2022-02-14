@@ -50,6 +50,7 @@ span {
 @media screen and (max-width: 576px) {
   .avatar-wrap {
     border: 0px solid #dadce0;
+    padding-right: 0;
   }
 }
 

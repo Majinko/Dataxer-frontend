@@ -13,7 +13,6 @@
       </div>
     </div>
 
-
     <div class="row">
       <div class="col-md-4 mb-2">
         <app-company-select-group formControlName="company" [ngForm]="ngForm"></app-company-select-group>
@@ -214,6 +213,7 @@
       <div class="col-md-3">
         <mat-form-field class="w-100">
           <input matInput #price type="number" formControlName="price" placeholder="Jednotková cena" class="text-right" />
+          <mat-error *ngIf="submitted && f.price.errors" class="mat-error-not-in-field">Jednotková cena je <strong>požadovaná.</strong></mat-error>
         </mat-form-field>
       </div>
 

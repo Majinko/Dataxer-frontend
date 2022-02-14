@@ -1,4 +1,4 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 
 import {PriceOfferService} from 'src/app/core/services/priceOffer.service';
 import {MessageService} from 'src/app/core/services/message.service';
@@ -10,24 +10,16 @@ import {HttpClient} from '@angular/common/http';
 import {MatDialog} from '@angular/material/dialog';
 import {PdfServiceService} from '../../../../../../core/services/pdf-service.service';
 import {DocumentHelper} from '../../../../../../core/class/DocumentHelper';
+import {CompanyService} from '../../../../../../core/services/company.service';
 
 @Component({
   selector: 'app-price-offer-table',
   templateUrl: './price-offer-table.component.html',
   providers: [DocumentHelper]
 })
-export class PriceOfferTableComponent extends PaginateClass<PriceOffer> {
+export class PriceOfferTableComponent extends PaginateClass<PriceOffer> implements OnInit  {
   destroyMsg = 'Cenová ponuka bola odstránená';
-  displayedColumns: string[] = [
-    'id',
-    'title',
-    'client',
-    'action',
-    'created',
-    'state',
-    'price',
-    'actions',
-  ];
+  displayedColumns: string[];
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
@@ -38,8 +30,32 @@ export class PriceOfferTableComponent extends PaginateClass<PriceOffer> {
     public messageService: MessageService,
     public dialog: MatDialog,
     private pdfService: PdfServiceService,
+    private companyService: CompanyService
   ) {
     super(messageService, priceOfferService, dialog);
+  }
+
+  ngOnInit(): void {
+    this.prepareColumns();
+  }
+
+  prepareColumns() {
+    this.companyService.all().subscribe(c => {
+      this.displayedColumns = [
+        'number',
+        'title',
+        'client',
+        'action',
+        'created',
+        'state',
+        'price',
+        'actions',
+      ];
+
+      if (c.length > 1) {
+        this.displayedColumns = ['company'].concat(this.displayedColumns);
+      }
+    });
   }
 
   pdf(event: MouseEvent, id: number, name: string) {

@@ -10,6 +10,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {PaymentService} from '../../../../../../core/services/payment.service';
 import {PaymentDialogComponent} from '../../../../../../theme/component/payments/components/payment-dialog/payment-dialog.component';
 import {PdfServiceService} from '../../../../../../core/services/pdf-service.service';
+import {CompanyService} from '../../../../../../core/services/company.service';
 
 @Component({
   selector: 'app-invoice-table',
@@ -19,15 +20,7 @@ import {PdfServiceService} from '../../../../../../core/services/pdf-service.ser
 export class InvoiceTableComponent extends PaginateClass<Invoice> implements OnInit {
   totalPrice: number = 0;
   destroyMsg = 'Faktura bola odstránená';
-  displayedColumns: string[] = [
-    'variableSymbol',
-    'client',
-    'action',
-    'created',
-    'state',
-    'price',
-    'actions',
-  ];
+  displayedColumns: string[];
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
@@ -38,7 +31,8 @@ export class InvoiceTableComponent extends PaginateClass<Invoice> implements OnI
     public invoiceService: InvoiceService,
     public dialog: MatDialog,
     private paymentService: PaymentService,
-    private pdfService: PdfServiceService
+    private pdfService: PdfServiceService,
+    private companyService: CompanyService
   ) {
     super(messageService, invoiceService, dialog);
   }
@@ -50,6 +44,26 @@ export class InvoiceTableComponent extends PaginateClass<Invoice> implements OnI
 
     this.paymentService.destroyPayment.subscribe(() => {
       this.paginate();
+    });
+
+    this.prepareColumns();
+  }
+
+  prepareColumns() {
+    this.companyService.all().subscribe(c => {
+      this.displayedColumns = [
+        'variableSymbol',
+        'client',
+        'action',
+        'created',
+        'state',
+        'price',
+        'actions',
+      ];
+
+      if (c.length > 1) {
+        this.displayedColumns = ['company'].concat(this.displayedColumns);
+      }
     });
   }
 

@@ -17,6 +17,7 @@ export interface User {
   city?: string;
   postalCode?: string;
   country?: string;
+  isDisabled?: boolean;
   roles?: Role[];
 }
 

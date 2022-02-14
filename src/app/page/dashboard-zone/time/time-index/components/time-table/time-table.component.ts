@@ -87,6 +87,7 @@ export class TimeTableComponent implements OnInit {
   }
 
   filterData(data: DocumentFilter) {
+    this.isLoadingResults = true;
     this.timeService.filter = data.documentFilter;
     this.timeService.rsqlFilter = data.rsqlFilter;
 

@@ -58,6 +58,14 @@
                   matTooltip="Edit item">
                   <mat-icon class="text-theme">edit</mat-icon>
                 </button>
+
+                <button
+                  (click)="deactivateOrActivateUser($event, element)"
+                  mat-icon-button
+                  matTooltip="{{element.isDisabled ? 'Activate user' : 'Deactivate user'}}">
+                  <mat-icon class="text-theme">{{element.isDisabled ? 'visibility' : 'visibility_off'}}</mat-icon>
+                </button>
+
                 <button
                   (click)="destroy($event, element.uid)"
                   mat-icon-button
