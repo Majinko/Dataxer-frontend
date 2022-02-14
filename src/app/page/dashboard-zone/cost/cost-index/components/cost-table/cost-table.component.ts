@@ -17,6 +17,7 @@ import {PaymentService} from '../../../../../../core/services/payment.service';
 })
 export class CostTableComponent extends PaginateClass<Cost> implements AfterViewInit {
   displayedColumns: string[] = [
+    'company',
     'title',
     'project',
     'client',

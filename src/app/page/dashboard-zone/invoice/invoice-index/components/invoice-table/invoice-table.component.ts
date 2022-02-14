@@ -20,6 +20,7 @@ export class InvoiceTableComponent extends PaginateClass<Invoice> implements OnI
   totalPrice: number = 0;
   destroyMsg = 'Faktura bola odstránená';
   displayedColumns: string[] = [
+    'company',
     'variableSymbol',
     'client',
     'action',

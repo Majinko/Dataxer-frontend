@@ -14,6 +14,7 @@ import {InvoiceShowComponent} from './invoice-show/invoice-show.component';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {TranslateModule} from '@ngx-translate/core';
 import {DocumentPaginateModule} from '../document-paginate/document-paginate.module';
+import {AvatarModule} from "ngx-avatar";
 
 const routes: Routes = [{
   path: '',
@@ -59,17 +60,18 @@ const routes: Routes = [{
     InvoiceEditComponent,
     InvoiceShowComponent
   ],
-  imports: [
-    CommonModule,
-    RouterModule.forChild(routes),
-    MaterialModule,
-    ThemeModule,
-    ReactiveFormsModule,
-    CoreModule,
-    NgSelectModule,
-    TranslateModule,
-    DocumentPaginateModule,
-  ]
+    imports: [
+        CommonModule,
+        RouterModule.forChild(routes),
+        MaterialModule,
+        ThemeModule,
+        ReactiveFormsModule,
+        CoreModule,
+        NgSelectModule,
+        TranslateModule,
+        DocumentPaginateModule,
+        AvatarModule,
+    ]
 })
 export class InvoiceModule {
 }

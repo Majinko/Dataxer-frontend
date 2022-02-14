@@ -19,7 +19,8 @@ import {DocumentHelper} from '../../../../../../core/class/DocumentHelper';
 export class PriceOfferTableComponent extends PaginateClass<PriceOffer> {
   destroyMsg = 'Cenová ponuka bola odstránená';
   displayedColumns: string[] = [
-    'id',
+    'company',
+    'number',
     'title',
     'client',
     'action',
