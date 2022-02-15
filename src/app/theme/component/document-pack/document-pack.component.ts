@@ -13,13 +13,12 @@ import {Project} from '../../../core/models/project';
 @Component({
   selector: 'app-document-pack',
   templateUrl: './document-pack.component.html',
-  styleUrls: ['./document-pack.component.css'],
+  styleUrls: ['./document-pack.component.scss'],
 })
 export class DocumentPackComponent implements OnInit {
   units = UNITS;
 
   categories: CategoryItemNode[];
-
 
   @Input() documentId: number;
   @Input() packs: Pack[];
@@ -196,21 +195,33 @@ export class DocumentPackComponent implements OnInit {
 
   // show discount
   showDiscount(trRow: HTMLTableRowElement) {
+    const settingInputs = trRow.querySelectorAll('.jsSettings');
     const discountInputs = trRow.querySelectorAll('.jsDiscount');
 
     // tslint:disable-next-line:no-unused-expression
     discountInputs && discountInputs.forEach(discountInput => {
       discountInput.classList.toggle('d-none');
     });
+
+    // tslint:disable-next-line:no-unused-expression
+    settingInputs && settingInputs.forEach(settingInput => {
+      settingInput.classList.add('d-none');
+    });
   }
 
   // show item more options
-  showMoreOptions(trRow: HTMLTableRowElement) {
+  showMoreOptions(trRow: HTMLTableRowElement, add: boolean = true) {
+    const discountInputs = trRow.querySelectorAll('.jsDiscount');
     const settingInputs = trRow.querySelectorAll('.jsSettings');
 
     // tslint:disable-next-line:no-unused-expression
     settingInputs && settingInputs.forEach(settingInput => {
       settingInput.classList.toggle('d-none');
+    });
+
+    // tslint:disable-next-line:no-unused-expression
+    discountInputs && discountInputs.forEach(discountInput => {
+      discountInput.classList.add('d-none');
     });
   }
 

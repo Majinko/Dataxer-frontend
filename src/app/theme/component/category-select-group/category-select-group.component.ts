@@ -49,7 +49,7 @@ export class CategorySelectGroupComponent implements ControlValueAccessor, OnIni
   }
 
   private getCategories() {
-    if (this.categoryItemNodes.length === 0) {
+    if (this.categoryItemNodes.length === 0 && this.types) {
       this.categoryService.fallByTypeIn(this.types).subscribe(categories => this.categoryItemNodes = categories);
     }
   }

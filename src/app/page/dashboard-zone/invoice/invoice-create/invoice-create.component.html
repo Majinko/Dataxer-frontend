@@ -141,7 +141,7 @@
 
   <ng-template #copyInvoiceBlock>
     <div *ngIf="this.oldPacks.length > 0 && f.company.value != null">
-      <app-document-pack [formGroup]="formGroup" [packs]="this.oldPacks" [documentHelper]="documentHelper"></app-document-pack>
+      <app-document-pack [formGroup]="formGroup" [packs]="this.oldPacks" [documentHelper]="documentHelper" [projects]="projects"></app-document-pack>
     </div>
   </ng-template>
 

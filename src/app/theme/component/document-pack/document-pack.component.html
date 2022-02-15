@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-12" [formGroup]="formGroup">
     <div class="table-wrap no-border" formArrayName="packs" cdkDropList (cdkDropListDropped)="dropPack($event)">
-      <table class="table-hover table-hover-gray table-data table-borderless w-100 mat-table" cdkDrag [formGroupName]="i" *ngFor="let pack of formPacks.controls; let i=index" >
+      <table class="table-hover table-hover-gray table-data table-borderless w-100 mat-table" cdkDrag cdkDragLockAxis="y" [formGroupName]="i" *ngFor="let pack of formPacks.controls; let i=index" >
         <tbody class="no-border">
           <tr class="tbody-row set-row">
             <td>
@@ -52,7 +52,7 @@
         </tbody>
 
         <tbody [hidden]="!documentHelper.packs[i].showItems" class="no-border table-item table-td-initial" formArrayName="packItems" cdkDropList (cdkDropListDropped)="dropItem(i, $event)">
-          <tr #trRow class="tbody-row set-row" [formGroupName]="j" *ngFor="let item of pack.get('packItems').controls; let j=index" cdkDrag>
+          <tr #trRow class="tbody-row item-row" [formGroupName]="j" *ngFor="let item of pack.get('packItems').controls; let j=index" cdkDragLockAxis="y" cdkDrag>
             <td colspan="2" class="text-right">
               <a
                 cdkDragHandle
@@ -134,6 +134,27 @@
               </div>
             </td>
             <td class="text-center thin">
+          <!--    <button class="text-theme" onclick="event.stopPropagation();" mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+
+              <mat-menu #menu="matMenu" class="menu-not-rounded">
+                <button mat-menu-item (click)="showDiscount(trRow)">
+                  <mat-icon>local_offer</mat-icon>
+                  <span>Zľava</span>
+                </button>
+
+                <button mat-menu-item (click)="showMoreOptions(trRow)">
+                  <mat-icon>settings</mat-icon>
+                  <span>Ďalšie nastavenia</span>
+                </button>
+
+                <button mat-menu-item (click)="removeItem($event, j, i)">
+                  <mat-icon>delete</mat-icon>
+                  <span>Odstrániť položku</span>
+                </button>
+              </mat-menu>-->
+
               <a
                 (click)="showDiscount(trRow)"
                 class="mr-3"
@@ -141,13 +162,13 @@
                 matTooltip="Discount item">
                 <mat-icon class="text-theme">local_offer</mat-icon>
               </a>
-              <a
+             <!-- <a
                 (click)="showMoreOptions(trRow)"
                 class="mr-3"
                 mat-icon-button
                 matTooltip="Setting item">
                 <mat-icon class="text-theme">settings</mat-icon>
-              </a>
+              </a>-->
               <button
                 (click)="removeItem($event, j, i)"
                 mat-icon-button
