@@ -1,4 +1,5 @@
 import {Item} from './item';
+import {CategoryItemNode} from './category-item-node';
 
 export interface Pack {
   id: number;
@@ -21,4 +22,5 @@ export interface PackItem {
   price?: number;
   tax?: number;
   totalPrice?: number;
+  category?: CategoryItemNode;
 }

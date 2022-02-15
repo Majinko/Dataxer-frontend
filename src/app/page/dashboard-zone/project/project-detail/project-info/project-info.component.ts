@@ -10,7 +10,6 @@ import {ProjectService} from '../../../../../core/services/project.service';
 import {Project, ProjectManHours} from '../../../../../core/models/project';
 import {sum} from '../../../../../../helper';
 import {Company} from '../../../../../core/models/company';
-import {CompanyService} from '../../../../../core/services/company.service';
 import {DocumentHelper} from '../../../../../core/class/DocumentHelper';
 
 @Component({
@@ -50,7 +49,6 @@ export class ProjectInfoComponent implements OnInit {
     private priceOfferService: PriceOfferService,
     private costService: CostService,
     private route: ActivatedRoute,
-    private companyService: CompanyService
   ) {
   }
 

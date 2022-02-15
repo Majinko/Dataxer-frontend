@@ -2,6 +2,7 @@ import {AfterViewInit, Component, forwardRef, Input, OnInit} from '@angular/core
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 import {CategoryItemNode} from '../../../core/models/category-item-node';
 import {CategoryService} from '../../../core/services/category.service';
+import {DropdownPosition} from '@ng-select/ng-select/lib/ng-select.component';
 
 @Component({
   selector: 'app-category-select-group',
@@ -15,9 +16,11 @@ import {CategoryService} from '../../../core/services/category.service';
 })
 export class CategorySelectGroupComponent implements ControlValueAccessor, OnInit, AfterViewInit {
   categoryItemNode: CategoryItemNode;
-  categoryItemNodes: CategoryItemNode[] = [];
+
 
   @Input() types: string[];
+  @Input() categoryItemNodes: CategoryItemNode[] = [];
+  @Input() dropDownPosition: DropdownPosition = 'auto';
 
   constructor(
     private categoryService: CategoryService
@@ -25,9 +28,9 @@ export class CategorySelectGroupComponent implements ControlValueAccessor, OnIni
   }
 
   onTouched = () => {
-  };
+  }
   onChange = _ => {
-  };
+  }
 
   ngOnInit(): void {
   }
@@ -46,7 +49,9 @@ export class CategorySelectGroupComponent implements ControlValueAccessor, OnIni
   }
 
   private getCategories() {
-    this.categoryService.fallByTypeIn(this.types).subscribe(categories => this.categoryItemNodes = categories);
+    if (this.categoryItemNodes.length === 0) {
+      this.categoryService.fallByTypeIn(this.types).subscribe(categories => this.categoryItemNodes = categories);
+    }
   }
 
   registerOnChange(fn: any): void {

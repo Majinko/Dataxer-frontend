@@ -3,7 +3,6 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {PriceOfferService} from 'src/app/core/services/priceOffer.service';
 import {MessageService} from 'src/app/core/services/message.service';
 import {PriceOffer} from 'src/app/core/models/priceOffer';
-
 import {MatPaginator} from '@angular/material/paginator';
 import {PaginateClass} from '../../../../../../core/class/PaginateClass';
 import {HttpClient} from '@angular/common/http';
@@ -17,9 +16,9 @@ import {CompanyService} from '../../../../../../core/services/company.service';
   templateUrl: './price-offer-table.component.html',
   providers: [DocumentHelper]
 })
-export class PriceOfferTableComponent extends PaginateClass<PriceOffer> implements OnInit  {
-  destroyMsg = 'Cenová ponuka bola odstránená';
+export class PriceOfferTableComponent extends PaginateClass<PriceOffer> implements OnInit {
   displayedColumns: string[];
+  destroyMsg = 'Cenová ponuka bola odstránená';
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 

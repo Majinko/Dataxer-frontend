@@ -5,12 +5,15 @@ import {BankAccountService} from '../services/bank-account.service';
 import {NumberingService} from '../services/numbering.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {MessageService} from '../services/message.service';
+import {Project} from '../models/project';
+import {ProjectService} from '../services/project.service';
 
 @Injectable()
 export abstract class DocumentHelperClass {
   formGroup: FormGroup;
   isEdit: boolean = false;
   documentType: string = 'INVOICE';
+  projects: Project[] = [];
 
   protected constructor(
     protected bankAccountService: BankAccountService,
@@ -18,7 +21,14 @@ export abstract class DocumentHelperClass {
     protected messageService: MessageService,
     protected router: Router,
     protected route: ActivatedRoute,
+    protected projectService: ProjectService
   ) {
+  }
+
+  protected getProject() {
+    this.projectService.all().subscribe((p) => {
+      this.projects = p;
+    });
   }
 
   // detect change form

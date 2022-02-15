@@ -61,7 +61,6 @@ export class PaginateClass<T> extends PaginateClassData {
     dialogRef.afterClosed().subscribe(dialogResult => {
       if (dialogResult === true) {
         this.service.destroy(id).subscribe((r) => {
-          this.paginate();
 
           this.messageService.add(this.destroyMsg);
         });

@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {TimeService} from '../../../../core/services/time.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import {MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter} from '@angular/material-moment-adapter';
 import {APP_DATE_FORMATS, timeRange} from '../../../../../helper';
@@ -40,7 +40,8 @@ export class TimeEditComponent implements OnInit {
     private formBuilder: FormBuilder,
     private timeService: TimeService,
     private messageService: MessageService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {
   }
 
@@ -105,7 +106,9 @@ export class TimeEditComponent implements OnInit {
     }
 
     this.timeService.update(this.formGroup.value).subscribe(() => {
-      this.messageService.add('Čas bol uložený');
+      this.router.navigate(['/time']).then(() => {
+        this.messageService.add('Čas bol uložený');
+      });
     });
   }
 

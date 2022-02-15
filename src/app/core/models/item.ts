@@ -22,8 +22,8 @@ export interface Item {
   isPartOfSet?: boolean;
   needMontage?: boolean;
   file?: any;
+  category?: CategoryItemNode;
   itemPrice?: ItemPrice;
-  categories?: CategoryItemNode[];
   supplier?: Contact;
   files?: CustomFile[];
 }
