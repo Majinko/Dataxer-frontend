@@ -1,4 +1,4 @@
-<div *ngIf="priceOffer" class="mb-5">
+<div *ngIf="demand" class="mb-5">
   <div class="row mb-4">
     <div class="col mb-3">
       <div class="d-flex justify-content-between align-items-center">
@@ -6,20 +6,21 @@
           <mat-icon routerLink="/document/demand" class="mr-2 mr-md-5 cursor-pointer">keyboard_backspace</mat-icon>
           <div class="d-flex align-items-center">
             <div>
-              <h1 class="mb-0">{{priceOffer.title}}</h1>
+              <h1 class="mb-0">Dopyt 2022000001</h1>
+              <!-- <h1 class="mb-0">{{demand.title}}</h1> -->
             </div>
           </div>
         </div>
         <div>
-          <button [routerLink]="['/demand/edit', priceOffer.id]" mat-icon-button matTooltip="Upraviť dopyt">
+          <button [routerLink]="['/demand/edit', demand.id]" mat-icon-button matTooltip="Upraviť dopyt">
             <mat-icon>edit</mat-icon>
           </button>
 
-          <button (click)="pdf(priceOffer.id, priceOffer.title)" mat-icon-button matTooltip="Stiahnuť PDF">
+          <button (click)="pdf(demand.id, demand.title)" mat-icon-button matTooltip="Stiahnuť PDF">
             <mat-icon>save_alt</mat-icon>
           </button>
 
-          <app-document-destroy-button redirectUrl="/demand" tooltip="Vymazať dopyt" destroyMsg="Dopyt bola vymazaný" [id]="priceOffer.id" [service]="priceOfferService"></app-document-destroy-button>
+          <app-document-destroy-button redirectUrl="/demand" tooltip="Vymazať dopyt" destroyMsg="Dopyt bola vymazaný" [id]="demand.id" [service]="demandService"></app-document-destroy-button>
 
         </div>
       </div>
@@ -34,44 +35,44 @@
     <div class="col-md-4">
       <p class="mb-0">Dodávateľ:</p>
 
-      <h3 class="text-dark"><strong>{{priceOffer.documentData.firm.name}}</strong></h3>
+      <h3 class="text-dark"><strong>{{demand.documentData.firm.name}}</strong></h3>
       <p class="mb-3">
-        {{priceOffer.documentData.firm.street}}
+        {{demand.documentData.firm.street}}
         <br>
-        {{priceOffer.documentData.firm.city + ' ' + priceOffer.documentData.firm.postalCode}}
+        {{demand.documentData.firm.city + ' ' + demand.documentData.firm.postalCode}}
         <br>
-        {{priceOffer.documentData.firm.country}}
+        {{demand.documentData.firm.country}}
       </p>
 
       <p>
-        <b class="text-dark">IČO:</b> {{priceOffer.documentData.firm.cin}} <br>
-        <b class="text-dark">DIČ:</b> {{priceOffer.documentData.firm.tin}} <br>
-        <b class="text-dark">IČ DPH:</b> {{priceOffer.documentData.firm.vatin}} <br>
+        <b class="text-dark">IČO:</b> {{demand.documentData.firm.cin}} <br>
+        <b class="text-dark">DIČ:</b> {{demand.documentData.firm.tin}} <br>
+        <b class="text-dark">IČ DPH:</b> {{demand.documentData.firm.vatin}} <br>
       </p>
 
       <p>
-        <b class="text-dark">Banka:</b> {{priceOffer.documentData.bankAccount.bankName}} <br>
-        <b class="text-dark">Účet(IBAN):</b> {{priceOffer.documentData.bankAccount.iban}}<br>
+        <b class="text-dark">Banka:</b> {{demand.documentData.bankAccount.bankName}} <br>
+        <b class="text-dark">Účet(IBAN):</b> {{demand.documentData.bankAccount.iban}}<br>
       </p>
     </div>
 
     <div class="col-md-4">
       <p class="mb-0">Odberateľ:</p>
 
-      <div *ngIf="priceOffer.documentData.contact">
-        <h3 class="text-dark"><strong>{{priceOffer.documentData.contact.name}}</strong></h3>
+      <div *ngIf="demand.documentData.contact">
+        <h3 class="text-dark"><strong>{{demand.documentData.contact.name}}</strong></h3>
         <p class="mb-3">
-          {{priceOffer.documentData.contact.street}}
+          {{demand.documentData.contact.street}}
           <br>
-          {{priceOffer.documentData.contact.city + ' ' + priceOffer.documentData.contact.postalCode}}
+          {{demand.documentData.contact.city + ' ' + demand.documentData.contact.postalCode}}
           <br>
-          {{priceOffer.documentData.contact.country}}
+          {{demand.documentData.contact.country}}
         </p>
 
         <p>
-          <b class="text-dark">IČO:</b> {{priceOffer.documentData.contact.cin}} <br>
-          <b class="text-dark">DIČ:</b> {{priceOffer.documentData.contact.tin}} <br>
-          <b class="text-dark">IČ DPH:</b> {{priceOffer.documentData.contact.vatin}} <br>
+          <b class="text-dark">IČO:</b> {{demand.documentData.contact.cin}} <br>
+          <b class="text-dark">DIČ:</b> {{demand.documentData.contact.tin}} <br>
+          <b class="text-dark">IČ DPH:</b> {{demand.documentData.contact.vatin}} <br>
         </p>
       </div>
     </div>
@@ -82,17 +83,17 @@
 
     <div class="col-md-4">
       <p class="mb-0">Dátum dodania:</p>
-      <h3 class="text-dark"><b>{{priceOffer.deliveredDate | date:'dd.MM.y' || '-'}}</b></h3>
+      <h3 class="text-dark"><b>{{demand.deliveredDate | date:'dd.MM.y' || '-'}}</b></h3>
     </div>
 
     <div class="col-md-4">
       <p class="mb-0">Dátum vystavenia:</p>
-      <h3 class="text-dark"><b>{{priceOffer.createdDate | date:'dd.MM.y' || '-'}}</b></h3>
+      <h3 class="text-dark"><b>{{demand.createdDate | date:'dd.MM.y' || '-'}}</b></h3>
     </div>
 
     <div class="col-md-4">
       <p class="mb-0">Dátum splatnosti:</p>
-      <h3 class="text-dark"><b>{{priceOffer.dueDate | date:'dd.MM.y' || '-'}}</b></h3>
+      <h3 class="text-dark"><b>{{demand.dueDate | date:'dd.MM.y' || '-'}}</b></h3>
     </div>
 
     <div class="col-12">
@@ -109,7 +110,7 @@
             <th class="text-center white-space-nowrap">MJ</th>
           </tr>
           </thead>
-          <tbody *ngFor="let pack of priceOffer.packs">
+          <tbody *ngFor="let pack of demand.packs">
           <tr *ngIf="pack.title" class="pack-row">
             <td class="text-left font-weight-bold" style="white-space: nowrap">
               {{pack.title}}
@@ -150,11 +151,11 @@
           <mat-icon>cancel</mat-icon>
           Zrušiť
         </button>
-        <button mat-flat-button class="btn-icon btn-theme mr-3" (click)="createPriceOffer()" type="button">
+        <button *ngIf="accepted" mat-flat-button class="btn-icon btn-theme mr-3" (click)="createPriceOffer()" type="button">
           <mat-icon>save</mat-icon>
           Vytvoriť cenovú ponuku
         </button>
-        <button mat-flat-button class="btn-icon btn-theme-warn" (click)="sendDemand()" type="button">
+        <button *ngIf="!accepted" mat-flat-button class="btn-icon btn-theme-warn" (click)="sendDemand()" type="button">
           <mat-icon>save</mat-icon>
           Odoslať dodávateľovi
         </button>

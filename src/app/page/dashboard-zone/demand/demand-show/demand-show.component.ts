@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {PriceOffer} from '../../../../core/models/priceOffer';
 import {ActivatedRoute, Router} from '@angular/router';
 import {DocumentHelper} from '../../../../core/class/DocumentHelper';
 import {PriceOfferService} from '../../../../core/services/priceOffer.service';
 import {PdfServiceService} from '../../../../core/services/pdf-service.service';
+import {DemandService} from '../../../../core/services/demand.service';
+import {Demand} from '../../../../core/models/demand';
 
 @Component({
   selector: 'app-demand-show',
@@ -13,14 +14,16 @@ import {PdfServiceService} from '../../../../core/services/pdf-service.service';
 })
 export class DemandShowComponent implements OnInit {
   documentId: number;
-  priceOffer: PriceOffer;
+  demand: Demand;
+  accepted = true;
 
   constructor(
     private route: ActivatedRoute,
     public priceOfferService: PriceOfferService,
     public documentHelper: DocumentHelper,
     private pdfService: PdfServiceService,
-    private router: Router
+    private router: Router,
+    public demandService: DemandService,
   ) {
   }
 
@@ -34,7 +37,7 @@ export class DemandShowComponent implements OnInit {
 
   private getById() {
     this.priceOfferService.getById(2586).subscribe(priceOffer => {
-      this.priceOffer = priceOffer;
+      this.demand = priceOffer;
     });
   }
 

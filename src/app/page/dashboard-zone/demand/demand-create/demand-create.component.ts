@@ -43,7 +43,7 @@ export class DemandCreateComponent extends DocumentHelperClass implements OnInit
   submitted: boolean = false;
   oldPacks: Pack[] = [];
   contacts: Contact[] = [];
-  documentType: string = 'PRICE_OFFER';
+  documentType: string = 'DEMAND';
 
   constructor(
     private formBuilder: FormBuilder,

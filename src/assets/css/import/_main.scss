@@ -95,14 +95,27 @@ app-company {
     width: calc(100% - 40px);
   }
 }
-.ng-select-container {
+
+.company-select {
   .ng-placeholder + .ng-value {
     width: 100%;
   }
+}
+.ng-select-container {
+
   .company-option .img-wrap {
     width: 30px;
     padding: 0 15px;
     padding-left: 0;
+  }
+}
+
+app-demand-pack {
+  table.table-hover {
+    max-width: 1000px;
+  }
+  & > .row > .col-md-12.text-center {
+    max-width: 1000px;
   }
 }
 

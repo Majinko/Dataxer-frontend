@@ -23,6 +23,10 @@ const routes: Routes = [{
       component: PriceOfferCreateComponent
     },
     {
+      path: 'create/demand/:demandId',
+      component: PriceOfferCreateComponent
+    },
+    {
       path: 'show/:id',
       component: PriceOfferShowComponent
     },

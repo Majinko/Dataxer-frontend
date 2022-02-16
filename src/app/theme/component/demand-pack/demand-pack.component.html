@@ -4,7 +4,7 @@
       <table class="table-hover table-hover-gray table-data table-borderless w-100 mat-table" cdkDrag [formGroupName]="i" *ngFor="let pack of formPacks.controls; let i=index" >
         <tbody class="no-border">
           <tr class="tbody-row set-row">
-            <td>
+            <td colspan="3">
               <a
                 cdkDragHandle
                 class="mr-3"
@@ -35,7 +35,7 @@
 
         <tbody [hidden]="!documentHelper.packs[i].showItems" class="no-border table-item table-td-initial" formArrayName="packItems" cdkDropList (cdkDropListDropped)="dropItem(i, $event)">
           <tr #trRow class="tbody-row set-row" [formGroupName]="j" *ngFor="let item of pack.get('packItems').controls; let j=index" cdkDrag>
-            <td colspan="2" class="text-right">
+            <td class="text-right">
               <a
                 cdkDragHandle
                 class="mr-3"
