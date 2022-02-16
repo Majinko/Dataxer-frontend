@@ -1,12 +1,7 @@
-import {CategoryItemNode} from "./category-item-node";
-import {Contact} from "./contact";
+import {DocumentBase} from './documentBase';
+import {OfferType} from '../enums/offerType.enum';
 
-export interface Demand {
-  id: number;
-  category?: CategoryItemNode
-  client?: Contact
-  title?: string;
-  description?: string;
-  source?: string;
-  state?: string
+
+export class Demand extends DocumentBase {
+  state: OfferType;
 }

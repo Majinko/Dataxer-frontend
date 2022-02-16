@@ -18,6 +18,7 @@ import {PriceOffer} from '../../../../core/models/priceOffer';
 import {UserService} from '../../../../core/services/user.service';
 import {ContactService} from '../../../../core/services/contact.service';
 import {Contact} from '../../../../core/models/contact';
+import {Demand} from '../../../../core/models/demand';
 
 @Component({
   selector: 'app-demand-create',
@@ -67,7 +68,7 @@ export class DemandCreateComponent extends DocumentHelperClass implements OnInit
     this.getContacts();
 
     if (this.route.snapshot.paramMap.get('id') === null) {
-      this.preparePriceOfferData();
+      this.prepareDemand();
     } else {
       this.checkDuplicate();
     }
@@ -90,7 +91,7 @@ export class DemandCreateComponent extends DocumentHelperClass implements OnInit
       discount: 0,
       price: 0,
       totalPrice: 0,
-      documentType: 'PRICE_OFFER',
+      documentType: 'DEMAND',
       documentData: this.formBuilder.group({
         user: this.formBuilder.group({
           displayName: '',
@@ -108,20 +109,20 @@ export class DemandCreateComponent extends DocumentHelperClass implements OnInit
 
   private checkDuplicate() {
     if (+this.route.snapshot.paramMap.get('id')) {
-      this.priceOfferService.duplicate(+this.route.snapshot.paramMap.get('id')).subscribe((oldPriceOffer) => {
-        this.pathFromOldObject(oldPriceOffer);
+      this.demandService.duplicate(+this.route.snapshot.paramMap.get('id')).subscribe((oldDemand) => {
+        this.pathFromOldObject(oldDemand);
 
-        this.preparePriceOfferData();
+        this.prepareDemand();
       });
     }
   }
 
   // set user
-  private preparePriceOfferData() {
+  private prepareDemand() {
     this.formGroup.get('documentData.user').patchValue(this.userService.user);
   }
 
-  private pathFromOldObject(document: PriceOffer) {
+  private pathFromOldObject(document: Demand) {
     this.oldPacks = document.packs;
 
     this.formGroup.patchValue({
@@ -139,7 +140,7 @@ export class DemandCreateComponent extends DocumentHelperClass implements OnInit
 
 
   // submit form
-  submit() {
+  submit(type: string) {
     this.submitted = true;
 
     if (this.formGroup.invalid) {
@@ -153,9 +154,12 @@ export class DemandCreateComponent extends DocumentHelperClass implements OnInit
       packs: this.documentHelper.packs
     });
 
-    this.priceOfferService.store(this.formGroup.value).subscribe((r) => {
+    console.log(this.formGroup.value);
+    return;
+
+    this.demandService.store(this.formGroup.value).subscribe((r) => {
       this.router
-        .navigate(['/document/priceOffer'])
+        .navigate(['/document/demand'])
         .then(() => this.messageService.add('Cenová ponuka bola uložená'));
     });
   }

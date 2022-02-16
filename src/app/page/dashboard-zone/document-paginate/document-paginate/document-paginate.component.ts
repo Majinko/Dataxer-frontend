@@ -8,6 +8,7 @@ import {AdHostDirective} from '../../../../core/directives/ad-host.directive';
 import {InvoiceTableComponent} from '../../invoice/invoice-index/components/invoice-table/invoice-table.component';
 import {PriceOfferTableComponent} from '../../price-offer/price-offer-index/components/price-offer-table/price-offer-table.component';
 import {CostTableComponent} from '../../cost/cost-index/components/cost-table/cost-table.component';
+import {DemandTableComponent} from '../../demand/demand-index/component/demand-table/demand-table.component';
 
 @Component({
   selector: 'app-document-paginate',
@@ -85,6 +86,17 @@ export class DocumentPaginateComponent implements OnInit, AfterViewInit {
           this.godButtonService.title = 'Nový náklad';
           this.godButtonService.routerLink = '/cost/create';
           this.godButtonService.menuItem = [];
+
+        case 'demand':
+          this.title = 'Dopyty';
+
+          this.modelName = 'demand';
+          this.inputSearchBarValues = ['title', 'contractor.name'];
+          this.inputSearchBarSelectValues = ['contractor.id', 'company.id', 'project.id', 'state', 'date', 'documentType'];
+
+          this.godButtonService.title = 'Nový dopyt';
+          this.godButtonService.routerLink = '/demand/create';
+          this.godButtonService.menuItem = [];
       }
     });
   }
@@ -108,6 +120,10 @@ export class DocumentPaginateComponent implements OnInit, AfterViewInit {
         case 'cost':
           factory = this.resolver.resolveComponentFactory(CostTableComponent);
           this.componentRef = viewContainerRef.createComponent<CostTableComponent>(factory);
+          break;
+        case 'demand':
+          factory = this.resolver.resolveComponentFactory(DemandTableComponent);
+          this.componentRef = viewContainerRef.createComponent<DemandTableComponent>(factory);
           break;
         default:
           factory = this.resolver.resolveComponentFactory(InvoiceTableComponent);

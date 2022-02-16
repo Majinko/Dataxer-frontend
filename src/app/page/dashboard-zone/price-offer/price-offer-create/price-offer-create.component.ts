@@ -134,10 +134,11 @@ export class PriceOfferCreateComponent extends DocumentHelperClass implements On
 
     // set offer price and total price
     this.formGroup.patchValue({
-      price: this.documentHelper.price,
-      totalPrice: this.documentHelper.totalPrice,
       packs: this.documentHelper.packs
     });
+
+    console.log(this.formGroup.value);
+    return;
 
     this.priceOfferService.store(this.formGroup.value).subscribe((r) => {
       this.router

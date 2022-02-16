@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {PriceOffer} from '../../../../core/models/priceOffer';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {DocumentHelper} from '../../../../core/class/DocumentHelper';
 import {PriceOfferService} from '../../../../core/services/priceOffer.service';
 import {PdfServiceService} from '../../../../core/services/pdf-service.service';
@@ -19,7 +19,8 @@ export class DemandShowComponent implements OnInit {
     private route: ActivatedRoute,
     public priceOfferService: PriceOfferService,
     public documentHelper: DocumentHelper,
-    private pdfService: PdfServiceService
+    private pdfService: PdfServiceService,
+    private router: Router
   ) {
   }
 
@@ -38,9 +39,18 @@ export class DemandShowComponent implements OnInit {
   }
 
   pdf(id: number, title: string) {
-    this.pdfService.downloadPdf(id, 'priceOffer').subscribe(r => {
+    this.pdfService.downloadPdf(id, 'demand').subscribe(r => {
       this.documentHelper.pdf(r, title);
     });
   }
 
+  sendDemand() {
+    console.log('sendDemand');
+  }
+
+  createPriceOffer() {
+    console.log('createPriceOffer');
+    this.router.navigate(['/price-offer/create/demand', this.documentId ]).then(() => {
+    });
+  }
 }

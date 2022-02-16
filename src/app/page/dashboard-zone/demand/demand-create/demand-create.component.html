@@ -1,11 +1,11 @@
 <div class="row mb-4">
   <div class="col d-flex align-items-center mb-3">
-    <mat-icon routerLink="/document/priceOffer" class="mr-2 mr-md-5 cursor-pointer">keyboard_backspace</mat-icon>
+    <mat-icon routerLink="/document/demand" class="mr-2 mr-md-5 cursor-pointer">keyboard_backspace</mat-icon>
     <h1 class="mb-0">Nový dopyt</h1>
   </div>
 </div>
 
-<form autocomplete="off" [formGroup]="formGroup" #ngForm="ngForm" (ngSubmit)="submit()">
+<form autocomplete="off" [formGroup]="formGroup" #ngForm="ngForm">
   <div class="row">
     <div class="col-12">
       <h2 class="border-bottom-2 pb-2 mb-4">Súhrnné info</h2>
@@ -157,9 +157,13 @@
         <mat-icon>cancel</mat-icon>
         Zrušiť
       </button>
-      <button mat-flat-button class="btn-icon btn-theme">
+      <button mat-flat-button class="btn-icon btn-theme mr-3" (click)="submit('save')" type="button">
         <mat-icon>save</mat-icon>
         Uložiť
+      </button>
+      <button mat-flat-button class="btn-icon btn-theme-warn" (click)="submit('send')" type="button">
+        <mat-icon>save</mat-icon>
+        Odoslať dodávateľovi
       </button>
     </div>
   </div>

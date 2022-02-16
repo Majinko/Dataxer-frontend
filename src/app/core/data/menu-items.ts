@@ -14,7 +14,7 @@ export const MenuItems: MenuItem[] = [
     permission: 'Task'
   },
  {
-    routerLink: ['/demand'],
+    routerLink: ['/document/demand'],
     title: 'Dopyty',
     icon: 'request_quote',
     permission: 'Demand'

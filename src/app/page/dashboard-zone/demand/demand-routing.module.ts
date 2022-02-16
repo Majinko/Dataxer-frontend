@@ -20,7 +20,7 @@ const routes: Routes = [{
     },
     {
       path: 'edit/:demand_id',
-      component: DemandEditComponent
+      component: DemandCreateComponent
     },
     {
       path: 'show/:id',

@@ -57,6 +57,15 @@ button, .btn {
     color: $global-primary-color;
     border-color: $global-primary-color !important;
   }
+  &.btn-theme-warn {
+    color: white;
+    border-color: #f44336 !important;
+    background-color: #f44336 !important;
+
+    &:hover {
+      background-color: lighten(#f44336, 10%) !important;
+    }
+  }
 }
 
 .btn-link{
