@@ -15,8 +15,7 @@ import {DatePipe} from '@angular/common';
 import {PriceOfferService} from '../../../../core/services/priceOffer.service';
 import {Pack} from '../../../../core/models/pack';
 import {DocumentHelperClass} from '../../../../core/class/DocumentHelperClass';
-import {DocumentBase} from "../../../../core/models/documentBase";
-import {Invoice} from "../../../../core/models/invoice";
+import {DocumentBase} from '../../../../core/models/documentBase';
 
 @Component({
   selector: 'app-invoice-create',
