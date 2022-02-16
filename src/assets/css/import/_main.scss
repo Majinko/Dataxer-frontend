@@ -85,6 +85,7 @@ app-company {
 .company-option {
   display: flex;
   align-items: center;
+  width: 100%;
   .img-wrap {
     width: 40px;
     padding: 5px 15px;
@@ -92,6 +93,16 @@ app-company {
   }
   .text-wrap {
     width: calc(100% - 40px);
+  }
+}
+.ng-select-container {
+  .ng-placeholder + .ng-value {
+    width: 100%;
+  }
+  .company-option .img-wrap {
+    width: 30px;
+    padding: 0 15px;
+    padding-left: 0;
   }
 }
 
