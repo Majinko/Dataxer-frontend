@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {CategoryService} from '../../../../core/services/category.service';
 import {DemandService} from '../../../../core/services/demand.service';
 import {MessageService} from '../../../../core/services/message.service';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -132,6 +133,11 @@ export class DemandCreateComponent implements OnInit {
     this.submitted = true;
 
     if (this.formGroup.invalid) {
+      setTimeout(() => {
+        this.documentHelper.scrollIfFormHasErrors(this.formGroup).then(() => {
+          this.messageService.add('Prosíme o skontrolovanie povinných údajov');
+        });
+      }, 100);
       return;
     }
 

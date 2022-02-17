@@ -182,6 +182,11 @@ export class InvoiceCreateComponent extends DocumentHelperClass implements OnIni
     this.submitted = true;
 
     if (this.formGroup.invalid) {
+      setTimeout(() => {
+        this.documentHelper.scrollIfFormHasErrors(this.formGroup).then(() => {
+          this.messageService.add('Prosíme o skontrolovanie povinných údajov');
+        });
+      }, 100);
       return;
     }
 

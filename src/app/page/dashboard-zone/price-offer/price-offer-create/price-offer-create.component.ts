@@ -36,6 +36,8 @@ import {ProjectService} from '../../../../core/services/project.service';
 export class PriceOfferCreateComponent extends DocumentHelperClass implements OnInit {
   formGroup: FormGroup;
   submitted: boolean = false;
+  demandOffer = false;
+  demandData: Pack[] = [];
   oldPacks: Pack[] = [];
   documentType: string = 'PRICE_OFFER';
 
@@ -58,6 +60,11 @@ export class PriceOfferCreateComponent extends DocumentHelperClass implements On
     this.prepareForm();
     this.changeForm();
     this.getProject();
+
+    if (this.route.snapshot.paramMap.get('demandId')) {
+      this.demandOffer = true;
+      this.demand();
+    }
 
     if (this.route.snapshot.paramMap.get('id') === null) {
       this.preparePriceOfferData();
@@ -99,6 +106,13 @@ export class PriceOfferCreateComponent extends DocumentHelperClass implements On
     });
   }
 
+  private demand() {
+    this.priceOfferService.getById(2570).subscribe(p => {
+      console.log(p.packs);
+      this.demandData = p.packs;
+    });
+  }
+
   private checkDuplicate() {
     if (+this.route.snapshot.paramMap.get('id')) {
       this.priceOfferService.duplicate(+this.route.snapshot.paramMap.get('id')).subscribe((oldPriceOffer) => {
@@ -128,10 +142,15 @@ export class PriceOfferCreateComponent extends DocumentHelperClass implements On
 
 
   // submit form
-  submit() {
+  submit( type: string) {
     this.submitted = true;
 
     if (this.formGroup.invalid) {
+      setTimeout(() => {
+        this.documentHelper.scrollIfFormHasErrors(this.formGroup).then(() => {
+          this.messageService.add('Prosíme o skontrolovanie povinných údajov');
+        });
+      }, 100);
       return;
     }
 

@@ -25,6 +25,7 @@ export class DocumentPackComponent implements OnInit {
   @Input() projects: Project[];
   @Input() documentHelper: DocumentHelper;
   @Input() formGroup: FormGroup;
+  @Input() demandData: Pack[];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -52,13 +53,14 @@ export class DocumentPackComponent implements OnInit {
   }
 
   createPack(): FormGroup {
+    console.log(this.formGroup.value);
     return this.formBuilder.group({
       id: null,
       title: null,
       customPrice: false,
       showItems: true,
       price: null,
-      tax: this.formGroup.value.company.companyTaxType === 'TAX_PAYER' ? 20 : 0,
+      tax: this.formGroup.value.company?.companyTaxType === 'TAX_PAYER' ? 20 : 0,
       totalPrice: null,
       packItems: this.formBuilder.array([this.createItem()])
     });
@@ -73,7 +75,7 @@ export class DocumentPackComponent implements OnInit {
       unit: this.units[0].unit,
       discount: 0,
       price: null,
-      tax: this.formGroup.value.company.companyTaxType === 'TAX_PAYER' ? 20 : 0,
+      tax: this.formGroup.value.company?.companyTaxType === 'TAX_PAYER' ? 20 : 0,
       totalPrice: null,
       project: null,
       category: null
@@ -81,6 +83,8 @@ export class DocumentPackComponent implements OnInit {
   }
 
   private preparePack() {
+    console.log('pack');
+    console.log(this.packs);
     for (let i = 0; i < (this.packs ? this.packs.length : 1); i++) {
       this.addPack();
 
