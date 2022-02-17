@@ -21,7 +21,7 @@ export class UserAllComponent implements OnInit, AfterViewInit {
 
   isLoadingResults = true;
   totalElements: number = 0;
-  displayedColumns: string[] = ['name', 'startWork', 'years', 'hours', 'projectCount', 'actions'];
+  displayedColumns: string[] = ['name', 'hours', 'salary', 'role', 'actions'];
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
@@ -71,7 +71,7 @@ export class UserAllComponent implements OnInit, AfterViewInit {
   deactivateOrActivateUser($event: MouseEvent, user: User) {
     event.stopPropagation();
 
-    if (user.isDisabled === false) {
+    if (user.isDisabled === false || user.isDisabled === null) {
       this.userService.deactivate(user.uid).subscribe(() => {
         this.snackBarService.add('Použivateľ bol deaktivovaný');
       });

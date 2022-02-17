@@ -535,6 +535,10 @@ h2 {
   justify-content: center;
 }
 
+.ng-option-disabled.ng-optgroup.ng-star-inserted {
+  text-align: left;
+}
+
 mat-toolbar {
   border-bottom: 1px solid rgba(0, 0, 0, 0.12);
 }

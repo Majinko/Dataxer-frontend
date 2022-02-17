@@ -1,4 +1,4 @@
-import {Component, ElementRef, HostListener, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {AbstractControl, FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {UNITS} from '../../../core/data/unit-items';
 import {DocumentHelper} from '../../../core/class/DocumentHelper';
@@ -6,36 +6,49 @@ import {Pack} from '../../../core/models/pack';
 import {PackService} from '../../../core/services/pack.service';
 import {Item} from '../../../core/models/item';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
+import {CategoryItemNode} from '../../../core/models/category-item-node';
+import {CategoryService} from '../../../core/services/category.service';
+import {Project} from '../../../core/models/project';
 
 @Component({
   selector: 'app-document-pack',
   templateUrl: './document-pack.component.html',
-  styleUrls: ['./document-pack.component.css'],
+  styleUrls: ['./document-pack.component.scss'],
 })
 export class DocumentPackComponent implements OnInit {
   units = UNITS;
 
+  categories: CategoryItemNode[];
+
   @Input() documentId: number;
   @Input() packs: Pack[];
+  @Input() projects: Project[];
   @Input() documentHelper: DocumentHelper;
   @Input() formGroup: FormGroup;
 
   constructor(
     private formBuilder: FormBuilder,
     private packService: PackService,
-    private ref: ElementRef
+    private categoryService: CategoryService
   ) {
   }
 
   ngOnInit() {
     this.documentHelper.handlePackChanges(this.f.packs);
     this.preparePack();
+    this.getCategories();
 
     setTimeout(() => {
       if (this.packs) {
         this.formGroup.patchValue({packs: this.packs});
       }
     }, 1);
+  }
+
+  private getCategories() {
+    this.categoryService.all(true).subscribe((categories) => {
+      this.categories = categories;
+    });
   }
 
   createPack(): FormGroup {
@@ -62,6 +75,8 @@ export class DocumentPackComponent implements OnInit {
       price: null,
       tax: this.formGroup.value.company.companyTaxType === 'TAX_PAYER' ? 20 : 0,
       totalPrice: null,
+      project: null,
+      category: null
     });
   }
 
@@ -125,8 +140,9 @@ export class DocumentPackComponent implements OnInit {
       item,
       title: item.title,
       price: item.itemPrice.price,
-      tax: item.itemPrice.tax
-    });
+      tax: item.itemPrice.tax,
+      category: item.category
+    }, {emitEvent: false});
   }
 
   // set item title
@@ -140,23 +156,27 @@ export class DocumentPackComponent implements OnInit {
   // set pack when find it
   setPack(packIndex: number, packFormGroup: AbstractControl, pack: Pack) {
     this.packService.getById(pack.id).subscribe(p => {
-      // tslint:disable-next-line:prefer-for-of
-      for (let i = 0; i < p.packItems.length; i++) {
-        if (p.packItems.length > packFormGroup.get('packItems').value.length) {
-          this.addItemByIndex(packIndex);
+
+        // first fill pack with empty items
+        for (let i = 0; i < p.packItems.length; i++) {
+          if (p.packItems.length > packFormGroup.get('packItems').value.length) {
+            this.addItemByIndex(packIndex);
+          }
         }
+
+        // then sen pack item values
+        packFormGroup.patchValue({
+          packItems: p.packItems.map(item => {
+            item.id = '';
+            item.title = item.item.title;
+            item.price = item.item.itemPrice.price;
+            item.category = item.item.category;
+
+            return item;
+          })
+        }, {emitEvent: false});
       }
-
-      packFormGroup.patchValue({
-        packItems: p.packItems.map(item => {
-          item.id = '';
-          item.title = item.item.title;
-          item.price = item.item.itemPrice.price;
-
-          return item;
-        })
-      });
-    });
+    );
   }
 
   // sort pack
@@ -175,6 +195,7 @@ export class DocumentPackComponent implements OnInit {
 
   // show discount
   showDiscount(trRow: HTMLTableRowElement) {
+    const settingInputs = trRow.querySelectorAll('.jsSettings');
     const discountInputs = trRow.querySelectorAll('.jsDiscount');
 
     // tslint:disable-next-line:no-unused-expression
@@ -182,7 +203,26 @@ export class DocumentPackComponent implements OnInit {
       discountInput.classList.toggle('d-none');
     });
 
-    return false;
+    // tslint:disable-next-line:no-unused-expression
+    settingInputs && settingInputs.forEach(settingInput => {
+      settingInput.classList.add('d-none');
+    });
+  }
+
+  // show item more options
+  showMoreOptions(trRow: HTMLTableRowElement, add: boolean = true) {
+    const discountInputs = trRow.querySelectorAll('.jsDiscount');
+    const settingInputs = trRow.querySelectorAll('.jsSettings');
+
+    // tslint:disable-next-line:no-unused-expression
+    settingInputs && settingInputs.forEach(settingInput => {
+      settingInput.classList.toggle('d-none');
+    });
+
+    // tslint:disable-next-line:no-unused-expression
+    discountInputs && discountInputs.forEach(discountInput => {
+      discountInput.classList.add('d-none');
+    });
   }
 
   // show hide pack item

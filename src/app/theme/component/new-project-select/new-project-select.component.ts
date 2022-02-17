@@ -5,6 +5,7 @@ import {ProjectService} from '../../../core/services/project.service';
 import {MatDialog} from '@angular/material/dialog';
 import {ProjectCreateComponent} from '../../../page/dashboard-zone/project/project-create/project-create.component';
 import {Contact} from '../../../core/models/contact';
+import {DropdownPosition} from '@ng-select/ng-select/lib/ng-select.component';
 
 @Component({
   selector: 'app-new-project-select',
@@ -18,12 +19,13 @@ import {Contact} from '../../../core/models/contact';
 })
 export class NewProjectSelectComponent implements ControlValueAccessor, OnInit, OnChanges {
   project: Project;
-  projects: Project[] = [];
   allProjects: Project[] = [];
   selectedClients: Contact[] = [];
 
   @Input() client: Contact = null;
+  @Input() projects: Project[] = [];
   @Input() showAddButton: boolean = true;
+  @Input() dropDownPosition: DropdownPosition = 'auto';
 
   constructor(
     public dialog: MatDialog,
@@ -37,7 +39,9 @@ export class NewProjectSelectComponent implements ControlValueAccessor, OnInit, 
   }
 
   ngOnInit(): void {
-    this.getProjects();
+    if (this.projects.length === 0) {
+      this.getProjects();
+    }
 
     this.projectService.projectStore.subscribe(project => {
       this.onChange(project);
@@ -62,7 +66,7 @@ export class NewProjectSelectComponent implements ControlValueAccessor, OnInit, 
       });
 
       this.projects = [];
-      this.projects = projects.concat(p);
+      this.projects = [...projects, ...p];
 
       this.selectedClients.push(client);
     });

@@ -1,7 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {CategoryService} from '../../../../core/services/category.service';
-import {CategoryItemNode} from '../../../../core/models/category-item-node';
 import {DemandService} from '../../../../core/services/demand.service';
 import {MessageService} from '../../../../core/services/message.service';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -9,15 +7,8 @@ import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/
 import {MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter} from '@angular/material-moment-adapter';
 import {DocumentHelper} from '../../../../core/class/DocumentHelper';
 import {addDays, APP_DATE_FORMATS} from '../../../../../helper';
-import {DocumentHelperClass} from '../../../../core/class/DocumentHelperClass';
 import {Pack} from '../../../../core/models/pack';
-import {BankAccountService} from '../../../../core/services/bank-account.service';
-import {NumberingService} from '../../../../core/services/numbering.service';
-import {PriceOfferService} from '../../../../core/services/priceOffer.service';
-import {PriceOffer} from '../../../../core/models/priceOffer';
 import {UserService} from '../../../../core/services/user.service';
-import {ContactService} from '../../../../core/services/contact.service';
-import {Contact} from '../../../../core/models/contact';
 import {Demand} from '../../../../core/models/demand';
 
 @Component({
@@ -38,34 +29,26 @@ import {Demand} from '../../../../core/models/demand';
     DocumentHelper
   ],
 })
-export class DemandCreateComponent extends DocumentHelperClass implements OnInit {
+export class DemandCreateComponent implements OnInit {
   formGroup: FormGroup;
   submitted: boolean = false;
   oldPacks: Pack[] = [];
-  contacts: Contact[] = [];
   documentType: string = 'DEMAND';
 
   constructor(
     private formBuilder: FormBuilder,
-    private categoryService: CategoryService,
     private demandService: DemandService,
     protected messageService: MessageService,
     protected router: Router,
-    private contactService: ContactService,
     public route: ActivatedRoute,
-    protected numberingService: NumberingService,
-    protected bankAccountService: BankAccountService,
     private userService: UserService,
-    private priceOfferService: PriceOfferService,
     public documentHelper: DocumentHelper,
   ) {
-    super(bankAccountService, numberingService, messageService, router, route);
   }
 
   ngOnInit(): void {
     this.prepareForm();
     this.changeForm();
-    this.getContacts();
 
     if (this.route.snapshot.paramMap.get('id') === null) {
       this.prepareDemand();
@@ -81,7 +64,6 @@ export class DemandCreateComponent extends DocumentHelperClass implements OnInit
       project: [null, Validators.required],
       title: ['', Validators.required],
       subject: '',
-      number: ['', Validators.required],
       state: 'WAITING',
       company: [null, Validators.required],
       createdDate: [new Date(), Validators.required],
@@ -91,7 +73,6 @@ export class DemandCreateComponent extends DocumentHelperClass implements OnInit
       discount: 0,
       price: 0,
       totalPrice: 0,
-      documentType: 'DEMAND',
       documentData: this.formBuilder.group({
         user: this.formBuilder.group({
           displayName: '',
@@ -99,7 +80,6 @@ export class DemandCreateComponent extends DocumentHelperClass implements OnInit
           email: '',
         }),
         contact: null,
-        bankAccount: null,
         firm: null
       }),
 
@@ -122,6 +102,18 @@ export class DemandCreateComponent extends DocumentHelperClass implements OnInit
     this.formGroup.get('documentData.user').patchValue(this.userService.user);
   }
 
+  // change company
+  private changeForm() {
+    this.formGroup.get('company').valueChanges.subscribe((company) => {
+      this.formGroup.get('documentData.firm').patchValue(company);
+    });
+
+    this.formGroup.get('contact').valueChanges.subscribe((contact) => {
+      this.formGroup.get('documentData.contact').patchValue(contact);
+    });
+  }
+
+  // path data
   private pathFromOldObject(document: Demand) {
     this.oldPacks = document.packs;
 
@@ -132,10 +124,6 @@ export class DemandCreateComponent extends DocumentHelperClass implements OnInit
       project: document.project,
       discount: document.discount === null ? 0 : document.discount,
     });
-  }
-
-  getContacts() {
-    this.contactService.all().subscribe(contact => this.contacts = contact);
   }
 
 
@@ -151,16 +139,12 @@ export class DemandCreateComponent extends DocumentHelperClass implements OnInit
     this.formGroup.patchValue({
       price: this.documentHelper.price,
       totalPrice: this.documentHelper.totalPrice,
-      packs: this.documentHelper.packs
     });
-
-    console.log(this.formGroup.value);
-    return;
 
     this.demandService.store(this.formGroup.value).subscribe((r) => {
       this.router
         .navigate(['/document/demand'])
-        .then(() => this.messageService.add('Cenová ponuka bola uložená'));
+        .then(() => this.messageService.add('Dopyt bol vytvorený'));
     });
   }
 

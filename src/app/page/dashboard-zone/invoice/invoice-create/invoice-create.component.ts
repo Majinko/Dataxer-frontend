@@ -5,7 +5,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {DocumentHelper} from '../../../../core/class/DocumentHelper';
 import {InvoiceService} from '../../../../core/services/invoice.service';
 import {UserService} from '../../../../core/services/user.service';
-import {addDays, APP_DATE_FORMATS, containsObject} from '../../../../../helper';
+import {addDays, APP_DATE_FORMATS} from '../../../../../helper';
 import {NumberingService} from '../../../../core/services/numbering.service';
 import {CompanyService} from '../../../../core/services/company.service';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
@@ -15,8 +15,8 @@ import {DatePipe} from '@angular/common';
 import {PriceOfferService} from '../../../../core/services/priceOffer.service';
 import {Pack} from '../../../../core/models/pack';
 import {DocumentHelperClass} from '../../../../core/class/DocumentHelperClass';
-import {DocumentBase} from "../../../../core/models/documentBase";
-import {Invoice} from "../../../../core/models/invoice";
+import {DocumentBase} from '../../../../core/models/documentBase';
+import {ProjectService} from '../../../../core/services/project.service';
 
 @Component({
   selector: 'app-invoice-create',
@@ -56,9 +56,10 @@ export class InvoiceCreateComponent extends DocumentHelperClass implements OnIni
     public companyService: CompanyService,
     private invoiceService: InvoiceService,
     private priceOfferService: PriceOfferService,
+    protected projectService: ProjectService,
     public documentHelper: DocumentHelper
   ) {
-    super(bankAccountService, numberingService, messageService, router, route);
+    super(bankAccountService, numberingService, messageService, router, route, projectService);
   }
 
   ngOnInit(): void {
@@ -66,6 +67,7 @@ export class InvoiceCreateComponent extends DocumentHelperClass implements OnIni
     this.prepareForm();
     this.prepareInvoiceData();
     this.changeForm();
+    this.getProject();
 
     this.route.params.subscribe(params => {
       this.prepareInvoiceData();
@@ -187,7 +189,6 @@ export class InvoiceCreateComponent extends DocumentHelperClass implements OnIni
     this.formGroup.patchValue({
       price: this.documentHelper.price,
       totalPrice: this.documentHelper.totalPrice,
-      packs: this.documentHelper.packs
     });
 
     this.invoiceService.store(this.formGroup.value, +this.route.snapshot.paramMap.get('id')).subscribe((r) => {

@@ -7,7 +7,7 @@ import {PaymentService} from '../../../../core/services/payment.service';
 import {MatDialog} from '@angular/material/dialog';
 import {DocumentEmailDialogComponent} from '../../../../theme/component/document-email-dialog/document-email-dialog.component';
 import {PdfServiceService} from '../../../../core/services/pdf-service.service';
-import {DocumentTypeEnum} from "../../../../core/enums/documentType.enum";
+import {DocumentTypeEnum} from '../../../../core/enums/documentType.enum';
 
 @Component({
   selector: 'app-invoice-show',

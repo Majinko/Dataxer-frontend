@@ -6,7 +6,9 @@ import {MessageService} from '../../../../core/services/message.service';
 import {MatDialog} from '@angular/material/dialog';
 import {AdHostDirective} from '../../../../core/directives/ad-host.directive';
 import {InvoiceTableComponent} from '../../invoice/invoice-index/components/invoice-table/invoice-table.component';
-import {PriceOfferTableComponent} from '../../price-offer/price-offer-index/components/price-offer-table/price-offer-table.component';
+import {
+  PriceOfferTableComponent
+} from '../../price-offer/price-offer-index/components/price-offer-table/price-offer-table.component';
 import {CostTableComponent} from '../../cost/cost-index/components/cost-table/cost-table.component';
 import {DemandTableComponent} from '../../demand/demand-index/component/demand-table/demand-table.component';
 
@@ -86,6 +88,7 @@ export class DocumentPaginateComponent implements OnInit, AfterViewInit {
           this.godButtonService.title = 'Nový náklad';
           this.godButtonService.routerLink = '/cost/create';
           this.godButtonService.menuItem = [];
+          break;
 
         case 'demand':
           this.title = 'Dopyty';
@@ -97,6 +100,7 @@ export class DocumentPaginateComponent implements OnInit, AfterViewInit {
           this.godButtonService.title = 'Nový dopyt';
           this.godButtonService.routerLink = '/demand/create';
           this.godButtonService.menuItem = [];
+          break;
       }
     });
   }

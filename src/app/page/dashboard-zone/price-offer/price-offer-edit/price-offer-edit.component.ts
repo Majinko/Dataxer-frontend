@@ -11,6 +11,7 @@ import {APP_DATE_FORMATS} from '../../../../../helper';
 import {BankAccountService} from '../../../../core/services/bank-account.service';
 import {DocumentHelperClass} from '../../../../core/class/DocumentHelperClass';
 import {NumberingService} from '../../../../core/services/numbering.service';
+import {ProjectService} from "../../../../core/services/project.service";
 
 @Component({
   selector: 'app-price-offer-edit',
@@ -45,9 +46,10 @@ export class PriceOfferEditComponent extends DocumentHelperClass implements OnIn
     public route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private priceOfferService: PriceOfferService,
+    protected projectService: ProjectService,
     public documentHelper: DocumentHelper,
   ) {
-    super(bankAccountService, numberingService, messageService, router, route);
+    super(bankAccountService, numberingService, messageService, router, route, projectService);
   }
 
   ngOnInit() {

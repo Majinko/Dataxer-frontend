@@ -6,6 +6,8 @@ import {AbstractControl, FormArray, FormBuilder, FormGroup} from '@angular/forms
 import {PackService} from '../../../core/services/pack.service';
 import {Item} from '../../../core/models/item';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
+import {CategoryService} from '../../../core/services/category.service';
+import {CategoryItemNode} from '../../../core/models/category-item-node';
 
 @Component({
   selector: 'app-demand-pack',
@@ -15,6 +17,8 @@ import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 export class DemandPackComponent implements OnInit {
   units = UNITS;
 
+  categories: CategoryItemNode[];
+
   @Input() documentId: number;
   @Input() packs: Pack[];
   @Input() documentHelper: DocumentHelper;
@@ -22,19 +26,27 @@ export class DemandPackComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private packService: PackService
+    private packService: PackService,
+    private categoryService: CategoryService
   ) {
   }
 
   ngOnInit() {
     this.documentHelper.handlePackChanges(this.f.packs);
     this.preparePack();
+    this.getCategories();
 
     setTimeout(() => {
       if (this.packs) {
         this.formGroup.patchValue({packs: this.packs});
       }
     }, 1);
+  }
+
+  private getCategories() {
+    this.categoryService.all(true).subscribe((categories) => {
+      this.categories = categories;
+    });
   }
 
   createPack(): FormGroup {
@@ -53,6 +65,7 @@ export class DemandPackComponent implements OnInit {
       item: null,
       qty: 1,
       unit: this.units[0].unit,
+      category: null
     });
   }
 
@@ -116,7 +129,7 @@ export class DemandPackComponent implements OnInit {
       item,
       title: item.title,
       price: item.itemPrice.price,
-      tax: item.itemPrice.tax
+      tax: item.itemPrice.tax,
     });
   }
 
@@ -138,11 +151,13 @@ export class DemandPackComponent implements OnInit {
         }
       }
 
+
       packFormGroup.patchValue({
         packItems: p.packItems.map(item => {
           item.id = '';
           item.title = item.item.title;
           item.price = item.item.itemPrice.price;
+          item.category = item.item.category;
 
           return item;
         })
@@ -168,5 +183,4 @@ export class DemandPackComponent implements OnInit {
   showHidePackItems(index: number) {
     this.documentHelper.packs[index].showItems = !this.documentHelper.packs[index].showItems;
   }
-
 }

@@ -83,10 +83,10 @@ export class CategoryTreeControlComponent implements OnInit, OnChanges, ControlV
   todoLeafItemSelectionToggle(node: CategoryFlatNode, isWrite: boolean = false): void {
     const parent: CategoryItemNode = this.cleanCategories.find(f => f.id === node.parentId);
 
-    if (parent && !isWrite) {
+    /*if (parent && !isWrite) {
       this.checklistSelection.toggle(parent as CategoryFlatNode);
       this.checkAllParentsSelection(parent as CategoryFlatNode);
-    }
+    }*/
 
     this.checklistSelection.toggle(node);
     this.checkAllParentsSelection(node);
@@ -189,6 +189,7 @@ export class CategoryTreeControlComponent implements OnInit, OnChanges, ControlV
   }
 
   selectCategory() {
+    console.log(this.checklistSelection.selected);
     this.onChange(this.checklistSelection.selected);
   }
 }
