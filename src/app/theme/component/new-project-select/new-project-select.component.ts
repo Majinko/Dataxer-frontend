@@ -66,7 +66,7 @@ export class NewProjectSelectComponent implements ControlValueAccessor, OnInit, 
       });
 
       this.projects = [];
-      this.projects = projects.concat(p);
+      this.projects = [...projects, ...p];
 
       this.selectedClients.push(client);
     });

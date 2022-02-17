@@ -28,7 +28,6 @@
     </ng-select>
   </div>
 
-
   <div class="col-md-4 col-lg-2" *ngIf="contacts && contacts.length > 0 && clientFormControlName === 'Dodávateľ'; else contactSelect">
     <ng-select [items]="contacts"
                [clearable]="false"
@@ -83,6 +82,7 @@
                bindLabel="name"
                placeholder="Kategória"
                formControlName="category"
+               groupBy="parentName"
                class="filter-ng-select">
     </ng-select>
   </div>

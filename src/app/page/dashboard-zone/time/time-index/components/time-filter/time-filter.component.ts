@@ -5,6 +5,7 @@ import {FormBuilder} from '@angular/forms';
 import {SearchBarService} from '../../../../../../core/services/search-bar.service';
 import {CategoryService} from '../../../../../../core/services/category.service';
 import {UserService} from '../../../../../../core/services/user.service';
+import {CategoryHelper} from '../../../../../../core/class/CategoryHelper';
 
 @Component({
   selector: 'app-time-filter',
@@ -12,6 +13,7 @@ import {UserService} from '../../../../../../core/services/user.service';
 })
 export class TimeFilterComponent extends FilterClass implements OnInit {
   constructor(
+    private categoryHelper: CategoryHelper,
     private projectService: ProjectService,
     private categoryService: CategoryService,
     private userService: UserService,
@@ -45,7 +47,7 @@ export class TimeFilterComponent extends FilterClass implements OnInit {
     this.searchBarServiceCatch();
     this.prepareData();
     this.prepareDates();
-    this.getUserCategories();
+    this.getCategories();
     this.getUsers();
 
     // only admin has right to filter other user time
@@ -58,9 +60,9 @@ export class TimeFilterComponent extends FilterClass implements OnInit {
     });
   }
 
-  getUserCategories() {
-    this.categoryService.allUserCategoryByTime(this.userService.user.uid).subscribe((categories) => {
-      this.categories = categories;
+  getCategories() {
+    this.categoryService.fallByGroupIn(['PROJECT']).subscribe((categories) => {
+      this.categories = this.categoryHelper.prepareOptionTree(categories);
     });
   }
 
