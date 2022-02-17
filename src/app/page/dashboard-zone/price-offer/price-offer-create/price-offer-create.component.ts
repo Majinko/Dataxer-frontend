@@ -35,6 +35,8 @@ import {DocumentHelperClass} from '../../../../core/class/DocumentHelperClass';
 export class PriceOfferCreateComponent extends DocumentHelperClass implements OnInit {
   formGroup: FormGroup;
   submitted: boolean = false;
+  demandOffer = false;
+  demandData: Pack[] = [];
   oldPacks: Pack[] = [];
   documentType: string = 'PRICE_OFFER';
 
@@ -55,6 +57,11 @@ export class PriceOfferCreateComponent extends DocumentHelperClass implements On
   ngOnInit() {
     this.prepareForm();
     this.changeForm();
+
+    if (this.route.snapshot.paramMap.get('demandId')) {
+      this.demandOffer = true;
+      this.demand();
+    }
 
     if (this.route.snapshot.paramMap.get('id') === null) {
       this.preparePriceOfferData();
@@ -96,6 +103,13 @@ export class PriceOfferCreateComponent extends DocumentHelperClass implements On
     });
   }
 
+  private demand() {
+    this.priceOfferService.getById(2570).subscribe(p => {
+      console.log(p.packs);
+      this.demandData = p.packs;
+    });
+  }
+
   private checkDuplicate() {
     if (+this.route.snapshot.paramMap.get('id')) {
       this.priceOfferService.duplicate(+this.route.snapshot.paramMap.get('id')).subscribe((oldPriceOffer) => {
@@ -125,7 +139,7 @@ export class PriceOfferCreateComponent extends DocumentHelperClass implements On
 
 
   // submit form
-  submit() {
+  submit( type: string) {
     this.submitted = true;
 
     if (this.formGroup.invalid) {

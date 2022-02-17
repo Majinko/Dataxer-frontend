@@ -5,7 +5,7 @@
   </div>
 </div>
 
-<form autocomplete="off" [formGroup]="formGroup" #ngForm="ngForm" (ngSubmit)="submit()">
+<form autocomplete="off" [formGroup]="formGroup" #ngForm="ngForm">
   <div class="row">
     <div class="col-12">
       <h2 class="border-bottom-2 pb-2 mb-4">Súhrnné info</h2>
@@ -104,12 +104,12 @@
     </div>
   </div>
 
-  <app-document-pack *ngIf="route.snapshot.paramMap.get('id') === null && f.company.value != null; else copyPriceOfferBlock" [formGroup]="formGroup" [documentHelper]="documentHelper"></app-document-pack>
-  <ng-template #copyPriceOfferBlock>
-    <div *ngIf="this.oldPacks.length > 0 && f.company.value != null;">
-      <app-document-pack [formGroup]="formGroup" [packs]="this.oldPacks" [documentHelper]="documentHelper"></app-document-pack>
-    </div>
-  </ng-template>
+    <app-document-pack *ngIf="route.snapshot.paramMap.get('id') === null && f.company.value != null; else copyPriceOfferBlock" [demandData]="this.demandData" [formGroup]="formGroup" [documentHelper]="documentHelper"></app-document-pack>
+    <ng-template #copyPriceOfferBlock>
+      <div *ngIf="this.oldPacks.length > 0 && f.company.value != null;">
+        <app-document-pack [formGroup]="formGroup" [packs]="this.oldPacks" [documentHelper]="documentHelper"></app-document-pack>
+      </div>
+    </ng-template>
 
   <div class="row">
     <div class="col-12">
@@ -181,9 +181,13 @@
         <mat-icon>cancel</mat-icon>
         Zrušiť
       </button>
-      <button mat-flat-button class="btn-icon btn-theme">
+      <button mat-flat-button class="btn-icon btn-theme mr-3" (click)="submit('save')" type="button">
         <mat-icon>save</mat-icon>
         Uložiť
+      </button>
+      <button *ngIf="demandOffer" mat-flat-button class="btn-icon btn-theme-warn" (click)="submit('send')" type="button">
+        <mat-icon>send</mat-icon>
+        Odoslať dodávateľovi
       </button>
     </div>
   </div>
