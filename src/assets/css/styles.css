@@ -627,6 +627,14 @@ button.btn-theme-stroked, .btn.btn-theme-stroked {
   color: #19A5E5;
   border-color: #19A5E5 !important;
 }
+button.btn-theme-warn, .btn.btn-theme-warn {
+  color: white;
+  border-color: #f44336 !important;
+  background-color: #f44336 !important;
+}
+button.btn-theme-warn:hover, .btn.btn-theme-warn:hover {
+  background-color: #f77066 !important;
+}
 
 .btn-link:hover {
   text-decoration: underline !important;
@@ -1200,6 +1208,7 @@ app-company .cdk-drop-list .mat-focus-indicator {
 .company-option {
   display: flex;
   align-items: center;
+  width: 100%;
 }
 .company-option .img-wrap {
   width: 40px;
@@ -1208,6 +1217,23 @@ app-company .cdk-drop-list .mat-focus-indicator {
 }
 .company-option .text-wrap {
   width: calc(100% - 40px);
+}
+
+.company-select .ng-placeholder + .ng-value {
+  width: 100%;
+}
+
+.ng-select-container .company-option .img-wrap {
+  width: 30px;
+  padding: 0 15px;
+  padding-left: 0;
+}
+
+app-demand-pack table.table-hover {
+  max-width: 1000px;
+}
+app-demand-pack > .row > .col-md-12.text-center {
+  max-width: 1000px;
 }
 
 app-invoice-filter .filter-ng-select .ng-value-container > .ng-value {
