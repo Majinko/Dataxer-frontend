@@ -16,6 +16,7 @@ import {Project} from '../../../../core/models/project';
 import {ProjectService} from '../../../../core/services/project.service';
 import {CompanyService} from '../../../../core/services/company.service';
 import {FileInputComponent} from 'ngx-material-file-input';
+import {DocumentHelper} from '../../../../core/class/DocumentHelper';
 
 @Component({
   selector: 'app-cost-create',
@@ -32,6 +33,7 @@ import {FileInputComponent} from 'ngx-material-file-input';
     },
     {provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: {useUtc: true}},
     {provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS},
+    DocumentHelper,
     AddPercentPipe
   ],
 })
@@ -48,6 +50,7 @@ export class CostCreateComponent implements OnInit {
 
   constructor(
     private companyService: CompanyService,
+    public documentHelper: DocumentHelper,
     public uploadHelper: UploadHelper,
     private formBuilder: FormBuilder,
     private addPercent: AddPercentPipe,
@@ -158,6 +161,12 @@ export class CostCreateComponent implements OnInit {
     this.isLoading = true;
 
     if (this.formGroup.invalid) {
+      setTimeout(() => {
+        this.documentHelper.scrollIfFormHasErrors(this.formGroup).then(() => {
+          this.messageService.add('Prosíme o skontrolovanie povinných údajov');
+        });
+      }, 100);
+
       this.isLoading = false;
       return;
     }

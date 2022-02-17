@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {AbstractControl} from '@angular/forms';
+import {AbstractControl, FormGroup} from '@angular/forms';
 import {Pack} from '../models/pack';
 import {Taxes} from '../models/taxes';
 
@@ -112,5 +112,21 @@ export class DocumentHelper {
 
   prepareTaxesFromPackForSummaryInvoice(packs: Pack[]) {
     const payedPack = packs.filter(p => p.title === 'Uhradené zálohou');
+  }
+
+  scrollTo(el: Element) {
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }
+
+  scrollToError(): void {
+    const firstElementWithError = document.querySelector('.mat-error');
+    this.scrollTo(firstElementWithError);
+  }
+
+  async scrollIfFormHasErrors(form: FormGroup): Promise <any> {
+    await form.invalid;
+    this.scrollToError();
   }
 }

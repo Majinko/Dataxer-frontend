@@ -86,6 +86,7 @@ export class DocumentPaginateComponent implements OnInit, AfterViewInit {
           this.godButtonService.title = 'Nový náklad';
           this.godButtonService.routerLink = '/cost/create';
           this.godButtonService.menuItem = [];
+          break;
 
         case 'demand':
           this.title = 'Dopyty';
@@ -97,6 +98,7 @@ export class DocumentPaginateComponent implements OnInit, AfterViewInit {
           this.godButtonService.title = 'Nový dopyt';
           this.godButtonService.routerLink = '/demand/create';
           this.godButtonService.menuItem = [];
+          break;
       }
     });
   }

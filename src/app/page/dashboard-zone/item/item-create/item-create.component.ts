@@ -8,11 +8,13 @@ import {CdkTextareaAutosize} from '@angular/cdk/text-field';
 import {ItemService} from '../../../../core/services/item.service';
 import {MessageService} from '../../../../core/services/message.service';
 import {UploadHelper} from '../../../../core/class/UploadHelper';
+import {DocumentHelper} from '../../../../core/class/DocumentHelper';
 
 @Component({
   selector: 'app-item-create',
   templateUrl: './item-create.component.html',
   styleUrls: ['./item-create.component.scss'],
+  providers: [DocumentHelper]
 })
 export class ItemCreateComponent implements OnInit {
   item: Item;
@@ -32,6 +34,7 @@ export class ItemCreateComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     public uploadHelper: UploadHelper,
+    public documentHelper: DocumentHelper,
   ) {
   }
 
@@ -101,6 +104,11 @@ export class ItemCreateComponent implements OnInit {
     this.isLoading = true;
 
     if (this.formGroup.invalid) {
+      setTimeout(() => {
+        this.documentHelper.scrollIfFormHasErrors(this.formGroup).then(() => {
+          this.messageService.add('Prosíme o skontrolovanie povinných údajov');
+        });
+      }, 100);
       this.isLoading = false;
       return;
     }

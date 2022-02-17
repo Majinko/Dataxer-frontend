@@ -12,6 +12,7 @@ import {APP_DATE_FORMATS} from '../../../../../helper';
 import {AddPercentPipe} from '../../../../core/pipes/add-percent.pipe';
 import {CategoryService} from '../../../../core/services/category.service';
 import {CategoryItemNode} from '../../../../core/models/category-item-node';
+import {DocumentHelper} from '../../../../core/class/DocumentHelper';
 
 @Component({
   selector: 'app-project-create',
@@ -27,6 +28,7 @@ import {CategoryItemNode} from '../../../../core/models/category-item-node';
       deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]
     },
     {provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS},
+    DocumentHelper,
     AddPercentPipe
   ],
 })
@@ -52,6 +54,7 @@ export class ProjectCreateComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
+    public documentHelper: DocumentHelper,
     private userService: UserService,
     private categoryService: CategoryService,
     private messageService: MessageService,
@@ -109,10 +112,15 @@ export class ProjectCreateComponent implements OnInit {
 
   submit() {
     this.prepareCategoriesBeforeStore();
-    
+
     this.submitted = true;
 
     if (this.formGroup.invalid) {
+      setTimeout(() => {
+        this.documentHelper.scrollIfFormHasErrors(this.formGroup).then(() => {
+          this.messageService.add('Prosíme o skontrolovanie povinných údajov');
+        });
+      }, 100);
       return;
     }
 

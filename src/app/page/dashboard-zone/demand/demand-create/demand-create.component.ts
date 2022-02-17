@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CategoryService} from '../../../../core/services/category.service';
-import {CategoryItemNode} from '../../../../core/models/category-item-node';
 import {DemandService} from '../../../../core/services/demand.service';
 import {MessageService} from '../../../../core/services/message.service';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -14,7 +13,6 @@ import {Pack} from '../../../../core/models/pack';
 import {BankAccountService} from '../../../../core/services/bank-account.service';
 import {NumberingService} from '../../../../core/services/numbering.service';
 import {PriceOfferService} from '../../../../core/services/priceOffer.service';
-import {PriceOffer} from '../../../../core/models/priceOffer';
 import {UserService} from '../../../../core/services/user.service';
 import {ContactService} from '../../../../core/services/contact.service';
 import {Contact} from '../../../../core/models/contact';
@@ -144,6 +142,11 @@ export class DemandCreateComponent extends DocumentHelperClass implements OnInit
     this.submitted = true;
 
     if (this.formGroup.invalid) {
+      setTimeout(() => {
+        this.documentHelper.scrollIfFormHasErrors(this.formGroup).then(() => {
+          this.messageService.add('Prosíme o skontrolovanie povinných údajov');
+        });
+      }, 100);
       return;
     }
 
