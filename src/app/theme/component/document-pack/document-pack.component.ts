@@ -53,7 +53,6 @@ export class DocumentPackComponent implements OnInit {
   }
 
   createPack(): FormGroup {
-    console.log(this.formGroup.value);
     return this.formBuilder.group({
       id: null,
       title: null,
@@ -83,8 +82,6 @@ export class DocumentPackComponent implements OnInit {
   }
 
   private preparePack() {
-    console.log('pack');
-    console.log(this.packs);
     for (let i = 0; i < (this.packs ? this.packs.length : 1); i++) {
       this.addPack();
 
