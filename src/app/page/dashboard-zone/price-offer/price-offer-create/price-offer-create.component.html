@@ -103,22 +103,22 @@
       <h2 class="border-bottom-2 pb-2 mb-4">Položky</h2>
     </div>
   </div>
-
-<<<<<<< HEAD
-  <app-document-pack *ngIf="route.snapshot.paramMap.get('id') === null && f.company.value != null; else copyPriceOfferBlock" [formGroup]="formGroup" [documentHelper]="documentHelper" [projects]="projects"></app-document-pack>
-  <ng-template #copyPriceOfferBlock>
-    <div *ngIf="this.oldPacks.length > 0 && f.company.value != null;">
-      <app-document-pack [formGroup]="formGroup" [packs]="this.oldPacks" [documentHelper]="documentHelper" [projects]="projects"></app-document-pack>
-    </div>
-  </ng-template>
-=======
-    <app-document-pack *ngIf="route.snapshot.paramMap.get('id') === null && f.company.value != null; else copyPriceOfferBlock" [demandData]="this.demandData" [formGroup]="formGroup" [documentHelper]="documentHelper"></app-document-pack>
+  <ng-container *ngIf="!demandOffer">
+    <app-document-pack *ngIf="route.snapshot.paramMap.get('id') === null && f.company.value != null; else copyPriceOfferBlock" [formGroup]="formGroup" [documentHelper]="documentHelper"></app-document-pack>
     <ng-template #copyPriceOfferBlock>
       <div *ngIf="this.oldPacks.length > 0 && f.company.value != null;">
         <app-document-pack [formGroup]="formGroup" [packs]="this.oldPacks" [documentHelper]="documentHelper"></app-document-pack>
       </div>
     </ng-template>
->>>>>>> 614af7604f1bc5adf6505211c80ef054827df088
+  </ng-container>
+
+  <ng-container *ngIf="demandOffer">
+    <!-- <ng-container *ngIf="demandData && demandData.length > 1">
+      <app-document-pack [formGroup]="formGroup" [packs]="this.demandData" [documentHelper]="documentHelper"></app-document-pack>
+    </ng-container> -->
+
+    <app-demand-offer-pack [formGroup]="formGroup" [demandData]="this.demandData" [documentHelper]="documentHelper"></app-demand-offer-pack>
+  </ng-container>
 
   <div class="row">
     <div class="col-12">
