@@ -16,6 +16,7 @@ import {DashboardModule} from '../dashboard.module';
 import {TranslateModule} from '@ngx-translate/core';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {PriceOfferTableComponent} from './price-offer-index/components/price-offer-table/price-offer-table.component';
+import { DemandOfferPackComponent } from './components/demand-offer-pack/demand-offer-pack.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import {PriceOfferTableComponent} from './price-offer-index/components/price-off
     PriceOfferTableComponent,
     PriceOfferEditComponent,
     PriceOfferShowComponent,
+    DemandOfferPackComponent,
   ],
   imports: [
     CommonModule,

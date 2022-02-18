@@ -1,0 +1,9 @@
+<div class="demand-offer-wrap">
+  <div *ngFor="let demand of demandData">
+    <h3>{{demand.title}}</h3>
+      <div *ngFor="let item of demand.packItems">
+        <h4>{{item.title}}</h4>
+        <app-demand-document-pack [formGroup]="formGroup" [demand]="demandData" [item]="item" (formChange)="formChange()"></app-demand-document-pack>
+      </div>
+  </div>
+</div>

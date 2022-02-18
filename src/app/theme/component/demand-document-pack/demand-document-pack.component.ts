@@ -1,39 +1,52 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {AbstractControl, FormArray, FormBuilder, FormGroup} from '@angular/forms';
+import {Component, Input, OnInit, EventEmitter, Output} from '@angular/core';
 import {UNITS} from '../../../core/data/unit-items';
-import {DocumentHelper} from '../../../core/class/DocumentHelper';
+import {CategoryItemNode} from '../../../core/models/category-item-node';
 import {Pack} from '../../../core/models/pack';
+import {DocumentHelper} from '../../../core/class/DocumentHelper';
+import {AbstractControl, FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {PackService} from '../../../core/services/pack.service';
+import {CategoryService} from '../../../core/services/category.service';
 import {Item} from '../../../core/models/item';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
-import {CategoryItemNode} from '../../../core/models/category-item-node';
-import {CategoryService} from '../../../core/services/category.service';
 import {Project} from '../../../core/models/project';
 
 @Component({
-  selector: 'app-document-pack',
-  templateUrl: './document-pack.component.html',
-  styleUrls: ['./document-pack.component.scss'],
+  selector: 'app-demand-document-pack',
+  templateUrl: './demand-document-pack.component.html',
+  styleUrls: ['./demand-document-pack.component.scss'],
+  providers: [
+    DocumentHelper
+  ],
 })
-export class DocumentPackComponent implements OnInit {
+export class DemandDocumentPackComponent implements OnInit {
+  formGroup: FormGroup;
   units = UNITS;
+  packs: Pack[];
+  projects: Project[] = [];
 
   categories: CategoryItemNode[];
 
   @Input() documentId: number;
-  @Input() packs: Pack[];
-  @Input() projects: Project[];
-  @Input() documentHelper: DocumentHelper;
-  @Input() formGroup: FormGroup;
+  @Input() item;
+  @Input() demand;
+  @Output() formChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   constructor(
     private formBuilder: FormBuilder,
     private packService: PackService,
     private categoryService: CategoryService,
+    public documentHelper: DocumentHelper,
   ) {
   }
 
   ngOnInit() {
+    this.formGroup = this.formBuilder.group({packs: this.formBuilder.array([])
+    });
+    this.formGroup.valueChanges.subscribe((value) => {
+      this.item.demandPacks = value;
+      this.formChange.emit();
+    });
+
     this.documentHelper.handlePackChanges(this.f.packs);
     this.preparePack();
     this.getCategories();
@@ -52,7 +65,6 @@ export class DocumentPackComponent implements OnInit {
   }
 
   createPack(): FormGroup {
-    console.log(this.formGroup.value);
     return this.formBuilder.group({
       id: null,
       title: null,
@@ -232,4 +244,5 @@ export class DocumentPackComponent implements OnInit {
   showHidePackItems(index: number) {
     this.documentHelper.packs[index].showItems = !this.documentHelper.packs[index].showItems;
   }
+
 }

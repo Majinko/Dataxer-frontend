@@ -154,6 +154,9 @@ export class PriceOfferCreateComponent extends DocumentHelperClass implements On
       return;
     }
 
+    console.log(this.formGroup.value);
+    return;
+
     // set offer price and total price
     this.formGroup.patchValue({
       price: this.documentHelper.price,

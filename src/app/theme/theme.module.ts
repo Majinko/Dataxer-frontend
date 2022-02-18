@@ -46,6 +46,7 @@ import {UploadFilesComponent} from './component/upload-files/upload-files.compon
 import {DocumentDestroyButtonComponent} from './document-destroy-button/document-destroy-button.component';
 import {CompanySelectGroupComponent} from './component/company-select-group/company-select-group.component';
 import { DemandPackComponent } from './component/demand-pack/demand-pack.component';
+import { DemandDocumentPackComponent } from './component/demand-document-pack/demand-document-pack.component';
 
 @NgModule({
   imports: [
@@ -99,35 +100,37 @@ import { DemandPackComponent } from './component/demand-pack/demand-pack.compone
     DocumentDestroyButtonComponent,
     CompanySelectGroupComponent,
     DemandPackComponent,
+    DemandDocumentPackComponent,
   ],
-  exports: [
-    DrawerComponent,
-    ToolbarComponent,
-    MessageComponent,
-    ItemAutocompleteComponent,
-    NewContactSelectComponent,
-    PackAutocompleteComponent,
-    DocumentPackComponent,
-    SlovakiaDigitalAutocompleteComponent,
-    NewProjectSelectComponent,
-    NewCategorySelectComponent,
-    SpinnerButtonComponent,
-    ElementPaidStateComponent,
-    FileComponent,
-    DndDirective,
-    PaymentsComponent,
-    DocumentRelationComponent,
-    MenuTabComponent,
-    NestedCategoriesComponent,
-    PhotoUploaderComponent,
-    ChatComponent,
-    CategorySelectGroupComponent,
-    CategoryTreeControlComponent,
-    UploadFilesComponent,
-    DocumentDestroyButtonComponent,
-    CompanySelectGroupComponent,
-    DemandPackComponent,
-  ]
+    exports: [
+        DrawerComponent,
+        ToolbarComponent,
+        MessageComponent,
+        ItemAutocompleteComponent,
+        NewContactSelectComponent,
+        PackAutocompleteComponent,
+        DocumentPackComponent,
+        SlovakiaDigitalAutocompleteComponent,
+        NewProjectSelectComponent,
+        NewCategorySelectComponent,
+        SpinnerButtonComponent,
+        ElementPaidStateComponent,
+        FileComponent,
+        DndDirective,
+        PaymentsComponent,
+        DocumentRelationComponent,
+        MenuTabComponent,
+        NestedCategoriesComponent,
+        PhotoUploaderComponent,
+        ChatComponent,
+        CategorySelectGroupComponent,
+        CategoryTreeControlComponent,
+        UploadFilesComponent,
+        DocumentDestroyButtonComponent,
+        CompanySelectGroupComponent,
+        DemandPackComponent,
+        DemandDocumentPackComponent,
+    ]
 })
 export class ThemeModule {
 }
