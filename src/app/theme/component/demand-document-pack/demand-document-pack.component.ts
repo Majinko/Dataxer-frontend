@@ -28,8 +28,10 @@ export class DemandDocumentPackComponent implements OnInit {
 
   @Input() documentId: number;
   @Input() item;
+  @Input() index;
   @Input() demand;
-  @Output() formChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Input() priceDemand;
+  @Output() formChange: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(
     private formBuilder: FormBuilder,
@@ -44,6 +46,8 @@ export class DemandDocumentPackComponent implements OnInit {
     });
     this.formGroup.valueChanges.subscribe((value) => {
       this.item.demandPacks = value;
+      this.priceDemand.price[this.index] = this.documentHelper.price;
+      this.priceDemand.totalPrice[this.index] = this.documentHelper.totalPrice;
       this.formChange.emit();
     });
 
@@ -94,8 +98,6 @@ export class DemandDocumentPackComponent implements OnInit {
   }
 
   private preparePack() {
-    console.log('pack');
-    console.log(this.packs);
     for (let i = 0; i < (this.packs ? this.packs.length : 1); i++) {
       this.addPack();
 

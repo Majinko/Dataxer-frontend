@@ -10,6 +10,7 @@ export interface Pack {
   tax?: number;
   totalPrice?: number;
   packItems: PackItem[];
+  demandPacks?: any;
 }
 
 export interface PackItem {

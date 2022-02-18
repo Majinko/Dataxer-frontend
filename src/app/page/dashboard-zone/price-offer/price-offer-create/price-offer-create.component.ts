@@ -108,7 +108,6 @@ export class PriceOfferCreateComponent extends DocumentHelperClass implements On
 
   private demand() {
     this.priceOfferService.getById(2570).subscribe(p => {
-      console.log(p.packs);
       this.demandData = p.packs;
     });
   }
@@ -154,14 +153,17 @@ export class PriceOfferCreateComponent extends DocumentHelperClass implements On
       return;
     }
 
-    console.log(this.formGroup.value);
-    return;
-
     // set offer price and total price
     this.formGroup.patchValue({
       price: this.documentHelper.price,
       totalPrice: this.documentHelper.totalPrice,
     });
+
+    if (this.demandOffer) {
+      this.formGroup.get('demand_pack').patchValue(this.demandData);
+      console.log(this.formGroup.value);
+      return;
+    }
 
     this.priceOfferService.store(this.formGroup.value).subscribe((r) => {
       this.router

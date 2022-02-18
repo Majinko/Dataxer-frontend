@@ -14,7 +14,7 @@ export const environment = {
     appId: '1:435240210643:web:3697dbe71e8e30ab124426',
     measurementId: 'G-4ZZ6K78X6B'
   },
-  //baseUrl: 'http://localhost:8080/api'
+  // baseUrl: 'http://localhost:8080/api'
   baseUrl: 'https://dataid.dataxer.com/api'
   // baseUrl: 'https://dataxer.herokuapp.com/api'
 };
