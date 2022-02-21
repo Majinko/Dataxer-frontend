@@ -9,6 +9,11 @@ import {Pack} from '../../../../../core/models/pack';
   styleUrls: ['./demand-offer-pack.component.scss']
 })
 export class DemandOfferPackComponent implements OnInit {
+  priceDemand = {
+    price: [],
+    totalPrice: []
+  };
+
   @Input() documentHelper: DocumentHelper;
   @Input() formGroup: FormGroup;
   @Input() demandData: Pack[];
@@ -25,8 +30,16 @@ export class DemandOfferPackComponent implements OnInit {
   }
 
   formChange() {
-    console.log('formChange');
-    this.formGroup.get('demand_pack').patchValue(this.demandData);
-    console.log(this.formGroup.value);
+    let price = 0;
+    this.priceDemand.price.forEach( f => {
+      price = price + f;
+    });
+    this.documentHelper.price = price;
+
+    let totalPrice = 0;
+    this.priceDemand.totalPrice.forEach( f => {
+      totalPrice = totalPrice + f;
+    });
+    this.documentHelper.totalPrice = totalPrice;
   }
 }
