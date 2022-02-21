@@ -21,6 +21,7 @@ export class NewContactSelectComponent implements ControlValueAccessor, OnInit {
 
   @Input() contacts: Contact[] = [];
   @Input() placeholder: string = 'Objednávateľ';
+  @Input() multiple?: boolean;
 
   constructor(
     public dialog: MatDialog,
