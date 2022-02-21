@@ -6,7 +6,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import {MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter} from '@angular/material-moment-adapter';
 import {DocumentHelper} from '../../../../core/class/DocumentHelper';
-import {addDays, APP_DATE_FORMATS} from '../../../../../helper';
+import {addDays, APP_DATE_FORMATS, findInvalidControls} from '../../../../../helper';
 import {Pack} from '../../../../core/models/pack';
 import {UserService} from '../../../../core/services/user.service';
 import {Demand} from '../../../../core/models/demand';
@@ -109,7 +109,7 @@ export class DemandCreateComponent implements OnInit {
     });
 
     this.formGroup.get('contacts').valueChanges.subscribe((contact) => {
-      this.formGroup.get('documentData.contacts').patchValue(contact);
+      this.formGroup.get('documentData.contact').patchValue(contact);
     });
   }
 
