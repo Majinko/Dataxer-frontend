@@ -18,12 +18,12 @@
     </div>
 
     <div class="col-md-4 form-group">
-      <app-select-new-contact placeholder="Dodávatelia" [multiple]='true' formControlName="contact"></app-select-new-contact>
-      <mat-error *ngIf="submitted && f.contact.errors" class="mat-error-not-in-field">Dodávatelia sú <strong>povinný.</strong></mat-error>
+      <app-select-new-contact placeholder="Dodávatelia" [multiple]='true' formControlName="contacts"></app-select-new-contact>
+      <mat-error *ngIf="submitted && f.contacts.errors" class="mat-error-not-in-field">Dodávatelia sú <strong>povinný.</strong></mat-error>
     </div>
 
     <div class="col-md-4 form-group">
-      <app-new-project-select [client]="f.contact.value"  formControlName="project"></app-new-project-select>
+      <app-new-project-select [client]="null"  formControlName="project"></app-new-project-select>
       <mat-error *ngIf="submitted && f.project.errors" class="mat-error-not-in-field">Projekt je <strong>požadovaný.</strong></mat-error>
     </div>
   </div>

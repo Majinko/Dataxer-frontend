@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {CategoryService} from '../../../../core/services/category.service';
 import {DemandService} from '../../../../core/services/demand.service';
 import {MessageService} from '../../../../core/services/message.service';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -61,7 +60,7 @@ export class DemandCreateComponent implements OnInit {
   // prepare form
   private prepareForm() {
     this.formGroup = this.formBuilder.group({
-      contact: [null, Validators.required],
+      contacts: [null, Validators.required],
       project: [null, Validators.required],
       title: ['', Validators.required],
       subject: '',
@@ -109,8 +108,8 @@ export class DemandCreateComponent implements OnInit {
       this.formGroup.get('documentData.firm').patchValue(company);
     });
 
-    this.formGroup.get('contact').valueChanges.subscribe((contact) => {
-      this.formGroup.get('documentData.contact').patchValue(contact);
+    this.formGroup.get('contacts').valueChanges.subscribe((contact) => {
+      this.formGroup.get('documentData.contacts').patchValue(contact);
     });
   }
 
@@ -121,7 +120,7 @@ export class DemandCreateComponent implements OnInit {
     this.formGroup.patchValue({
       subject: document.subject,
       company: document.company,
-      contact: document.contact,
+      contacts: document.contact,
       project: document.project,
       discount: document.discount === null ? 0 : document.discount,
     });
