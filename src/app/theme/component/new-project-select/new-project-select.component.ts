@@ -39,6 +39,7 @@ export class NewProjectSelectComponent implements ControlValueAccessor, OnInit, 
   }
 
   ngOnInit(): void {
+    console.log(this.projects);
     if (this.projects.length === 0) {
       this.getProjects();
     }
