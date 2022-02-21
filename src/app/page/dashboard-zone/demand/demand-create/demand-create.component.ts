@@ -147,6 +147,12 @@ export class DemandCreateComponent implements OnInit {
       totalPrice: this.documentHelper.totalPrice,
     });
 
+    console.log(this.formGroup.value);
+    this.router
+      .navigate(['/document/demand'])
+      .then(() => this.messageService.add('Dopyt bol vytvorený a poslaný dodávatelom'));
+    return;
+
     this.demandService.store(this.formGroup.value).subscribe((r) => {
       this.router
         .navigate(['/document/demand'])

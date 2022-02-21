@@ -93,7 +93,7 @@
     </div>
 
     <div class="col-md-4">
-      <app-document-relation [documentId]="priceOffer.id"></app-document-relation>
+      <app-document-relation [demandId]="demandId" [documentId]="priceOffer.id"></app-document-relation>
     </div>
 
     <div class="col-12 mt-2">
@@ -251,6 +251,22 @@
           </tr>
         </table>
       </div>
+    </div>
+  </div>
+  <div *ngIf="demandId" class="row mt-3">
+    <div class="col-md-12 text-right">
+      <button mat-stroked-button class="btn-icon btn-theme-stroked mr-3" routerLink="/document/priceOffer">
+        <mat-icon>cancel</mat-icon>
+        Zrušiť
+      </button>
+      <button *ngIf="!accepted" mat-flat-button class="btn-icon btn-theme mr-3" (click)="approve()" type="button">
+        <mat-icon>save</mat-icon>
+        Schváliť
+      </button>
+      <button *ngIf="accepted" mat-flat-button class="btn-icon btn-theme" (click)="createOrder()" type="button">
+        <mat-icon>send</mat-icon>
+        Vytvoriť zákazku
+      </button>
     </div>
   </div>
 </div>

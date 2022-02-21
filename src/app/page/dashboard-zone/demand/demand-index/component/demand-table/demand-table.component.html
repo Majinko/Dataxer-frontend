@@ -11,28 +11,57 @@
         </div>
 
         <table mat-table [dataSource]="data" class="table-hover table-data table-borderless w-100">
-          <!-- Id Column -->
-          <ng-container matColumnDef="title">
-            <th mat-header-cell *matHeaderCellDef> Názov</th>
-            <td mat-cell *matCellDef="let element"> {{element.title}} </td>
-          </ng-container>
-
-          <!-- Contact Columnt -->
-          <ng-container matColumnDef="contact">
-            <th mat-header-cell *matHeaderCellDef> Kontaktná osoba</th>
-            <td mat-cell *matCellDef="let element"> {{element.contact ? element.contact.name : 'Klient nebol priradeny'}} </td>
-          </ng-container>
-
-          <ng-container matColumnDef="state">
-            <th mat-header-cell *matHeaderCellDef> Stav</th>
-            <td class="text-center" mat-cell *matCellDef="let element">
-              <span [ngClass]="'bg-' + element.state | lowercase" class="custom-badge text-white">{{element.state | uppercase | slice:0:1 }}</span>
+          <!-- Company Column -->
+          <ng-container matColumnDef="type">
+            <th class="text-right" mat-header-cell *matHeaderCellDef></th>
+            <td class="text-right" mat-cell *matCellDef="let element">
+              <mat-icon *ngIf="element.state === 'WAITING'" class="text-green-dark">north_east</mat-icon>
+              <mat-icon *ngIf="element.state !== 'WAITING'" class="text-warning">call_received</mat-icon>
             </td>
           </ng-container>
+          <!-- Company Column -->
+          <ng-container matColumnDef="company">
+            <th class="text-right" mat-header-cell *matHeaderCellDef></th>
+            <td class="text-right" mat-cell *matCellDef="let element"> <ngx-avatar [src]="element.company.logoUrl" size="30" name="{{element.company.name}}"></ngx-avatar></td>
+          </ng-container>
 
-          <ng-container matColumnDef="source">
-            <th mat-header-cell *matHeaderCellDef> Zdroj</th>
-            <td mat-cell *matCellDef="let element"> {{element.source}} </td>
+          <!-- Number Column -->
+          <ng-container matColumnDef="number">
+            <th mat-header-cell *matHeaderCellDef> Číslo</th>
+            <td mat-cell *matCellDef="let element"> {{element.number}} </td>
+          </ng-container>
+
+          <!-- Number Column -->
+          <ng-container matColumnDef="title">
+            <th mat-header-cell *matHeaderCellDef> Názov</th>
+            <td mat-cell *matCellDef="let element"> Dopyt 20220001 </td>
+          </ng-container>
+
+          <!-- Client Column -->
+          <ng-container matColumnDef="client">
+            <th mat-header-cell *matHeaderCellDef> Klient</th>
+            <td mat-cell
+                *matCellDef="let element"> {{element.contact ? element.contact.name : 'Klient nebol priradeny'}} </td>
+          </ng-container>
+
+          <!-- Action Column -->
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef> Projekt</th>
+            <td class="max" mat-cell *matCellDef="let element"> {{element.subject ? element.subject : (element.project?.title || 'Projekt nebol priradeny')}} </td>
+          </ng-container>
+
+          <!-- Created Column -->
+          <ng-container matColumnDef="created">
+            <th class="text-right" mat-header-cell *matHeaderCellDef> Vytvorené</th>
+            <td class="text-right" mat-cell *matCellDef="let element"> {{element.createdDate | date:'dd.MM.y'}} </td>
+          </ng-container>
+
+          <!-- State Column -->
+          <ng-container matColumnDef="state">
+            <th class="text-center" mat-header-cell *matHeaderCellDef> Stav</th>
+            <td class="text-center" mat-cell *matCellDef="let element">
+              <span [matTooltip]="element.state | lowercase | translate | titlecase" *ngIf="element.state" [ngClass]="'bg-' + element.state | lowercase" class="custom-badge text-white">{{element.state | lowercase | translate | uppercase | slice:0:1 }}</span>
+            </td>
           </ng-container>
 
           <!-- Action Column -->
@@ -57,7 +86,7 @@
           </ng-container>
 
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          <tr mat-row class="cursor-pointer" [routerLink]="['/demand/show', row.id, 'received']" *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
 
         <mat-paginator [pageSizeOptions]="[10, 15, 20, 100]" [length]="totalElements" [pageSize]="pageSize"></mat-paginator>

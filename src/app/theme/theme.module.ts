@@ -47,6 +47,7 @@ import {DocumentDestroyButtonComponent} from './document-destroy-button/document
 import {CompanySelectGroupComponent} from './component/company-select-group/company-select-group.component';
 import { DemandPackComponent } from './component/demand-pack/demand-pack.component';
 import { DemandDocumentPackComponent } from './component/demand-document-pack/demand-document-pack.component';
+import { CategoryTreeSharedCategoriesComponent } from './component/category-tree-control/components/category-tree-shared-categories/category-tree-shared-categories.component';
 
 @NgModule({
   imports: [
@@ -101,6 +102,7 @@ import { DemandDocumentPackComponent } from './component/demand-document-pack/de
     CompanySelectGroupComponent,
     DemandPackComponent,
     DemandDocumentPackComponent,
+    CategoryTreeSharedCategoriesComponent,
   ],
     exports: [
         DrawerComponent,

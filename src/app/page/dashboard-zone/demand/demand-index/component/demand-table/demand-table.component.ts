@@ -13,11 +13,15 @@ import {MatDialog} from '@angular/material/dialog';
 })
 export class DemandTableComponent extends PaginateClass<Demand>  {
   displayedColumns: string[] = [
+    'type',
+    'company',
+    'number',
     'title',
-    'contact',
+    'client',
+    'action',
+    'created',
     'state',
-    'source',
-    'actions'
+    'actions',
   ];
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;

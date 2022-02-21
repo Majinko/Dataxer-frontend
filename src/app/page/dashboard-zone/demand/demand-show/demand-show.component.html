@@ -7,7 +7,7 @@
           <div class="d-flex align-items-center">
             <div>
               <h1 class="mb-0">Dopyt 2022000001</h1>
-              <!-- <h1 class="mb-0">{{demand.title}}</h1> -->
+              <!-- <h1 class="mb-0">{{ demand.title }}</h1> -->
             </div>
           </div>
         </div>
@@ -20,12 +20,20 @@
             <mat-icon>save_alt</mat-icon>
           </button>
 
-          <app-document-destroy-button redirectUrl="/demand" tooltip="Vymazať dopyt" destroyMsg="Dopyt bola vymazaný" [id]="demand.id" [service]="demandService"></app-document-destroy-button>
+          <app-document-destroy-button redirectUrl="/demand" tooltip="Vymazať dopyt" destroyMsg="Dopyt bola vymazaný"
+            [id]="demand.id" [service]="demandService"></app-document-destroy-button>
 
         </div>
       </div>
     </div>
   </div>
+
+  <ng-container *ngIf="true">
+    <app-demand-price-offer-sent *ngIf="type === 'send'" [demand]="demand"></app-demand-price-offer-sent>
+  </ng-container>
+  <ng-container *ngIf="true">
+    <app-demand-price-offer-received *ngIf="type === 'received'" [demand]="demand"></app-demand-price-offer-received>
+  </ng-container>
 
   <div class="row">
     <div class="col-12">
@@ -35,24 +43,24 @@
     <div class="col-md-4">
       <p class="mb-0">Dodávateľ:</p>
 
-      <h3 class="text-dark"><strong>{{demand.documentData.firm.name}}</strong></h3>
+      <h3 class="text-dark"><strong>{{ demand.documentData.firm.name }}</strong></h3>
       <p class="mb-3">
-        {{demand.documentData.firm.street}}
+        {{ demand.documentData.firm.street }}
         <br>
-        {{demand.documentData.firm.city + ' ' + demand.documentData.firm.postalCode}}
+        {{ demand.documentData.firm.city + ' ' + demand.documentData.firm.postalCode }}
         <br>
-        {{demand.documentData.firm.country}}
+        {{ demand.documentData.firm.country }}
       </p>
 
       <p>
-        <b class="text-dark">IČO:</b> {{demand.documentData.firm.cin}} <br>
-        <b class="text-dark">DIČ:</b> {{demand.documentData.firm.tin}} <br>
-        <b class="text-dark">IČ DPH:</b> {{demand.documentData.firm.vatin}} <br>
+        <b class="text-dark">IČO:</b> {{ demand.documentData.firm.cin }} <br>
+        <b class="text-dark">DIČ:</b> {{ demand.documentData.firm.tin }} <br>
+        <b class="text-dark">IČ DPH:</b> {{ demand.documentData.firm.vatin }} <br>
       </p>
 
       <p>
-        <b class="text-dark">Banka:</b> {{demand.documentData.bankAccount.bankName}} <br>
-        <b class="text-dark">Účet(IBAN):</b> {{demand.documentData.bankAccount.iban}}<br>
+        <b class="text-dark">Banka:</b> {{ demand.documentData.bankAccount.bankName }} <br>
+        <b class="text-dark">Účet(IBAN):</b> {{ demand.documentData.bankAccount.iban }}<br>
       </p>
     </div>
 
@@ -60,19 +68,19 @@
       <p class="mb-0">Odberateľ:</p>
 
       <div *ngIf="demand.documentData.contact">
-        <h3 class="text-dark"><strong>{{demand.documentData.contact.name}}</strong></h3>
+        <h3 class="text-dark"><strong>{{ demand.documentData.contact.name }}</strong></h3>
         <p class="mb-3">
-          {{demand.documentData.contact.street}}
+          {{ demand.documentData.contact.street }}
           <br>
-          {{demand.documentData.contact.city + ' ' + demand.documentData.contact.postalCode}}
+          {{ demand.documentData.contact.city + ' ' + demand.documentData.contact.postalCode }}
           <br>
-          {{demand.documentData.contact.country}}
+          {{ demand.documentData.contact.country }}
         </p>
 
         <p>
-          <b class="text-dark">IČO:</b> {{demand.documentData.contact.cin}} <br>
-          <b class="text-dark">DIČ:</b> {{demand.documentData.contact.tin}} <br>
-          <b class="text-dark">IČ DPH:</b> {{demand.documentData.contact.vatin}} <br>
+          <b class="text-dark">IČO:</b> {{ demand.documentData.contact.cin }} <br>
+          <b class="text-dark">DIČ:</b> {{ demand.documentData.contact.tin }} <br>
+          <b class="text-dark">IČ DPH:</b> {{ demand.documentData.contact.vatin }} <br>
         </p>
       </div>
     </div>
@@ -83,17 +91,22 @@
 
     <div class="col-md-4">
       <p class="mb-0">Dátum dodania:</p>
-      <h3 class="text-dark"><b>{{demand.deliveredDate | date:'dd.MM.y' || '-'}}</b></h3>
+      <h3 class="text-dark">
+        <b>{{ demand.deliveredDate | date:'dd.MM.y' || '-' }}</b>
+      </h3>
     </div>
 
     <div class="col-md-4">
       <p class="mb-0">Dátum vystavenia:</p>
-      <h3 class="text-dark"><b>{{demand.createdDate | date:'dd.MM.y' || '-'}}</b></h3>
+      <h3 class="text-dark">
+        <b>{{ demand.createdDate | date:'dd.MM.y' || '-' }}</b>
+      </h3>
     </div>
 
     <div class="col-md-4">
       <p class="mb-0">Dátum splatnosti:</p>
-      <h3 class="text-dark"><b>{{demand.dueDate | date:'dd.MM.y' || '-'}}</b></h3>
+      <h3 class="text-dark">
+        <b>{{ demand.dueDate | date:'dd.MM.y' || '-' }}</b></h3>
     </div>
 
     <div class="col-12">
@@ -104,40 +117,40 @@
       <div class="table-scroll table-data">
         <table class="table-hover table-data table-borderless w-100">
           <thead>
-          <tr>
-            <th class="text-left white-space-nowrap">Názov položky</th>
-            <th class="text-center white-space-nowrap">Počet</th>
-            <th class="text-center white-space-nowrap">MJ</th>
-          </tr>
+            <tr>
+              <th class="text-left white-space-nowrap">Názov položky</th>
+              <th class="text-center white-space-nowrap">Počet</th>
+              <th class="text-center white-space-nowrap">MJ</th>
+            </tr>
           </thead>
           <tbody *ngFor="let pack of demand.packs">
-          <tr *ngIf="pack.title" class="pack-row">
-            <td class="text-left font-weight-bold" style="white-space: nowrap">
-              {{pack.title}}
-            </td>
-            <td class="text-center font-weight-bold">
+            <tr *ngIf="pack.title" class="pack-row">
+              <td class="text-left font-weight-bold" style="white-space: nowrap">
+                {{ pack.title }}
+              </td>
+              <td class="text-center font-weight-bold">
 
-            </td>
-            <td class="text-center font-weight-bold">
+              </td>
+              <td class="text-center font-weight-bold">
 
-            </td>
-          </tr>
+              </td>
+            </tr>
 
-          <ng-template [ngIf]="!pack.customPrice">
-            <ng-container *ngFor="let item of pack.packItems">
-              <tr class="table-item">
-                <td class="text-left" style="white-space: nowrap">
-                  {{item.title}}
-                </td>
-                <td class="text-center">
-                  {{!pack.customPrice ? item.qty : ''}}
-                </td>
-                <td class="text-center">
-                  {{!pack.customPrice ? item.unit : ''}}
-                </td>
-              </tr>
-            </ng-container>
-          </ng-template>
+            <ng-template [ngIf]="!pack.customPrice">
+              <ng-container *ngFor="let item of pack.packItems">
+                <tr class="table-item">
+                  <td class="text-left" style="white-space: nowrap">
+                    {{ item.title }}
+                  </td>
+                  <td class="text-center">
+                    {{ !pack.customPrice ? item.qty : '' }}
+                  </td>
+                  <td class="text-center">
+                    {{ !pack.customPrice ? item.unit : '' }}
+                  </td>
+                </tr>
+              </ng-container>
+            </ng-template>
           </tbody>
         </table>
       </div>
@@ -146,16 +159,16 @@
     <div class="col-12 mt-4">
       <h2 class="border-bottom-2 pb-2 mb-4">Doplňujúce informácie</h2>
     </div>
-      <div class="col-md-12 text-right">
-        <button mat-stroked-button class="btn-icon btn-theme-stroked mr-3" routerLink="/document/demand">
-          <mat-icon>cancel</mat-icon>
-          Zrušiť
-        </button>
-        <button *ngIf="accepted" mat-flat-button class="btn-icon btn-theme mr-3" (click)="createPriceOffer()" type="button">
-          <mat-icon>save</mat-icon>
-          Vytvoriť cenovú ponuku
-        </button>
+    <div *ngIf="!type" class="col-md-12 text-right">
+      <button mat-stroked-button class="btn-icon btn-theme-stroked mr-3" routerLink="/document/demand">
+        <mat-icon>cancel</mat-icon>
+        Zrušiť
+      </button>
+      <button *ngIf="accepted" mat-flat-button class="btn-icon btn-theme mr-3" (click)="createPriceOffer()"
+        type="button">
+        <mat-icon>save</mat-icon>
+        Vytvoriť cenovú ponuku
+      </button>
     </div>
-
   </div>
 </div>

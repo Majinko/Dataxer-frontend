@@ -1,7 +1,7 @@
 import {Component, Inject, OnInit, Optional} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MessageService} from '../../../../core/services/message.service';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {ProjectService} from '../../../../core/services/project.service';
 import {User} from '../../../../core/models/user';
 import {UserService} from '../../../../core/services/user.service';
@@ -34,6 +34,7 @@ import {DocumentHelper} from '../../../../core/class/DocumentHelper';
 })
 export class ProjectCreateComponent implements OnInit {
   formGroup: FormGroup;
+  demandId: number;
   submitted: boolean = false;
   categories: CategoryItemNode[] = [];
   users: User[] = [];
@@ -51,6 +52,17 @@ export class ProjectCreateComponent implements OnInit {
       fillCategories: []
     }
   ];
+  sharedCategories = [
+    {
+      id: 1,
+      title: 'Vývoj SW'
+    },
+    {
+      id: 1,
+      title: 'Support'
+    }
+  ];
+
 
   constructor(
     private formBuilder: FormBuilder,
@@ -60,6 +72,7 @@ export class ProjectCreateComponent implements OnInit {
     private messageService: MessageService,
     private projectService: ProjectService,
     private router: Router,
+    private route: ActivatedRoute,
     @Optional() public dialogRef: MatDialogRef<ProjectCreateComponent>,
   ) {
   }
@@ -67,6 +80,9 @@ export class ProjectCreateComponent implements OnInit {
   ngOnInit(): void {
     this.prepareForm();
     this.getAllCategories(['PROJECT', 'TYPE_PROJECT']);
+    this.route.params.subscribe(() => {
+      this.demandId = +this.route.snapshot.paramMap.get('demandId');
+    });
   }
 
   getAllCategories(groups: string[]) {

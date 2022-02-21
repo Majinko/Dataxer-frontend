@@ -13,7 +13,14 @@ import {DocumentRelationDialogComponent} from './component/document-relation-dia
 })
 export class DocumentRelationComponent implements OnInit, OnChanges {
   @Input() documentId: number;
+  @Input() demandId?: number;
   documentRelations: DocumentRelation[] = [];
+  demandRelation: DocumentRelation = {
+    documentId: 123,
+    relatedDocumentId: 2,
+    documentTitle: 'Dopyt 2022000001',
+    documentType: 'DEMAND'
+  };
 
   constructor(
     private router: Router,
@@ -36,6 +43,10 @@ export class DocumentRelationComponent implements OnInit, OnChanges {
   getRelatedDocuments() {
     this.documentRelationService.getAllRelationDocuments(this.documentId).subscribe(documents => {
       this.documentRelations = documents;
+      if (this.demandId) {
+        this.documentRelations = [];
+        this.documentRelations.push(this.demandRelation);
+      }
     });
   }
 
@@ -43,6 +54,8 @@ export class DocumentRelationComponent implements OnInit, OnChanges {
     console.log(documentType);
     if (documentType === 'PRICE_OFFER') {
       this.router.navigate(['/price-offer/show', relatedDocumentId]).then();
+    } else if (documentType === 'DEMAND') {
+      this.router.navigate(['/demand/show', relatedDocumentId, 'send']).then();
     } else {
       this.router.navigate(['/invoice/show', relatedDocumentId]).then();
     }

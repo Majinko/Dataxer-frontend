@@ -103,7 +103,7 @@
     <div class="col-12 mb-5" *ngFor="let group of groups">
       <h2 class="border-bottom-2 pb-2 ">{{group.title}}</h2>
 
-      <app-category-tree-control [categories]="group.categories" [(ngModel)]="group.fillCategories" [ngModelOptions]="{standalone: true}" *ngIf="categories && categories.length"></app-category-tree-control>
+      <app-category-tree-control [sharedCategories]="sharedCategories" [group]="group" [categories]="group.categories" [(ngModel)]="group.fillCategories" [ngModelOptions]="{standalone: true}" *ngIf="categories && categories.length"></app-category-tree-control>
     </div>
   </div>
 

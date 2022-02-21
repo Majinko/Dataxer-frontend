@@ -31,6 +31,8 @@ export class CategoryTreeControlComponent implements OnInit, OnChanges, ControlV
   cleanCategories: CategoryItemNode[] = [];
 
   @Input() categories: CategoryItemNode[] = [];
+  @Input() sharedCategories?;
+  @Input() group?;
 
   transformer = (node: CategoryItemNode, level: number) => {
     return {

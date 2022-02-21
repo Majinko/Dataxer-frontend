@@ -26,6 +26,10 @@ const routes: Routes = [{
       path: 'show/:id',
       component: DemandShowComponent
     },
+    {
+      path: 'show/:id/:type',
+      component: DemandShowComponent
+    },
   ]
 }];
 

@@ -98,7 +98,7 @@
     </div>
   </div>
 
-  <div class="row">
+  <div class="row" *ngIf="!demandOffer">
     <div class="col-12">
       <h2 class="border-bottom-2 pb-2 mb-4">Položky</h2>
     </div>
@@ -196,7 +196,7 @@
       </button>
       <button *ngIf="demandOffer" mat-flat-button class="btn-icon btn-theme-warn" (click)="submit('send')" type="button">
         <mat-icon>send</mat-icon>
-        Odoslať dodávateľovi
+        Odoslať objednávateľovi
       </button>
     </div>
   </div>

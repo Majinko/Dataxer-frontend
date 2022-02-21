@@ -13,7 +13,7 @@ export class DemandService extends ResourceService<Demand> {
   constructor(private httpClient: HttpClient) {
     super(
       httpClient,
-      'demand',
+      'priceOffer',
       new Serializer());
   }
 

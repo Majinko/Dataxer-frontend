@@ -162,6 +162,8 @@ export class PriceOfferCreateComponent extends DocumentHelperClass implements On
     if (this.demandOffer) {
       this.formGroup.get('demand_pack').patchValue(this.demandData);
       console.log(this.formGroup.value);
+      this.router.navigate(['/document/priceOffer']).then(() => {
+      });
       return;
     }
 

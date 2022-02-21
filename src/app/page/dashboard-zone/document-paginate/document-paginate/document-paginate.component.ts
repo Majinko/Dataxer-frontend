@@ -93,7 +93,7 @@ export class DocumentPaginateComponent implements OnInit, AfterViewInit {
         case 'demand':
           this.title = 'Dopyty';
 
-          this.modelName = 'demand';
+          this.modelName = 'priceOffer';
           this.inputSearchBarValues = ['title', 'contractor.name'];
           this.inputSearchBarSelectValues = ['contractor.id', 'company.id', 'project.id', 'state', 'date', 'documentType'];
 

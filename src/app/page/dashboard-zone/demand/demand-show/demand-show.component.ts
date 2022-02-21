@@ -15,6 +15,7 @@ import {Demand} from '../../../../core/models/demand';
 export class DemandShowComponent implements OnInit {
   documentId: number;
   demand: Demand;
+  type: string;
   accepted = true;
 
   constructor(
@@ -30,13 +31,14 @@ export class DemandShowComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe(() => {
       this.documentId = +this.route.snapshot.paramMap.get('id');
+      this.type = this.route.snapshot.paramMap.get('type');
 
       this.getById();
     });
   }
 
   private getById() {
-    this.priceOfferService.getById(2586).subscribe(priceOffer => {
+    this.priceOfferService.getById(2565).subscribe(priceOffer => {
       this.demand = priceOffer;
     });
   }

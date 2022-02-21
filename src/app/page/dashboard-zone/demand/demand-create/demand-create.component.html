@@ -32,7 +32,7 @@
     <div class="col-md-4">
       <mat-form-field class="form-group w-100">
         <input formControlName="title" matInput placeholder="Názov">
-        <mat-error *ngIf="f.title.errors">Názov je <strong>požadovaný.</strong></mat-error>
+        <mat-error *ngIf="submitted && f.title.errors">Názov je <strong>požadovaný.</strong></mat-error>
       </mat-form-field>
     </div>
 
@@ -160,7 +160,7 @@
       </button>
       <button mat-flat-button class="btn-icon btn-theme-warn" (click)="submit('send')" type="button">
         <mat-icon>send</mat-icon>
-        Odoslať dodávateľovi
+        Uložiť a odoslať dodávateľovi
       </button>
     </div>
   </div>

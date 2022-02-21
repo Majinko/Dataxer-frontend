@@ -1,0 +1,34 @@
+<div class="demand-price-offer">
+  <div class="demand-price-offer-table box">
+    <div class="row">
+      <div class="col">
+        Odoslané cenové ponuky
+      </div>
+      <div class="col">
+        Dátum
+      </div>
+      <div class="col">
+        Stav
+      </div>
+    </div>
+    <ng-container *ngFor="let po of priceOffers">
+      <hr>
+      <div class="row">
+        <div class="col">
+          <a class="text-theme" [routerLink]="['/price-offer/show/', po.priceOfferId , 'demand', demand.id]">
+            {{po.title}}
+          </a>
+        </div>
+        <div class="col">
+          {{ po.date }}
+        </div>
+        <div class="col">
+          <div class="d-flex">
+            <span [matTooltip]="po.state | lowercase | translate | titlecase" *ngIf="po.state" [ngClass]="'bg-' + po.state | lowercase" class="custom-badge text-white">{{po.state | translate |  uppercase | slice:0:1 }}</span>
+            <span [ngClass]="'text-' + po.state | lowercase">{{po.state | lowercase | translate | titlecase}}</span>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>

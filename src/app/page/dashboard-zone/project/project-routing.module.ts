@@ -18,6 +18,10 @@ const routes: Routes = [{
       component: ProjectCreateComponent
     },
     {
+      path: 'create/demand/:demandId',
+      component: ProjectCreateComponent
+    },
+    {
       path: 'edit/:project_id',
       component: ProjectEditComponent
     },
