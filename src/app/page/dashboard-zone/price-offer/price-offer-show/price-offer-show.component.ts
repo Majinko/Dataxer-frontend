@@ -14,7 +14,7 @@ import {PdfServiceService} from '../../../../core/services/pdf-service.service';
 export class PriceOfferShowComponent implements OnInit {
   documentId: number;
   demandId: number;
-  accepted = true;
+  type: string;
   priceOffer: PriceOffer;
 
   constructor(
@@ -30,6 +30,7 @@ export class PriceOfferShowComponent implements OnInit {
     this.route.params.subscribe(() => {
       this.documentId = +this.route.snapshot.paramMap.get('id');
       this.demandId = +this.route.snapshot.paramMap.get('demandId');
+      this.type = this.route.snapshot.paramMap.get('type');
 
       this.getById();
     });
@@ -51,6 +52,8 @@ export class PriceOfferShowComponent implements OnInit {
 
   approve() {
     console.log('approve');
+    this.router.navigate(['/document/demand', this.demandId ]).then(() => {
+    });
   }
 
   createOrder() {
