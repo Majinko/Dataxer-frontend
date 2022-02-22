@@ -1,7 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {TaskService} from '../../../../core/services/task.service';
-import {Task} from '../../../../core/models/task';
-import {ActivatedRoute} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import {Todolist} from '../../../../core/models/task';
 
 @Component({
   selector: 'app-task-show',
@@ -9,21 +7,17 @@ import {ActivatedRoute} from '@angular/router';
   styleUrls: ['./task-show.component.scss']
 })
 export class TaskShowComponent implements OnInit {
-  task: Task;
 
-  constructor(
-    private taskService: TaskService,
-    private route: ActivatedRoute
-  ) {
-  }
+  todolist: Todolist =  {
+     id: 1,
+     title: 'toto treba',
+     position: 1,
+    }
+  ;
+
+  constructor() { }
 
   ngOnInit(): void {
-    this.getTask();
   }
 
-  getTask() {
-    this.taskService.getById(+this.route.snapshot.paramMap.get('task_id')).subscribe((task) => {
-      this.task = task;
-    });
-  }
 }

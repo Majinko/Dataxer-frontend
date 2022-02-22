@@ -29,7 +29,7 @@
     "@angular/platform-browser-dynamic": "^12.2.2",
     "@angular/platform-server": "^12.2.2",
     "@angular/router": "^12.2.2",
-    "@kolkov/angular-editor": "^1.1.4",
+    "@kolkov/angular-editor": "^1.2.0",
     "@nestjs/common": "^8.0.6",
     "@nestjs/core": "^8.0.6",
     "@nestjs/ng-universal": "^5.0.1",

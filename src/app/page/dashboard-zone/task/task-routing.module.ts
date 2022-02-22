@@ -1,10 +1,9 @@
 import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from "@angular/router";
-import {TaskComponent} from "./task.component";
-import {TaskIndexComponent} from "./task-index/task-index.component";
-import {TaskCreateComponent} from "./task-create/task-create.component";
-import {TaskEditComponent} from "./task-edit/task-edit.component";
+import {RouterModule, Routes} from '@angular/router';
+import {TaskComponent} from './task.component';
+import {TaskIndexComponent} from './task-index/task-index.component';
 import {TaskShowComponent} from './task-show/task-show.component';
+import {TaskDetailComponent} from './task-detail/task-detail.component';
 
 const routes: Routes = [{
   path: '',
@@ -15,17 +14,17 @@ const routes: Routes = [{
       component: TaskIndexComponent,
     },
     {
-      path: 'create',
-      component: TaskCreateComponent
+      path: ':type',
+      component: TaskIndexComponent,
     },
     {
-      path: 'edit/:task_id',
-      component: TaskEditComponent
+      path: 'show/:id',
+      component: TaskShowComponent,
     },
     {
-      path: 'show/:task_id',
-      component: TaskShowComponent
-    }
+      path: 'show/:id/:todo',
+      component: TaskDetailComponent,
+    },
   ]
 }];
 
