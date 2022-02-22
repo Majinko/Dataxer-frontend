@@ -667,6 +667,18 @@ button.btn-theme-warn:hover, .btn.btn-theme-warn:hover {
   color: #D0021B !important;
 }
 
+.text-approved {
+  color: #70B602 !important;
+}
+
+.text-rejected {
+  color: #D0021B !important;
+}
+
+.text-waiting {
+  color: #F59A22 !important;
+}
+
 .text-green-light {
   color: #ade2dc !important;
 }
@@ -1253,6 +1265,59 @@ app-invoice-filter .filter-ng-select .ng-value-container .img-wrap img {
 }
 app-invoice-filter .filter-ng-select .ng-value-container .text-wrap {
   width: calc(100% - 30px);
+}
+
+.demand-price-offer-table {
+  padding: 12px 20px;
+  max-width: 800px;
+  margin-bottom: 50px;
+}
+.demand-price-offer-table > hr {
+  margin: 6px 0;
+}
+.demand-price-offer-table > hr + .row {
+  padding: 5px 0;
+}
+.demand-price-offer-table .row .col-9 > hr:first-of-type {
+  display: none;
+}
+.demand-price-offer-table .row .col-9 > hr {
+  margin: 6px 0;
+}
+.demand-price-offer-table .d-flex {
+  align-items: center;
+}
+.demand-price-offer-table .d-flex span:last-child {
+  padding-left: 8px;
+}
+.demand-price-offer-table .d-flex {
+  align-items: center;
+}
+.demand-price-offer-table .d-flex span:last-child {
+  padding-left: 8px;
+}
+
+app-category-tree-control .mat-tree {
+  padding-right: 100px;
+}
+
+.shared-categories {
+  padding-left: 20px;
+  width: 300px;
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+}
+.shared-categories .form-group {
+  padding-left: 10px;
+}
+
+.shared-categories-items {
+  padding-top: 10px;
+}
+.shared-categories-items h3 {
+  font-size: 20px;
+  color: #19A5E5;
 }
 
 /*
