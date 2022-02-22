@@ -112,7 +112,7 @@
                 </mat-form-field>
               </div>
 
-              <div class="jsSettings d-none" *ngIf="projects">
+              <div class="jsSettings d-none" *ngIf="projects && projects.length">
                 <app-new-project-select [projects]="projects" formControlName="project" dropDownPosition="top" [showAddButton]="false"></app-new-project-select>
               </div>
             </td>

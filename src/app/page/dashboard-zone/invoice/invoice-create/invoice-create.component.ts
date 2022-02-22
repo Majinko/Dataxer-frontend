@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MessageService} from '../../../../core/services/message.service';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -37,12 +37,13 @@ import {ProjectService} from '../../../../core/services/project.service';
     DatePipe
   ],
 })
-export class InvoiceCreateComponent extends DocumentHelperClass implements OnInit {
+export class InvoiceCreateComponent extends DocumentHelperClass implements OnInit, OnDestroy {
   formGroup: FormGroup;
   submitted: boolean = false;
   moreOptions: boolean = false;
   oldPacks: Pack[] = [];
   documentType: string = 'INVOICE';
+  isLoad: boolean = false;
 
   constructor(
     protected numberingService: NumberingService,
@@ -77,6 +78,10 @@ export class InvoiceCreateComponent extends DocumentHelperClass implements OnIni
         this.prepareDocumentNumber(this.f.company.value);
       }
     });
+  }
+
+  ngOnDestroy(): void {
+    this.formGroup.reset();
   }
 
   // prepare form
@@ -155,9 +160,12 @@ export class InvoiceCreateComponent extends DocumentHelperClass implements OnIni
   }
 
   private pathFromOldObject(document: DocumentBase) {
+    this.isLoad = true;
     this.oldPacks = document.packs;
 
     setTimeout(() => {
+      this.isLoad = false;
+
       this.formGroup.patchValue({
         subject: document.subject,
         company: document.company,
@@ -165,7 +173,7 @@ export class InvoiceCreateComponent extends DocumentHelperClass implements OnIni
         project: document.project,
         discount: document.discount === null ? 0 : document.discount,
       });
-    });
+    }, 500);
   }
 
   // set user
