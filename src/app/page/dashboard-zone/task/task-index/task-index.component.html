@@ -13,7 +13,7 @@
       </div>
       <div class="col-12">
         <div class="button-wrap">
-          <button mat-flat-button class="btn-icon btn-theme mr-3" (click)="createTodolist($event)" type="button">
+          <button mat-flat-button class="btn-icon btn-theme mr-3" (click)="createTodolist()" type="button">
             <mat-icon>save</mat-icon>
             Pridať zoznamu
           </button>
@@ -27,7 +27,7 @@
   </div>
 </div>
 <div cdkDropList class="todolists-wrap" (cdkDropListDropped)="drop($event)">
-  <div class="todolist-box" *ngFor="let todolist of todolists" cdkDrag>
+  <div class="todolist-box" *ngFor="let todolist of todoLists" cdkDrag>
     <div class="todolist-placeholder" *cdkDragPlaceholder></div>
     <div class="todolist-indicator">
       <mat-icon>drag_indicator</mat-icon>

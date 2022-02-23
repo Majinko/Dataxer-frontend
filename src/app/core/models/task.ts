@@ -17,7 +17,7 @@ export interface Task {
   files?: CustomFile[];
 }
 
-export interface Todos {
+export interface Todo {
   listId: number;
   id?: number;
   title: string;

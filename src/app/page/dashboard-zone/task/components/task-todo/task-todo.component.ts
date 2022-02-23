@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Todolist, Todos} from '../../../../../core/models/task';
+import {Todolist, Todo} from '../../../../../core/models/task';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import {ActivatedRoute, Router} from '@angular/router';
 
@@ -11,7 +11,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 export class TaskTodoComponent implements OnInit {
   listId: number;
   createTodo = false;
-  todos: Todos[] = [
+  todos: Todo[] = [
     {
       listId: 1,
       id: 101,
@@ -44,7 +44,7 @@ export class TaskTodoComponent implements OnInit {
     this.listId = +this.route.snapshot.paramMap.get('id');
   }
 
-  drop(event: CdkDragDrop<Todos[]>) {
+  drop(event: CdkDragDrop<Todo[]>) {
     moveItemInArray(this.todos, event.previousIndex, event.currentIndex);
     this.todos.forEach((todo, index) => {
       todo.position = index;

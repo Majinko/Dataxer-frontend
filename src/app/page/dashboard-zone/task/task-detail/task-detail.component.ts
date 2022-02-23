@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {TodoComment, Todos} from '../../../../core/models/task';
+import {TodoComment, Todo} from '../../../../core/models/task';
 import {UserService} from '../../../../core/services/user.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {EDITORCONFIG} from '../../../../core/data/editor-config';
@@ -14,7 +14,7 @@ export class TaskDetailComponent implements OnInit {
   editorConfig = EDITORCONFIG;
   editTodo = false;
   writeComment = false;
-  todo: Todos = {
+  todo: Todo = {
     listId: 2,
     id: 102,
     title: 'pridat log aj tu pri pridavani',
