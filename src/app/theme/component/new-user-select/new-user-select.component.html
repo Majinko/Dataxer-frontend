@@ -1,0 +1,13 @@
+<div class="ng-select-custom position-relative">
+    <ng-select class="form-group w-100 disable-arrow mb-0"
+               [items]="users"
+               bindLabel="displayName"
+               [multiple]="multiple ? multiple : false"
+               [placeholder]="placeholder"
+               [clearable]="false"
+               [searchable]="true"
+               [(ngModel)]="user"
+               (change)="selectUser($event)"
+    >
+    </ng-select>
+  </div>

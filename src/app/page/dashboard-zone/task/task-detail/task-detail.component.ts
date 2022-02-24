@@ -48,6 +48,7 @@ export class TaskDetailComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.editorConfig.uploadUrl = '/test/image/upload';
 
     this.formGroup = this.formBuilder.group({
       comment: ['', Validators.required],

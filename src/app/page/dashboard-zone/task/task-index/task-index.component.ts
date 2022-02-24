@@ -12,8 +12,23 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 export class TaskIndexComponent implements OnInit {
   formGroup: FormGroup;
   create: string;
-  todoLists: Todolist[] = [];
-
+  todoLists: Todolist[] = [
+    {
+      id: 1,
+      title: 'toto treba',
+      position: 1,
+    },
+    {
+      id: 2,
+      title: 'toto treba tiež',
+      position: 2,
+    },
+    {
+      id: 3,
+      title: 'toto treba určite',
+      position: 3,
+    },
+  ];
   constructor(
     private formBuilder: FormBuilder,
     public route: ActivatedRoute,

@@ -48,6 +48,7 @@ import {CompanySelectGroupComponent} from './component/company-select-group/comp
 import { DemandPackComponent } from './component/demand-pack/demand-pack.component';
 import { DemandDocumentPackComponent } from './component/demand-document-pack/demand-document-pack.component';
 import { CategoryTreeSharedCategoriesComponent } from './component/category-tree-control/components/category-tree-shared-categories/category-tree-shared-categories.component';
+import { NewUserSelectComponent } from './component/new-user-select/new-user-select.component';
 
 @NgModule({
   imports: [
@@ -103,6 +104,7 @@ import { CategoryTreeSharedCategoriesComponent } from './component/category-tree
     DemandPackComponent,
     DemandDocumentPackComponent,
     CategoryTreeSharedCategoriesComponent,
+    NewUserSelectComponent,
   ],
     exports: [
         DrawerComponent,
@@ -132,6 +134,7 @@ import { CategoryTreeSharedCategoriesComponent } from './component/category-tree
         CompanySelectGroupComponent,
         DemandPackComponent,
         DemandDocumentPackComponent,
+        NewUserSelectComponent,
     ]
 })
 export class ThemeModule {
