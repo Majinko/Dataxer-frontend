@@ -77,6 +77,11 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
         label: 'Čas na projekte',
         link: `/project/show/${+this.route.snapshot.paramMap.get('id')}/time-evaluation`,
         index: 3
+      },
+      {
+        label: 'Rozpočet',
+        link: `/project/show/${+this.route.snapshot.paramMap.get('id')}/budget`,
+        index: 3
       }
     ];
 

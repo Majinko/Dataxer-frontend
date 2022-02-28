@@ -1,0 +1,80 @@
+<div mat-dialog-title class="row mb-4">
+  <div class="d-flex align-items-center justify-content-between mb-3">
+    <h1 class="mb-0">Nastavenie položky rozpočtu</h1>
+    <a mat-icon-button class="close-icon cursor-pointer" mat-dialog-close>
+      <mat-icon>close</mat-icon>
+    </a>
+  </div>
+</div>
+
+<div mat-dialog-content>
+  <div class="table-scroll table-data">
+    <table class="table-hover table-data table-borderless w-100">
+      <thead>
+      <tr>
+        <th class="text-left white-space-nowrap">Názov položky</th>
+        <th class="text-center white-space-nowrap">Dodávatelia</th>
+      </tr>
+      </thead>
+      <tbody *ngFor="let pack of budgetItems">
+      <tr *ngIf="pack.title" class="pack-row">
+        <td class="text-left font-weight-bold" style="white-space: nowrap">
+          {{ pack.title }}
+        </td>
+        <td class="text-center font-weight-bold">
+          <div class="ng-select-custom position-relative">
+            <ng-select class="form-group w-100 disable-arrow mb-0"
+                       [items]="contacts"
+                       bindLabel="name"
+                       [multiple]="true"
+                       [placeholder]="'Vyberte dodávateľov pre všetky položky'"
+                       [clearable]="false"
+                       [searchable]="true"
+                       [(ngModel)]="pack.contacts"
+                       (change)="selectContact($event, pack, 'pack')"
+            >
+            </ng-select>
+            <mat-icon class="text-gray md-f-s position-absolute btn-add" (click)="openDialog()">add</mat-icon>
+          </div>
+        </td>
+      </tr>
+        <ng-container *ngFor="let item of pack.packItems">
+          <tr class="table-item">
+            <td class="text-left" style="white-space: nowrap">
+              {{ item.title }}
+            </td>
+            <td class="text-center">
+              <div class="ng-select-custom position-relative">
+                <ng-select class="form-group w-100 disable-arrow mb-0"
+                           [items]="contacts"
+                           bindLabel="name"
+                           [multiple]="true"
+                           [placeholder]="'Vyberte dodávateľov'"
+                           [clearable]="false"
+                           [searchable]="true"
+                           [(ngModel)]="item.contacts"
+                           (change)="selectContact($event, item, 'item')"
+                >
+                </ng-select>
+                <mat-icon class="text-gray md-f-s position-absolute btn-add" (click)="openDialog()">add</mat-icon>
+              </div>
+
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+  </div>
+  <div class="row">
+    <div class="col-md-12 text-right">
+      <button mat-dialog-close mat-stroked-button class="btn-icon btn-theme-stroked mr-3" type="button">
+        <mat-icon>cancel</mat-icon>
+        Zrušiť
+      </button>
+      <button (click)="save()" mat-stroked-button class="btn-icon btn-theme">
+        <mat-icon>save</mat-icon>
+        Uložiť
+      </button>
+    </div>
+  </div>
+</div>

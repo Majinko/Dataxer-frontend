@@ -15,8 +15,12 @@ import { ProjectUserEvaluationTableComponent } from './components/project-user-e
 import {AvatarModule} from 'ngx-avatar';
 import { ProjectEvaluationExpansionPanelComponent } from './project-category-evaluation/components/project-evaluation-expansion-panel/project-evaluation-expansion-panel.component';
 import {NgSelectModule} from '@ng-select/ng-select';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { ProjectTimeComponent } from './project-time/project-time.component';
+import { ProjectBudgetComponent } from './project-budget/project-budget.component';
+import {TranslateModule} from '@ngx-translate/core';
+import {ProjectBudgetItemsComponent} from './project-budget/components/project-budget-items/project-budget-items.component';
+import { ProjectBudgetSettingsComponent } from './project-budget/components/project-budget-settings/project-budget-settings.component';
 
 const routes: Routes = [
   {
@@ -38,7 +42,11 @@ const routes: Routes = [
       {
         path: 'time-evaluation',
         component: ProjectTimeComponent
-      }
+      },
+      {
+        path: 'budget',
+        component: ProjectBudgetComponent
+      },
     ]
   }
 ];
@@ -54,6 +62,9 @@ const routes: Routes = [
     ProjectUserEvaluationTableComponent,
     ProjectEvaluationExpansionPanelComponent,
     ProjectTimeComponent,
+    ProjectBudgetComponent,
+    ProjectBudgetItemsComponent,
+    ProjectBudgetSettingsComponent,
   ],
   imports: [
     NgApexchartsModule,
@@ -64,7 +75,9 @@ const routes: Routes = [
     CoreModule,
     AvatarModule,
     NgSelectModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule,
+    TranslateModule
   ]
 })
 export class ProjectDetailModule {
