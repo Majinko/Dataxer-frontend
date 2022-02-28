@@ -50,6 +50,8 @@ export class TaskTodoCreateComponent implements OnInit, AfterViewInit {
       title: ['', Validators.required],
       assignees: [null, Validators.required],
       completion: [null, Validators.required],
+      project: [null, Validators.required],
+      category: [null, Validators.required],
       dueOn: null,
       notes: null,
     });
