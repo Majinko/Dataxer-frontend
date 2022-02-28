@@ -10,7 +10,7 @@
             <p>Vyberte zákazku</p>
           </div>
           <div class="col-8">
-            <app-new-project-select placeholder="Vyberte zákazku" formControlName="project"></app-new-project-select>
+            <app-new-project-select placeholder="Vyberte zákazku" [showAddButton]="false" formControlName="project"></app-new-project-select>
           </div>
         </div>
         <div class="row">
@@ -18,7 +18,7 @@
             <p>Vyberte kategóriu</p>
           </div>
           <div class="col-8">
-            <app-new-category-select placeholder="Vyberte kategóriu" formControlName="category"></app-new-category-select>
+            <app-new-category-select placeholder="Vyberte kategóriu" [showAddButton]="false" formControlName="category"></app-new-category-select>
           </div>
         </div>
         <div class="row">
