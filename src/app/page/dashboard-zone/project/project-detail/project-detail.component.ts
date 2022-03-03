@@ -81,7 +81,7 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
       {
         label: 'Rozpočet',
         link: `/project/show/${+this.route.snapshot.paramMap.get('id')}/budget`,
-        index: 3
+        index: 4
       }
     ];
 

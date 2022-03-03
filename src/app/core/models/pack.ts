@@ -13,6 +13,10 @@ export interface Pack {
   packItems: PackItem[];
   demandPacks?: any;
   contacts?: Contact[];
+  allComplete?: boolean;
+  totalCheck?: number;
+  checked?: boolean;
+  indeterminate?: boolean;
 }
 
 export interface PackItem {
@@ -28,6 +32,7 @@ export interface PackItem {
   category?: CategoryItemNode;
   packBudget?: PackBudgetItem;
   contacts?: Contact[];
+  checked?: boolean;
 }
 export interface PackBudgetItem {
   paymentPrice?: number;

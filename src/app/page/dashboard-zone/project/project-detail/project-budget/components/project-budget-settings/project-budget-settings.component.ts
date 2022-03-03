@@ -19,6 +19,60 @@ export class ProjectBudgetSettingsComponent implements OnInit {
   budgetItems: Pack[] = [];
   contact: Contact;
   contacts: Contact[] = [];
+  acceptedDemand = [
+    {
+      title: 'dataid',
+      priceOffer: [
+        {
+          id: 1,
+          title: 'CP 01 - 2020',
+          priceOfferId: 2603,
+          date: '1.2.2021',
+          state: 'approved',
+        },
+        {
+          id: 2,
+          title: 'CP 02 - 2020',
+          priceOfferId: 2603,
+          date: '1.2.2021',
+          state: 'waiting',
+        },
+        {
+          id: 3,
+          title: 'CP 03 - 2020',
+          priceOfferId: 2603,
+          date: '1.2.2021',
+          state: 'rejected',
+        }
+      ]
+    },
+    {
+      title: 'hmmCompany',
+      priceOffer: [
+        {
+          id: 1,
+          title: 'CP 01 - 2020',
+          priceOfferId: 2603,
+          date: '1.2.2021',
+          state: 'rejected',
+        },
+        {
+          id: 2,
+          title: 'CP 02 - 2020',
+          priceOfferId: 2603,
+          date: '1.2.2021',
+          state: 'rejected',
+        },
+        {
+          id: 3,
+          title: 'CP 03 - 2020',
+          priceOfferId: 2603,
+          date: '1.2.2021',
+          state: 'waiting',
+        }
+      ]
+    }
+  ];
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -46,15 +100,9 @@ export class ProjectBudgetSettingsComponent implements OnInit {
     this.contactService.all().subscribe(contact => this.contacts = contact);
   }
 
-  selectContact($event: any, item: any, type: string) {
-    if (type === 'pack') {
-      item.packItems.forEach( f => {
-        f.contacts = $event;
-      });
-    } else {
-      console.log($event);
-      console.log(item);
-    }
+
+  selectContact($event: any) {
+    console.log($event);
   }
   openDialog() {
     this.dialog.open(ContactCreateComponent, {
