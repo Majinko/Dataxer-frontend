@@ -18,8 +18,8 @@ export interface Task {
 }
 
 export interface Todo {
+  id: number;
   listId: number;
-  id?: number;
   title: string;
   checked: boolean;
   position: number;

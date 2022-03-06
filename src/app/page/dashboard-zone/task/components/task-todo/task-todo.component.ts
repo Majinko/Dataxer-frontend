@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import {Todolist, Todo} from '../../../../../core/models/task';
+import {Component, OnInit} from '@angular/core';
+import {Todo} from '../../../../../core/models/task';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import {ActivatedRoute, Router} from '@angular/router';
 
@@ -38,7 +38,8 @@ export class TaskTodoComponent implements OnInit {
   constructor(
     public route: ActivatedRoute,
     public router: Router,
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.listId = +this.route.snapshot.paramMap.get('id');

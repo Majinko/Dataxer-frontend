@@ -2,7 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import {Todolist} from '../../../../core/models/task';
 import {ActivatedRoute, Router} from '@angular/router';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {TodoService} from '../../../../core/services/todo.service';
 
 @Component({
   selector: 'app-task-index',
@@ -15,6 +16,7 @@ export class TaskIndexComponent implements OnInit {
   todoLists: Todolist[] = [];
 
   constructor(
+    private todoService: TodoService,
     private formBuilder: FormBuilder,
     public route: ActivatedRoute,
     public router: Router,
@@ -28,7 +30,8 @@ export class TaskIndexComponent implements OnInit {
 
   prepareForm(): void {
     this.formGroup = this.formBuilder.group({
-      title: '',
+      title: [null, Validators.required],
+      isPrivate: true
     });
   }
 
