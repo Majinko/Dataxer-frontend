@@ -9,17 +9,9 @@
 
 <div mat-dialog-content>
   <div class="pb-3">
-    <ng-select class="form-group w-100 disable-arrow mb-0"
-               [items]="contacts"
-               bindLabel="name"
-               [multiple]="true"
-               [placeholder]="'Vyberte dodávateľov'"
-               [clearable]="false"
-               [searchable]="true"
-               [(ngModel)]="contact"
-               (change)="selectContact($event)"
-    >
-    </ng-select>
+    <div class="w-100 pb-3" [formGroup]="formGroup">
+      <app-select-new-contact placeholder="Dodávatelia" [multiple]='true' formControlName="contacts"></app-select-new-contact>
+    </div>
   </div>
 
   <div class="demand-price-offer">

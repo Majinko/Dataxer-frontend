@@ -259,6 +259,10 @@
         <mat-icon>cancel</mat-icon>
         Zrušiť
       </button>
+      <button *ngIf="!type" mat-flat-button class="btn-icon btn-theme-warn mr-3" (click)="approve()" type="button">
+        <mat-icon>save</mat-icon>
+        Uložiť do rozpočtu
+      </button>
       <button *ngIf="!type" mat-flat-button class="btn-icon btn-theme mr-3" (click)="approve()" type="button">
         <mat-icon>save</mat-icon>
         Schváliť

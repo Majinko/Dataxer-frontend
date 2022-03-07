@@ -210,8 +210,12 @@
     </table>
   </div>
   <div *ngIf="(this.allComplete && this.budgetItems.length) || someCompleteAll()" class="budget-contacts-wrap pt-2">
-    <div class="pb-3" [formGroup]="formGroup">
-      <app-select-new-contact placeholder="Dodávatelia" [multiple]='true' formControlName="contacts"></app-select-new-contact>
+    <div class="d-flex align-items-center" [formGroup]="formGroup">
+      <div class="w-100 mr-3"><app-select-new-contact placeholder="Dodávatelia" [multiple]='true' formControlName="contacts"></app-select-new-contact></div>
+      <button mat-flat-button (click)="saveContacts()" class="btn-icon btn-theme" type="button">
+        <mat-icon>save</mat-icon>
+        Uložiť
+      </button>
     </div>
   </div>
 </div>

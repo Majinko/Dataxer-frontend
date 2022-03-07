@@ -52,7 +52,7 @@ export class PriceOfferShowComponent implements OnInit {
 
   approve() {
     console.log('approve');
-    this.router.navigate(['/document/demand', this.demandId ]).then(() => {
+    this.router.navigate(['/document/demand']).then(() => {
     });
   }
 

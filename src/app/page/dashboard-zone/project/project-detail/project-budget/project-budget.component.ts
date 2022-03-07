@@ -71,6 +71,7 @@ export class ProjectBudgetComponent implements OnInit, AfterViewChecked {
       width: '100%',
       maxWidth: '1000px',
       data: {
+        item,
         budgetItems: this.budgetItems
       },
       autoFocus: false,
@@ -120,5 +121,16 @@ export class ProjectBudgetComponent implements OnInit, AfterViewChecked {
       t.allComplete = checked;
       this.setAll(checked, t);
     });
+  }
+
+  saveContacts() {
+    this.budgetItems.forEach(pack => {
+      pack.packItems.forEach(item => {
+        if (item.checked) {
+          item.contacts = this.formGroup.value.contacts;
+        }
+      });
+    });
+    console.log(this.budgetItems);
   }
 }
