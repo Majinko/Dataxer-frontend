@@ -6,6 +6,7 @@ import {Pack} from '../../../../../../../core/models/pack';
 import {Contact} from '../../../../../../../core/models/contact';
 import {ContactCreateComponent} from '../../../../../contact/contact-create/contact-create.component';
 import {ContactService} from '../../../../../../../core/services/contact.service';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-project-budget-settings',
@@ -16,8 +17,9 @@ import {ContactService} from '../../../../../../../core/services/contact.service
   ],
 })
 export class ProjectBudgetSettingsComponent implements OnInit {
+  formGroup: FormGroup;
   budgetItems: Pack[] = [];
-  contact: Contact;
+  contact: any;
   contacts: Contact[] = [];
   acceptedDemand = [
     {
@@ -78,7 +80,7 @@ export class ProjectBudgetSettingsComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     protected router: Router,
     public dialog: MatDialog,
-    private contactService: ContactService,
+    private formBuilder: FormBuilder,
     public route: ActivatedRoute,
     public documentHelper: DocumentHelper,
     public dialogRef: MatDialogRef<ProjectBudgetSettingsComponent>,
@@ -86,29 +88,19 @@ export class ProjectBudgetSettingsComponent implements OnInit {
 
   ngOnInit(): void {
     console.log(this.data);
+    this.prepareForm();
     this.budgetItems = this.data.budgetItems;
-    this.getContacts();
+  }
 
-    this.contactService.contractorStore.subscribe(c => {
-      this.contact = c;
-
-      this.contacts = this.contacts.concat(c);
+  private prepareForm() {
+    this.formGroup = this.formBuilder.group({
+      contacts: [null, Validators.required],
     });
-  }
-
-  getContacts() {
-    this.contactService.all().subscribe(contact => this.contacts = contact);
-  }
-
-
-  selectContact($event: any) {
-    console.log($event);
-  }
-  openDialog() {
-    this.dialog.open(ContactCreateComponent, {
-      data: {inModal: true},
-      autoFocus: false
-    });
+    if (this.data.item) {
+      this.formGroup.patchValue({
+        contacts: this.data.item.contacts
+      });
+    }
   }
 
   save() {

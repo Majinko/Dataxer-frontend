@@ -211,3 +211,9 @@ app-category-tree-control {
   padding: 10px 20px;
   z-index: 1;
 }
+
+app-select-new-contact {
+  .btn-add {
+    z-index: 2;
+  }
+}
