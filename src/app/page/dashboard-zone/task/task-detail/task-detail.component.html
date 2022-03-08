@@ -6,14 +6,32 @@
 </div>
 
 <div class="task-detail-wrap">
-  <div class="task-detail-title"  *ngIf="!editTodo">
+  <div class="task-detail-title" *ngIf="!editTodo">
     <div class="task-checkbox-wrap">
       <mat-checkbox [checked]="todo.checked" [color]="'green'" (change)="checkedTodo($event.checked)">
       </mat-checkbox>
     </div>
-    <div><h3 (click)="editButton($event)">{{ todo.title }}</h3></div>
+    <div>
+      <h3 (click)="editButton($event)">{{ todo.title }}</h3>
+    </div>
   </div>
   <div class="task-detail-options" *ngIf="!editTodo">
+    <div class="row">
+      <div class="col-4">
+        <strong>Zákazka</strong>
+      </div>
+      <div class="col-8">
+        <p (click)="editButton($event)">206 Byt Zuckermandel AD.08.02</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-4">
+        <strong>Vyberte kategóriu</strong>
+      </div>
+      <div class="col-8">
+        <p (click)="editButton($event)">Architektúra</p>
+      </div>
+    </div>
     <div class="row">
       <div class="col-4">
         <strong>Pridal</strong>
@@ -76,7 +94,7 @@
         <div class="task-text-wrap">
           <div class="task-avatar">
             <ngx-avatar [src]="userService.user.photoUrl" size="40" bgColor="#19A5E5"
-            name="{{ userService.user.displayName }}" class=""></ngx-avatar>
+              name="{{ userService.user.displayName }}" class=""></ngx-avatar>
           </div>
           <div class="task-text">
             <div class="task-text-title">
@@ -97,7 +115,7 @@
       <div class="task-text-wrap">
         <div class="task-avatar">
           <ngx-avatar [src]="userService.user.photoUrl" size="40" bgColor="#19A5E5"
-          name="{{ userService.user.displayName }}" class=""></ngx-avatar>
+            name="{{ userService.user.displayName }}" class=""></ngx-avatar>
         </div>
         <div class="task-text">
           <div class="add-comment" *ngIf="!writeComment">
@@ -105,7 +123,8 @@
           </div>
           <div *ngIf="writeComment">
             <form autocomplete="off" [formGroup]="formGroup" (ngSubmit)="submit()">
-              <angular-editor placeholder="Text komentára" formControlName="comment" [config]="editorConfig"></angular-editor>
+              <angular-editor placeholder="Text komentára" formControlName="comment" [config]="editorConfig">
+              </angular-editor>
               <div class="button-wrap">
                 <button mat-flat-button class="btn-icon btn-theme mr-3">
                   <mat-icon>save</mat-icon>

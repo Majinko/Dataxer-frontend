@@ -48,6 +48,19 @@ export class TaskDetailComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.editorConfig.uploadUrl = '/test/image/upload';
+    this.editorConfig.toolbarHiddenButtons = [
+      [
+        'strikeThrough',
+        'heading',
+        'fontName',
+      ],
+      [
+        'customClasses',
+        'insertHorizontalRule',
+        'removeFormat',
+      ]
+    ];
 
     this.formGroup = this.formBuilder.group({
       comment: ['', Validators.required],

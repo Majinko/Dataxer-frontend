@@ -7,10 +7,26 @@
       <div class="todo-content">
         <div class="row">
           <div class="col-4">
+            <p>Vyberte zákazku</p>
+          </div>
+          <div class="col-8">
+            <app-new-project-select placeholder="Vyberte zákazku" [showAddButton]="false" formControlName="project"></app-new-project-select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-4">
+            <p>Vyberte kategóriu</p>
+          </div>
+          <div class="col-8">
+            <app-new-category-select placeholder="Vyberte kategóriu" [showAddButton]="false" formControlName="category"></app-new-category-select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-4">
             <p>Priradiť k</p>
           </div>
           <div class="col-8">
-            <app-task-chip-select [formGroup]="formGroup" [type]="this.assignees"></app-task-chip-select>
+            <app-new-user-select placeholder="Zadajte mená, ktorým chcete priradiť úlohu" [multiple]='true' formControlName="assignees"></app-new-user-select>
           </div>
         </div>
         <div class="row">
@@ -18,7 +34,7 @@
             <p>Po dokončení upozorniť</p>
           </div>
           <div class="col-8">
-            <app-task-chip-select [formGroup]="formGroup" [type]="this.completion"></app-task-chip-select>
+            <app-new-user-select placeholder="Zadajte mená, ktoré chcete upozorniť" [multiple]='true' formControlName="completion"></app-new-user-select>
           </div>
         </div>
         <div class="row">

@@ -10,8 +10,6 @@ import {ConfirmDialogComponent} from '../../../../../../theme/component/confirm-
 import {DocumentFilter} from '../../../../../../core/models/filters/document-filter';
 import {SalaryService} from '../../../../../../core/services/salary.service';
 import {Salary} from '../../../../../../core/models/salary';
-import {UserService} from '../../../../../../core/services/user.service';
-import * as lodash from 'lodash';
 
 @Component({
   selector: 'app-time-table',
@@ -64,8 +62,6 @@ export class TimeTableComponent implements OnInit {
       .subscribe(data => {
         this.times = data;
 
-        this.prepareTimesToExport(data);
-
         this.prepareTimeInDay();
       });
   }
@@ -113,31 +109,5 @@ export class TimeTableComponent implements OnInit {
         this.daysPriceTime[time.day].price += time.price;
       }
     });
-  }
-
-  private prepareTimesToExport(times: Time[]) {
-    times.map((time) => {
-      const t = time.dateWork.toString().split('-');
-
-      time.dateWorkMonth = t[0] + '-' + t[1];
-    });
-
-    const sortedTimes = lodash.groupBy(times, 'dateWorkMonth');
-    const blot = new Blob(['test text'], {type: 'text'});
-
-
-    console.log(sortedTimes);
-  }
-
-  exportToTxt() {
-    const a = document.createElement('a');
-    const file = new Blob(['<a>penis</a>>'], {type: 'text/plain'});
-
-    a.href = URL.createObjectURL(file);
-    a.download = 'my-new-file.txt';
-    a.click();
-
-
-    return URL.revokeObjectURL(a.href);
   }
 }

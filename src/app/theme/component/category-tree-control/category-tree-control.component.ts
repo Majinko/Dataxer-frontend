@@ -5,6 +5,7 @@ import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
 import {SelectionModel} from '@angular/cdk/collections';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 import {CategoryHelper} from '../../../core/class/CategoryHelper';
+import {ActivatedRoute} from '@angular/router';
 
 export interface CategoryFlatNode {
   id: number;
@@ -29,6 +30,7 @@ export interface CategoryFlatNode {
 export class CategoryTreeControlComponent implements OnInit, OnChanges, ControlValueAccessor {
   categoryItemNodes: CategoryItemNode[] = [];
   cleanCategories: CategoryItemNode[] = [];
+  demandId: number;
 
   @Input() categories: CategoryItemNode[] = [];
   @Input() sharedCategories?;
@@ -56,7 +58,8 @@ export class CategoryTreeControlComponent implements OnInit, OnChanges, ControlV
   dataSource: MatTreeFlatDataSource<CategoryItemNode, CategoryFlatNode>;
 
   constructor(
-    public categoryHelper: CategoryHelper
+    public categoryHelper: CategoryHelper,
+    private route: ActivatedRoute,
   ) {
     this.treeFlattener = new MatTreeFlattener(this.transformer, this.getLevel, this.isExpandable, this.getChildren);
     this.treeControl = new FlatTreeControl<CategoryFlatNode>(this.getLevel, this.isExpandable);
@@ -70,6 +73,9 @@ export class CategoryTreeControlComponent implements OnInit, OnChanges, ControlV
   }
 
   ngOnInit(): void {
+    this.route.params.subscribe(() => {
+      this.demandId = +this.route.snapshot.paramMap.get('demandId');
+    });
   }
 
   ngOnChanges(changes: SimpleChanges): void {

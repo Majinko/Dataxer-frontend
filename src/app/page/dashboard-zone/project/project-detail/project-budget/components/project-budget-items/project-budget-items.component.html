@@ -1,0 +1,26 @@
+<form [formGroup]="formGroup" action="" autocomplete="off" (ngSubmit)="onSubmit()">
+  <div mat-dialog-title class="row mb-4">
+    <div class="d-flex align-items-center justify-content-between mb-3">
+      <h1 class="mb-0">Položky rozpočtu</h1>
+      <a mat-icon-button class="close-icon cursor-pointer" mat-dialog-close>
+        <mat-icon>close</mat-icon>
+      </a>
+    </div>
+  </div>
+
+  <div mat-dialog-content>
+    <app-document-pack [formGroup]="formGroup" [packs]="this.packs" [documentHelper]="documentHelper"></app-document-pack>
+    <div class="row">
+      <div class="col-md-12 text-right">
+        <button mat-dialog-close mat-stroked-button class="btn-icon btn-theme-stroked mr-3" type="button">
+          <mat-icon>cancel</mat-icon>
+          Zrušiť
+        </button>
+        <button mat-stroked-button class="btn-icon btn-theme">
+          <mat-icon>save</mat-icon>
+          Uložiť
+        </button>
+      </div>
+    </div>
+  </div>
+</form>

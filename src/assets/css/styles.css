@@ -1320,6 +1320,15 @@ app-category-tree-control .mat-tree {
   color: #19A5E5;
 }
 
+.budget-contacts-wrap {
+  position: sticky;
+  bottom: 0;
+  left: 0;
+  background: #f9fafb;
+  padding: 10px 20px;
+  z-index: 1;
+}
+
 .todolists-wrap {
   padding-top: 20px;
   max-width: 800px;
@@ -1557,6 +1566,9 @@ body .mat-checkbox-frame {
   height: 100%;
   display: flex;
   align-items: center;
+}
+.task-add-comment .task-text .add-comment .cursor-pointer {
+  font-size: 16px;
 }
 .task-add-comment .button-wrap {
   padding-top: 30px;

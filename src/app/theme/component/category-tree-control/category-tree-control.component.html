@@ -4,6 +4,9 @@
       <button mat-icon-button disabled></button>
       <mat-checkbox class="checklist-leaf-node" [checked]="checklistSelection.isSelected(node)"
         (change)="todoLeafItemSelectionToggle(node)">{{ node.name }}</mat-checkbox>
+      <div class="ml-auto" *ngIf="demandId && group.title === 'Kategórie zákazky'">
+        <app-category-tree-shared-categories [node]="node" [sharedCategories]="sharedCategories"></app-category-tree-shared-categories>
+      </div>
     </mat-tree-node>
 
     <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
@@ -15,12 +18,12 @@
       <mat-checkbox [checked]="descendantsAllSelected(node)" [indeterminate]="descendantsPartiallySelected(node)"
         (change)="todoItemSelectionToggle(node)">{{ node.name }}
       </mat-checkbox>
-      <div class="ml-auto" *ngIf="sharedCategories && group.title === 'Kategórie zákazky'">
+      <div class="ml-auto" *ngIf="demandId && group.title === 'Kategórie zákazky'">
         <app-category-tree-shared-categories [node]="node" [sharedCategories]="sharedCategories"></app-category-tree-shared-categories>
       </div>
     </mat-tree-node>
   </mat-tree>
-  <div *ngIf="sharedCategories && group.title === 'Kategórie zákazky'">
+  <div *ngIf="demandId && group.title === 'Kategórie zákazky'">
     <div class="shared-categories-items">
       <h3>Zdieľané kategórie</h3>
       <div *ngFor="let item of sharedCategories">
