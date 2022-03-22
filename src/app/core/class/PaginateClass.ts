@@ -71,7 +71,5 @@ export class PaginateClass<T> extends PaginateClassData {
   filterData(data: any) {
     this.service.filter = data.documentFilter;
     this.service.rsqlFilter = data.rsqlFilter;
-
-    this.paginate();
   }
 }

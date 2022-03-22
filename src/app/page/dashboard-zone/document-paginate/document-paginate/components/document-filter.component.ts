@@ -139,13 +139,13 @@ export class DocumentFilterComponent extends FilterClass implements OnInit, OnCh
   }
 
   private getContacts() {
-    this.contactService.allHasPriceOfferCostInvoice().subscribe((c) => {
+    this.contactService.all().subscribe((c) => {
       this.contacts = c;
     });
   }
 
   private getProjects() {
-    this.projectService.allHasPriceOfferCostInvoice().subscribe((projects) => {
+    this.projectService.all().subscribe((projects) => {
       this.projects = projects.map(project => {
         project.group = 'Všetky zákazky';
 

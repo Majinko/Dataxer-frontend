@@ -49,6 +49,7 @@ export class CostTableComponent extends PaginateClass<Cost> implements OnInit, A
         'title', 'project', 'client', 'category', 'number', 'createdDate', 'deliveredDate', 'dueDate', 'state', 'price', 'actions'
       ];
 
+      // ak ma pouzivatel viacej ako jednu spolocnost nech vidi z akej spolocnosti je
       if (c.length > 1) {
         this.displayedColumns = ['company'].concat(this.displayedColumns);
       }

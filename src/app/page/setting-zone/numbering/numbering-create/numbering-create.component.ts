@@ -12,6 +12,7 @@ import {NumberingService} from '../../../../core/services/numbering.service';
 export class NumberingCreateComponent implements OnInit {
   formGroup: FormGroup;
   typeDocuments: { key: string, value: string }[] = [
+    {key: 'DEMAND', value: 'Dopyt'},
     {key: 'PRICE_OFFER', value: 'Cenové ponuky'},
     {key: 'INVOICE', value: 'Faktúry'},
     {key: 'PROFORMA', value: 'Zálohové faktúry'}

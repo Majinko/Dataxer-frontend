@@ -43,11 +43,13 @@ export abstract class DocumentHelperClass {
         }
       });
 
-      this.formGroup.get('contact').valueChanges.subscribe((contact) => {
-        this.formGroup.get('documentData').patchValue({
-          contact
-        }, {emitEvent: false});
-      });
+      if (this.formGroup.get('contact')) {
+        this.formGroup.get('contact').valueChanges.subscribe((contact) => {
+          this.formGroup.get('documentData').patchValue({
+            contact
+          }, {emitEvent: false});
+        });
+      }
     }
   }
 
@@ -102,6 +104,9 @@ export abstract class DocumentHelperClass {
         break;
       case 'PRICE_OFFER':
         title = 'Cenová ponuka';
+        break;
+      case 'DEMAND':
+        title = 'Dopyt';
         break;
       default:
         title = 'Faktúra';

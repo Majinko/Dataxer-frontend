@@ -3,7 +3,7 @@
     <app-demand-filter (onFilter)="filterData($event)" [filterData]="service.filter"></app-demand-filter>
   </div>
   <div class="col-md-12">
-    <h3 class="text-gray mb-3">Prijate dopyty</h3>
+    <h3 class="text-gray mb-3">Vystavené dopyty</h3>
     <div class="table-wrap">
       <div class="position-relative">
         <div class="loading-shade" *ngIf="isLoadingResults">
@@ -15,8 +15,10 @@
           <ng-container matColumnDef="type">
             <th class="text-right" mat-header-cell *matHeaderCellDef></th>
             <td class="text-right" mat-cell *matCellDef="let element">
-              <mat-icon *ngIf="element.state === 'WAITING'" class="text-green-dark">north_east</mat-icon>
-              <mat-icon *ngIf="element.state !== 'WAITING'" class="text-warning">call_received</mat-icon>
+              <mat-icon *ngIf="element.internal; else noInternal" class="text-green-dark">north_east</mat-icon>
+              <ng-template #noInternal>
+                <mat-icon matTooltip="Prichádzajúci dopyt" class="text-green-dark">call_received</mat-icon>
+              </ng-template>
             </td>
           </ng-container>
           <!-- Company Column -->
@@ -34,14 +36,7 @@
           <!-- Number Column -->
           <ng-container matColumnDef="title">
             <th mat-header-cell *matHeaderCellDef> Názov</th>
-            <td mat-cell *matCellDef="let element"> Dopyt 20220001 </td>
-          </ng-container>
-
-          <!-- Client Column -->
-          <ng-container matColumnDef="client">
-            <th mat-header-cell *matHeaderCellDef> Klient</th>
-            <td mat-cell
-                *matCellDef="let element"> {{element.contact ? element.contact.name : 'Klient nebol priradeny'}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.title}} </td>
           </ng-container>
 
           <!-- Action Column -->
@@ -68,7 +63,7 @@
           <ng-container matColumnDef="actions">
             <th class="thin text-right p-0 max" mat-header-cell *matHeaderCellDef></th>
             <td class="thin text-right action-link pr-0 max" mat-cell colspan="3" *matCellDef="let element">
-              <div class="invisible">
+              <div class="invisible" *ngIf="element.internal; else noInternalDemand">
                 <button
                   [routerLink]="['/demand/edit', element.id]"
                   mat-icon-button
@@ -82,6 +77,17 @@
                   <mat-icon class="text-theme">delete</mat-icon>
                 </button>
               </div>
+
+              <ng-template #noInternalDemand>
+                <div class="invisible">
+                  <button
+                    [routerLink]="['/demand/edit', element.id]"
+                    mat-icon-button
+                    matTooltip="Edit item">
+                    <mat-icon class="text-theme">edit</mat-icon>
+                  </button>
+                </div>
+              </ng-template>
             </td>
           </ng-container>
 

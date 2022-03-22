@@ -13,6 +13,7 @@ import {CompanyService} from '../../../../core/services/company.service';
 export class NumberingIndexComponent implements OnInit {
   companies: Company[] = [];
   selectedCompanyId: number = null;
+  isLoadingResults: boolean = true;
 
   documentNumberings: DocumentNumbering[] = [];
   filteredDocumentNumberings: DocumentNumbering[] = [];
@@ -49,6 +50,7 @@ export class NumberingIndexComponent implements OnInit {
 
   private getNumberings(id: number) {
     this.numberingService.getAll().subscribe((documentNumberings) => {
+      this.isLoadingResults = false;
       this.documentNumberings = documentNumberings;
 
       this.filteredDocumentNumberings = documentNumberings.filter((documentNumber) => documentNumber.company.id === id);

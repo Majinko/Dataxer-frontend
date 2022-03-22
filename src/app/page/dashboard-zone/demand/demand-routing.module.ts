@@ -20,14 +20,14 @@ const routes: Routes = [{
     },
     {
       path: 'edit/:demand_id',
-      component: DemandCreateComponent
+      component: DemandEditComponent
     },
     {
-      path: 'show/:id',
+      path: 'show/:demand_id',
       component: DemandShowComponent
     },
     {
-      path: 'show/:id/:type',
+      path: 'show/:demand_id/:type',
       component: DemandShowComponent
     },
   ]

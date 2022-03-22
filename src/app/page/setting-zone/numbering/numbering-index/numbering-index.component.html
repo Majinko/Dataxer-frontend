@@ -32,6 +32,10 @@
     <h3 class="text-gray mb-3">Zvolené císelníky</h3>
     <div class="table-wrap">
       <div class="position-relative">
+        <div class="loading-shade" *ngIf="isLoadingResults">
+          <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+        </div>
+
         <table mat-table [dataSource]="filteredDocumentNumberings" class="table-hover table-data table-borderless w-100" matSort matSortActive="firstName" matSortDisableClear matSortDirection="desc">
           <!-- Name Column -->
           <ng-container matColumnDef="title">

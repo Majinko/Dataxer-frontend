@@ -172,7 +172,7 @@ export class InvoiceCreateComponent extends DocumentHelperClass implements OnIni
         contact: document.contact,
         project: document.project,
         discount: document.discount === null ? 0 : document.discount,
-      });
+      }, {emitEvent: false});
     }, 500);
   }
 

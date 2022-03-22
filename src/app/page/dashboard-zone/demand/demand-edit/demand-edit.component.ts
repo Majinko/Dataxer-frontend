@@ -50,7 +50,7 @@ export class DemandEditComponent implements OnInit {
       description: '',
       source: '',
       state: '',
-      contact: [null]
+      contacts: [null, Validators.required],
     });
 
     this.formGroup.patchValue(this.demand);

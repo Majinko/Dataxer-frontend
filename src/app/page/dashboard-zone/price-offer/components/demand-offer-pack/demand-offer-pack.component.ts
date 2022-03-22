@@ -1,45 +1,24 @@
-import {AfterViewChecked, ChangeDetectorRef, Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {DocumentHelper} from '../../../../../core/class/DocumentHelper';
-import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
-import {Pack} from '../../../../../core/models/pack';
+import {FormGroup} from '@angular/forms';
+import {DemandItem} from '../../../../../core/models/documentItem';
 
 @Component({
   selector: 'app-demand-offer-pack',
   templateUrl: './demand-offer-pack.component.html',
   styleUrls: ['./demand-offer-pack.component.scss']
 })
-export class DemandOfferPackComponent implements OnInit {
-  priceDemand = {
-    price: [],
-    totalPrice: []
-  };
-
+export class DemandOfferPackComponent implements OnInit, OnChanges {
   @Input() documentHelper: DocumentHelper;
   @Input() formGroup: FormGroup;
-  @Input() demandData: Pack[];
+  @Input() demandPackItem: DemandItem[];
 
-  constructor(
-  ) { }
+  constructor() {
+  }
 
   ngOnInit(): void {
-    this.prepareForm();
   }
 
-  private prepareForm() {
-    this.formGroup.addControl('demand_pack', new FormControl(''));
-  }
-
-  formChange() {
-    let price = 0;
-    this.priceDemand.price.forEach( f => {
-      price = price + f;
-    });
-    this.documentHelper.price = price;
-
-    let totalPrice = 0;
-    this.priceDemand.totalPrice.forEach( f => {
-      totalPrice = totalPrice + f;
-    });
-    this.documentHelper.totalPrice = totalPrice;
+  ngOnChanges(changes: SimpleChanges): void {
   }
 }

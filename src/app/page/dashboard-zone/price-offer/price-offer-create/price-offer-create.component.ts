@@ -14,6 +14,8 @@ import {Pack} from '../../../../core/models/pack';
 import {PriceOffer} from '../../../../core/models/priceOffer';
 import {DocumentHelperClass} from '../../../../core/class/DocumentHelperClass';
 import {ProjectService} from '../../../../core/services/project.service';
+import {DemandItem, DocumentItem} from '../../../../core/models/documentItem';
+import {DemandService} from '../../../../core/services/demand.service';
 
 @Component({
   selector: 'app-create',
@@ -39,6 +41,7 @@ export class PriceOfferCreateComponent extends DocumentHelperClass implements On
   demandOffer = false;
   demandData: Pack[] = [];
   oldPacks: Pack[] = [];
+  documentItems: DemandItem[] = [];
   documentType: string = 'PRICE_OFFER';
 
   constructor(
@@ -49,6 +52,7 @@ export class PriceOfferCreateComponent extends DocumentHelperClass implements On
     protected router: Router,
     public route: ActivatedRoute,
     private formBuilder: FormBuilder,
+    private demandService: DemandService,
     private userService: UserService,
     private priceOfferService: PriceOfferService,
     public documentHelper: DocumentHelper,
@@ -107,8 +111,8 @@ export class PriceOfferCreateComponent extends DocumentHelperClass implements On
   }
 
   private demand() {
-    this.priceOfferService.getById(2570).subscribe(p => {
-      this.demandData = p.packs;
+    this.demandService.gedDemandPackItem(+this.route.snapshot.paramMap.get('demandId')).subscribe(demandItems => {
+      this.documentItems = demandItems;
     });
   }
 
@@ -141,7 +145,7 @@ export class PriceOfferCreateComponent extends DocumentHelperClass implements On
 
 
   // submit form
-  submit( type: string) {
+  submit(type: string) {
     this.submitted = true;
 
     if (this.formGroup.invalid) {
@@ -153,6 +157,9 @@ export class PriceOfferCreateComponent extends DocumentHelperClass implements On
       return;
     }
 
+    console.log(this.formGroup.value);
+    return;
+
     // set offer price and total price
     this.formGroup.patchValue({
       price: this.documentHelper.price,
@@ -161,7 +168,6 @@ export class PriceOfferCreateComponent extends DocumentHelperClass implements On
 
     if (this.demandOffer) {
       this.formGroup.get('demand_pack').patchValue(this.demandData);
-      console.log(this.formGroup.value);
       this.router.navigate(['/document/priceOffer']).then(() => {
       });
       return;

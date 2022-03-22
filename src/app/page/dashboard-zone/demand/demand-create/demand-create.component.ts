@@ -10,6 +10,10 @@ import {addDays, APP_DATE_FORMATS, findInvalidControls} from '../../../../../hel
 import {Pack} from '../../../../core/models/pack';
 import {UserService} from '../../../../core/services/user.service';
 import {Demand} from '../../../../core/models/demand';
+import {NumberingService} from '../../../../core/services/numbering.service';
+import {DocumentHelperClass} from '../../../../core/class/DocumentHelperClass';
+import {BankAccountService} from '../../../../core/services/bank-account.service';
+import {ProjectService} from '../../../../core/services/project.service';
 
 @Component({
   selector: 'app-demand-create',
@@ -29,7 +33,7 @@ import {Demand} from '../../../../core/models/demand';
     DocumentHelper
   ],
 })
-export class DemandCreateComponent implements OnInit {
+export class DemandCreateComponent extends DocumentHelperClass implements OnInit {
   formGroup: FormGroup;
   submitted: boolean = false;
   oldPacks: Pack[] = [];
@@ -38,12 +42,16 @@ export class DemandCreateComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private demandService: DemandService,
-    protected messageService: MessageService,
-    protected router: Router,
     public route: ActivatedRoute,
     private userService: UserService,
     public documentHelper: DocumentHelper,
+    protected numberingService: NumberingService,
+    protected bankAccountService: BankAccountService,
+    protected messageService: MessageService,
+    protected projectService: ProjectService,
+    protected router: Router,
   ) {
+    super(bankAccountService, numberingService, messageService, router, route, projectService);
   }
 
   ngOnInit(): void {
@@ -62,10 +70,11 @@ export class DemandCreateComponent implements OnInit {
     this.formGroup = this.formBuilder.group({
       contacts: [null, Validators.required],
       project: [null, Validators.required],
-      title: ['', Validators.required],
+      title: [null, Validators.required],
       subject: '',
       state: 'WAITING',
       company: [null, Validators.required],
+      number: null,
       createdDate: [new Date(), Validators.required],
       deliveredDate: [new Date(), Validators.required],
       dueDate: [addDays(new Date(), 14)],
@@ -102,17 +111,6 @@ export class DemandCreateComponent implements OnInit {
     this.formGroup.get('documentData.user').patchValue(this.userService.user);
   }
 
-  // change company
-  private changeForm() {
-    this.formGroup.get('company').valueChanges.subscribe((company) => {
-      this.formGroup.get('documentData.firm').patchValue(company);
-    });
-
-    this.formGroup.get('contacts').valueChanges.subscribe((contact) => {
-      this.formGroup.get('documentData.contact').patchValue(contact);
-    });
-  }
-
   // path data
   private pathFromOldObject(document: Demand) {
     this.oldPacks = document.packs;
@@ -126,9 +124,10 @@ export class DemandCreateComponent implements OnInit {
     });
   }
 
-
   // submit form
   submit(type: string) {
+    console.log(findInvalidControls(this.formGroup.controls));
+
     this.submitted = true;
 
     if (this.formGroup.invalid) {

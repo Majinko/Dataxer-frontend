@@ -17,7 +17,6 @@ export class DemandTableComponent extends PaginateClass<Demand>  {
     'company',
     'number',
     'title',
-    'client',
     'action',
     'created',
     'state',

@@ -11,5 +11,4 @@ export class DemandIndexComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
 }

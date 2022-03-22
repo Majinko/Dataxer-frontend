@@ -1329,6 +1329,10 @@ app-category-tree-control .mat-tree {
   z-index: 1;
 }
 
+app-select-new-contact .btn-add {
+  z-index: 2;
+}
+
 .todolists-wrap {
   padding-top: 20px;
   max-width: 800px;
