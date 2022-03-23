@@ -17,6 +17,7 @@ export interface Pack {
   totalCheck?: number;
   checked?: boolean;
   indeterminate?: boolean;
+  itemId?: number;
 }
 
 export interface PackItem {

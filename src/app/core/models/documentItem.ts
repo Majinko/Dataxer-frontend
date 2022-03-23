@@ -1,4 +1,5 @@
 import { Item } from './item';
+import {Pack} from './pack';
 
 export interface DocumentItem {
     id: number;
@@ -20,4 +21,5 @@ export interface DemandItem {
   price: number;
   tax: number;
   totalPrice: number;
+  packs: Pack[];
 }

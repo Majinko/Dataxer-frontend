@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {CategoryItemNode} from '../../../core/models/category-item-node';
 import {Pack} from '../../../core/models/pack';
 import {DocumentHelper} from '../../../core/class/DocumentHelper';
@@ -21,17 +21,27 @@ export class DemandDocumentPackComponent extends DocumentPackHelpers implements 
   categories: CategoryItemNode[];
 
   @Input() demandItem: DemandItem;
-  @Input() documentHelper: DocumentHelper;
+  @Input() priceDemand;
+  @Input() index: number;
+
+  @Output() formChange: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(
     protected formBuilder: FormBuilder,
     private packService: PackService,
+    public documentHelper: DocumentHelper,
   ) {
     super(formBuilder);
   }
 
   ngOnInit() {
     this.formGroup = this.formBuilder.group({packs: this.formBuilder.array([])});
+    this.formGroup.valueChanges.subscribe((value => {
+      this.demandItem.packs = value.packs;
+      this.priceDemand.price[this.index] = this.documentHelper.price;
+      this.priceDemand.totalPrice[this.index] = this.documentHelper.totalPrice;
+      this.formChange.emit();
+    }));
     this.documentHelper.handlePackChanges(this.f.packs);
     this.preparePack();
 

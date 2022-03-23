@@ -86,7 +86,7 @@ export abstract class DocumentPackHelpers {
 
         return item;
       })
-    }, {emitEvent: false});
+    }, {emitEvent: true});
   }
 
   // set item when find item
@@ -97,7 +97,7 @@ export abstract class DocumentPackHelpers {
       price: item.itemPrice.price,
       tax: item.itemPrice.tax,
       category: item.category
-    }, {emitEvent: false});
+    }, {emitEvent: true});
   }
 
   // set item title

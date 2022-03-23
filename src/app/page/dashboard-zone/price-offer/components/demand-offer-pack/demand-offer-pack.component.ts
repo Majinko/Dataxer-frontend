@@ -1,6 +1,5 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, Input, OnInit } from '@angular/core';
 import {DocumentHelper} from '../../../../../core/class/DocumentHelper';
-import {FormGroup} from '@angular/forms';
 import {DemandItem} from '../../../../../core/models/documentItem';
 
 @Component({
@@ -8,9 +7,12 @@ import {DemandItem} from '../../../../../core/models/documentItem';
   templateUrl: './demand-offer-pack.component.html',
   styleUrls: ['./demand-offer-pack.component.scss']
 })
-export class DemandOfferPackComponent implements OnInit, OnChanges {
+export class DemandOfferPackComponent implements OnInit {
+  priceDemand = {
+    price: [],
+    totalPrice: []
+  };
   @Input() documentHelper: DocumentHelper;
-  @Input() formGroup: FormGroup;
   @Input() demandPackItem: DemandItem[];
 
   constructor() {
@@ -19,6 +21,10 @@ export class DemandOfferPackComponent implements OnInit, OnChanges {
   ngOnInit(): void {
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
+  formChange() {
+    const price = this.priceDemand.price.reduce((partialSum, a) => partialSum + a, 0);
+    const totalPrice = this.priceDemand.totalPrice.reduce((partialSum, a) => partialSum + a, 0);
+    this.documentHelper.price = price;
+    this.documentHelper.totalPrice = totalPrice;
   }
 }

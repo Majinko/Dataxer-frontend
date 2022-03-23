@@ -1,6 +1,6 @@
 <div class="demand-offer-wrap">
   <div *ngFor="let item of demandPackItem; let i = index">
-    <h1 class="text-theme">{{item.title}}</h1>
-    <app-demand-document-pack [demandItem]="item" [formGroup]="formGroup" [documentHelper]="documentHelper"></app-demand-document-pack>
+    <h2 class="border-bottom-2 pb-2 mb-4">{{item.title}}</h2>
+    <app-demand-document-pack [demandItem]="item" [priceDemand]="priceDemand" [index]="i" (formChange)="formChange()"></app-demand-document-pack>
   </div>
 </div>

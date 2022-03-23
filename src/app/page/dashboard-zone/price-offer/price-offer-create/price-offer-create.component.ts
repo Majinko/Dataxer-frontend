@@ -39,7 +39,7 @@ export class PriceOfferCreateComponent extends DocumentHelperClass implements On
   formGroup: FormGroup;
   submitted: boolean = false;
   demandOffer = false;
-  demandData: Pack[] = [];
+  demandPack: Pack[] = [];
   oldPacks: Pack[] = [];
   documentItems: DemandItem[] = [];
   documentType: string = 'PRICE_OFFER';
@@ -142,13 +142,11 @@ export class PriceOfferCreateComponent extends DocumentHelperClass implements On
       discount: document.discount === null ? 0 : document.discount,
     });
   }
-
-
   // submit form
   submit(type: string) {
     this.submitted = true;
 
-    if (this.formGroup.invalid) {
+    if (!this.formGroup.invalid) {
       setTimeout(() => {
         this.documentHelper.scrollIfFormHasErrors(this.formGroup).then(() => {
           this.messageService.add('Prosíme o skontrolovanie povinných údajov');
@@ -156,23 +154,22 @@ export class PriceOfferCreateComponent extends DocumentHelperClass implements On
       }, 100);
       return;
     }
-
-    console.log(this.formGroup.value);
-    return;
-
     // set offer price and total price
     this.formGroup.patchValue({
       price: this.documentHelper.price,
       totalPrice: this.documentHelper.totalPrice,
     });
-
     if (this.demandOffer) {
-      this.formGroup.get('demand_pack').patchValue(this.demandData);
-      this.router.navigate(['/document/priceOffer']).then(() => {
+      this.formGroup.get('packs').patchValue([]);
+      this.documentItems.forEach( f => {
+        f.packs.forEach( p => {
+          p.itemId = f.id;
+          this.formGroup.get('packs').value.push(p);
+        });
       });
-      return;
     }
-
+    console.log(this.formGroup.value);
+    return;
     this.priceOfferService.store(this.formGroup.value).subscribe((r) => {
       this.router
         .navigate(['/document/priceOffer'])
