@@ -164,6 +164,9 @@ export class PriceOfferCreateComponent extends DocumentHelperClass implements On
       this.documentItems.forEach( f => {
         f.packs.forEach( p => {
           p.itemId = f.id;
+          const item = JSON.parse(JSON.stringify(f));
+          delete item.packs;
+          p.item = item;
           this.formGroup.get('packs').value.push(p);
         });
       });
