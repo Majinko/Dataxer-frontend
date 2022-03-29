@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewChecked, ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {PriceOfferService} from 'src/app/core/services/priceOffer.service';
 import {MessageService} from 'src/app/core/services/message.service';
@@ -16,6 +16,7 @@ import {DocumentHelperClass} from '../../../../core/class/DocumentHelperClass';
 import {ProjectService} from '../../../../core/services/project.service';
 import {DemandItem, DocumentItem} from '../../../../core/models/documentItem';
 import {DemandService} from '../../../../core/services/demand.service';
+import {MatSlideToggle, MatSlideToggleChange} from '@angular/material/slide-toggle';
 
 @Component({
   selector: 'app-create',
@@ -35,7 +36,7 @@ import {DemandService} from '../../../../core/services/demand.service';
     DocumentHelper
   ],
 })
-export class PriceOfferCreateComponent extends DocumentHelperClass implements OnInit {
+export class PriceOfferCreateComponent extends DocumentHelperClass implements OnInit, AfterViewChecked {
   formGroup: FormGroup;
   submitted: boolean = false;
   demandOffer = false;
@@ -43,6 +44,11 @@ export class PriceOfferCreateComponent extends DocumentHelperClass implements On
   oldPacks: Pack[] = [];
   documentItems: DemandItem[] = [];
   documentType: string = 'PRICE_OFFER';
+  simpleDemandPacks = {
+    packs: []
+  };
+
+  @ViewChild('slide', { static: false }) slide: MatSlideToggle;
 
   constructor(
     protected numberingService: NumberingService,
@@ -56,6 +62,7 @@ export class PriceOfferCreateComponent extends DocumentHelperClass implements On
     private userService: UserService,
     private priceOfferService: PriceOfferService,
     public documentHelper: DocumentHelper,
+    private cdr: ChangeDetectorRef
   ) {
     super(bankAccountService, numberingService, messageService, router, route, projectService);
   }
@@ -75,6 +82,10 @@ export class PriceOfferCreateComponent extends DocumentHelperClass implements On
     } else {
       this.checkDuplicate();
     }
+  }
+
+  ngAfterViewChecked(): void {
+    this.cdr.detectChanges();
   }
 
   // prepare form
@@ -159,17 +170,19 @@ export class PriceOfferCreateComponent extends DocumentHelperClass implements On
       price: this.documentHelper.price,
       totalPrice: this.documentHelper.totalPrice,
     });
-    if (this.demandOffer) {
+    if (this.demandOffer && this.slide.checked) {
       this.formGroup.get('packs').patchValue([]);
       this.documentItems.forEach( f => {
         f.packs.forEach( p => {
-          p.itemId = f.id;
           const item = JSON.parse(JSON.stringify(f));
           delete item.packs;
-          p.item = item;
+          p.demandItem = item;
           this.formGroup.get('packs').value.push(p);
         });
       });
+    } else if (this.demandOffer && !this.slide.checked) {
+      this.formGroup.get('packs').patchValue([]);
+      this.formGroup.get('packs').value.push(this.simpleDemandPacks.packs[0]);
     }
     console.log(this.formGroup.value);
     return;
@@ -184,4 +197,5 @@ export class PriceOfferCreateComponent extends DocumentHelperClass implements On
   get f() {
     return this.formGroup.controls;
   }
+
 }

@@ -3,7 +3,7 @@
     <div class="table-wrap no-border" formArrayName="packs" cdkDropList (cdkDropListDropped)="dropPack($event)">
       <table class="table-hover table-hover-gray table-data table-borderless w-100 mat-table" cdkDrag cdkDragLockAxis="y" [formGroupName]="i" *ngFor="let pack of formPacks.controls; let i=index" >
         <tbody class="no-border">
-          <tr class="tbody-row set-row">
+          <tr class="tbody-row set-row" [ngClass]="fromDemand ? 'd-none' : ''">
             <td>
               <a
                 cdkDragHandle
@@ -53,10 +53,11 @@
 
         <tbody [hidden]="!documentHelper.packs[i].showItems" class="no-border table-item table-td-initial" formArrayName="packItems" cdkDropList (cdkDropListDropped)="dropItem(i, $event)">
           <tr #trRow class="tbody-row item-row" [formGroupName]="j" *ngFor="let item of pack.get('packItems').controls; let j=index" cdkDragLockAxis="y" cdkDrag>
-            <td colspan="2" class="text-right">
+            <td colspan="2" [ngClass]="fromDemand ? '' : 'text-right'">
               <a
                 cdkDragHandle
                 class="mr-3"
+                [ngClass]="fromDemand ? 'd-none' : ''"
                 mat-icon-button
                 matTooltip="Reorder item">
                 <mat-icon class="text-theme">drag_indicator</mat-icon>
@@ -188,7 +189,7 @@
       Položka
     </a>
 
-    <a mat-flat-button class="btn btn-icon btn-theme" (click)="addPack()">
+    <a mat-flat-button class="btn btn-icon btn-theme" [ngClass]="fromDemand ? 'd-none' : ''" (click)="addPack()">
       <mat-icon>create_new_folder</mat-icon>
       Sada položiek
     </a>
