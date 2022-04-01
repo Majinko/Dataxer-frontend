@@ -16,6 +16,8 @@ import {MultiTranslateHttpLoader} from 'ngx-translate-multi-http-loader';
 import {registerLocaleData} from '@angular/common';
 import localeSk from '@angular/common/locales/sk';
 import {TransferHttpCacheModule} from '@nguniversal/common';
+import {MatPaginatorIntl} from '@angular/material/paginator';
+import {getTranslatePaginatorIntl} from '../helper';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new MultiTranslateHttpLoader(http, [
@@ -51,6 +53,7 @@ export function HttpLoaderFactory(http: HttpClient) {
   providers: [
     Title,
     {provide: LOCALE_ID, useValue: 'sk'},
+    {provide: MatPaginatorIntl, useValue: getTranslatePaginatorIntl()},
     {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
   ],
