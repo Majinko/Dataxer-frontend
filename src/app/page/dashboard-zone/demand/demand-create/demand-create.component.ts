@@ -126,8 +126,6 @@ export class DemandCreateComponent extends DocumentHelperClass implements OnInit
 
   // submit form
   submit(type: string) {
-    console.log(findInvalidControls(this.formGroup.controls));
-
     this.submitted = true;
 
     if (this.formGroup.invalid) {

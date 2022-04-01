@@ -1333,6 +1333,13 @@ app-select-new-contact .btn-add {
   z-index: 2;
 }
 
+.table-wrap .mat-table tr:hover td.action-link {
+  position: sticky;
+  right: 0;
+  z-index: 1;
+  background: #e0e0e0 !important;
+}
+
 .todolists-wrap {
   padding-top: 20px;
   max-width: 800px;

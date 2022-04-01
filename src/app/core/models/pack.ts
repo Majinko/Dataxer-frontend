@@ -18,7 +18,7 @@ export interface Pack {
   checked?: boolean;
   indeterminate?: boolean;
   itemId?: number;
-  item?: Pack;
+  item?: Pack; // from demand item
 }
 
 export interface PackItem {

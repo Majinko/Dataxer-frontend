@@ -36,12 +36,14 @@ export class DemandDocumentPackComponent extends DocumentPackHelpers implements 
 
   ngOnInit() {
     this.formGroup = this.formBuilder.group({packs: this.formBuilder.array([])});
+
     this.formGroup.valueChanges.subscribe((value => {
       this.demandItem.packs = value.packs;
       this.priceDemand.price[this.index] = this.documentHelper.price;
       this.priceDemand.totalPrice[this.index] = this.documentHelper.totalPrice;
       this.formChange.emit();
     }));
+
     this.documentHelper.handlePackChanges(this.f.packs);
     this.preparePack();
 
