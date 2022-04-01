@@ -44,6 +44,9 @@
                 <mat-icon class="text-theme">drag_indicator</mat-icon>
               </a>
               <app-item-autocomplete formControlName="title" (change)="setItemTitle(item, $event.target.value)" (findItem)="setItem(item, $event)"></app-item-autocomplete>
+              <div class="jsSettings d-none" *ngIf="categories">
+                <app-category-select-group dropDownPosition="top" [categoryItemNodes]="categories" formControlName="category"></app-category-select-group>
+              </div>
             </td>
             <td class="text-right thin">
               <mat-form-field style="width: 65px">
@@ -62,6 +65,13 @@
               </div>
             </td>
             <td class="text-center thin">
+              <a
+                (click)="showMoreOptions(trRow)"
+                class="mr-3"
+                mat-icon-button
+                matTooltip="Setting item">
+                <mat-icon class="text-theme">settings</mat-icon>
+              </a>
               <button
                 (click)="removeItem($event, j, i)"
                 mat-icon-button
