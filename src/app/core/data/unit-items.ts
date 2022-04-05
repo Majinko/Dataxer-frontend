@@ -44,5 +44,9 @@ export const UNITS: Unit[] = [
   {
     id: 11,
     unit: 'km'
+  },
+  {
+    id: 12,
+    unit: 'MD'
   }
 ];
