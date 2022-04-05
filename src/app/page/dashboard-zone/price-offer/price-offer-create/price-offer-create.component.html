@@ -114,7 +114,22 @@
   </ng-container>
 
   <ng-template #isDemandOffer>
+<<<<<<< HEAD
     <app-demand-offer-pack [formGroup]="formGroup" [demandPackItem]="documentItems" [documentHelper]="documentHelper"></app-demand-offer-pack>
+=======
+      <div class="pt-2 pb-2 mb-3">
+        <mat-slide-toggle #slide>
+          Komplexný režim
+        </mat-slide-toggle>
+      </div>
+    <ng-container *ngIf="slide.checked">
+      <app-demand-offer-pack [demandPackItem]="documentItems" [documentHelper]="documentHelper"></app-demand-offer-pack>
+    </ng-container>
+    <ng-container *ngIf="!slide.checked && documentItems.length > 0 ">
+      <app-simple-demand-offer-pack [simpleDemandPacks]="simpleDemandPacks" [demandPackItem]="documentItems" [documentHelper]="documentHelper"></app-simple-demand-offer-pack>
+    </ng-container>
+
+>>>>>>> 8a1ffb9166bb2c05ced50f64f9567a90e513cbc7
   </ng-template>
 
   <div class="row">

@@ -7,6 +7,7 @@ import {PackService} from '../../../core/services/pack.service';
 import {Project} from '../../../core/models/project';
 import {DocumentPackHelpers} from '../../../core/class/DocumentPackHelpers';
 import {DemandItem} from '../../../core/models/documentItem';
+import {CategoryService} from '../../../core/services/category.service';
 
 @Component({
   selector: 'app-demand-document-pack',
@@ -30,11 +31,13 @@ export class DemandDocumentPackComponent extends DocumentPackHelpers implements 
     protected formBuilder: FormBuilder,
     private packService: PackService,
     public documentHelper: DocumentHelper,
+    private categoryService: CategoryService,
   ) {
     super(formBuilder);
   }
 
   ngOnInit() {
+    this.packs = this.demandItem.packs;
     this.formGroup = this.formBuilder.group({packs: this.formBuilder.array([])});
 
     this.formGroup.valueChanges.subscribe((value => {
@@ -46,12 +49,19 @@ export class DemandDocumentPackComponent extends DocumentPackHelpers implements 
 
     this.documentHelper.handlePackChanges(this.f.packs);
     this.preparePack();
+    this.getCategories();
 
     setTimeout(() => {
       if (this.packs) {
         this.formGroup.patchValue({packs: this.packs});
       }
     }, 1);
+  }
+
+  private getCategories() {
+    this.categoryService.all(true).subscribe((categories) => {
+      this.categories = categories;
+    });
   }
 
   // set pack when find it

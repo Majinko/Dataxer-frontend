@@ -48,6 +48,7 @@ export abstract class DocumentPackHelpers {
       qty: 1,
       unit: this.units[0].unit,
       discount: 0,
+      demandItem: null,
       price: null,
       tax: this.formGroup.value.company?.companyTaxType === 'TAX_PAYER' ? 20 : 0,
       totalPrice: null,

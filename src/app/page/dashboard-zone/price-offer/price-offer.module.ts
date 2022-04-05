@@ -17,6 +17,8 @@ import {TranslateModule} from '@ngx-translate/core';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {PriceOfferTableComponent} from './price-offer-index/components/price-offer-table/price-offer-table.component';
 import { DemandOfferPackComponent } from './components/demand-offer-pack/demand-offer-pack.component';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { SimpleDemandOfferPackComponent } from './components/simple-demand-offer-pack/simple-demand-offer-pack.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,7 @@ import { DemandOfferPackComponent } from './components/demand-offer-pack/demand-
     PriceOfferEditComponent,
     PriceOfferShowComponent,
     DemandOfferPackComponent,
+    SimpleDemandOfferPackComponent,
   ],
   imports: [
     CommonModule,
@@ -41,6 +44,7 @@ import { DemandOfferPackComponent } from './components/demand-offer-pack/demand-
     DashboardModule,
     TranslateModule,
     NgSelectModule,
+    MatSlideToggleModule,
   ],
 })
 export class PriceOfferModule {

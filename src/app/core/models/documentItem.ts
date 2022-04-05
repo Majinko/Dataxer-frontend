@@ -21,5 +21,5 @@ export interface DemandItem {
   price: number;
   tax: number;
   totalPrice: number;
-  packs: Pack[];
+  packs?: Pack[];
 }

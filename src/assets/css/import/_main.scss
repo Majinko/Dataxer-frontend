@@ -229,3 +229,14 @@ app-select-new-contact {
     }
   }
 }
+
+app-demand-pack {
+  div.jsSettings {
+    app-category-select-group {
+      display: block;
+      width: 100%;
+      max-width: 200px;
+      margin-left: auto;
+    }
+  }
+}

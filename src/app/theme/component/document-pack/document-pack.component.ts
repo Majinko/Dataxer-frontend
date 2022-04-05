@@ -21,6 +21,7 @@ export class DocumentPackComponent extends DocumentPackHelpers implements OnInit
   @Input() documentId: number;
   @Input() projects: Project[];
   @Input() documentHelper: DocumentHelper;
+  @Input() fromDemand: boolean;
 
   constructor(
     protected formBuilder: FormBuilder,

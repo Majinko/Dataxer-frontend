@@ -1340,6 +1340,13 @@ app-select-new-contact .btn-add {
   background: #e0e0e0 !important;
 }
 
+app-demand-pack div.jsSettings app-category-select-group {
+  display: block;
+  width: 100%;
+  max-width: 200px;
+  margin-left: auto;
+}
+
 .todolists-wrap {
   padding-top: 20px;
   max-width: 800px;
