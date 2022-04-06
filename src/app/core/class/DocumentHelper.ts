@@ -125,6 +125,7 @@ export class DocumentHelper {
     this.scrollTo(firstElementWithError);
   }
 
+  // todo presunut do utils
   async scrollIfFormHasErrors(form: FormGroup): Promise <any> {
     await form.invalid;
     this.scrollToError();

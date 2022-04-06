@@ -26,5 +26,6 @@ export class ContactTableComponent extends PaginateClass<Contact> implements Aft
   }
 
   ngAfterViewInit(): void {
+    this.paginate();
   }
 }

@@ -170,6 +170,8 @@ export class PriceOfferCreateComponent extends DocumentHelperClass implements On
       price: this.documentHelper.price,
       totalPrice: this.documentHelper.totalPrice,
     });
+
+    // todo zrefaktorovat
     if (this.demandOffer && this.slide.checked) {
       this.formGroup.get('packs').patchValue([]);
       this.documentItems.forEach( f => {
