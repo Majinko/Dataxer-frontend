@@ -113,7 +113,7 @@ export function sum(data: any[], key: string): number {
  * Slug
  * @param str
  */
-export function slugify(str) {
+export function slugify(str: string): string {
   str = str.replace(/^\s+|\s+$/g, ''); // trim
   str = str.toLowerCase();
 

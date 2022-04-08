@@ -142,6 +142,7 @@ export class DocumentPaginateComponent implements OnInit, AfterViewInit {
     this.documentPaginateService.rsqlFilter = data.rsqlFilter;
 
     setTimeout(() => {
+      //console.log(data.documentFilter);
       this.componentRef.instance.service.filter = data.filter;
       this.componentRef.instance.service.rsqlFilter = data.rsqlFilter;
 

@@ -1,0 +1,21 @@
+<form [formGroup]="filterForm" class="form-row justify-content-start mt-md-0">
+  <div class="col-md-4 col-lg-2" *ngIf="contacts && contacts.length > 0 && inputSearchBarSelectValues.includes('contact.id')">
+    <ng-select [items]="contacts"
+               [clearable]="false"
+               bindLabel="name"
+               placeholder="Zákazník"
+               formControlName="contact"
+               class="filter-ng-select">
+    </ng-select>
+  </div>
+</form>
+
+<div class="d-block d-md-flex align-content-center mb-3" *ngIf="isFiltering">
+  <mat-chip-list aria-label="Filtering">
+    <mat-chip class="text-gray my-md-0  mb-md-0" *ngIf="contacts && contacts.length > 0 && filterForm.get('contact').value && inputSearchBarSelectValues.includes('contact.id')">
+      <mat-icon class="mr-1">person</mat-icon>
+      {{filterForm.get('contact').value.name}}
+      <mat-icon (click)="resetFilterValue('contact')" matChipRemove>cancel</mat-icon>
+    </mat-chip>
+  </mat-chip-list>
+</div>

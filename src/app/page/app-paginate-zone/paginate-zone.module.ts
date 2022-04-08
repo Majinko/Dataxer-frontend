@@ -1,0 +1,102 @@
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {PaginateZoneComponent} from './paginate-zone.component';
+import {PaginateFilterComponent} from './components/paginate-filter/paginate-filter.component';
+import {RouterModule, Routes} from '@angular/router';
+import {ContactTableComponent} from './contact-table/contact-table.component';
+import {TranslateModule} from '@ngx-translate/core';
+import {ProjectTableComponent} from './project-table/project-table.component';
+import {MaterialModule} from '../../theme/modules/material.module';
+import {NgSelectModule} from '@ng-select/ng-select';
+import {ReactiveFormsModule} from '@angular/forms';
+import {StoreModule} from '@ngrx/store';
+import {reducer} from '../../core/store/reducers/filterReducer';
+import {TimeTableComponent} from './time-table/time-table.component';
+import {CoreModule} from '../../core/core.module';
+
+const routes: Routes = [
+  {
+    path: '',
+    component: PaginateZoneComponent,
+    children: [
+      {
+        path: 'contacts',
+        component: ContactTableComponent,
+        data: {
+          menuItem: [],
+          godButtonTitle: 'Nový kontakt',
+          gotButtonRouteLink: '/contact/create',
+
+          // for filtering
+          modelName: 'contact',
+          inputSearchBarValues: ['name', 'email'],
+          inputSearchBarSelectValues: [],
+
+          permissions: {
+            only: 'Contact'
+          }
+        },
+      },
+      {
+        path: 'projects',
+        component: ProjectTableComponent,
+        data: {
+          menuItem: [],
+          godButtonTitle: 'Nová zákazka',
+          gotButtonRouteLink: '/project/create',
+
+          // for filtering
+          modelName: 'project',
+          inputSearchBarValues: ['title', 'number', 'address', 'contact.name'],
+          inputSearchBarSelectValues: ['contact.id'],
+
+          permissions: {
+            only: 'Project'
+          }
+        },
+      },
+      {
+        path: 'time',
+        component: ProjectTableComponent,
+        data: {
+          menuItem: [],
+          godButtonTitle: 'Zaznamenať čas',
+          gotButtonRouteLink: '/time/create',
+
+          // for filtering
+          modelName: 'time',
+          inputSearchBarValues: ['description'],
+          inputSearchBarSelectValues: ['contact.id', 'start', 'end'],
+
+          permissions: {
+            only: 'Time'
+          }
+        },
+      }
+    ]
+  }
+];
+
+@NgModule({
+  declarations: [
+    PaginateZoneComponent,
+    PaginateFilterComponent,
+    ContactTableComponent,
+    ProjectTableComponent,
+    TimeTableComponent
+  ],
+  imports: [
+    CommonModule,
+    RouterModule.forChild(routes),
+    TranslateModule,
+    MaterialModule,
+    NgSelectModule,
+    ReactiveFormsModule,
+    StoreModule.forRoot({
+      filterStore: reducer,
+    }),
+    CoreModule,
+  ]
+})
+export class PaginateZoneModule {
+}

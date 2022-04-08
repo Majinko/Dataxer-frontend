@@ -56,7 +56,7 @@ export class ContactCreateComponent implements OnInit {
         this.messageService.add('Kontakt bol uložený');
 
         if (this.dialogRef === null) {
-          this.router.navigate(['/contact']).then();
+          this.router.navigate(['/paginate/contacts']).then();
         }
       }
     );

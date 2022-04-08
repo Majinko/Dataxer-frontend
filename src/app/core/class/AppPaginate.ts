@@ -1,0 +1,108 @@
+import {AppPaginateData} from './AppPaginateData';
+import {IPaginate} from '../interface/IPaginate';
+import {ActivatedRoute} from '@angular/router';
+import {MatDialog} from '@angular/material/dialog';
+import {GodButtonService} from '../services/god-button.service';
+import {merge} from 'rxjs';
+import {map, startWith, switchMap, take} from 'rxjs/operators';
+import {ConfirmDialogComponent} from '../../theme/component/confirm-dialog/confirm-dialog.component';
+import {MessageService} from '../services/message.service';
+
+
+export class AppPaginate<T> extends AppPaginateData<T> {
+  constructor(
+    protected service: IPaginate<T>,
+    protected godButtonService: GodButtonService,
+    protected messageService: MessageService,
+    protected dialog: MatDialog,
+    protected route: ActivatedRoute,
+  ) {
+    super();
+  }
+
+  // init it
+  protected init(): void {
+    // good button service
+    this.godButtonService.menuItem = this.route.snapshot.data.menuItem;
+    this.godButtonService.title = this.route.snapshot.data.godButtonTitle;
+    this.godButtonService.routerLink = this.route.snapshot.data.gotButtonRouteLink;
+  }
+
+  // paginate
+  protected paginate(rsqlFilter: string = null) {
+    // set page index and page size
+    this.setPageAndIndex();
+
+    merge(
+      this.paginator.page
+    )
+      .pipe(
+        startWith({}),
+        switchMap(() => {
+          setTimeout(() => {
+            this.isLoadingResults = true;
+          }, 1);
+
+          return this.service.paginate(
+            this.paginator.pageIndex,
+            this.paginator.pageSize,
+            rsqlFilter
+          );
+        }),
+        map((data) => {
+          // Flip flag to show that loading has finished.
+          setTimeout(() => {
+            this.isLoadingResults = false;
+          }, 1);
+
+          this.storePaginate();
+
+          this.totalPrice = data.totalPrice ?? 0;
+          this.totalElements = data.totalElements;
+
+          return data.content;
+        })
+      )
+      .subscribe((data) => {
+
+        this.data = data;
+        this.paginateFinish.next(true);
+      });
+  }
+
+  // destroy something
+  public destroy(event: MouseEvent, id: number): void {
+    event.stopPropagation();
+
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      maxWidth: '400px',
+    });
+
+    dialogRef.afterClosed().subscribe(dialogResult => {
+      if (dialogResult === true) {
+        this.service.destroy(id).subscribe((r) => {
+          this.paginate(this.rsqlFilter);
+          this.messageService.add(this.destroyMsg);
+        });
+      }
+    });
+  }
+
+  /**
+   * Set page and page index
+   * @private
+   */
+  private setPageAndIndex() {
+    this.paginator.pageSize = this.service.pageSize;
+    this.paginator.pageIndex = this.service.pageIndex;
+  }
+
+  /**
+   * Store paginate to service
+   * @private
+   */
+  private storePaginate() {
+    this.service.pageSize = this.paginator.pageSize;
+    this.service.pageIndex = this.paginator.pageIndex;
+  }
+}

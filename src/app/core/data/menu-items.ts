@@ -2,7 +2,7 @@ import {MenuItem} from '../models/menu-item';
 
 export const MenuItems: MenuItem[] = [
   {
-    routerLink: ['/contact'],
+    routerLink: ['/paginate/contacts'],
     title: 'Kontakty',
     icon: 'person',
     permission: 'Contact'
@@ -20,7 +20,7 @@ export const MenuItems: MenuItem[] = [
     permission: 'Demand'
   },
   {
-    routerLink: ['/project'],
+    routerLink: ['/paginate/projects'],
     title: 'Zákazky',
     icon: 'layers',
     permission: 'Project'
