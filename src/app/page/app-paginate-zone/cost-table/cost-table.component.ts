@@ -1,16 +1,16 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {CostService} from '../../../../../../core/services/cost.service';
+import {CostService} from '../../../core/services/cost.service';
 import {MatPaginator} from '@angular/material/paginator';
-import {MessageService} from '../../../../../../core/services/message.service';
-import {Cost} from '../../../../../../core/models/cost';
+import {MessageService} from '../../../core/services/message.service';
+import {Cost} from '../../../core/models/cost';
 import {Router} from '@angular/router';
-import {PaginateClass} from '../../../../../../core/class/PaginateClass';
+import {PaginateClass} from '../../../core/class/PaginateClass';
 import {MatDialog} from '@angular/material/dialog';
 import {
   PaymentDialogComponent
-} from '../../../../../../theme/component/payments/components/payment-dialog/payment-dialog.component';
-import {PaymentService} from '../../../../../../core/services/payment.service';
-import {CompanyService} from '../../../../../../core/services/company.service';
+} from '../../../theme/component/payments/components/payment-dialog/payment-dialog.component';
+import {PaymentService} from '../../../core/services/payment.service';
+import {CompanyService} from '../../../core/services/company.service';
 
 @Component({
   selector: 'app-cost-table',

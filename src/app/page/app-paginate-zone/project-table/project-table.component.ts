@@ -10,6 +10,7 @@ import {GodButtonService} from '../../../core/services/god-button.service';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../../core/store/models/app-state.model';
 import {Subscription} from 'rxjs';
+import {FilterService} from '../../../core/store/service/filter.service';
 
 @Component({
   selector: 'app-project-table',
@@ -37,9 +38,9 @@ export class ProjectTableComponent extends AppPaginate<Project> implements OnIni
     protected projectService: ProjectService,
     protected messageService: MessageService,
     protected dialog: MatDialog,
-    protected store: Store<AppState>,
+    protected filterService: FilterService,
   ) {
-    super(projectService, godButtonService, messageService, dialog, route);
+    super(projectService, godButtonService, messageService, dialog, route, filterService);
   }
 
   ngOnInit(): void {
@@ -47,15 +48,13 @@ export class ProjectTableComponent extends AppPaginate<Project> implements OnIni
   }
 
   ngAfterViewInit(): void {
-    this.subscription = this.store.subscribe(data => {
-      setTimeout(() => {
-        if (data.filterStore) {
-          this.paginator.pageIndex = 0;
-          this.projectService.rsqlFilter = data.filterStore.payload.rsQlFilter;
-        }
+    this.subscription = this.filterService.doFilter.subscribe(data => {
+      if (data && data.filteredData) {
+        this.paginator.pageIndex = 0;
+        this.projectService.rsqlFilter = data.rsQlFilter;
 
         this.paginate();
-      });
+      }
     });
   }
 

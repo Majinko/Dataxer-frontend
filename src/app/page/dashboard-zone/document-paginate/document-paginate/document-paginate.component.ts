@@ -9,7 +9,7 @@ import {InvoiceTableComponent} from '../../invoice/invoice-index/components/invo
 import {
   PriceOfferTableComponent
 } from '../../price-offer/price-offer-index/components/price-offer-table/price-offer-table.component';
-import {CostTableComponent} from '../../cost/cost-index/components/cost-table/cost-table.component';
+import {CostTableComponent} from '../../../app-paginate-zone/cost-table/cost-table.component';
 import {DemandTableComponent} from '../../demand/demand-index/component/demand-table/demand-table.component';
 
 @Component({

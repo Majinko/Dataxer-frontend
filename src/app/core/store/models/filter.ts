@@ -1,6 +1,6 @@
 import {PaginateFilter} from '../../models/filters/PaginateFilter';
 
-export class Filter {
+export interface Filter {
   name: string;
   rsQlFilter: string;
   filteredData: PaginateFilter;

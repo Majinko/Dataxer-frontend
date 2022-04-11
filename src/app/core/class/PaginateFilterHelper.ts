@@ -6,6 +6,7 @@ import builder from '@rsql/builder';
 import {emit} from '@rsql/emitter';
 
 @Directive()
+// tslint:disable-next-line:directive-class-suffix
 export class PaginateFilterHelper {
   @Input() modelName: string;
   @Input() inputSearchBarValues: string[];
@@ -14,7 +15,6 @@ export class PaginateFilterHelper {
   filterForm: FormGroup;
   isFiltering: boolean = false;
 
-  rsQlExpression: string = '';
   orExpression: ExpressionNode[] = [];
   andExpression: ExpressionNode[] = [];
 
@@ -68,7 +68,7 @@ export class PaginateFilterHelper {
     }
 
     if (this.andExpression.length > 0) { // if have and expression create rsql query
-      rsqlString += ((this.rsQlExpression === '' ? '(' : ';(') + emit(builder.and(...this.andExpression)) + ')');
+      rsqlString += ((rsqlString === '' ? '(' : ';(') + emit(builder.and(...this.andExpression)) + ')');
     }
 
     return rsqlString;

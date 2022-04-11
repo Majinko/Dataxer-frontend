@@ -4,10 +4,10 @@ import {ActivatedRoute} from '@angular/router';
 import {MatDialog} from '@angular/material/dialog';
 import {GodButtonService} from '../services/god-button.service';
 import {merge} from 'rxjs';
-import {map, startWith, switchMap, take} from 'rxjs/operators';
+import {map, startWith, switchMap} from 'rxjs/operators';
 import {ConfirmDialogComponent} from '../../theme/component/confirm-dialog/confirm-dialog.component';
 import {MessageService} from '../services/message.service';
-
+import {FilterService} from '../store/service/filter.service';
 
 export class AppPaginate<T> extends AppPaginateData<T> {
   constructor(
@@ -16,6 +16,7 @@ export class AppPaginate<T> extends AppPaginateData<T> {
     protected messageService: MessageService,
     protected dialog: MatDialog,
     protected route: ActivatedRoute,
+    protected filterService: FilterService
   ) {
     super();
   }
@@ -28,13 +29,19 @@ export class AppPaginate<T> extends AppPaginateData<T> {
     this.godButtonService.routerLink = this.route.snapshot.data.gotButtonRouteLink;
   }
 
+  protected callPaginate() {
+    setTimeout(() => {
+      this.paginate();
+    });
+  }
+
   // paginate
-  protected paginate(rsqlFilter: string = null) {
+  protected paginate() {
     // set page index and page size
     this.setPageAndIndex();
 
     merge(
-      this.paginator.page
+      this.paginator.page,
     )
       .pipe(
         startWith({}),
@@ -46,7 +53,6 @@ export class AppPaginate<T> extends AppPaginateData<T> {
           return this.service.paginate(
             this.paginator.pageIndex,
             this.paginator.pageSize,
-            rsqlFilter
           );
         }),
         map((data) => {
@@ -81,7 +87,7 @@ export class AppPaginate<T> extends AppPaginateData<T> {
     dialogRef.afterClosed().subscribe(dialogResult => {
       if (dialogResult === true) {
         this.service.destroy(id).subscribe((r) => {
-          this.paginate(this.rsqlFilter);
+          this.paginate();
           this.messageService.add(this.destroyMsg);
         });
       }

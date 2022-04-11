@@ -10,5 +10,5 @@ export interface IPaginate<T> {
 
   destroy(id: number): Observable<void>;
 
-  paginate(index: number, size: number, rsqlFilter?: string): Observable<Paginate<T>>;
+  paginate(index: number, size: number): Observable<Paginate<T>>;
 }

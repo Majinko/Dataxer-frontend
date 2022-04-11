@@ -3,11 +3,8 @@ import {ContactService} from '../../../../core/services/contact.service';
 import {FormBuilder} from '@angular/forms';
 import {SearchBarService} from '../../../../core/services/search-bar.service';
 import {Contact} from '../../../../core/models/contact';
-import {auditTime, debounceTime, take} from 'rxjs/operators';
-import {Store} from '@ngrx/store';
-import {AppState} from '../../../../core/store/models/app-state.model';
+import {auditTime, debounceTime} from 'rxjs/operators';
 import {PaginateFilterHelper} from '../../../../core/class/PaginateFilterHelper';
-import * as FilteringActions from '../../../../core/store/actions/filter.actions';
 import {FilterService} from '../../../../core/store/service/filter.service';
 
 @Component({
@@ -22,7 +19,6 @@ export class PaginateFilterComponent extends PaginateFilterHelper implements OnI
     protected searchBarService: SearchBarService,
     private formBuilder: FormBuilder,
     private contactService: ContactService,
-    private store: Store<AppState>,
     private filterService: FilterService
   ) {
     super();
@@ -35,10 +31,10 @@ export class PaginateFilterComponent extends PaginateFilterHelper implements OnI
     this.getContacts();
 
     this.filterForm = this.formBuilder.group({
-      contact: null
+      contact: null,
     });
 
-    this.checkFormChange();
+    this.handeCheckChangeFilter();
     this.createFormControls();
     this.handleSearchBarService();
     this.fillFiltersIfFiltering();
@@ -49,13 +45,21 @@ export class PaginateFilterComponent extends PaginateFilterHelper implements OnI
    * @param changes
    */
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.modelName.currentValue !== changes.modelName.previousValue) {
-
+    if (changes.modelName.firstChange === false && changes.modelName.currentValue !== changes.modelName.previousValue) {
       this.modelName = changes.modelName.currentValue;
       this.inputSearchBarValues = changes.inputSearchBarValues.currentValue;
       this.inputSearchBarSelectValues = changes.inputSearchBarSelectValues.currentValue;
 
-      // prepare rsql filter
+      // add controls from another components
+      this.createFormControls(false);
+
+      // change component path also values
+      this.filterForm.patchValue(this.filterService.filter.filteredData);
+
+      // path value from search bar
+      this.pathValuesFromSearchBar(this.searchBarService.filterValue);
+
+      // fetch data if is not exist
       this.getContacts();
     }
   }
@@ -71,9 +75,9 @@ export class PaginateFilterComponent extends PaginateFilterHelper implements OnI
    * Add dynamic control by searchbarValues
    * @protected
    */
-  protected createFormControls() {
+  private createFormControls(emitEvent: boolean = true) {
     this.inputSearchBarValues.forEach(qS => {
-      this.filterForm.addControl(qS, this.formBuilder.control(null));
+      this.filterForm.addControl(qS, this.formBuilder.control(null), {emitEvent});
     });
   }
 
@@ -81,7 +85,7 @@ export class PaginateFilterComponent extends PaginateFilterHelper implements OnI
    * PaginateFilter it
    * @private
    */
-  private checkFormChange(): void {
+  private handeCheckChangeFilter(): void {
     this.filterForm.valueChanges.pipe(auditTime(0)).subscribe(() => {
       this.filtering();
     });
@@ -94,13 +98,22 @@ export class PaginateFilterComponent extends PaginateFilterHelper implements OnI
   protected handleSearchBarService() {
     if (this.searchBarService) {
       this.searchBarService.appSearch.pipe(debounceTime(300)).subscribe((qString) => {
-        this.inputSearchBarValues.forEach((qS) => {
-          this.filterForm.patchValue({
-            [qS]: qString
-          });
-        });
+        this.pathValuesFromSearchBar(qString);
       });
     }
+  }
+
+  /**
+   * Path value to form from search bar
+   * @param value
+   * @protected
+   */
+  protected pathValuesFromSearchBar(value: string) {
+    this.inputSearchBarValues.forEach((qS) => {
+      this.filterForm.patchValue({
+        [qS]: value
+      });
+    });
   }
 
   /**
@@ -110,11 +123,13 @@ export class PaginateFilterComponent extends PaginateFilterHelper implements OnI
   private filtering(): void {
     this.isFiltering = true;
 
-    this.store.dispatch(new FilteringActions.FilteringActions({
+    this.filterService.filter = {
       name: this.modelName,
-      filteredData: this.filterForm.value,
-      rsQlFilter: this.prepareRsql()
-    }));
+      rsQlFilter: this.prepareRsql(),
+      filteredData: this.filterForm.value
+    };
+
+    this.filterService.doFilter.next(this.filterService.filter);
   }
 
   /**
@@ -122,12 +137,11 @@ export class PaginateFilterComponent extends PaginateFilterHelper implements OnI
    * @private
    */
   private fillFiltersIfFiltering(): void {
-    this.store.pipe(take(1)).subscribe(data => {
-      if (data.filterStore) {
-        this.isFiltering = true;
-        this.filterForm.patchValue(data.filterStore.payload.filteredData, {emitEvent: false});
-      }
-    });
+    if (this.filterService.filter) {
+      this.isFiltering = true;
+      this.filterService.doFilter.next(this.filterService.filter);
+      this.filterForm.patchValue(this.filterService.filter.filteredData, {emitEvent: false});
+    }
   }
 
   /**
@@ -135,7 +149,7 @@ export class PaginateFilterComponent extends PaginateFilterHelper implements OnI
    */
   private getContacts() {
     if (this.inputSearchBarSelectValues.includes('contact.id')) {
-      this.contactService.allHasProject().subscribe(c => {
+      this.contactService.all().subscribe(c => {
         this.contacts = c;
       });
     }
