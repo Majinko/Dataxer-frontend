@@ -5,10 +5,10 @@ import {DocumentPaginateService} from '../../../../core/services/document-pagina
 import {MessageService} from '../../../../core/services/message.service';
 import {MatDialog} from '@angular/material/dialog';
 import {AdHostDirective} from '../../../../core/directives/ad-host.directive';
-import {InvoiceTableComponent} from '../../invoice/invoice-index/components/invoice-table/invoice-table.component';
+import {InvoiceTableComponent} from '../../../app-paginate-zone/invoice-table/invoice-table.component';
 import {
   PriceOfferTableComponent
-} from '../../price-offer/price-offer-index/components/price-offer-table/price-offer-table.component';
+} from '../../../app-paginate-zone/price-offer-table/price-offer-table.component';
 import {CostTableComponent} from '../../../app-paginate-zone/cost-table/cost-table.component';
 import {DemandTableComponent} from '../../demand/demand-index/component/demand-table/demand-table.component';
 
@@ -87,6 +87,18 @@ export class DocumentPaginateComponent implements OnInit, AfterViewInit {
 
           this.godButtonService.title = 'Nový náklad';
           this.godButtonService.routerLink = '/cost/create';
+          this.godButtonService.menuItem = [];
+          break;
+
+        case 'pack':
+          this.title = 'Dopyty';
+
+          this.modelName = 'demand';
+          this.inputSearchBarValues = ['title', 'contractor.name'];
+          this.inputSearchBarSelectValues = ['contractor.id', 'company.id', 'project.id', 'state', 'date', 'documentType'];
+
+          this.godButtonService.title = 'Nový dopyt';
+          this.godButtonService.routerLink = '/demand/create';
           this.godButtonService.menuItem = [];
           break;
 

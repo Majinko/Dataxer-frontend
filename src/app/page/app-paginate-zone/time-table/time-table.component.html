@@ -61,7 +61,7 @@
                   <mat-icon class="text-theme">edit</mat-icon>
                 </button>
                 <button
-                  (click)="destroy(element.id)"
+                  (click)="destroy($event, element.id)"
                   mat-icon-button
                   matTooltip="Delete item">
                   <mat-icon class="text-theme">delete</mat-icon>

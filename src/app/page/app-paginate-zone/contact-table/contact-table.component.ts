@@ -18,7 +18,6 @@ import {FilterService} from '../../../core/store/service/filter.service';
   styleUrls: ['./contact-table.component.scss']
 })
 export class ContactTableComponent extends AppPaginate<Contact> implements OnInit, AfterViewInit, OnDestroy {
-  subscription: Subscription;
   displayedColumns: string[] = ['id', 'name', 'contact', 'actions'];
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;

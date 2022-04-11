@@ -1,7 +1,9 @@
 import {MatPaginator} from '@angular/material/paginator';
-import {Subject} from 'rxjs';
+import {Subject, Subscription} from 'rxjs';
 
 export class AppPaginateData<T> {
+  subscription: Subscription;
+
   data: T[] = [];
   paginator: MatPaginator;
   paginateFinish = new Subject<boolean>();

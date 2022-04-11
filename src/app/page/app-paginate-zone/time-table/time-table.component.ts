@@ -7,9 +7,11 @@ import {MessageService} from '../../../core/services/message.service';
 import {sum} from '../../../../helper';
 import {MatDialog} from '@angular/material/dialog';
 import {ConfirmDialogComponent} from '../../../theme/component/confirm-dialog/confirm-dialog.component';
-import {DocumentFilter} from '../../../core/models/filters/document-filter';
-import {SalaryService} from '../../../core/services/salary.service';
 import {Salary} from '../../../core/models/salary';
+import {AppPaginate} from '../../../core/class/AppPaginate';
+import {ActivatedRoute} from '@angular/router';
+import {GodButtonService} from '../../../core/services/god-button.service';
+import {FilterService} from '../../../core/store/service/filter.service';
 
 @Component({
   selector: 'app-time-table',
@@ -19,7 +21,7 @@ import {Salary} from '../../../core/models/salary';
     {provide: LOCALE_ID, useValue: 'sk'}
   ]
 })
-export class TimeTableComponent implements OnInit {
+export class TimeTableComponent extends AppPaginate<Time> implements OnInit {
   salary: Salary;
   times: Time[] = [];
   totalPrice: number = 0;
@@ -29,25 +31,26 @@ export class TimeTableComponent implements OnInit {
   displayedColumns: string[] = ['dateWork', 'stats', 'project', 'description', 'category', 'actions'];
 
   constructor(
-    public timeService: TimeService,
-    private salaryService: SalaryService,
-    private messageService: MessageService,
-    public dialog: MatDialog
+    protected route: ActivatedRoute,
+    protected godButtonService: GodButtonService,
+    protected timeService: TimeService,
+    protected messageService: MessageService,
+    protected dialog: MatDialog,
+    protected filterService: FilterService,
   ) {
+    super(timeService, godButtonService, messageService, dialog, route, filterService);
   }
 
   ngOnInit(): void {
-    /*this.salaryService.getActiveUserSalary(this.userService.user.uid).subscribe((s) => {
-      this.salary = s;
-    });*/
+    this.paginate();
   }
 
-  private paginate() {
+  protected paginate() {
     merge()
       .pipe(
         startWith({}),
         switchMap(() => {
-          return this.timeService.allForPeriod();
+          return this.timeService.paginate();
         }),
         map(data => {
           // Flip flag to show that loading has finished.
@@ -66,7 +69,9 @@ export class TimeTableComponent implements OnInit {
       });
   }
 
-  destroy(id: number) {
+  destroy(event: MouseEvent, id: number) {
+    event.stopPropagation();
+
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       maxWidth: '400px',
     });
@@ -83,16 +88,6 @@ export class TimeTableComponent implements OnInit {
         });
       }
     });
-  }
-
-  filterData(data: DocumentFilter) {
-    this.isLoadingResults = true;
-    this.timeService.filter = data.documentFilter;
-    this.timeService.rsqlFilter = data.rsqlFilter;
-
-    if (this.timeService.rsqlFilter) {
-      this.paginate();
-    }
   }
 
   private prepareTimeInDay() {

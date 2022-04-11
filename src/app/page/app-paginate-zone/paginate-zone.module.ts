@@ -14,6 +14,12 @@ import {reducer} from '../../core/store/reducers/filterReducer';
 import {TimeTableComponent} from './time-table/time-table.component';
 import {CoreModule} from '../../core/core.module';
 import {CostTableComponent} from './cost-table/cost-table.component';
+import {ThemeModule} from '../../theme/theme.module';
+import {AvatarModule} from 'ngx-avatar';
+import {InvoiceTableComponent} from './invoice-table/invoice-table.component';
+import {PriceOfferTableComponent} from './price-offer-table/price-offer-table.component';
+import {PackTableComponent} from './pack-table/pack-table.component';
+import {ItemTableComponent} from './item-table/item-table.component';
 
 const routes: Routes = [
   {
@@ -57,6 +63,78 @@ const routes: Routes = [
         },
       },
       {
+        path: 'costs',
+        component: CostTableComponent,
+        data: {
+          menuItem: [],
+          godButtonTitle: 'Nový náklad',
+          gotButtonRouteLink: '/cost/create',
+
+          // for filtering
+          modelName: 'cost',
+          inputSearchBarValues: ['title', 'contractor.name'],
+          inputSearchBarSelectValues: ['contractor.id', 'company.id', 'project.id', 'state', 'date', 'documentType'],
+
+          permissions: {
+            only: 'Cost'
+          }
+        },
+      },
+      {
+        path: 'time',
+        component: TimeTableComponent,
+        data: {
+          menuItem: [],
+          godButtonTitle: 'Zaznamenať čas',
+          gotButtonRouteLink: '/time/create',
+
+          // for filtering
+          modelName: 'time',
+          inputSearchBarValues: ['description'],
+          inputSearchBarSelectValues: ['start', 'end', 'project.id', 'category.id', 'user.id'],
+
+          permissions: {
+            only: 'time'
+          }
+        },
+      },
+      {
+        path: 'invoices',
+        component: InvoiceTableComponent,
+        data: {
+          menuItem: [],
+          godButtonTitle: 'Nová faktúra',
+          gotButtonRouteLink: '/invoice/create',
+
+          // for filtering
+          modelName: 'invoice',
+          inputSearchBarValues: ['title', 'contact.name'],
+          inputSearchBarSelectValues: ['contact.id', 'company.id', 'project.id', 'state', 'documentType', 'date'],
+
+          permissions: {
+            only: 'invoice'
+          }
+        },
+      },
+      {
+        path: 'priceOffers',
+        component: PriceOfferTableComponent,
+        data: {
+          menuItem: [],
+          godButtonTitle: 'Nová cenová ponuka',
+          gotButtonRouteLink: '/price-offer/create',
+
+          // for filtering
+          modelName: 'priceOffer',
+          inputSearchBarValues: ['title', 'contact.name'],
+          inputSearchBarSelectValues: ['contact.id', 'company.id', 'project.id', 'date'],
+
+          permissions: {
+            only: 'priceOffer'
+          }
+        },
+      },
+      {
         path: 'time',
         component: ProjectTableComponent,
         data: {
@@ -70,7 +148,43 @@ const routes: Routes = [
           inputSearchBarSelectValues: ['contact.id', 'start', 'end'],
 
           permissions: {
-            only: 'Time'
+            only: 'time'
+          }
+        },
+      },
+      {
+        path: 'items',
+        component: ItemTableComponent,
+        data: {
+          menuItem: [],
+          godButtonTitle: 'Nová položka',
+          gotButtonRouteLink: '/item/create',
+
+          // for filtering
+          modelName: 'item',
+          inputSearchBarValues: ['title'],
+          inputSearchBarSelectValues: [],
+
+          permissions: {
+            only: 'item'
+          }
+        },
+      },
+      {
+        path: 'packs',
+        component: PackTableComponent,
+        data: {
+          menuItem: [],
+          godButtonTitle: 'Nová sada poloziek',
+          gotButtonRouteLink: '/pack/create',
+
+          // for filtering
+          modelName: 'pack',
+          inputSearchBarValues: ['title'],
+          inputSearchBarSelectValues: [],
+
+          permissions: {
+            only: 'pack'
           }
         },
       }
@@ -85,7 +199,11 @@ const routes: Routes = [
     ContactTableComponent,
     ProjectTableComponent,
     CostTableComponent,
-    TimeTableComponent
+    InvoiceTableComponent,
+    TimeTableComponent,
+    PriceOfferTableComponent,
+    PackTableComponent,
+    ItemTableComponent
   ],
   imports: [
     CommonModule,
@@ -98,6 +216,8 @@ const routes: Routes = [
       filterStore: reducer,
     }),
     CoreModule,
+    ThemeModule,
+    AvatarModule,
   ]
 })
 export class PaginateZoneModule {

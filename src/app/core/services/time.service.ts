@@ -7,11 +7,12 @@ import {Project} from '../models/project';
 import {CategoryItemNode} from '../models/category-item-node';
 import {DocumentFilter} from '../models/filters/document-filter';
 import {map} from 'rxjs/operators';
+import {IPaginate} from '../interface/IPaginate';
 
 @Injectable({
   providedIn: 'root'
 })
-export class TimeService {
+export class TimeService implements IPaginate<Time> {
   filter: DocumentFilter;
   rsqlFilter: string;
 
@@ -22,7 +23,8 @@ export class TimeService {
     return this.http.post<Time>(`${environment.baseUrl}/time/store`, time);
   }
 
-  allForPeriod(): Observable<Time[]> {
+  // todo Observable<Time[]>
+  paginate(): Observable<any> {
     return this.http.get<Time[]>(`${environment.baseUrl}/time/allForPeriod${this.rsqlFilter ? '?filters=' + this.rsqlFilter : ''}`)
       .pipe(map((times) => {
         times.forEach(time => {

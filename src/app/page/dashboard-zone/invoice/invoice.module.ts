@@ -3,9 +3,7 @@ import {CommonModule} from '@angular/common';
 import {InvoiceComponent} from './invoice.component';
 import {RouterModule, Routes} from '@angular/router';
 import {InvoiceCreateComponent} from './invoice-create/invoice-create.component';
-import {InvoiceIndexComponent} from './invoice-index/invoice-index.component';
 import {InvoiceEditComponent} from './invoice-edit/invoice-edit.component';
-import {InvoiceTableComponent} from './invoice-index/components/invoice-table/invoice-table.component';
 import {MaterialModule} from '../../../theme/modules/material.module';
 import {ThemeModule} from '../../../theme/theme.module';
 import {ReactiveFormsModule} from '@angular/forms';
@@ -14,16 +12,11 @@ import {InvoiceShowComponent} from './invoice-show/invoice-show.component';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {TranslateModule} from '@ngx-translate/core';
 import {DocumentPaginateModule} from '../document-paginate/document-paginate.module';
-import {AvatarModule} from "ngx-avatar";
 
 const routes: Routes = [{
   path: '',
   component: InvoiceComponent,
   children: [
-    {
-      path: '',
-      component: InvoiceIndexComponent
-    },
     {
       path: 'create/:type',
       component: InvoiceCreateComponent
@@ -54,8 +47,6 @@ const routes: Routes = [{
 @NgModule({
   declarations: [
     InvoiceComponent,
-    InvoiceIndexComponent,
-    InvoiceTableComponent,
     InvoiceCreateComponent,
     InvoiceEditComponent,
     InvoiceShowComponent
@@ -70,7 +61,6 @@ const routes: Routes = [{
         NgSelectModule,
         TranslateModule,
         DocumentPaginateModule,
-        AvatarModule,
     ]
 })
 export class InvoiceModule {
