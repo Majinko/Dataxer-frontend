@@ -13,6 +13,7 @@ import {StoreModule} from '@ngrx/store';
 import {reducer} from '../../core/store/reducers/filterReducer';
 import {TimeTableComponent} from './time-table/time-table.component';
 import {CoreModule} from '../../core/core.module';
+import {CostTableComponent} from './cost-table/cost-table.component';
 
 const routes: Routes = [
   {
@@ -83,6 +84,7 @@ const routes: Routes = [
     PaginateFilterComponent,
     ContactTableComponent,
     ProjectTableComponent,
+    CostTableComponent,
     TimeTableComponent
   ],
   imports: [

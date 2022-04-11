@@ -1,14 +1,17 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {CostService} from '../../../core/services/cost.service';
 import {MatPaginator} from '@angular/material/paginator';
 import {MessageService} from '../../../core/services/message.service';
 import {Cost} from '../../../core/models/cost';
-import {Router} from '@angular/router';
-import {PaginateClass} from '../../../core/class/PaginateClass';
+import {ActivatedRoute, Router} from '@angular/router';
 import {MatDialog} from '@angular/material/dialog';
 import {
   PaymentDialogComponent
 } from '../../../theme/component/payments/components/payment-dialog/payment-dialog.component';
+import {AppPaginate} from '../../../core/class/AppPaginate';
+import {Subscription} from 'rxjs';
+import {GodButtonService} from '../../../core/services/god-button.service';
+import {FilterService} from '../../../core/store/service/filter.service';
 import {PaymentService} from '../../../core/services/payment.service';
 import {CompanyService} from '../../../core/services/company.service';
 
@@ -17,20 +20,24 @@ import {CompanyService} from '../../../core/services/company.service';
   templateUrl: './cost-table.component.html',
   styleUrls: ['./cost-table.component.scss']
 })
-export class CostTableComponent extends PaginateClass<Cost> implements OnInit, AfterViewInit {
+export class CostTableComponent extends AppPaginate<Cost> implements OnInit, AfterViewInit, OnDestroy {
+  subscription: Subscription;
   displayedColumns: string[];
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
   constructor(
-    private companyService: CompanyService,
+    private router: Router,
     private paymentService: PaymentService,
-    public costService: CostService,
-    public messageService: MessageService,
-    public router: Router,
-    public dialog: MatDialog
+    private companyService: CompanyService,
+    protected route: ActivatedRoute,
+    protected godButtonService: GodButtonService,
+    protected costService: CostService,
+    protected messageService: MessageService,
+    protected dialog: MatDialog,
+    protected filterService: FilterService,
   ) {
-    super(messageService, costService, dialog);
+    super(costService, godButtonService, messageService, dialog, route, filterService);
   }
 
   ngOnInit(): void {
