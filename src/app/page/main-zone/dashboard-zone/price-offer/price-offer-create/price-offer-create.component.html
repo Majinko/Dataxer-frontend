@@ -1,0 +1,210 @@
+<div class="row mb-4">
+  <div class="col d-flex align-items-center mb-3">
+    <app-back-button url="/paginate/priceOffers"></app-back-button>
+    <h1 class="mb-0">Nová cenová ponuka</h1>
+  </div>
+</div>
+
+<form autocomplete="off" [formGroup]="formGroup" #ngForm="ngForm">
+  <div class="row">
+    <div class="col-12">
+      <h2 class="border-bottom-2 pb-2 mb-4">Súhrnné info</h2>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-4 mb-3">
+      <app-company-select-group formControlName="company" [ngForm]="ngForm"></app-company-select-group>
+    </div>
+
+    <div class="col-md-4 form-group">
+      <app-select-new-contact formControlName="contact"></app-select-new-contact>
+      <mat-error *ngIf="submitted && f.contact.errors" class="mat-error-not-in-field">Client je <strong>pozadovany.</strong></mat-error>
+    </div>
+
+    <div class="col-md-4 form-group">
+      <app-new-project-select [client]="f.contact.value"  formControlName="project"></app-new-project-select>
+      <mat-error *ngIf="submitted && f.project.errors" class="mat-error-not-in-field">Projekt je <strong>požadovaný.</strong></mat-error>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-4">
+      <mat-form-field class="form-group w-100">
+        <input formControlName="title" matInput placeholder="Názov">
+        <mat-error *ngIf="f.title.errors">Názov je <strong>požadovaný.</strong></mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-4">
+      <mat-form-field class="form-group w-100">
+        <input formControlName="number" matInput placeholder="Číslo">
+        <mat-error *ngIf="submitted && f.number.errors">Číslo je <strong>pozadovany.</strong></mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-4">
+      <mat-form-field class="form-group w-100">
+        <input formControlName="subject" matInput placeholder="Predmet">
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-4">
+      <mat-form-field class="form-group w-100">
+        <mat-label>Stav</mat-label>
+        <select formControlName="state" matNativeControl>
+          <option value="WAITING">Čakajúca</option>
+          <option value="APPROVED">Schválená</option>
+          <option value="REJECTED">Zamietnutá</option>
+        </select>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <h2 class="border-bottom-2 pb-2 mb-4">Dátumy</h2>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-4">
+      <mat-form-field class="form-group w-100">
+        <mat-label>Dátum vystavenia</mat-label>
+        <input formControlName="createdDate" matInput [matDatepicker]="createdDate">
+        <mat-datepicker-toggle matSuffix [for]="createdDate"></mat-datepicker-toggle>
+        <mat-datepicker #createdDate></mat-datepicker>
+        <mat-error *ngIf="f.createdDate.errors">Dátum vystavenia je <strong>pozadovany.</strong></mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-4">
+      <mat-form-field class="form-group w-100">
+        <mat-label>Dátum dodania</mat-label>
+        <input formControlName="deliveredDate" matInput [matDatepicker]="deliveredDate">
+        <mat-datepicker-toggle matSuffix [for]="deliveredDate"></mat-datepicker-toggle>
+        <mat-datepicker #deliveredDate></mat-datepicker>
+        <mat-error *ngIf="f.deliveredDate.errors">Dátum dodania je <strong>pozadovany.</strong></mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-4">
+      <mat-form-field class="form-group w-100">
+        <mat-label>Platnosť</mat-label>
+        <input formControlName="deliveredDate" matInput [matDatepicker]="dueDate">
+        <mat-datepicker-toggle matSuffix [for]="dueDate"></mat-datepicker-toggle>
+        <mat-datepicker #dueDate></mat-datepicker>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="!demandOffer">
+    <div class="col-12">
+      <h2 class="border-bottom-2 pb-2 mb-4">Položky</h2>
+    </div>
+  </div>
+
+  <ng-container *ngIf="!demandOffer; else isDemandOffer">
+    <app-document-pack *ngIf="route.snapshot.paramMap.get('id') === null && f.company.value != null; else copyPriceOfferBlock" [formGroup]="formGroup" [documentHelper]="documentHelper"></app-document-pack>
+    <ng-template #copyPriceOfferBlock>
+      <div *ngIf="this.oldPacks.length > 0 && f.company.value != null;">
+        <app-document-pack [formGroup]="formGroup" [packs]="this.oldPacks" [documentHelper]="documentHelper"></app-document-pack>
+      </div>
+    </ng-template>
+  </ng-container>
+
+  <ng-template #isDemandOffer>
+      <div class="pt-2 pb-2 mb-3">
+        <mat-slide-toggle #slide>
+          Komplexný režim
+        </mat-slide-toggle>
+      </div>
+    <ng-container *ngIf="slide.checked">
+      <app-demand-offer-pack [demandPackItem]="documentItems" [documentHelper]="documentHelper"></app-demand-offer-pack>
+    </ng-container>
+    <ng-container *ngIf="!slide.checked && documentItems.length > 0 ">
+      <app-simple-demand-offer-pack [simpleDemandPacks]="simpleDemandPacks" [demandPackItem]="documentItems" [documentHelper]="documentHelper"></app-simple-demand-offer-pack>
+    </ng-container>
+  </ng-template>
+
+  <div class="row">
+    <div class="col-12">
+      <h2 class="border-bottom-2 pb-2 mb-4">Doplňujúce informácie</h2>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-4 mb-5">
+      <mat-form-field class="example-full-width">
+        <input type="number" matInput #discount formControlName="discount">
+        <i matSuffix>%</i>
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-8 mb-5">
+      <table class="w-100">
+        <tr class="text-right">
+          <td class="pb-1">Zľava {{discount.value}} %</td>
+          <td class="pb-1">{{discount.value > 0 ? '-' : ''}}{{((documentHelper.totalPrice | addPercent: discount.value) - documentHelper.totalPrice).toFixed(2)}} €</td>
+        </tr>
+
+        <tr class="text-right" appShowHideTax>
+          <td>Celkom bez DPH:</td>
+          <td>{{documentHelper.price | removePercent: +discount.value}} €</td>
+        </tr>
+
+        <tr class="text-right">
+          <td><h2 class="text-theme mb-0"><b>Celkom <span appShowHideTax>s DPH</span>:</b></h2></td>
+          <td>{{documentHelper.totalPrice | removePercent: +discount.value}} €</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="col-md-12">
+      <mat-form-field class="form-group w-100">
+        <input formControlName="note" matInput placeholder="Poznámka pre príjemcu">
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="row" formGroupName="documentData">
+      <div class="col-12" formGroupName="user">
+        <div class="row">
+          <div class="col-md-4">
+            <mat-form-field class="form-group w-100">
+              <input formControlName="displayName" matInput placeholder="Vystavil">
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-4">
+            <mat-form-field class="form-group w-100">
+              <input formControlName="phone" matInput placeholder="Telefón">
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-4">
+            <mat-form-field class="form-group w-100">
+              <input formControlName="email" matInput placeholder="E-mail">
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12 text-right">
+      <button mat-stroked-button class="btn-icon btn-theme-stroked mr-3" routerLink="/paginate/priceOffers">
+        <mat-icon>cancel</mat-icon>
+        Zrušiť
+      </button>
+      <button mat-flat-button class="btn-icon btn-theme mr-3" (click)="submit('save')" type="button">
+        <mat-icon>save</mat-icon>
+        Uložiť
+      </button>
+      <button *ngIf="demandOffer" mat-flat-button class="btn-icon btn-theme-warn" (click)="submit('send')" type="button">
+        <mat-icon>send</mat-icon>
+        Odoslať objednávateľovi
+      </button>
+    </div>
+  </div>
+</form>

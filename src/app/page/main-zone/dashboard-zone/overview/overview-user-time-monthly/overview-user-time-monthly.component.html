@@ -1,0 +1,58 @@
+<div class="row my-3 justify-content-start">
+  <div class="col-md-4 col-lg-2">
+    <ng-select [items]="months"
+               [clearable]="false"
+               bindLabel="title"
+               placeholder="Mesiac"
+               [(ngModel)]="month"
+               (ngModelChange)="getData()"
+               class="filter-ng-select">
+    </ng-select>
+  </div>
+</div>
+
+<div *ngIf="!isLoad; else loading" class="position-relative table-scroll table-fixed-col mt-4 w-100">
+  <table class="table-show-data table-default w-100 border-bottom" *ngIf="userMonthlyOverviews.length; else emptyList">
+    <thead>
+    <tr>
+      <th class="table-fixed-col text-left"><span>Užívateľ</span></th>
+      <th class="text-center" *ngFor="let day of countMonthDays; let index = index">{{index + 1}}</th>
+      <th class="text-center">Spolu</th>
+    </tr>
+    </thead>
+
+    <tbody class="table-border">
+      <tr *ngFor="let userMonthlyOverview of userMonthlyOverviews">
+      <td class="table-fixed-col text-left  white-space-nowrap">
+          <span class="d-flex align-items-center">
+            <ngx-avatar [src]="userMonthlyOverview.photoUrl" size="30" name="{{userMonthlyOverview.fullName}}" class="mr-3"></ngx-avatar>
+            {{userMonthlyOverview.fullName}}
+          </span>
+      </td>
+      <td class="text-center white-space-nowrap text-center" [class.bg-medium-gray]="isWeekendDay(index)" *ngFor="let day of countMonthDays; let index = index"><strong class="font-weight-bold">{{userMonthlyOverview.userHours[index+1] || ''}}</strong></td>
+      <td class="white-space-nowrap text-center">
+        <!--<strong>{{userMonthlyOverview.activeHourPrice}} &euro;</strong> <br>-->
+        <strong>
+          {{userMonthlyOverview.totalUserHours}} <br>
+          {{userMonthlyOverview.totalUserPrice | currency:'EUR':'symbol'}} <br>
+          {{userMonthlyOverview.activeHourPrice | currency:'EUR':'symbol'}}
+        </strong>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <ng-template #emptyList>
+    <div class="row">
+      <div class="col-md-12">
+          <p>Nothing to show</p>
+      </div>
+    </div>
+  </ng-template>
+</div>
+
+<ng-template #loading>
+  <div class="w-100 d-flex justify-content-center mt-5 pt-5">
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-template>

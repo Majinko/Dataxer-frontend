@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
     private router: Router
   ) {
     if (this.authService.isAuthenticated) {
-      this.router.navigate(['/auth/dashboard']);
+      this.router.navigate(['paginate/time']).then();
     }
   }
 
@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
     });
 
     // get return url from route parameters or default to '/'
-    this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/time';
+    this.returnUrl = this.route.snapshot.queryParams.returnUrl || 'paginate/time';
   }
 
   // convenience getter for easy access to form fields

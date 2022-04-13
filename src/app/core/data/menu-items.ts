@@ -13,12 +13,12 @@ export const MenuItems: MenuItem[] = [
     icon: 'check_circle',
     permission: 'Task'
   },
- {
+/* {
     routerLink: ['/document/demand'],
     title: 'Dopyty',
     icon: 'request_quote',
     permission: 'Demand'
-  },
+  },*/
   {
     routerLink: ['/paginate/projects'],
     title: 'Zákazky',

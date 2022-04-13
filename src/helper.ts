@@ -1,6 +1,7 @@
 import {BaseFilter} from './app/core/models/filters/baseFilter';
 import {AbstractControl} from '@angular/forms';
 import {MatPaginatorIntl} from '@angular/material/paginator';
+import * as moment from 'moment';
 
 // custom date picker formats
 export const APP_DATE_FORMATS = {
@@ -194,4 +195,14 @@ export function checkFormIsNotFill(checkControls: { [p: string]: AbstractControl
 
   return true;
 }
+
+/**
+ * Get month data from moment object
+ * @param momentData
+ */
+export const getMonthData = (momentData: moment.Moment): string => {
+  const date = new Date(momentData.year(), momentData.month(), momentData.date());
+
+  return date.toLocaleString('default', {month: 'long'}) + ' ' + momentData.year();
+};
 

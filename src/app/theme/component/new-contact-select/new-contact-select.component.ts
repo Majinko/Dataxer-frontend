@@ -1,7 +1,7 @@
 import {Component, forwardRef, Input, OnInit} from '@angular/core';
 import {Contact} from '../../../core/models/contact';
 
-import {ContactCreateComponent} from '../../../page/dashboard-zone/contact/contact-create/contact-create.component';
+import {ContactCreateComponent} from '../../../page/main-zone/dashboard-zone/contact/contact-create/contact-create.component';
 import {ContactService} from '../../../core/services/contact.service';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 import {MatDialog} from '@angular/material/dialog';

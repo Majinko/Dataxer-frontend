@@ -3,7 +3,7 @@ import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 import {Project} from '../../../core/models/project';
 import {ProjectService} from '../../../core/services/project.service';
 import {MatDialog} from '@angular/material/dialog';
-import {ProjectCreateComponent} from '../../../page/dashboard-zone/project/project-create/project-create.component';
+import {ProjectCreateComponent} from '../../../page/main-zone/dashboard-zone/project/project-create/project-create.component';
 import {Contact} from '../../../core/models/contact';
 import {DropdownPosition} from '@ng-select/ng-select/lib/ng-select.component';
 

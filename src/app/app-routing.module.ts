@@ -4,7 +4,7 @@ import {Routes, RouterModule} from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./page/dashboard-zone/dashboard.module').then(m => m.DashboardModule),
+    loadChildren: () => import('./page/main-zone/main-zone.module').then(m => m.MainZoneModule),
   },
   {
     path: 'setting',
@@ -12,13 +12,7 @@ const routes: Routes = [
   },
   {
     path: 'auth',
-    loadChildren: () => import('./page/non-auth-zone/page.module')
-      .then(m => m.PageModule),
-  },
-  {
-    path: '**',
-    pathMatch: 'full',
-    redirectTo: 'time',
+    loadChildren: () => import('./page/non-auth-zone/page.module').then(m => m.PageModule),
   }
 ];
 

@@ -1,0 +1,76 @@
+<div *ngIf="contact" class="mb-5">
+  <div class="row mb-4">
+    <div class="col d-flex align-items-center mb-3">
+      <app-back-button url="/paginate/contacts"></app-back-button>
+      <h1 class="mb-0">{{contact.name}}</h1>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <h2 class="border-bottom-2 pb-2 mb-4">Základné info</h2>
+    </div>
+
+    <div class="col-md-3 d-flex align-items-center">
+      <ngx-avatar [src]="contact.photoUrl ? contact.photoUrl : 'https://ssl.gstatic.com/s2/oz/images/sge/grey_silhouette.png'" ></ngx-avatar>
+    </div>
+
+    <div class="col-md-3">
+      <p class="mb-0">Meno:</p>
+      <h3 class="text-dark"><b>{{contact.name || '-'}}</b></h3>
+    </div>
+
+    <div class="col-md-3">
+      <p class="mb-0">Email:</p>
+      <h3 class="text-dark"><b>{{contact.email || '-'}}</b></h3>
+    </div>
+
+    <div class="col-md-3">
+      <p class="mb-0">Telefón:</p>
+      <h3 class="text-dark"><b>{{contact.phone || '-'}}</b></h3>
+    </div>
+
+    <div class="col-12 mt-3">
+      <h2 class="border-bottom-2 pb-2 mb-4">Adresa</h2>
+    </div>
+
+    <div class="col-md-3">
+      <p class="mb-0">Mesto:</p>
+      <h3 class="text-dark"><b>{{contact.city || '-'}}</b></h3>
+    </div>
+
+    <div class="col-md-3">
+      <p class="mb-0">Ulica:</p>
+      <h3 class="text-dark"><b>{{contact.street || '-'}}</b></h3>
+    </div>
+
+    <div class="col-md-3">
+      <p class="mb-0">PSČ:</p>
+      <h3 class="text-dark"><b>{{contact.postalCode || '-'}}</b></h3>
+    </div>
+
+    <div class="col-md-3">
+      <p class="mb-0">Krajina:</p>
+      <h3 class="text-dark"><b>{{contact.country || '-'}}</b></h3>
+    </div>
+
+    <div class="col-12">
+      <h2 class="border-bottom-2 pb-2 mb-4">Fakturačné údaje</h2>
+    </div>
+
+    <div class="col-md-4">
+      <p class="mb-0">IČO:</p>
+      <h3 class="text-dark"><b>{{contact.cin || '-'}}</b></h3>
+    </div>
+
+    <div class="col-md-4">
+      <p class="mb-0">DIČ:</p>
+      <h3 class="text-dark"><b>{{contact.tin || '-'}}</b></h3>
+    </div>
+
+    <div class="col-md-4">
+      <p class="mb-0">IČ DPH:</p>
+      <h3 class="text-dark"><b>{{contact.vatin || '-'}}</b></h3>
+    </div>
+  </div>
+</div>
