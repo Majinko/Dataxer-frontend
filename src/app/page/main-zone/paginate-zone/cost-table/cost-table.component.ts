@@ -47,7 +47,6 @@ export class CostTableComponent extends AppPaginate<Cost> implements OnInit, Aft
   ngAfterViewInit(): void {
     this.subscription = this.filterService.doFilter.subscribe(data => {
       if (data && data.filteredData) {
-        this.service.pageIndex = 0;
         this.costService.rsqlFilter = data.rsQlFilter;
 
         this.paginate();

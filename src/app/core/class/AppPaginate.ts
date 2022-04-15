@@ -8,6 +8,7 @@ import {map, startWith, switchMap} from 'rxjs/operators';
 import {ConfirmDialogComponent} from '../../theme/component/confirm-dialog/confirm-dialog.component';
 import {MessageService} from '../services/message.service';
 import {FilterService} from '../store/service/filter.service';
+import {Paginate} from '../models/paginate';
 
 export class AppPaginate<T> extends AppPaginateData<T> {
   constructor(
@@ -61,6 +62,10 @@ export class AppPaginate<T> extends AppPaginateData<T> {
             this.isLoadingResults = false;
           }, 1);
 
+          // check data empty a wrong page index
+          this.checkPageIndexAndEmptyData(data);
+
+          // store paginate
           this.storePaginate();
 
           this.totalPrice = data.totalPrice ?? 0;
@@ -75,6 +80,7 @@ export class AppPaginate<T> extends AppPaginateData<T> {
         this.paginateFinish.next(true);
       });
   }
+
 
   // destroy something
   public destroy(event: MouseEvent, id: number): void {
@@ -92,6 +98,18 @@ export class AppPaginate<T> extends AppPaginateData<T> {
         });
       }
     });
+  }
+
+  /**
+   * Check if page index is not out
+   * @param data
+   * @private
+   */
+  private checkPageIndexAndEmptyData(data: Paginate<T>) {
+    if (data.empty && this.service.pageIndex > 0) {
+      this.service.pageIndex = 0;
+      this.paginate();
+    }
   }
 
   /**

@@ -57,7 +57,6 @@ export class InvoiceTableComponent extends AppPaginate<Invoice> implements OnIni
 
     this.subscription = this.filterService.doFilter.subscribe(data => {
       if (data && data.filteredData) {
-        this.service.pageIndex = 0;
         this.invoiceService.rsqlFilter = data.rsQlFilter;
 
         this.paginate();

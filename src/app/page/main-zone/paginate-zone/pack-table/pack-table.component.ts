@@ -38,7 +38,6 @@ export class PackTableComponent extends AppPaginate<Pack> implements OnInit, Aft
   ngAfterViewInit(): void {
     this.subscription = this.filterService.doFilter.subscribe(data => {
       if (data && data.filteredData) {
-        this.service.pageIndex = 0;
         this.packService.rsqlFilter = data.rsQlFilter;
 
         this.paginate();

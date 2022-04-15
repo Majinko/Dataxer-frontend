@@ -37,7 +37,6 @@ export class ContactTableComponent extends AppPaginate<Contact> implements OnIni
   ngAfterViewInit(): void {
     this.subscription = this.filterService.doFilter.subscribe(data => {
       if (data && data.filteredData) {
-        this.service.pageIndex = 0;
         this.contactService.rsqlFilter = data.rsQlFilter;
 
         this.paginate();

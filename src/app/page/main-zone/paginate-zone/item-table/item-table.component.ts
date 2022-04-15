@@ -39,7 +39,6 @@ export class ItemTableComponent extends AppPaginate<Item> implements OnInit, Aft
   ngAfterViewInit(): void {
     this.subscription = this.filterService.doFilter.subscribe(data => {
       if (data && data.filteredData) {
-        this.service.pageIndex = 0;
         this.itemService.rsqlFilter = data.rsQlFilter;
 
         this.paginate();

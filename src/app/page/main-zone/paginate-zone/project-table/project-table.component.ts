@@ -47,7 +47,6 @@ export class ProjectTableComponent extends AppPaginate<Project> implements OnIni
   ngAfterViewInit(): void {
     this.subscription = this.filterService.doFilter.subscribe(data => {
       if (data && data.filteredData) {
-        this.service.pageIndex = 0;
         this.projectService.rsqlFilter = data.rsQlFilter;
 
         this.paginate();

@@ -54,7 +54,6 @@ export class PriceOfferTableComponent extends AppPaginate<PriceOffer> implements
 
     this.subscription = this.filterService.doFilter.subscribe(data => {
       if (data && data.filteredData) {
-        this.service.pageIndex = 0;
         this.priceOfferService.rsqlFilter = data.rsQlFilter;
 
         this.paginate();
