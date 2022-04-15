@@ -1,0 +1,17 @@
+<div class="shared-categories">
+<button (click)="change(node, 'name')" mat-icon-button matTooltip="Môže vidieť názov" type="button">
+  <mat-icon *ngIf="node.visibleName">visibility_off</mat-icon>
+  <mat-icon *ngIf="!node.visibleName">visibility</mat-icon>
+</button>
+<button (click)="change(node, 'person')" mat-icon-button matTooltip="Môže vidieť konkrétneho zamestnanca"
+        type="button">
+  <mat-icon *ngIf="node.visiblePerson">person_off</mat-icon>
+  <mat-icon *ngIf="!node.visiblePerson">person</mat-icon>
+</button>
+<ng-select class="form-group w-100 mb-0" [items]="sharedCategories" bindLabel="title"
+           notFoundText="Zvoľte kategóriu" placeholder="Kategória" groupBy="parentName">
+  <ng-template ng-optgroup-tmp let-item="item">
+    {{ item.title || 'Unnamed group' }}
+  </ng-template>
+</ng-select>
+</div>

@@ -1,9 +1,9 @@
 <div class="row">
   <div class="col-12" [formGroup]="formGroup">
     <div class="table-wrap no-border" formArrayName="packs" cdkDropList (cdkDropListDropped)="dropPack($event)">
-      <table class="table-hover table-hover-gray table-data table-borderless w-100 mat-table" cdkDrag [formGroupName]="i" *ngFor="let pack of formPacks.controls; let i=index" >
+      <table class="table-hover table-hover-gray table-data table-borderless w-100 mat-table" cdkDrag cdkDragLockAxis="y" [formGroupName]="i" *ngFor="let pack of formPacks.controls; let i=index" >
         <tbody class="no-border">
-          <tr class="tbody-row set-row">
+          <tr class="tbody-row set-row" [ngClass]="fromDemand ? 'd-none' : ''">
             <td>
               <a
                 cdkDragHandle
@@ -44,7 +44,7 @@
               <a
                 (click)="removePack($event, i)"
                 mat-icon-button
-                matTooltip="Delete item">
+                matTooltip="Vymazať sadu položiek">
                 <mat-icon class="text-theme">delete</mat-icon>
               </a>
             </td>
@@ -52,26 +52,30 @@
         </tbody>
 
         <tbody [hidden]="!documentHelper.packs[i].showItems" class="no-border table-item table-td-initial" formArrayName="packItems" cdkDropList (cdkDropListDropped)="dropItem(i, $event)">
-          <tr #trRow class="tbody-row set-row" [formGroupName]="j" *ngFor="let item of pack.get('packItems').controls; let j=index" cdkDrag>
-            <td colspan="2" class="text-right">
+          <tr #trRow class="tbody-row item-row" [formGroupName]="j" *ngFor="let item of pack.get('packItems').controls; let j=index" cdkDragLockAxis="y" cdkDrag>
+            <td colspan="2" [ngClass]="fromDemand ? '' : 'text-right'">
               <a
                 cdkDragHandle
                 class="mr-3"
+                [ngClass]="fromDemand ? 'd-none' : ''"
                 mat-icon-button
                 matTooltip="Reorder item">
                 <mat-icon class="text-theme">drag_indicator</mat-icon>
               </a>
               <app-item-autocomplete formControlName="title" (change)="setItemTitle(item, $event.target.value)" (findItem)="setItem(item, $event)"></app-item-autocomplete>
+
               <div class="jsDiscount" [ngClass]="{'d-none' : item.value.discount == 0}">
-              <mat-form-field class="w-100">
-                  <input matInput readonly placeholder="Zľava {{item.value.discount}} %" class="text-right" />
-                </mat-form-field>
+                <mat-form-field class="w-100">
+                    <input matInput readonly placeholder="Zľava {{item.value.discount}} %" class="text-right" />
+                  </mat-form-field>
               </div>
             </td>
             <td class="text-right thin">
-              <mat-form-field style="width: 65px">
-                <input type="text" [attr.disabled]="checkbox.checked ? true : null" #qty formControlName="qty" placeholder="Počet" matInput>
-              </mat-form-field>
+              <div>
+                <mat-form-field style="width: 65px">
+                  <input type="number" [attr.disabled]="checkbox.checked ? true : null" #qty formControlName="qty" placeholder="Počet" matInput>
+                </mat-form-field>
+              </div>
             </td>
             <td class="thin">
               <div>
@@ -95,16 +99,23 @@
                   <input type="number" matInput #price [attr.disabled]="checkbox.checked ? true : null" formControlName="price" placeholder="Jednotková cena" class="text-right" />
                 </mat-form-field>
               </div>
+
               <div class="jsDiscount" [ngClass]="{'d-none' : item.value.discount == 0}">
                 <mat-form-field class="w-100">
-                  <input type="number" matInput disabled value="{{(itemDiscount.value > 0 && price.value > 0 ? '-' : '') + (+price.value | removePercentGetNumber: +itemDiscount.value)}}" class="text-right" />
-                </mat-form-field>
+                    <input type="number" matInput disabled value="{{(itemDiscount.value > 0 && price.value > 0 ? '-' : '') + (+price.value | removePercentGetNumber: +itemDiscount.value)}}" class="text-right" />
+                  </mat-form-field>
               </div>
             </td>
             <td class="thin" appShowHideTax>
-              <mat-form-field class="w-100">
-                <input type="number" matInput #tax [attr.disabled]="checkbox.checked ? true : null" formControlName="tax" placeholder="DPH" class="text-right" />
-              </mat-form-field>
+              <div>
+                <mat-form-field class="w-100">
+                  <input type="number" matInput #tax [attr.disabled]="checkbox.checked ? true : null" formControlName="tax" placeholder="DPH" class="text-right" />
+                </mat-form-field>
+              </div>
+
+              <div class="jsSettings d-none" *ngIf="projects && projects.length">
+                <app-new-project-select [projects]="projects" formControlName="project" dropDownPosition="top" [showAddButton]="false"></app-new-project-select>
+              </div>
             </td>
             <td>
               <div>
@@ -112,24 +123,57 @@
                   <input type="number" matInput [attr.disabled]="checkbox.checked ? true : null" value="{{documentHelper.packs[i].packItems[j].totalPrice}}" placeholder="Celkom" class="text-right" />
                 </mat-form-field>
               </div>
+
               <div class="jsDiscount" [ngClass]="{'d-none' : item.value.discount == 0}">
-              <mat-form-field class="w-100">
-                  <input matInput disabled value="{{(itemDiscount.value > 0 && price.value > 0 ? '-' : '') + (+price.value * +qty.value | addPercent: tax.value | removePercentGetNumber: +itemDiscount.value)}}" class="text-right" />
+                <mat-form-field class="w-100">
+                    <input matInput disabled value="{{(itemDiscount.value > 0 && price.value > 0 ? '-' : '') + (+price.value * +qty.value | addPercent: tax.value | removePercentGetNumber: +itemDiscount.value)}}" class="text-right" />
                 </mat-form-field>
+              </div>
+
+              <div class="jsSettings d-none" *ngIf="categories">
+                <app-category-select-group dropDownPosition="top" [categoryItemNodes]="categories" formControlName="category"></app-category-select-group>
               </div>
             </td>
             <td class="text-center thin">
+          <!--    <button class="text-theme" onclick="event.stopPropagation();" mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+
+              <mat-menu #menu="matMenu" class="menu-not-rounded">
+                <button mat-menu-item (click)="showDiscount(trRow)">
+                  <mat-icon>local_offer</mat-icon>
+                  <span>Zľava</span>
+                </button>
+
+                <button mat-menu-item (click)="showMoreOptions(trRow)">
+                  <mat-icon>settings</mat-icon>
+                  <span>Ďalšie nastavenia</span>
+                </button>
+
+                <button mat-menu-item (click)="removeItem($event, j, i)">
+                  <mat-icon>delete</mat-icon>
+                  <span>Odstrániť položku</span>
+                </button>
+              </mat-menu>-->
+
               <a
                 (click)="showDiscount(trRow)"
                 class="mr-3"
                 mat-icon-button
-                matTooltip="Discount item">
+                matTooltip="Zľava na položku">
                 <mat-icon class="text-theme">local_offer</mat-icon>
+              </a>
+              <a
+                (click)="showMoreOptions(trRow)"
+                class="mr-3"
+                mat-icon-button
+                matTooltip="Nastavenie položky">
+                <mat-icon class="text-theme">settings</mat-icon>
               </a>
               <button
                 (click)="removeItem($event, j, i)"
                 mat-icon-button
-                matTooltip="Delete item">
+                matTooltip="Vymazať položku">
                 <mat-icon class="text-theme">delete</mat-icon>
               </button>
             </td>
@@ -145,7 +189,7 @@
       Položka
     </a>
 
-    <a mat-flat-button class="btn btn-icon btn-theme" (click)="addPack()">
+    <a mat-flat-button class="btn btn-icon btn-theme" [ngClass]="fromDemand ? 'd-none' : ''" (click)="addPack()">
       <mat-icon>create_new_folder</mat-icon>
       Sada položiek
     </a>

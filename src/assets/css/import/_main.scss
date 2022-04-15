@@ -15,7 +15,6 @@ app-invoice-edit app-company-select-group {
   }
 }
 
-
 .table-show-data {
   tr {
     .table-fixed-col {
@@ -85,6 +84,7 @@ app-company {
 .company-option {
   display: flex;
   align-items: center;
+  width: 100%;
   .img-wrap {
     width: 40px;
     padding: 5px 15px;
@@ -92,6 +92,29 @@ app-company {
   }
   .text-wrap {
     width: calc(100% - 40px);
+  }
+}
+
+.company-select {
+  .ng-placeholder + .ng-value {
+    width: 100%;
+  }
+}
+.ng-select-container {
+
+  .company-option .img-wrap {
+    width: 30px;
+    padding: 0 15px;
+    padding-left: 0;
+  }
+}
+
+app-demand-pack {
+  table.table-hover {
+    max-width: 1000px;
+  }
+  & > .row > .col-md-12.text-center {
+    max-width: 1000px;
   }
 }
 
@@ -112,6 +135,108 @@ app-invoice-filter {
       .text-wrap {
         width: calc(100% - 30px);
       }
+    }
+  }
+}
+
+.demand-price-offer-table {
+  padding: 12px 20px;
+  max-width: 800px;
+  margin-bottom: 50px;
+
+  & > hr {
+    margin: 6px 0;
+    & + .row {
+      padding: 5px 0;
+    }
+  }
+  .row {
+    .col-9 {
+      & > hr:first-of-type {
+        display: none;
+      }
+      & > hr {
+        margin: 6px 0;
+      }
+    }
+  }
+  .d-flex {
+    align-items: center;
+    span {
+      &:last-child {
+        padding-left: 8px;
+      }
+    }
+  }
+  .d-flex {
+    align-items: center;
+    span {
+      &:last-child {
+        padding-left: 8px;
+      }
+    }
+  }
+}
+
+app-category-tree-control {
+  .mat-tree {
+    padding-right: 100px;
+  }
+}
+
+.shared-categories {
+  padding-left: 20px;
+  width: 300px;
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  .form-group {
+    padding-left: 10px;
+  }
+}
+.shared-categories-items {
+  padding-top: 10px;
+  h3 {
+    font-size: 20px;
+    color: #19A5E5;
+  }
+}
+
+
+.budget-contacts-wrap {
+  position: sticky;
+  bottom: 0;
+  left: 0;
+  background: #f9fafb;
+  padding: 10px 20px;
+  z-index: 1;
+}
+
+app-select-new-contact {
+  .btn-add {
+    z-index: 2;
+  }
+}
+
+
+.table-wrap .mat-table {
+  tr:hover {
+    td.action-link {
+      position: sticky;
+      right: 0;
+      z-index: 1;
+      background: #e0e0e0 !important;
+    }
+  }
+}
+
+app-demand-pack {
+  div.jsSettings {
+    app-category-select-group {
+      display: block;
+      width: 100%;
+      max-width: 200px;
+      margin-left: auto;
     }
   }
 }

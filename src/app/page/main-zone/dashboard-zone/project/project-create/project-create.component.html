@@ -1,0 +1,131 @@
+<div class="row mb-4">
+  <div class="col d-flex align-items-center mb-3" [class.mb-md-5]="!dialogRef" [class.justify-content-between]="dialogRef">
+    <app-back-button *ngIf="dialogRef === null" url="/paginate/projects"></app-back-button>
+    <h1 class="mb-0">Nová zákazka</h1>
+    <a *ngIf="dialogRef" mat-icon-button class="close-icon cursor-pointer" mat-dialog-close>
+      <mat-icon>close</mat-icon>
+    </a>
+  </div>
+</div>
+
+<form autocomplete="off" [formGroup]="formGroup" (ngSubmit)="submit()">
+  <div class="row">
+    <div class="col-12">
+      <h2 class="border-bottom-2 pb-2 mb-4">Špeciﬁkácia zákazky</h2>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6 form-group">
+      <mat-form-field class="form-group w-100">
+        <input formControlName="title" matInput placeholder="Názov zákazky">
+        <mat-error *ngIf="f.title.errors">Názov zákazky je <strong>požadovaný.</strong></mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-6 form-group">
+      <mat-form-field class="form-group w-100">
+        <input formControlName="number" matInput placeholder="Číslo zákazky">
+        <mat-error *ngIf="f.number.errors">Číslo zákazky je <strong>požadované.</strong></mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-12 form-group">
+      <mat-form-field class="form-group w-100">
+        <input formControlName="description" matInput placeholder="Popis zákazky">
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-4 form-group">
+      <app-select-new-contact formControlName="contact"></app-select-new-contact>
+      <mat-error *ngIf="submitted && f.contact.errors">Client je <strong>požadovaný.</strong></mat-error>
+    </div>
+
+    <div class="col-md-4">
+      <mat-form-field class="form-group w-100">
+        <mat-label>Stav</mat-label>
+        <select formControlName="state" matNativeControl>
+          <option value="COMPLETED">Dokončená</option>
+          <option value="IN_PROGRESS">V realizácii</option>
+        </select>
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-4 form-group">
+      <mat-form-field class="form-group w-100">
+        <input formControlName="projectProfit" matInput placeholder="Projekt profit %">
+        <mat-error *ngIf="f.area.errors">Projekt profit musi byt <strong>cislo.</strong></mat-error>
+        <mat-hint>Číslo v percentách na základe, ktorého budú zamestnancom vyratane odmeny na projekte</mat-hint>
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-6">
+      <mat-form-field class="form-group w-100">
+        <mat-label>Dátum od</mat-label>
+        <input formControlName="startedAt" matInput [matDatepicker]="startedAt">
+        <mat-datepicker-toggle matSuffix [for]="startedAt"></mat-datepicker-toggle>
+        <mat-datepicker #startedAt></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-6">
+      <mat-form-field class="form-group w-100">
+        <mat-label>Dátum do</mat-label>
+        <input formControlName="finishedAt" matInput [matDatepicker]="finishedAt">
+        <mat-datepicker-toggle matSuffix [for]="finishedAt"></mat-datepicker-toggle>
+        <mat-datepicker #finishedAt></mat-datepicker>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <h2 class="border-bottom-2 pb-2 mb-4">Vlastnosti zákazky</h2>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6 form-group">
+      <mat-form-field class="form-group w-100">
+        <input formControlName="address" matInput placeholder="Miesto zákazky">
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-6 form-group">
+      <mat-form-field class="form-group w-100">
+        <input type="number" formControlName="area" matInput placeholder="Rozloha zákazky">
+        <mat-error *ngIf="f.area.errors">Rozloha zákazky musi byt <strong>cislo.</strong></mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12 mb-5" *ngFor="let group of groups">
+      <h2 class="border-bottom-2 pb-2 ">{{group.title}}</h2>
+
+      <app-category-tree-control [sharedCategories]="sharedCategories" [group]="group" [categories]="group.categories" [(ngModel)]="group.fillCategories" [ngModelOptions]="{standalone: true}" *ngIf="categories && categories.length"></app-category-tree-control>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12 text-right">
+      <div *ngIf="dialogRef === null; else dialogProject">
+        <button routerLink="/paginate/projects" mat-stroked-button class="btn-icon btn-theme-stroked mr-3">
+          <mat-icon>cancel</mat-icon>
+          Zrušiť
+        </button>
+        <button mat-flat-button class="btn-icon btn-theme">
+          <mat-icon>save</mat-icon>
+          Uložiť
+        </button>
+      </div>
+
+      <ng-template #dialogProject>
+        <button (click)="close()" mat-stroked-button class="btn-icon btn-theme-stroked">
+          <mat-icon>save</mat-icon>
+          Uložiť
+        </button>
+      </ng-template>
+    </div>
+  </div>
+</form>

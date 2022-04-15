@@ -5,11 +5,12 @@ import {Item} from '../models/item';
 import {environment} from '../../../environments/environment';
 import {ResourceService} from '../class/ResourceService';
 import {Serializer} from '../models/serializers/Serializer';
+import {IPaginate} from '../interface/IPaginate';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ItemService extends ResourceService<Item> {
+export class ItemService extends ResourceService<Item> implements IPaginate<Item>{
   constructor(private httpClient: HttpClient) {
     super(
       httpClient,

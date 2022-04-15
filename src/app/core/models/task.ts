@@ -16,3 +16,23 @@ export interface Task {
   finishedAt: Date;
   files?: CustomFile[];
 }
+
+export interface Todo {
+  id: number;
+  listId: number;
+  title: string;
+  checked: boolean;
+  position: number;
+}
+export interface Todolist {
+  id?: number;
+  title: string;
+  position: number;
+}
+
+export interface TodoComment {
+  id: number;
+  time: string;
+  name: string;
+  text: string;
+}

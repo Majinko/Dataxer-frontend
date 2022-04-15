@@ -1,0 +1,15 @@
+<div class="nav-link">
+<div class="nav-button" [routerLink]="['/task']">
+  <mat-icon class="mr-2 cursor-pointer">keyboard_backspace</mat-icon>
+  Naspäť na zoznam úloh
+</div>
+</div>
+<div class="todolist-row-title">
+  <h1>{{todolist.title}}</h1>
+</div>
+<div class="todolists-wrap">
+  <div class="todolist-box">
+    <div class="todolist-placeholder" *cdkDragPlaceholder></div>
+    <app-task-todo></app-task-todo>
+  </div>
+</div>

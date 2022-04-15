@@ -7,6 +7,9 @@ $text-color: (
   'red-light': $color-red-light,
   'red-dark': $color-red-dark,
   'red-danger': $color-danger,
+  'approved': $color-success,
+  'rejected' : $color-danger,
+  'waiting': $color-warning,
   'green-light' : $color-green-light,
   'green-dark' : $color-green-dark
 );

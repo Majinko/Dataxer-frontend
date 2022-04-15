@@ -2,6 +2,7 @@
   <ng-select class="form-group w-100 disable-arrow mb-0"
              [items]="contacts"
              bindLabel="name"
+             [multiple]="multiple ? multiple : false"
              [placeholder]="placeholder"
              [clearable]="false"
              [searchable]="true"

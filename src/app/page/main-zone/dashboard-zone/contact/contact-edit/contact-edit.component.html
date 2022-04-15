@@ -1,0 +1,110 @@
+<form [formGroup]="contactForm" action="" autocomplete="off" (ngSubmit)="onSubmit(contactForm.value)" *ngIf="contact">
+  <div class="row mb-4">
+    <div class="col d-flex align-items-center mb-3">
+      <app-back-button url="/paginate/contacts"></app-back-button>
+      <h1 class="mb-0">Úprava kontaktu</h1>
+    </div>
+  </div>
+
+  <div class="row align-items-center">
+    <div class="col-3 col-md-1 mb-3">
+      <app-photo-uploader [formGroup]="contactForm" path="contact" nameAttr="photoUrl" isAvatar="true"></app-photo-uploader>
+    </div>
+
+    <div class="col-9 col-md-11">
+      <app-slovakia-digital-autocomplete formControlName="name" (findFirm)="setFirmData($event)"></app-slovakia-digital-autocomplete>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-4">
+      <mat-form-field class="form-group w-100">
+        <input matInput placeholder="Ulica" formControlName="street">
+        <mat-icon matSuffix>home</mat-icon>
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-4">
+      <mat-form-field class="form-group w-100">
+        <input matInput placeholder="Mesto" formControlName="city">
+        <mat-icon matSuffix>room</mat-icon>
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-4">
+      <ng-select [items]="countries"
+                 #select
+                 bindLabel="country"
+                 bindValue="country"
+                 placeholder="Krajina"
+                 formControlName="country">
+        <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+          <div><span>{{item.country}}</span></div>
+        </ng-template>
+      </ng-select>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <mat-form-field class="form-group w-100">
+        <input matInput placeholder="PSČ" formControlName="postalCode">
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-6">
+      <mat-form-field class="form-group w-100">
+        <input matInput placeholder="Súpisné č." formControlName="regNumber">
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <mat-form-field class="form-group w-100">
+        <input matInput placeholder="E-mail" formControlName="email">
+        <mat-icon matSuffix>email</mat-icon>
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-6">
+      <mat-form-field class="form-group w-100">
+        <input matInput placeholder="Telefón" formControlName="phone">
+        <mat-icon matSuffix>phone</mat-icon>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-4">
+      <mat-form-field class="form-group w-100">
+        <input  matInput placeholder="IČO" formControlName="cin">
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-4">
+      <mat-form-field class="form-group w-100">
+        <input  matInput placeholder="DIČ" formControlName="tin">
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-4">
+      <mat-form-field class="form-group w-100">
+        <input  matInput placeholder="IČ DPH" formControlName="vatin">
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12 text-right">
+      <button routerLink="/contact" mat-stroked-button class="btn-icon btn-theme-stroked mr-3">
+        <mat-icon>cancel</mat-icon>
+        Zrušiť
+      </button>
+      <button mat-flat-button class="btn-icon btn-theme">
+        <mat-icon>save</mat-icon>
+        Uložiť
+      </button>
+    </div>
+  </div>
+</form>

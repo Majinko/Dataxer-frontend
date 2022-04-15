@@ -1,0 +1,244 @@
+<div *ngIf="cost">
+  <div class="row mb-4">
+    <div class="col d-flex align-items-center mb-3">
+      <app-back-button url="/paginate/costs"></app-back-button>
+      <h1 class="mb-0">Úprava nákladu</h1>
+    </div>
+  </div>
+
+  <form autocomplete="off" [formGroup]="formGroup" #ngForm="ngForm" (ngSubmit)="submit()">
+    <div class="row">
+      <div class="col-12">
+        <h2 class="border-bottom-2 pb-2 mb-4">Základné info</h2>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4 mb-2">
+        <app-company-select-group formControlName="company" [ngForm]="ngForm"></app-company-select-group>
+      </div>
+
+      <div class="col-md-4">
+        <app-select-new-contact placeholder="Dodávaťeľ" formControlName="contact"></app-select-new-contact>
+        <mat-error *ngIf="submitted && f.contact.errors" class="mat-error-not-in-field">Client je <strong>požadovaný.</strong></mat-error>
+      </div>
+
+      <div class="col-md-4">
+        <app-new-project-select formControlName="project" ></app-new-project-select>
+        <mat-error *ngIf="submitted && f.project.errors" class="mat-error-not-in-field">Projekt je <strong>požadovaný.</strong></mat-error>
+      </div>
+
+      <div class="col-md-4">
+        <ng-select class="form-group w-100 mb-0"
+                   [items]="categories"
+                   bindLabel="name"
+                   placeholder="Kategórie"
+                   groupBy="parentName"
+                   formControlName="categories"
+        >
+          <ng-template ng-optgroup-tmp let-item="item">
+            {{item.parentName || 'Unnamed group'}}
+          </ng-template>
+        </ng-select>
+        <mat-error *ngIf="submitted && f.categories.errors" class="mat-error-not-in-field">Kategória je <strong>požadovana.</strong></mat-error>
+      </div>
+
+      <div class="col-md-4">
+        <mat-form-field class="form-group w-100 mb-md-0">
+          <mat-label>Typ nákladu</mat-label>
+          <mat-select formControlName="type">
+            <mat-option *ngFor="let type of costTypes" value="{{type.key}}">{{type.value}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+  <!--    <div class="col-md-4">
+        <mat-form-field  class="form-group w-100 mb-md-0">
+          <mat-label>Stav</mat-label>
+          <mat-select formControlName="state">
+            <mat-option *ngFor="let state of costStates" value="{{state.key}}">{{state.value}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>-->
+    </div>
+
+    <div class="row">
+      <div class="col-md-4">
+        <mat-checkbox formControlName="isInternal" (change)="getFirmGroupCategories()" #isInternalCheckbox>Firemný náklad</mat-checkbox>
+      </div>
+    </div>
+
+   <!-- <div class="row">
+      <div class="col-md-4">
+        <mat-checkbox #isRepeated class="mt-3 d-inline-block" formControlName="isRepeated">Pravidelný náklad</mat-checkbox>
+      </div>
+
+      <div class="col-md-4" *ngIf="isRepeated.checked">
+        <mat-form-field  class="form-group w-100">
+          <mat-label>Opakovanie</mat-label>
+          <mat-select formControlName="period">
+            <mat-option value="DAY">Denne</mat-option>
+            <mat-option value="WEEK">Týždenne</mat-option>
+            <mat-option value="MONTH">Mesačne</mat-option>
+            <mat-option value="YEAR">Ročne</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-4" *ngIf="isRepeated.checked">
+        <mat-form-field>
+          <mat-label>Enter a date range</mat-label>
+          <mat-date-range-input [rangePicker]="picker">
+            <input matStartDate placeholder="Start date" formControlName="repeatedFrom">
+            <input matEndDate placeholder="End date" formControlName="repeatedTo">
+          </mat-date-range-input>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-date-range-picker #picker></mat-date-range-picker>
+        </mat-form-field>
+      </div>
+    </div>-->
+
+    <div class="row mt-3">
+      <div class="col-12">
+        <h2 class="border-bottom-2 pb-2 mb-4">Popis</h2>
+      </div>
+
+      <div class="col-md-4">
+        <mat-form-field class="form-group w-100">
+          <input formControlName="title" matInput placeholder="Názov nákladu">
+          <mat-error *ngIf="f.title.errors">Názov nákladu je <strong>požadovaný.</strong></mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-4">
+        <mat-form-field class="form-group w-100">
+          <input formControlName="note" matInput placeholder="Poznámka">
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-4 form-group">
+        <mat-form-field class="form-pack-price-offer-create w-100">
+          <ngx-mat-file-input (change)="uploadHelper.uploadFile($event.target.files)" placeholder="Súbory nákladu" multiple></ngx-mat-file-input>
+          <mat-icon matSuffix class="cursor-pointer">image</mat-icon>
+        </mat-form-field>
+
+        <app-file class="mb-3" [files]="cost.files" deleteFile="true"></app-file>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12">
+        <h2 class="border-bottom-2 pb-2 mb-4">Označenie nákladu</h2>
+      </div>
+
+      <div class="col-md-4">
+        <mat-form-field class="form-group w-100">
+          <input matInput formControlName="number" placeholder="Číslo dokladu">
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-4">
+        <mat-form-field class="form-group w-100">
+          <input matInput formControlName="variableSymbol" placeholder="Variabilný symbol">
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-4">
+        <mat-form-field class="form-group w-100">
+          <input matInput formControlName="constantSymbol" placeholder="Konštantný symbol">
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12">
+        <h2 class="border-bottom-2 pb-2 mb-4">Dátumy</h2>
+      </div>
+
+      <div class="col-md-3">
+        <mat-form-field class="form-group w-100">
+          <mat-label>Dátum vystavenia</mat-label>
+          <input formControlName="createdDate" matInput [matDatepicker]="createdDate">
+          <mat-datepicker-toggle matSuffix [for]="createdDate"></mat-datepicker-toggle>
+          <mat-datepicker #createdDate></mat-datepicker>
+          <mat-error *ngIf="f.createdDate.errors">Dátum vystavenia je <strong>pozadovany.</strong></mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-3">
+        <mat-form-field class="form-group w-100">
+          <mat-label>Dátum dodania</mat-label>
+          <input formControlName="deliveredDate" matInput [matDatepicker]="deliveredDate">
+          <mat-datepicker-toggle matSuffix [for]="deliveredDate"></mat-datepicker-toggle>
+          <mat-datepicker #deliveredDate></mat-datepicker>
+          <mat-error *ngIf="f.deliveredDate.errors">Dátum dodania je <strong>pozadovany.</strong></mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-3">
+        <mat-form-field class="form-group w-100">
+          <mat-label>Slatnosť</mat-label>
+          <input formControlName="dueDate" matInput [matDatepicker]="dueDate">
+          <mat-datepicker-toggle matSuffix [for]="dueDate"></mat-datepicker-toggle>
+          <mat-datepicker #dueDate></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-3">
+        <mat-form-field class="form-group w-100">
+          <mat-label>Dátum upľatnenia DPH</mat-label>
+          <input formControlName="taxableSupply" matInput [matDatepicker]="taxableSupply">
+          <mat-datepicker-toggle matSuffix [for]="taxableSupply"></mat-datepicker-toggle>
+          <mat-datepicker #taxableSupply></mat-datepicker>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12">
+        <h2 class="border-bottom-2 pb-2 mb-4">Suma</h2>
+      </div>
+
+      <div class="col-md-3">
+        <mat-form-field class="form-group w-100">
+          <mat-label>Mena</mat-label>
+          <mat-select formControlName="currency">
+            <mat-option *ngFor="let currency of currencies" [value]="currency.value">
+              {{currency.value}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-3">
+        <mat-form-field class="w-100">
+          <input matInput #price type="number" formControlName="price" placeholder="Jednotková cena" class="text-right" />
+          <mat-error *ngIf="submitted && f.price.errors" class="mat-error-not-in-field">Jednotková cena je <strong>požadovaná.</strong></mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-3">
+        <mat-form-field class="w-100">
+          <input matInput #tax formControlName="tax" placeholder="DPH" class="text-right" />
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-3">
+        <mat-form-field class="w-100">
+          <input matInput value="{{+price.value | addPercent: +tax.value}}" formControlName="totalPrice" placeholder="Celkom" class="text-right" />
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12 text-right">
+        <button routerLink="/paginate/costs"  mat-stroked-button class="btn-icon btn-theme-stroked mr-3">
+          <mat-icon>cancel</mat-icon>
+          Zrušiť
+        </button>
+        <app-spinner-button [loading]="isLoading"></app-spinner-button>
+      </div>
+    </div>
+  </form>
+
+</div>

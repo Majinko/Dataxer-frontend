@@ -1,0 +1,80 @@
+<div mat-dialog-title class="row mb-4">
+  <div class="d-flex align-items-center justify-content-between mb-3">
+    <h1 class="mb-0">Nastavenie položky rozpočtu</h1>
+    <a mat-icon-button class="close-icon cursor-pointer" mat-dialog-close>
+      <mat-icon>close</mat-icon>
+    </a>
+  </div>
+</div>
+
+<div mat-dialog-content>
+  <div class="pb-3">
+    <div class="w-100 pb-3" [formGroup]="formGroup">
+      <app-select-new-contact placeholder="Dodávatelia" [multiple]='true' formControlName="contacts"></app-select-new-contact>
+    </div>
+  </div>
+
+  <div class="demand-price-offer">
+    <div class="demand-price-offer-table box">
+      <div class="row">
+        <div class="col-3">
+          Dodávatelia
+        </div>
+        <div class="col-9">
+          <div class="row">
+            <div class="col-6">
+              Prijaté cenové ponuky
+            </div>
+            <div class="col-3">
+              Dátum
+            </div>
+            <div class="col-3">
+              Stav
+            </div>
+          </div>
+        </div>
+      </div>
+      <ng-container  *ngFor="let item of acceptedDemand">
+        <hr>
+        <div class="row">
+          <div class="col-3">
+            {{ item.title }}
+          </div>
+          <div class="col-9">
+            <ng-container  *ngFor="let po of item.priceOffer">
+              <hr>
+              <div class="row">
+                <div class="col-6">
+                  <a class="text-theme" [routerLink]="['/price-offer/show/', po.priceOfferId , 'demand', 23]">
+                    {{po.title}}
+                  </a>
+                </div>
+                <div class="col-3">
+                  {{ po.date }}
+                </div>
+                <div class="col-3">
+                  <div class="d-flex">
+                    <span [matTooltip]="po.state | lowercase | translate | titlecase" *ngIf="po.state" [ngClass]="'bg-' + po.state | lowercase" class="custom-badge text-white">{{po.state | translate |  uppercase | slice:0:1 }}</span>
+                    <span [ngClass]="'text-' + po.state | lowercase">{{po.state | lowercase | translate | titlecase}}</span>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 text-right">
+      <button mat-dialog-close mat-stroked-button class="btn-icon btn-theme-stroked mr-3" type="button">
+        <mat-icon>cancel</mat-icon>
+        Zrušiť
+      </button>
+      <button (click)="save()" mat-stroked-button class="btn-icon btn-theme">
+        <mat-icon>save</mat-icon>
+        Uložiť
+      </button>
+    </div>
+  </div>
+</div>

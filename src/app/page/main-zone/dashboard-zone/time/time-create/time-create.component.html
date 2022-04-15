@@ -1,0 +1,117 @@
+<div class="row mb-4">
+  <div class="col d-flex align-items-center mb-3">
+    <app-back-button url="/paginate/time"></app-back-button>
+    <h1 class="mb-0">Nový časový záznam</h1>
+  </div>
+</div>
+
+<form autocomplete="off" [formGroup]="formGroup" #ngForm="ngForm" (ngSubmit)="submit()">
+  <div class="row">
+    <div class="col-12">
+      <h2 class="border-bottom-2 pb-2 mb-2">Základné info</h2>
+    </div>
+  </div>
+
+  <div class="row" [class.mt-2]="!lastProjects && !lastCategories">
+    <div class="col-md-6 form-group" *ngIf="lastProjects">
+      <h3 class="mb-1">Poslendé zapísané projekty:</h3>
+      <mat-radio-group #radioCategories aria-label="Select an option" (change)="setProject($event.value)" *ngIf="lastProjects">
+        <mat-radio-button class="d-block mb-1" [value]="project" [checked]="i === 0" *ngFor="let project of lastProjects; let i = index">{{(project.number || '') + ' ' + project.title}}</mat-radio-button>
+      </mat-radio-group>
+    </div>
+
+    <div class="col-md-6 form-group" *ngIf="lastCategories">
+      <h3 class="mb-1">Poslendé zapísané kategórie:</h3>
+      <mat-radio-group #radioProjects aria-label="Select an option" (change)="setCategory($event.value)" >
+        <mat-radio-button class="d-block mb-1" [value]="category" [checked]="i === 0" *ngFor="let category of lastCategories; let i = index">{{category.name}}</mat-radio-button>
+      </mat-radio-group>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6 form-group">
+      <app-new-project-select formControlName="project" [showAddButton]="false"></app-new-project-select>
+      <mat-error *ngIf="isSubmit && f.project.errors" class="mat-error-not-in-field">Projekt je <strong>požadovaný.</strong></mat-error>
+    </div>
+
+    <div class="col-md-6 form-group">
+      <app-category-select-group #categorySelect formControlName="category" [types]="['TIME_FOR_COMPANY', 'TIME_CAPITAL_IN_PROJECT', 'TIME_NO_CAPITAL_IN_PROJECT']"></app-category-select-group>
+      <mat-error *ngIf="isSubmit && f.category.errors" class="mat-error-not-in-field">Kategória je <strong>požadovaná.</strong></mat-error>
+    </div>
+
+    <div class="col-md-4">
+      <mat-form-field class="form-group w-100">
+        <mat-label>Dátum práce</mat-label>
+        <input formControlName="dateWork" matInput [matDatepicker]="dateWork">
+        <mat-datepicker-toggle matSuffix [for]="dateWork"></mat-datepicker-toggle>
+        <mat-datepicker #dateWork></mat-datepicker>
+        <mat-error *ngIf="f.dateWork.errors">Dátum je <strong>požadovaný.</strong></mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-4">
+      <mat-form-field class="form-group w-100">
+        <input type="text"
+               placeholder="Čas od"
+               aria-label="Number"
+               matInput
+               formControlName="timeFromForUser"
+               [matAutocomplete]="timeFrom"
+               (input)="search($event.target.value)"
+        >
+      </mat-form-field>
+
+      <mat-autocomplete autoActiveFirstOption #timeFrom="matAutocomplete">
+        <mat-option *ngFor="let option of filteredOptions" [value]="option">
+          {{option}}
+        </mat-option>
+      </mat-autocomplete>
+    </div>
+
+    <div class="col-md-4">
+      <mat-form-field class="form-group w-100">
+        <input type="text"
+               placeholder="Čas do"
+               aria-label="Number"
+               matInput
+               formControlName="timeToForUser"
+               [matAutocomplete]="timeFrom"
+               (input)="search($event.target.value)"
+        >
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-12">
+      <mat-form-field class="example-full-width w-100 form-group">
+        <mat-label>Popis</mat-label>
+        <textarea matInput placeholder="Popis" formControlName="description"></textarea>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <h2 class="border-bottom-2 pb-2 mb-4">Doplnkové info</h2>
+    </div>
+
+    <div class="col-md-4">
+      <mat-form-field class="example-full-width form-group w-100">
+        <mat-label>Počet km</mat-label>
+        <input matInput placeholder="Počet km" formControlName="km">
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12 text-right">
+      <button routerLink="/paginate/time" mat-stroked-button class="btn-icon btn-theme-stroked mr-3">
+        <mat-icon>cancel</mat-icon>
+        Zrušiť
+      </button>
+      <button mat-flat-button class="btn-icon btn-theme">
+        <mat-icon>save</mat-icon>
+        Uložiť
+      </button>
+    </div>
+  </div>
+</form>

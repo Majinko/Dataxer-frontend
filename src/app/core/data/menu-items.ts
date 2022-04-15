@@ -2,7 +2,7 @@ import {MenuItem} from '../models/menu-item';
 
 export const MenuItems: MenuItem[] = [
   {
-    routerLink: ['/contact'],
+    routerLink: ['/paginate/contacts'],
     title: 'Kontakty',
     icon: 'person',
     permission: 'Contact'
@@ -13,50 +13,50 @@ export const MenuItems: MenuItem[] = [
     icon: 'check_circle',
     permission: 'Task'
   },
-  {
-    routerLink: ['/demand'],
+/* {
+    routerLink: ['/document/demand'],
     title: 'Dopyty',
     icon: 'request_quote',
     permission: 'Demand'
-  },
+  },*/
   {
-    routerLink: ['/project'],
+    routerLink: ['/paginate/projects'],
     title: 'Zákazky',
     icon: 'layers',
     permission: 'Project'
   },
   {
-    routerLink: ['/document/priceOffer'],
+    routerLink: ['/paginate/priceOffers'],
     title: 'Cenové ponuky',
     icon: 'account_balance',
     permission: 'Document'
   },
   {
-    routerLink: ['/document/invoice'],
+    routerLink: ['/paginate/invoices'],
     title: 'Fakturácia',
     icon: 'description',
     permission: 'Document'
   },
   {
-    routerLink: ['/document/cost'],
+    routerLink: ['/paginate/costs'],
     title: 'Náklady',
     icon: 'equalizer',
     permission: 'Cost'
   },
   {
-    routerLink: ['/time'],
+    routerLink: ['/paginate/time'],
     title: 'Čas',
     icon: 'timer',
     permission: 'Time'
   },
   {
-    routerLink: ['/item'],
+    routerLink: ['/paginate/items'],
     title: 'Položky',
     icon: 'extension',
     permission: 'Item'
   },
   {
-    routerLink: ['/pack'],
+    routerLink: ['/paginate/packs'],
     title: 'Sady položiek',
     icon: 'apps',
     permission: 'Pack'

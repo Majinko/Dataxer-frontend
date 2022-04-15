@@ -1,6 +1,6 @@
 {
-  "salary" : "Mzda",
-  "advancement salary" : "Vývoj mzdy",
+  "salary": "Mzda",
+  "advancement salary": "Vývoj mzdy",
   "rejected": "zamietnuté",
   "approved": "Schválené",
   "waiting": "Čakajúce",
@@ -13,5 +13,13 @@
   "contribution": "Odvody",
   "received_credit_note": "Prijatý dobropis",
   "nondeductible": "Nedaňový náklad",
-  "other": "Iné"
+  "other": "Iné",
+  "contacts": "Kontakty",
+  "projects": "Zákazky",
+  "costs": "Náklady",
+  "invoices": "Fakturácia",
+  "priceOffers": "Cenové ponuky",
+  "items": "Položky",
+  "packs": "Sady položiek",
+  "time": "Čas"
 }

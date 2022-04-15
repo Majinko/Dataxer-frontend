@@ -43,8 +43,13 @@ import {DateRangeDialogComponent} from './component/date-range-dialog/date-range
 import {CategoryTreeControlComponent} from './component/category-tree-control/category-tree-control.component';
 import {DndDirective} from '../core/directives/dnd.directive';
 import {UploadFilesComponent} from './component/upload-files/upload-files.component';
-import {DocumentDestroyButtonComponent} from './document-destroy-button/document-destroy-button.component';
+import {DocumentDestroyButtonComponent} from './component/document-destroy-button/document-destroy-button.component';
 import {CompanySelectGroupComponent} from './component/company-select-group/company-select-group.component';
+import { DemandPackComponent } from './component/demand-pack/demand-pack.component';
+import { DemandDocumentPackComponent } from './component/demand-document-pack/demand-document-pack.component';
+import { CategoryTreeSharedCategoriesComponent } from './component/category-tree-control/components/category-tree-shared-categories/category-tree-shared-categories.component';
+import { NewUserSelectComponent } from './component/new-user-select/new-user-select.component';
+import { BackButtonComponent } from './component/back-button/back-button.component';
 
 @NgModule({
   imports: [
@@ -97,6 +102,11 @@ import {CompanySelectGroupComponent} from './component/company-select-group/comp
     UploadFilesComponent,
     DocumentDestroyButtonComponent,
     CompanySelectGroupComponent,
+    DemandPackComponent,
+    DemandDocumentPackComponent,
+    CategoryTreeSharedCategoriesComponent,
+    NewUserSelectComponent,
+    BackButtonComponent,
   ],
   exports: [
     DrawerComponent,
@@ -124,6 +134,10 @@ import {CompanySelectGroupComponent} from './component/company-select-group/comp
     UploadFilesComponent,
     DocumentDestroyButtonComponent,
     CompanySelectGroupComponent,
+    DemandPackComponent,
+    DemandDocumentPackComponent,
+    NewUserSelectComponent,
+    BackButtonComponent,
   ]
 })
 export class ThemeModule {

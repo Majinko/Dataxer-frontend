@@ -1,4 +1,7 @@
 import {Item} from './item';
+import {CategoryItemNode} from './category-item-node';
+import {Contact} from './contact';
+import {DemandItem} from './documentItem';
 
 export interface Pack {
   id: number;
@@ -9,6 +12,14 @@ export interface Pack {
   tax?: number;
   totalPrice?: number;
   packItems: PackItem[];
+  demandPacks?: any;
+  contacts?: Contact[];
+  allComplete?: boolean;
+  totalCheck?: number;
+  checked?: boolean;
+  indeterminate?: boolean;
+  item?: Pack;
+  demandItem?: DemandItem;
 }
 
 export interface PackItem {
@@ -21,4 +32,18 @@ export interface PackItem {
   price?: number;
   tax?: number;
   totalPrice?: number;
+  category?: CategoryItemNode;
+  packBudget?: PackBudgetItem;
+  contacts?: Contact[];
+  project?: any;
+  checked?: boolean;
+  demandItem?: DemandItem;
+}
+export interface PackBudgetItem {
+  paymentPrice?: number;
+  dueAtDays: number;
+  totalPrice: number;
+  paymentDate: Date;
+  state?: string;
+  sumPayments?: number;
 }

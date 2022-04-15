@@ -13,6 +13,7 @@ import {DocumentRelationDialogComponent} from './component/document-relation-dia
 })
 export class DocumentRelationComponent implements OnInit, OnChanges {
   @Input() documentId: number;
+  @Input() demandId?: number;
   documentRelations: DocumentRelation[] = [];
 
   constructor(
@@ -36,13 +37,17 @@ export class DocumentRelationComponent implements OnInit, OnChanges {
   getRelatedDocuments() {
     this.documentRelationService.getAllRelationDocuments(this.documentId).subscribe(documents => {
       this.documentRelations = documents;
+      if (this.demandId) {
+        this.documentRelations = [];
+      }
     });
   }
 
   showDoc(relatedDocumentId: number, documentType: string) {
-    console.log(documentType);
     if (documentType === 'PRICE_OFFER') {
       this.router.navigate(['/price-offer/show', relatedDocumentId]).then();
+    } else if (documentType === 'DEMAND') {
+      this.router.navigate(['/demand/show', relatedDocumentId, 'send']).then();
     } else {
       this.router.navigate(['/invoice/show', relatedDocumentId]).then();
     }

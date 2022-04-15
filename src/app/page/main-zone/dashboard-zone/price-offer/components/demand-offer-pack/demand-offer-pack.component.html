@@ -1,0 +1,12 @@
+<div class="demand-offer-wrap">
+  <div *ngFor="let item of demandPackItem; let i = index">
+    <h2 class="border-bottom-2 pb-2 mb-4">
+      Položka: {{item.title}}
+      <ng-container *ngIf="item.qty && item.unit">
+        <span *ngIf="item.qty">| {{item.qty}}</span>
+        <span *ngIf="item.unit">{{item.unit}}</span>
+      </ng-container>
+    </h2>
+    <app-demand-document-pack [demandItem]="item" [priceDemand]="priceDemand" [index]="i" (formChange)="formChange()"></app-demand-document-pack>
+  </div>
+</div>

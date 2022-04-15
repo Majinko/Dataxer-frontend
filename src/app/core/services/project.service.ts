@@ -50,38 +50,38 @@ export class ProjectService extends ResourceService<Project> {
     params = params.set('clientId', clientId);
 
     return this.httpClient.get<Project[]>(`${environment.baseUrl}/project/allByClient`, {params}).pipe(map(projects => {
-      return this.prepareProjects(projects);
+      return ProjectService.prepareProjects(projects);
     }));
   }
 
   allHasCost(): Observable<Project[]> {
     return this.httpClient.get<Project[]>(`${environment.baseUrl}/project/allHasCost`).pipe(map(projects => {
-      return this.prepareProjects(projects);
+      return ProjectService.prepareProjects(projects);
     }));
   }
 
   allHasInvoice(): Observable<Project[]> {
     return this.httpClient.get<Project[]>(`${environment.baseUrl}/project/allHasInvoice`)
       .pipe(map(projects => {
-        return this.prepareProjects(projects);
+        return ProjectService.prepareProjects(projects);
       }));
   }
 
   allHasPriceOffer(): Observable<Project[]> {
     return this.httpClient.get<Project[]>(`${environment.baseUrl}/project/allHasPriceOffer`).pipe(map(projects => {
-      return this.prepareProjects(projects);
+      return ProjectService.prepareProjects(projects);
     }));
   }
 
   allHasPriceOfferCostInvoice(): Observable<Project[]> {
     return this.httpClient.get<Project[]>(`${environment.baseUrl}/project/allHasPriceOfferCostInvoice`).pipe(map(projects => {
-      return this.prepareProjects(projects);
+      return ProjectService.prepareProjects(projects);
     }));
   }
 
   allHasUserTime() {
     return this.httpClient.get<Project[]>(`${environment.baseUrl}/project/allHasUserTime`).pipe(map(projects => {
-      return this.prepareProjects(projects);
+      return ProjectService.prepareProjects(projects);
     }));
   }
 
@@ -104,7 +104,7 @@ export class ProjectService extends ResourceService<Project> {
     return this.httpClient.get<any>(`${environment.baseUrl}/project/prepareEvaluation/${id}`);
   }
 
-  private prepareProjects(projects: Project[]): Project[] {
+  private static prepareProjects(projects: Project[]): Project[] {
     projects.forEach(project => {
       project.fullTitle = ((project.number ?? '') + ' ' + project.title).trim();
     });

@@ -1,5 +1,7 @@
 import {BaseFilter} from './app/core/models/filters/baseFilter';
 import {AbstractControl} from '@angular/forms';
+import {MatPaginatorIntl} from '@angular/material/paginator';
+import * as moment from 'moment';
 
 // custom date picker formats
 export const APP_DATE_FORMATS = {
@@ -14,6 +16,36 @@ export const APP_DATE_FORMATS = {
     monthYearA11yLabel: 'YYYY',
   },
 };
+
+// translate
+const transRangeLabel = (page: number, pageSize: number, length: number) => {
+  // tslint:disable-next-line:triple-equals
+  if (length == 0 || pageSize == 0) {
+    return `0 z ${length}`;
+  }
+  length = Math.max(length, 0);
+  const startIndex = page * pageSize;
+  const endIndex = startIndex < length ?
+    Math.min(startIndex + pageSize, length) :
+    startIndex + pageSize;
+
+  return `${startIndex + 1} - ${endIndex} z ${length}`;
+};
+
+// translate for pagination
+// tslint:disable-next-line:typedef
+export function getTranslatePaginatorIntl() {
+  const paginatorIntl = new MatPaginatorIntl();
+
+  paginatorIntl.itemsPerPageLabel = 'Zobrazení na stránku:';
+  paginatorIntl.nextPageLabel = 'Staršie';
+  paginatorIntl.previousPageLabel = 'Novšie';
+  paginatorIntl.lastPageLabel = 'Najstaršie';
+  paginatorIntl.firstPageLabel = 'Najnovšie';
+  paginatorIntl.getRangeLabel = transRangeLabel;
+
+  return paginatorIntl;
+}
 
 /**
  * Check value is not undefined
@@ -82,7 +114,7 @@ export function sum(data: any[], key: string): number {
  * Slug
  * @param str
  */
-export function slugify(str) {
+export function slugify(str: string): string {
   str = str.replace(/^\s+|\s+$/g, ''); // trim
   str = str.toLowerCase();
 
@@ -163,4 +195,14 @@ export function checkFormIsNotFill(checkControls: { [p: string]: AbstractControl
 
   return true;
 }
+
+/**
+ * Get month data from moment object
+ * @param momentData
+ */
+export const getMonthData = (momentData: moment.Moment): string => {
+  const date = new Date(momentData.year(), momentData.month(), momentData.date());
+
+  return date.toLocaleString('default', {month: 'long'}) + ' ' + momentData.year();
+};
 

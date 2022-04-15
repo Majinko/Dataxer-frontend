@@ -5,12 +5,16 @@ import {BankAccountService} from '../services/bank-account.service';
 import {NumberingService} from '../services/numbering.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {MessageService} from '../services/message.service';
+import {Project} from '../models/project';
+import {ProjectService} from '../services/project.service';
 
 @Injectable()
 export abstract class DocumentHelperClass {
   formGroup: FormGroup;
   isEdit: boolean = false;
+  isLoad: boolean = false;
   documentType: string = 'INVOICE';
+  projects: Project[] = [];
 
   protected constructor(
     protected bankAccountService: BankAccountService,
@@ -18,7 +22,14 @@ export abstract class DocumentHelperClass {
     protected messageService: MessageService,
     protected router: Router,
     protected route: ActivatedRoute,
+    protected projectService: ProjectService
   ) {
+  }
+
+  protected getProject() {
+    this.projectService.all().subscribe((p) => {
+      this.projects = p;
+    });
   }
 
   // detect change form
@@ -27,53 +38,62 @@ export abstract class DocumentHelperClass {
       this.formGroup.get('company').valueChanges.subscribe((company) => {
         this.pathDocumentData(company);
         this.getDefaultBankAccount(company);
+        this.isLoad = false;
 
         if (this.isEdit === false) {
           this.prepareDocumentNumber(company);
         }
       });
 
-      this.formGroup.get('contact').valueChanges.subscribe((contact) => {
-        this.formGroup.get('documentData').patchValue({
-          contact
-        }, {emitEvent: false});
-      });
+      if (this.formGroup.get('contact')) {
+        this.formGroup.get('contact').valueChanges.subscribe((contact) => {
+          this.formGroup.get('documentData').patchValue({
+            contact
+          }, {emitEvent: false});
+        });
+      }
     }
   }
 
   // get default bank account
   protected getDefaultBankAccount(company: Company) {
-    this.bankAccountService.getDefaultBankAccount(company.id).subscribe(bA => {
-        this.formGroup.get('documentData').patchValue({
-          bankAccount: bA
-        }, {emitEvent: false});
-      },
-      error => {
-        if (error) {
-          this.router.navigate(['/setting/bank-account']).then(() => {
-            this.messageService.add('Pri vytváraní faktúr je potrebné mať nastavený defaultny účet.');
-          });
-        }
-      });
+    if (company && company.id) {
+      this.bankAccountService.getDefaultBankAccount(company.id).subscribe(bA => {
+          this.formGroup.get('documentData').patchValue({
+            bankAccount: bA
+          }, {emitEvent: false});
+        },
+        error => {
+          if (error) {
+            this.router.navigate(['/setting/bank-account']).then(() => {
+              this.messageService.add('Pri vytváraní faktúr je potrebné mať nastavený defaultny účet.');
+            });
+          }
+        });
+    }
   }
 
   // prepare company number
   protected prepareDocumentNumber(company: Company) {
-    this.numberingService.generateNextNumberByDocumentType(this.documentType, company.id).subscribe(r => {
-      this.formGroup.patchValue({
-        number: r,
-        documentType: this.documentType,
-        variableSymbol: r.toString().replace(/\D/g, ''),
-        title: this.getTitle(r),
-      }, {emitEvent: false});
-    });
+    if (company && company.id) {
+      this.numberingService.generateNextNumberByDocumentType(this.documentType, company.id).subscribe(r => {
+        this.formGroup.patchValue({
+          number: r,
+          documentType: this.documentType,
+          variableSymbol: r.toString().replace(/\D/g, ''),
+          title: this.getTitle(r),
+        }, {emitEvent: false});
+      });
+    }
   }
 
   // patch company data
   protected pathDocumentData(company: Company) {
-    this.formGroup.get('documentData').patchValue({
-      firm: company
-    }, {emitEvent: false});
+    if (company && company.id) {
+      this.formGroup.get('documentData').patchValue({
+        firm: company
+      }, {emitEvent: false});
+    }
   }
 
   // get document title
@@ -86,6 +106,9 @@ export abstract class DocumentHelperClass {
         break;
       case 'PRICE_OFFER':
         title = 'Cenová ponuka';
+        break;
+      case 'DEMAND':
+        title = 'Dopyt';
         break;
       default:
         title = 'Faktúra';
