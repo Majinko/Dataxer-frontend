@@ -43,6 +43,7 @@ export class InvoiceCreateComponent extends DocumentHelperClass implements OnIni
   moreOptions: boolean = false;
   oldPacks: Pack[] = [];
   documentType: string = 'INVOICE';
+  isLoad: boolean = false;
 
   constructor(
     protected numberingService: NumberingService,
@@ -205,7 +206,7 @@ export class InvoiceCreateComponent extends DocumentHelperClass implements OnIni
 
     this.invoiceService.store(this.formGroup.value, +this.route.snapshot.paramMap.get('id')).subscribe((r) => {
       this.router
-        .navigate(['/paginate/invoices'])
+        .navigate(['/document/invoice'])
         .then(() => {
           this.messageService.add('Faktúra bola uložená');
         });
