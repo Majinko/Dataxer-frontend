@@ -4,6 +4,7 @@ import {FormGroupDirective, NG_VALUE_ACCESSOR} from '@angular/forms';
 import {Company} from '../../../core/models/company';
 import {CompanyService} from '../../../core/services/company.service';
 import {CompanyCreateComponent} from '../../../page/setting-zone/company/company-create/company-create.component';
+import {ActivatedRoute, Route, Router} from '@angular/router';
 
 @Component({
   selector: 'app-company-select-group',
@@ -24,6 +25,7 @@ export class CompanySelectGroupComponent implements OnInit {
 
   constructor(
     public dialog: MatDialog,
+    private route: ActivatedRoute,
     public companyService: CompanyService,
   ) {
   }
@@ -41,7 +43,9 @@ export class CompanySelectGroupComponent implements OnInit {
     this.companyService.all().subscribe(companies => {
       this.companies = companies;
 
-      if (!this.ngForm.form.controls.company.value) {
+      // this.route.snapshot.paramMap.get('id') === null
+      // when is this null, invoice is not create from another invoice, then is company set from another invoice not first
+      if (!this.ngForm.form.controls.company.value && this.route.snapshot.paramMap.get('id') === null) {
         setTimeout(() => {
           this.company = this.companies[0];
           this.onChange(this.company);
