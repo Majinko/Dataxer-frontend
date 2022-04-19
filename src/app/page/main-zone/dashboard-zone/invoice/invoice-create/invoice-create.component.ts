@@ -165,7 +165,7 @@ export class InvoiceCreateComponent extends DocumentHelperClass implements OnIni
     setTimeout(() => {
       this.isLoad = false;
 
-      // todo check call is twice invoice number
+      // todo when is path from old object, is call next document number twice
       this.formGroup.patchValue({
         subject: document.subject,
         company: document.company,
