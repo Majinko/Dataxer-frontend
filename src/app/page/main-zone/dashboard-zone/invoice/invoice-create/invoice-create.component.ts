@@ -64,14 +64,13 @@ export class InvoiceCreateComponent extends DocumentHelperClass implements OnIni
   }
 
   ngOnInit(): void {
-    this.setInvoiceDataByType();
     this.prepareForm();
-    this.prepareInvoiceData();
-    this.changeForm();
+    this.setInvoiceDataByType();
     this.getProject();
 
     this.route.params.subscribe(params => {
       this.prepareInvoiceData();
+      this.changeForm();
       this.documentType = params.type;
 
       if (this.f.company.value) {
@@ -166,13 +165,14 @@ export class InvoiceCreateComponent extends DocumentHelperClass implements OnIni
     setTimeout(() => {
       this.isLoad = false;
 
+      // todo check call is twice invoice number
       this.formGroup.patchValue({
         subject: document.subject,
         company: document.company,
         contact: document.contact,
         project: document.project,
         discount: document.discount === null ? 0 : document.discount,
-      }, {emitEvent: false});
+      });
     }, 500);
   }
 
