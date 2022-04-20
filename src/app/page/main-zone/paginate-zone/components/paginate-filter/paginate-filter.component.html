@@ -131,6 +131,12 @@
       <mat-icon (click)="resetFilterValue('contact')" matChipRemove>cancel</mat-icon>
     </mat-chip>
 
+    <mat-chip class="text-gray my-md-0  mb-md-0" *ngIf="contacts && contacts.length > 0 && filterForm.get('contractor').value && inputSearchBarSelectValues.includes('contractor.id')">
+      <mat-icon class="mr-1">person</mat-icon>
+      {{filterForm.get('contractor').value.name}}
+      <mat-icon (click)="resetFilterValue('contractor')" matChipRemove>cancel</mat-icon>
+    </mat-chip>
+
     <mat-chip class="text-gray my-md-0  mb-md-0" *ngIf="projects && projects.length > 0 && filterForm.get('project').value && inputSearchBarSelectValues.includes('project.id')">
       <mat-icon class="mr-1">layers</mat-icon>
       {{filterForm.get('project').value.title}}
