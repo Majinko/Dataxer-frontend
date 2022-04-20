@@ -206,7 +206,7 @@ export class InvoiceCreateComponent extends DocumentHelperClass implements OnIni
 
     this.invoiceService.store(this.formGroup.value, +this.route.snapshot.paramMap.get('id')).subscribe((r) => {
       this.router
-        .navigate(['/document/invoice'])
+        .navigate(['/paginate/invoices'])
         .then(() => {
           this.messageService.add('Faktúra bola uložená');
         });
