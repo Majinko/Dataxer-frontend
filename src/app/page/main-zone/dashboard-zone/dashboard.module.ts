@@ -9,6 +9,10 @@ const routes: Routes = [
     component: DashboardComponent,
     children: [
       {
+        path: 'page',
+        loadChildren: () => import('./page/page.module').then(m => m.PageModule)
+      },
+      {
         path: 'task',
         data: {
           godButtonTitle: 'Nový zoznam úloh',

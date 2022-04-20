@@ -13,7 +13,8 @@ const routes: Routes = [
   {
     path: 'auth',
     loadChildren: () => import('./page/non-auth-zone/page.module').then(m => m.PageModule),
-  }
+  },
+  {path: '**', redirectTo: '/page/404'}
 ];
 
 @NgModule({
