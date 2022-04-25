@@ -364,7 +364,7 @@ export class PaginateFilterComponent extends PaginateFilterHelper implements OnI
    */
   private getCategories() {
     if (this.inputSearchBarSelectValues.includes('category.id')) {
-      this.categoryService.fallByGroupIn(['PROJECT']).subscribe((categories) => {
+      this.categoryService.all().subscribe((categories) => {
         this.categories = this.categoryHelper.prepareOptionTree(categories);
       });
     }
