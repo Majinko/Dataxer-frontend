@@ -88,12 +88,12 @@ export class CostTableComponent extends AppPaginate<Cost> implements OnInit, Aft
   private prepareColumns() {
     this.companyService.all().subscribe(c => {
       this.displayedColumns = [
-        'title', 'project', 'client', 'category', 'number', 'createdDate', 'deliveredDate', 'dueDate', 'state', 'price', 'actions'
+        'title', 'project', 'client', 'number', 'createdDate', 'deliveredDate', 'dueDate', 'state', 'price', 'actions'
       ];
 
       // ak ma pouzivatel viacej ako jednu spolocnost nech vidi z akej spolocnosti je
       if (c.length > 1) {
-        this.displayedColumns = ['company'].concat(this.displayedColumns);
+        this.displayedColumns = [...['company'], ...this.displayedColumns];
       }
     });
   }

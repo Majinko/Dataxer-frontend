@@ -52,7 +52,7 @@
 
     <div class="col-md-4">
       <p class="mb-0">Kategória:</p>
-      <h3 class="text-dark"><b class="d-block" *ngFor="let category of cost.categories">{{category.name}}</b></h3>
+      <!--<h3 class="text-dark"><b class="d-block" *ngFor="let category of cost.categories">{{category.name}}</b></h3>-->
     </div>
 
     <div class="col-md-12">
@@ -88,7 +88,6 @@
       <h3 class="text-dark"><b>{{cost.deliveredDate | date:'dd.MM.y' || '-'}}</b></h3>
     </div>
 
-
     <div class="col-md-4">
       <p class="mb-0">Dátum vystavenia:</p>
       <h3 class="text-dark"><b>{{cost.createdDate | date:'dd.MM.y' || '-'}}</b></h3>
@@ -99,29 +98,142 @@
       <h3 class="text-dark"><b>{{cost.dueDate | date:'dd.MM.y' || '-'}}</b></h3>
     </div>
 
+    <div class="col-12">
+      <h2 class="border-bottom-2 pb-2 mb-4">Položky</h2>
+    </div>
 
     <div class="col-12">
-      <h2 class="border-bottom-2 pb-2 mb-4">Suma</h2>
+      <div class="table-scroll table-data">
+        <table class="table-hover table-data table-borderless w-100">
+          <thead>
+          <tr>
+            <th class="text-left white-space-nowrap">Názov položky</th>
+            <th class="text-center white-space-nowrap">Počet</th>
+            <th class="text-center white-space-nowrap">MJ</th>
+            <th class="text-right white-space-nowrap">Jedn. cena <span appShowHideTax>bez DPH</span></th>
+            <th class="text-center white-space-nowrap" appShowHideTax>Dph %</th>
+            <th class="text-right white-space-nowrap" appShowHideTax>Jedn. cena s DPH</th>
+            <th class="text-right white-space-nowrap">Celkom <span appShowHideTax>s DPH</span></th>
+          </tr>
+          </thead>
+          <tbody *ngFor="let pack of cost.packs">
+          <tr class="pack-row">
+            <td class="text-left font-weight-bold" style="white-space: nowrap">
+              {{pack.title}}
+            </td>
+            <td class="text-center font-weight-bold">
+
+            </td>
+            <td class="text-center font-weight-bold">
+
+            </td>
+            <td class="text-right font-weight-bold">
+              {{pack.price | currency:'EUR':'symbol'}}
+            </td>
+            <td class="text-center font-weight-bold" style="white-space: nowrap" appShowHideTax>
+              {{pack.customPrice ? pack.tax + ' %' : ''}}
+            </td>
+            <td class="text-right font-weight-bold" appShowHideTax>
+              {{pack.totalPrice | currency:'EUR':'symbol'}}
+            </td>
+            <td class="text-right font-weight-bold">
+              {{pack.totalPrice | currency:'EUR':'symbol'}}
+            </td>
+          </tr>
+
+          <ng-template [ngIf]="!pack.customPrice">
+            <ng-container *ngFor="let item of pack.packItems">
+              <tr class="table-item">
+                <td class="text-left" style="white-space: nowrap">
+                  {{item.title}}
+                </td>
+                <td class="text-center">
+                  {{!pack.customPrice ? item.qty : ''}}
+                </td>
+                <td class="text-center">
+                  {{!pack.customPrice ? item.unit : ''}}
+                </td>
+                <td class="text-right">
+                  {{!pack.customPrice ? (item.price | currency:'EUR':'symbol') : ''}}
+                </td>
+                <td class="text-center" style="white-space: nowrap" appShowHideTax>
+                  {{!pack.customPrice ? (item.tax + ' %') : ''}}
+                </td>
+                <td class="text-right" appShowHideTax>
+                  {{!pack.customPrice ? (item.price | addPercent: item.tax | currency:'EUR':'symbol') : ''}}
+                </td>
+                <td class="text-right">
+                  {{!pack.customPrice ? (item.totalPrice | currency:'EUR':'symbol') : ''}}
+                </td>
+              </tr>
+              <tr class="table-item" *ngIf="item.discount > 0">
+                <td class="text-left" colspan="3" style="white-space: nowrap">
+                  Zľava {{item.discount}} %
+                </td>
+                <td class="text-right">
+                  {{+(item.price | removePercent: item.discount) - +item.price | currency:'EUR':'symbol'}}
+                </td>
+                <td></td>
+                <td
+                  class="text-right">{{(+(item.totalPrice | removePercent: item.discount) - +item.totalPrice) | currency:'EUR':'symbol'}}
+                </td>
+                <td
+                  class="text-right">{{(+(item.totalPrice | removePercent: item.discount) - +item.totalPrice) | currency:'EUR':'symbol'}}
+                </td>
+              </tr>
+            </ng-container>
+          </ng-template>
+          </tbody>
+        </table>
+      </div>
     </div>
 
-    <div class="col-md-3">
-      <p class="mb-0">Mena:</p>
-      <h3 class="text-dark"><b>{{cost.currency}}</b></h3>
+    <div class="col-12 mt-4">
+      <h2 class="border-bottom-2 pb-2 mb-4">Doplňujúce informácie</h2>
     </div>
 
-    <div class="col-md-3">
-      <p class="mb-0">Jednotková cena:</p>
-      <h3 class="text-dark"><b>{{cost.price | currency:'EUR':'symbol'}}</b></h3>
-    </div>
+    <div class="col-12">
+      <div class="col-md-12 col-lg-5 offset-lg-7">
+        <table class="table-summary no-bg-change mt-4 pr-3 w-100">
+          <tr class="row-summary">
+            <td class="text-right">
+              <p>Zľava {{cost.discount}} % </p>
+            </td>
+            <td class="text-right">
+              <p>{{cost.discount > 0 ? '-' : ''}}{{cost.discount > 0 && cost.discount != null ? (((cost.totalPrice | addPercent: cost.discount) - cost.totalPrice).toFixed(2) | currency:'EUR':'symbol')  : 0 | currency:'EUR':'symbol'}}</p>
+            </td>
+          </tr>
 
-    <div class="col-md-3">
-      <p class="mb-0">DPH:</p>
-      <h3 class="text-dark"><b>{{cost.tax}} %</b></h3>
-    </div>
+          <tr class="row-summary" *ngFor="let tax of documentHelper.taxResult" appShowHideTax>
+            <td class="text-right">
+              <p>Základ pre DPH {{tax.tax}} %:</p>
+              <p>Výška DPH {{tax.tax}} %:</p>
+            </td>
+            <td class="text-right">
+              <p>{{tax.price | removePercent: cost.discount | currency:'EUR':'symbol'}}</p>
+              <p>{{tax.totalPrice - tax.price | removePercent: cost.discount | currency:'EUR':'symbol'}}</p>
+            </td>
+          </tr>
 
-    <div class="col-md-3">
-      <p class="mb-0">Celkom:</p>
-      <h3 class="text-dark"><b>{{cost.totalPrice | currency:'EUR':'symbol'}}</b></h3>
+          <tr class="row-summary" appShowHideTax>
+            <td class="text-right ">
+              <p class="white-space-nowrap">Celkom bez DPH:</p>
+            </td>
+            <td class="text-right">
+              <p>{{cost.price | removePercent: cost.discount | currency:'EUR':'symbol'}}</p>
+            </td>
+          </tr>
+
+          <tr class="row-summary">
+            <td class="text-right">
+              <h1 class="text-theme font-weight-bold">Celkom <span appShowHideTax>s DPH</span>:</h1>
+            </td>
+            <td class="text-right">
+              <h1 class="text-theme font-weight-bold">{{cost.totalPrice | removePercent: cost.discount | currency:'EUR':'symbol'}}</h1>
+            </td>
+          </tr>
+        </table>
+      </div>
     </div>
 
     <div class="col-12">

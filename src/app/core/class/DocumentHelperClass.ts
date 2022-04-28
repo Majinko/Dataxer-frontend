@@ -7,14 +7,17 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {MessageService} from '../services/message.service';
 import {Project} from '../models/project';
 import {ProjectService} from '../services/project.service';
+import {DocumentBase} from '../models/documentBase';
+import {Pack} from '../models/pack';
 
 @Injectable()
 export abstract class DocumentHelperClass {
+  isLoad: boolean = false;
+  projects: Project[] = [];
   formGroup: FormGroup;
   isEdit: boolean = false;
-  isLoad: boolean = false;
   documentType: string = 'INVOICE';
-  projects: Project[] = [];
+  oldPacks: Pack[] = [];
 
   protected constructor(
     protected bankAccountService: BankAccountService,
@@ -22,7 +25,7 @@ export abstract class DocumentHelperClass {
     protected messageService: MessageService,
     protected router: Router,
     protected route: ActivatedRoute,
-    protected projectService: ProjectService
+    protected projectService: ProjectService,
   ) {
   }
 
@@ -36,12 +39,16 @@ export abstract class DocumentHelperClass {
   protected changeForm() {
     if (this.formGroup) {
       this.formGroup.get('company').valueChanges.subscribe((company) => {
-        this.pathDocumentData(company);
-        this.getDefaultBankAccount(company);
         this.isLoad = false;
 
-        if (this.isEdit === false) {
-          this.prepareDocumentNumber(company);
+        this.pathDocumentData(company);
+
+        if (!this.documentType.includes('COST')) {
+          this.getDefaultBankAccount(company);
+
+          if (this.isEdit === false) {
+            this.prepareDocumentNumber(company);
+          }
         }
       });
 
@@ -94,6 +101,23 @@ export abstract class DocumentHelperClass {
         firm: company
       }, {emitEvent: false});
     }
+  }
+
+  protected pathFromOldObject(document: DocumentBase) {
+    this.isLoad = true;
+    this.oldPacks = document.packs;
+
+    setTimeout(() => {
+      this.isLoad = false;
+
+      this.formGroup.patchValue({
+        subject: document.subject,
+        company: document.company,
+        contact: document.contact,
+        project: document.project,
+        discount: document.discount === null ? 0 : document.discount,
+      }, {emitEvent: false});
+    }, 500);
   }
 
   // get document title

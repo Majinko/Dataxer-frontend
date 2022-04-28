@@ -111,19 +111,6 @@ export class DemandCreateComponent extends DocumentHelperClass implements OnInit
     this.formGroup.get('documentData.user').patchValue(this.userService.user);
   }
 
-  // path data
-  private pathFromOldObject(document: Demand) {
-    this.oldPacks = document.packs;
-
-    this.formGroup.patchValue({
-      subject: document.subject,
-      company: document.company,
-      contacts: document.contact,
-      project: document.project,
-      discount: document.discount === null ? 0 : document.discount,
-    });
-  }
-
   // submit form
   submit(type: string) {
     this.submitted = true;

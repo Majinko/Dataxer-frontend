@@ -8,13 +8,17 @@ import {CRURRENCIES} from '../../../../../core/data/currencies';
 import {UploadHelper} from '../../../../../core/class/UploadHelper';
 import {AddPercentPipe} from '../../../../../core/pipes/add-percent.pipe';
 import {MessageService} from '../../../../../core/services/message.service';
-import {APP_DATE_FORMATS} from '../../../../../../helper';
+import {addDays, APP_DATE_FORMATS} from '../../../../../../helper';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import {MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter} from '@angular/material-moment-adapter';
-import {CategoryService} from '../../../../../core/services/category.service';
 import {CategoryItemNode} from '../../../../../core/models/category-item-node';
-import {Project} from '../../../../../core/models/project';
 import {ProjectService} from '../../../../../core/services/project.service';
+import {DocumentHelperClass} from '../../../../../core/class/DocumentHelperClass';
+import {NumberingService} from '../../../../../core/services/numbering.service';
+import {BankAccountService} from '../../../../../core/services/bank-account.service';
+import {DemandService} from '../../../../../core/services/demand.service';
+import {UserService} from '../../../../../core/services/user.service';
+import {DocumentHelper} from '../../../../../core/class/DocumentHelper';
 
 @Component({
   selector: 'app-cost-edit',
@@ -32,10 +36,11 @@ import {ProjectService} from '../../../../../core/services/project.service';
 
     {provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: {useUtc: true}},
     {provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS},
+    DocumentHelper,
     AddPercentPipe
   ],
 })
-export class CostEditComponent implements OnInit {
+export class CostEditComponent extends DocumentHelperClass implements OnInit {
   cost: Cost;
   categories: CategoryItemNode[] = [];
 
@@ -48,22 +53,26 @@ export class CostEditComponent implements OnInit {
   currencies = CRURRENCIES;
 
   constructor(
+    protected numberingService: NumberingService,
+    protected bankAccountService: BankAccountService,
+    protected messageService: MessageService,
+    protected projectService: ProjectService,
+    protected router: Router,
+    public route: ActivatedRoute,
     public uploadHelper: UploadHelper,
     private formBuilder: FormBuilder,
-    private addPercent: AddPercentPipe,
+    private demandService: DemandService,
+    private userService: UserService,
     private costService: CostService,
-    private categoryService: CategoryService,
-    private route: ActivatedRoute,
-    private router: Router,
-    private messageService: MessageService,
-    private projectService: ProjectService
+    public documentHelper: DocumentHelper,
   ) {
+    super(bankAccountService, numberingService, messageService, router, route, projectService);
   }
 
   ngOnInit() {
     this.prepareForm();
     this.getCost();
-    this.changeValue();
+    this.changeForm();
   }
 
   private prepareForm() {
@@ -73,66 +82,43 @@ export class CostEditComponent implements OnInit {
       type: null,
       state: null,
       company: [null, Validators.required],
-      isInternal: false,
       isRepeated: false,
       period: null,
       repeatedFrom: null,
       repeatedTo: null,
       contact: [null, Validators.required],
       project: [null, Validators.required],
-      categories: [null, Validators.required],
       note: null,
       number: null,
       variableSymbol: null,
       constantSymbol: null,
       createdDate: [new Date(), Validators.required],
       deliveredDate: [new Date(), Validators.required],
-      dueDate: null,
+      dueDate: [addDays(new Date(), 14)],
       taxableSupply: null,
       currency: this.currencies[0].value,
-      price: [null, Validators.required],
-      tax: 20,
-      totalPrice: 0,
-      paymentMethod: null,
-      paymentDate: null,
+      price: [null],
+      documentType: 'COST',
+      totalPrice: null,
+      discount: 0,
+      documentData: this.formBuilder.group({
+        contact: null,
+        firm: null,
+        user: this.formBuilder.group({
+          displayName: '',
+          phone: '',
+          email: '',
+        }),
+      }),
+
+      packs: this.formBuilder.array([])
     });
   }
 
-  private changeValue() {
-    this.formGroup.valueChanges.subscribe((value) => {
-      this.formGroup.patchValue({
-        totalPrice: +this.addPercent.transform(value.price, value.tax)
-      }, {emitEvent: false});
-    });
-  }
-
-  private handleChangeProject() {
-    this.formGroup.get('project').valueChanges.subscribe((project: Project) => {
-      this.projectService.getCategories(project.id).subscribe((categories) => {
-        this.categories = categories;
-
-        this.patchCategory();
-      });
-    });
-  }
-
-  private patchCategory() {
-    if (this.formGroup.dirty === false) { // nastavim to len prvy krat
-      this.formGroup.patchValue({
-        categories: this.cost.categories[0]
-      });
-    }
-  }
 
   private getCost() {
     this.costService.getById(+this.route.snapshot.paramMap.get('id')).subscribe(cost => {
       this.cost = cost;
-
-      if (!this.cost.isInternal) {
-        this.handleChangeProject();
-      } else {
-        this.getInternalCategories();
-      }
 
       this.formGroup.patchValue(this.cost);
     });
@@ -144,10 +130,6 @@ export class CostEditComponent implements OnInit {
   }
 
   submit() {
-    this.formGroup.patchValue({
-      categories: [this.formGroup.get('categories').value]
-    });
-
     this.submitted = true;
     this.isLoading = true;
 
@@ -156,37 +138,17 @@ export class CostEditComponent implements OnInit {
       return;
     }
 
+    // set offer price and total price
+    this.formGroup.patchValue({
+      price: this.documentHelper.price,
+      totalPrice: this.documentHelper.totalPrice,
+    });
+
     this.costService.updateWithFiles(this.formGroup.value, this.uploadHelper.files).subscribe(() => {
       this.router.navigate(['/paginate/costs']).then(() => {
         this.messageService.add('Náklad bol aktualizovaný');
         this.isLoading = false;
       });
     });
-  }
-
-  private getInternalCategories() {
-    this.categoryService.fallByGroupIn(['COMPANY', 'SALARY'], false).subscribe((categories) => {
-      this.categories = categories;
-
-      this.patchCategory(); // po prvy krat sa len nastavuje kategoria
-
-      if (this.formGroup.dirty === false) {
-        this.formGroup.get('project').clearValidators();
-        this.formGroup.get('project').patchValue(null, {emitEvent: false});
-      }
-    });
-  }
-
-  getFirmGroupCategories() {
-    if (this.f.isInternal.value === true) {
-      this.getInternalCategories();
-      this.formGroup.get('project').clearValidators();
-      this.formGroup.get('project').patchValue(null, {emitEvent: false});
-    } else {
-      this.handleChangeProject();
-      this.formGroup.get('project').addValidators(Validators.required);
-    }
-
-    this.formGroup.controls.project.updateValueAndValidity({emitEvent: false});
   }
 }

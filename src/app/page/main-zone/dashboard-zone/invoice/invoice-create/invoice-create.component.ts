@@ -41,7 +41,6 @@ export class InvoiceCreateComponent extends DocumentHelperClass implements OnIni
   formGroup: FormGroup;
   submitted: boolean = false;
   moreOptions: boolean = false;
-  oldPacks: Pack[] = [];
   documentType: string = 'INVOICE';
 
   constructor(
@@ -156,23 +155,6 @@ export class InvoiceCreateComponent extends DocumentHelperClass implements OnIni
         this.pathFromOldObject(proforma);
       });
     } // invoice is create from proforma
-  }
-
-  private pathFromOldObject(document: DocumentBase) {
-    this.isLoad = true;
-    this.oldPacks = document.packs;
-
-    setTimeout(() => {
-      this.isLoad = false;
-
-      this.formGroup.patchValue({
-        subject: document.subject,
-        company: document.company,
-        contact: document.contact,
-        project: document.project,
-        discount: document.discount === null ? 0 : document.discount,
-      }, {emitEvent: false});
-    }, 500);
   }
 
   // set user

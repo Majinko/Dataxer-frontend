@@ -1,5 +1,5 @@
-import {AfterViewChecked, ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {FormBuilder, Validators} from '@angular/forms';
 import {PriceOfferService} from 'src/app/core/services/priceOffer.service';
 import {MessageService} from 'src/app/core/services/message.service';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -14,9 +14,9 @@ import {Pack} from '../../../../../core/models/pack';
 import {PriceOffer} from '../../../../../core/models/priceOffer';
 import {DocumentHelperClass} from '../../../../../core/class/DocumentHelperClass';
 import {ProjectService} from '../../../../../core/services/project.service';
-import {DemandItem, DocumentItem} from '../../../../../core/models/documentItem';
+import {DemandItem} from '../../../../../core/models/documentItem';
 import {DemandService} from '../../../../../core/services/demand.service';
-import {MatSlideToggle, MatSlideToggleChange} from '@angular/material/slide-toggle';
+import {MatSlideToggle} from '@angular/material/slide-toggle';
 
 @Component({
   selector: 'app-create',
@@ -36,8 +36,7 @@ import {MatSlideToggle, MatSlideToggleChange} from '@angular/material/slide-togg
     DocumentHelper
   ],
 })
-export class PriceOfferCreateComponent extends DocumentHelperClass implements OnInit, AfterViewChecked {
-  formGroup: FormGroup;
+export class PriceOfferCreateComponent extends DocumentHelperClass implements OnInit {
   submitted: boolean = false;
   demandOffer = false;
   demandPack: Pack[] = [];
@@ -62,7 +61,6 @@ export class PriceOfferCreateComponent extends DocumentHelperClass implements On
     private userService: UserService,
     private priceOfferService: PriceOfferService,
     public documentHelper: DocumentHelper,
-    private cdr: ChangeDetectorRef
   ) {
     super(bankAccountService, numberingService, messageService, router, route, projectService);
   }
@@ -78,14 +76,10 @@ export class PriceOfferCreateComponent extends DocumentHelperClass implements On
     }
 
     if (this.route.snapshot.paramMap.get('id') === null) {
-      this.preparePriceOfferData();
+      this.pathUser();
     } else {
       this.checkDuplicate();
     }
-  }
-
-  ngAfterViewChecked(): void {
-    this.cdr.detectChanges();
   }
 
   // prepare form
@@ -132,26 +126,14 @@ export class PriceOfferCreateComponent extends DocumentHelperClass implements On
       this.priceOfferService.duplicate(+this.route.snapshot.paramMap.get('id')).subscribe((oldPriceOffer) => {
         this.pathFromOldObject(oldPriceOffer);
 
-        this.preparePriceOfferData();
+        this.pathUser();
       });
     }
   }
 
-  // set user
-  private preparePriceOfferData() {
+  // todo dry .. is in price offer cost invoice
+  private pathUser() {
     this.formGroup.get('documentData.user').patchValue(this.userService.user);
-  }
-
-  private pathFromOldObject(document: PriceOffer) {
-    this.oldPacks = document.packs;
-
-    this.formGroup.patchValue({
-      subject: document.subject,
-      company: document.company,
-      contact: document.contact,
-      project: document.project,
-      discount: document.discount === null ? 0 : document.discount,
-    });
   }
 
   // submit form
@@ -166,6 +148,7 @@ export class PriceOfferCreateComponent extends DocumentHelperClass implements On
       }, 100);
       return;
     }
+
     // set offer price and total price
     this.formGroup.patchValue({
       price: this.documentHelper.price,
@@ -199,5 +182,4 @@ export class PriceOfferCreateComponent extends DocumentHelperClass implements On
   get f() {
     return this.formGroup.controls;
   }
-
 }

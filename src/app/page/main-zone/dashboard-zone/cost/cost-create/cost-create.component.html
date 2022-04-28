@@ -28,22 +28,6 @@
     </div>
 
     <div class="col-md-4">
-      <ng-select class="form-group w-100 mb-0"
-                 [items]="categories"
-                 bindLabel="name"
-                 notFoundText="Zvoľte projekt"
-                 placeholder="Kategória"
-                 groupBy="parentName"
-                 formControlName="categories"
-      >
-        <ng-template ng-optgroup-tmp let-item="item">
-          {{item.parentName || 'Unnamed group'}}
-        </ng-template>
-      </ng-select>
-      <mat-error *ngIf="submitted && f.categories.errors" class="mat-error-not-in-field">Kategória je <strong>požadovana.</strong></mat-error>
-    </div>
-
-    <div class="col-md-4">
       <mat-form-field class="form-group w-100 mb-md-0">
         <mat-label>Typ nákladu</mat-label>
         <mat-select formControlName="type">
@@ -81,12 +65,6 @@
         <mat-datepicker-toggle matSuffix [for]="deliveredDate"></mat-datepicker-toggle>
         <mat-datepicker #deliveredDate></mat-datepicker>
       </mat-form-field>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-md-4">
-      <mat-checkbox formControlName="isInternal" (change)="getFirmGroupCategories()" #isInternalCheckbox>Firemný náklad</mat-checkbox>
     </div>
   </div>
 
@@ -213,37 +191,37 @@
 
   <div class="row">
     <div class="col-12">
-      <h2 class="border-bottom-2 pb-2 mb-4">Suma</h2>
+      <h2 class="border-bottom-2 pb-2 mb-4">Položky</h2>
     </div>
+  </div>
 
-    <div class="col-md-3">
-      <mat-form-field class="form-group w-100">
-        <mat-label>Mena</mat-label>
-        <mat-select formControlName="currency">
-          <mat-option *ngFor="let currency of currencies" [value]="currency.value">
-            {{currency.value}}
-          </mat-option>
-        </mat-select>
+  <app-document-pack *ngIf="f.company.value != null;" [formGroup]="formGroup" [documentHelper]="documentHelper"></app-document-pack>
+
+  <div class="row">
+    <div class="col-md-4 mb-5">
+      <mat-form-field class="example-full-width">
+        <input type="number" matInput #discount formControlName="discount">
+        <i matSuffix>%</i>
       </mat-form-field>
     </div>
 
-    <div class="col-md-3">
-      <mat-form-field class="w-100">
-        <input matInput #price formControlName="price" type="number" placeholder="Jednotková cena" class="text-right" />
-        <mat-error *ngIf="submitted && f.price.errors" class="mat-error-not-in-field">Jednotková cena je <strong>požadovaná.</strong></mat-error>
-      </mat-form-field>
-    </div>
+    <div class="col-md-8 mb-5">
+      <table class="w-100">
+        <tr class="text-right">
+          <td class="pb-1">Zľava {{discount.value}} %</td>
+          <td class="pb-1">{{discount.value > 0 ? '-' : ''}}{{((documentHelper.totalPrice | addPercent: discount.value) - documentHelper.totalPrice).toFixed(2)}} €</td>
+        </tr>
 
-    <div class="col-md-3">
-      <mat-form-field class="w-100">
-        <input matInput #tax formControlName="tax" placeholder="DPH" class="text-right" />
-      </mat-form-field>
-    </div>
+        <tr class="text-right" appShowHideTax>
+          <td>Celkom bez DPH:</td>
+          <td>{{documentHelper.price | removePercent: +discount.value}} €</td>
+        </tr>
 
-    <div class="col-md-3">
-      <mat-form-field class="w-100">
-        <input matInput value="{{+price.value | addPercent: +tax.value}}" formControlName="totalPrice" placeholder="Celkom" class="text-right" />
-      </mat-form-field>
+        <tr class="text-right">
+          <td><h2 class="text-theme mb-0"><b>Celkom <span appShowHideTax>s DPH</span>:</b></h2></td>
+          <td>{{documentHelper.totalPrice | removePercent: +discount.value}} €</td>
+        </tr>
+      </table>
     </div>
   </div>
 
