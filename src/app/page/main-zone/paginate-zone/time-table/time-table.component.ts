@@ -12,6 +12,8 @@ import {AppPaginate} from '../../../../core/class/AppPaginate';
 import {ActivatedRoute} from '@angular/router';
 import {GodButtonService} from '../../../../core/services/god-button.service';
 import {FilterService} from '../../../../core/store/service/filter.service';
+import {HttpClient} from '@angular/common/http';
+import {environment} from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-time-table',
@@ -37,6 +39,7 @@ export class TimeTableComponent extends AppPaginate<Time> implements OnInit, Aft
     protected messageService: MessageService,
     protected dialog: MatDialog,
     protected filterService: FilterService,
+    private http: HttpClient
   ) {
     super(timeService, godButtonService, messageService, dialog, route, filterService);
   }
@@ -53,6 +56,10 @@ export class TimeTableComponent extends AppPaginate<Time> implements OnInit, Aft
         this.paginate();
       }
     });
+
+   /* this.http.get(environment.baseUrl + '/import/importCostFile').subscribe(r => {
+      console.log(r);
+    });*/
   }
 
   ngOnDestroy(): void {
