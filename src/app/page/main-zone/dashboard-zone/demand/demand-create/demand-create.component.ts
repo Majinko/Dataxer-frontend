@@ -132,7 +132,7 @@ export class DemandCreateComponent extends DocumentHelperClass implements OnInit
 
     this.demandService.store(this.formGroup.value).subscribe((r) => {
       this.router
-        .navigate(['/document/demand'])
+        .navigate(['/paginate/demands'])
         .then(() => this.messageService.add('Dopyt bol vytvorený'));
     });
   }

@@ -38,6 +38,7 @@ export class ProjectCreateComponent implements OnInit {
   submitted: boolean = false;
   categories: CategoryItemNode[] = [];
   users: User[] = [];
+  //sharedCategories: { id: number, title: string }[] = [];
   groups: { group: string, title: string, categories: CategoryItemNode[], fillCategories: CategoryItemNode[] }[] = [
     {
       group: 'TYPE_PROJECT',

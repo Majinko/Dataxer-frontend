@@ -171,11 +171,20 @@ export class PriceOfferCreateComponent extends DocumentHelperClass implements On
       this.formGroup.get('packs').value.push(this.simpleDemandPacks.packs[0]);
     }
 
-    this.priceOfferService.store(this.formGroup.value).subscribe((r) => {
-      this.router
-        .navigate(['/paginate/priceOffers'])
-        .then(() => this.messageService.add('Cenová ponuka bola uložená'));
-    });
+    if (!this.demandOffer) {
+      this.priceOfferService.store(this.formGroup.value).subscribe((r) => {
+        this.router
+          .navigate(['/paginate/priceOffers'])
+          .then(() => this.messageService.add('Cenová ponuka bola uložená'));
+      });
+    } else {
+      this.priceOfferService.createFromDemand(+this.route.snapshot.paramMap.get('demandId'), this.formGroup.value).subscribe((r) => {
+        this.router
+          .navigate(['/paginate/priceOffers'])
+          .then(() => this.messageService.add('Cenová ponuka bola uložená'));
+      });
+    }
+
   }
 
   // convenience getter for easy access to form fields

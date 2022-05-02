@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 import {DemandComponent} from './demand.component';
 import {DemandIndexComponent} from './demand-index/demand-index.component';
 import {DemandRoutingModule} from './demand-routing.module';
-import {DemandTableComponent} from './demand-index/component/demand-table/demand-table.component';
+import {DemandTableComponent} from '../../paginate-zone/demand-table/demand-table.component';
 import {MaterialModule} from '../../../../theme/modules/material.module';
 import {DemandCreateComponent} from './demand-create/demand-create.component';
 import {ReactiveFormsModule} from '@angular/forms';
@@ -23,7 +23,16 @@ import {AvatarModule} from 'ngx-avatar';
 
 
 @NgModule({
-  declarations: [DemandComponent, DemandIndexComponent, DemandTableComponent, DemandCreateComponent, DemandEditComponent, DemandShowComponent, DemandPriceOfferSentComponent, DemandPriceOfferReceivedComponent],
+  declarations: [
+    DemandComponent,
+    DemandIndexComponent,
+    DemandTableComponent,
+    DemandCreateComponent,
+    DemandEditComponent,
+    DemandShowComponent,
+    DemandPriceOfferSentComponent,
+    DemandPriceOfferReceivedComponent
+  ],
   imports: [
     CommonModule,
     DemandRoutingModule,

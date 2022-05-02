@@ -11,7 +11,7 @@
           </div>
         </div>
         <div>
-          <button [routerLink]="['/demand/edit', demand.id]" mat-icon-button matTooltip="Upraviť dopyt">
+          <button *ngIf="demand.internal === true" [routerLink]="['/demand/edit', demand.id]" mat-icon-button matTooltip="Upraviť dopyt">
             <mat-icon>edit</mat-icon>
           </button>
 
@@ -19,13 +19,17 @@
             <mat-icon>save_alt</mat-icon>
           </button>
 
-          <app-document-destroy-button redirectUrl="/paginate/demands" tooltip="Vymazať dopyt" destroyMsg="Dopyt bola vymazaný" [id]="demand.id" [service]="demandService"></app-document-destroy-button>
+          <app-document-destroy-button *ngIf="demand.internal === true" redirectUrl="/paginate/demands" tooltip="Vymazať dopyt" destroyMsg="Dopyt bola vymazaný" [id]="demand.id" [service]="demandService"></app-document-destroy-button>
 
           <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu" *ngIf="!demand.internal">
             <mat-icon>more_vert</mat-icon>
           </button>
 
           <mat-menu #menu="matMenu" class="menu-not-rounded">
+            <button mat-menu-item [routerLink]="['/project/create/demand', demand.id]">
+              <span>Vytvoriť projekt</span>
+            </button>
+
             <button mat-menu-item [routerLink]="['/price-offer/create/demand', demand.id]">
               <span>Vystaviť cenovú ponuku</span>
             </button>
