@@ -21,6 +21,9 @@ import { ProjectBudgetComponent } from './project-budget/project-budget.componen
 import {TranslateModule} from '@ngx-translate/core';
 import {ProjectBudgetItemsComponent} from './project-budget/components/project-budget-items/project-budget-items.component';
 import { ProjectBudgetSettingsComponent } from './project-budget/components/project-budget-settings/project-budget-settings.component';
+import { ProjectBudgetRefaktComponent } from './project-budget-refakt/project-budget-refakt.component';
+import { ProjectBudgetExpansionsPanelComponent } from './project-budget-refakt/components/project-budget-expansions-panel/project-budget-expansions-panel.component';
+import { ProjectBudgetPackTableComponent } from './project-budget-refakt/components/project-budget-pack-table/project-budget-pack-table.component';
 
 const routes: Routes = [
   {
@@ -45,7 +48,7 @@ const routes: Routes = [
       },
       {
         path: 'budget',
-        component: ProjectBudgetComponent
+        component: ProjectBudgetRefaktComponent
       },
     ]
   }
@@ -65,6 +68,9 @@ const routes: Routes = [
     ProjectBudgetComponent,
     ProjectBudgetItemsComponent,
     ProjectBudgetSettingsComponent,
+    ProjectBudgetRefaktComponent,
+    ProjectBudgetExpansionsPanelComponent,
+    ProjectBudgetPackTableComponent,
   ],
   imports: [
     NgApexchartsModule,

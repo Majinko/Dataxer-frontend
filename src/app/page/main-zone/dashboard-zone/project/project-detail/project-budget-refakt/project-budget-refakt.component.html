@@ -1,0 +1,40 @@
+<div class="row mt-3" *ngIf="isLoadingResults">
+  <div class="col-12 d-flex justify-content-center">
+    <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+  </div>
+</div>
+
+<div class="row mt-3">
+  <div class="col-12">
+    <div [class.box]="!isLoadingResults && budgetOverview.length === 0" class="p-3">
+      <h1>Rozpočet projektu</h1>
+
+      <app-project-budget-expansions-panel [budgetOverview]="budgetOverview"></app-project-budget-expansions-panel>
+      <!--<div *ngFor="let budget of budgetOverview" class="mb-2">
+        <mat-accordion>
+          <mat-expansion-panel (opened)="loadData(budget.categoryId, divElement)">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                {{budget.categoryTitle}}
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            &lt;!&ndash;<app-project-budget-pack-table [budgetPacksOverview]="budget.budgetPacksOverview"></app-project-budget-pack-table>&ndash;&gt;
+            <div #divElement></div>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </div>-->
+    </div>
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="col-12 d-flex justify-content-end">
+    <div class="pt-2 mt-2 pb-4">
+      <button mat-flat-button class="btn btn-icon btn-theme" (click)="dialogItems()" type="button">
+        <mat-icon>create_new_folder</mat-icon>
+        Položky rozpočtu
+      </button>
+    </div>
+  </div>
+</div>

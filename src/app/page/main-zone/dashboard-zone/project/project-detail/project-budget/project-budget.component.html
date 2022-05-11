@@ -5,8 +5,12 @@
   </button>
 </div>
 
+<div class="loading-shade" *ngIf="isLoadingResults">
+  <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+</div>
+
 <div class="table-project-budget">
-  <div class="table-scroll table-data">
+  <div class="position-relative table-scroll table-data">
     <table class="table-hover table-data table-borderless w-100" *ngIf="budgetItems.length > 0">
       <thead>
         <tr>

@@ -98,13 +98,13 @@
     </div>
   </div>
 
-  <div class="row" *ngIf="!demandOffer">
+  <div class="row" *ngIf="!demandId">
     <div class="col-12">
       <h2 class="border-bottom-2 pb-2 mb-4">Položky</h2>
     </div>
   </div>
 
-  <ng-container *ngIf="!demandOffer; else isDemandOffer">
+  <ng-container *ngIf="!demandId; else isDemandOffer">
     <app-document-pack *ngIf="route.snapshot.paramMap.get('id') === null && f.company.value != null; else copyPriceOfferBlock" [formGroup]="formGroup" [documentHelper]="documentHelper"></app-document-pack>
     <ng-template #copyPriceOfferBlock>
       <div *ngIf="this.oldPacks.length > 0 && f.company.value != null;">
@@ -114,16 +114,16 @@
   </ng-container>
 
   <ng-template #isDemandOffer>
-      <div class="pt-2 pb-2 mb-3">
-        <mat-slide-toggle #slide>
+      <div class="pt-1 mb-3">
+        <mat-slide-toggle #slide formControlName="isPackComplex">
           Komplexný režim
         </mat-slide-toggle>
       </div>
     <ng-container *ngIf="slide.checked">
-      <app-demand-offer-pack [demandPackItem]="documentItems" [documentHelper]="documentHelper"></app-demand-offer-pack>
+      <app-demand-offer-pack [demandPackItems]="demandPackItems" [formGroup]="formGroup" [documentHelper]="documentHelper"></app-demand-offer-pack>
     </ng-container>
-    <ng-container *ngIf="!slide.checked && documentItems.length > 0 ">
-      <app-simple-demand-offer-pack [simpleDemandPacks]="simpleDemandPacks" [demandPackItem]="documentItems" [documentHelper]="documentHelper"></app-simple-demand-offer-pack>
+    <ng-container *ngIf="!slide.checked">
+      <app-simple-demand-offer-pack [demandId]="demandId" [formGroup]="formGroup" [documentHelper]="documentHelper"></app-simple-demand-offer-pack>
     </ng-container>
   </ng-template>
 
@@ -201,10 +201,10 @@
         <mat-icon>save</mat-icon>
         Uložiť
       </button>
-      <button *ngIf="demandOffer" mat-flat-button class="btn-icon btn-theme-warn" (click)="submit('send')" type="button">
+     <!-- <button *ngIf="demandId" mat-flat-button class="btn-icon btn-theme-warn" (click)="submit('send')" type="button">
         <mat-icon>send</mat-icon>
         Odoslať objednávateľovi
-      </button>
+      </button>-->
     </div>
   </div>
 </form>

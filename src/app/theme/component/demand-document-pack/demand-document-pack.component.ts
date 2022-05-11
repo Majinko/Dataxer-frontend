@@ -1,13 +1,13 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {CategoryItemNode} from '../../../core/models/category-item-node';
-import {Pack} from '../../../core/models/pack';
+import {DemandPackItem, Pack} from '../../../core/models/pack';
 import {DocumentHelper} from '../../../core/class/DocumentHelper';
-import {AbstractControl, FormBuilder} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormGroup} from '@angular/forms';
 import {PackService} from '../../../core/services/pack.service';
 import {Project} from '../../../core/models/project';
 import {DocumentPackHelpers} from '../../../core/class/DocumentPackHelpers';
-import {DemandItem} from '../../../core/models/documentItem';
 import {CategoryService} from '../../../core/services/category.service';
+import {PriceDocumentBase} from '../../../core/models/documentBase';
 
 @Component({
   selector: 'app-demand-document-pack',
@@ -21,9 +21,10 @@ export class DemandDocumentPackComponent extends DocumentPackHelpers implements 
   projects: Project[] = [];
   categories: CategoryItemNode[];
 
-  @Input() demandItem: DemandItem;
-  @Input() priceDemand;
+  @Input() demandItem: DemandPackItem;
+  @Input() priceDemand: PriceDocumentBase;
   @Input() index: number;
+  @Input() formGroup: FormGroup;
 
   @Output() formChange: EventEmitter<any> = new EventEmitter<any>();
 
@@ -38,6 +39,8 @@ export class DemandDocumentPackComponent extends DocumentPackHelpers implements 
 
   ngOnInit() {
     this.packs = this.demandItem.packs;
+
+    // reset formGroup because demand can has many items
     this.formGroup = this.formBuilder.group({packs: this.formBuilder.array([])});
 
     this.formGroup.valueChanges.subscribe((value => {

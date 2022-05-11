@@ -5,7 +5,7 @@ import {ResourceService} from '../class/ResourceService';
 import {Serializer} from '../models/serializers/Serializer';
 import {Observable} from 'rxjs';
 import {environment} from '../../../environments/environment';
-import {DemandItem} from '../models/documentItem';
+import {DemandPackItem} from '../models/pack';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +22,7 @@ export class DemandService extends ResourceService<Demand> {
     return this.httpClient.get<Demand>(`${environment.baseUrl}/demand/duplicate/${oldId}`);
   }
 
-  gedDemandPackItem(demandId: number): Observable<DemandItem[]> {
-    return this.httpClient.get<DemandItem[]>(`${environment.baseUrl}/demand/demandPackItem/${demandId}`);
+  gedDemandPackItem(demandId: number): Observable<DemandPackItem[]> {
+    return this.httpClient.get<DemandPackItem[]>(`${environment.baseUrl}/demand/demandPackItem/${demandId}`);
   }
 }

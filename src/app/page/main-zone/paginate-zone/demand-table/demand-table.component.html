@@ -17,6 +17,7 @@
               </ng-template>
             </td>
           </ng-container>
+
           &lt;!&ndash; Company Column &ndash;&gt;
           <ng-container matColumnDef="company">
             <th class="text-right" mat-header-cell *matHeaderCellDef></th>
@@ -38,7 +39,7 @@
           &lt;!&ndash; Action Column &ndash;&gt;
           <ng-container matColumnDef="action">
             <th mat-header-cell *matHeaderCellDef> Projekt</th>
-            <td class="max" mat-cell *matCellDef="let element"> {{element.subject ? element.subject : (element.project?.title || 'Projekt nebol priradeny')}} </td>
+            <td class="max" mat-cell *matCellDef="let element">{{element.subject ? element.subject : (element.project?.title || 'Projekt nebol priradeny')}} </td>
           </ng-container>
 
           &lt;!&ndash; Created Column &ndash;&gt;

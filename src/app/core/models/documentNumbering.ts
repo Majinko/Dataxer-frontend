@@ -1,4 +1,5 @@
-import { Company } from './company';
+import {Company} from './company';
+
 export interface DocumentNumbering {
   id: number;
   title: string;
@@ -6,9 +7,9 @@ export interface DocumentNumbering {
   company: Company;
   format: string;
   period: string;
-  isDefault: boolean
+  isDefault: boolean;
 }
 
-export enum DocumentNumberingType{
+export enum DocumentNumberingType {
   INVOICE = 'Faktura'
 }

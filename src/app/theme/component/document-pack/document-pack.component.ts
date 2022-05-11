@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup} from '@angular/forms';
 import {DocumentHelper} from '../../../core/class/DocumentHelper';
 import {Pack} from '../../../core/models/pack';
@@ -33,6 +33,7 @@ export class DocumentPackComponent extends DocumentPackHelpers implements OnInit
 
   ngOnInit() {
     this.documentHelper.handlePackChanges(this.f.packs);
+
     this.preparePack();
     this.getCategories();
 

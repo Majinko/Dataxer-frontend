@@ -32,3 +32,8 @@ export class DocumentBase {
     bankAccount: BankAccount;
   };
 }
+
+export interface PriceDocumentBase {
+  price: number[];
+  totalPrice: number[];
+}

@@ -1,12 +1,12 @@
 import {CategoryItemNode} from './category-item-node';
 import {Contact} from './contact';
 import {CustomFile} from './customFile';
+import {IItem} from '../interface/IItem';
 
-export interface Item {
+export class Item implements IItem {
   id: number;
   title: string;
   type?: string;
-  shortDescription?: string;
   description?: string;
   manufacturer?: string;
   previewUrl?: string;
@@ -19,7 +19,6 @@ export interface Item {
   series?: string;
   color?: string;
   material?: string;
-  isPartOfSet?: boolean;
   needMontage?: boolean;
   file?: any;
   category?: CategoryItemNode;
@@ -28,8 +27,7 @@ export interface Item {
   files?: CustomFile[];
 }
 
-
-export interface ItemPrice {
+export class ItemPrice {
   wholesalePrice?: number;
   wholesaleTax?: number;
   wholesalePriceTax?: number;
@@ -38,4 +36,15 @@ export interface ItemPrice {
   tax?: number;
   priceTax?: number;
   marge?: number;
+}
+
+export class DocumentItem {
+  id: number;
+  item?: Item;
+  name: string;
+  qty: number;
+  unit: string;
+  price: number;
+  tax: number;
+  totalPrice: number;
 }

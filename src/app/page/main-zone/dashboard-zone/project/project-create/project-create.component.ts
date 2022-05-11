@@ -11,8 +11,14 @@ import {MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter} from '@angular/mater
 import {APP_DATE_FORMATS} from '../../../../../../helper';
 import {AddPercentPipe} from '../../../../../core/pipes/add-percent.pipe';
 import {CategoryService} from '../../../../../core/services/category.service';
-import {CategoryItemNode} from '../../../../../core/models/category-item-node';
+import {
+  CategoryItemNode,
+  CategoryItemNodeWithSharedCategory,
+  ProjectCategoriesMap
+} from '../../../../../core/models/category-item-node';
 import {DocumentHelper} from '../../../../../core/class/DocumentHelper';
+import {DemandService} from '../../../../../core/services/demand.service';
+import {DemandPackItem} from '../../../../../core/models/pack';
 
 @Component({
   selector: 'app-project-create',
@@ -34,12 +40,13 @@ import {DocumentHelper} from '../../../../../core/class/DocumentHelper';
 })
 export class ProjectCreateComponent implements OnInit {
   formGroup: FormGroup;
-  demandId: number;
+  demandId: number = null;
   submitted: boolean = false;
-  categories: CategoryItemNode[] = [];
+
   users: User[] = [];
-  //sharedCategories: { id: number, title: string }[] = [];
-  groups: { group: string, title: string, categories: CategoryItemNode[], fillCategories: CategoryItemNode[] }[] = [
+  demandItems: DemandPackItem[] = [];
+  categories: CategoryItemNode[] = [];
+  groups: { group: string, title: string, categories: CategoryItemNode[], fillCategories: CategoryItemNodeWithSharedCategory[] }[] = [
     {
       group: 'TYPE_PROJECT',
       title: 'Druhy zákaziek',
@@ -53,17 +60,6 @@ export class ProjectCreateComponent implements OnInit {
       fillCategories: []
     }
   ];
-  sharedCategories = [
-    {
-      id: 1,
-      title: 'Vývoj SW'
-    },
-    {
-      id: 1,
-      title: 'Support'
-    }
-  ];
-
 
   constructor(
     private formBuilder: FormBuilder,
@@ -74,6 +70,7 @@ export class ProjectCreateComponent implements OnInit {
     private projectService: ProjectService,
     private router: Router,
     private route: ActivatedRoute,
+    private demandService: DemandService,
     @Optional() public dialogRef: MatDialogRef<ProjectCreateComponent>,
   ) {
   }
@@ -81,8 +78,13 @@ export class ProjectCreateComponent implements OnInit {
   ngOnInit(): void {
     this.prepareForm();
     this.getAllCategories(['PROJECT', 'TYPE_PROJECT']);
+
     this.route.params.subscribe(() => {
-      this.demandId = +this.route.snapshot.paramMap.get('demandId');
+      if (this.route.snapshot.paramMap.get('demandId')) {
+        this.demandId = +this.route.snapshot.paramMap.get('demandId');
+
+        this.getDemandItems(this.demandId);
+      }
     });
   }
 
@@ -109,18 +111,30 @@ export class ProjectCreateComponent implements OnInit {
       address: '',
       projectProfit: 0,
       area: null,
+      demandId: this.demandId,
       startedAt: new Date(),
       finishedAt: new Date(),
       categories: null,
     });
   }
 
+  private getDemandItems(demandId: number) {
+    this.demandService.gedDemandPackItem(demandId).subscribe(items => {
+      this.demandItems = items;
+    });
+  }
+
   private prepareCategoriesBeforeStore() {
-    const categories: CategoryItemNode[] = [];
+    const categories: ProjectCategoriesMap[] = [];
 
     this.groups.forEach((item) => {
       item.fillCategories.forEach(category => {
-        categories.push(category);
+        categories.push({
+          category: category as CategoryItemNode,
+          categoryPared: category.sharedCategory ?? null,
+          showName: category.sharedCategory ? category.sharedCategory.showName : null,
+          showPerson: category.sharedCategory ? category.sharedCategory.showPerson : null
+        });
       });
     });
 

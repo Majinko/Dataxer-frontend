@@ -1,6 +1,7 @@
 import {Contact} from './contact';
 import {User, UserOverviewPrice} from './user';
 import {CategoryItemNode} from './category-item-node';
+import {DocumentBase} from './documentBase';
 
 export interface Project {
   id: number;
@@ -16,6 +17,7 @@ export interface Project {
   startedAt: Date;
   finishedAt: Date;
 
+  demand?: DocumentBase;
   contact: Contact;
   user: User;
   categories: CategoryItemNode[];

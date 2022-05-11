@@ -1,7 +1,8 @@
-import {Component, Input, OnInit } from '@angular/core';
-import {DocumentHelper} from '../../../../../../core/class/DocumentHelper';
-import {DemandItem} from '../../../../../../core/models/documentItem';
+import {Component, Input, OnInit} from '@angular/core';
 import {FormGroup} from '@angular/forms';
+import {DocumentHelper} from '../../../../../../core/class/DocumentHelper';
+import {DemandPackItem, Pack} from '../../../../../../core/models/pack';
+import {PriceDocumentBase} from '../../../../../../core/models/documentBase';
 
 @Component({
   selector: 'app-demand-offer-pack',
@@ -9,26 +10,25 @@ import {FormGroup} from '@angular/forms';
   styleUrls: ['./demand-offer-pack.component.scss']
 })
 export class DemandOfferPackComponent implements OnInit {
-  priceDemand = {
+  pack: Pack[] = [];
+  priceDemand: PriceDocumentBase = {
     price: [],
     totalPrice: []
   };
 
-  @Input() documentHelper: DocumentHelper;
-  @Input() demandPackItem: DemandItem[];
+  @Input() demandPackItems: DemandPackItem[];
   @Input() formGroup: FormGroup;
+  @Input() documentHelper: DocumentHelper;
 
-  constructor() {
+  constructor(
+  ) {
   }
 
   ngOnInit(): void {
   }
 
   formChange() {
-    const price = this.priceDemand.price.reduce((partialSum, a) => partialSum + a, 0);
-    const totalPrice = this.priceDemand.totalPrice.reduce((partialSum, a) => partialSum + a, 0);
-
-    this.documentHelper.price = price;
-    this.documentHelper.totalPrice = totalPrice;
+    this.documentHelper.price = this.priceDemand.price.reduce((partialSum, a) => partialSum + a, 0);
+    this.documentHelper.totalPrice = this.priceDemand.totalPrice.reduce((partialSum, a) => partialSum + a, 0);
   }
 }

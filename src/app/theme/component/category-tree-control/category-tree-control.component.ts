@@ -1,11 +1,12 @@
 import {Component, forwardRef, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
-import {CategoryItemNode} from '../../../core/models/category-item-node';
+import {CategoryItemNode, CategoryItemNodeDemand} from '../../../core/models/category-item-node';
 import {FlatTreeControl} from '@angular/cdk/tree';
 import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
 import {SelectionModel} from '@angular/cdk/collections';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 import {CategoryHelper} from '../../../core/class/CategoryHelper';
 import {ActivatedRoute} from '@angular/router';
+import {DemandPackItem} from '../../../core/models/pack';
 
 export interface CategoryFlatNode {
   id: number;
@@ -29,11 +30,12 @@ export interface CategoryFlatNode {
 })
 export class CategoryTreeControlComponent implements OnInit, OnChanges, ControlValueAccessor {
   categoryItemNodes: CategoryItemNode[] = [];
+  sharedCategories: CategoryItemNodeDemand[] = [];
   cleanCategories: CategoryItemNode[] = [];
   demandId: number;
 
   @Input() categories: CategoryItemNode[] = [];
-  @Input() sharedCategories?;
+  @Input() demandItems: DemandPackItem[] = [];
   @Input() group?;
 
   transformer = (node: CategoryItemNode, level: number) => {
@@ -44,6 +46,7 @@ export class CategoryTreeControlComponent implements OnInit, OnChanges, ControlV
       parentId: node.parentId,
       categoryGroup: node.categoryGroup,
       categoryType: node.categoryType,
+      sharedCategory: null,
       level,
     };
   }
@@ -79,9 +82,13 @@ export class CategoryTreeControlComponent implements OnInit, OnChanges, ControlV
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.categories.currentValue.length === 0) {
+    if (changes.demandItems) {
+      this.sharedCategories = changes.demandItems.currentValue.map(item => item.category as CategoryItemNodeDemand);
+    }
+
+    if (changes.categories && changes.categories.currentValue.length === 0) {
       this.dataSource.data = [];
-    } else {
+    } else if (changes.categories) {
       this.cleanCategories = changes.categories.currentValue;
       this.dataSource.data = this.categoryHelper.prepareTree(changes.categories.currentValue, null);
     }
@@ -89,13 +96,6 @@ export class CategoryTreeControlComponent implements OnInit, OnChanges, ControlV
 
   /** Toggle a leaf to-do item selection. Check all the parents to see if they changed */
   todoLeafItemSelectionToggle(node: CategoryFlatNode, isWrite: boolean = false): void {
-    const parent: CategoryItemNode = this.cleanCategories.find(f => f.id === node.parentId);
-
-    /*if (parent && !isWrite) {
-      this.checklistSelection.toggle(parent as CategoryFlatNode);
-      this.checkAllParentsSelection(parent as CategoryFlatNode);
-    }*/
-
     this.checklistSelection.toggle(node);
     this.checkAllParentsSelection(node);
 

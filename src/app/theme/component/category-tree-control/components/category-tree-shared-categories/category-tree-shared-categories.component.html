@@ -1,17 +1,26 @@
 <div class="shared-categories">
-<button (click)="change(node, 'name')" mat-icon-button matTooltip="Môže vidieť názov" type="button">
-  <mat-icon *ngIf="node.visibleName">visibility_off</mat-icon>
-  <mat-icon *ngIf="!node.visibleName">visibility</mat-icon>
-</button>
-<button (click)="change(node, 'person')" mat-icon-button matTooltip="Môže vidieť konkrétneho zamestnanca"
-        type="button">
-  <mat-icon *ngIf="node.visiblePerson">person_off</mat-icon>
-  <mat-icon *ngIf="!node.visiblePerson">person</mat-icon>
-</button>
-<ng-select class="form-group w-100 mb-0" [items]="sharedCategories" bindLabel="title"
-           notFoundText="Zvoľte kategóriu" placeholder="Kategória" groupBy="parentName">
-  <ng-template ng-optgroup-tmp let-item="item">
-    {{ item.title || 'Unnamed group' }}
-  </ng-template>
-</ng-select>
+    <div *ngIf="sharedCategory" class="d-flex">
+      <button (click)="change(sharedCategory, 'name')" mat-icon-button matTooltip="Môže vidieť názov" type="button">
+        <mat-icon *ngIf="sharedCategory.showName">visibility_off</mat-icon>
+        <mat-icon *ngIf="!sharedCategory.showName">visibility</mat-icon>
+      </button>
+      <button (click)="change(sharedCategory, 'person')" mat-icon-button matTooltip="Môže vidieť konkrétneho zamestnanca" type="button">
+        <mat-icon *ngIf="sharedCategory.showPerson">person_off</mat-icon>
+        <mat-icon *ngIf="!sharedCategory.showPerson">person</mat-icon>
+      </button>
+    </div>
+  <ng-select
+    [(ngModel)]="sharedCategory"
+    (ngModelChange)="changeCategory()"
+    class="form-group w-100 mb-0"
+    bindLabel="name"
+    notFoundText="Zvoľte kategóriu"
+    placeholder="Kategória"
+    [items]="sharedCategories"
+  >
+    <ng-template ng-optgroup-tmp let-item="item"
+    >
+      {{ item.name }}
+    </ng-template>
+  </ng-select>
 </div>

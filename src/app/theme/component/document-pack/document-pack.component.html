@@ -3,7 +3,7 @@
     <div class="table-wrap no-border" formArrayName="packs" cdkDropList (cdkDropListDropped)="dropPack($event)">
       <table class="table-hover table-hover-gray table-data table-borderless w-100 mat-table" cdkDrag cdkDragLockAxis="y" [formGroupName]="i" *ngFor="let pack of formPacks.controls; let i=index" >
         <tbody class="no-border">
-          <tr class="tbody-row set-row" [ngClass]="fromDemand ? 'd-none' : ''">
+          <tr class="tbody-row set-row" [class.d-none]="fromDemand">
             <td>
               <a
                 cdkDragHandle
@@ -57,7 +57,7 @@
               <a
                 cdkDragHandle
                 class="mr-3"
-                [ngClass]="fromDemand ? 'd-none' : ''"
+                [class.d-none]="fromDemand"
                 mat-icon-button
                 matTooltip="Reorder item">
                 <mat-icon class="text-theme">drag_indicator</mat-icon>

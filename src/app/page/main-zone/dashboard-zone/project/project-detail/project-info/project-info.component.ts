@@ -54,7 +54,6 @@ export class ProjectInfoComponent implements OnInit {
 
   ngOnInit(): void {
     this.getData(null);
-    this.getProject();
     this.getProjectManHours(null);
     this.handleChangeCompany();
   }

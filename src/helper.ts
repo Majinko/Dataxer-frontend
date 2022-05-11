@@ -1,5 +1,5 @@
 import {BaseFilter} from './app/core/models/filters/baseFilter';
-import {AbstractControl} from '@angular/forms';
+import {AbstractControl, FormArray} from '@angular/forms';
 import {MatPaginatorIntl} from '@angular/material/paginator';
 import * as moment from 'moment';
 
@@ -204,5 +204,11 @@ export const getMonthData = (momentData: moment.Moment): string => {
   const date = new Date(momentData.year(), momentData.month(), momentData.date());
 
   return date.toLocaleString('default', {month: 'long'}) + ' ' + momentData.year();
+};
+
+export const clearFormArray = (formArray: FormArray) => {
+  while (formArray.length !== 0) {
+    formArray.removeAt(0);
+  }
 };
 

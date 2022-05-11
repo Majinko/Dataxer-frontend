@@ -10,13 +10,11 @@ import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/
 import {MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter} from '@angular/material-moment-adapter';
 import {addDays, APP_DATE_FORMATS} from '../../../../../../helper';
 import {BankAccountService} from '../../../../../core/services/bank-account.service';
-import {Pack} from '../../../../../core/models/pack';
-import {PriceOffer} from '../../../../../core/models/priceOffer';
+import {DemandPackItem, Pack} from '../../../../../core/models/pack';
 import {DocumentHelperClass} from '../../../../../core/class/DocumentHelperClass';
 import {ProjectService} from '../../../../../core/services/project.service';
-import {DemandItem} from '../../../../../core/models/documentItem';
-import {DemandService} from '../../../../../core/services/demand.service';
 import {MatSlideToggle} from '@angular/material/slide-toggle';
+import {DemandService} from '../../../../../core/services/demand.service';
 
 @Component({
   selector: 'app-create',
@@ -38,14 +36,11 @@ import {MatSlideToggle} from '@angular/material/slide-toggle';
 })
 export class PriceOfferCreateComponent extends DocumentHelperClass implements OnInit {
   submitted: boolean = false;
-  demandOffer = false;
+  demandId: number;
   demandPack: Pack[] = [];
   oldPacks: Pack[] = [];
-  documentItems: DemandItem[] = [];
+  demandPackItems: DemandPackItem[] = [];
   documentType: string = 'PRICE_OFFER';
-  simpleDemandPacks = {
-    packs: []
-  };
 
   @ViewChild('slide', {static: false}) slide: MatSlideToggle;
 
@@ -57,10 +52,10 @@ export class PriceOfferCreateComponent extends DocumentHelperClass implements On
     protected router: Router,
     public route: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private demandService: DemandService,
     private userService: UserService,
     private priceOfferService: PriceOfferService,
     public documentHelper: DocumentHelper,
+    private demandService: DemandService,
   ) {
     super(bankAccountService, numberingService, messageService, router, route, projectService);
   }
@@ -71,8 +66,12 @@ export class PriceOfferCreateComponent extends DocumentHelperClass implements On
     this.getProject();
 
     if (this.route.snapshot.paramMap.get('demandId')) {
-      this.demandOffer = true;
-      this.demand();
+      this.formGroup.addControl('isPackComplex', this.formBuilder.control(true));
+      this.formGroup.addControl('demandId', this.formBuilder.control(this.demandId));
+
+      this.demandId = +this.route.snapshot.paramMap.get('demandId');
+
+      this.gedDemandPackItem();
     }
 
     if (this.route.snapshot.paramMap.get('id') === null) {
@@ -80,6 +79,13 @@ export class PriceOfferCreateComponent extends DocumentHelperClass implements On
     } else {
       this.checkDuplicate();
     }
+  }
+
+  // get demand pack items
+  private gedDemandPackItem() {
+    this.demandService.gedDemandPackItem(this.demandId).subscribe((demandPackItems) => {
+      this.demandPackItems = demandPackItems;
+    });
   }
 
   // prepare form
@@ -115,12 +121,6 @@ export class PriceOfferCreateComponent extends DocumentHelperClass implements On
     });
   }
 
-  private demand() {
-    this.demandService.gedDemandPackItem(+this.route.snapshot.paramMap.get('demandId')).subscribe(demandItems => {
-      this.documentItems = demandItems;
-    });
-  }
-
   private checkDuplicate() {
     if (+this.route.snapshot.paramMap.get('id')) {
       this.priceOfferService.duplicate(+this.route.snapshot.paramMap.get('id')).subscribe((oldPriceOffer) => {
@@ -136,9 +136,25 @@ export class PriceOfferCreateComponent extends DocumentHelperClass implements On
     this.formGroup.get('documentData.user').patchValue(this.userService.user);
   }
 
+  private preparePacksFromDemandItem() {
+    this.formGroup.get('packs').patchValue([]);
+
+    //this.demandPackItems.
+
+    // todo dokoncit zajtra
+    console.log(this.demandPackItems);
+  }
+
   // submit form
   submit(type: string) {
     this.submitted = true;
+
+    // demand is in complex rezime
+    if (this.demandId && this.f.isPackComplex && this.f.isPackComplex.value === true) {
+      this.preparePacksFromDemandItem();
+    }
+
+    return;
 
     if (this.formGroup.invalid) {
       setTimeout(() => {
@@ -155,36 +171,12 @@ export class PriceOfferCreateComponent extends DocumentHelperClass implements On
       totalPrice: this.documentHelper.totalPrice,
     });
 
-    // todo zrefaktorovat
-    if (this.demandOffer && this.slide.checked) {
-      this.formGroup.get('packs').patchValue([]);
-      this.documentItems.forEach(f => {
-        f.packs.forEach(p => {
-          const item = JSON.parse(JSON.stringify(f));
-          delete item.packs;
-          p.demandItem = item;
-          this.formGroup.get('packs').value.push(p);
-        });
-      });
-    } else if (this.demandOffer && !this.slide.checked) {
-      this.formGroup.get('packs').patchValue([]);
-      this.formGroup.get('packs').value.push(this.simpleDemandPacks.packs[0]);
-    }
 
-    if (!this.demandOffer) {
-      this.priceOfferService.store(this.formGroup.value).subscribe((r) => {
-        this.router
-          .navigate(['/paginate/priceOffers'])
-          .then(() => this.messageService.add('Cenová ponuka bola uložená'));
-      });
-    } else {
-      this.priceOfferService.createFromDemand(+this.route.snapshot.paramMap.get('demandId'), this.formGroup.value).subscribe((r) => {
-        this.router
-          .navigate(['/paginate/priceOffers'])
-          .then(() => this.messageService.add('Cenová ponuka bola uložená'));
-      });
-    }
-
+    this.priceOfferService.store(this.formGroup.value).subscribe((r) => {
+      this.router
+        .navigate(['/paginate/priceOffers'])
+        .then(() => this.messageService.add('Cenová ponuka bola uložená'));
+    });
   }
 
   // convenience getter for easy access to form fields
