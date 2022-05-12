@@ -39,6 +39,8 @@ export class ProjectBudgetItemsComponent implements OnInit {
 
 
   onSubmit() {
+    console.log(this.formGroup.value);
+    return;
     this.dialogRef.close(this.formGroup.value);
   }
 }
