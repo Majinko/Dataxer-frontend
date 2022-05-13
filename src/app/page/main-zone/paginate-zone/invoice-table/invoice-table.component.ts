@@ -12,16 +12,17 @@ import {
 } from '../../../../theme/component/payments/components/payment-dialog/payment-dialog.component';
 import {PdfServiceService} from '../../../../core/services/pdf-service.service';
 import {CompanyService} from '../../../../core/services/company.service';
-import {AppPaginate} from '../../../../core/class/AppPaginate';
 import {GodButtonService} from '../../../../core/services/god-button.service';
 import {FilterService} from '../../../../core/store/service/filter.service';
+import {DocumentService} from '../../../../core/services/document.service';
+import {AppDocumentPaginate} from '../../../../core/class/AppDocumentPaginate';
 
 @Component({
   selector: 'app-invoice-table',
   templateUrl: './invoice-table.component.html',
   providers: [DocumentHelper]
 })
-export class InvoiceTableComponent extends AppPaginate<Invoice> implements OnInit, AfterViewInit, OnDestroy {
+export class InvoiceTableComponent extends AppDocumentPaginate<Invoice> implements OnInit, AfterViewInit, OnDestroy {
   displayedColumns: string[];
   destroyMsg = 'Faktura bola odstránená';
 
@@ -39,8 +40,9 @@ export class InvoiceTableComponent extends AppPaginate<Invoice> implements OnIni
     protected messageService: MessageService,
     protected dialog: MatDialog,
     protected filterService: FilterService,
+    protected documentService: DocumentService,
   ) {
-    super(invoiceService, godButtonService, messageService, dialog, route, filterService);
+    super(invoiceService, godButtonService, messageService, dialog, route, filterService, documentService);
   }
 
   ngOnInit(): void {

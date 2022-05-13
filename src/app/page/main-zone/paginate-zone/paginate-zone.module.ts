@@ -133,6 +133,7 @@ const routes: Routes = [
           inputSearchBarValues: ['title', 'contact.name'],
           inputSearchBarSelectValues: ['contact.id', 'company.id', 'project.id', 'state', 'documentType', 'date'],
 
+
           permissions: {
             only: 'invoice'
           },
