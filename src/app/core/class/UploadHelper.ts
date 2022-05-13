@@ -3,6 +3,7 @@ import {CustomFile} from '../models/customFile';
 import {AngularFireStorage} from '@angular/fire/storage';
 import {DomSanitizer} from '@angular/platform-browser';
 import {StorageService} from '../services/storage.service';
+import {downloadFile} from '../../../helper';
 
 @Injectable({
   providedIn: 'root'
@@ -102,34 +103,8 @@ export class UploadHelper {
   }
 
   public downloadFile(file: CustomFile) {
-    this.storageService.getById(file.id).subscribe(file => {
-      const b64toBlob = (b64Data, contentType = '', sliceSize = 512) => {
-        const byteCharacters = atob(b64Data);
-        const byteArrays = [];
-
-        for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
-          const slice = byteCharacters.slice(offset, offset + sliceSize);
-
-          const byteNumbers = new Array(slice.length);
-          for (let i = 0; i < slice.length; i++) {
-            byteNumbers[i] = slice.charCodeAt(i);
-          }
-
-          const byteArray = new Uint8Array(byteNumbers);
-          byteArrays.push(byteArray);
-        }
-
-        return new Blob(byteArrays, {type: contentType});
-      };
-
-      const blob = b64toBlob(file.content, file.contentType);
-      const blobUrl = URL.createObjectURL(blob);
-      const downloadLink = document.createElement('a');
-      const fileName = file.fileName;
-
-      downloadLink.href = blobUrl;
-      downloadLink.download = fileName;
-      downloadLink.click();
+    this.storageService.getById(file.id).subscribe((f) => {
+      downloadFile(f);
     });
   }
 

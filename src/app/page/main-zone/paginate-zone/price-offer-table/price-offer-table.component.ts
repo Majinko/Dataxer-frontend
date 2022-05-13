@@ -8,18 +8,19 @@ import {MatDialog} from '@angular/material/dialog';
 import {PdfServiceService} from '../../../../core/services/pdf-service.service';
 import {DocumentHelper} from '../../../../core/class/DocumentHelper';
 import {CompanyService} from '../../../../core/services/company.service';
-import {AppPaginate} from '../../../../core/class/AppPaginate';
 import {ActivatedRoute, Router} from '@angular/router';
 import {PaymentService} from '../../../../core/services/payment.service';
 import {GodButtonService} from '../../../../core/services/god-button.service';
 import {FilterService} from '../../../../core/store/service/filter.service';
+import {AppDocumentPaginate} from '../../../../core/class/AppDocumentPaginate';
+import {DocumentService} from '../../../../core/services/document.service';
 
 @Component({
   selector: 'app-price-offer-table',
   templateUrl: './price-offer-table.component.html',
   providers: [DocumentHelper]
 })
-export class PriceOfferTableComponent extends AppPaginate<PriceOffer> implements OnInit, AfterViewInit, OnDestroy {
+export class PriceOfferTableComponent extends AppDocumentPaginate<PriceOffer> implements OnInit, AfterViewInit, OnDestroy {
   displayedColumns: string[];
   destroyMsg = 'Cenová ponuka bola odstránená';
 
@@ -37,8 +38,9 @@ export class PriceOfferTableComponent extends AppPaginate<PriceOffer> implements
     protected messageService: MessageService,
     protected dialog: MatDialog,
     protected filterService: FilterService,
+    protected documentService: DocumentService,
   ) {
-    super(priceOfferService, godButtonService, messageService, dialog, route, filterService);
+    super(priceOfferService, godButtonService, messageService, dialog, route, filterService, documentService);
   }
 
   ngOnInit(): void {

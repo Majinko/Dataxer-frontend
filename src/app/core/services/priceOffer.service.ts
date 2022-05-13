@@ -23,7 +23,7 @@ export class PriceOfferService extends ResourceService<PriceOffer> {
     return this.httpClient
       .get<Paginate<PriceOffer>>(`${environment.baseUrl}/${'priceOffer'}/paginate?page=${page}&size=${size}${this.rsqlFilter ? '&filters=' + this.rsqlFilter : ''}`)
       .pipe(map((priceOffers => {
-        priceOffers.content =  priceOffers.content.sort((a, b) =>  +b.number - +a.number);
+        priceOffers.content = priceOffers.content.sort((a, b) => +b.number - +a.number);
 
         return priceOffers;
       })));
@@ -36,5 +36,9 @@ export class PriceOfferService extends ResourceService<PriceOffer> {
 
   duplicate(oldId: number): Observable<PriceOffer> {
     return this.httpClient.get<PriceOffer>(`${environment.baseUrl}/priceOffer/duplicate/${oldId}`);
+  }
+
+  createFromDemand(demandId: number, priceOffer: PriceOffer): Observable<PriceOffer> {
+    return this.httpClient.post<PriceOffer>(`${environment.baseUrl}/priceOffer/createFromDemand/${demandId}`, priceOffer);
   }
 }

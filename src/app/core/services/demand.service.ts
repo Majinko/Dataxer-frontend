@@ -5,7 +5,7 @@ import {ResourceService} from '../class/ResourceService';
 import {Serializer} from '../models/serializers/Serializer';
 import {Observable} from 'rxjs';
 import {environment} from '../../../environments/environment';
-import {DemandItem, DocumentItem} from "../models/documentItem";
+import {DemandItem} from '../models/documentItem';
 
 @Injectable({
   providedIn: 'root'

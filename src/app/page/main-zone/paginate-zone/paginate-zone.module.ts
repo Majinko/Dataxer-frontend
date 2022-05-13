@@ -20,6 +20,7 @@ import {PriceOfferTableComponent} from './price-offer-table/price-offer-table.co
 import {PackTableComponent} from './pack-table/pack-table.component';
 import {ItemTableComponent} from './item-table/item-table.component';
 import {PaginateZoneComponent} from './paginate.component';
+import {DemandTableComponent} from './demand-table/demand-table.component';
 
 const routes: Routes = [
   {
@@ -38,6 +39,24 @@ const routes: Routes = [
           modelName: 'contact',
           inputSearchBarValues: ['name', 'email'],
           inputSearchBarSelectValues: [],
+
+          permissions: {
+            only: 'Contact'
+          }
+        },
+      },
+      {
+        path: 'demands',
+        component: DemandTableComponent,
+        data: {
+          menuItem: [],
+          godButtonTitle: 'Nový dopyt',
+          gotButtonRouteLink: '/demand/create',
+
+          // for filtering
+          modelName: 'demand',
+          inputSearchBarValues: ['number'],
+          inputSearchBarSelectValues: ['project.id'],
 
           permissions: {
             only: 'Contact'
@@ -113,6 +132,7 @@ const routes: Routes = [
           modelName: 'invoice',
           inputSearchBarValues: ['title', 'contact.name'],
           inputSearchBarSelectValues: ['contact.id', 'company.id', 'project.id', 'state', 'documentType', 'date'],
+
 
           permissions: {
             only: 'invoice'

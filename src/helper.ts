@@ -2,6 +2,7 @@ import {BaseFilter} from './app/core/models/filters/baseFilter';
 import {AbstractControl} from '@angular/forms';
 import {MatPaginatorIntl} from '@angular/material/paginator';
 import * as moment from 'moment';
+import {CustomFile} from './app/core/models/customFile';
 
 // custom date picker formats
 export const APP_DATE_FORMATS = {
@@ -206,3 +207,39 @@ export const getMonthData = (momentData: moment.Moment): string => {
   return date.toLocaleString('default', {month: 'long'}) + ' ' + momentData.year();
 };
 
+
+/**
+ * D
+ * @param file
+ */
+export const downloadFile = (file: CustomFile): void => {
+  const b64toBlob = (b64Data, contentType = '', sliceSize = 512) => {
+    const byteCharacters = atob(b64Data);
+    const byteArrays = [];
+
+    for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+      const slice = byteCharacters.slice(offset, offset + sliceSize);
+
+      const byteNumbers = new Array(slice.length);
+      for (let i = 0; i < slice.length; i++) {
+        byteNumbers[i] = slice.charCodeAt(i);
+      }
+
+      const byteArray = new Uint8Array(byteNumbers);
+      byteArrays.push(byteArray);
+    }
+
+    return new Blob(byteArrays, {type: contentType});
+  };
+
+  const blob = b64toBlob(file.content, file.contentType);
+  const blobUrl = URL.createObjectURL(blob);
+  const downloadLink = document.createElement('a');
+  const fileName = file.fileName;
+
+  downloadLink.href = blobUrl;
+  downloadLink.download = fileName;
+  downloadLink.click();
+
+  downloadLink.remove();
+};
