@@ -92,7 +92,7 @@ const routes: Routes = [
           // for filtering
           modelName: 'cost',
           inputSearchBarValues: ['title', 'contractor.name'],
-          inputSearchBarSelectValues: ['contractor.id', 'company.id', 'project.id', 'state', 'date'],
+          inputSearchBarSelectValues: ['contractor.id', 'company.id', 'category.id', 'project.id', 'state', 'date'],
 
           permissions: {
             only: 'Cost'
@@ -132,6 +132,7 @@ const routes: Routes = [
           modelName: 'invoice',
           inputSearchBarValues: ['title', 'contact.name'],
           inputSearchBarSelectValues: ['contact.id', 'company.id', 'project.id', 'state', 'documentType', 'date'],
+
 
           permissions: {
             only: 'invoice'

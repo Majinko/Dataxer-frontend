@@ -1,6 +1,14 @@
+
 <div class="row">
   <div class="col-md-12">
-    <h3 class="text-gray mb-3">Zvolené faktúry: <span class="text-theme">{{totalPrice | currency:'EUR':'symbol'}}</span></h3>
+    <div class="d-flex align-items-center justify-content-between">
+      <h3 class="text-gray mb-0">Zvolené faktúry: <span class="text-theme">{{totalPrice | currency:'EUR':'symbol'}}</span></h3>
+      <div>
+        <button (click)="downloadPfsInZip('INVOICE')" class="text-primary" mat-icon-button aria-label="Example icon button with a home icon" matTooltip="Stiahnuť faktúry v zipe">
+          <mat-icon>download</mat-icon>
+        </button>
+      </div>
+    </div>
     <div class="table-wrap">
       <div class="position-relative">
         <div class="loading-shade" *ngIf="isLoadingResults">

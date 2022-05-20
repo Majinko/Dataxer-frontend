@@ -13,10 +13,8 @@ import {MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter} from '@angular/mater
 import {BankAccountService} from '../../../../../core/services/bank-account.service';
 import {DatePipe} from '@angular/common';
 import {DocumentHelperClass} from '../../../../../core/class/DocumentHelperClass';
-import {Pack} from '../../../../../core/models/pack';
 import {PriceOfferService} from '../../../../../core/services/priceOffer.service';
 import {ProjectService} from '../../../../../core/services/project.service';
-import {DocumentBase} from '../../../../../core/models/documentBase';
 
 @Component({
   selector: 'app-invoice-create',
@@ -42,6 +40,7 @@ export class InvoiceCreateComponent extends DocumentHelperClass implements OnIni
   submitted: boolean = false;
   moreOptions: boolean = false;
   documentType: string = 'INVOICE';
+  isLoad: boolean = false;
 
   constructor(
     protected numberingService: NumberingService,
@@ -62,14 +61,13 @@ export class InvoiceCreateComponent extends DocumentHelperClass implements OnIni
   }
 
   ngOnInit(): void {
-    this.setInvoiceDataByType();
     this.prepareForm();
-    this.prepareInvoiceData();
-    this.changeForm();
+    this.setInvoiceDataByType();
     this.getProject();
 
     this.route.params.subscribe(params => {
       this.prepareInvoiceData();
+      this.changeForm();
       this.documentType = params.type;
 
       if (this.f.company.value) {

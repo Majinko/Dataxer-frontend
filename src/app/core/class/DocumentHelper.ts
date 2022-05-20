@@ -32,13 +32,14 @@ export class DocumentHelper {
 
         if (pack.packItems) {
           pack.packItems.forEach(item => {
-            item.totalPrice = +this.addPercent(+item.price * +item.qty, +item.tax);
+            item.totalPrice = +this.addPercent(+item.price * +item.qty, +item.tax, 2);
+            item.totalPriceRoundThreeDigits = +this.addPercent(+item.price * +item.qty, +item.tax, 3);
 
-            pack.totalPrice += +this.removePercent(+item.totalPrice, +item.discount);
+            pack.totalPrice += +this.removePercent(+item.totalPriceRoundThreeDigits, +item.discount, 3);
             pack.price += (!isNaN(+item.price) && !isNaN(+item.qty)) ? +this.removePercent((+item.price * +item.qty), +item.discount) : 0;
 
             this.price += +this.removePercent(+item.price * +item.qty, +item.discount);
-            this.totalPrice += +this.removePercent(+item.totalPrice, +item.discount);
+            this.totalPrice += +this.removePercent(+item.totalPriceRoundThreeDigits, +item.discount, 3);
           });
 
           pack.price = +pack.price.toFixed(2);
@@ -51,18 +52,21 @@ export class DocumentHelper {
         this.totalPrice += +pack.totalPrice;
       }
     });
+
+    this.price = +this.price.toFixed(2);
+    this.totalPrice = +this.totalPrice.toFixed(2);
   }
 
-  addPercent(value: any, args: any): number {
+  addPercent(value: any, args: any, fractionDigits: number = 2): number {
     const result: any = (parseFloat(value) / 100) * parseFloat(args) + parseFloat(value);
 
-    return !isNaN(result) ? result.toFixed(2) : 0;
+    return !isNaN(result) ? result.toFixed(fractionDigits) : 0;
   }
 
-  removePercent(value: any, args: any): number {
+  removePercent(value: any, args: any, fractionDigits: number = 2): number {
     const result: any = value - (parseFloat(value) / 100) * parseFloat(args);
 
-    return !isNaN(result) ? result.toFixed(2) : 0;
+    return !isNaN(result) ? result.toFixed(fractionDigits) : 0;
   }
 
   prepareTaxes(packs: Pack[]) {

@@ -1,9 +1,10 @@
-import { Component, forwardRef, Input, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { FormGroupDirective, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { Company } from '../../../core/models/company';
-import { CompanyService } from '../../../core/services/company.service';
-import { CompanyCreateComponent } from '../../../page/setting-zone/company/company-create/company-create.component';
+import {Component, forwardRef, Input, OnInit} from '@angular/core';
+import {MatDialog} from '@angular/material/dialog';
+import {FormGroupDirective, NG_VALUE_ACCESSOR} from '@angular/forms';
+import {Company} from '../../../core/models/company';
+import {CompanyService} from '../../../core/services/company.service';
+import {CompanyCreateComponent} from '../../../page/setting-zone/company/company-create/company-create.component';
+import {ActivatedRoute, Route, Router} from '@angular/router';
 
 @Component({
   selector: 'app-company-select-group',
@@ -16,14 +17,15 @@ import { CompanyCreateComponent } from '../../../page/setting-zone/company/compa
   }]
 })
 export class CompanySelectGroupComponent implements OnInit {
-  company: Company;
   companies: Company[] = [];
 
   @Input() showAddButton: boolean = true;
   @Input() ngForm: FormGroupDirective;
+  @Input() company: Company;
 
   constructor(
     public dialog: MatDialog,
+    private route: ActivatedRoute,
     public companyService: CompanyService,
   ) {
   }
@@ -38,15 +40,12 @@ export class CompanySelectGroupComponent implements OnInit {
   }
 
   getCompanies() {
-    this.companyService.companyStore.subscribe(c => {
-      this.onChange(c);
-      this.company = c;
-
-      this.companies = this.companies.concat(c);
-    });
     this.companyService.all().subscribe(companies => {
       this.companies = companies;
-      if (!this.ngForm.form.controls.company.value) {
+
+      // this.route.snapshot.paramMap.get('id') === null
+      // when is this null, invoice is not create from another invoice, then is company set from another invoice not first
+      if (!this.ngForm.form.controls.company.value && this.route.snapshot.paramMap.get('id') === null) {
         setTimeout(() => {
           this.company = this.companies[0];
           this.onChange(this.company);
@@ -57,7 +56,7 @@ export class CompanySelectGroupComponent implements OnInit {
 
   openDialog() {
     this.dialog.open(CompanyCreateComponent, {
-      data: { inModal: true },
+      data: {inModal: true},
       autoFocus: false
     });
   }
@@ -77,5 +76,4 @@ export class CompanySelectGroupComponent implements OnInit {
   selectCompany(company: Company) {
     this.onChange(company);
   }
-
 }

@@ -31,6 +31,7 @@ export class PackItem {
   price?: number;
   tax?: number;
   totalPrice?: number;
+  totalPriceRoundThreeDigits?: number;
   category?: CategoryItemNode;
   packBudget?: PackBudgetItem;
   contacts?: Contact[];

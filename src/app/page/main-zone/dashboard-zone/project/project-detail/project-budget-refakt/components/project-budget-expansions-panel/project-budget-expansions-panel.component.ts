@@ -9,7 +9,6 @@ import {
 } from '@angular/core';
 import {BudgetOverview} from '../../../../../../../../core/models/budget';
 import {ActivatedRoute} from '@angular/router';
-import {ProjectService} from '../../../../../../../../core/services/project.service';
 import {BudgetService} from '../../../../../../../../core/services/budget.service';
 
 @Component({
