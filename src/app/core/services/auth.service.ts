@@ -59,6 +59,7 @@ export class AuthService {
 
   private resetToken(): void {
     this.getToken$().subscribe(r => {
+      this.user.token = r.token;
       this.tokenExpirationTime = new Date(r.expirationTime);
     });
   }
