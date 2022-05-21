@@ -51,14 +51,16 @@ export class AuthService {
       // @ts-ignore
       const tokenValidityInMinutes = Math.round((((this.tokenExpirationTime - new Date()) % 86400000) % 3600000) / 60000);
 
+      console.log(tokenValidityInMinutes);
       if (tokenValidityInMinutes <= this.resetAtMinutes) {
         this.resetToken();
       }
-    }, 60000);
+    }, 1000);
   }
 
   private resetToken(): void {
     this.getToken$().subscribe(r => {
+      console.log('token reseter');
       this.user.token = r.token;
       this.tokenExpirationTime = new Date(r.expirationTime);
     });
