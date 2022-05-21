@@ -61,7 +61,7 @@ export function nonUndefined(value) {
  * @param days
  */
 export function addDays(date, days) {
-  let result = new Date(date);
+  const result = new Date(date);
   result.setDate(result.getDate() + days);
   return result;
 }
@@ -206,6 +206,12 @@ export const getMonthData = (momentData: moment.Moment): string => {
   return date.toLocaleString('default', {month: 'long'}) + ' ' + momentData.year();
 };
 
+// add percent to number
+export const addPercent = (value: any, args: any, fractionDigits: number = 2) => {
+  const result: any = (parseFloat(value) / 100) * parseFloat(args) + parseFloat(value);
+
+  return !isNaN(result) ? result.toFixed(fractionDigits) : 0;
+};
 
 /**
  * Clear form array

@@ -16,7 +16,7 @@ export class AuthService {
   public user: User;
   public tokenExpirationTime: Date;
 
-  private resetAtMinutes: number = 10;
+  private resetAtMinutes: number = 1;
 
   constructor(
     private http: HttpClient,
@@ -59,6 +59,7 @@ export class AuthService {
 
   private resetToken(): void {
     this.getToken$().subscribe(r => {
+      this.user.token = r.token;
       this.tokenExpirationTime = new Date(r.expirationTime);
     });
   }

@@ -10,6 +10,11 @@
         <th class="text-center white-space-nowrap" appShowHideTax>Dph %</th>
         <th class="text-right white-space-nowrap" appShowHideTax>Jedn. cena s DPH</th>
         <th class="text-right white-space-nowrap">Celkom <span appShowHideTax>s DPH</span></th>
+        <th class="text-right white-space-nowrap">Dodávateľ</th>
+        <!--<th class="text-center white-space-nowrap" appShowHideTax>Dph %</th>
+        <th class="text-right white-space-nowrap" appShowHideTax>Jedn. cena s DPH</th>
+        <th class="text-right white-space-nowrap">Celkom <span appShowHideTax>s DPH</span></th>
+        <th class="text-center white-space-nowrap"></th>-->
       </tr>
       </thead>
       <tbody *ngFor="let pack of budgetPacksOverview">
@@ -35,6 +40,7 @@
         <td class="text-right font-weight-bold">
           {{pack.totalPrice | currency:'EUR':'symbol'}}
         </td>
+        <td class="text-right font-weight-bold"></td>
       </tr>
 
       <ng-container *ngFor="let item of pack.budgetPackItemsOverview">
@@ -60,6 +66,7 @@
           <td class="text-right">
             {{!pack.customPrice ? (item.totalPrice | currency:'EUR':'symbol') : ''}}
           </td>
+          <td class="text-right">{{item.item | json}}</td>
         </tr>
         <tr class="table-item" *ngIf="item.discount > 0">
           <td class="text-left" colspan="3" style="white-space: nowrap">

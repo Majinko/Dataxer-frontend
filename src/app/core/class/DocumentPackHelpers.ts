@@ -4,6 +4,7 @@ import {Pack} from '../models/pack';
 import {UNITS} from '../data/unit-items';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import {Item} from '../models/item';
+import {addPercent} from '../../../helper';
 
 @Injectable()
 export abstract class DocumentPackHelpers {
@@ -82,8 +83,9 @@ export abstract class DocumentPackHelpers {
       packItems: p.packItems.map(item => {
         item.id = '';
         item.title = item.item.title;
-        item.price = item.item.itemPrice.price;
         item.category = item.item.category;
+        item.price = item.item.itemPrice.price;
+        item.totalPrice = +addPercent(+item.price, +item.item.itemPrice.tax, 2);
 
         return item;
       })

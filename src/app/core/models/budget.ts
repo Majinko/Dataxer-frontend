@@ -1,4 +1,5 @@
 import {Project} from './project';
+import {Item} from './item';
 
 export interface Budget {
   id: number;
@@ -28,4 +29,7 @@ export interface BudgetPackItemOverview {
   qty: number;
   discount: number;
   totalPrice: number;
+
+  item?: Item;
 }
+
