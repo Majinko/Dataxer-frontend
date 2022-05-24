@@ -29,8 +29,6 @@ export class AuthService {
         if (user) {
           this.setUser = user;
 
-          this.resetToken();
-
           return of(this.user);
         } else {
 
@@ -54,7 +52,7 @@ export class AuthService {
       if (tokenValidityInMinutes <= this.resetAtMinutes) {
         this.resetToken();
       }
-    }, 60000);
+    }, 1000);
   }
 
   private resetToken(): void {

@@ -1,6 +1,6 @@
 <div class="mt-3" *ngFor="let budget of budgetOverview">
   <mat-accordion>
-    <mat-expansion-panel expanded="true" (opened)="loadData(budget.categoryId, divElement)">
+    <mat-expansion-panel (opened)="loadData(budget.categoryId, divElement)">
       <mat-expansion-panel-header>
         <mat-panel-title>
           {{budget.categoryTitle}}

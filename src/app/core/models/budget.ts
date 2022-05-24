@@ -17,19 +17,21 @@ export interface BudgetPackOverview {
   price: number;
   totalPrice: number;
   customPrice: boolean;
+  supplierPrice: number;
+  profitPrice: number;
   budgetPackItemsOverview: BudgetPackItemOverview[];
 }
 
 export interface BudgetPackItemOverview {
   title: string;
   unit: string;
-
+  marge: number;
   price: number;
   tax: number;
   qty: number;
   discount: number;
   totalPrice: number;
-
+  profitPrice: number;
   item?: Item;
 }
 

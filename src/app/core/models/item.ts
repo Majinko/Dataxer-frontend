@@ -23,6 +23,7 @@ export class Item implements IItem {
   file?: any;
   category?: CategoryItemNode;
   itemPrice?: ItemPrice;
+  itemPrices?: ItemPrice[];
   supplier?: Contact;
   files?: CustomFile[];
 }
