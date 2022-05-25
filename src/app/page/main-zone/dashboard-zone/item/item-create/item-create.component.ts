@@ -76,6 +76,7 @@ export class ItemCreateComponent implements OnInit {
         tax: 20,
         marge: 0
       }),
+      itemPrices: this.formBuilder.array([])
     });
   }
 

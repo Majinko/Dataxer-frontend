@@ -29,6 +29,8 @@ export class AuthService {
         if (user) {
           this.setUser = user;
 
+          this.resetToken();
+
           return of(this.user);
         } else {
 

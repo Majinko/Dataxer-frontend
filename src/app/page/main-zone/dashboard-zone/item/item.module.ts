@@ -12,9 +12,10 @@ import {ItemPriceComponent} from './component/item-price/item-price.component';
 import {CoreModule} from '../../../../core/core.module';
 import {ItemEditComponent} from './item-edit/item-edit.component';
 import {ItemShowComponent} from './item-show/item-show.component';
+import { ItemPricesComponent } from './component/item-prices/item-prices.component';
 
 @NgModule({
-  declarations: [ItemComponent, ItemCreateComponent, ItemPriceComponent, ItemEditComponent, ItemShowComponent],
+  declarations: [ItemComponent, ItemCreateComponent, ItemPriceComponent, ItemEditComponent, ItemShowComponent, ItemPricesComponent],
   imports: [
     CommonModule,
     ItemRoutingModule,
