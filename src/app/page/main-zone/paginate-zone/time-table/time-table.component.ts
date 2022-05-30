@@ -71,7 +71,6 @@ export class TimeTableComponent extends AppPaginate<Time> implements OnInit, Aft
 
           this.totalTime = sum(data, 'time');
           this.price = sum(data, 'price');
-          this.totalPrice = sum(data, 'totalPrice');
 
           return data;
         })
