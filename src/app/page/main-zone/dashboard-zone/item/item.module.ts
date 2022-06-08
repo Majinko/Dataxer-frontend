@@ -13,9 +13,14 @@ import {CoreModule} from '../../../../core/core.module';
 import {ItemEditComponent} from './item-edit/item-edit.component';
 import {ItemShowComponent} from './item-show/item-show.component';
 import { ItemPricesComponent } from './component/item-prices/item-prices.component';
+import { ItemProjectsComponent } from './component/item-projects/item-projects.component';
+import { ItemSuppliersComponent } from './component/item-suppliers/item-suppliers.component';
+import { ItemSummaryInfoComponent } from './component/item-summary-info/item-summary-info.component';
+import { ItemPhotoComponent } from './component/item-photo/item-photo.component';
 
 @NgModule({
-  declarations: [ItemComponent, ItemCreateComponent, ItemPriceComponent, ItemEditComponent, ItemShowComponent, ItemPricesComponent],
+  declarations: [ItemComponent, ItemCreateComponent, ItemPriceComponent, ItemEditComponent, ItemShowComponent,
+    ItemPricesComponent, ItemProjectsComponent, ItemSuppliersComponent, ItemSummaryInfoComponent, ItemPhotoComponent],
   imports: [
     CommonModule,
     ItemRoutingModule,

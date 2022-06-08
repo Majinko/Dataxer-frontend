@@ -1,0 +1,17 @@
+<div [formGroup]="formGroup" class="p-3">
+  <div class="row mt-3">
+    <div class="col-12">
+      <h2>Fotogaléria</h2>
+    </div>
+    <div class="col-md-4 form-group">
+      <app-photo-uploader [formGroup]="formGroup" nameAttr="previewUrl" path="item" title="Obrázok položky"></app-photo-uploader>
+    </div>
+    <div class="col-12">
+      <div cdkDropList cdkDropListOrientation="horizontal" class="example-list" (cdkDropListDropped)="drop($event)">
+        <div class="example-box" *ngFor="let photo of photos" cdkDrag>
+          <img src="{{ photo.url }}" alt="{{ photo.alt }}">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
