@@ -220,15 +220,20 @@
     </div>
   </div>
 
+  <app-item-photo></app-item-photo>
+
   <div class="row">
     <div class="col-12">
-      <h2 class="border-bottom-2 pb-2 mb-4">Cena položky</h2>
+      <h2 class="border-bottom-2 mt-4 pb-2 mb-4">Cena položky</h2>
     </div>
   </div>
 
-  <app-item-price [itemPriceForm]="formGroup"></app-item-price>
+  <div class="pt-2">
+    <app-item-price [itemPriceForm]="formGroup"></app-item-price>
+  </div>
+  <app-item-prices [formGroup]="formGroup"></app-item-prices>
 
-  <div class="row">
+  <div class="row mt-4">
     <div class="col-md-12 text-right">
       <button routerLink="/paginate/items" mat-stroked-button class="btn-icon btn-theme-stroked mr-3">
         <mat-icon>cancel</mat-icon>

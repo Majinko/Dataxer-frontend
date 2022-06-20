@@ -1,7 +1,8 @@
 <div class="row">
   <div class="col-md-12">
     <h3 class="text-gray mb-3">Zvolené Položky</h3>
-    <div class="table-wrap">
+    <mat-slide-toggle [(ngModel)]="showWithDph">Ceny položiek <span *ngIf="showWithDph">s</span> <span *ngIf="!showWithDph">bez</span> DPH</mat-slide-toggle>
+    <div class="table-wrap mt-4">
       <div class="position-relative">
         <div class="loading-shade" *ngIf="isLoadingResults">
           <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
@@ -31,11 +32,25 @@
             </td>
           </ng-container>
 
+          <!-- Actuality Column -->
+          <ng-container matColumnDef="actuality">
+            <th class="text-right" mat-header-cell *matHeaderCellDef>Aktuálnosť položky</th>
+            <td class="text-right" mat-cell
+                *matCellDef="let element"> aktualne </td>
+          </ng-container>
+
           <!-- Price Column -->
           <ng-container matColumnDef="price">
-            <th class="text-right" mat-header-cell *matHeaderCellDef>Suma <span appShowHideTax>bez DPH</span></th>
+            <th class="text-right" mat-header-cell *matHeaderCellDef>Suma <span *ngIf="showWithDph">s</span> <span *ngIf="!showWithDph">bez</span> DPH</th>
             <td class="text-right" mat-cell
-                *matCellDef="let element"> {{element.itemPrice?.price | currency:'EUR':'symbol'}} </td>
+                *matCellDef="let element">
+              <ng-container *ngIf="!showWithDph">
+                {{element.itemPrice?.price | currency:'EUR':'symbol'}}
+              </ng-container>
+              <ng-container *ngIf="showWithDph">
+                {{element.itemPrice?.price | addPercent: element.itemPrice.tax | currency:'EUR':'symbol'}}
+              </ng-container>
+            </td>
           </ng-container>
 
           <!-- Action Column -->

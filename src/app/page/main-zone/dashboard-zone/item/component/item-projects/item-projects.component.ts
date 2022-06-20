@@ -1,6 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Item} from '../../../../../../core/models/item';
 import {AppPaginateData} from '../../../../../../core/class/AppPaginateData';
+import {ItemNewSupplierDialogComponent} from "../item-new-supplier-dialog/item-new-supplier-dialog.component";
+import {MatDialog} from "@angular/material/dialog";
+import {ItemProjectsDialogComponent} from "../item-projects-dialog/item-projects-dialog.component";
 
 @Component({
   selector: 'app-item-projects',
@@ -11,7 +14,10 @@ export class ItemProjectsComponent extends AppPaginateData<any> implements OnIni
   displayedColumns: string[] = ['name', 'count', 'price', 'actions'];
   data = [
     {
-      name: 'test',
+      project: {
+        id: 246,
+        title: 'Byt 4i Kaskády 1.3.1'
+      },
       count: 3,
       price: 28.25,
     }
@@ -19,11 +25,27 @@ export class ItemProjectsComponent extends AppPaginateData<any> implements OnIni
 
   @Input() item: Item;
 
-  constructor() {
+  constructor(
+    private dialog: MatDialog,
+  ) {
     super();
   }
 
   ngOnInit(): void {
   }
 
+  show($event: MouseEvent, element: any) {
+    if ($event) {
+      $event.stopPropagation();
+    }
+    this.dialog.open(ItemProjectsDialogComponent, {
+      width: '100%',
+      maxWidth: '1000px',
+      data: {
+        element,
+        item: this.item
+      },
+      autoFocus: false,
+    });
+  }
 }

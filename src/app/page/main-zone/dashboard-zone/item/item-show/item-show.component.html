@@ -1,7 +1,7 @@
-<div *ngIf="item" class="mb-5">
+<div *ngIf="item" [formGroup]="formGroup" class="mb-5">
   <div class="row mb-4">
     <div class="col d-flex align-items-center mb-3">
-      <mat-icon routerLink="/item" class="mr-2 mr-md-5 cursor-pointer">keyboard_backspace</mat-icon>
+      <mat-icon routerLink="/paginate/items" class="mr-2 mr-md-5 cursor-pointer">keyboard_backspace</mat-icon>
       <h1 class="mb-0">Detail položky {{item.title}}</h1>
     </div>
   </div>
@@ -20,7 +20,15 @@
       <app-item-suppliers [item]="item"></app-item-suppliers>
     </mat-tab>
     <mat-tab label="Ceny">
-      <app-item-prices></app-item-prices>
+      <div class="pt-4">
+        <app-item-prices [formGroup]="formGroup"></app-item-prices>
+      </div>
+      <div class="button-wrap text-right mt-4">
+        <button mat-flat-button class="btn-icon btn-theme" (click)="save()">
+          <mat-icon>save</mat-icon>
+          Uložiť
+        </button>
+      </div>
     </mat-tab>
   </mat-tab-group>
 </div>

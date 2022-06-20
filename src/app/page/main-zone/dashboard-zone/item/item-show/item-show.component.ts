@@ -4,6 +4,7 @@ import {ActivatedRoute} from '@angular/router';
 import {ItemService} from '../../../../../core/services/item.service';
 import {StorageService} from '../../../../../core/services/storage.service';
 import {UploadHelper} from '../../../../../core/class/UploadHelper';
+import {FormBuilder, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-item-show',
@@ -12,10 +13,12 @@ import {UploadHelper} from '../../../../../core/class/UploadHelper';
   providers: [UploadHelper],
 })
 export class ItemShowComponent implements OnInit {
+  formGroup: FormGroup;
   item: Item;
 
   constructor(
     private route: ActivatedRoute,
+    private formBuilder: FormBuilder,
     private itemService: ItemService,
     private storageService: StorageService,
     public uploadHelper: UploadHelper,
@@ -23,8 +26,15 @@ export class ItemShowComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.prepareForm();
     this.getItem();
     this.getItemImage();
+  }
+
+  prepareForm() {
+    this.formGroup = this.formBuilder.group({
+      itemPrices: null
+    });
   }
 
   private getItem(){
@@ -39,5 +49,9 @@ export class ItemShowComponent implements OnInit {
         this.uploadHelper.prepareItemUrl(r.path);
       }
     });
+  }
+
+  save() {
+    console.log(this.formGroup.value);
   }
 }

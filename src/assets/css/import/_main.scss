@@ -240,3 +240,16 @@ app-demand-pack {
     }
   }
 }
+
+.no-click {
+  opacity: 0.6;
+  .mat-form-field {
+    pointer-events: none !important;
+  }
+}
+
+body {
+  .mat-tab-body-content {
+    overflow: hidden;
+  }
+}

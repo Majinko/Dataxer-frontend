@@ -7,7 +7,7 @@ import {TranslateModule} from '@ngx-translate/core';
 import {ProjectTableComponent} from './project-table/project-table.component';
 import {MaterialModule} from '../../../theme/modules/material.module';
 import {NgSelectModule} from '@ng-select/ng-select';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {StoreModule} from '@ngrx/store';
 import {reducer} from '../../../core/store/reducers/filterReducer';
 import {TimeTableComponent} from './time-table/time-table.component';
@@ -21,6 +21,7 @@ import {PackTableComponent} from './pack-table/pack-table.component';
 import {ItemTableComponent} from './item-table/item-table.component';
 import {PaginateZoneComponent} from './paginate.component';
 import {DemandTableComponent} from './demand-table/demand-table.component';
+import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 
 const routes: Routes = [
   {
@@ -241,6 +242,8 @@ const routes: Routes = [
     CoreModule,
     ThemeModule,
     AvatarModule,
+    MatSlideToggleModule,
+    FormsModule,
   ]
 })
 export class PaginateZoneModule {
