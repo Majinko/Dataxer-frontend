@@ -29,7 +29,7 @@ export class AuthService {
         if (user) {
           this.setUser = user;
 
-          this.resetToken();
+          this.resetToken(); // todo spravit efektivnejsie
 
           return of(this.user);
         } else {
@@ -82,10 +82,6 @@ export class AuthService {
   sendPasswordResetEmail(email: string) {
     return this.afAuth.sendPasswordResetEmail(email);
   }
-
-  /* registerWithEmail(email: string, password: string): Promise<auth.UserCredential> {
-     return this.afAuth.createUserWithEmailAndPassword(email, password);
-   }*/
 
   loggedUser() {
     return this.afs.doc<User>(`users/${this.user.uid}`).valueChanges();

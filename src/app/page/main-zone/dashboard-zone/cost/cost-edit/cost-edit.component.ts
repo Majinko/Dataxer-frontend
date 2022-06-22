@@ -61,6 +61,7 @@ export class CostEditComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log(this.uploadHelper.files);
     this.prepareForm();
     this.getCost();
     this.changeValue();
@@ -158,8 +159,9 @@ export class CostEditComponent implements OnInit {
 
     this.costService.updateWithFiles(this.formGroup.value, this.uploadHelper.files).subscribe(() => {
       this.router.navigate(['/paginate/costs']).then(() => {
-        this.messageService.add('Náklad bol aktualizovaný');
         this.isLoading = false;
+        this.uploadHelper.files = null;
+        this.messageService.add('Náklad bol aktualizovaný');
       });
     });
   }
