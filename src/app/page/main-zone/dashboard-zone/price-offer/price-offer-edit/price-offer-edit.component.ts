@@ -54,7 +54,6 @@ export class PriceOfferEditComponent extends DocumentHelperClass implements OnIn
 
   ngOnInit() {
     this.getById();
-    this.changeForm();
   }
 
   getById() {
@@ -62,6 +61,7 @@ export class PriceOfferEditComponent extends DocumentHelperClass implements OnIn
       this.priceOffer = p;
 
       this.prepareForm(p);
+      this.changeForm();
     });
   }
 
