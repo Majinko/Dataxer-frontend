@@ -5,6 +5,7 @@ export interface Company {
   billingInformation?: BillingInformation[];
   companyTaxType: string;
   name: string;
+  slugifyName: string;
   legalForm: string;
   street: string;
   city: string;

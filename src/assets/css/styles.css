@@ -1347,6 +1347,17 @@ app-demand-pack div.jsSettings app-category-select-group {
   margin-left: auto;
 }
 
+.no-click {
+  opacity: 0.6;
+}
+.no-click .mat-form-field {
+  pointer-events: none !important;
+}
+
+body .mat-tab-body-content {
+  overflow: hidden;
+}
+
 .todolists-wrap {
   padding-top: 20px;
   max-width: 800px;

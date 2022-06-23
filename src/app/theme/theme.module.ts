@@ -50,6 +50,7 @@ import { DemandDocumentPackComponent } from './component/demand-document-pack/de
 import { CategoryTreeSharedCategoriesComponent } from './component/category-tree-control/components/category-tree-shared-categories/category-tree-shared-categories.component';
 import { NewUserSelectComponent } from './component/new-user-select/new-user-select.component';
 import { BackButtonComponent } from './component/back-button/back-button.component';
+import { MultiplePhotoUploaderComponent } from './component/multiple-photo-uploader/multiple-photo-uploader.component';
 
 @NgModule({
   imports: [
@@ -107,38 +108,40 @@ import { BackButtonComponent } from './component/back-button/back-button.compone
     CategoryTreeSharedCategoriesComponent,
     NewUserSelectComponent,
     BackButtonComponent,
+    MultiplePhotoUploaderComponent,
   ],
-  exports: [
-    DrawerComponent,
-    ToolbarComponent,
-    MessageComponent,
-    ItemAutocompleteComponent,
-    NewContactSelectComponent,
-    PackAutocompleteComponent,
-    DocumentPackComponent,
-    SlovakiaDigitalAutocompleteComponent,
-    NewProjectSelectComponent,
-    NewCategorySelectComponent,
-    SpinnerButtonComponent,
-    ElementPaidStateComponent,
-    FileComponent,
-    DndDirective,
-    PaymentsComponent,
-    DocumentRelationComponent,
-    MenuTabComponent,
-    NestedCategoriesComponent,
-    PhotoUploaderComponent,
-    ChatComponent,
-    CategorySelectGroupComponent,
-    CategoryTreeControlComponent,
-    UploadFilesComponent,
-    DocumentDestroyButtonComponent,
-    CompanySelectGroupComponent,
-    DemandPackComponent,
-    DemandDocumentPackComponent,
-    NewUserSelectComponent,
-    BackButtonComponent,
-  ]
+    exports: [
+        DrawerComponent,
+        ToolbarComponent,
+        MessageComponent,
+        ItemAutocompleteComponent,
+        NewContactSelectComponent,
+        PackAutocompleteComponent,
+        DocumentPackComponent,
+        SlovakiaDigitalAutocompleteComponent,
+        NewProjectSelectComponent,
+        NewCategorySelectComponent,
+        SpinnerButtonComponent,
+        ElementPaidStateComponent,
+        FileComponent,
+        DndDirective,
+        PaymentsComponent,
+        DocumentRelationComponent,
+        MenuTabComponent,
+        NestedCategoriesComponent,
+        PhotoUploaderComponent,
+        ChatComponent,
+        CategorySelectGroupComponent,
+        CategoryTreeControlComponent,
+        UploadFilesComponent,
+        DocumentDestroyButtonComponent,
+        CompanySelectGroupComponent,
+        DemandPackComponent,
+        DemandDocumentPackComponent,
+        NewUserSelectComponent,
+        BackButtonComponent,
+        MultiplePhotoUploaderComponent,
+    ]
 })
 export class ThemeModule {
 }
