@@ -3,15 +3,7 @@
     <div class="col-12">
       <h2>Fotogaléria</h2>
     </div>
-    <div class="col-md-4 form-group">
-      <app-multiple-photo-uploader [modelId]="item.id" modelType="item"></app-multiple-photo-uploader>
-    </div>
-    <div class="col-12" *ngIf="photos.length">
-      <div cdkDropList cdkDropListOrientation="horizontal" class="example-list" (cdkDropListDropped)="drop($event)">
-        <div class="example-box" *ngFor="let photo of photos" cdkDrag>
-          <img src="{{ photo.url }}" alt="{{ photo.alt }}">
-        </div>
-      </div>
-    </div>
   </div>
+
+  <app-multiple-photo-uploader *ngIf="item" [modelId]="item.id" modelType="item"></app-multiple-photo-uploader>
 </div>

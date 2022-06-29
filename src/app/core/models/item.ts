@@ -29,6 +29,9 @@ export class Item implements IItem {
 }
 
 export class ItemPrice {
+  id: number;
+  itemId?: number;
+  supplier?: Contact;
   wholesalePrice?: number;
   wholesaleTax?: number;
   wholesalePriceTax?: number;
@@ -48,4 +51,11 @@ export class DocumentItem {
   price: number;
   tax: number;
   totalPrice: number;
+}
+
+
+export class ItemInProjectDTO {
+  projectName: string;
+  qty: number;
+  price: number;
 }

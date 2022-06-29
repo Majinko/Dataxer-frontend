@@ -23,7 +23,7 @@
     </div>
 
     <div class="col-md-4">
-      <app-new-project-select [client]="f.contact.value" formControlName="project"></app-new-project-select>
+      <app-new-project-select [projects]="projects" [client]="f.contact.value" formControlName="project"></app-new-project-select>
       <mat-error *ngIf="submitted && f.project.errors" class="mat-error-not-in-field">Projekt je <strong>požadovaný.</strong></mat-error>
     </div>
 
@@ -195,7 +195,9 @@
     </div>
   </div>
 
-  <app-document-pack *ngIf="f.company.value != null;" [formGroup]="formGroup" [documentHelper]="documentHelper"></app-document-pack>
+  <div *ngIf="projects && projects.length">
+    <app-document-pack *ngIf="f.company.value != null;" [formGroup]="formGroup" [documentHelper]="documentHelper" [projects]="projects"></app-document-pack>
+  </div>
 
   <div class="row">
     <div class="col-md-4 mb-5">

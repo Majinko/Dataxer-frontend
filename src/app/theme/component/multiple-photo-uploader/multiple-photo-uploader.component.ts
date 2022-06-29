@@ -3,7 +3,9 @@ import {MessageService} from '../../../core/services/message.service';
 import {PhotoService} from '../../../core/services/photo.service';
 import {UploadService} from '../../../core/services/upload.service';
 import {Photo} from '../../../core/models/photo';
+import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 
+// todo nezabudnut nastilovat
 @Component({
   selector: 'app-multiple-photo-uploader',
   templateUrl: './multiple-photo-uploader.component.html',
@@ -13,6 +15,7 @@ export class MultiplePhotoUploaderComponent implements OnInit {
   isLoad: boolean = false;
   maxFileSize: number = 10; // in MB;
   photos: Photo [] = [];
+  loadPhotos: Photo[] = [];
 
   @Input() modelId: number;
   @Input() modelType: string;
@@ -25,6 +28,7 @@ export class MultiplePhotoUploaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getFiles();
   }
 
   onFileChange(files: File[]) {
@@ -34,7 +38,7 @@ export class MultiplePhotoUploaderComponent implements OnInit {
         this.isLoad = true;
 
         for (let i = 0; i < files.length; i++) {
-          this.uploadService.pushUpload( this.modelType + '/', files[i]).then(ref => {
+          this.uploadService.pushUpload(this.modelType + '/', files[i]).then(ref => {
             ref.ref.getDownloadURL().then((url) => {
 
               const photo: Photo = {
@@ -47,7 +51,7 @@ export class MultiplePhotoUploaderComponent implements OnInit {
 
               this.photos.push(photo);
 
-              if (i === files.length - 1) {
+              if (files.length === this.photos.length) {
                 resolve('upload to firebase finish');
               }
             });
@@ -64,6 +68,15 @@ export class MultiplePhotoUploaderComponent implements OnInit {
     }
   }
 
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.loadPhotos, event.previousIndex, event.currentIndex);
+
+    this.isLoad = true;
+    this.photoService.updateOrder(this.loadPhotos).subscribe(() => {
+      this.isLoad = false;
+    });
+  }
+
   private checkFilesSize(files: File[]) {
     let isPhotoSizeOk: boolean = true;
 
@@ -77,8 +90,18 @@ export class MultiplePhotoUploaderComponent implements OnInit {
   }
 
   private storeFiles() {
-    this.photoService.storeAll(this.photos).subscribe(() => {
+    this.photoService.storeAll(this.photos).subscribe((photos) => {
       this.isLoad = false;
+
+      this.loadPhotos.push(...photos);
+    });
+  }
+
+  private getFiles() {
+    this.isLoad = true;
+    this.photoService.findAllByModelIdAndModelType(this.modelType, this.modelId).subscribe((photos) => {
+      this.isLoad = false;
+      this.loadPhotos = photos;
     });
   }
 }

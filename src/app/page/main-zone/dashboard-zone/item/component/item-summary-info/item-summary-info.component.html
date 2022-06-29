@@ -3,121 +3,120 @@
     <div class="col-12">
       <h2 class="border-bottom-2 pb-2 mb-4">Súhrnné info</h2>
     </div>
-  
+
     <div class="col-md-4">
       <p class="mb-0">Názov:</p>
       <h3 class="text-dark"><b>{{item.title || '-'}}</b></h3>
     </div>
-  
+
     <div class="col-md-4">
       <p class="mb-0">Type:</p>
       <h3 class="text-dark"><b>{{item.type || '-'}}</b></h3>
     </div>
-  
+
     <div class="col-md-4">
       <p class="mb-0">Kategória:</p>
       <h3 class="text-dark"><b class="d-block">{{item.category.name || ''}}</b></h3>
     </div>
-  
+
     <div class="col-md-4">
       <p class="mb-0">Výrobca:</p>
       <h3 class="text-dark"><b>{{item.manufacturer || '-'}}</b></h3>
     </div>
-  
+
     <div class="col-md-4">
       <p class="mb-0">Dodávateľ:</p>
       <h3 class="text-dark"><b>{{item.supplier?.name || '-'}}</b></h3>
     </div>
-  
+
     <div class="col-md-4">
       <p class="mb-0">Link:</p>
       <h3 class="text-dark"><a class="cursor-pointer" target="_blank" *ngIf="item.web" href="{{item.web}}"><mat-icon>travel_explore</mat-icon></a></h3>
     </div>
-  
+
     <div class="col-md-4">
       <p class="mb-0">Jednotka:</p>
       <h3 class="text-dark"><b>{{item.unit || '-'}}</b></h3>
     </div>
-  
+
     <div class="col-md-8">
       <p class="mb-0">Kód (SKU):</p>
       <h3 class="text-dark"><b>{{item.code || '-'}}</b></h3>
     </div>
-  
+
     <div class="col-12">
       <h2 class="border-bottom-2 pb-2 mb-4">Vlastnosti položky</h2>
     </div>
-  
+
     <div class="col-md-4">
       <p class="mb-0">Rozmery:</p>
       <h3 class="text-dark"><b>{{item.dimensions || '-'}}</b></h3>
     </div>
-  
+
     <div class="col-md-4">
       <p class="mb-0">Model:</p>
       <h3 class="text-dark"><b>{{item.model || '-'}}</b></h3>
     </div>
-  
+
     <div class="col-md-4">
       <p class="mb-0">Séria:</p>
       <h3 class="text-dark"><b>{{item.series || '-'}}</b></h3>
     </div>
-  
+
     <div class="col-md-4">
       <p class="mb-0">Farba:</p>
       <h3 class="text-dark"><b>{{item.color || '-'}}</b></h3>
     </div>
-  
+
     <div class="col-md-4">
       <p class="mb-0">Materál:</p>
       <h3 class="text-dark"><b>{{item.material || '-'}}</b></h3>
     </div>
-  
+
     <div class="col-md-4">
       <p class="mb-0">Cenová úroveň:</p>
       <h3 class="text-dark"><b>{{item.priceLevel || '-'}}</b></h3>
     </div>
-  
+
     <div class="col-12">
       <h2 class="border-bottom-2 pb-2 mb-4">Cena položky</h2>
     </div>
-  
+
     <div class="col-md-4">
       <p class="mb-0">Cena položky bez DPH:</p>
       <h3 class="text-dark"><b>{{(item.itemPrice.price | formatPrice) || '-'}} &euro;</b></h3>
     </div>
-  
+
     <div class="col-md-4">
       <p class="mb-0">DPH:</p>
       <h3 class="text-dark"><b>{{item.itemPrice.tax || '-'}} %</b></h3>
     </div>
-  
+
     <div class="col-md-4">
       <p class="mb-0">Cena položky s DPH:</p>
       <h3 class="text-dark"><b>{{(item.itemPrice.price | addPercent: item.itemPrice.tax | formatPrice) || '-'}} &euro;</b></h3>
     </div>
-  
+
     <div class="col-12">
       <h2 class="border-bottom-2 pb-2 mb-4">Dodatočne informácie</h2>
     </div>
-  
-    <div class="col-md-6">
+
+    <div class="col-md-6" [class.mb-3]="item.previewUrl">
       <p class="mb-0">Obrázok položky:</p>
       <img *ngIf="item.previewUrl" src="{{item.previewUrl}}" alt="{{item.title}}">
     </div>
-  
+
     <div class="col-md-6">
       <p class="mb-0">Popis:</p>
       <h3 class="text-dark"><b>{{item.description || '-'}}</b></h3>
     </div>
-  
+
     <div class="col-12">
       <h2 class="border-bottom-2 pb-2 mb-4">Súbory položky</h2>
     </div>
-  
+
     <div class="col-12" *ngIf="item.files.length > 0">
       <app-file [files]="item.files"></app-file>
     </div>
   </div>
-  
 </div>

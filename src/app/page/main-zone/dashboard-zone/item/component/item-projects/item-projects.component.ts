@@ -1,9 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Item} from '../../../../../../core/models/item';
+import {Item, ItemInProjectDTO} from '../../../../../../core/models/item';
 import {AppPaginateData} from '../../../../../../core/class/AppPaginateData';
-import {ItemNewSupplierDialogComponent} from "../item-new-supplier-dialog/item-new-supplier-dialog.component";
-import {MatDialog} from "@angular/material/dialog";
-import {ItemProjectsDialogComponent} from "../item-projects-dialog/item-projects-dialog.component";
+import {MatDialog} from '@angular/material/dialog';
+import {ItemProjectsDialogComponent} from '../item-projects-dialog/item-projects-dialog.component';
+import {ItemService} from '../../../../../../core/services/item.service';
 
 @Component({
   selector: 'app-item-projects',
@@ -11,27 +11,20 @@ import {ItemProjectsDialogComponent} from "../item-projects-dialog/item-projects
   styleUrls: ['./item-projects.component.scss']
 })
 export class ItemProjectsComponent extends AppPaginateData<any> implements OnInit {
-  displayedColumns: string[] = ['name', 'count', 'price', 'actions'];
-  data = [
-    {
-      project: {
-        id: 246,
-        title: 'Byt 4i Kaskády 1.3.1'
-      },
-      count: 3,
-      price: 28.25,
-    }
-  ];
+  displayedColumns: string[] = ['name', 'count', 'price'];
+  itemInProjects: ItemInProjectDTO[] = [];
 
   @Input() item: Item;
 
   constructor(
     private dialog: MatDialog,
+    private itemService: ItemService
   ) {
     super();
   }
 
   ngOnInit(): void {
+    this.getProjects();
   }
 
   show($event: MouseEvent, element: any) {
@@ -46,6 +39,12 @@ export class ItemProjectsComponent extends AppPaginateData<any> implements OnIni
         item: this.item
       },
       autoFocus: false,
+    });
+  }
+
+  private getProjects(): void {
+    this.itemService.findAllByItemInBudget(this.item.id).subscribe((items) => {
+      this.itemInProjects = items;
     });
   }
 }

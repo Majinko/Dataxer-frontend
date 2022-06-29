@@ -1,6 +1,19 @@
 <div [formGroup]="itemPriceForm">
   <div formGroupName="itemPrice">
     <div class="row">
+      <div class="col-md-6">
+        <app-select-new-contact formControlName="supplier" placeholder="Dodávateľ"></app-select-new-contact>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field class="form-group w-100">
+          <mat-label>Cena platná do</mat-label>
+          <input formControlName="priceActualTo" matInput [matDatepicker]="deliveredDate">
+          <mat-datepicker-toggle matSuffix [for]="deliveredDate"></mat-datepicker-toggle>
+          <mat-datepicker #deliveredDate></mat-datepicker>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
       <div class="col-md-4">
         <mat-form-field class="form-group w-100">
           <input matInput placeholder="NC bez DPH €" formControlName="wholesalePrice">

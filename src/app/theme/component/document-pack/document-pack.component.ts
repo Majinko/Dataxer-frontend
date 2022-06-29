@@ -36,6 +36,7 @@ export class DocumentPackComponent extends DocumentPackHelpers implements OnInit
 
     this.preparePack();
     this.getCategories();
+    this.handleChangesForm();
 
     setTimeout(() => {
       if (this.packs) {
@@ -61,5 +62,17 @@ export class DocumentPackComponent extends DocumentPackHelpers implements OnInit
   // show hide pack item
   showHidePackItems(index: number) {
     this.documentHelper.packs[index].showItems = !this.documentHelper.packs[index].showItems;
+  }
+
+  private handleChangesForm() {
+    if (this.formGroup.get('project')) {
+      this.formGroup.get('project').valueChanges.subscribe((project) => {
+        let packIndex = 0;
+
+        this.formPacks.controls.forEach((pack) => {
+          console.log(pack);
+        });
+      });
+    }
   }
 }

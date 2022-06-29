@@ -113,7 +113,7 @@
                 </mat-form-field>
               </div>
 
-              <div class="jsSettings d-none" *ngIf="projects && projects.length">
+              <div class="jsSettings" *ngIf="projects">
                 <app-new-project-select [projects]="projects" formControlName="project" dropDownPosition="top" [showAddButton]="false"></app-new-project-select>
               </div>
             </td>
@@ -130,7 +130,7 @@
                 </mat-form-field>
               </div>
 
-              <div class="jsSettings d-none" *ngIf="categories">
+              <div class="jsSettings" *ngIf="categories">
                 <app-category-select-group dropDownPosition="top" [categoryItemNodes]="categories" formControlName="category"></app-category-select-group>
               </div>
             </td>

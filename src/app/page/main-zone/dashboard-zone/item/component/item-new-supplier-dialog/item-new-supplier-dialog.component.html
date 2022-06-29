@@ -1,6 +1,6 @@
 <div mat-dialog-title class="row mb-4">
   <div class="d-flex align-items-center justify-content-between mb-3">
-    <h1 class="mb-0">Nastavenie položky rozpočtu</h1>
+    <h1 class="mb-0">Dodávatelia položky</h1>
     <a mat-icon-button class="close-icon cursor-pointer" mat-dialog-close>
       <mat-icon>close</mat-icon>
     </a>
@@ -9,13 +9,9 @@
 
 <div mat-dialog-content>
   <div class="new-supplier-dialog pb-3">
-    <div class="w-100 pb-3" [formGroup]="formGroup">
-      <app-select-new-contact formControlName="supplier" placeholder="Dodávateľ"></app-select-new-contact>
-      <div *ngIf="!f.supplier.value">
-        <p class="color-red">Vyberte najskôr dodávateľa</p>
-      </div>
-      <div class="mt-3">
-        <app-item-price [ngClass]="{'no-click' : !f.supplier.value}" [itemPriceForm]="formGroup"></app-item-price>
+    <div class="w-100 pb-3">
+      <div class="mt-3" [formGroup]="formGroup">
+        <app-item-price [itemPriceForm]="formGroup"></app-item-price>
       </div>
     </div>
   </div>

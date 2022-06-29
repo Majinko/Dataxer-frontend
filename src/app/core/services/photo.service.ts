@@ -20,7 +20,15 @@ export class PhotoService extends ResourceService<Photo> implements IPhotoservic
       new Serializer());
   }
 
-  storeAll(photos: Photo[]): Observable<void> {
-    return this.httpClient.post<void>(`${environment.baseUrl}/photo/store`, photos);
+  storeAll(photos: Photo[]): Observable<Photo[]> {
+    return this.httpClient.post<Photo[]>(`${environment.baseUrl}/${this.endpoint}/storeMultiple`, photos);
+  }
+
+  findAllByModelIdAndModelType(modelType: string, modelId: number): Observable<Photo[]> {
+    return this.httpClient.get<Photo[]>(`${environment.baseUrl}/${this.endpoint}/${modelType}/${modelId}`);
+  }
+
+  updateOrder(photos: Photo[]): Observable<Photo[]> {
+    return this.httpClient.post<Photo[]>(`${environment.baseUrl}/${this.endpoint}/updateOrder`, photos);
   }
 }

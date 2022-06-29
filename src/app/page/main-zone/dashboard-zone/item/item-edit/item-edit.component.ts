@@ -72,7 +72,8 @@ export class ItemEditComponent implements OnInit {
       previewUrl: null,
       files: null,
       itemPrice: this.formBuilder.group({
-        id: '',
+        id: null,
+        supplier: null,
         wholesalePrice: 0,
         wholesaleTax: 20,
         surcharge: 0,

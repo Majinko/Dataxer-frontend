@@ -53,7 +53,6 @@ export class ItemCreateComponent implements OnInit {
       shortDescription: null,
       description: null,
       manufacturer: null,
-      supplier: null,
       web: null,
       unit: null,
       code: null,
@@ -68,6 +67,8 @@ export class ItemCreateComponent implements OnInit {
       previewUrl: null,
       files: null,
       itemPrice: this.formBuilder.group({
+        priceActualTo: null,
+        supplier: null,
         wholesalePrice: 0,
         wholesaleTax: 20,
         surcharge: 0,

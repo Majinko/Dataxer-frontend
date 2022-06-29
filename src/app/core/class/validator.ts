@@ -14,9 +14,9 @@ export class IbanValidator {
 
   static ibanValid(control: AbstractControl): { [key: string]: boolean } | null {
     // tslint:disable-next-line:one-variable-per-declaration
-    let iban = String(control.value).toUpperCase().replace(/[^A-Z0-9]/g, ''), // keep only alphanumeric characters
-      code = iban.match(/^([A-Z]{2})(\d{2})([A-Z\d]+)$/), // match and capture (1) the country code, (2) the check digits, and (3) the rest
-      digits;
+    const iban = String(control.value).toUpperCase().replace(/[^A-Z0-9]/g, ''), // keep only alphanumeric characters
+      code = iban.match(/^([A-Z]{2})(\d{2})([A-Z\d]+)$/); // match and capture (1) the country code, (2) the check digits, and (3) the rest
+    let digits;
 
     // check syntax and length
     if (!code || iban.length !== IbanValidator.codeLengths[code[1]]) {
@@ -26,7 +26,7 @@ export class IbanValidator {
     // rearrange country code and check digits, and convert chars to ints
     // tslint:disable-next-line:only-arrow-functions
     // @ts-ignore
-    digits = (code[3] + code[1] + code[2]).replace(/[A-Z]/g, function(letter) {
+    digits = (code[3] + code[1] + code[2]).replace(/[A-Z]/g, (letter) => {
       return letter.charCodeAt(0) - 55;
     });
 

@@ -64,8 +64,8 @@ export class ProjectBudgetRefaktComponent extends ProjectHelperClass implements 
         this.isLoadingResults = true;
 
         this.budgetService.store(dialogResult).subscribe(() => {
+          this.getByProject();
           this.isLoadingResults = false;
-
           this.messageService.add('Budget bol uložený.');
         });
       }

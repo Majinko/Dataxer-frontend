@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {FormGroup} from '@angular/forms';
+import {FormArray, FormGroup} from '@angular/forms';
 import {Company} from '../models/company';
 import {BankAccountService} from '../services/bank-account.service';
 import {NumberingService} from '../services/numbering.service';

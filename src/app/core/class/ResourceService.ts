@@ -12,14 +12,13 @@ import {UploadContext} from '../models/uploadContext';
 import {IDestroy} from '../interface/IDestroy';
 
 export class ResourceService<T extends Resource> implements IPaginate<T>, IDestroy {
-  filter: DocumentFilter; // todo dat prec
   rsqlFilter: string;
   pageIndex: number = 0;
   pageSize: number = 15;
 
   constructor(
     private http: HttpClient,
-    private endpoint: string,
+    protected endpoint: string,
     private serializer: Serializer) {
   }
 

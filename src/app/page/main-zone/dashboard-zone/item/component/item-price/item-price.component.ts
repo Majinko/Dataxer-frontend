@@ -14,6 +14,8 @@ export class ItemPriceComponent implements OnInit {
   @Input() itemPriceForm: FormGroup;
 
   itemPrice: ItemPrice = {
+    id: null,
+    supplier: null,
     price: 0,
     tax: 20,
     priceTax: 0,
@@ -31,10 +33,5 @@ export class ItemPriceComponent implements OnInit {
   }
 
   ngOnInit() {
-  }
-
-
-  testMethod($event: any) {
-    console.log($event);
   }
 }

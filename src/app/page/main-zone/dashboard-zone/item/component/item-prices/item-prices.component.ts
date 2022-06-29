@@ -4,7 +4,7 @@ import {AppPaginateData} from '../../../../../../core/class/AppPaginateData';
 import {ItemNewSupplierDialogComponent} from '../item-new-supplier-dialog/item-new-supplier-dialog.component';
 import {MatDialog} from '@angular/material/dialog';
 import {MatTable} from '@angular/material/table';
-import {FormGroup} from '@angular/forms';
+import {ItemPriceService} from '../../../../../../core/services/item-price.service';
 
 @Component({
   selector: 'app-item-prices',
@@ -13,50 +13,18 @@ import {FormGroup} from '@angular/forms';
 })
 export class ItemPricesComponent extends AppPaginateData<any> implements OnInit {
   displayedColumns: string[] = ['name', 'price', 'currentTo', 'actions'];
-  data = [
-    {
-      supplier: {
-        id: 267,
-        name: 'Jakub Homola',
-        photoUrl: null,
-        street: null,
-        city: '',
-        country: '',
-        postalCode: null,
-        regNumber: null,
-        email: null,
-        phone: '+421 902 802 271',
-        cin: null,
-        tin: null,
-        vatin: null
-      },
-      itemPrice: {
-        price: 28.25,
-        tax: 20,
-        priceTax: 0,
-        wholesalePrice: 0,
-        wholesaleTax: 20,
-        wholesalePriceTax: 0,
-        marge: 0,
-        surcharge: 0,
-      },
-      currentTo: '12.5.2023'
-    }
-  ];
 
   @Input() item: Item;
-  @Input() formGroup?: FormGroup;
-
   @ViewChild(MatTable) table!: MatTable<any>;
 
   constructor(
     private dialog: MatDialog,
+    private itemPriceService: ItemPriceService
   ) {
     super();
   }
 
   ngOnInit(): void {
-    this.patchData();
   }
 
   newSupplier() {
@@ -66,33 +34,15 @@ export class ItemPricesComponent extends AppPaginateData<any> implements OnInit 
       autoFocus: false,
       disableClose: true
     });
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        const data = {
-          supplier: result.supplier,
-          itemPrice: {
-            price: result.itemPrice.price,
-            tax: result.itemPrice.tax,
-            priceTax: result.itemPrice.priceTax,
-            wholesalePrice: result.itemPrice.wholesalePrice,
-            wholesaleTax: result.itemPrice.wholesaleTax,
-            wholesalePriceTax: result.itemPrice.wholesalePriceTax,
-            marge: result.itemPrice.marge,
-            surcharge: result.itemPrice.surcharge,
-          },
-          currentTo: '20.5.2023'
-        };
-        this.data.push(data);
-        this.patchData();
-        this.table.renderRows();
-      }
-    });
+
+    this.handleDialogClose(dialogRef);
   }
 
   edit($event: MouseEvent, element) {
     if ($event) {
       $event.stopPropagation();
     }
+
     const dialogRef = this.dialog.open(ItemNewSupplierDialogComponent, {
       width: '100%',
       maxWidth: '1000px',
@@ -102,16 +52,19 @@ export class ItemPricesComponent extends AppPaginateData<any> implements OnInit 
       autoFocus: false,
       disableClose: true
     });
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        element.itemPrice = result.itemPrice;
-        element.supplier = result.supplier;
-        this.patchData();
-      }
-    });
+
+    this.handleDialogClose(dialogRef);
   }
 
-  private patchData() {
-    this.formGroup.get('itemPrices').patchValue(this.data);
+  handleDialogClose(dialogRef: any) {
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        result.itemPrice.itemId = this.item.id;
+
+        this.itemPriceService.store(result.itemPrice).subscribe((itemPrice) => {
+          this.item.itemPrices = this.item.itemPrices.concat(itemPrice);
+        });
+      }
+    });
   }
 }

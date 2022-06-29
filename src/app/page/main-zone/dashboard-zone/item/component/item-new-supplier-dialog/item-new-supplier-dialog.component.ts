@@ -14,7 +14,8 @@ export class ItemNewSupplierDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<ItemNewSupplierDialogComponent>,
     private formBuilder: FormBuilder,
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.prepareForm();
@@ -22,8 +23,10 @@ export class ItemNewSupplierDialogComponent implements OnInit {
 
   prepareForm() {
     this.formGroup = this.formBuilder.group({
-      supplier: '',
       itemPrice: this.formBuilder.group({
+        id: null,
+        priceActualTo: null,
+        supplier: null,
         wholesalePrice: 0,
         wholesaleTax: 20,
         surcharge: 0,
@@ -32,15 +35,15 @@ export class ItemNewSupplierDialogComponent implements OnInit {
         tax: 20,
         marge: 0
       }),
-      currentTo: ''
     });
+
     if (this.data) {
-      this.formGroup.patchValue(this.data.element);
+      this.formGroup.get('itemPrice').patchValue(this.data.element);
     }
   }
 
   save() {
-    this.dialogRef.close(this.formGroup.value);
+    this.dialogRef.close({itemPrice: this.formGroup.get('itemPrice').value});
   }
 
   get f() {

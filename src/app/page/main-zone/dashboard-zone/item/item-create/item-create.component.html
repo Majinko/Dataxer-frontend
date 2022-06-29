@@ -105,17 +105,13 @@
 -->
 
   <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-6">
       <mat-form-field class="form-group w-100 cursor-pointer">
         <input matInput placeholder="Výrobca" formControlName="manufacturer">
       </mat-form-field>
     </div>
 
-    <div class="col-md-4">
-      <app-select-new-contact formControlName="supplier" placeholder="Dodávateľ"></app-select-new-contact>
-    </div>
-
-    <div class="col-md-4">
+    <div class="col-md-6">
       <mat-form-field class="form-group w-100">
         <input matInput placeholder="Link" formControlName="web">
       </mat-form-field>
@@ -220,7 +216,7 @@
     </div>
   </div>
 
-  <app-item-photo></app-item-photo>
+  <!--<app-item-photo></app-item-photo>-->
 
   <div class="row">
     <div class="col-12">
@@ -231,7 +227,8 @@
   <div class="pt-2">
     <app-item-price [itemPriceForm]="formGroup"></app-item-price>
   </div>
-  <app-item-prices [formGroup]="formGroup"></app-item-prices>
+
+  <!--<app-item-prices [formGroup]="formGroup"></app-item-prices>-->
 
   <div class="row mt-4">
     <div class="col-md-12 text-right">

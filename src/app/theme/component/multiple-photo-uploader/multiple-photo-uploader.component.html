@@ -1,16 +1,21 @@
-<div class="dropzone position-relative mb-2 d-flex justify-content-center cursor-pointer" appFileDragDrop (filesChangeEmmit)="onFileChange($event)">
-  <label for="file" class="d-flex align-items-center justify-content-center cursor-pointer">
-    <mat-icon class="mr-3">upload</mat-icon>
-    Nahraj súbory
-  </label>
-  <input id="file" type="file" accept="image/png, image/jpeg, image/jpg, image/git" (change)="onFileChange($event.target.files)">
+ <div class="dropzone position-relative mb-2 d-flex justify-content-center cursor-pointer" appFileDragDrop (filesChangeEmmit)="onFileChange($event)">
+    <label for="file" class="d-flex align-items-center justify-content-center cursor-pointer">
+      <mat-icon class="mr-3">upload</mat-icon>
+      Nahraj súbory
+    </label>
+    <input id="file" type="file" multiple accept="image/png, image/jpeg, image/jpg, image/git" (change)="onFileChange($event.target.files)">
+  </div>
+
+ <div class="row mt-3">
+  <div class="col-12" *ngIf="loadPhotos.length">
+    <div cdkDropList cdkDropListOrientation="horizontal" class="example-list" (cdkDropListDropped)="drop($event)">
+      <div class="example-box" *ngFor="let photo of loadPhotos" cdkDrag>
+        <img src="{{ photo.url }}" alt="{{ photo.alt }}">
+      </div>
+    </div>
+  </div>
 </div>
 
-<!--
-<div class="preview d-flex align-items-center justify-content-between pr-4" *ngIf="formGroup.get(nameAttr).value">
-  <img [src]="formGroup.get(nameAttr).value">
-</div>
--->
-<div class="loading-shade" *ngIf="isLoad">
+<div class="loading-shade h-100" *ngIf="isLoad">
   <mat-spinner *ngIf="isLoad"></mat-spinner>
 </div>

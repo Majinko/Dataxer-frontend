@@ -6,7 +6,7 @@
     </div>
   </div>
 
-  <mat-tab-group selectedIndex="1">
+  <mat-tab-group selectedIndex="4">
     <mat-tab label="Súhrnné info">
       <app-item-summary-info [item]="item"></app-item-summary-info>
     </mat-tab>
@@ -21,7 +21,7 @@
     </mat-tab>
     <mat-tab label="Ceny">
       <div class="pt-4">
-        <app-item-prices [formGroup]="formGroup"></app-item-prices>
+        <app-item-prices [item]="item"></app-item-prices>
       </div>
       <div class="button-wrap text-right mt-4">
         <button mat-flat-button class="btn-icon btn-theme" (click)="save()">
