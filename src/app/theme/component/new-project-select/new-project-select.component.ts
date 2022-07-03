@@ -3,7 +3,9 @@ import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 import {Project} from '../../../core/models/project';
 import {ProjectService} from '../../../core/services/project.service';
 import {MatDialog} from '@angular/material/dialog';
-import {ProjectCreateComponent} from '../../../page/main-zone/dashboard-zone/project/project-create/project-create.component';
+import {
+  ProjectCreateComponent
+} from '../../../page/main-zone/dashboard-zone/project/project-create/project-create.component';
 import {Contact} from '../../../core/models/contact';
 import {DropdownPosition} from '@ng-select/ng-select/lib/ng-select.component';
 
@@ -40,7 +42,9 @@ export class NewProjectSelectComponent implements ControlValueAccessor, OnInit, 
 
   ngOnInit(): void {
     if (this.projects.length === 0) {
-      //this.getProjects();
+      this.getProjects();
+    } else {
+      this.prepareProjects(this.projects);
     }
 
     this.projectService.projectStore.subscribe(project => {
@@ -74,13 +78,7 @@ export class NewProjectSelectComponent implements ControlValueAccessor, OnInit, 
 
   private getProjects() {
     this.projectService.all().subscribe((projects) => {
-      this.projects = projects.map(project => {
-        project.group = 'Všetky zákazky';
-
-        return project;
-      });
-
-      this.allProjects = this.projects;
+      this.prepareProjects(projects);
     });
   }
 
@@ -110,5 +108,15 @@ export class NewProjectSelectComponent implements ControlValueAccessor, OnInit, 
 
   selectProject(project: Project) {
     this.onChange(project);
+  }
+
+  prepareProjects(projects: Project[]){
+    this.projects = projects.map(project => {
+      project.group = 'Všetky zákazky';
+
+      return project;
+    });
+
+    this.allProjects = this.projects;
   }
 }

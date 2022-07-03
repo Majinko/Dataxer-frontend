@@ -142,6 +142,8 @@ export class CostCreateComponent extends DocumentHelperClass implements OnInit {
     this.costService.storeWithFiles(this.formGroup.value, this.uploadHelper.files).subscribe(() => {
       this.isLoading = false;
       this.router.navigate(['/paginate/costs']).then(() => this.messageService.add('Náklad bol pridaný'));
+    }, error => {
+      this.isLoading = false;
     });
   }
 

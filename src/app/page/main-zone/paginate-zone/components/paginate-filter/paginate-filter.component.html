@@ -108,6 +108,17 @@
                class="filter-ng-select">
     </ng-select>
   </div>
+
+  <div class="col-md-4 col-lg-2" *ngIf="documentRepeated && documentRepeated.length > 0 && inputSearchBarSelectValues.includes('repeated')">
+    <ng-select [items]="documentRepeated"
+               [clearable]="false"
+               bindLabel="value"
+               bindValue="key"
+               placeholder="Opakovanie"
+               formControlName="repeated"
+               class="filter-ng-select">
+    </ng-select>
+  </div>
 </form>
 
 <div class="d-block d-md-flex align-content-center mb-3" *ngIf="isFiltering">

@@ -26,6 +26,7 @@ import {User} from '../../../../../core/models/user';
   templateUrl: './paginate-filter.component.html',
   styleUrls: ['./paginate-filter.component.scss']
 })
+// todo je tu problem ze filter sa pusta viacej krat, fix it
 export class PaginateFilterComponent extends PaginateFilterHelper implements OnInit, OnChanges {
   isAdmin: boolean = false;
 
@@ -36,6 +37,7 @@ export class PaginateFilterComponent extends PaginateFilterHelper implements OnI
   allProjects: Project[] = [];
   payedStates: KeyValue[] = [];
   documentTypes: KeyValue[] = [];
+  documentRepeated: KeyValue[] = [];
   categories: CategoryItemNode[] = [];
   dates: { start: string, end: string, title: string, type: string } [] = [];
 
@@ -68,6 +70,7 @@ export class PaginateFilterComponent extends PaginateFilterHelper implements OnI
       state: null,
       category: null,
       user: null,
+      repeated: 'FALSE',
     });
 
     this.getDataForFilters();
@@ -198,6 +201,8 @@ export class PaginateFilterComponent extends PaginateFilterHelper implements OnI
   private filtering(): void {
     this.isFiltering = true;
 
+    console.log(this.prepareRsql());
+
     this.filterService.filter = {
       name: this.modelName,
       rsQlFilter: this.prepareRsql(),
@@ -232,6 +237,7 @@ export class PaginateFilterComponent extends PaginateFilterHelper implements OnI
     this.getCategories();
     this.preparePayedStates();
     this.prepareDocumentType();
+    this.prepareRepeated();
     this.handleClientChangesInFilter();
   }
 
@@ -289,6 +295,13 @@ export class PaginateFilterComponent extends PaginateFilterHelper implements OnI
     ];
   }
 
+
+  prepareRepeated() {
+    this.documentRepeated = [
+      {key: 'TRUE', value: 'Pravidelné'},
+      {key: 'FALSE', value: 'Nepravidelné'}
+    ];
+  }
 
   /**
    * Detect change of client

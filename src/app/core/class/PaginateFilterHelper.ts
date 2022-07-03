@@ -25,6 +25,8 @@ export class PaginateFilterHelper {
   protected prepareRsql(): string {
     this.fillExpression();
 
+    console.log(this.inputSearchBarSelectValues);
+
     return this.prepareRsqlStringFromAndOrExpression();
   }
 

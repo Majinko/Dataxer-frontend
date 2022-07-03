@@ -65,12 +65,20 @@ export class DocumentPackComponent extends DocumentPackHelpers implements OnInit
   }
 
   private handleChangesForm() {
+
+    // on chance project path it to items
     if (this.formGroup.get('project')) {
       this.formGroup.get('project').valueChanges.subscribe((project) => {
         let packIndex = 0;
 
         this.formPacks.controls.forEach((pack) => {
-          console.log(pack);
+          this.itemsByIndex(packIndex).controls.forEach((item) => {
+            item.patchValue({
+              project
+            });
+          });
+
+          packIndex++;
         });
       });
     }
