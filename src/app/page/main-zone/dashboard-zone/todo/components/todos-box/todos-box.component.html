@@ -1,0 +1,34 @@
+<div cdkDropList class="todo-wrap" (cdkDropListDropped)="drop($event)">
+  <div class="todo-box" *ngFor="let todo of todos" cdkDrag>
+    <mat-checkbox [checked]="todo.isFinished"
+                  [color]="'green'"
+                  (change)="checkedTodo($event.checked, todo)">
+    </mat-checkbox>
+    <div class="todolist-indicator">
+      <mat-icon>drag_indicator</mat-icon>
+    </div>
+    <div class="todo-title" [routerLink]="['/todo/show', todolist.id, todo.id]">
+      <h3>{{todo.title}}</h3>
+    </div>
+  </div>
+</div>
+<div *ngIf="createTodo">
+  <app-todo-create (action)="todoCreate($event)" [todolistId]="this.todolist.id"></app-todo-create>
+</div>
+<div *ngIf="!createTodo" class="button-wrap">
+  <button mat-stroked-button (click)="addTodo($event)" class="btn-icon btn-theme-stroked">
+    <mat-icon>add</mat-icon>
+    Pridať úlohu
+  </button>
+</div>
+<div *ngIf="this.todosFinished?.length > 0" class="todo-wrap">
+  <div class="todo-box" *ngFor="let todo of todosFinished">
+    <mat-checkbox [checked]="todo.isFinished"
+                  [color]="'green'"
+                  (change)="checkedTodo($event.checked, todo)">
+    </mat-checkbox>
+    <div class="todo-title" [routerLink]="['/todo/show', todolist.id, todo.id]">
+      <h3>{{todo.title}}</h3>
+    </div>
+  </div>
+</div>

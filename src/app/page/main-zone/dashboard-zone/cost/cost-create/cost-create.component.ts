@@ -83,15 +83,18 @@ export class CostCreateComponent extends DocumentHelperClass implements OnInit {
       state: null,
       company: [null, Validators.required],
       isRepeated: false,
+      isInfinity: null,
       period: null,
       repeatedFrom: null,
       repeatedTo: null,
       contact: [null, Validators.required],
       project: [null, Validators.required],
+      category: [null],
       note: null,
       number: null,
       variableSymbol: null,
       constantSymbol: null,
+      nextRepeatedCost: null,
       createdDate: [new Date(), Validators.required],
       deliveredDate: [new Date(), Validators.required],
       dueDate: [addDays(new Date(), 14)],
@@ -117,15 +120,18 @@ export class CostCreateComponent extends DocumentHelperClass implements OnInit {
     });
   }
 
+  // change checkbox for repeated cost
+  handleRepeatedCostChange(checked: boolean) {
+    this.formGroup.patchValue({
+      period: checked ? 'MONTH' : null,
+      isInfinity: checked ? true : null,
+      repeatedFrom: checked ? new Date() : null
+    });
+  }
+
   submit() {
     this.submitted = true;
     this.isLoading = true;
-
-    // set cost price and total price
-    this.formGroup.patchValue({
-      price: this.documentHelper.price,
-      totalPrice: this.documentHelper.totalPrice,
-    });
 
     if (this.formGroup.invalid) {
       setTimeout(() => {
@@ -137,6 +143,18 @@ export class CostCreateComponent extends DocumentHelperClass implements OnInit {
       this.isLoading = false;
 
       return;
+    }
+
+    // set cost price and total price
+    this.formGroup.patchValue({
+      price: this.documentHelper.price,
+      totalPrice: this.documentHelper.totalPrice,
+    });
+
+    if (this.f.isRepeated.value === true) {
+      this.formGroup.patchValue({
+        nextRepeatedCost: this.f.repeatedFrom.value
+      });
     }
 
     this.costService.storeWithFiles(this.formGroup.value, this.uploadHelper.files).subscribe(() => {

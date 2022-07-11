@@ -1,0 +1,72 @@
+<div class="nav-link">
+  <div class="nav-button" [routerLink]="['/todo']">
+    <mat-icon class="mr-2 cursor-pointer">keyboard_backspace</mat-icon>
+    Naspäť na zoznam úloh
+  </div>
+</div>
+<div class="todolist-row-title">
+  <p>{{this.completeTodo?.length}}/{{this.todolist?.todos?.length}} dokončené</p>
+  <div class="d-flex align-items-center">
+    <app-todo-pie-chart [percent]="percent"></app-todo-pie-chart>
+    <h1>{{todolist?.title}}</h1>
+  </div>
+</div>
+<div class="todolists-wrap">
+  <div class="todolist-box">
+    <div class="todolist-placeholder" *cdkDragPlaceholder></div>
+    <app-todos-box *ngIf="todolist" [todolist]="todolist"></app-todos-box>
+  </div>
+</div>
+<div class="task-comments-wrap">
+  <div class="task-comment" *ngFor="let comment of comments">
+    <div class="task-item">
+      <div class="task-time">
+        <span>{{ comment.time }}</span>
+      </div>
+      <div class="task-text-wrap">
+        <div class="task-avatar">
+          <ngx-avatar [src]="userService.user.photoUrl" size="40" bgColor="#19A5E5"
+                      name="{{ userService.user.displayName }}" class=""></ngx-avatar>
+        </div>
+        <div class="task-text">
+          <div class="task-text-title">
+            <h4>{{ comment.name }}</h4>
+          </div>
+          <div class="task-text-content">
+            <p>{{ comment.text }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="task-add-comment">
+  <div class="task-item">
+    <div class="task-time">
+    </div>
+    <div class="task-text-wrap">
+      <div class="task-avatar">
+        <ngx-avatar [src]="userService.user.photoUrl" size="40" bgColor="#19A5E5"
+                    name="{{ userService.user.displayName }}" class=""></ngx-avatar>
+      </div>
+      <div class="task-text">
+        <div class="add-comment" *ngIf="!writeComment">
+          <div (click)="addComment($event)" class="cursor-pointer">Pridať komentár</div>
+        </div>
+        <div *ngIf="writeComment">
+          <form autocomplete="off" [formGroup]="formGroup" (ngSubmit)="submit()">
+            <angular-editor placeholder="Text komentára" formControlName="comment" [config]="editorConfig">
+            </angular-editor>
+            <div class="button-wrap">
+              <button mat-flat-button class="btn-icon btn-theme mr-3">
+                <mat-icon>save</mat-icon>
+                Pridať komentár
+              </button>
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

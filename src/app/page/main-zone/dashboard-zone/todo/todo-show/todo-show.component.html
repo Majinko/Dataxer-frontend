@@ -1,0 +1,161 @@
+<div class="nav-link">
+  <div class="nav-button" [routerLink]="['/todo/show', this.todoListId]">
+    <mat-icon class="mr-2 cursor-pointer">keyboard_backspace</mat-icon>
+    Naspäť na úlohy
+  </div>
+</div>
+
+<div class="task-detail-wrap">
+  <div class="task-detail-title" *ngIf="!editTodo">
+    <div class="task-checkbox-wrap">
+      <mat-checkbox [checked]="todo?.isFinished" [color]="'green'" (change)="checkedTodo($event.checked)">
+      </mat-checkbox>
+    </div>
+    <div>
+      <h3 class="cursor-pointer" (click)="editButton($event)">
+        <ng-container *ngIf="todo?.title">{{ todo.title }}</ng-container>
+        <ng-container *ngIf="!todo?.title">Opíšte túto úlohu</ng-container>
+      </h3>
+    </div>
+  </div>
+  <div class="task-detail-options" *ngIf="!editTodo">
+    <div class="row">
+      <div class="col-4">
+        <strong>Zákazka</strong>
+      </div>
+      <div class="col-8">
+        <p class="cursor-pointer" (click)="editButton($event)">
+          <ng-container *ngIf="todo?.project">{{ todo.project }}</ng-container>
+          <ng-container *ngIf="!todo?.project">Vyberte zákazku</ng-container>
+        </p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-4">
+        <strong>Vyberte kategóriu</strong>
+      </div>
+      <div class="col-8">
+        <p class="cursor-pointer" (click)="editButton($event)">
+          <ng-container *ngIf="todo?.category">{{ todo.category }}</ng-container>
+          <ng-container *ngIf="!todo?.category">Vyberte kategóriu</ng-container>
+        </p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-4">
+        <strong>Pridal</strong>
+      </div>
+      <div class="col-8">
+        <p>
+          <ng-container *ngIf="todo?.fromUser">{{ todo?.fromUser?.firstName }} {{ todo?.fromUser?.lastName }} {{ todo?.createdAt | date:'dd.MM.y' }}</ng-container>
+          <ng-container *ngIf="!todo?.fromUser">-</ng-container>
+        </p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-4">
+        <strong>Priradený</strong>
+      </div>
+      <div class="col-8">
+        <p class="cursor-pointer" (click)="editButton($event)">
+          <ng-container *ngIf="todo?.assignedUser">{{ todo?.assignedUser?.firstName }} {{ todo?.assignedUser?.lastName }} </ng-container>
+          <ng-container *ngIf="!todo?.assignedUser">Vyberte mená</ng-container>
+        </p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-4">
+        <strong>Po dokončení upozorniť</strong>
+      </div>
+      <div class="col-8">
+        <p class="cursor-pointer" (click)="editButton($event)">
+          <ng-container *ngIf="todo?.notifyWhenDone">{{ todo.notifyWhenDone }}</ng-container>
+          <ng-container *ngIf="!todo?.notifyWhenDone">Napíšte mená, ktoré chcete upozorniť…</ng-container>
+        </p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-4">
+        <strong>Termín</strong>
+      </div>
+      <div class="col-8">
+        <p class="cursor-pointer" (click)="editButton($event)">
+          <ng-container *ngIf="todo?.dueDate">{{ todo.dueDate | date:'dd.MM.y' }}</ng-container>
+          <ng-container *ngIf="!todo?.dueDate">Vyberte dátum…</ng-container>
+        </p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-4">
+        <strong>Poznámky</strong>
+      </div>
+      <div class="col-8">
+        <p (click)="editButton($event)">
+          <ng-container *ngIf="todo?.note">{{ todo.note }}</ng-container>
+          <ng-container *ngIf="!todo?.note">Pridajte ďalšie podrobnosti…</ng-container>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="task-edit-detail" *ngIf="editTodo">
+    <app-todo-create (action)="todoEdit($event)" [todo]="todo"></app-todo-create>
+  </div>
+  <div class="task-comments-wrap">
+    <div class="task-comment" *ngFor="let comment of comments">
+      <div class="task-item">
+        <div class="task-time">
+          <span>{{ comment.createdAt | date:'dd.MM.y' }}</span>
+        </div>
+        <div class="task-text-wrap">
+          <div class="task-avatar" *ngIf="comment.messageType === 'USER_MESSAGE'">
+            <ngx-avatar [src]="userService.user.photoUrl" size="40" bgColor="#19A5E5"
+                        name="{{ userService.user.displayName }}" class=""></ngx-avatar>
+          </div>
+          <div class="task-avatar" *ngIf="comment.creator">
+            <ngx-avatar [src]="comment.creator.photoUrl" size="40" bgColor="#19A5E5"
+                        name="{{ comment.creator.displayName }}" class=""></ngx-avatar>
+          </div>
+          <div class="task-text">
+            <div class="task-text-title">
+              <h4 *ngIf="comment.messageType === 'USER_MESSAGE'">{{ userService.user.displayName }}</h4>
+              <h4 *ngIf="comment.creator">{{ comment.creator.displayName }}</h4>
+            </div>
+            <div class="task-text-content">
+              <div [innerHTML]="comment.text"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="task-add-comment">
+    <div class="task-item">
+      <div class="task-time">
+      </div>
+      <div class="task-text-wrap">
+        <div class="task-avatar">
+          <ngx-avatar [src]="userService.user.photoUrl" size="40" bgColor="#19A5E5"
+                      name="{{ userService.user.displayName }}" class=""></ngx-avatar>
+        </div>
+        <div class="task-text">
+          <div class="add-comment" *ngIf="!writeComment">
+            <div (click)="addComment($event)" class="cursor-pointer">Pridať komentár</div>
+          </div>
+          <div *ngIf="writeComment">
+            <form autocomplete="off" [formGroup]="formGroup" (ngSubmit)="submit()">
+              <angular-editor placeholder="Text komentára" formControlName="comment" [config]="editorConfig">
+              </angular-editor>
+              <div class="button-wrap">
+                <button mat-flat-button class="btn-icon btn-theme mr-3">
+                  <mat-icon>save</mat-icon>
+                  Pridať komentár
+                </button>
+              </div>
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

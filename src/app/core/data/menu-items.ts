@@ -8,7 +8,7 @@ export const MenuItems: MenuItem[] = [
     permission: 'Contact'
   },
   {
-    routerLink: ['/task'],
+    routerLink: ['/todo'],
     title: 'Úlohy',
     icon: 'check_circle',
     permission: 'Task'

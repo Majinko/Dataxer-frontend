@@ -1383,10 +1383,20 @@ body .mat-tab-body-content {
 
 .todolist-box {
   position: relative;
-  margin: 40px 0;
+  margin: 30px 0;
+}
+.todolist-box > p {
+  font-size: 12px;
+  padding-left: 52px;
+  margin: 0;
+}
+.todolist-box > p + div {
+  position: relative;
 }
 .todolist-box .todolist-title {
-  padding-left: 30px;
+  padding-left: 26px;
+  display: inline-flex;
+  align-items: center;
 }
 .todolist-box .todolist-title h3 {
   font-size: 18px;
@@ -1395,18 +1405,7 @@ body .mat-tab-body-content {
   text-decoration: underline;
   margin: 0;
   position: relative;
-  padding-left: 30px;
-}
-.todolist-box .todolist-title h3:before {
-  content: "";
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: #2da562;
-  position: absolute;
-  top: 5px;
-  left: 0;
+  padding-left: 6px;
 }
 
 .todolist-placeholder {
@@ -1426,7 +1425,7 @@ body .mat-tab-body-content {
   box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
 }
 .todolist-box.cdk-drag-preview .button-wrap,
-.todolist-box.cdk-drag-preview .todo-wrap {
+.todolist-box.cdk-drag-preview .todo-wrap, .todolist-box.cdk-drag-preview > p {
   display: none !important;
 }
 .todolist-box.cdk-drag-preview .todolist-indicator {
@@ -1435,7 +1434,7 @@ body .mat-tab-body-content {
 }
 
 .todo-wrap {
-  padding: 5px 0 15px;
+  padding: 5px 0 12px;
 }
 
 .todolist-box .todolist-title h3 {
@@ -1615,8 +1614,21 @@ body .mat-checkbox-frame {
   padding: 20px 30px;
   max-width: 600px;
 }
+.create-todolist-box .private-todo-wrap h5 {
+  font-size: 15px;
+  font-weight: 500;
+}
+.create-todolist-box .private-todo-wrap .mat-radio-group {
+  display: inline-block;
+  width: 100%;
+  padding: 5px 0 10px;
+}
+.create-todolist-box .private-todo-wrap .mat-radio-group .mat-radio-button {
+  width: 100%;
+  margin-bottom: 10px;
+}
 .create-todolist-box .button-wrap {
-  padding-top: 20px;
+  padding-top: 10px;
 }
 
 .todo-create-wrap .todo-create-box {
@@ -1694,10 +1706,25 @@ body .mat-checkbox-frame {
   border-bottom: 0;
 }
 
+.todolist-row-title {
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 16px;
+}
+.todolist-row-title .pie-chart {
+  width: 28px;
+}
+.todolist-row-title p {
+  padding-left: 36px;
+  margin-bottom: 0;
+}
 .todolist-row-title h1 {
-  font-size: 36px;
+  font-size: 32px;
   margin-top: 0;
-  margin-bottom: 10px;
+  margin-bottom: 0;
+  padding-left: 10px;
+}
+.todolist-row-title + .todolists-wrap {
+  padding-left: 8px;
 }
 
 .nav-button {
@@ -1705,6 +1732,34 @@ body .mat-checkbox-frame {
   align-items: center;
   padding-bottom: 30px;
   cursor: pointer;
+}
+
+app-todos-box .button-wrap {
+  padding-left: 30px;
+}
+app-todos-box .button-wrap + .todo-wrap {
+  padding-top: 10px;
+}
+
+.pie-chart {
+  width: 21px;
+}
+.pie-chart svg {
+  overflow: hidden;
+  border-radius: 50%;
+  transform: rotate(-90deg);
+}
+.pie-chart circle.pie {
+  fill: #ffffff00;
+  stroke: rgba(45, 165, 98, 0.5);
+}
+.pie-chart circle.slice {
+  fill: #ffffff00;
+  stroke: #2da562;
+}
+
+app-todolist-show .task-comments-wrap {
+  border-top: 1px solid #ccc;
 }
 
 /*

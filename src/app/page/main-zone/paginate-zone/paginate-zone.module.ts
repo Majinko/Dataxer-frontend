@@ -21,7 +21,7 @@ import {PackTableComponent} from './pack-table/pack-table.component';
 import {ItemTableComponent} from './item-table/item-table.component';
 import {PaginateZoneComponent} from './paginate.component';
 import {DemandTableComponent} from './demand-table/demand-table.component';
-import {MatSlideToggleModule} from "@angular/material/slide-toggle";
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 const routes: Routes = [
   {
@@ -133,7 +133,6 @@ const routes: Routes = [
           modelName: 'invoice',
           inputSearchBarValues: ['title', 'contact.name'],
           inputSearchBarSelectValues: ['contact.id', 'company.id', 'project.id', 'state', 'documentType', 'date'],
-
 
           permissions: {
             only: 'invoice'

@@ -13,20 +13,9 @@ const routes: Routes = [
         loadChildren: () => import('./page/page.module').then(m => m.PageModule)
       },
       {
-        path: 'task',
-        data: {
-          godButtonTitle: 'Nový zoznam úloh',
-          gotButtonRouteLink: '/task/create',
-          permissions: {
-            only: 'Task'
-          }
-        },
-        loadChildren: () => import('./task/task.module').then(m => m.TaskModule),
-      },
-      {
         path: 'todo',
         data: {
-          godButtonTitle: 'Nová úloha',
+          godButtonTitle: 'Novy zoznam', // todo presunut do paginate zone
           gotButtonRouteLink: '/todo/create',
           permissions: {
             only: 'Task'

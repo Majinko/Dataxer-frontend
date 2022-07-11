@@ -21,6 +21,7 @@ import {CompanyService} from '../../../../core/services/company.service';
 })
 export class CostTableComponent extends AppPaginate<Cost> implements OnInit, AfterViewInit, OnDestroy {
   displayedColumns: string[];
+  repeatCost: boolean = false;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
@@ -46,6 +47,10 @@ export class CostTableComponent extends AppPaginate<Cost> implements OnInit, Aft
 
   ngAfterViewInit(): void {
     this.subscription = this.filterService.doFilter.subscribe(data => {
+      this.repeatCost = data.rsQlFilter.includes('cost.repeated==TRUE');
+
+      this.displayedColumns = this.repeatCost ? ['title', 'project', 'client', 'price', 'period', 'nextRepeatedCost'] : ['title', 'project', 'client', 'number', 'createdDate', 'deliveredDate', 'dueDate', 'state', 'price', 'actions'];
+
       if (data && data.filteredData) {
         this.costService.rsqlFilter = data.rsQlFilter;
 
@@ -87,10 +92,6 @@ export class CostTableComponent extends AppPaginate<Cost> implements OnInit, Aft
 
   private prepareColumns() {
     this.companyService.all().subscribe(c => {
-      this.displayedColumns = [
-        'title', 'project', 'client', 'number', 'createdDate', 'deliveredDate', 'dueDate', 'state', 'price', 'actions'
-      ];
-
       // ak ma pouzivatel viacej ako jednu spolocnost nech vidi z akej spolocnosti je
       if (c.length > 1) {
         this.displayedColumns = [...['company'], ...this.displayedColumns];

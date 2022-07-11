@@ -70,7 +70,7 @@ export class PaginateFilterComponent extends PaginateFilterHelper implements OnI
       state: null,
       category: null,
       user: null,
-      repeated: 'FALSE',
+      repeated: 'TRUE',
     });
 
     this.getDataForFilters();
@@ -201,8 +201,6 @@ export class PaginateFilterComponent extends PaginateFilterHelper implements OnI
   private filtering(): void {
     this.isFiltering = true;
 
-    console.log(this.prepareRsql());
-
     this.filterService.filter = {
       name: this.modelName,
       rsQlFilter: this.prepareRsql(),
@@ -256,6 +254,7 @@ export class PaginateFilterComponent extends PaginateFilterHelper implements OnI
         type: 'Mesiace'
       });
     }
+
 
     if (this.modelName !== 'cost' && checkFormIsNotFill(this.filterForm.controls)) {
       this.filterForm.patchValue({

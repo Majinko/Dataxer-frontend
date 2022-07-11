@@ -1,0 +1,96 @@
+<form (ngSubmit)="submit()" [formGroup]="formGroup" autocomplete="off">
+    <div class="todo-create-wrap">
+      <div class="todo-create-box">
+        <div class="task-detail-title" *ngIf="todo">
+          <div class="task-checkbox-wrap">
+            <mat-checkbox [checked]="todo.isFinished" [color]="'green'" (change)="checkedTodo($event.checked)">
+            </mat-checkbox>
+          </div>
+          <div>
+            <textarea #titleTextarea matInput placeholder="Opíšte túto úlohu" formControlName="title">{{ todo.title }}</textarea>
+          </div>
+        </div>
+        <div *ngIf="!todo" class="todo-title">
+          <input #titleInput matInput placeholder="Opíšte túto úlohu" formControlName="title">
+        </div>
+        <div class="todo-content">
+          <div class="row">
+            <div class="col-4">
+              <p>Vyberte zákazku</p>
+            </div>
+            <div class="col-8">
+              <app-new-project-select placeholder="Vyberte zákazku" [showAddButton]="false" formControlName="project"></app-new-project-select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-4">
+              <p>Vyberte kategóriu</p>
+            </div>
+            <div class="col-8">
+              <app-new-category-select placeholder="Vyberte kategóriu" [showAddButton]="false" formControlName="category"></app-new-category-select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-4">
+              <p>Priradiť k</p>
+            </div>
+            <div class="col-8">
+              <app-new-user-select placeholder="Zadajte mená, ktorým chcete priradiť úlohu" [multiple]='false' formControlName="assignedUser"></app-new-user-select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-4">
+              <p>Po dokončení upozorniť</p>
+            </div>
+            <div class="col-8">
+              <app-new-user-select placeholder="Zadajte mená, ktoré chcete upozorniť" [multiple]='true' formControlName="notifyWhenDone"></app-new-user-select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-4">
+              <p>Termín</p>
+            </div>
+            <div class="col-8">
+              <mat-form-field class="form-group w-100">
+                <mat-label>Vyberte dátum</mat-label>
+                <input formControlName="dueDate" matInput [matDatepicker]="dueDate">
+                <mat-datepicker-toggle matSuffix [for]="dueDate"></mat-datepicker-toggle>
+                <mat-datepicker #dueDate></mat-datepicker>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row" *ngIf="!noteShow">
+            <div class="col-4">
+              <p>Poznámka</p>
+            </div>
+            <div class="col-8">
+              <div class="cursor-pointer" (click)="addNote($event)">Pridať poznámku</div>
+            </div>
+          </div>
+          <div class="row" *ngIf="noteShow">
+            <div class="col-12">
+              <angular-editor placeholder="Poznámka" formControlName="note" [config]="editorConfig"></angular-editor>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <div class="button-wrap">
+                <button *ngIf="todo" mat-flat-button class="btn-icon btn-theme mr-3">
+                  <mat-icon>save</mat-icon>
+                  Uložiť zmeny
+                </button>
+                <button *ngIf="!todo" mat-flat-button class="btn-icon btn-theme mr-3">
+                  <mat-icon>save</mat-icon>
+                  Pridať úlohu
+                </button>
+                <button (click)="cancel($event)" mat-stroked-button class="btn-icon btn-theme-stroked" type="button">
+                  <mat-icon>cancel</mat-icon>
+                  Zrušiť
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>

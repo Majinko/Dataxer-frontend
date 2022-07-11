@@ -22,12 +22,26 @@ export interface Todo {
   listId: number;
   title: string;
   checked: boolean;
-  position: number;
+  positionInList: number;
+  dueDate: string;
+  note: string;
+  isFinished: boolean;
+  assignedUser: User[];
+  fromUser: User;
+  notifyWhenDone: User;
+  createdAt: string;
+  category: CategoryItemNode;
+  project: Project;
 }
 export interface Todolist {
   id?: number;
   title: string;
   position: number;
+  createdAt: string;
+  note: string;
+  todos: Todo[];
+  completeText: string;
+  percent: number;
 }
 
 export interface TodoComment {

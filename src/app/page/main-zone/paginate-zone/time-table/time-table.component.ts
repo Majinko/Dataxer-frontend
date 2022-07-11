@@ -13,7 +13,6 @@ import {ActivatedRoute} from '@angular/router';
 import {GodButtonService} from '../../../../core/services/god-button.service';
 import {FilterService} from '../../../../core/store/service/filter.service';
 import {HttpClient} from '@angular/common/http';
-import {environment} from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-time-table',

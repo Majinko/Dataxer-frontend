@@ -46,6 +46,18 @@
             <td class="text-right" mat-cell *matCellDef="let element"> {{element.createdDate | date:'dd.MM.y'}} </td>
           </ng-container>
 
+          <!-- NextRepeatedCost Column -->
+          <ng-container matColumnDef="period"> <!--todo do prekladov-->
+            <th class="text-right" mat-header-cell *matHeaderCellDef> INTERVAL</th>
+            <td class="text-right" mat-cell *matCellDef="let element"> {{element.period}} </td>
+          </ng-container>
+
+          <!-- NextRepeatedCost Column -->
+          <ng-container matColumnDef="nextRepeatedCost">
+            <th class="text-right" mat-header-cell *matHeaderCellDef> Nasleduje</th>
+            <td class="text-right" mat-cell *matCellDef="let element"> {{element.nextRepeatedCost | date:'dd.MM.y'}} </td>
+          </ng-container>
+
           <!-- Created Column -->
           <ng-container matColumnDef="deliveredDate">
             <th class="text-right" mat-header-cell *matHeaderCellDef> Dátum dodania</th>

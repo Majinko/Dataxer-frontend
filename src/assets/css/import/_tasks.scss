@@ -27,10 +27,21 @@
 
 .todolist-box {
   position: relative;
-  margin: 40px 0;
+  margin: 30px 0;
+
+  & > p {
+    font-size: 12px;
+    padding-left: 52px;
+    margin: 0;
+    & + div {
+      position: relative;
+    }
+  }
 
   .todolist-title {
-    padding-left: 30px;
+    padding-left: 26px;
+    display: inline-flex;
+    align-items: center;
     h3 {
       font-size: 18px;
       font-weight: 700;
@@ -38,19 +49,7 @@
       text-decoration: underline;
       margin: 0;
       position: relative;
-      padding-left: 30px;
-
-      &:before {
-        content: '';
-        display: inline-block;
-        width: 20px;
-        height: 20px;
-        border-radius: 50%;
-        background: #2da562;
-        position: absolute;
-        top: 5px;
-        left: 0;
-      }
+      padding-left: 6px;
     }
   }
 }
@@ -70,11 +69,12 @@
   height: 60px !important;
   background: #fff;
   box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
-    0 8px 10px 1px rgba(0, 0, 0, 0.14),
-    0 3px 14px 2px rgba(0, 0, 0, 0.12);
+  0 8px 10px 1px rgba(0, 0, 0, 0.14),
+  0 3px 14px 2px rgba(0, 0, 0, 0.12);
 
   .button-wrap,
-  .todo-wrap {
+  .todo-wrap,
+  & > p {
     display: none !important;
   }
 
@@ -85,7 +85,7 @@
 }
 
 .todo-wrap {
-  padding: 5px 0 15px;
+  padding: 5px 0 12px;
 }
 .todolist-box .todolist-title h3 {
   cursor: pointer;
@@ -302,8 +302,23 @@ body {
   border: 1px solid #ccc;
   padding: 20px 30px;
   max-width: 600px;
+  .private-todo-wrap {
+    h5 {
+      font-size: 15px;
+      font-weight: 500;
+    }
+    .mat-radio-group  {
+      display: inline-block;
+      width: 100%;
+      padding: 5px 0 10px;
+      .mat-radio-button {
+        width: 100%;
+        margin-bottom: 10px;
+      }
+    }
+  }
   .button-wrap {
-    padding-top: 20px;
+    padding-top: 10px;
   }
 }
 
@@ -392,10 +407,23 @@ body {
 
 
 .todolist-row-title {
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 16px;
+  .pie-chart {
+    width: 28px;
+  }
+  p {
+    padding-left: 36px;
+    margin-bottom: 0;
+  }
   h1 {
-    font-size: 36px;
+    font-size: 32px;
     margin-top: 0;
-    margin-bottom: 10px;
+    margin-bottom: 0;
+    padding-left: 10px;
+  }
+  & + .todolists-wrap {
+    padding-left: 8px;
   }
 }
 
@@ -404,4 +432,37 @@ body {
   align-items: center;
   padding-bottom: 30px;
   cursor: pointer;
+}
+
+app-todos-box {
+  .button-wrap {
+    padding-left: 30px;
+    & + .todo-wrap {
+      padding-top: 10px;
+    }
+  }
+}
+
+.pie-chart {
+  width: 21px;
+  svg {
+    overflow: hidden;
+    border-radius: 50%;
+    transform: rotate(-90deg);
+  }
+  circle {
+    &.pie {
+      fill: #ffffff00;
+      stroke: rgba(45,165,98, 0.5);
+    }
+    &.slice {
+      fill: #ffffff00;
+      stroke: #2da562;
+    }
+  }
+}
+app-todolist-show {
+  .task-comments-wrap {
+    border-top: 1px solid #ccc;
+  }
 }
