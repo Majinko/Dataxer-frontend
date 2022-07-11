@@ -70,7 +70,7 @@ export class PaginateFilterComponent extends PaginateFilterHelper implements OnI
       state: null,
       category: null,
       user: null,
-      repeated: 'TRUE',
+      repeated: null, // todo
     });
 
     this.getDataForFilters();
@@ -78,6 +78,7 @@ export class PaginateFilterComponent extends PaginateFilterHelper implements OnI
     this.createFormControls();
     this.handleSearchBarService();
     this.fillFiltersIfFiltering();
+    this.pathByModel();
 
     // only admin has right to filter other user time
     this.isAdmin = this.userService.user.roles.some(r => r.name.includes('ROLE_ADMIN'));
@@ -256,6 +257,8 @@ export class PaginateFilterComponent extends PaginateFilterHelper implements OnI
     }
 
 
+    console.log(checkFormIsNotFill(this.filterForm.controls));
+
     if (this.modelName !== 'cost' && checkFormIsNotFill(this.filterForm.controls)) {
       this.filterForm.patchValue({
         date: this.dates[0]
@@ -391,6 +394,15 @@ export class PaginateFilterComponent extends PaginateFilterHelper implements OnI
     if (this.inputSearchBarSelectValues.includes('user.id')) {
       this.userService.all().subscribe((users) => {
         this.users = users;
+      });
+    }
+  }
+
+  // Path by model
+  private pathByModel() {
+    if (this.modelName === 'cost') {
+      this.filterForm.patchValue({
+        repeated: 'FALSE'
       });
     }
   }

@@ -188,7 +188,7 @@ export function checkFormIsNotFill(checkControls: { [p: string]: AbstractControl
   const controls = checkControls;
 
   for (const name in controls) {
-    if (controls[name].value != null && controls[name].value !== 'FALSE') {
+    if (controls[name].value != null) {
       return false;
     }
   }

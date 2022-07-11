@@ -20,7 +20,7 @@ import {CompanyService} from '../../../../core/services/company.service';
   styleUrls: ['./cost-table.component.scss']
 })
 export class CostTableComponent extends AppPaginate<Cost> implements OnInit, AfterViewInit, OnDestroy {
-  displayedColumns: string[];
+  displayedColumns: string[] = [];
   repeatCost: boolean = false;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;

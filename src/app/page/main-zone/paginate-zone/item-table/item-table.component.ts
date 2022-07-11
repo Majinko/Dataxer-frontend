@@ -9,7 +9,7 @@ import {Item} from '../../../../core/models/item';
 import {AppPaginate} from '../../../../core/class/AppPaginate';
 import {GodButtonService} from '../../../../core/services/god-button.service';
 import {FilterService} from '../../../../core/store/service/filter.service';
-import {CompanyService} from "../../../../core/services/company.service";
+import {CompanyService} from '../../../../core/services/company.service';
 
 @Component({
   selector: 'app-item-table',
