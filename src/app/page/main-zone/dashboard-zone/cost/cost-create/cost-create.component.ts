@@ -18,6 +18,7 @@ import {BankAccountService} from '../../../../../core/services/bank-account.serv
 import {DemandService} from '../../../../../core/services/demand.service';
 import {UserService} from '../../../../../core/services/user.service';
 import {UploadHelper} from '../../../../../core/class/UploadHelper';
+import {Project} from '../../../../../core/models/project';
 
 @Component({
   selector: 'app-cost-create',
@@ -71,6 +72,7 @@ export class CostCreateComponent extends DocumentHelperClass implements OnInit {
     this.prepareForm();
     this.changeForm();
     this.getProject();
+    this.handleChangeProject();
 
     // path user
     this.formGroup.get('documentData.user').patchValue(this.userService.user);
@@ -89,7 +91,7 @@ export class CostCreateComponent extends DocumentHelperClass implements OnInit {
       repeatedTo: null,
       contact: [null, Validators.required],
       project: [null, Validators.required],
-      category: [null],
+      category: null,
       note: null,
       number: null,
       variableSymbol: null,
@@ -126,6 +128,17 @@ export class CostCreateComponent extends DocumentHelperClass implements OnInit {
       period: checked ? 'MONTH' : null,
       isInfinity: checked ? true : null,
       repeatedFrom: checked ? new Date() : null
+    });
+  }
+
+  // handle change project
+  private handleChangeProject() {
+    this.formGroup.get('project').valueChanges.subscribe((project: Project) => {
+      this.projectService.getCategories(project.id).subscribe((categories) => {
+        this.categories = categories;
+
+        console.log(categories);
+      });
     });
   }
 
