@@ -1,5 +1,4 @@
-import {Component, Inject, Input, OnInit} from '@angular/core';
-import {ItemPrice} from '../../../../../../core/models/item';
+import {AfterViewChecked, ChangeDetectorRef, Component, Inject, Input, OnChanges, OnInit} from '@angular/core';
 import {AddPercentPipe} from '../../../../../../core/pipes/add-percent.pipe';
 import {RemovePercentPipe} from '../../../../../../core/pipes/remove-percent.pipe';
 import {FormGroup} from '@angular/forms';
@@ -10,28 +9,25 @@ import {FormGroup} from '@angular/forms';
   styleUrls: ['./item-price.component.scss'],
   providers: [AddPercentPipe, RemovePercentPipe]
 })
-export class ItemPriceComponent implements OnInit {
+export class ItemPriceComponent implements OnInit, AfterViewChecked, OnChanges {
   @Input() itemPriceForm: FormGroup;
-
-  itemPrice: ItemPrice = {
-    id: null,
-    supplier: null,
-    price: 0,
-    tax: 20,
-    priceTax: 0,
-    wholesalePrice: 0,
-    wholesaleTax: 20,
-    wholesalePriceTax: 0,
-    marge: 0,
-    surcharge: 0,
-  };
+  @Input() type: string;
 
   constructor(
     @Inject(AddPercentPipe) private addPercent: AddPercentPipe,
     @Inject(RemovePercentPipe) private removePercentPipe: RemovePercentPipe,
+    private cdr: ChangeDetectorRef
   ) {
   }
 
   ngOnInit() {
+  }
+
+  ngOnChanges() {
+    this.cdr.detectChanges();
+  }
+
+  ngAfterViewChecked() {
+    this.cdr.detectChanges();
   }
 }

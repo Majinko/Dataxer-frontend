@@ -1,6 +1,8 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {FormBuilder, FormGroup} from '@angular/forms';
+import {DocumentHelper} from '../../../../../../core/class/DocumentHelper';
+import {MessageService} from '../../../../../../core/services/message.service';
 
 @Component({
   selector: 'app-item-new-supplier-dialog',
@@ -9,6 +11,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 })
 export class ItemNewSupplierDialogComponent implements OnInit {
   formGroup: FormGroup;
+  type: string = '0';
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -29,11 +32,15 @@ export class ItemNewSupplierDialogComponent implements OnInit {
         supplier: null,
         wholesalePrice: 0,
         wholesaleTax: 20,
-        surcharge: 0,
         price: 0,
         priceTax: 0,
         tax: 20,
-        marge: 0
+        marge: 0,
+        discount: 0,
+        sellingPrice: 0,
+        sellingTax: 20,
+        finalMarge: 0,
+        profit: 0,
       }),
     });
 
@@ -48,5 +55,9 @@ export class ItemNewSupplierDialogComponent implements OnInit {
 
   get f() {
     return this.formGroup.controls;
+  }
+
+  setType(value: any) {
+    this.type = value;
   }
 }
