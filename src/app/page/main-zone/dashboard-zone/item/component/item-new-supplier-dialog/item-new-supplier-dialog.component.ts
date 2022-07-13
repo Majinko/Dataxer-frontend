@@ -1,8 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {DocumentHelper} from '../../../../../../core/class/DocumentHelper';
-import {MessageService} from '../../../../../../core/services/message.service';
 
 @Component({
   selector: 'app-item-new-supplier-dialog',

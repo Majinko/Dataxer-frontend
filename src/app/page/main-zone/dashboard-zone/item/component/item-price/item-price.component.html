@@ -78,7 +78,7 @@
       <div class="col-md-4">
         <mat-form-field class="form-group w-100 disabled-field">
           <input #sellingPrice [ngModel]="+sellingPrice.value" matInput placeholder="Cena bez DPH €" formControlName="sellingPrice"
-                 [value]="type === '3' ? (+wholesalePrice.value + +profit.value) : (+price.value | removePercent: +discount.value)" type="number">
+                 [value]="type === '3' ? (+wholesalePrice.value + +profit.value).toFixed(2) : (+price.value | removePercent: +discount.value)" type="number">
         </mat-form-field>
       </div>
 
@@ -107,7 +107,7 @@
       <div class="col-md-3">
         <mat-form-field class="form-group w-100" [ngClass]="{'disabled-field':  type !== '3'}">
           <input #profit [ngModel]="+profit.value" matInput placeholder="Zisk bez dph" formControlName="profit"
-          value="{{ type !== '3' ? (+sellingPrice.value - +wholesalePrice.value) : '' }}">
+          value="{{ type !== '3' ? (+sellingPrice.value - +wholesalePrice.value).toFixed(2) : '' }}" type="number">
         </mat-form-field>
       </div>
     </div>
