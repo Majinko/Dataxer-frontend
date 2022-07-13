@@ -80,6 +80,8 @@ export class TodoShowComponent implements OnInit {
   todoEdit($event: boolean) {
     if ($event === false) {
       this.editTodo = false;
+    } else {
+      this.getTodolist();
     }
   }
 

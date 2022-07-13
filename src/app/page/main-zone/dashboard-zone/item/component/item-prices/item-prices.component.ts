@@ -58,6 +58,9 @@ export class ItemPricesComponent extends AppPaginateData<any> implements OnInit 
 
   handleDialogClose(dialogRef: any) {
     dialogRef.afterClosed().subscribe(result => {
+
+      console.log(result);
+      return;
       if (result) {
         result.itemPrice.itemId = this.item.id;
 

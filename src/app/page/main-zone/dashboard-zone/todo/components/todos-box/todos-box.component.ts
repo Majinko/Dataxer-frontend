@@ -1,4 +1,13 @@
-import {AfterViewInit, ChangeDetectorRef, Component, Input, OnInit} from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output
+} from '@angular/core';
 import {Router} from '@angular/router';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import {Todo, Todolist} from '../../../../../../core/models/task';
@@ -9,7 +18,7 @@ import {TodoService} from '../../../../../../core/services/todo.service';
   templateUrl: './todos-box.component.html',
   styleUrls: ['./todos-box.component.scss']
 })
-export class TodosBoxComponent implements OnInit, AfterViewInit {
+export class TodosBoxComponent implements OnInit, OnChanges {
   createTodo = false;
 
   @Input() todolist: Todolist;
@@ -23,10 +32,12 @@ export class TodosBoxComponent implements OnInit, AfterViewInit {
   ) {
   }
 
+  @Output() action: EventEmitter<boolean> = new EventEmitter();
+
   ngOnInit(): void {
   }
 
-  ngAfterViewInit() {
+  ngOnChanges() {
     this.todos = this.todolist.todos.filter(f => f.isFinished === false);
     this.todosFinished = this.todolist.todos.filter(f => f.isFinished === true);
     this.cdr.detectChanges();
@@ -53,6 +64,8 @@ export class TodosBoxComponent implements OnInit, AfterViewInit {
   todoCreate($event: boolean) {
     if ($event === false) {
       this.createTodo = false;
+    } else if ($event === true) {
+      this.action.emit(true);
     }
   }
 }

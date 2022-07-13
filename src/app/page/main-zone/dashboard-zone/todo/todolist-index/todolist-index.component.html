@@ -47,7 +47,7 @@
           <app-todo-pie-chart [percent]="todolist.percent"></app-todo-pie-chart>
           <h3>{{ todolist.title }}</h3>
         </div>
-        <app-todos-box [todolist]="todolist"></app-todos-box>
+        <app-todos-box (action)="todoCreate($event)" [todolist]="todolist"></app-todos-box>
       </div>
     </div>
   </div>

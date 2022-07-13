@@ -70,4 +70,10 @@ export class TodolistIndexComponent implements OnInit {
     const complete = list.todos.filter( f => f.isFinished === true);
     return complete.length + '/' + list.todos.length;
   }
+
+  todoCreate($event: any) {
+    if ($event === true) {
+      this.getTodolist();
+    }
+  }
 }

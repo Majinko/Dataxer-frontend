@@ -56,6 +56,9 @@ export class TodoCreateComponent implements OnInit, AfterViewInit {
     });
     if (this.todo) {
       this.formGroup.patchValue(this.todo);
+      if (this.todo.note) {
+        this.noteShow = true;
+      }
     }
   }
   ngAfterViewInit() {
@@ -72,10 +75,12 @@ export class TodoCreateComponent implements OnInit, AfterViewInit {
       return;
     }
     if (this.todo) {
-      // update todo
+      this.todoService.updateTodo(this.formGroup.value).subscribe(res => {
+        this.action.emit(true);
+      });
     } else {
       this.todoService.storeTodo(this.todolistId, this.formGroup.value).subscribe(res => {
-        console.log(res);
+        this.action.emit(true);
       });
     }
   }

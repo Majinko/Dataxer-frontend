@@ -25,7 +25,7 @@
       </div>
       <div class="col-8">
         <p class="cursor-pointer" (click)="editButton($event)">
-          <ng-container *ngIf="todo?.project">{{ todo.project }}</ng-container>
+          <ng-container *ngIf="todo?.project">{{ todo.project.title }}</ng-container>
           <ng-container *ngIf="!todo?.project">Vyberte zákazku</ng-container>
         </p>
       </div>
@@ -36,7 +36,7 @@
       </div>
       <div class="col-8">
         <p class="cursor-pointer" (click)="editButton($event)">
-          <ng-container *ngIf="todo?.category">{{ todo.category }}</ng-container>
+          <ng-container *ngIf="todo?.category">{{ todo.category.name }}</ng-container>
           <ng-container *ngIf="!todo?.category">Vyberte kategóriu</ng-container>
         </p>
       </div>
@@ -91,7 +91,7 @@
       </div>
       <div class="col-8">
         <p (click)="editButton($event)">
-          <ng-container *ngIf="todo?.note">{{ todo.note }}</ng-container>
+          <ng-container *ngIf="todo?.note"> <div [innerHTML]="todo.note"></div></ng-container>
           <ng-container *ngIf="!todo?.note">Pridajte ďalšie podrobnosti…</ng-container>
         </p>
       </div>
@@ -107,13 +107,9 @@
           <span>{{ comment.createdAt | date:'dd.MM.y' }}</span>
         </div>
         <div class="task-text-wrap">
-          <div class="task-avatar" *ngIf="comment.messageType === 'USER_MESSAGE'">
-            <ngx-avatar [src]="userService.user.photoUrl" size="40" bgColor="#19A5E5"
-                        name="{{ userService.user.displayName }}" class=""></ngx-avatar>
-          </div>
           <div class="task-avatar" *ngIf="comment.creator">
             <ngx-avatar [src]="comment.creator.photoUrl" size="40" bgColor="#19A5E5"
-                        name="{{ comment.creator.displayName }}" class=""></ngx-avatar>
+                        name="{{ comment.creator.firstName }} {{ comment.creator.lastName }}" class=""></ngx-avatar>
           </div>
           <div class="task-text">
             <div class="task-text-title">

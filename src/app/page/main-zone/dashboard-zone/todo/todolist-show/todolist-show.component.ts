@@ -40,6 +40,7 @@ export class TodolistShowComponent implements OnInit {
 
   private getTodolist() {
     this.todoService.todoListById(this.todolistId).subscribe(res => {
+      console.log(res);
       this.todolist = res;
       this.completeTodo = this.todolist.todos.filter( f => f.isFinished === true);
       this.percent = this.completeTodo?.length / this.todolist?.todos?.length * 100;
