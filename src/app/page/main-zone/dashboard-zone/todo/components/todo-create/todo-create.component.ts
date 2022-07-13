@@ -6,6 +6,7 @@ import { Todo } from 'src/app/core/models/task';
 import {APP_DATE_FORMATS} from '../../../../../../../helper';
 import {EDITORCONFIG} from '../../../../../../core/data/editor-config';
 import {TodoService} from '../../../../../../core/services/todo.service';
+import {MessageService} from "../../../../../../core/services/message.service";
 
 @Component({
   selector: 'app-todo-create',
@@ -28,6 +29,7 @@ export class TodoCreateComponent implements OnInit, AfterViewInit {
   formGroup: FormGroup;
   editorConfig = EDITORCONFIG;
   noteShow = false;
+  submitted = false;
 
   @Input() todo?: Todo = null;
   @Input() todolistId?: number;
@@ -41,14 +43,15 @@ export class TodoCreateComponent implements OnInit, AfterViewInit {
     private formBuilder: FormBuilder,
     private cdr: ChangeDetectorRef,
     private todoService: TodoService,
+    private messageService: MessageService,
   ) { }
 
   ngOnInit(): void {
     this.formGroup = this.formBuilder.group({
       id: null,
       title: ['', Validators.required],
-      assignedUser: null,
-      notifyWhenDone: null,
+      assignedUsers: null,
+      notifyUsers: null,
       project: null,
       category: null,
       dueDate: null,
@@ -71,7 +74,9 @@ export class TodoCreateComponent implements OnInit, AfterViewInit {
   }
 
   submit() {
+    this.submitted = true;
     if (this.formGroup.invalid) {
+      this.messageService.add('Napíšte názov úlohy.');
       return;
     }
     if (this.todo) {

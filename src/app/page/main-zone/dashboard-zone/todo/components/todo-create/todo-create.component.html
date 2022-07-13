@@ -11,7 +11,7 @@
           </div>
         </div>
         <div *ngIf="!todo" class="todo-title">
-          <input #titleInput matInput placeholder="Opíšte túto úlohu" formControlName="title">
+          <input #titleInput matInput placeholder="Opíšte túto úlohu" formControlName="title" [ngClass]="{'invalid-color' : submitted && f.title.errors}">
         </div>
         <div class="todo-content">
           <div class="row">
@@ -35,7 +35,7 @@
               <p>Priradiť k</p>
             </div>
             <div class="col-8">
-              <app-new-user-select placeholder="Zadajte mená, ktorým chcete priradiť úlohu" [multiple]='false' formControlName="assignedUser"></app-new-user-select>
+              <app-new-user-select placeholder="Zadajte mená, ktorým chcete priradiť úlohu" [multiple]='true' formControlName="assignedUsers"></app-new-user-select>
             </div>
           </div>
           <div class="row">
@@ -43,7 +43,7 @@
               <p>Po dokončení upozorniť</p>
             </div>
             <div class="col-8">
-              <app-new-user-select placeholder="Zadajte mená, ktoré chcete upozorniť" [multiple]='true' formControlName="notifyWhenDone"></app-new-user-select>
+              <app-new-user-select placeholder="Zadajte mená, ktoré chcete upozorniť" [multiple]='true' formControlName="notifyUsers"></app-new-user-select>
             </div>
           </div>
           <div class="row">

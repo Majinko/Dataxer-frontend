@@ -21,19 +21,20 @@
   <div class="task-comment" *ngFor="let comment of comments">
     <div class="task-item">
       <div class="task-time">
-        <span>{{ comment.time }}</span>
+        <span>{{ comment.createdAt | date:'dd.MM.y' }}</span>
       </div>
       <div class="task-text-wrap">
-        <div class="task-avatar">
-          <ngx-avatar [src]="userService.user.photoUrl" size="40" bgColor="#19A5E5"
-                      name="{{ userService.user.displayName }}" class=""></ngx-avatar>
+        <div class="task-avatar" *ngIf="comment.creator">
+          <ngx-avatar [src]="comment.creator.photoUrl" size="40" bgColor="#19A5E5"
+                      name="{{ comment.creator.firstName }} {{ comment.creator.lastName }}" class=""></ngx-avatar>
         </div>
         <div class="task-text">
           <div class="task-text-title">
-            <h4>{{ comment.name }}</h4>
+            <h4 *ngIf="comment.messageType === 'USER_MESSAGE'">{{ userService.user.displayName }}</h4>
+            <h4 *ngIf="comment.creator">{{ comment.creator.displayName }}</h4>
           </div>
           <div class="task-text-content">
-            <p>{{ comment.text }}</p>
+            <div [innerHTML]="comment.text"></div>
           </div>
         </div>
       </div>
