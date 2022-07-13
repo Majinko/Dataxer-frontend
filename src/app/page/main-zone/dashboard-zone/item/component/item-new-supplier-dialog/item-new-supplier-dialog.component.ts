@@ -10,6 +10,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 export class ItemNewSupplierDialogComponent implements OnInit {
   formGroup: FormGroup;
   type: string = '0';
+  priceWithDph = false;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -30,6 +31,7 @@ export class ItemNewSupplierDialogComponent implements OnInit {
         supplier: null,
         wholesalePrice: 0,
         wholesaleTax: 20,
+        surcharge: 0,
         price: 0,
         priceTax: 0,
         tax: 20,

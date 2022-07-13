@@ -12,6 +12,7 @@ import {FormGroup} from '@angular/forms';
 export class ItemPriceComponent implements OnInit, AfterViewChecked, OnChanges {
   @Input() itemPriceForm: FormGroup;
   @Input() type: string;
+  @Input() priceWithDph: boolean;
 
   constructor(
     @Inject(AddPercentPipe) private addPercent: AddPercentPipe,
@@ -28,6 +29,10 @@ export class ItemPriceComponent implements OnInit, AfterViewChecked, OnChanges {
   }
 
   ngAfterViewChecked() {
+    this.cdr.detectChanges();
+  }
+
+  modelChanged($event: any) {
     this.cdr.detectChanges();
   }
 }
