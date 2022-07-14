@@ -5,6 +5,7 @@ import {UserService} from '../../../../../core/services/user.service';
 import {TodoService} from '../../../../../core/services/todo.service';
 import {Todo, TodoComment} from '../../../../../core/models/task';
 import {EDITORCONFIG} from '../../../../../core/data/editor-config';
+import {MessageService} from '../../../../../core/services/message.service';
 
 @Component({
   selector: 'app-todo-show',
@@ -26,6 +27,7 @@ export class TodoShowComponent implements OnInit {
     public route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private todoService: TodoService,
+    private messageService: MessageService,
   ) {
   }
 
@@ -56,15 +58,11 @@ export class TodoShowComponent implements OnInit {
   getTodolist() {
     this.todoService.todoById(this.todoId).subscribe(res => {
       this.todo = res;
-      console.log('todoById');
-      console.log(res);
     });
   }
 
   getMessages() {
-    this.todoService.todoMessages(this.todoId).subscribe(res => {
-      console.log('getMessages');
-      console.log(res);
+    this.todoService.todoMessages(this.todoId, 'todo').subscribe(res => {
       this.comments = res;
     });
   }
@@ -95,6 +93,7 @@ export class TodoShowComponent implements OnInit {
 
   submit() {
     if (this.formGroup.invalid) {
+      this.messageService.add('Žiadny text v komentáry.');
       return;
     }
     const formData = {
@@ -102,10 +101,10 @@ export class TodoShowComponent implements OnInit {
       todo: this.todo,
       messageType: 'USER_MESSAGE'
     };
-    console.log(this.formGroup.value);
-    console.log(formData);
+
     this.todoService.storeMessage(formData).subscribe(res => {
-      console.log(res);
+      this.getMessages();
+      this.formGroup.reset();
     });
   }
 }

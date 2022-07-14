@@ -60,8 +60,8 @@ export class TodoService extends ResourceService<Todo> {
     return this.httpClient.get<Todo>(`${environment.baseUrl}/todo/markSolved/${id}`);
   }
 
-  todoMessages(id: number): Observable<TodoComment[]> {
-    return this.httpClient.get<TodoComment[]>(`${environment.baseUrl}/todoMessage/all/${id}/todo`);
+  todoMessages(id: number, type: string): Observable<TodoComment[]> {
+    return this.httpClient.get<TodoComment[]>(`${environment.baseUrl}/todoMessage/all/${id}/${type}`);
   }
 
   storeMessage(message: any): Observable<any> {

@@ -21,6 +21,7 @@ import { ItemNewSupplierDialogComponent } from './component/item-new-supplier-di
 import { ItemProjectsDialogComponent } from './component/item-projects-dialog/item-projects-dialog.component';
 import { ItemSupplierDialogComponent } from './component/item-supplier-dialog/item-supplier-dialog.component';
 import {AvatarModule} from "ngx-avatar";
+import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 
 @NgModule({
   declarations: [ItemComponent, ItemCreateComponent, ItemPriceComponent, ItemEditComponent, ItemShowComponent,
@@ -36,6 +37,7 @@ import {AvatarModule} from "ngx-avatar";
         FormsModule,
         CoreModule,
         AvatarModule,
+        MatSlideToggleModule,
     ]
 })
 export class ItemModule {
