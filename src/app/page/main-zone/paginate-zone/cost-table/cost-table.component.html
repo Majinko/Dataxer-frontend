@@ -3,7 +3,7 @@
     <div class="d-flex align-items-center justify-content-between">
       <h3 class="text-gray mb-0">Zvolené náklady: <span class="text-theme"><span appShowHideTax>bez DPH</span>	 {{price | currency:'EUR':'symbol'}}</span>  <span class="text-theme ml-3" appShowHideTax>DPH	 {{totalPrice - price | currency:'EUR':'symbol'}}</span></h3>
       <div>
-        <button (click)="downloadCost()" class="text-primary" mat-icon-button aria-label="Example icon button with a home icon" matTooltip="Stiahnuť súbory nákladov">
+        <button (click)="downloadPfsInZip('COST')" class="text-primary" mat-icon-button aria-label="Example icon button with a home icon" matTooltip="Stiahnuť súbory nákladov">
           <mat-icon>download</mat-icon>
         </button>
       </div>
