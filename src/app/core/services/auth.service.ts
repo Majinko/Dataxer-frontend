@@ -73,10 +73,8 @@ export class AuthService {
   }
 
   logInWithEmail(email: string, password: string) {
-    return this.afAuth.setPersistence('local').then(() => {
-      return this.afAuth
-        .signInWithEmailAndPassword(email, password);
-    });
+    return this.afAuth
+      .signInWithEmailAndPassword(email, password);
   }
 
   sendPasswordResetEmail(email: string) {
