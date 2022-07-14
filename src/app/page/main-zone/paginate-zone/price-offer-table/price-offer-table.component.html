@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-md-12">
     <div class="d-flex align-items-center justify-content-between">
-      <h3 class="text-gray mb-3">Zvolené cenové ponuky: <span class="text-theme">{{totalPrice | currency:'EUR':'symbol'}}</span></h3>
+      <h3 class="text-gray mb-0">Zvolené cenové ponuky: <span class="text-theme"><span appShowHideTax>bez DPH</span>	 {{price | currency:'EUR':'symbol'}}</span>  <span class="text-theme ml-3" appShowHideTax>DPH	 {{totalPrice - price | currency:'EUR':'symbol'}}</span></h3>
       <div>
         <button (click)="downloadPfsInZip('PRICE_OFFER')" class="text-primary" mat-icon-button aria-label="Example icon button with a home icon" matTooltip="Stiahnuť cenové ponuky v zipe">
           <mat-icon>download</mat-icon>

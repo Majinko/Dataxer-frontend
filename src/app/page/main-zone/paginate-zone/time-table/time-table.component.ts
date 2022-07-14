@@ -25,7 +25,6 @@ import {HttpClient} from '@angular/common/http';
 export class TimeTableComponent extends AppPaginate<Time> implements OnInit, AfterViewInit, OnDestroy {
   salary: Salary;
   times: Time[] = [];
-  totalPrice: number = 0;
   totalTime: number = 0;
   isLoadingResults = true;
   daysPriceTime: { time: number, price: number }[] = [];
@@ -77,7 +76,7 @@ export class TimeTableComponent extends AppPaginate<Time> implements OnInit, Aft
           this.isLoadingResults = false;
 
           this.totalTime = sum(data, 'time');
-          this.totalPrice = sum(data, 'price');
+          this.price = sum(data, 'price');
 
           return data;
         })

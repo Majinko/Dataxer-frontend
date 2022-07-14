@@ -68,6 +68,7 @@ export class AppPaginate<T> extends AppPaginateData<T> {
           // store paginate
           this.storePaginate();
 
+          this.price = data.price ?? 0;
           this.totalPrice = data.totalPrice ?? 0;
           this.totalElements = data.totalElements;
 

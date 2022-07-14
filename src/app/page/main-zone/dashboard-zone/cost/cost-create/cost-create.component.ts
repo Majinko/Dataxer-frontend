@@ -157,13 +157,7 @@ export class CostCreateComponent extends DocumentHelperClass implements OnInit {
 
       return;
     }
-
-    // set cost price and total price
-    this.formGroup.patchValue({
-      price: this.documentHelper.price,
-      totalPrice: this.documentHelper.totalPrice,
-    });
-
+    
     if (this.f.isRepeated.value === true) {
       this.formGroup.patchValue({
         nextRepeatedCost: this.f.repeatedFrom.value
@@ -172,7 +166,10 @@ export class CostCreateComponent extends DocumentHelperClass implements OnInit {
 
     this.costService.storeWithFiles(this.formGroup.value, this.uploadHelper.files).subscribe(() => {
       this.isLoading = false;
-      this.router.navigate(['/paginate/costs']).then(() => this.messageService.add('Náklad bol pridaný'));
+      this.router.navigate(['/paginate/costs']).then(() => {
+        this.uploadHelper.files = [];
+        this.messageService.add('Náklad bol pridaný');
+      });
     }, error => {
       this.isLoading = false;
     });

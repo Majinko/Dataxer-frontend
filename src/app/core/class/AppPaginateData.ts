@@ -9,6 +9,7 @@ export class AppPaginateData<T> {
   paginateFinish = new Subject<boolean>();
 
   pageSize: number = 15;
+  price: number = 0;
   totalPrice: number = 0;
   totalElements: number = 0;
 

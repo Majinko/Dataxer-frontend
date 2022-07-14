@@ -8,19 +8,20 @@ import {MatDialog} from '@angular/material/dialog';
 import {
   PaymentDialogComponent
 } from '../../../../theme/component/payments/components/payment-dialog/payment-dialog.component';
-import {AppPaginate} from '../../../../core/class/AppPaginate';
 import {GodButtonService} from '../../../../core/services/god-button.service';
 import {FilterService} from '../../../../core/store/service/filter.service';
 import {PaymentService} from '../../../../core/services/payment.service';
 import {CompanyService} from '../../../../core/services/company.service';
+import {AppDocumentPaginate} from '../../../../core/class/AppDocumentPaginate';
+import {DocumentService} from '../../../../core/services/document.service';
 
 @Component({
   selector: 'app-cost-table',
   templateUrl: './cost-table.component.html',
   styleUrls: ['./cost-table.component.scss']
 })
-export class CostTableComponent extends AppPaginate<Cost> implements OnInit, AfterViewInit, OnDestroy {
-  displayedColumns: string[] = [];
+export class CostTableComponent extends AppDocumentPaginate<Cost> implements OnInit, AfterViewInit, OnDestroy {
+  displayedColumns: string[];
   repeatCost: boolean = false;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
@@ -35,8 +36,9 @@ export class CostTableComponent extends AppPaginate<Cost> implements OnInit, Aft
     protected messageService: MessageService,
     protected dialog: MatDialog,
     protected filterService: FilterService,
+    protected documentService: DocumentService,
   ) {
-    super(costService, godButtonService, messageService, dialog, route, filterService);
+    super(costService, godButtonService, messageService, dialog, route, filterService, documentService);
   }
 
   ngOnInit(): void {
@@ -97,5 +99,9 @@ export class CostTableComponent extends AppPaginate<Cost> implements OnInit, Aft
         this.displayedColumns = [...['company'], ...this.displayedColumns];
       }
     });
+  }
+
+  downloadCost() {
+
   }
 }
