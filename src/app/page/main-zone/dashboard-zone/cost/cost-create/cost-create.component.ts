@@ -157,7 +157,7 @@ export class CostCreateComponent extends DocumentHelperClass implements OnInit {
 
       return;
     }
-    
+
     if (this.f.isRepeated.value === true) {
       this.formGroup.patchValue({
         nextRepeatedCost: this.f.repeatedFrom.value
