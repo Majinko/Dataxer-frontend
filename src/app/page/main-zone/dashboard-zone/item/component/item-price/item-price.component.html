@@ -3,6 +3,7 @@
     <div class="row">
       <div class="col-md-6">
         <app-select-new-contact formControlName="supplier" placeholder="Dodávateľ"></app-select-new-contact>
+        <mat-error *ngIf="this.itemPriceForm.touched && this.itemPriceForm.get('itemPrice.supplier').errors" class="mat-error-not-in-field">Dodávateľ je <strong>povinný.</strong></mat-error>
       </div>
       <div class="col-md-6">
         <mat-form-field class="form-group w-100">

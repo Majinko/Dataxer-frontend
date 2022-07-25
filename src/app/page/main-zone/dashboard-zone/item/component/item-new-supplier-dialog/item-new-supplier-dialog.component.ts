@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-item-new-supplier-dialog',
@@ -28,7 +28,7 @@ export class ItemNewSupplierDialogComponent implements OnInit {
       itemPrice: this.formBuilder.group({
         id: null,
         priceActualTo: null,
-        supplier: null,
+        supplier: [null, Validators.required],
         wholesalePrice: 0,
         wholesaleTax: 20,
         surcharge: 0,
@@ -50,7 +50,9 @@ export class ItemNewSupplierDialogComponent implements OnInit {
   }
 
   save() {
-    this.dialogRef.close({itemPrice: this.formGroup.get('itemPrice').value});
+    if (this.formGroup.valid) {
+      this.dialogRef.close({itemPrice: this.formGroup.get('itemPrice').value});
+    }
   }
 
   get f() {

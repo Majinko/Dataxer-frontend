@@ -23,7 +23,7 @@
           <!-- Name Column -->
           <ng-container matColumnDef="name">
             <th mat-header-cell *matHeaderCellDef> Názov dodávateľa </th>
-            <td mat-cell *matCellDef="let element"> {{element.supplier.name}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.supplier?.name || '-'}} </td>
           </ng-container>
 
           <!-- price Column -->

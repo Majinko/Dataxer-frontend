@@ -66,17 +66,7 @@ export class ItemCreateComponent implements OnInit {
       material: null,
       previewUrl: null,
       files: null,
-      itemPrice: this.formBuilder.group({
-        priceActualTo: null,
-        supplier: null,
-        wholesalePrice: 0,
-        wholesaleTax: 20,
-        surcharge: 0,
-        price: 0,
-        priceTax: 0,
-        tax: 20,
-        marge: 0
-      }),
+      itemPrice: null,
       itemPrices: null
     });
   }

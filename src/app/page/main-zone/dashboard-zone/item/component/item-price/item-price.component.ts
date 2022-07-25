@@ -35,4 +35,8 @@ export class ItemPriceComponent implements OnInit, AfterViewChecked, OnChanges {
   modelChanged($event: any) {
     this.cdr.detectChanges();
   }
+
+  get f() {
+    return this.itemPriceForm.controls;
+  }
 }
