@@ -45,7 +45,9 @@ export class ItemNewSupplierDialogComponent implements OnInit {
     });
 
     if (this.data) {
-      this.formGroup.get('itemPrice').patchValue(this.data.element);
+      setTimeout(() => {
+        this.formGroup.get('itemPrice').patchValue(this.data.element);
+      }, 1);
     }
   }
 

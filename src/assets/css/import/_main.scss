@@ -253,3 +253,21 @@ body {
     overflow: hidden;
   }
 }
+
+.new-supplier-dialog {
+  .mat-form-field {
+    &.disabled-field {
+      opacity: 0.6;
+      pointer-events: none;
+    }
+    &:not(.disabled-field) {
+      .mat-form-field-underline {
+        height: 3px;
+        background-color: #000;
+      }
+    }
+    
+  }
+}
+
+
