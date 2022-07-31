@@ -1,6 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {MessageService} from '../../../../../../core/services/message.service';
 
 @Component({
   selector: 'app-item-new-supplier-dialog',
@@ -16,6 +17,7 @@ export class ItemNewSupplierDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<ItemNewSupplierDialogComponent>,
     private formBuilder: FormBuilder,
+    private messageService: MessageService,
   ) {
   }
 
@@ -28,6 +30,8 @@ export class ItemNewSupplierDialogComponent implements OnInit {
       itemPrice: this.formBuilder.group({
         id: null,
         priceActualTo: null,
+        deliveryTime: null,
+        deliveryTimeReserve: null,
         supplier: [null, Validators.required],
         wholesalePrice: 0,
         wholesaleTax: 20,
@@ -41,6 +45,7 @@ export class ItemNewSupplierDialogComponent implements OnInit {
         sellingTax: 20,
         finalMarge: 0,
         profit: 0,
+        note: null,
       }),
     });
 
@@ -54,6 +59,9 @@ export class ItemNewSupplierDialogComponent implements OnInit {
   save() {
     if (this.formGroup.valid) {
       this.dialogRef.close({itemPrice: this.formGroup.get('itemPrice').value});
+    } else {
+      this.formGroup.markAllAsTouched();
+      this.messageService.add('Dodávateľ je povinný údaj.');
     }
   }
 

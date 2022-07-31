@@ -1,16 +1,24 @@
 <div [formGroup]="itemPriceForm">
   <div formGroupName="itemPrice">
     <div class="row">
-      <div class="col-md-6">
+      <div class="col-md-4">
         <app-select-new-contact formControlName="supplier" placeholder="Dodávateľ"></app-select-new-contact>
         <mat-error *ngIf="this.itemPriceForm.touched && this.itemPriceForm.get('itemPrice.supplier').errors" class="mat-error-not-in-field">Dodávateľ je <strong>povinný.</strong></mat-error>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-4">
         <mat-form-field class="form-group w-100">
           <mat-label>Cena platná do</mat-label>
-          <input formControlName="priceActualTo" matInput [matDatepicker]="deliveredDate">
-          <mat-datepicker-toggle matSuffix [for]="deliveredDate"></mat-datepicker-toggle>
-          <mat-datepicker #deliveredDate></mat-datepicker>
+          <input formControlName="priceActualTo" matInput [matDatepicker]="priceActualTo">
+          <mat-datepicker-toggle matSuffix [for]="priceActualTo"></mat-datepicker-toggle>
+          <mat-datepicker #priceActualTo></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="col-md-4">
+        <mat-form-field class="form-group w-100">
+          <mat-label>Doba dodania</mat-label>
+          <input formControlName="deliveryTime" matInput [matDatepicker]="deliveryTime">
+          <mat-datepicker-toggle matSuffix [for]="deliveryTime"></mat-datepicker-toggle>
+          <mat-datepicker #deliveryTime></mat-datepicker>
         </mat-form-field>
       </div>
     </div>
@@ -32,8 +40,7 @@
       <div class="col-md-3">
         <mat-form-field class="form-group w-100" [ngClass]="{'disabled-field': (!priceWithDph || type === '4')}">
           <input #wholesalePriceTax matInput placeholder="Cena s DPH €" [value]="!priceWithDph ? (+wholesalePrice.value | addPercent: +wholesaleTax.value) :
-          (priceWithDph && type === '4') ? (+priceTax.value | removePercent: +marge.value) :
-          (priceWithDph && type !== '4') ? (+wholesalePrice.value | addPercent: +wholesaleTax.value) : ''" type="number">
+          (priceWithDph && type === '4') ? (+priceTax.value | removePercent: +marge.value) : ''" type="number">
         </mat-form-field>
       </div>
     </div>
@@ -46,6 +53,14 @@
                  (type === '2') ? ((+marge.value * 100) / (100 - +marge.value)).toFixed(2) : ''">
         </mat-form-field>
       </div>
+      <div class="col-md-3">
+        <mat-form-field class="form-group w-100" [ngClass]="{'disabled-field': !(type === '2' || type === '4')}">
+          <input #marge (ngModelChange)="modelChanged($event)" [ngModel]="+marge.value" matInput placeholder="Marža %" formControlName="marge"
+           [value]="!(type === '2' || type === '4') ? (((+price.value - +wholesalePrice.value) / +price.value) * 100).toFixed(2) : ''" type="number">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
       <div class="col-md-4">
         <mat-form-field class="form-group w-100" [ngClass]="{'disabled-field': (!(type === '1' || type === '4' ) || priceWithDph)}">
           <input #price (ngModelChange)="modelChanged($event)" [ngModel]="+price.value" formControlName="price" matInput placeholder="Cena bez DPH €"
@@ -62,15 +77,10 @@
 
       <div class="col-md-3">
         <mat-form-field class="form-group w-100" [ngClass]="{'disabled-field': (!priceWithDph || !(type === '1' || type === '4'))}">
-          <input #priceTax matInput placeholder="Cena s DPH €" [value]="!priceWithDph ? (+price.value | addPercent: +tax.value) : ''" type="number">
+          <input #priceTax matInput placeholder="Cena s DPH €" [value]="(!priceWithDph || !(type === '1' || type === '4')) ? (+price.value | addPercent: +tax.value) : ''" type="number">
         </mat-form-field>
       </div>
-      <div class="col-md-3">
-        <mat-form-field class="form-group w-100" [ngClass]="{'disabled-field': !(type === '2' || type === '4')}">
-          <input #marge (ngModelChange)="modelChanged($event)" [ngModel]="+marge.value" matInput placeholder="Marža %" formControlName="marge"
-           [value]="!(type === '2' || type === '4') ? (((+price.value - +wholesalePrice.value) / +price.value) * 100).toFixed(2) : ''" type="number">
-        </mat-form-field>
-      </div>
+      
     </div>
     <h2 class="border-bottom-2 pb-2 mb-4">Predaj (cena po zľave)</h2>
     <div class="row">
@@ -79,6 +89,16 @@
           <input #discount (ngModelChange)="modelChanged($event)" [ngModel]="+discount.value" matInput placeholder="Štandardná zľava %" formControlName="discount" type="number">
         </mat-form-field>
       </div>
+      <div class="col-md-3">
+        <mat-form-field class="form-group w-100 mb-md-0">
+          <mat-label>Doba dodania REZERVA</mat-label>
+          <mat-select formControlName="reserve">
+            <mat-option *ngFor="let reserve of reserves" value="{{reserve.id}}">{{reserve.value}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
       <div class="col-md-4">
         <mat-form-field class="form-group w-100 disabled-field">
           <input #sellingPrice (ngModelChange)="modelChanged($event)" [ngModel]="+sellingPrice.value" matInput placeholder="Cena bez DPH €" formControlName="sellingPrice"
@@ -112,6 +132,11 @@
         <mat-form-field class="form-group w-100" [ngClass]="{'disabled-field':  type !== '3'}">
           <input #profit (ngModelChange)="modelChanged($event)" [ngModel]="+profit.value" matInput placeholder="Zisk bez dph" formControlName="profit"
           value="{{ type !== '3' ? (+sellingPrice.value - +wholesalePrice.value).toFixed(2) : '' }}" type="number">
+        </mat-form-field>
+      </div>
+      <div class="col-md-3">
+        <mat-form-field class="form-group w-100">
+          <input matInput placeholder="Poznámka" formControlName="note" type="text">
         </mat-form-field>
       </div>
     </div>

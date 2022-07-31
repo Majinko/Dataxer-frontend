@@ -14,6 +14,37 @@ export class ItemPriceComponent implements OnInit, AfterViewChecked, OnChanges {
   @Input() type: string;
   @Input() priceWithDph: boolean;
 
+  reserves = [
+    {
+      id: 1,
+      value: '1 deň'
+    },
+    {
+      id: 2,
+      value: '2 dni'
+    },
+    {
+      id: 3,
+      value: '5 dni'
+    },
+    {
+      id: 4,
+      value: '1 týžden'
+    },
+    {
+      id: 5,
+      value: '2 týždne'
+    },
+    {
+      id: 6,
+      value: '4 týždne'
+    },
+    {
+      id: 7,
+      value: '1 mesiac'
+    }
+  ]
+
   constructor(
     @Inject(AddPercentPipe) private addPercent: AddPercentPipe,
     @Inject(RemovePercentPipe) private removePercentPipe: RemovePercentPipe,
