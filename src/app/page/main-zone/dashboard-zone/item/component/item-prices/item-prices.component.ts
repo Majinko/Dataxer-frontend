@@ -12,7 +12,7 @@ import {ItemPriceService} from '../../../../../../core/services/item-price.servi
   styleUrls: ['./item-prices.component.scss']
 })
 export class ItemPricesComponent extends AppPaginateData<any> implements OnInit {
-  displayedColumns: string[] = ['name', 'price', 'currentTo', 'actions'];
+  displayedColumns: string[] = ['name', 'icons', 'voc', 'moc', 'marge', 'price', 'currentTo', 'actions'];
 
   @Input() item: Item;
   @ViewChild(MatTable) table!: MatTable<any>;

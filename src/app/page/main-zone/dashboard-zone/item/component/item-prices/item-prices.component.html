@@ -26,6 +26,40 @@
             <td mat-cell *matCellDef="let element"> {{element.supplier?.name || '-'}} </td>
           </ng-container>
 
+          <!-- icons Column -->
+          <ng-container matColumnDef="icons">
+            <th mat-header-cell *matHeaderCellDef> </th>
+            <td mat-cell *matCellDef="let element">
+              <mat-icon class="mr-2 text-yellow" matTooltip="Naposledy použitý">star</mat-icon>
+              <mat-icon class="mr-2 text-approved" matTooltip="Predvolený">check_circle </mat-icon>
+              <mat-icon class="text-red-danger" matTooltip="Zakázaný">do_not_disturb_on </mat-icon>
+            </td>
+          </ng-container>
+
+          <!-- voc Column -->
+          <ng-container matColumnDef="voc">
+            <th mat-header-cell *matHeaderCellDef> VOC bez DPH </th>
+            <td mat-cell *matCellDef="let element">
+              {{element.wholesalePrice + ' €' || '-'}}
+            </td>
+          </ng-container>
+
+          <!-- moc Column -->
+          <ng-container matColumnDef="moc">
+            <th mat-header-cell *matHeaderCellDef> MOC bez DPH </th>
+            <td mat-cell *matCellDef="let element">
+              {{element.price + ' €' || '-'}}
+            </td>
+          </ng-container>
+
+          <!-- marge Column -->
+          <ng-container matColumnDef="marge">
+            <th mat-header-cell *matHeaderCellDef> Marža </th>
+            <td mat-cell *matCellDef="let element">
+              {{element.marge + ' %' || '-'}}
+            </td>
+          </ng-container>
+
           <!-- price Column -->
           <ng-container matColumnDef="price">
             <th mat-header-cell *matHeaderCellDef> Cena bez DPH </th>

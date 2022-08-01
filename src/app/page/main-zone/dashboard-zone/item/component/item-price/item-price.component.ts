@@ -17,33 +17,35 @@ export class ItemPriceComponent implements OnInit, AfterViewChecked, OnChanges {
   reserves = [
     {
       id: 1,
-      value: '1 deň'
+      title: '1 deň',
+      value: 1
     },
     {
       id: 2,
-      value: '2 dni'
+      title: '2 dni',
+      value: 2
     },
     {
       id: 3,
-      value: '5 dni'
+      title: '5 dni',
+      value: 5
     },
     {
       id: 4,
-      value: '1 týžden'
+      title: '1 týžden',
+      value: 7
     },
     {
       id: 5,
-      value: '2 týždne'
+      title: '2 týždne',
+      value: 14
     },
     {
       id: 6,
-      value: '4 týždne'
+      title: '4 týždne',
+      value: 28
     },
-    {
-      id: 7,
-      value: '1 mesiac'
-    }
-  ]
+  ];
 
   constructor(
     @Inject(AddPercentPipe) private addPercent: AddPercentPipe,
