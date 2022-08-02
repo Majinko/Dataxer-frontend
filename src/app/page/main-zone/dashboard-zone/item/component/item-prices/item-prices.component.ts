@@ -5,6 +5,7 @@ import {ItemNewSupplierDialogComponent} from '../item-new-supplier-dialog/item-n
 import {MatDialog} from '@angular/material/dialog';
 import {MatTable} from '@angular/material/table';
 import {ItemPriceService} from '../../../../../../core/services/item-price.service';
+import {ConfirmDialogComponent} from '../../../../../../theme/component/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-item-prices',
@@ -65,6 +66,34 @@ export class ItemPricesComponent extends AppPaginateData<any> implements OnInit 
         this.itemPriceService.store(result.itemPrice).subscribe((itemPrice) => {
           console.log(itemPrice);
           this.item.itemPrices = this.item.itemPrices.concat(itemPrice);
+        });
+      }
+    });
+  }
+
+  setBan(element) {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      maxWidth: '400px',
+    });
+
+    dialogRef.afterClosed().subscribe(dialogResult => {
+      if (dialogResult === true) {
+        this.itemPriceService.setBan(element.id).subscribe(r => {
+          console.log(r);
+        });
+      }
+    });
+  }
+
+  setDefault(element) {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      maxWidth: '400px',
+    });
+
+    dialogRef.afterClosed().subscribe(dialogResult => {
+      if (dialogResult === true) {
+        this.itemPriceService.setDefaultSupplier(this.item.id, element.id).subscribe(r => {
+          console.log(r);
         });
       }
     });

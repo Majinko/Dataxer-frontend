@@ -10,7 +10,7 @@
 <div mat-dialog-content>
   <p>Chcem zadať</p>
   <div class="d-flex align-items-center justify-content-between pb-2">
-    <mat-radio-group aria-label="Select an option" (change)="setType($event.value)">
+    <mat-radio-group aria-label="Select an option" [(ngModel)]="type" (change)="setType($event.value)">
       <mat-radio-button value="0" class="mr-3" checked>VOC + Prirážka</mat-radio-button>
       <mat-radio-button value="1" class="mr-3">VOC + MOC</mat-radio-button>
       <mat-radio-button value="2" class="mr-3">VOC + Marža</mat-radio-button>

@@ -52,8 +52,8 @@ export class ItemNewSupplierDialogComponent implements OnInit {
     });
 
     if (this.data) {
-      console.log(this.data);
       setTimeout(() => {
+        this.type = this.data.element.type;
         this.formGroup.get('itemPrice').patchValue(this.data.element);
       }, 1);
     }
@@ -61,8 +61,6 @@ export class ItemNewSupplierDialogComponent implements OnInit {
 
   save() {
     if (this.formGroup.valid) {
-      console.log(this.formGroup.get('itemPrice').value);
-      return;
       this.dialogRef.close({itemPrice: this.formGroup.get('itemPrice').value});
     } else {
       this.formGroup.markAllAsTouched();
@@ -75,7 +73,6 @@ export class ItemNewSupplierDialogComponent implements OnInit {
   }
 
   setType(value: any) {
-    this.type = value;
-    this.formGroup.get('itemPrice').patchValue({type: this.type});
+    this.formGroup.get('itemPrice').patchValue({type: value});
   }
 }
