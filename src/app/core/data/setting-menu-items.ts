@@ -44,6 +44,12 @@ export const SettingMenuItems: MenuItem[] = [
     permission: 'Settings'
   },
   {
+    routerLink: ['/setting/items'],
+    title: 'Položky',
+    icon: 'extension',
+    permission: 'Settings'
+  },
+  {
     routerLink: ['/setting/mail-template'],
     title: 'Šablóny emailov',
     icon: 'format_paint',

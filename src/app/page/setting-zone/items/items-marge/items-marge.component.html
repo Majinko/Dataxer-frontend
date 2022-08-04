@@ -1,0 +1,63 @@
+<div class="pl-0 pr-0 col-md-2">
+  <h1 class="mb-0">Položky</h1>
+</div>
+<h2 class="border-bottom-2 mt-4 pb-2 mb-4">Cena položky - marža</h2>
+<div>
+  <h3>Nastavte maržu</h3>
+  <div class="d-flex align-items-center pb-3">
+    <p class="mr-3 mb-0">Nastavte počiatočnú hodnotu</p>
+    <input class="startMargeInput" matInput min="0" max="98" [(ngModel)]="start" (ngModelChange)="inputChanged($event)" type="number">
+  </div>
+  <div *ngIf="show" class="items-slider-wrap">
+    <ngx-slider [(value)]="value" [(highValue)]="highValue" [options]="options"></ngx-slider>
+  </div>
+</div>
+<div class="pt-3 mt-2">
+  <table>
+    <thead>
+      <tr>
+        <th>Symbol</th>
+        <th>Marža</th>
+      </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td class="pt-2">
+        <mat-icon class="text-approved">check</mat-icon>
+        <mat-icon class="text-approved">check</mat-icon>
+        <mat-icon class="text-approved mr-4">check</mat-icon>
+      </td>
+      <td>{{this.highValue}}% - 100%</td>
+    </tr>
+    <tr>
+      <td>
+        <mat-icon class="text-approved">check</mat-icon>
+        <mat-icon class="text-approved">check</mat-icon>
+      </td>
+      <td>{{this.value}}% - {{this.highValue - 1}}%</td>
+    </tr>
+      <tr>
+        <td><mat-icon class="text-approved">check</mat-icon></td>
+        <td>{{this.start}}% - {{this.value - 1}}%</td>
+      </tr>
+      <tr>
+        <td><mat-icon>check</mat-icon></td>
+        <td>1% - {{this.start - 1}}%</td>
+      </tr>
+    <tr>
+      <td><mat-icon>close</mat-icon></td>
+      <td>0%</td>
+    </tr>
+    <tr>
+      <td><mat-icon class="text-red-danger">close</mat-icon></td>
+      <td>< 0%</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<div class="button-wrap pt-3">
+  <button mat-flat-button class="btn-icon btn-theme mr-3" (click)="save()" type="button">
+    <mat-icon>save</mat-icon>
+    Uložiť zmeny
+  </button>
+</div>

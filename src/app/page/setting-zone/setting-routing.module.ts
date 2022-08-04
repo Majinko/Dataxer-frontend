@@ -113,6 +113,15 @@ const routes: Routes = [
         },
         loadChildren: () => import('./mail-template/mail-template.module').then(m => m.MailTemplateModule),
       },
+      {
+        path: 'items',
+        data: {
+          permissions: {
+            only: 'Settings'
+          },
+        },
+        loadChildren: () => import('./items/items.module').then(m => m.ItemsModule),
+      },
     ],
   }
 ];

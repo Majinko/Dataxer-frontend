@@ -1366,8 +1366,12 @@ body .mat-tab-body-content {
   opacity: 0.6;
   pointer-events: none;
 }
+.new-supplier-dialog .mat-form-field.disabled-field .mat-form-field-underline {
+  height: 0;
+  background-color: #000;
+}
 .new-supplier-dialog .mat-form-field:not(.disabled-field) .mat-form-field-underline {
-  height: 3px;
+  height: 1px;
   background-color: #000;
 }
 

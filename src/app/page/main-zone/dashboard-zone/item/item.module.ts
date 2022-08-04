@@ -20,12 +20,13 @@ import { ItemPhotoComponent } from './component/item-photo/item-photo.component'
 import { ItemNewSupplierDialogComponent } from './component/item-new-supplier-dialog/item-new-supplier-dialog.component';
 import { ItemProjectsDialogComponent } from './component/item-projects-dialog/item-projects-dialog.component';
 import { ItemSupplierDialogComponent } from './component/item-supplier-dialog/item-supplier-dialog.component';
-import {AvatarModule} from "ngx-avatar";
-import {MatSlideToggleModule} from "@angular/material/slide-toggle";
+import {AvatarModule} from 'ngx-avatar';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 @NgModule({
   declarations: [ItemComponent, ItemCreateComponent, ItemPriceComponent, ItemEditComponent, ItemShowComponent,
-    ItemPricesComponent, ItemProjectsComponent, ItemSuppliersComponent, ItemSummaryInfoComponent, ItemPhotoComponent, ItemNewSupplierDialogComponent, ItemProjectsDialogComponent, ItemSupplierDialogComponent],
+    ItemPricesComponent, ItemProjectsComponent, ItemSuppliersComponent, ItemSummaryInfoComponent, ItemPhotoComponent,
+    ItemNewSupplierDialogComponent, ItemProjectsDialogComponent, ItemSupplierDialogComponent],
     imports: [
         CommonModule,
         ItemRoutingModule,

@@ -30,9 +30,8 @@
           <ng-container matColumnDef="icons">
             <th mat-header-cell *matHeaderCellDef> </th>
             <td mat-cell *matCellDef="let element">
-              <mat-icon class="mr-2 text-yellow" matTooltip="Naposledy použitý">star</mat-icon>
-              <mat-icon class="mr-2 text-approved" matTooltip="Predvolený">check_circle </mat-icon>
-              <mat-icon class="text-red-danger" matTooltip="Zakázaný">do_not_disturb_on </mat-icon>
+              <mat-icon *ngIf="element.isDefault" class="mr-2 text-approved" matTooltip="Predvolený">check_circle </mat-icon>
+              <mat-icon *ngIf="element.isBanned" class="text-red-danger" matTooltip="Zakázaný">do_not_disturb_on </mat-icon>
             </td>
           </ng-container>
 
@@ -56,7 +55,14 @@
           <ng-container matColumnDef="marge">
             <th mat-header-cell *matHeaderCellDef> Marža </th>
             <td mat-cell *matCellDef="let element">
-              {{element.marge + ' %' || '-'}}
+              <div class="d-flex align-items-center">
+                {{element.marge + ' %' || '-'}}
+                <div class="pl-2">
+                  <mat-icon class="text-approved">check</mat-icon>
+                  <mat-icon class="text-approved">check</mat-icon>
+                </div>
+              </div>
+
             </td>
           </ng-container>
 
@@ -79,6 +85,18 @@
               <button mat-icon-button matTooltip="Edit item" (click)="edit($event, element)" type="button">
                 <mat-icon class="text-theme">edit</mat-icon>
               </button>
+              <button onclick="event.stopPropagation();" mat-icon-button [matMenuTriggerFor]="menu" type="button">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+
+              <mat-menu #menu="matMenu" class="menu-not-rounded">
+                <button mat-menu-item (click)="setBan(element)">
+                  <span>Zakázať dodávatela</span>
+                </button>
+                <button mat-menu-item *ngIf="!element.isBanned && !element.isDefault" (click)="setDefault(element)">
+                  <span>Nastaviť ako predvolený</span>
+                </button>
+              </mat-menu>
             </td>
           </ng-container>
 
