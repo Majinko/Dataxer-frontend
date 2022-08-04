@@ -6,6 +6,8 @@ import {RouterModule, Routes} from '@angular/router';
 import {NgxSliderModule} from "@angular-slider/ngx-slider";
 import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
+import {FormsModule} from "@angular/forms";
+import {MatInputModule} from "@angular/material/input";
 
 const routes: Routes = [{
   path: '',
@@ -29,6 +31,8 @@ const routes: Routes = [{
     NgxSliderModule,
     MatIconModule,
     MatButtonModule,
+    FormsModule,
+    MatInputModule,
   ]
 })
 export class ItemsModule { }

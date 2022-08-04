@@ -8,13 +8,15 @@ import {Options} from '@angular-slider/ngx-slider';
 })
 export class ItemsMargeComponent implements OnInit {
   value: number = 10;
+  start: number = 5;
   highValue: number = 20;
+  show = true;
   options: Options = {
-    floor: 5,
+    floor: this.start,
     ceil: 100,
     step: 1,
     minRange: 1,
-    minLimit: 6,
+    minLimit: this.start + 1,
   };
 
   constructor() { }
@@ -24,9 +26,23 @@ export class ItemsMargeComponent implements OnInit {
 
   save() {
     const formData = {
-      marge1: this.value,
-      marge2: this.highValue
+      marge1: this.start,
+      marge2: this.value,
+      marge3: this.highValue
     };
     console.log(formData);
+  }
+
+  inputChanged($event: any) {
+    if ($event > 98) {
+      this.start = 98;
+    }
+    this.options = {
+      floor: this.start,
+      ceil: 100,
+      step: 1,
+      minRange: 1,
+      minLimit: this.start + 1,
+    };
   }
 }
