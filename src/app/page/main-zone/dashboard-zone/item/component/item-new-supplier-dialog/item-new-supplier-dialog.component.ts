@@ -61,8 +61,6 @@ export class ItemNewSupplierDialogComponent implements OnInit {
 
   save() {
     if (this.formGroup.valid) {
-      console.log(this.formGroup.get('itemPrice').value);
-      return;
       this.dialogRef.close({itemPrice: this.formGroup.get('itemPrice').value});
     } else {
       this.formGroup.markAllAsTouched();

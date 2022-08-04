@@ -655,6 +655,10 @@ button.btn-theme-warn:hover, .btn.btn-theme-warn:hover {
   color: #19A5E5 !important;
 }
 
+.text-yellow {
+  color: #F59A22 !important;
+}
+
 .text-red-light {
   color: #f4cdc7 !important;
 }

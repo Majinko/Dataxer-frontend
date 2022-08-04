@@ -63,7 +63,6 @@ export class ItemPricesComponent extends AppPaginateData<any> implements OnInit 
         result.itemPrice.itemId = this.item.id;
 
         this.itemPriceService.store(result.itemPrice).subscribe((itemPrice) => {
-          console.log(itemPrice);
           this.item.itemPrices = this.item.itemPrices.concat(itemPrice);
         });
       }
