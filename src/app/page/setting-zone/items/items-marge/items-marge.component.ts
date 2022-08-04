@@ -37,6 +37,9 @@ export class ItemsMargeComponent implements OnInit {
     if ($event > 98) {
       this.start = 98;
     }
+    if (!$event) {
+      this.start = 2;
+    }
     this.options = {
       floor: this.start,
       ceil: 100,
