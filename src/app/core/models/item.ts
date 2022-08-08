@@ -59,3 +59,10 @@ export class ItemInProjectDTO {
   qty: number;
   price: number;
 }
+
+
+export class ItemMargeDTO {
+  marge1: number;
+  marge2: number;
+  marge3: number;
+}
