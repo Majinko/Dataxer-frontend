@@ -70,7 +70,7 @@ export class CategoryHelper {
         }
       });
 
-      return tree;
+      return tree.sort((a, b) => a.name.localeCompare(b.name));
     }
   }
 }
