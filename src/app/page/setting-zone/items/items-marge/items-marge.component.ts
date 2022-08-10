@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Options} from '@angular-slider/ngx-slider';
-import {MessageService} from "../../../../core/services/message.service";
-import {ItemMargeService} from "../../../../core/services/item-marge.service";
+import {MessageService} from '../../../../core/services/message.service';
+import {ItemMargeService} from '../../../../core/services/item-marge.service';
 
 @Component({
   selector: 'app-items-marge',
