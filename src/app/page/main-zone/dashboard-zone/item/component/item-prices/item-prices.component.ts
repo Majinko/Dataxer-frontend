@@ -91,7 +91,7 @@ export class ItemPricesComponent extends AppPaginateData<any> implements OnInit 
 
     dialogRef.afterClosed().subscribe(dialogResult => {
       if (dialogResult === true) {
-        this.itemPriceService.setDefaultSupplier(this.item.id, element.id).subscribe(r => {
+        this.itemPriceService.setDefaultSupplier(element.id, this.item.id).subscribe(r => {
           console.log(r);
         });
       }
