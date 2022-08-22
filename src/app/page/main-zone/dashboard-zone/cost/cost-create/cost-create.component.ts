@@ -44,6 +44,7 @@ export class CostCreateComponent extends DocumentHelperClass implements OnInit {
   submitted: boolean = false;
   isLoading: boolean = false;
   documentType = 'COST';
+  differentProject: boolean = false;
 
   categories: CategoryItemNode[] = [];
 
@@ -136,8 +137,6 @@ export class CostCreateComponent extends DocumentHelperClass implements OnInit {
     this.formGroup.get('project').valueChanges.subscribe((project: Project) => {
       this.projectService.getCategories(project.id).subscribe((categories) => {
         this.categories = categories;
-
-        console.log(categories);
       });
     });
   }

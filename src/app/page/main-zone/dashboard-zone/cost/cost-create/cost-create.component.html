@@ -19,28 +19,27 @@
 
     <div class="col-md-4">
       <app-select-new-contact placeholder="Dodávaťeľ" formControlName="contact"></app-select-new-contact>
-      <mat-error *ngIf="submitted && f.contact.errors" class="mat-error-not-in-field">Client je <strong>požadovaný.</strong></mat-error>
+      <mat-error *ngIf="submitted && f.contact.errors" class="mat-error-not-in-field">Client je
+        <strong>požadovaný.</strong></mat-error>
     </div>
 
     <div class="col-md-4">
-      <app-new-project-select [projects]="projects" [client]="f.contact.value" formControlName="project"></app-new-project-select>
-      <mat-error *ngIf="submitted && f.project.errors" class="mat-error-not-in-field">Projekt je <strong>požadovaný.</strong></mat-error>
+      <app-new-project-select [projects]="projects" [client]="f.contact.value" formControlName="project">
+      </app-new-project-select>
+      <mat-error *ngIf="submitted && f.project.errors" class="mat-error-not-in-field">Projekt je
+        <strong>požadovaný.</strong></mat-error>
+      <mat-error *ngIf="differentProject">Položky sú priradené k viacerým zákazkam</mat-error>
     </div>
 
     <div class="col-md-4">
-      <ng-select class="form-group w-100 mb-0"
-                 [items]="categories"
-                 bindLabel="name"
-                 notFoundText="Zvoľte projekt"
-                 placeholder="Kategória"
-                 groupBy="parentName"
-                 formControlName="category"
-      >
+      <ng-select class="form-group w-100 mb-0" [items]="categories" bindLabel="name" notFoundText="Zvoľte projekt"
+        placeholder="Kategória" groupBy="parentName" formControlName="category">
         <ng-template ng-optgroup-tmp let-item="item">
           {{item.parentName || 'Unnamed group'}}
         </ng-template>
       </ng-select>
-      <mat-error *ngIf="submitted && f.categories.errors" class="mat-error-not-in-field">Kategória je <strong>požadovana.</strong></mat-error>
+      <mat-error *ngIf="submitted && f.categories.errors" class="mat-error-not-in-field">Kategória je
+        <strong>požadovana.</strong></mat-error>
     </div>
 
     <div class="col-md-4">
@@ -53,7 +52,7 @@
     </div>
 
     <div class="col-md-4">
-      <mat-form-field  class="form-group w-100 mb-md-0">
+      <mat-form-field class="form-group w-100 mb-md-0">
         <mat-label>Stav</mat-label>
         <mat-select formControlName="state">
           <mat-option *ngFor="let state of costStates" value="{{state.key}}">{{state.value}}</mat-option>
@@ -84,10 +83,11 @@
     </div>
   </div>
 
- <div class="row">
+  <div class="row">
     <div class="col-md-4">
       <div class="box p-3">
-        <mat-checkbox #isRepeated class="mt-3" formControlName="isRepeated" (change)="handleRepeatedCostChange(isRepeated.checked)">Pravidelný náklad</mat-checkbox>
+        <mat-checkbox #isRepeated class="mt-3" formControlName="isRepeated"
+          (change)="handleRepeatedCostChange(isRepeated.checked)">Pravidelný náklad</mat-checkbox>
 
         <mat-form-field class="form-group w-100 mt-3" *ngIf="isRepeated.checked">
           <mat-label>Opakovanie</mat-label>
@@ -106,7 +106,8 @@
           <mat-datepicker #repeatedFromDate></mat-datepicker>
         </mat-form-field>
 
-        <mat-checkbox #isInfinity class="form-group d-block" [class.not-visible]="!isRepeated.checked" formControlName="isInfinity">Opakovať neobmedzene</mat-checkbox>
+        <mat-checkbox #isInfinity class="form-group d-block" [class.not-visible]="!isRepeated.checked"
+          formControlName="isInfinity">Opakovať neobmedzene</mat-checkbox>
 
         <mat-form-field class="w-100" *ngIf="isRepeated.checked && !isInfinity.checked">
           <mat-label>Od - do</mat-label>
@@ -144,7 +145,7 @@
     </div>
   </div>
 
-  <div class="row"  *ngIf="!isRepeated.checked">
+  <div class="row" *ngIf="!isRepeated.checked">
     <div class="col-12">
       <h2 class="border-bottom-2 pb-2 mb-4">Označenie nákladu</h2>
     </div>
@@ -214,12 +215,13 @@
 
   <div class="row">
     <div class="col-12">
-      <h2 class="border-bottom-2 pb-2 mb-4">Položky</h2>
+      <h2 class="border-bottom-2 pb-2 mb-0">Položky</h2>
     </div>
   </div>
 
   <div *ngIf="projects && projects.length">
-    <app-document-pack *ngIf="f.company.value != null;" [formGroup]="formGroup" [documentHelper]="documentHelper" [projects]="projects"></app-document-pack>
+    <app-document-pack *ngIf="f.company.value != null;" [formGroup]="formGroup" [documentHelper]="documentHelper"
+      [projects]="projects" (compareProjects)="differentProject = $event"></app-document-pack>
   </div>
 
   <div class="row">
@@ -234,7 +236,8 @@
       <table class="w-100">
         <tr class="text-right">
           <td class="pb-1">Zľava {{discount.value}} %</td>
-          <td class="pb-1">{{discount.value > 0 ? '-' : ''}}{{((documentHelper.totalPrice | addPercent: discount.value) - documentHelper.totalPrice).toFixed(2)}} €</td>
+          <td class="pb-1">{{discount.value > 0 ? '-' : ''}}{{((documentHelper.totalPrice | addPercent: discount.value)
+            - documentHelper.totalPrice).toFixed(2)}} €</td>
         </tr>
 
         <tr class="text-right" appShowHideTax>
@@ -243,7 +246,9 @@
         </tr>
 
         <tr class="text-right">
-          <td><h2 class="text-theme mb-0"><b>Celkom <span appShowHideTax>s DPH</span>:</b></h2></td>
+          <td>
+            <h2 class="text-theme mb-0"><b>Celkom <span appShowHideTax>s DPH</span>:</b></h2>
+          </td>
           <td>{{documentHelper.totalPrice | removePercent: +discount.value}} €</td>
         </tr>
       </table>
@@ -264,7 +269,8 @@
     <div class="row">
       <div class="col-12 mb-3">
         <h5>Možnosti nastavenia pravidelných nákladov</h5>
-        <p>V pravidelnom náklade môžete použiť nasledovné skratky, ktoré budú nahradené aktuálnymi hodnotami v čase vystavenia nákladu:</p>
+        <p>V pravidelnom náklade môžete použiť nasledovné skratky, ktoré budú nahradené aktuálnymi hodnotami v čase
+          vystavenia nákladu:</p>
       </div>
 
       <div class="col-md-3">

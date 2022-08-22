@@ -1,12 +1,19 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {AbstractControl, FormBuilder, FormGroup} from '@angular/forms';
-import {DocumentHelper} from '../../../core/class/DocumentHelper';
-import {Pack} from '../../../core/models/pack';
-import {PackService} from '../../../core/services/pack.service';
-import {CategoryItemNode} from '../../../core/models/category-item-node';
-import {CategoryService} from '../../../core/services/category.service';
-import {Project} from '../../../core/models/project';
-import {DocumentPackHelpers} from '../../../core/class/DocumentPackHelpers';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
+import { AbstractControl, FormBuilder, FormGroup } from '@angular/forms';
+import { DocumentHelper } from '../../../core/class/DocumentHelper';
+import { Pack } from '../../../core/models/pack';
+import { PackService } from '../../../core/services/pack.service';
+import { CategoryItemNode } from '../../../core/models/category-item-node';
+import { CategoryService } from '../../../core/services/category.service';
+import { Project } from '../../../core/models/project';
+import { DocumentPackHelpers } from '../../../core/class/DocumentPackHelpers';
+import { ProjectService } from '../../../core/services/project.service';
 
 @Component({
   selector: 'app-document-pack',
@@ -23,9 +30,12 @@ export class DocumentPackComponent extends DocumentPackHelpers implements OnInit
   @Input() documentHelper: DocumentHelper;
   @Input() fromDemand: boolean;
 
+  @Output() compareProjects: EventEmitter<boolean> = new EventEmitter();
+
   constructor(
     protected formBuilder: FormBuilder,
     private packService: PackService,
+    protected projectService: ProjectService,
     private categoryService: CategoryService,
   ) {
     super(formBuilder);
@@ -40,7 +50,7 @@ export class DocumentPackComponent extends DocumentPackHelpers implements OnInit
 
     setTimeout(() => {
       if (this.packs) {
-        this.formGroup.patchValue({packs: this.packs});
+        this.formGroup.patchValue({ packs: this.packs });
       }
     }, 1);
   }
@@ -49,14 +59,20 @@ export class DocumentPackComponent extends DocumentPackHelpers implements OnInit
     this.categoryService.all(true).subscribe((categories) => {
       this.categories = categories;
     });
+    this.formGroup.get('project').valueChanges.subscribe((project: Project) => {
+      if (project) {
+        this.projectService.getCategories(project.id).subscribe((categories) => {
+          this.categories = categories;
+        });
+      }
+    });
   }
 
   // set pack when find it
   setPack(packIndex: number, packFormGroup: AbstractControl, pack: Pack) {
     this.packService.getById(pack.id).subscribe(p => {
-        this.setPackData(packIndex, packFormGroup, p);
-      }
-    );
+      this.setPackData(packIndex, packFormGroup, p);
+    });
   }
 
   // show hide pack item
@@ -80,7 +96,42 @@ export class DocumentPackComponent extends DocumentPackHelpers implements OnInit
 
           packIndex++;
         });
+        this.checkProjects();
       });
     }
   }
+
+  documentRemoveItem($event: MouseEvent, itemIndex: number, packIndex: number) {
+    this.removeItem($event, itemIndex, packIndex);
+    this.checkProjects();
+  }
+
+
+  onValueChange($event: any, item: any) {
+    this.projectService.getCategories($event.id).subscribe((categories) => {
+      item.projectCategories = categories;
+      this.checkProjects();
+    });
+  }
+
+  checkProjects() {
+    let item1;
+    let item2;
+    let packIndex = 0;
+    let differentProject = false;
+    this.formPacks.controls.forEach((pack) => {
+      this.itemsByIndex(packIndex).controls.forEach((item) => {
+        item1 = this.formGroup.get('project')?.value?.id;
+        item2 = item?.value?.project?.id;
+        if (item1 && item2) {
+          if (item1 !== item2) {
+            differentProject = true;
+          }
+        }
+      });
+      packIndex++;
+    });
+    this.compareProjects.emit(differentProject);
+  }
+
 }
