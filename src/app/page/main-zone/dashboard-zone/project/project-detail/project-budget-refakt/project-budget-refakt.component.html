@@ -9,14 +9,20 @@
     <div [class.box]="!isLoadingResults && budgetOverview.length === 0" class="p-3">
       <h1>Rozpočet projektu</h1>
 
-      <app-project-budget-expansions-panel [budgetOverview]="budgetOverview"></app-project-budget-expansions-panel>
+      <app-project-budget-expansions-panel [budgetOverview]="budgetOverview" [checkboxData]="checkboxData" [checkboxDataSubject]="checkboxDataSubject"></app-project-budget-expansions-panel>
     </div>
   </div>
 </div>
 
 
 <div class="row">
-  <div class="col-12 d-flex justify-content-end">
+  <div class="col-12 d-flex justify-content-between">
+    <div class="pt-2 mt-2 pb-4">
+      <button mat-flat-button class="btn btn-icon btn-theme" (click)="createInvoice()" type="button">
+        <mat-icon>description</mat-icon>
+        Vytvoriť faktúru
+      </button>
+    </div>
     <div class="pt-2 mt-2 pb-4">
       <button mat-flat-button class="btn btn-icon btn-theme" (click)="dialogItems()" type="button">
         <mat-icon>create_new_folder</mat-icon>

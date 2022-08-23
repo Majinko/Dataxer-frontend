@@ -15,6 +15,7 @@ import {DatePipe} from '@angular/common';
 import {DocumentHelperClass} from '../../../../../core/class/DocumentHelperClass';
 import {PriceOfferService} from '../../../../../core/services/priceOffer.service';
 import {ProjectService} from '../../../../../core/services/project.service';
+import {BudgetService} from '../../../../../core/services/budget.service';
 
 @Component({
   selector: 'app-invoice-create',
@@ -53,6 +54,7 @@ export class InvoiceCreateComponent extends DocumentHelperClass implements OnIni
     private userService: UserService,
     public companyService: CompanyService,
     private invoiceService: InvoiceService,
+    private budgetService: BudgetService,
     private priceOfferService: PriceOfferService,
     protected projectService: ProjectService,
     public documentHelper: DocumentHelper
@@ -72,6 +74,10 @@ export class InvoiceCreateComponent extends DocumentHelperClass implements OnIni
 
       if (this.f.company.value) {
         this.prepareDocumentNumber(this.f.company.value);
+      }
+
+      if (params.budgetId) {
+        this.prepareInvoiceFromBudget(params.budgetId, params.itemIds);
       }
     });
   }
@@ -189,6 +195,12 @@ export class InvoiceCreateComponent extends DocumentHelperClass implements OnIni
         .then(() => {
           this.messageService.add('Faktúra bola uložená');
         });
+    });
+  }
+
+  private prepareInvoiceFromBudget(budgetId: string, itemIds: string) {
+    this.budgetService.getBudgetData(budgetId, itemIds).subscribe((r) => {
+      console.log(r);
     });
   }
 }

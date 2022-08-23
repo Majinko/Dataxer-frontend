@@ -3,6 +3,7 @@
     <table class="table-hover table-data table-borderless w-100" *ngIf="budgetPacksOverview.length > 0">
       <thead>
       <tr>
+        <th class="td-checkbox"></th>
         <th class="text-left white-space-nowrap">Názov položky</th>
         <th class="text-center white-space-nowrap">Počet</th>
         <th class="text-center white-space-nowrap">MJ</th>
@@ -17,6 +18,11 @@
       </thead>
       <tbody *ngFor="let pack of budgetPacksOverview">
       <tr class="pack-row">
+        <td class="td-checkbox">
+          <mat-checkbox class="example-margin" [checked]="pack.allComplete" [indeterminate]="someComplete(pack)"
+                        (change)="setAll($event.checked, pack)" (indeterminateChange)="indeterminateChange($event, pack)">
+          </mat-checkbox>
+        </td>
         <td class="text-left font-weight-bold" style="white-space: nowrap">
           {{pack.title}}
         </td>
@@ -45,6 +51,10 @@
 
       <ng-container *ngFor="let item of pack.budgetPackItemsOverview">
         <tr class="table-item">
+          <td class="td-checkbox">
+            <mat-checkbox [checked]="item.checked" (change)="changeCheckbox($event, item, pack)">
+            </mat-checkbox>
+          </td>
           <td class="text-left" style="white-space: nowrap">
             {{item.title}}
           </td>

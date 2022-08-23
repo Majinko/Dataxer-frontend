@@ -10,6 +10,7 @@ import {
 import {BudgetOverview} from '../../../../../../../../core/models/budget';
 import {ActivatedRoute} from '@angular/router';
 import {BudgetService} from '../../../../../../../../core/services/budget.service';
+import {Subject} from 'rxjs';
 
 @Component({
   selector: 'app-project-budget-expansions-panel',
@@ -18,6 +19,8 @@ import {BudgetService} from '../../../../../../../../core/services/budget.servic
 })
 export class ProjectBudgetExpansionsPanelComponent implements OnInit {
   @Input() budgetOverview: BudgetOverview[] = [];
+  @Input() checkboxData;
+  @Input() checkboxDataSubject = new Subject<boolean>();
 
   constructor(
     private route: ActivatedRoute,
@@ -37,6 +40,8 @@ export class ProjectBudgetExpansionsPanelComponent implements OnInit {
         const factory = this.resolver.resolveComponentFactory(ProjectBudgetExpansionsPanelComponent).create(this.injector);
 
         factory.instance.budgetOverview = budgetOverview;
+        factory.instance.checkboxData = this.checkboxData;
+        factory.instance.checkboxDataSubject = this.checkboxDataSubject;
 
         // 2. Attach component to the appRef so that it's inside the ng component tree
         this.appRef.attachView(factory.hostView);

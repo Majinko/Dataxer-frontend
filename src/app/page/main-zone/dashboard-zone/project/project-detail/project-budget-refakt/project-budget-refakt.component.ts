@@ -5,7 +5,7 @@ import {
   ViewContainerRef
 } from '@angular/core';
 import {ProjectHelperClass} from '../../../../../../core/class/ProjectHelperClass';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {ProjectService} from '../../../../../../core/services/project.service';
 import {MatDialog} from '@angular/material/dialog';
 import {
@@ -14,6 +14,7 @@ import {
 import {BudgetService} from '../../../../../../core/services/budget.service';
 import {MessageService} from '../../../../../../core/services/message.service';
 import {BudgetOverview} from '../../../../../../core/models/budget';
+import {Subject} from 'rxjs';
 
 @Component({
   selector: 'app-project-budget-refakt',
@@ -23,10 +24,13 @@ import {BudgetOverview} from '../../../../../../core/models/budget';
 export class ProjectBudgetRefaktComponent extends ProjectHelperClass implements OnInit {
   isLoadingResults: boolean = true;
   budgetOverview: BudgetOverview[] = [];
+  checkboxData = [];
+  checkboxDataSubject = new Subject<boolean>();
 
   @ViewChild('adHost', {read: ViewContainerRef}) entry: ViewContainerRef;
 
   constructor(
+    private router: Router,
     private dialog: MatDialog,
     private budgetService: BudgetService,
     private messageService: MessageService,
@@ -70,5 +74,11 @@ export class ProjectBudgetRefaktComponent extends ProjectHelperClass implements 
         });
       }
     });
+  }
+
+  createInvoice() {
+    this.checkboxDataSubject.next(true);
+    const id = +this.route.parent.snapshot.paramMap.get('id');
+    this.router.navigate(['invoice/create/INVOICE', { budgetId: id, itemIds: this.checkboxData.toString()}]).then();
   }
 }

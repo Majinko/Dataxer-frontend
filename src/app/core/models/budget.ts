@@ -20,6 +20,9 @@ export interface BudgetPackOverview {
   supplierPrice: number;
   profitPrice: number;
   budgetPackItemsOverview: BudgetPackItemOverview[];
+  allComplete?: boolean;
+  checked?: boolean;
+  indeterminate?: boolean;
 }
 
 export interface BudgetPackItemOverview {
@@ -33,5 +36,6 @@ export interface BudgetPackItemOverview {
   totalPrice: number;
   profitPrice: number;
   item?: Item;
+  checked?: boolean;
 }
 
