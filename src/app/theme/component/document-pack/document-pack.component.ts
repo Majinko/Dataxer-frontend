@@ -108,10 +108,12 @@ export class DocumentPackComponent extends DocumentPackHelpers implements OnInit
 
 
   onValueChange($event: any, item: any) {
-    this.projectService.getCategories($event.id).subscribe((categories) => {
-      item.projectCategories = categories;
-      this.checkProjects();
-    });
+    if ($event) {
+      this.projectService.getCategories($event.id).subscribe((categories) => {
+        item.projectCategories = categories;
+        this.checkProjects();
+      });
+    }
   }
 
   checkProjects() {

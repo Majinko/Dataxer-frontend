@@ -42,6 +42,7 @@ export class InvoiceCreateComponent extends DocumentHelperClass implements OnIni
   moreOptions: boolean = false;
   documentType: string = 'INVOICE';
   isLoad: boolean = false;
+  projectId: number;
 
   constructor(
     protected numberingService: NumberingService,
@@ -76,8 +77,9 @@ export class InvoiceCreateComponent extends DocumentHelperClass implements OnIni
         this.prepareDocumentNumber(this.f.company.value);
       }
 
-      if (params.budgetId) {
-        this.prepareInvoiceFromBudget(params.budgetId, params.itemIds);
+      if (params.projectId) {
+        this.projectId = params.projectId;
+        this.prepareInvoiceFromBudget(params.projectId, params.itemIds);
       }
     });
   }
@@ -198,9 +200,14 @@ export class InvoiceCreateComponent extends DocumentHelperClass implements OnIni
     });
   }
 
-  private prepareInvoiceFromBudget(budgetId: string, itemIds: string) {
-    this.budgetService.getBudgetData(budgetId, itemIds).subscribe((r) => {
-      console.log(r);
+  private prepareInvoiceFromBudget(projectId: string, itemIds: string) {
+    this.budgetService.getBudgetData(projectId, itemIds).subscribe((data) => {
+      console.log(data);
+      this.formGroup.get('project').patchValue(data.project);
+      this.formGroup.get('contact').patchValue(data.contact);
+      // this.formGroup.get('packs').patchValue(data.packs);
+      // this.formGroup.get('packs').patchValue(data.packs);
+      this.oldPacks = data.packs;
     });
   }
 }

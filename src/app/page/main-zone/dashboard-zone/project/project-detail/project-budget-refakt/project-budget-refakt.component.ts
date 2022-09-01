@@ -79,6 +79,6 @@ export class ProjectBudgetRefaktComponent extends ProjectHelperClass implements 
   createInvoice() {
     this.checkboxDataSubject.next(true);
     const id = +this.route.parent.snapshot.paramMap.get('id');
-    this.router.navigate(['invoice/create/INVOICE', { budgetId: id, itemIds: this.checkboxData.toString()}]).then();
+    this.router.navigate(['invoice/create/INVOICE', { projectId: id, itemIds: this.checkboxData.toString()}]).then();
   }
 }

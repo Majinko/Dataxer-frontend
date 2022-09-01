@@ -21,7 +21,7 @@ export class BudgetService extends ResourceService<Budget> {
     return this.httpClient.get <BudgetOverview[]>(`${environment.baseUrl}/budget/project/${projectId}${categoryId ? '?categoryParentId=' + categoryId : ''}`);
   }
 
-  getBudgetData(budgetId: string, itemIds: string): Observable<any[]> {
-    return this.httpClient.get <any[]>(`${environment.baseUrl}/budget/budgetData/${budgetId}${itemIds ? '?itemIds=' + itemIds : ''}`);
+  getBudgetData(projectId: string, itemIds: string): Observable<any> {
+    return this.httpClient.get <any>(`${environment.baseUrl}/budget/budgetData/${projectId}${itemIds ? '?itemIds=' + itemIds : ''}`);
   }
 }
