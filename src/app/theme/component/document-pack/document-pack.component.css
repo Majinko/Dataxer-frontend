@@ -3,4 +3,16 @@
   background: white !important;
 }
 
+.table-wrap {
+  padding-top: 90px;
+}
+
+:root > .row {
+  background: red;
+}
+
+.mt-top {
+  margin-top: -70px;
+}
+
 /*# sourceMappingURL=document-pack.component.css.map */
