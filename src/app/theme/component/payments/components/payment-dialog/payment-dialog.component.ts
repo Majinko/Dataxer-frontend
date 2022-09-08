@@ -27,6 +27,7 @@ import {Payment} from '../../../../../core/models/payment';
 })
 export class PaymentDialogComponent implements OnInit {
   formGroup: FormGroup;
+  isLoading: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -63,13 +64,19 @@ export class PaymentDialogComponent implements OnInit {
 
   submit() {
     if (this.formGroup.invalid) {
+      this.messageService.add('Prosíme o skontrolovanie povinných údajov');
       return;
     }
-
+    this.isLoading = true;
+    
     this.paymentService.store(this.formGroup.value).subscribe((payment) => {
       this.dialogRef.close();
       this.paymentService.newPayment.next(payment);
       this.messageService.add('Úhrada bola uložená');
+      this.isLoading = false;
+    }, error => {
+      this.messageService.add('Nastala chyba');
+      this.isLoading = false;
     });
   }
 
