@@ -191,18 +191,27 @@ export class InvoiceCreateComponent extends DocumentHelperClass implements OnIni
       totalPrice: this.documentHelper.totalPrice,
     });
 
-    this.invoiceService.store(this.formGroup.value, +this.route.snapshot.paramMap.get('id')).subscribe((r) => {
-      this.router
-        .navigate(['/paginate/invoices'])
-        .then(() => {
-          this.messageService.add('Faktúra bola uložená');
-        });
-    });
+    if (this.projectId) {
+      this.invoiceService.storeFromBudget(this.formGroup.value, this.projectId).subscribe((r) => {
+        this.router
+          .navigate(['/paginate/invoices'])
+          .then(() => {
+            this.messageService.add('Faktúra bola uložená');
+          });
+      });
+    } else {
+      this.invoiceService.store(this.formGroup.value, +this.route.snapshot.paramMap.get('id')).subscribe((r) => {
+        this.router
+          .navigate(['/paginate/invoices'])
+          .then(() => {
+            this.messageService.add('Faktúra bola uložená');
+          });
+      });
+    }
   }
 
   private prepareInvoiceFromBudget(projectId: string, itemIds: string) {
     this.budgetService.getBudgetData(projectId, itemIds).subscribe((data) => {
-      console.log(data);
       this.formGroup.get('project').patchValue(data.project);
       this.formGroup.get('contact').patchValue(data.contact);
       // this.formGroup.get('packs').patchValue(data.packs);
