@@ -28,7 +28,7 @@
       </app-new-project-select>
       <mat-error *ngIf="submitted && f.project.errors" class="mat-error-not-in-field">Projekt je
         <strong>požadovaný.</strong></mat-error>
-      <mat-error *ngIf="differentProject">Položky sú priradené k viacerým zákazkam</mat-error>
+      <mat-error *ngIf="differentProject" class="mat-error-not-in-field">Položky sú priradené k rozdielnym zákazkam</mat-error>
     </div>
 
     <div class="col-md-4">
@@ -40,6 +40,7 @@
       </ng-select>
       <mat-error *ngIf="submitted && f.categories.errors" class="mat-error-not-in-field">Kategória je
         <strong>požadovana.</strong></mat-error>
+      <mat-error *ngIf="differentCategory" class="mat-error-not-in-field">Položky sú priradené k rozdielnym kategóriam</mat-error>
     </div>
 
     <div class="col-md-4">
@@ -221,7 +222,7 @@
 
   <div *ngIf="projects && projects.length">
     <app-document-pack *ngIf="f.company.value != null;" [formGroup]="formGroup" [documentHelper]="documentHelper"
-      [projects]="projects" (compareProjects)="differentProject = $event"></app-document-pack>
+      [projects]="projects" (compareProjects)="differentProject = $event" (compareCategory)="differentCategory = $event"></app-document-pack>
   </div>
 
   <div class="row">

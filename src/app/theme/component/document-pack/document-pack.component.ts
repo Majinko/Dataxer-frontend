@@ -31,6 +31,7 @@ export class DocumentPackComponent extends DocumentPackHelpers implements OnInit
   @Input() fromDemand: boolean;
 
   @Output() compareProjects: EventEmitter<boolean> = new EventEmitter();
+  @Output() compareCategory: EventEmitter<boolean> = new EventEmitter();
 
   constructor(
     protected formBuilder: FormBuilder,
@@ -117,23 +118,34 @@ export class DocumentPackComponent extends DocumentPackHelpers implements OnInit
   }
 
   checkProjects() {
-    let item1;
-    let item2;
+    let p1: number;
+    let p2: number;
+    let c1: number;
+    let c2: number;
     let packIndex = 0;
     let differentProject = false;
+    let differentCategory = false;
     this.formPacks.controls.forEach((pack) => {
       this.itemsByIndex(packIndex).controls.forEach((item) => {
-        item1 = this.formGroup.get('project')?.value?.id;
-        item2 = item?.value?.project?.id;
-        if (item1 && item2) {
-          if (item1 !== item2) {
+        p1 = this.formGroup.get('project')?.value?.id;
+        p2 = item?.value?.project?.id;
+        c1 = this.formGroup.get('category')?.value?.id;
+        c2 = item?.value?.category?.id;
+        if (p1 && p2) {
+          if (p1 !== p2) {
             differentProject = true;
+          }
+        }
+        if (c1 && c2) {
+          if (c1 !== c2) {
+            differentCategory = true;
           }
         }
       });
       packIndex++;
     });
     this.compareProjects.emit(differentProject);
+    this.compareCategory.emit(differentCategory);
   }
 
 }

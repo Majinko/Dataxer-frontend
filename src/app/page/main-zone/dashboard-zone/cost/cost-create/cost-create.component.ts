@@ -45,6 +45,7 @@ export class CostCreateComponent extends DocumentHelperClass implements OnInit {
   isLoading: boolean = false;
   documentType = 'COST';
   differentProject: boolean = false;
+  differentCategory: boolean = false;
 
   categories: CategoryItemNode[] = [];
 

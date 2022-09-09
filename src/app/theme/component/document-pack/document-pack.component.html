@@ -136,7 +136,7 @@
               </div>
 
               <div class="jsSettings" *ngIf="categories">
-                <app-category-select-group dropDownPosition="top"
+                <app-category-select-group (ngModelChange)="checkProjects()" dropDownPosition="top"
                   [categoryItemNodes]="item.projectCategories ? item.projectCategories : categories"
                   formControlName="category"></app-category-select-group>
               </div>
