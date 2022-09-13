@@ -180,7 +180,7 @@ export class PriceOfferCreateComponent extends DocumentHelperClass implements On
     });
 
     if (this.projectId) {
-      this.priceOfferService.storeFromBudget(this.formGroup.value).subscribe((r) => {
+      this.priceOfferService.storeFromBudget(this.formGroup.value,this.projectId).subscribe((r) => {
         this.router
           .navigate(['/paginate/priceOffers'])
           .then(() => this.messageService.add('Cenová ponuka bola uložená'));

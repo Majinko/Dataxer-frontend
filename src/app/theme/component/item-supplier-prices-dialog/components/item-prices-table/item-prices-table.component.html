@@ -16,16 +16,16 @@
           <div class="loading-shade" *ngIf="isLoadingResults">
             <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
           </div>
-  
-          <table *ngIf="data" mat-table [dataSource]="item.itemPrices" class="table-hover table-data table-borderless w-100" matSort
+
+          <table *ngIf="item" mat-table [dataSource]="item.itemPrices" class="table-hover table-data table-borderless w-100" matSort
             matSortDisableClear matSortDirection="desc">
-  
+
             <!-- Name Column -->
             <ng-container matColumnDef="name">
               <th mat-header-cell *matHeaderCellDef> Názov dodávateľa </th>
               <td mat-cell *matCellDef="let element"> {{element.supplier?.name || '-'}} </td>
             </ng-container>
-  
+
             <!-- icons Column -->
             <ng-container matColumnDef="icons">
               <th mat-header-cell *matHeaderCellDef> </th>
@@ -34,7 +34,7 @@
                 <mat-icon *ngIf="element.isBanned" class="text-red-danger" matTooltip="Zakázaný">do_not_disturb_on </mat-icon>
               </td>
             </ng-container>
-  
+
             <!-- voc Column -->
             <ng-container matColumnDef="voc">
               <th mat-header-cell *matHeaderCellDef> VOC bez DPH </th>
@@ -42,7 +42,7 @@
                 {{element.wholesalePrice + ' €' || '-'}}
               </td>
             </ng-container>
-  
+
             <!-- moc Column -->
             <ng-container matColumnDef="moc">
               <th mat-header-cell *matHeaderCellDef> MOC bez DPH </th>
@@ -50,7 +50,7 @@
                 {{element.price + ' €' || '-'}}
               </td>
             </ng-container>
-  
+
             <!-- marge Column -->
             <ng-container matColumnDef="marge">
               <th mat-header-cell *matHeaderCellDef> Marža </th>
@@ -62,22 +62,22 @@
                     <mat-icon class="text-approved">check</mat-icon>
                   </div>
                 </div>
-  
+
               </td>
             </ng-container>
-  
+
             <!-- price Column -->
             <ng-container matColumnDef="price">
               <th mat-header-cell *matHeaderCellDef> Cena bez DPH </th>
               <td mat-cell *matCellDef="let element"> {{element.price}} €</td>
             </ng-container>
-  
+
             <!-- currentTo Column -->
             <ng-container matColumnDef="currentTo">
               <th mat-header-cell *matHeaderCellDef> Cena aktuálna do </th>
               <td mat-cell *matCellDef="let element"> {{element.priceActualTo | date:'dd.MM.y'}}</td>
             </ng-container>
-  
+
             <!-- Action Column -->
             <ng-container matColumnDef="actions">
               <th class="text-right p-0" mat-header-cell *matHeaderCellDef></th>
@@ -88,7 +88,7 @@
                 <button onclick="event.stopPropagation();" mat-icon-button [matMenuTriggerFor]="menu" type="button">
                   <mat-icon>more_vert</mat-icon>
                 </button>
-  
+
                 <mat-menu #menu="matMenu" class="menu-not-rounded">
                   <button mat-menu-item (click)="setBan(element)">
                     <span>Zakázať dodávatela</span>
@@ -99,7 +99,7 @@
                 </mat-menu>
               </td>
             </ng-container>
-  
+
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr class="cursor-pointer" mat-row *matRowDef="let row; columns: displayedColumns;" (click)="edit(null, row)"></tr>
           </table>
@@ -107,4 +107,3 @@
       </div>
     </div>
   </div>
-  
