@@ -76,9 +76,18 @@ export class ProjectBudgetRefaktComponent extends ProjectHelperClass implements 
     });
   }
 
-  createInvoice() {
+  createDocument(type: string) {
     this.checkboxDataSubject.next(true);
     const id = +this.route.parent.snapshot.paramMap.get('id');
-    this.router.navigate(['invoice/create/INVOICE', { projectId: id, itemIds: this.checkboxData.toString()}]).then();
+
+    if (this.checkboxData.length > 0) {
+      if (type === 'invoice') {
+        this.router.navigate(['invoice/create/INVOICE', { projectId: id, itemIds: this.checkboxData.toString()}]).then();
+      } else if (type === 'priceOffers') {
+        this.router.navigate(['price-offer/create', { projectId: id, itemIds: this.checkboxData.toString()}]).then();
+      }
+    } else {
+      this.messageService.add('Vyberte položky.');
+    }
   }
 }

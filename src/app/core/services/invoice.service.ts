@@ -37,8 +37,8 @@ export class InvoiceService extends ResourceService<Invoice> {
     return this.httpClient.post<Invoice>(relatedId !== 0 ? `${environment.baseUrl}/invoice/store/${relatedId}` : `${environment.baseUrl}/invoice/store`, invoice);
   }
 
-  storeFromBudget(invoice: Invoice, budgetId: number = null): Observable<Invoice> {
-    return this.httpClient.post<Invoice>(`${environment.baseUrl}/invoice/storefromBudget/${budgetId}`, invoice);
+  storeFromBudget(invoice: Invoice, projectId: number = null): Observable<Invoice> {
+    return this.httpClient.post<Invoice>(`${environment.baseUrl}/invoice/storefromBudget/${projectId}`, invoice);
   }
 
   paginate(page: number, size: number): Observable<Paginate<Invoice>> {
