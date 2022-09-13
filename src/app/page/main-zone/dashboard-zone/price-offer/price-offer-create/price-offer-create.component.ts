@@ -164,8 +164,6 @@ export class PriceOfferCreateComponent extends DocumentHelperClass implements On
       this.preparePacksFromDemandItem();
     }
 
-    return;
-
     if (this.formGroup.invalid) {
       setTimeout(() => {
         this.documentHelper.scrollIfFormHasErrors(this.formGroup).then(() => {

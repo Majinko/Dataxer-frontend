@@ -217,8 +217,11 @@
       <h2 class="border-bottom-2 pb-2 mb-4">Cena položky</h2>
     </div>
   </div>
-
-  <app-item-prices-table [item]="item"></app-item-prices-table>
+  
+  <div *ngIf="item">
+    <app-item-prices-table [item]="item"></app-item-prices-table>
+  </div>
+  
 
   <div class="row">
     <div class="col-md-12 text-right mt-3">
