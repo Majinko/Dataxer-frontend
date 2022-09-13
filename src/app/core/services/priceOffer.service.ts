@@ -7,6 +7,7 @@ import {ResourceService} from '../class/ResourceService';
 import {Serializer} from '../models/serializers/Serializer';
 import {Paginate} from '../models/paginate';
 import {map} from 'rxjs/operators';
+import {Invoice} from "../models/invoice";
 
 @Injectable({
   providedIn: 'root',
@@ -29,6 +30,9 @@ export class PriceOfferService extends ResourceService<PriceOffer> {
       })));
   }
 
+  storeFromBudget(priceOffer: PriceOffer, projectId: number = null): Observable<PriceOffer> {
+    return this.httpClient.post<PriceOffer>(`${environment.baseUrl}/priceOffer/storefromBudget/${projectId}`, priceOffer);
+  }
 
   findAllByProject(projectId: number, companyIds: number[] = null): Observable<PriceOffer[]> {
     return this.httpClient.get<PriceOffer[]>(`${environment.baseUrl}/priceOffer/project/${projectId}${companyIds && companyIds.length > 0 ? '?companyIds=' + companyIds : ''}`);

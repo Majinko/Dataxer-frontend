@@ -15,6 +15,7 @@ import {DocumentHelperClass} from '../../../../../core/class/DocumentHelperClass
 import {ProjectService} from '../../../../../core/services/project.service';
 import {MatSlideToggle} from '@angular/material/slide-toggle';
 import {DemandService} from '../../../../../core/services/demand.service';
+import {BudgetService} from "../../../../../core/services/budget.service";
 
 @Component({
   selector: 'app-create',
@@ -41,6 +42,7 @@ export class PriceOfferCreateComponent extends DocumentHelperClass implements On
   oldPacks: Pack[] = [];
   demandPackItems: DemandPackItem[] = [];
   documentType: string = 'PRICE_OFFER';
+  projectId: number;
 
   @ViewChild('slide', {static: false}) slide: MatSlideToggle;
 
@@ -51,6 +53,7 @@ export class PriceOfferCreateComponent extends DocumentHelperClass implements On
     protected projectService: ProjectService,
     protected router: Router,
     public route: ActivatedRoute,
+    private budgetService: BudgetService,
     private formBuilder: FormBuilder,
     private userService: UserService,
     private priceOfferService: PriceOfferService,
@@ -64,6 +67,13 @@ export class PriceOfferCreateComponent extends DocumentHelperClass implements On
     this.prepareForm();
     this.changeForm();
     this.getProject();
+
+    this.route.params.subscribe(params => {
+      if (params.projectId) {
+        this.projectId = params.projectId;
+        this.preparePriceOfferFromBudget(params.projectId, params.itemIds);
+      }
+    });
 
     if (this.route.snapshot.paramMap.get('demandId')) {
       this.formGroup.addControl('isPackComplex', this.formBuilder.control(true));
@@ -171,16 +181,33 @@ export class PriceOfferCreateComponent extends DocumentHelperClass implements On
       totalPrice: this.documentHelper.totalPrice,
     });
 
-
-    this.priceOfferService.store(this.formGroup.value).subscribe((r) => {
-      this.router
-        .navigate(['/paginate/priceOffers'])
-        .then(() => this.messageService.add('Cenová ponuka bola uložená'));
-    });
+    if (this.projectId) {
+      this.priceOfferService.storeFromBudget(this.formGroup.value).subscribe((r) => {
+        this.router
+          .navigate(['/paginate/priceOffers'])
+          .then(() => this.messageService.add('Cenová ponuka bola uložená'));
+      });
+    } else {
+      this.priceOfferService.store(this.formGroup.value).subscribe((r) => {
+        this.router
+          .navigate(['/paginate/priceOffers'])
+          .then(() => this.messageService.add('Cenová ponuka bola uložená'));
+      });
+    }
   }
 
   // convenience getter for easy access to form fields
   get f() {
     return this.formGroup.controls;
+  }
+
+  private preparePriceOfferFromBudget(projectId: string, itemIds: string) {
+    this.budgetService.getBudgetData(projectId, itemIds).subscribe((data) => {
+      this.formGroup.get('project').patchValue(data.project);
+      this.formGroup.get('contact').patchValue(data.contact);
+      // this.formGroup.get('packs').patchValue(data.packs);
+      // this.formGroup.get('packs').patchValue(data.packs);
+      this.oldPacks = data.packs;
+    });
   }
 }
