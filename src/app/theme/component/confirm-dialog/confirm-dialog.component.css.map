@@ -1,1 +1,1 @@
-{"version":3,"sourceRoot":"","sources":[],"names":[],"mappings":"","file":"confirm-dialog.component.css"}
+{"version":3,"sourceRoot":"","sources":["confirm-dialog.component.scss"],"names":[],"mappings":"AAAA;AAAA;EAEI;;;AAEJ;EACI","file":"confirm-dialog.component.css"}

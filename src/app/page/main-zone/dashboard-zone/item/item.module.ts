@@ -8,25 +8,22 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {ThemeModule} from '../../../../theme/theme.module';
 import {ContactModule} from '../contact/contact.module';
-import {ItemPriceComponent} from './component/item-price/item-price.component';
 import {CoreModule} from '../../../../core/core.module';
 import {ItemEditComponent} from './item-edit/item-edit.component';
 import {ItemShowComponent} from './item-show/item-show.component';
-import { ItemPricesComponent } from './component/item-prices/item-prices.component';
 import { ItemProjectsComponent } from './component/item-projects/item-projects.component';
 import { ItemSuppliersComponent } from './component/item-suppliers/item-suppliers.component';
 import { ItemSummaryInfoComponent } from './component/item-summary-info/item-summary-info.component';
 import { ItemPhotoComponent } from './component/item-photo/item-photo.component';
-import { ItemNewSupplierDialogComponent } from './component/item-new-supplier-dialog/item-new-supplier-dialog.component';
 import { ItemProjectsDialogComponent } from './component/item-projects-dialog/item-projects-dialog.component';
 import { ItemSupplierDialogComponent } from './component/item-supplier-dialog/item-supplier-dialog.component';
 import {AvatarModule} from 'ngx-avatar';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 @NgModule({
-  declarations: [ItemComponent, ItemCreateComponent, ItemPriceComponent, ItemEditComponent, ItemShowComponent,
-    ItemPricesComponent, ItemProjectsComponent, ItemSuppliersComponent, ItemSummaryInfoComponent, ItemPhotoComponent,
-    ItemNewSupplierDialogComponent, ItemProjectsDialogComponent, ItemSupplierDialogComponent],
+    declarations: [ItemComponent, ItemCreateComponent, ItemEditComponent, ItemShowComponent,
+        ItemProjectsComponent, ItemSuppliersComponent, ItemSummaryInfoComponent, ItemPhotoComponent,
+        ItemProjectsDialogComponent, ItemSupplierDialogComponent],
     imports: [
         CommonModule,
         ItemRoutingModule,

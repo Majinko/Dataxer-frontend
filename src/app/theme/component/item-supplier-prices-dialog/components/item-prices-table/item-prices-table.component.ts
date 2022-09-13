@@ -1,26 +1,30 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
-import {Item} from '../../../../../../core/models/item';
-import {AppPaginateData} from '../../../../../../core/class/AppPaginateData';
-import {ItemNewSupplierDialogComponent} from '../item-new-supplier-dialog/item-new-supplier-dialog.component';
-import {MatDialog} from '@angular/material/dialog';
+import {AppPaginateData} from '../../../../../core/class/AppPaginateData';
 import {MatTable} from '@angular/material/table';
-import {ItemPriceService} from '../../../../../../core/services/item-price.service';
-import {ConfirmDialogComponent} from '../../../../../../theme/component/confirm-dialog/confirm-dialog.component';
+import {Item} from '../../../../../core/models/item';
+import {ActivatedRoute} from '@angular/router';
+import {ItemService} from '../../../../../core/services/item.service';
+import {ItemPriceService} from '../../../../../core/services/item-price.service';
+import {MatDialog} from '@angular/material/dialog';
+import {ItemSupplierPricesDialogComponent} from '../../item-supplier-prices-dialog.component';
+import {ConfirmDialogComponent} from '../../../confirm-dialog/confirm-dialog.component';
 
 @Component({
-  selector: 'app-item-prices',
-  templateUrl: './item-prices.component.html',
-  styleUrls: ['./item-prices.component.scss']
+  selector: 'app-item-prices-table',
+  templateUrl: './item-prices-table.component.html',
+  styleUrls: ['./item-prices-table.component.scss']
 })
-export class ItemPricesComponent extends AppPaginateData<any> implements OnInit {
+export class ItemPricesTableComponent extends AppPaginateData<any> implements OnInit {
   displayedColumns: string[] = ['name', 'icons', 'voc', 'moc', 'marge', 'price', 'currentTo', 'actions'];
 
   @Input() item: Item;
   @ViewChild(MatTable) table!: MatTable<any>;
 
   constructor(
+    private route: ActivatedRoute,
     private dialog: MatDialog,
-    private itemPriceService: ItemPriceService
+    private itemPriceService: ItemPriceService,
+    private itemService: ItemService,
   ) {
     super();
   }
@@ -29,7 +33,7 @@ export class ItemPricesComponent extends AppPaginateData<any> implements OnInit 
   }
 
   newSupplier() {
-    const dialogRef = this.dialog.open(ItemNewSupplierDialogComponent, {
+    const dialogRef = this.dialog.open(ItemSupplierPricesDialogComponent, {
       width: '100%',
       maxWidth: '1000px',
       autoFocus: false,
@@ -44,7 +48,7 @@ export class ItemPricesComponent extends AppPaginateData<any> implements OnInit 
       $event.stopPropagation();
     }
 
-    const dialogRef = this.dialog.open(ItemNewSupplierDialogComponent, {
+    const dialogRef = this.dialog.open(ItemSupplierPricesDialogComponent, {
       width: '100%',
       maxWidth: '1000px',
       data: {
@@ -64,21 +68,23 @@ export class ItemPricesComponent extends AppPaginateData<any> implements OnInit 
         result.itemPrice.itemId = this.item.id;
 
         this.itemPriceService.store(result.itemPrice).subscribe((itemPrice) => {
-          this.item.itemPrices = this.item.itemPrices.concat(itemPrice);
+          this.getItem();
         });
       }
     });
   }
 
   setBan(element) {
+
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      maxWidth: '400px',
+      width: '100%',
+      maxWidth: '300px',
     });
 
     dialogRef.afterClosed().subscribe(dialogResult => {
       if (dialogResult === true) {
         this.itemPriceService.setBan(element.id).subscribe(r => {
-          console.log(r);
+          this.getItem();
         });
       }
     });
@@ -86,15 +92,23 @@ export class ItemPricesComponent extends AppPaginateData<any> implements OnInit 
 
   setDefault(element) {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      maxWidth: '400px',
+      width: '100%',
+      maxWidth: '300px',
     });
 
     dialogRef.afterClosed().subscribe(dialogResult => {
       if (dialogResult === true) {
         this.itemPriceService.setDefaultSupplier(element.id, this.item.id).subscribe(r => {
-          console.log(r);
+          this.getItem();
         });
       }
     });
   }
+
+  private getItem(){
+    this.itemService.getById(+this.route.snapshot.paramMap.get('id')).subscribe(item => {
+      this.item = item;
+    });
+  }
 }
+
