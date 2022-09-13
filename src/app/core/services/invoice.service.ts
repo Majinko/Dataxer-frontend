@@ -37,18 +37,18 @@ export class InvoiceService extends ResourceService<Invoice> {
     return this.httpClient.post<Invoice>(relatedId !== 0 ? `${environment.baseUrl}/invoice/store/${relatedId}` : `${environment.baseUrl}/invoice/store`, invoice);
   }
 
-  storeFromBudget(invoice: Invoice, projectId: number = null): Observable<Invoice> {
-    return this.httpClient.post<Invoice>(`${environment.baseUrl}/invoice/storefromBudget/${projectId}`, invoice);
+  storeFromBudget(invoice: Invoice, budgetId: number = null): Observable<Invoice> {
+    return this.httpClient.post<Invoice>(`${environment.baseUrl}/invoice/storeFromBudget/${budgetId}`, invoice);
   }
 
   paginate(page: number, size: number): Observable<Paginate<Invoice>> {
     return this.httpClient.get<Paginate<Invoice>>(`${environment.baseUrl}/invoice/paginate?page=${page}&size=${size}${this.rsqlFilter ? '&filters=' + this.rsqlFilter : ''}`).pipe(map(data => {
       data.content.forEach(invoice => {
-        invoice.paymentPrice =  sum(invoice.payments, 'payedValue');
+        invoice.paymentPrice = sum(invoice.payments, 'payedValue');
         invoice.dueAtDays = Math.ceil(moment(invoice.dueDate).diff(new Date(), 'days', true));
       });
 
-      data.content =  data.content.sort((a, b) =>  +b.number - +a.number);
+      data.content = data.content.sort((a, b) => +b.number - +a.number);
 
       return data;
     }));
