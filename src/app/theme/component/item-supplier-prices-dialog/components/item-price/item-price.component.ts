@@ -1,7 +1,7 @@
 import {AfterViewChecked, ChangeDetectorRef, Component, Inject, Input, OnChanges, OnInit} from '@angular/core';
-import {AddPercentPipe} from '../../../../../../core/pipes/add-percent.pipe';
-import {RemovePercentPipe} from '../../../../../../core/pipes/remove-percent.pipe';
 import {FormGroup} from '@angular/forms';
+import {AddPercentPipe} from '../../../../../core/pipes/add-percent.pipe';
+import {RemovePercentPipe} from '../../../../../core/pipes/remove-percent.pipe';
 
 @Component({
   selector: 'app-item-price',

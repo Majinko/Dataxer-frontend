@@ -1,21 +1,21 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {MessageService} from '../../../../../../core/services/message.service';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {MessageService} from '../../../core/services/message.service';
 
 @Component({
-  selector: 'app-item-new-supplier-dialog',
-  templateUrl: './item-new-supplier-dialog.component.html',
-  styleUrls: ['./item-new-supplier-dialog.component.scss']
+  selector: 'app-item-supplier-prices-dialog',
+  templateUrl: './item-supplier-prices-dialog.component.html',
+  styleUrls: ['./item-supplier-prices-dialog.component.scss']
 })
-export class ItemNewSupplierDialogComponent implements OnInit {
+export class ItemSupplierPricesDialogComponent implements OnInit {
   formGroup: FormGroup;
   type: string = '0';
   priceWithDph = false;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
-    public dialogRef: MatDialogRef<ItemNewSupplierDialogComponent>,
+    public dialogRef: MatDialogRef<ItemSupplierPricesDialogComponent>,
     private formBuilder: FormBuilder,
     private messageService: MessageService,
   ) {

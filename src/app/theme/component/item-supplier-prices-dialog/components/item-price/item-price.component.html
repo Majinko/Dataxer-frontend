@@ -27,7 +27,7 @@
       <div class="col-md-4">
         <mat-form-field class="form-group w-100" [ngClass]="{'disabled-field': (type === '4' || priceWithDph)}">
           <input #wholesalePrice (ngModelChange)="modelChanged($event)" [ngModel]="+wholesalePrice.value" matInput placeholder="Cena bez DPH" formControlName="wholesalePrice"
-          [value]="(priceWithDph) ? (+wholesalePriceTax.value / (1 + +wholesaleTax.value / 100)).toFixed(2) : type === '4' ? (+price.value | removePercent: +marge.value) : ''" type="number">
+                 [value]="(priceWithDph) ? (+wholesalePriceTax.value / (1 + +wholesaleTax.value / 100)).toFixed(2) : type === '4' ? (+price.value | removePercent: +marge.value) : ''" type="number">
         </mat-form-field>
       </div>
 
@@ -56,7 +56,7 @@
       <div class="col-md-3">
         <mat-form-field class="form-group w-100" [ngClass]="{'disabled-field': !(type === '2' || type === '4')}">
           <input #marge (ngModelChange)="modelChanged($event)" [ngModel]="+marge.value" matInput placeholder="Marža %" formControlName="marge"
-           [value]="!(type === '2' || type === '4') ? (((+price.value - +wholesalePrice.value) / +price.value) * 100).toFixed(2) : ''" type="number">
+                 [value]="!(type === '2' || type === '4') ? (((+price.value - +wholesalePrice.value) / +price.value) * 100).toFixed(2) : ''" type="number">
         </mat-form-field>
       </div>
     </div>
@@ -124,14 +124,14 @@
       <div class="col-md-3">
         <mat-form-field class="form-group w-100 disabled-field">
           <input #finalMarge (ngModelChange)="modelChanged($event)" [ngModel]="+finalMarge.value" matInput placeholder="Konečná marža %" formControlName="finalMarge"
-          [value]="(((+sellingPrice.value - +wholesalePrice.value) / +sellingPrice.value) * 100).toFixed(2)" type="number">
+                 [value]="(((+sellingPrice.value - +wholesalePrice.value) / +sellingPrice.value) * 100).toFixed(2)" type="number">
         </mat-form-field>
       </div>
 
       <div class="col-md-3">
         <mat-form-field class="form-group w-100" [ngClass]="{'disabled-field':  type !== '3'}">
           <input #profit (ngModelChange)="modelChanged($event)" [ngModel]="+profit.value" matInput placeholder="Zisk bez dph" formControlName="profit"
-          value="{{ type !== '3' ? (+sellingPrice.value - +wholesalePrice.value).toFixed(2) : '' }}" type="number">
+                 value="{{ type !== '3' ? (+sellingPrice.value - +wholesalePrice.value).toFixed(2) : '' }}" type="number">
         </mat-form-field>
       </div>
       <div class="col-md-3">

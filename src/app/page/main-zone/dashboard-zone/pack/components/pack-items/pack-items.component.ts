@@ -29,7 +29,7 @@ export class PackItemsComponent implements OnInit {
   createItem(): FormGroup {
     return this.formBuilder.group({
       item: ['', Validators.required],
-      qty: 0,
+      qty: 1,
     });
   }
 

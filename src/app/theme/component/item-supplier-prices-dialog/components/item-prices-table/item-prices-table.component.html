@@ -1,0 +1,110 @@
+<div class="row">
+    <div class="col-12">
+      <button mat-stroked-button (click)="newSupplier()" class="btn-icon btn-theme-stroked" type="button">
+        <mat-icon>add</mat-icon>
+        Nový dodávateľ
+      </button>
+    </div>
+  </div>
+  <div class="row mt-4">
+    <div class="col-12">
+      <h2>Zoznam dodávateľov</h2>
+    </div>
+    <div class="col-12">
+      <div class="table-wrap">
+        <div class="position-relative">
+          <div class="loading-shade" *ngIf="isLoadingResults">
+            <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+          </div>
+  
+          <table *ngIf="data" mat-table [dataSource]="item.itemPrices" class="table-hover table-data table-borderless w-100" matSort
+            matSortDisableClear matSortDirection="desc">
+  
+            <!-- Name Column -->
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef> Názov dodávateľa </th>
+              <td mat-cell *matCellDef="let element"> {{element.supplier?.name || '-'}} </td>
+            </ng-container>
+  
+            <!-- icons Column -->
+            <ng-container matColumnDef="icons">
+              <th mat-header-cell *matHeaderCellDef> </th>
+              <td mat-cell *matCellDef="let element">
+                <mat-icon *ngIf="element.isDefault" class="mr-2 text-approved" matTooltip="Predvolený">check_circle </mat-icon>
+                <mat-icon *ngIf="element.isBanned" class="text-red-danger" matTooltip="Zakázaný">do_not_disturb_on </mat-icon>
+              </td>
+            </ng-container>
+  
+            <!-- voc Column -->
+            <ng-container matColumnDef="voc">
+              <th mat-header-cell *matHeaderCellDef> VOC bez DPH </th>
+              <td mat-cell *matCellDef="let element">
+                {{element.wholesalePrice + ' €' || '-'}}
+              </td>
+            </ng-container>
+  
+            <!-- moc Column -->
+            <ng-container matColumnDef="moc">
+              <th mat-header-cell *matHeaderCellDef> MOC bez DPH </th>
+              <td mat-cell *matCellDef="let element">
+                {{element.price + ' €' || '-'}}
+              </td>
+            </ng-container>
+  
+            <!-- marge Column -->
+            <ng-container matColumnDef="marge">
+              <th mat-header-cell *matHeaderCellDef> Marža </th>
+              <td mat-cell *matCellDef="let element">
+                <div class="d-flex align-items-center">
+                  {{element.marge + ' %' || '-'}}
+                  <div class="pl-2">
+                    <mat-icon class="text-approved">check</mat-icon>
+                    <mat-icon class="text-approved">check</mat-icon>
+                  </div>
+                </div>
+  
+              </td>
+            </ng-container>
+  
+            <!-- price Column -->
+            <ng-container matColumnDef="price">
+              <th mat-header-cell *matHeaderCellDef> Cena bez DPH </th>
+              <td mat-cell *matCellDef="let element"> {{element.price}} €</td>
+            </ng-container>
+  
+            <!-- currentTo Column -->
+            <ng-container matColumnDef="currentTo">
+              <th mat-header-cell *matHeaderCellDef> Cena aktuálna do </th>
+              <td mat-cell *matCellDef="let element"> {{element.priceActualTo | date:'dd.MM.y'}}</td>
+            </ng-container>
+  
+            <!-- Action Column -->
+            <ng-container matColumnDef="actions">
+              <th class="text-right p-0" mat-header-cell *matHeaderCellDef></th>
+              <td class="text-right action-link pr-0" colspan="2" mat-cell *matCellDef="let element">
+                <button mat-icon-button matTooltip="Edit item" (click)="edit($event, element)" type="button">
+                  <mat-icon class="text-theme">edit</mat-icon>
+                </button>
+                <button onclick="event.stopPropagation();" mat-icon-button [matMenuTriggerFor]="menu" type="button">
+                  <mat-icon>more_vert</mat-icon>
+                </button>
+  
+                <mat-menu #menu="matMenu" class="menu-not-rounded">
+                  <button mat-menu-item (click)="setBan(element)">
+                    <span>Zakázať dodávatela</span>
+                  </button>
+                  <button mat-menu-item *ngIf="!element.isBanned && !element.isDefault" (click)="setDefault(element)">
+                    <span>Nastaviť ako predvolený</span>
+                  </button>
+                </mat-menu>
+              </td>
+            </ng-container>
+  
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr class="cursor-pointer" mat-row *matRowDef="let row; columns: displayedColumns;" (click)="edit(null, row)"></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  

@@ -41,7 +41,7 @@ export class PackCreateComponent implements OnInit {
     }
 
     this.packService.store(this.formGroup.value).subscribe(() => {
-      this.router.navigate(['/pack']).then(() => {
+      this.router.navigate(['/paginate/packs']).then(() => {
         this.messageService.add('Sada položiek bola vytvorená.');
       });
     });

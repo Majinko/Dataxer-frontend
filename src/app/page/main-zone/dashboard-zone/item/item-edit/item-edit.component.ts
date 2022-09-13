@@ -82,6 +82,7 @@ export class ItemEditComponent implements OnInit {
         tax: 20,
         marge: 0
       }),
+      itemPrices: null
     });
   }
 
