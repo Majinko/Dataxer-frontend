@@ -29,15 +29,18 @@ export class PackItemsComponent implements OnInit {
   createItem(): FormGroup {
     return this.formBuilder.group({
       item: ['', Validators.required],
+      position: this.items.length,
       qty: 1,
     });
   }
 
   drop(event: CdkDragDrop<FormArray[]>) {
     moveItemInArray(this.items.controls, event.previousIndex, event.currentIndex);
-
     this.formGroup.patchValue({
       packItems: this.items.controls
+    });
+    this.items.controls.forEach((company, index) => {
+      company.value.position = index;
     });
   }
 
