@@ -26,6 +26,7 @@
                  bindLabel="name"
                  placeholder="Kategória"
                  [clearable]="false"
+                 groupBy="parentName"
                  formControlName="category">
         <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
           <div><span>{{item.name}}</span></div>
