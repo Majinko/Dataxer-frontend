@@ -6,7 +6,7 @@
           {{budget.categoryTitle}}
         </mat-panel-title>
       </mat-expansion-panel-header>
-      <app-project-budget-pack-table [budgetPacksOverview]="budget.budgetPacksOverview" [checkboxData]="checkboxData" [checkboxDataSubject]="checkboxDataSubject"></app-project-budget-pack-table>
+      <app-project-budget-pack-table *ngIf="budget.categoryChildrenCount === 1" [budgetPacksOverview]="budget.budgetPacksOverview" [checkboxData]="checkboxData" [checkboxDataSubject]="checkboxDataSubject"></app-project-budget-pack-table>
       <div #divElement></div>
     </mat-expansion-panel>
   </mat-accordion>

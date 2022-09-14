@@ -9,6 +9,7 @@ export interface Budget {
 export interface BudgetOverview {
   categoryId: number;
   categoryTitle: string;
+  categoryChildrenCount: number;
   budgetPacksOverview: BudgetPackOverview[];
 }
 
