@@ -47,6 +47,8 @@ export class PackEditComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log(this.formGroup);
+    return;
     if (this.formGroup.invalid) {
       return;
     }
