@@ -11,6 +11,7 @@
         <th class="text-center white-space-nowrap" appShowHideTax>Dph %</th>
         <th class="text-right white-space-nowrap" appShowHideTax>Jedn. cena s DPH</th>
         <th class="text-right white-space-nowrap">Celkom <span appShowHideTax>s DPH</span></th>
+        <th class="text-center  white-space-nowrap">Stav</th>
         <th class="text-right white-space-nowrap">Nákupná cena celkom bez DPH</th>
         <th class="text-center white-space-nowrap">Marža</th>
         <th class="text-right white-space-nowrap">Bilancia/zisk</th>
@@ -44,6 +45,9 @@
         <td class="text-right font-weight-bold">
           {{pack.totalPrice | currency:'EUR':'symbol'}}
         </td>
+        <td class="text-center">
+          <span [matTooltip]="pack.state | lowercase | translate | titlecase" *ngIf="pack.state" [ngClass]="'bg-' + pack.state | lowercase" class="custom-badge text-white">{{pack.state | lowercase | translate | uppercase | slice:0:1 }}</span>
+        </td>
         <td class="text-right font-weight-bold">{{pack.supplierPrice | currency:'EUR':'symbol'}}</td>
         <td class="text-center font-weight-bold">20%</td>
         <td class="text-right font-weight-bold">{{pack.profitPrice | currency:'EUR':'symbol'}}</td>
@@ -75,6 +79,9 @@
           </td>
           <td class="text-right">
             {{!pack.customPrice ? (item.totalPrice | currency:'EUR':'symbol') : ''}}
+          </td>
+          <td class="text-center">
+            <span [matTooltip]="pack.state | lowercase | translate | titlecase" *ngIf="pack.state" [ngClass]="'bg-' + pack.state | lowercase" class="custom-badge text-white">{{pack.state | lowercase | translate | uppercase | slice:0:1 }}</span>
           </td>
           <td class="text-right">{{item?.item?.itemPrice ? (item.item.itemPrice.price |  currency:'EUR':'symbol') : '-'}}</td>
           <td class="text-center white-space-nowrap">{{(item.marge * 100).toFixed(2)}} %</td>
