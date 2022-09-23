@@ -57,9 +57,28 @@
               <td mat-cell *matCellDef="let element">
                 <div class="d-flex align-items-center">
                   {{element.marge + ' %' || '-'}}
-                  <div class="pl-2">
-                    <mat-icon class="text-approved">check</mat-icon>
-                    <mat-icon class="text-approved">check</mat-icon>
+                  <div *ngIf="marge" class="pl-2">
+                    <ng-container *ngIf="element.marge >= marge.marge3">
+                      <mat-icon class="text-approved">check</mat-icon>
+                      <mat-icon class="text-approved">check</mat-icon>
+                      <mat-icon class="text-approved">check</mat-icon>
+                    </ng-container>
+                    <ng-container *ngIf="element.marge >= marge.marge2 && element.marge < marge.marge3">
+                        <mat-icon class="text-approved">check</mat-icon>
+                        <mat-icon class="text-approved">check</mat-icon>
+                    </ng-container>
+                    <ng-container *ngIf="element.marge >= marge.marge1 && element.marge < marge.marge2">
+                      <mat-icon class="text-approved">check</mat-icon>
+                    </ng-container>
+                    <ng-container *ngIf="element.marge > 0 && element.marge < marge.marge1">
+                      <mat-icon>check</mat-icon>
+                    </ng-container>
+                    <ng-container *ngIf="element.marge === 0">
+                      <mat-icon>close</mat-icon>
+                    </ng-container>
+                    <ng-container *ngIf="element.marge < 0">
+                      <mat-icon class="text-red-danger">close</mat-icon>
+                    </ng-container>
                   </div>
                 </div>
 

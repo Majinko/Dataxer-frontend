@@ -8,6 +8,8 @@ import {ItemPriceService} from '../../../../../core/services/item-price.service'
 import {MatDialog} from '@angular/material/dialog';
 import {ItemSupplierPricesDialogComponent} from '../../item-supplier-prices-dialog.component';
 import {ConfirmDialogComponent} from '../../../confirm-dialog/confirm-dialog.component';
+import {MessageService} from '../../../../../core/services/message.service';
+import {ItemMargeService} from '../../../../../core/services/item-marge.service';
 
 @Component({
   selector: 'app-item-prices-table',
@@ -16,6 +18,7 @@ import {ConfirmDialogComponent} from '../../../confirm-dialog/confirm-dialog.com
 })
 export class ItemPricesTableComponent extends AppPaginateData<any> implements OnInit {
   displayedColumns: string[] = ['name', 'icons', 'voc', 'moc', 'marge', 'price', 'currentTo', 'actions'];
+  marge;
 
   @Input() item: Item;
   @ViewChild(MatTable) table!: MatTable<any>;
@@ -25,11 +28,14 @@ export class ItemPricesTableComponent extends AppPaginateData<any> implements On
     private dialog: MatDialog,
     private itemPriceService: ItemPriceService,
     private itemService: ItemService,
+    private itemMargeService: ItemMargeService,
+    private messageService: MessageService,
   ) {
     super();
   }
 
   ngOnInit(): void {
+    this.getMarge();
   }
 
   newSupplier() {
@@ -108,12 +114,23 @@ export class ItemPricesTableComponent extends AppPaginateData<any> implements On
   private getItem(){
     let id: number;
     if (this.route.snapshot.paramMap.get('item_id')) {
-      id = +this.route.snapshot.paramMap.get('item_id')
+      id = +this.route.snapshot.paramMap.get('item_id');
     } else if (this.route.snapshot.paramMap.get('id')) {
-      id = +this.route.snapshot.paramMap.get('id')
+      id = +this.route.snapshot.paramMap.get('id');
     }
     this.itemService.getById(id).subscribe(item => {
       this.item = item;
+    });
+  }
+
+  private getMarge() {
+    this.itemMargeService.get().subscribe(r => {
+      if (r) {
+        console.log(r);
+        this.marge = r;
+      }
+    }, error => {
+      this.messageService.add('Nastala chyba');
     });
   }
 }
