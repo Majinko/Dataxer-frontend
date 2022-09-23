@@ -37,6 +37,7 @@ export interface BudgetPackItemOverview {
   totalPrice: number;
   profitPrice: number;
   item?: Item;
+  statePriceOffer?: string;
   checked?: boolean;
 }
 

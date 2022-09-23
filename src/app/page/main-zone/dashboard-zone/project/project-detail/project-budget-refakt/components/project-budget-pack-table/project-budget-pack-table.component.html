@@ -46,7 +46,7 @@
           {{pack.totalPrice | currency:'EUR':'symbol'}}
         </td>
         <td class="text-center">
-          <span [matTooltip]="pack.state | lowercase | translate | titlecase" *ngIf="pack.state" [ngClass]="'bg-' + pack.state | lowercase" class="custom-badge text-white">{{pack.state | lowercase | translate | uppercase | slice:0:1 }}</span>
+        
         </td>
         <td class="text-right font-weight-bold">{{pack.supplierPrice | currency:'EUR':'symbol'}}</td>
         <td class="text-center font-weight-bold">20%</td>
@@ -80,8 +80,8 @@
           <td class="text-right">
             {{!pack.customPrice ? (item.totalPrice | currency:'EUR':'symbol') : ''}}
           </td>
-          <td class="text-center">
-            <span [matTooltip]="pack.state | lowercase | translate | titlecase" *ngIf="pack.state" [ngClass]="'bg-' + pack.state | lowercase" class="custom-badge text-white">{{pack.state | lowercase | translate | uppercase | slice:0:1 }}</span>
+          <td class="text-center d-flex justify-content-center">
+            <span [matTooltip]="item.statePriceOffer | lowercase | translate | titlecase" *ngIf="item.statePriceOffer" [ngClass]="'bg-' + item.statePriceOffer | lowercase" class="custom-badge text-white">{{item.statePriceOffer | lowercase | translate | uppercase | slice:0:1 }}</span>
           </td>
           <td class="text-right">{{item?.item?.itemPrice ? (item.item.itemPrice.price |  currency:'EUR':'symbol') : '-'}}</td>
           <td class="text-center white-space-nowrap">{{(item.marge * 100).toFixed(2)}} %</td>
