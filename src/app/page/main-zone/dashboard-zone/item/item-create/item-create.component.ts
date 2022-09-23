@@ -20,7 +20,7 @@ export class ItemCreateComponent implements OnInit {
   item: Item;
   formGroup: FormGroup;
   isLoading: boolean = false;
-  categories: CategoryItemNode[];
+  categories: CategoryItemNode[] = [];
   colors: string[] = ['zlta', 'modra', 'biela'];
   material: string[] = ['kov', 'drevo', 'zlato'];
 
@@ -84,7 +84,7 @@ export class ItemCreateComponent implements OnInit {
   }
 
   private getCategories() {
-    this.categoryService.all().subscribe(c => this.categories = c);
+    this.categoryService.all(true).subscribe(c => this.categories = c);
   }
 
   // convenience getter for easy access to form fields

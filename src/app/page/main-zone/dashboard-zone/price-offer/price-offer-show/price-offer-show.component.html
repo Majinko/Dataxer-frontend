@@ -158,7 +158,7 @@
             </td>
           </tr>
 
-          <ng-template [ngIf]="!pack.customPrice">
+          <ng-template [ngIf]="pack.showItems">
             <ng-container *ngFor="let item of pack.packItems">
               <tr class="table-item">
                 <td class="text-left" style="white-space: nowrap">
