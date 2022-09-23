@@ -21,7 +21,7 @@ import {UploadHelper} from '../../../../../core/class/UploadHelper';
 export class ItemEditComponent implements OnInit {
   item: Item;
   formGroup: FormGroup;
-  categories: CategoryItemNode[];
+  categories: CategoryItemNode[] = [];
   colors: string[] = ['zlta', 'modra', 'biela'];
   material: string[] = ['kov', 'drevo', 'zlato'];
   contacts: Contact[];

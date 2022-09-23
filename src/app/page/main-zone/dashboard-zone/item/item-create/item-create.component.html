@@ -33,14 +33,11 @@
     </div>
 
     <div class="col-md-4">
-      <ng-select class="form-group w-100 mb-0"
-                 [multiple]="false"
-                 [items]="categories"
-                 bindLabel="name"
-                 placeholder="Kategória"
-                 formControlName="category"
-      >
-      </ng-select>
+      <app-category-select-group
+                                 [categoryItemNodes]="categories"
+                                 formControlName="category">
+
+      </app-category-select-group>
     </div>
   </div>
 
