@@ -4,7 +4,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Todolist} from '../../../../../core/models/task';
 import {TodoService} from '../../../../../core/services/todo.service';
-import {MessageService} from "../../../../../core/services/message.service";
+import {MessageService} from '../../../../../core/services/message.service';
 
 @Component({
   selector: 'app-todolist-index',

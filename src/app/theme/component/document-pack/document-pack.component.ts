@@ -100,6 +100,22 @@ export class DocumentPackComponent extends DocumentPackHelpers implements OnInit
         this.checkProjects();
       });
     }
+    if (this.formGroup.get('category')) {
+      this.formGroup.get('category').valueChanges.subscribe((category) => {
+        let packIndex = 0;
+
+        this.formPacks.controls.forEach((pack) => {
+          this.itemsByIndex(packIndex).controls.forEach((item) => {
+            item.patchValue({
+              category
+            });
+          });
+
+          packIndex++;
+        });
+        this.checkProjects();
+      });
+    }
   }
 
   documentRemoveItem($event: MouseEvent, itemIndex: number, packIndex: number) {

@@ -275,3 +275,8 @@ body {
 }
 
 
+app-todolist-index {
+  .angular-editor-textarea {
+    resize: none !important;
+  }
+}

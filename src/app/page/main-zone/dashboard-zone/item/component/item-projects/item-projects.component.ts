@@ -11,7 +11,7 @@ import {ItemService} from '../../../../../../core/services/item.service';
   styleUrls: ['./item-projects.component.scss']
 })
 export class ItemProjectsComponent extends AppPaginateData<any> implements OnInit {
-  displayedColumns: string[] = ['name', 'count', 'price'];
+  displayedColumns: string[] = ['name', 'supplier', 'count', 'price'];
   itemInProjects: ItemInProjectDTO[] = [];
 
   @Input() item: Item;
