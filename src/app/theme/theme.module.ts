@@ -58,6 +58,7 @@ import { ItemPricesTableComponent } from './component/item-supplier-prices-dialo
 import { NoteTemplatesComponent } from './component/note-templates/note-templates.component';
 import { NoteTemplatesCreateDialogComponent } from './component/note-templates/components/note-templates-create-dialog/note-templates-create-dialog.component';
 import { NoteTemplatesDialogComponent } from './component/note-templates/components/note-templates-dialog/note-templates-dialog.component';
+import { DocumentPackTitleDialogComponent } from './component/document-pack/components/document-pack-title-dialog/document-pack-title-dialog.component';
 
 @NgModule({
   imports: [
@@ -123,6 +124,7 @@ import { NoteTemplatesDialogComponent } from './component/note-templates/compone
     NoteTemplatesComponent,
     NoteTemplatesCreateDialogComponent,
     NoteTemplatesDialogComponent,
+    DocumentPackTitleDialogComponent,
   ],
     exports: [
         DrawerComponent,

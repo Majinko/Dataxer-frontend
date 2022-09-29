@@ -14,6 +14,10 @@ import { CategoryService } from '../../../core/services/category.service';
 import { Project } from '../../../core/models/project';
 import { DocumentPackHelpers } from '../../../core/class/DocumentPackHelpers';
 import { ProjectService } from '../../../core/services/project.service';
+import {
+  DocumentPackTitleDialogComponent
+} from './components/document-pack-title-dialog/document-pack-title-dialog.component';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-document-pack',
@@ -38,6 +42,7 @@ export class DocumentPackComponent extends DocumentPackHelpers implements OnInit
     private packService: PackService,
     protected projectService: ProjectService,
     private categoryService: CategoryService,
+    private dialog: MatDialog,
   ) {
     super(formBuilder);
   }
@@ -164,4 +169,17 @@ export class DocumentPackComponent extends DocumentPackHelpers implements OnInit
     this.compareCategory.emit(differentCategory);
   }
 
+  settingTitle() {
+    const dialogRef = this.dialog.open(DocumentPackTitleDialogComponent, {
+      width: '100%',
+      maxWidth: '700px',
+      autoFocus: false,
+      disableClose: true
+    });
+    dialogRef.afterClosed().subscribe(dialogResult => {
+      if (dialogResult) {
+        console.log(dialogResult);
+      }
+    });
+  }
 }
