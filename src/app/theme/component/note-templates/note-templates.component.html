@@ -1,0 +1,14 @@
+<h2 class="border-bottom-2 pb-2 mb-4">Poznámka pre príjemcu</h2>
+<div class="pb-3">
+  <a mat-flat-button class="btn btn-icon btn-theme mr-3" (click)="getTemplate()">
+    <mat-icon>create_new_folder</mat-icon>
+    Vybrať poznámku zo šablóny
+  </a>
+  <a mat-flat-button class="btn btn-icon btn-theme" (click)="addTemplate()">
+    <mat-icon>add_circle</mat-icon>
+    Pridať novú šablónu
+  </a>
+</div>
+<div [formGroup]="formGroup" class="pb-4">
+  <angular-editor placeholder="Poznámka pre príjemcu" formControlName="note" [config]="config"></angular-editor>
+</div>
