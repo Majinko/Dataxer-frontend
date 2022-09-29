@@ -1,5 +1,5 @@
 import {Injectable, Input} from '@angular/core';
-import {AbstractControl, FormArray, FormBuilder, FormGroup} from '@angular/forms';
+import {AbstractControl, FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Pack} from '../models/pack';
 import {UNITS} from '../data/unit-items';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
@@ -44,7 +44,7 @@ export abstract class DocumentPackHelpers {
   createItem(): FormGroup {
     return this.formBuilder.group({
       id: null,
-      title: null,
+      title: [null, Validators.maxLength(255)],
       item: null,
       qty: 1,
       unit: this.units[0].unit,
