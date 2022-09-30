@@ -19,19 +19,19 @@ export const DEFAULTMAILTEMPLATES: MailTemplate[] = [
 
 export const EMAILVARIABLES: { key: string; value: string }[] = [
   {
-    key: '#CISLO',
+    key: '#CISLO#',
     value: 'Číslo dokladu',
   },
   {
-    key: '#NAZOV',
+    key: '#NAZOV#',
     value: 'Názov dokladu',
   },
   {
-    key: '#VAR',
+    key: '#VAR#',
     value: 'Variabilný key',
   },
   {
-    key: '#SUMA',
+    key: '#SUMA#',
     value: 'Suma na úhradu',
   },
 ];

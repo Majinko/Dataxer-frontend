@@ -6,6 +6,7 @@ import {
   NoteTemplatesCreateDialogComponent
 } from './components/note-templates-create-dialog/note-templates-create-dialog.component';
 import {NoteTemplatesDialogComponent} from './components/note-templates-dialog/note-templates-dialog.component';
+import {EMAILVARIABLES} from '../../../core/data/mailTemplates';
 
 @Component({
   selector: 'app-note-templates',
@@ -14,6 +15,9 @@ import {NoteTemplatesDialogComponent} from './components/note-templates-dialog/n
 })
 export class NoteTemplatesComponent implements OnInit {
   config = EDITORCONFIG;
+  variables = EMAILVARIABLES;
+  moreOptions: boolean = false;
+
   @Input() formGroup: FormGroup;
 
   constructor(
