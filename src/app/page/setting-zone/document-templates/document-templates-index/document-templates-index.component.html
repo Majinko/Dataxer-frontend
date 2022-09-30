@@ -1,14 +1,5 @@
-<div mat-dialog-title class="row mb-4">
-  <div class="d-flex align-items-center justify-content-between mb-3">
-    <h1 class="mb-0">Vyberte poznámku</h1>
-    <a mat-icon-button class="close-icon cursor-pointer" mat-dialog-close>
-      <mat-icon>close</mat-icon>
-    </a>
-  </div>
-</div>
-
-<div mat-dialog-content>
-  <div class="table-wrap">
+<h1>Šablóny poznámok</h1>
+<div class="table-wrap">
     <div class="position-relative">
       <table mat-table [dataSource]="templates" class="table-hover table-data table-borderless w-100" matSort
         matSortActive="firstName" matSortDisableClear matSortDirection="desc">
@@ -34,10 +25,6 @@
             <button mat-icon-button matTooltip="Edit item" (click)="openNote(element,'edit')" type="button">
               <mat-icon class="text-theme">edit</mat-icon>
             </button>
-            <button mat-flat-button class="btn-icon btn-theme" (click)="setTemplate(element)">
-              <mat-icon>save</mat-icon>
-              Použiť šablonu
-            </button>
           </td>
         </ng-container>
 
@@ -46,13 +33,3 @@
       </table>
     </div>
   </div>
-
-  <div class="row">
-    <div class="col-md-12 pt-3 text-right">
-      <button mat-dialog-close mat-stroked-button class="btn-icon btn-theme-stroked" type="button">
-        <mat-icon>cancel</mat-icon>
-        Zrušiť
-      </button>
-    </div>
-  </div>
-</div>

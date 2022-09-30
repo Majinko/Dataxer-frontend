@@ -114,6 +114,16 @@ const routes: Routes = [
         loadChildren: () => import('./mail-template/mail-template.module').then(m => m.MailTemplateModule),
       },
       {
+        path: 'document-template',
+        data: {
+          godButtonTitle: 'Nová šablóna', gotButtonRouteLink: '/setting/document-template/create',
+          permissions: {
+            only: 'Settings'
+          },
+        },
+        loadChildren: () => import('./document-templates/document-templates.module').then(m => m.DocumentTemplatesModule),
+      },
+      {
         path: 'items',
         data: {
           permissions: {

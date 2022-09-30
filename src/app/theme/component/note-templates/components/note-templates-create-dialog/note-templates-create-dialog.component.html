@@ -24,7 +24,18 @@
         </mat-form-field>
       </div>
       <div class="col-md-12">
-        <angular-editor placeholder="Poznámka" formControlName="note" [config]="config"></angular-editor>
+        <mat-form-field class="form-group w-100 mt-3" *ngIf="!(this.data?.documentType || this.data?.template)">
+          <mat-label>Typ dokumentu</mat-label>
+          <mat-select formControlName="documentType">
+            <mat-option value="INVOICE">Faktúra</mat-option>
+            <mat-option value="PROFORMA">Zálohová faktúra</mat-option>
+            <mat-option value="PRICE_OFFER">Cenová ponuka</mat-option>
+            <mat-option value="COST">Náklady</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-md-12">
+        <angular-editor placeholder="Poznámka" formControlName="text" [config]="config"></angular-editor>
       </div>
       <div class="col-12">
         <div class="mt-3 mb-3">
