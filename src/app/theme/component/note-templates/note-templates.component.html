@@ -9,6 +9,22 @@
     Pridať novú šablónu
   </a>
 </div>
-<div [formGroup]="formGroup" class="pb-4">
+<div [formGroup]="formGroup" class="pb-3">
   <angular-editor placeholder="Poznámka pre príjemcu" formControlName="note" [config]="config"></angular-editor>
+</div>
+<div class="mb-3">
+  <a class="cursor-pointer text-dark btn-link" (click)="moreOptions = !moreOptions"><b>Možnosti nastavenia správ</b></a>
+</div>
+<div *ngIf="moreOptions" class="box p-3 mb-4">
+  <div class="row">
+    <div class="col-12 mb-3">
+      <p>Do predmetu a do textu emailu môžete vkladať špeciálne slová, ktoré budú pri odosielaní emailu automaticky
+        nahradené skutočnými hodnotami prevzatými z príslušnej faktúry:</p>
+    </div>
+
+    <div class="col-md-3" *ngFor="let variable of variables">
+      <p class="mb-0">{{variable.key}}</p>
+      <h3 class="text-dark"><b>{{variable.value}}</b></h3>
+    </div>
+  </div>
 </div>

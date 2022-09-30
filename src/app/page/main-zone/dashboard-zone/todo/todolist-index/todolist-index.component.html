@@ -9,10 +9,10 @@
         <div class="col-12">
           <div class="private-todo-wrap">
             <h5>Kto by mal mať možnosť vidieť tento zoznam úloh?</h5>
-            <mat-radio-group formControlName="isPrivate">
-              <mat-radio-button [value]="'private'">Len náš tím - súkromné</mat-radio-button>
-              <mat-radio-button [value]="'project'">Viditeľné len pre ludí z projektu</mat-radio-button>
-              <mat-radio-button [value]="'public'">Viditeľné aj pre klientov</mat-radio-button>
+            <mat-radio-group formControlName="visibilityType">
+              <mat-radio-button [value]="'PRIVATE'">Len náš tím - súkromné</mat-radio-button>
+              <mat-radio-button [value]="'PROJECT'">Viditeľné len pre ludí z projektu</mat-radio-button>
+              <mat-radio-button [value]="'PUBLIC'">Viditeľné aj pre klientov</mat-radio-button>
             </mat-radio-group>
           </div>
         </div>

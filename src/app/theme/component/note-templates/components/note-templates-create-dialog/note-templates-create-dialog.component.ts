@@ -3,6 +3,7 @@ import {EDITORCONFIG} from '../../../../../core/data/editor-config';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {MessageService} from '../../../../../core/services/message.service';
+import {EMAILVARIABLES} from '../../../../../core/data/mailTemplates';
 
 @Component({
   selector: 'app-note-templates-create-dialog',
@@ -11,6 +12,8 @@ import {MessageService} from '../../../../../core/services/message.service';
 })
 export class NoteTemplatesCreateDialogComponent implements OnInit {
   config = EDITORCONFIG;
+  variables = EMAILVARIABLES;
+  moreOptions: boolean = false;
   formGroup: FormGroup;
 
   constructor(

@@ -1375,6 +1375,10 @@ body .mat-tab-body-content {
   background-color: #000;
 }
 
+app-todolist-index .angular-editor-textarea {
+  resize: none !important;
+}
+
 .todolists-wrap {
   padding-top: 20px;
   max-width: 800px;
