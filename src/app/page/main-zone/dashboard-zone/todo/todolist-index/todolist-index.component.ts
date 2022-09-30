@@ -34,7 +34,7 @@ export class TodolistIndexComponent implements OnInit {
   prepareForm(): void {
     this.formGroup = this.formBuilder.group({
       title: [null, Validators.required],
-      isPrivate: ['private', Validators.required]
+      visibilityType: ['PRIVATE', Validators.required]
     });
   }
 
