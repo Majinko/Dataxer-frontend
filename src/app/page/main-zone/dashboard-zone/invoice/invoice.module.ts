@@ -11,6 +11,7 @@ import {CoreModule} from '../../../../core/core.module';
 import {InvoiceShowComponent} from './invoice-show/invoice-show.component';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {TranslateModule} from '@ngx-translate/core';
+import {AngularEditorModule} from "@kolkov/angular-editor";
 
 const routes: Routes = [{
   path: '',
@@ -59,6 +60,7 @@ const routes: Routes = [{
         CoreModule,
         NgSelectModule,
         TranslateModule,
+        AngularEditorModule,
 
     ]
 })

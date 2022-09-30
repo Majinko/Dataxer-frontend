@@ -4,6 +4,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Todolist} from '../../../../../core/models/task';
 import {TodoService} from '../../../../../core/services/todo.service';
+import {MessageService} from '../../../../../core/services/message.service';
 
 @Component({
   selector: 'app-todolist-index',
@@ -18,6 +19,7 @@ export class TodolistIndexComponent implements OnInit {
   constructor(
     private todoService: TodoService,
     private formBuilder: FormBuilder,
+    private messageService: MessageService,
     public route: ActivatedRoute,
     public router: Router,
   ) {
@@ -32,7 +34,7 @@ export class TodolistIndexComponent implements OnInit {
   prepareForm(): void {
     this.formGroup = this.formBuilder.group({
       title: [null, Validators.required],
-      isPrivate: false
+      isPrivate: ['private', Validators.required]
     });
   }
 
@@ -60,6 +62,11 @@ export class TodolistIndexComponent implements OnInit {
   }
 
   createTodolist() {
+
+    if (this.formGroup.invalid) {
+      this.messageService.add('Vyplňte názov zoznamu úloh.');
+      return;
+    }
     this.todoService.storeTodoList(this.formGroup.value).subscribe(res => {
       this.create = null;
       this.getTodolist();

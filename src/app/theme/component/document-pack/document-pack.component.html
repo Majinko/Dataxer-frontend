@@ -1,6 +1,12 @@
 <div class="row mt-top">
   <div class="col-12" [formGroup]="formGroup">
     <div class="table-wrap no-border" formArrayName="packs" cdkDropList (cdkDropListDropped)="dropPack($event)">
+      <div class="pb-3">
+        <a mat-flat-button class="btn btn-icon btn-theme" (click)="settingTitle()">
+          <mat-icon>create_new_folder</mat-icon>
+          Nastavenie názvu položiek
+        </a>
+      </div>
       <table class="table-hover table-hover-gray table-data table-borderless w-100 mat-table" cdkDrag
         cdkDragLockAxis="y" [formGroupName]="i" *ngFor="let pack of formPacks.controls; let i=index">
         <tbody class="no-border">

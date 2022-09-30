@@ -35,18 +35,6 @@ export class TodoShowComponent implements OnInit {
     this.todoId = +this.route.snapshot.paramMap.get('todo');
     this.todoListId = +this.route.snapshot.paramMap.get('id');
     this.editorConfig.uploadUrl = '/test/image/upload';
-    this.editorConfig.toolbarHiddenButtons = [
-      [
-        'strikeThrough',
-        'heading',
-        'fontName',
-      ],
-      [
-        'customClasses',
-        'insertHorizontalRule',
-        'removeFormat',
-      ]
-    ];
 
     this.formGroup = this.formBuilder.group({
       comment: ['', Validators.required],

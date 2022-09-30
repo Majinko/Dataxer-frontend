@@ -15,7 +15,8 @@
     <div class="col-md-4">
       <mat-form-field class="form-group w-100">
         <input matInput placeholder="Názov položky" formControlName="title">
-        <mat-error *ngIf="f.title.errors">Názov položky je <strong>požadovaný</strong></mat-error>
+        <mat-error *ngIf="f.title.errors?.required">Názov položky je <strong>požadovaný</strong></mat-error>
+        <mat-error *ngIf="f.title.errors?.maxlength">Maximálna dĺžka je 255 znakov</mat-error>
       </mat-form-field>
     </div>
 

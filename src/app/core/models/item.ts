@@ -58,6 +58,7 @@ export class ItemInProjectDTO {
   projectName: string;
   qty: number;
   price: number;
+  supplier?: Contact;
 }
 
 

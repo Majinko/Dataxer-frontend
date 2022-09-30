@@ -55,6 +55,10 @@ import { ItemSupplierPricesDialogComponent } from './component/item-supplier-pri
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { ItemPriceComponent } from './component/item-supplier-prices-dialog/components/item-price/item-price.component';
 import { ItemPricesTableComponent } from './component/item-supplier-prices-dialog/components/item-prices-table/item-prices-table.component';
+import { NoteTemplatesComponent } from './component/note-templates/note-templates.component';
+import { NoteTemplatesCreateDialogComponent } from './component/note-templates/components/note-templates-create-dialog/note-templates-create-dialog.component';
+import { NoteTemplatesDialogComponent } from './component/note-templates/components/note-templates-dialog/note-templates-dialog.component';
+import { DocumentPackTitleDialogComponent } from './component/document-pack/components/document-pack-title-dialog/document-pack-title-dialog.component';
 
 @NgModule({
   imports: [
@@ -117,41 +121,46 @@ import { ItemPricesTableComponent } from './component/item-supplier-prices-dialo
     ItemSupplierPricesDialogComponent,
     ItemPriceComponent,
     ItemPricesTableComponent,
+    NoteTemplatesComponent,
+    NoteTemplatesCreateDialogComponent,
+    NoteTemplatesDialogComponent,
+    DocumentPackTitleDialogComponent,
   ],
-  exports: [
-    DrawerComponent,
-    ToolbarComponent,
-    MessageComponent,
-    ItemAutocompleteComponent,
-    NewContactSelectComponent,
-    PackAutocompleteComponent,
-    DocumentPackComponent,
-    SlovakiaDigitalAutocompleteComponent,
-    NewProjectSelectComponent,
-    NewCategorySelectComponent,
-    SpinnerButtonComponent,
-    ElementPaidStateComponent,
-    FileComponent,
-    DndDirective,
-    PaymentsComponent,
-    DocumentRelationComponent,
-    MenuTabComponent,
-    NestedCategoriesComponent,
-    PhotoUploaderComponent,
-    ChatComponent,
-    CategorySelectGroupComponent,
-    CategoryTreeControlComponent,
-    UploadFilesComponent,
-    DocumentDestroyButtonComponent,
-    CompanySelectGroupComponent,
-    DemandPackComponent,
-    DemandDocumentPackComponent,
-    NewUserSelectComponent,
-    BackButtonComponent,
-    MultiplePhotoUploaderComponent,
-    ItemPriceComponent,
-    ItemPricesTableComponent,
-  ]
+    exports: [
+        DrawerComponent,
+        ToolbarComponent,
+        MessageComponent,
+        ItemAutocompleteComponent,
+        NewContactSelectComponent,
+        PackAutocompleteComponent,
+        DocumentPackComponent,
+        SlovakiaDigitalAutocompleteComponent,
+        NewProjectSelectComponent,
+        NewCategorySelectComponent,
+        SpinnerButtonComponent,
+        ElementPaidStateComponent,
+        FileComponent,
+        DndDirective,
+        PaymentsComponent,
+        DocumentRelationComponent,
+        MenuTabComponent,
+        NestedCategoriesComponent,
+        PhotoUploaderComponent,
+        ChatComponent,
+        CategorySelectGroupComponent,
+        CategoryTreeControlComponent,
+        UploadFilesComponent,
+        DocumentDestroyButtonComponent,
+        CompanySelectGroupComponent,
+        DemandPackComponent,
+        DemandDocumentPackComponent,
+        NewUserSelectComponent,
+        BackButtonComponent,
+        MultiplePhotoUploaderComponent,
+        ItemPriceComponent,
+        ItemPricesTableComponent,
+        NoteTemplatesComponent,
+    ]
 })
 export class ThemeModule {
 }

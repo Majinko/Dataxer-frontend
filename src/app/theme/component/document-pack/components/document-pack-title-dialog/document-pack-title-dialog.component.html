@@ -1,0 +1,59 @@
+<div mat-dialog-title>
+  <div class="d-flex align-items-center justify-content-between mb-2">
+    <h1 class="mb-0">Nastavenie názvu položiek</h1>
+    <a mat-icon-button class="close-icon cursor-pointer" mat-dialog-close>
+      <mat-icon>close</mat-icon>
+    </a>
+  </div>
+</div>
+
+<div mat-dialog-content>
+  <div class="row">
+    <div class="col-12">
+      <p class="mb-4">Pretiahnite atribút z Možnosti do Vybrané a zostavte názov položky</p>
+    </div>
+    <div class="col-6">
+      <div class="example-container">
+        <h2>Vybrané</h2>
+
+        <div
+          cdkDropList
+          #doneList="cdkDropList"
+          [cdkDropListData]="done"
+          [cdkDropListConnectedTo]="[todoList]"
+          class="example-list"
+          (cdkDropListDropped)="drop($event)">
+          <div class="example-box" *ngFor="let item of done" cdkDrag>{{item}}</div>
+        </div>
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="example-container">
+        <h2>Možnosti</h2>
+        <div
+          cdkDropList
+          #todoList="cdkDropList"
+          [cdkDropListData]="todo"
+          [cdkDropListConnectedTo]="[doneList]"
+          class="example-list"
+          (cdkDropListDropped)="drop($event)">
+          <div class="example-box" *ngFor="let item of todo" cdkDrag>{{item}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="mat-dialog-content">
+  <div class="row">
+    <div class="col-md-12 pt-3 text-right">
+      <button mat-dialog-close mat-stroked-button class="btn-icon btn-theme-stroked mr-3" type="button">
+        <mat-icon>cancel</mat-icon>
+        Zrušiť
+      </button>
+      <button mat-flat-button class="btn-icon btn-theme" (click)="save()">
+        <mat-icon>save</mat-icon>
+        Uložiť
+      </button>
+    </div>
+  </div>
+</div>

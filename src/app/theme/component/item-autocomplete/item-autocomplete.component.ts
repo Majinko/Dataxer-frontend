@@ -1,9 +1,9 @@
-import {Component, forwardRef, OnInit, Output, EventEmitter} from '@angular/core';
+import {Component, forwardRef, OnInit, Output, EventEmitter, Injector} from '@angular/core';
 import {Subject} from 'rxjs';
 import {Item} from '../../../core/models/item';
 import {debounceTime, distinctUntilChanged, switchMap, tap} from 'rxjs/operators';
 import {ItemService} from '../../../core/services/item.service';
-import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
+import {ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, NgControl} from '@angular/forms';
 
 @Component({
   selector: 'app-item-autocomplete',
@@ -18,7 +18,7 @@ import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 
 export class ItemAutocompleteComponent implements ControlValueAccessor, OnInit {
   items: Item[] = [];
-
+  myControl: FormControl = new FormControl('');
   value: string;
   disabled = false;
   isLoading: boolean = false;
@@ -26,7 +26,10 @@ export class ItemAutocompleteComponent implements ControlValueAccessor, OnInit {
 
   @Output() findItem: EventEmitter<Item> = new EventEmitter();
 
-  constructor(private itemService: ItemService) {
+  constructor(
+    private itemService: ItemService,
+    private injector: Injector
+  ) {
   }
 
   onTouched = () => {
@@ -35,6 +38,12 @@ export class ItemAutocompleteComponent implements ControlValueAccessor, OnInit {
   };
 
   ngOnInit() {
+    const ngControl: NgControl | null = this.injector.get(NgControl, null);
+    if (ngControl) {
+      setTimeout(() => {
+        this.myControl = ngControl.control as FormControl;
+      });
+    }
     this.searchTerms.pipe(
       // wait 300ms after each keystroke before considering the term
       debounceTime(300),
