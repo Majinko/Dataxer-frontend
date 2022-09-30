@@ -40,7 +40,11 @@ export class TodolistIndexComponent implements OnInit {
 
   drop(event: CdkDragDrop<Todolist[]>) {
     moveItemInArray(this.todoLists, event.previousIndex, event.currentIndex);
-    this.todoService.listReorder(this.todoLists).subscribe(res => {
+    const ids = [];
+    this.todoLists.forEach( f => {
+      ids.push(f.id);
+    });
+    this.todoService.listReorder(ids).subscribe(res => {
       console.log(res);
     });
   }
