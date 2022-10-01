@@ -4,6 +4,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {MessageService} from '../../../../../core/services/message.service';
 import {EMAILVARIABLES} from '../../../../../core/data/mailTemplates';
+import {DocumentTemplatesService} from '../../../../../page/setting-zone/document-templates/document-templates.service';
 
 @Component({
   selector: 'app-note-templates-create-dialog',
@@ -21,17 +22,19 @@ export class NoteTemplatesCreateDialogComponent implements OnInit {
     public dialogRef: MatDialogRef<NoteTemplatesCreateDialogComponent>,
     private formBuilder: FormBuilder,
     private messageService: MessageService,
+    private documentTemplatesService: DocumentTemplatesService
   ) { }
 
   ngOnInit(): void {
     console.log(this.data);
     this.formGroup = this.formBuilder.group({
       id: null,
+      documentType: [this.data?.documentType ? this.data?.documentType : null, Validators.required],
       title: ['', Validators.required],
-      note: ''
+      text: ''
     });
     if (this.data && this.data.note) {
-      this.formGroup.get('note').patchValue(this.data.note);
+      this.formGroup.get('text').patchValue(this.data.note);
     }
     if (this.data && this.data.template) {
       this.formGroup.patchValue(this.data.template);
@@ -43,7 +46,9 @@ export class NoteTemplatesCreateDialogComponent implements OnInit {
       this.messageService.add('Prosíme o skontrolovanie povinných údajov');
       return;
     }
-    this.dialogRef.close(this.formGroup.value);
+    this.documentTemplatesService.storeOrUpdate(this.formGroup.value).subscribe(res => {
+      this.dialogRef.close(this.formGroup.value);
+    });
   }
 
   get f() {

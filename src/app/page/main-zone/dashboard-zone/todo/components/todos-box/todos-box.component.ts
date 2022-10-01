@@ -46,7 +46,11 @@ export class TodosBoxComponent implements OnInit, OnChanges {
   drop(event: CdkDragDrop<Todo[]>) {
     moveItemInArray(this.todos, event.previousIndex, event.currentIndex);
     this.todolist.todos = this.todos;
-    this.todoService.todoReorder(this.todolist).subscribe(res => {
+    const ids = [];
+    this.todolist.todos.forEach( f => {
+      ids.push(f.id);
+    });
+    this.todoService.todoReorder(ids).subscribe(res => {
       console.log(res);
     });
   }

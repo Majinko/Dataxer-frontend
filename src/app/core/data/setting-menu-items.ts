@@ -54,5 +54,11 @@ export const SettingMenuItems: MenuItem[] = [
     title: 'Šablóny emailov',
     icon: 'format_paint',
     permission: 'Settings'
+  },
+  {
+    routerLink: ['/setting/document-template'],
+    title: 'Šablóny poznámok',
+    icon: 'format_paint',
+    permission: 'Settings'
   }
 ];

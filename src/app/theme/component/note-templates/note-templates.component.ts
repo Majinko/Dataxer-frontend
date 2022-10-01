@@ -19,6 +19,7 @@ export class NoteTemplatesComponent implements OnInit {
   moreOptions: boolean = false;
 
   @Input() formGroup: FormGroup;
+  @Input() documentType: string;
 
   constructor(
     private dialog: MatDialog,
@@ -32,6 +33,7 @@ export class NoteTemplatesComponent implements OnInit {
       width: '100%',
       maxWidth: '700px',
       data: {
+        documentType: this.documentType,
         note: this.formGroup.get('note').value
       },
       autoFocus: false,
@@ -40,7 +42,7 @@ export class NoteTemplatesComponent implements OnInit {
     dialogRef.afterClosed().subscribe(dialogResult => {
       if (dialogResult) {
         console.log(dialogResult);
-        this.formGroup.get('note').patchValue(dialogResult.note);
+        this.formGroup.get('note').patchValue(dialogResult.text);
       }
     });
   }
@@ -49,13 +51,16 @@ export class NoteTemplatesComponent implements OnInit {
     const dialogRef = this.dialog.open(NoteTemplatesDialogComponent, {
       width: '100%',
       maxWidth: '1000px',
+      data: {
+        documentType: this.documentType
+      },
       autoFocus: false,
       disableClose: true
     });
     dialogRef.afterClosed().subscribe(dialogResult => {
       if (dialogResult) {
         console.log(dialogResult);
-        this.formGroup.get('note').patchValue(dialogResult.note);
+        this.formGroup.get('note').patchValue(dialogResult.text);
       }
     });
   }

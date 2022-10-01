@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {
   NoteTemplatesCreateDialogComponent
-} from "../note-templates-create-dialog/note-templates-create-dialog.component";
-import {MatDialog, MatDialogRef} from "@angular/material/dialog";
+} from '../note-templates-create-dialog/note-templates-create-dialog.component';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
+import {DocumentTemplatesService} from '../../../../../page/setting-zone/document-templates/document-templates.service';
 
 @Component({
   selector: 'app-note-templates-dialog',
@@ -12,28 +13,20 @@ import {MatDialog, MatDialogRef} from "@angular/material/dialog";
 export class NoteTemplatesDialogComponent implements OnInit {
   displayedColumns: string[] = [
     'title',
-    'note',
+    'text',
     'actions',
   ];
-  templates = [
-    {
-      id: 1,
-      title: 'test1',
-      note: 'Dakujeme'
-    },
-    {
-      id: 2,
-      title: 'test2',
-      note: 'Dakujeme pekne'
-    }
-  ];
+  templates = [];
 
   constructor(
+    @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<NoteTemplatesDialogComponent>,
     private dialog: MatDialog,
+    private documentTemplatesService: DocumentTemplatesService
   ) { }
 
   ngOnInit(): void {
+    this.getTemplates();
   }
 
   openNote(template, type: string) {
@@ -56,5 +49,13 @@ export class NoteTemplatesDialogComponent implements OnInit {
 
   setTemplate(template) {
     this.dialogRef.close(template);
+  }
+
+  private getTemplates() {
+    this.documentTemplatesService.findByDocumentType(this.data.documentType).subscribe(res => {
+      console.log('type');
+      console.log(res);
+      this.templates = res;
+    });
   }
 }
