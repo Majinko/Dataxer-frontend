@@ -25,11 +25,11 @@ export class TodoService extends ResourceService<Todo> {
   }
 
   listReorder(ids: number[]): Observable<Todolist[]> {
-    return this.httpClient.post<Todolist[]>(`${environment.baseUrl}/todo/listReorder`, ids);
+    return this.httpClient.get<Todolist[]>(`${environment.baseUrl}/todo/listReorder?ids=${ids}`);
   }
 
   todoReorder(ids: number[]): Observable<Todolist> {
-    return this.httpClient.post<Todolist>(`${environment.baseUrl}/todo/todoReorder`, ids);
+    return this.httpClient.get<Todolist>(`${environment.baseUrl}/todo/todoReorder?todoIds=${ids}`);
   }
 
   updateTodoList(todolist: Todolist): Observable<Todolist> {
