@@ -28,6 +28,7 @@ import {MessageService} from "../../../core/services/message.service";
 export class DocumentPackComponent extends DocumentPackHelpers implements OnInit {
   categories: CategoryItemNode[];
   titleOptions = [];
+  titlePack;
 
   @Input() packs: Pack[];
   @Input() formGroup: FormGroup;
@@ -81,6 +82,7 @@ export class DocumentPackComponent extends DocumentPackHelpers implements OnInit
   setPack(packIndex: number, packFormGroup: AbstractControl, pack: Pack) {
     this.packService.getById(pack.id).subscribe(p => {
       this.setPackData(packIndex, packFormGroup, p);
+      this.changeTitle();
     });
   }
 
@@ -176,13 +178,17 @@ export class DocumentPackComponent extends DocumentPackHelpers implements OnInit
     const dialogRef = this.dialog.open(DocumentPackTitleDialogComponent, {
       width: '100%',
       maxWidth: '700px',
+      data: {
+        pack: this.titlePack
+      },
       autoFocus: false,
       disableClose: true
     });
     dialogRef.afterClosed().subscribe(dialogResult => {
       if (dialogResult) {
         console.log(dialogResult);
-        this.titleOptions = dialogResult;
+        this.titlePack = dialogResult;
+        this.titleOptions = dialogResult.done;
         this.changeTitle();
       }
     });
@@ -193,11 +199,12 @@ export class DocumentPackComponent extends DocumentPackHelpers implements OnInit
 
     this.formPacks.controls.forEach((pack) => {
       this.itemsByIndex(packIndex).controls.forEach((item) => {
-        console.log(item);
         let data = '';
         this.titleOptions.forEach( f => {
-          console.log(f);
-          let title = item.value.item[f.value];
+          let title;
+          if (item.value.item) {
+            title = item.value.item[f.value];
+          }
           if (title) {
             if ( typeof(title) !== 'string' ) {
               title = title?.name;

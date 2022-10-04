@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
-import {MatDialogRef} from '@angular/material/dialog';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-document-pack-title-dialog',
@@ -43,11 +43,15 @@ export class DocumentPackTitleDialogComponent implements OnInit {
   done = [];
 
   constructor(
+    @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<DocumentPackTitleDialogComponent>,
   ) { }
 
   ngOnInit(): void {
-
+    if (this.data?.pack) {
+      this.done = this.data.pack.done
+      this.options = this.data.pack.options
+    }
   }
 
   drop(event: CdkDragDrop<[]>) {
@@ -64,7 +68,10 @@ export class DocumentPackTitleDialogComponent implements OnInit {
   }
 
   save() {
-    console.log('save');
-    this.dialogRef.close(this.done);
+    const data = {
+      done: this.done,
+      options: this.options
+    }
+    this.dialogRef.close(data);
   }
 }
