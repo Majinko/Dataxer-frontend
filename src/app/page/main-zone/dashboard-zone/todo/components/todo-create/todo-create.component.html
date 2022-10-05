@@ -30,8 +30,6 @@
             <p>Vyberte kategóriu</p>
           </div>
           <div class="col-8">
-            <!-- <app-new-category-select placeholder="Vyberte kategóriu" [showAddButton]="false" formControlName="category">
-            </app-new-category-select> -->
             <ng-select class="form-group w-100 mb-0" [items]="categories" bindLabel="name" notFoundText="Zvoľte projekt"
               placeholder="Vyberte kategóriu" groupBy="parentName" formControlName="category">
               <ng-template ng-optgroup-tmp let-item="item">
