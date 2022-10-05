@@ -14,7 +14,7 @@
 <div class="todolists-wrap">
   <div class="todolist-box">
     <div class="todolist-placeholder" *cdkDragPlaceholder></div>
-    <app-todos-box *ngIf="todolist" [todolist]="todolist"></app-todos-box>
+    <app-todos-box *ngIf="todolist" [todolist]="todolist" (action)="todoCreate($event)"></app-todos-box>
   </div>
 </div>
 <div class="task-comments-wrap">

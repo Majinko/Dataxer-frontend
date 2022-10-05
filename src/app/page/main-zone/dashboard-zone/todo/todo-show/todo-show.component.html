@@ -58,8 +58,15 @@
       </div>
       <div class="col-8">
         <p class="cursor-pointer" (click)="editButton($event)">
-          <ng-container *ngIf="todo?.assignedUser">{{ todo?.assignedUser?.firstName }} {{ todo?.assignedUser?.lastName }} </ng-container>
-          <ng-container *ngIf="!todo?.assignedUser">Vyberte mená</ng-container>
+          <ng-container *ngIf="todo?.assignedUsers">
+            <span class="todo-users-wrap">
+              <span class="d-inline-flex align-items-center mr-3" *ngFor="let item of todo.assignedUsers">
+                <ngx-avatar [src]="item?.photoUrl" size="40" name="{{item?.displayName}}" class="mr-2"></ngx-avatar>
+                {{item?.displayName}}
+              </span>
+            </span>
+          </ng-container>
+          <ng-container *ngIf="!todo?.assignedUsers">Vyberte mená</ng-container>
         </p>
       </div>
     </div>
@@ -69,8 +76,15 @@
       </div>
       <div class="col-8">
         <p class="cursor-pointer" (click)="editButton($event)">
-          <ng-container *ngIf="todo?.notifyWhenDone">{{ todo.notifyWhenDone }}</ng-container>
-          <ng-container *ngIf="!todo?.notifyWhenDone">Napíšte mená, ktoré chcete upozorniť…</ng-container>
+          <ng-container *ngIf="todo?.notifyUsers">
+            <span class="todo-users-wrap">
+              <span class="d-inline-flex align-items-center mr-3" *ngFor="let item of todo.notifyUsers">
+                <ngx-avatar [src]="item?.photoUrl" size="40" name="{{item?.displayName}}" class="mr-2"></ngx-avatar>
+                {{item?.displayName}}
+              </span>
+            </span>
+          </ng-container>
+          <ng-container *ngIf="!todo?.notifyUsers">Napíšte mená, ktoré chcete upozorniť…</ng-container>
         </p>
       </div>
     </div>

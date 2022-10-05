@@ -8,7 +8,15 @@
       <mat-icon>drag_indicator</mat-icon>
     </div>
     <div class="todo-title" [routerLink]="['/todo/show', todolist.id, todo.id]">
-      <h3>{{todo.title}}</h3>
+      <h3 class="mr-3">{{todo.title}}</h3>
+      <ng-container *ngIf="todo?.assignedUsers">
+        <span class="todo-users-wrap">
+          <span class="d-inline-flex align-items-center mr-3" *ngFor="let item of todo.assignedUsers">
+            <ngx-avatar [src]="item?.photoUrl" size="40" name="{{item?.displayName}}" class="mr-2"></ngx-avatar>
+            {{item?.displayName}}
+          </span>
+        </span>
+      </ng-container>
     </div>
   </div>
 </div>
@@ -28,7 +36,15 @@
                   (change)="checkedTodo($event.checked, todo)">
     </mat-checkbox>
     <div class="todo-title" [routerLink]="['/todo/show', todolist.id, todo.id]">
-      <h3>{{todo.title}}</h3>
+      <h3 class="mr-3">{{todo.title}}</h3>
+      <ng-container *ngIf="todo?.assignedUsers">
+        <span class="todo-users-wrap">
+          <span class="d-inline-flex align-items-center mr-3" *ngFor="let item of todo.assignedUsers">
+            <ngx-avatar [src]="item?.photoUrl" size="40" name="{{item?.displayName}}" class="mr-2"></ngx-avatar>
+            {{item?.displayName}}
+          </span>
+        </span>
+      </ng-container>
     </div>
   </div>
 </div>

@@ -38,6 +38,11 @@ export class TodosBoxComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges() {
+    this.todolist.todos.forEach(f => {
+      f.assignedUsers?.forEach( f => {
+        f.displayName = f.firstName + ' ' + f.lastName.charAt(0);
+      });
+    });
     this.todos = this.todolist.todos.filter(f => f.isFinished === false);
     this.todosFinished = this.todolist.todos.filter(f => f.isFinished === true);
     this.cdr.detectChanges();
@@ -69,6 +74,7 @@ export class TodosBoxComponent implements OnInit, OnChanges {
     if ($event === false) {
       this.createTodo = false;
     } else if ($event === true) {
+      this.createTodo = false;
       this.action.emit(true);
     }
   }

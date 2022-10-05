@@ -42,6 +42,11 @@ export class TodolistShowComponent implements OnInit {
 
   private getTodolist() {
     this.todoService.todoListById(this.todolistId).subscribe(res => {
+      res.todos.forEach(f => {
+        f.assignedUsers?.forEach( f => {
+          f.displayName = f.firstName + ' ' + f.lastName.charAt(0);
+        });
+      });
       this.todolist = res;
       this.completeTodo = this.todolist.todos.filter( f => f.isFinished === true);
       this.percent = this.completeTodo?.length / this.todolist?.todos?.length * 100;
@@ -72,5 +77,9 @@ export class TodolistShowComponent implements OnInit {
       this.getMessages();
       this.formGroup.reset();
     });
+  }
+
+  todoCreate($event: boolean) {
+    this.getTodolist();
   }
 }

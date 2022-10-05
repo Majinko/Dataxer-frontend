@@ -98,6 +98,8 @@
   padding-left: 30px;
 
   .todo-title {
+    display: flex;
+    align-items: center;
     padding-left: 10px;
 
     h3 {
@@ -464,5 +466,20 @@ app-todos-box {
 app-todolist-show {
   .task-comments-wrap {
     border-top: 1px solid #ccc;
+  }
+}
+
+.todo-users-wrap {
+  .avatar-container {
+    width: 20px !important;
+    height: 20px !important;
+    .avatar-content {
+      font-size: 10px !important;
+      line-height: 20px !important;
+      height: 20px !important;
+    }
+  }
+  .d-inline-flex {
+    color: rgb(135, 116, 87);
   }
 }
