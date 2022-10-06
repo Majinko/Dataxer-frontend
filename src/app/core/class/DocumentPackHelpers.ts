@@ -1,14 +1,15 @@
-import {Injectable, Input} from '@angular/core';
-import {AbstractControl, FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Pack} from '../models/pack';
-import {UNITS} from '../data/unit-items';
-import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
-import {Item} from '../models/item';
-import {addPercent} from '../../../helper';
+import { Injectable, Input } from '@angular/core';
+import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Pack } from '../models/pack';
+import { UNITS } from '../data/unit-items';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { Item } from '../models/item';
+import { addPercent } from '../../../helper';
 
 @Injectable()
 export abstract class DocumentPackHelpers {
   units = UNITS;
+  titleOptions;
 
   @Input() packs: Pack[];
   @Input() formGroup: FormGroup;
@@ -89,18 +90,41 @@ export abstract class DocumentPackHelpers {
 
         return item;
       })
-    }, {emitEvent: true});
+    }, { emitEvent: true });
   }
 
   // set item when find item
   setItem(itemGroup: FormGroup, item: Item) {
+    let data = '';
+    if (this.titleOptions && this.titleOptions.length > 0) {
+      this.titleOptions.forEach(f => {
+        let title;
+        if (item) {
+          title = item[f.value];
+        }
+        if (title) {
+          if (typeof (title) !== 'string') {
+            title = title?.name;
+          }
+          if (data) {
+            data = data + ' ' + title;
+          } else {
+            data = title;
+          }
+        }
+      });
+    }
+
+    if (!data) {
+      data = item.title
+    }
     itemGroup.patchValue({
       item,
-      title: item.title,
+      title: data,
       price: item.itemPrice.price,
       tax: item.itemPrice.tax,
       category: item.category
-    }, {emitEvent: true});
+    }, { emitEvent: true });
   }
 
   // set item title

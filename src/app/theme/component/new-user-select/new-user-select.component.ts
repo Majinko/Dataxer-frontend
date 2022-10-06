@@ -2,8 +2,6 @@ import {Component, forwardRef, Input, OnInit} from '@angular/core';
 import {NG_VALUE_ACCESSOR} from '@angular/forms';
 import {User} from '../../../core/models/user';
 import {UserService} from '../../../core/services/user.service';
-import {MatDialog} from '@angular/material/dialog';
-import {ContactCreateComponent} from '../../../page/main-zone/dashboard-zone/contact/contact-create/contact-create.component';
 
 @Component({
   selector: 'app-new-user-select',
@@ -38,6 +36,7 @@ export class NewUserSelectComponent implements OnInit {
 
   getUsers() {
     this.userService.all().subscribe(users => {
+      console.log(users);
       this.users = users;
     });
   }

@@ -14,14 +14,14 @@
 <div class="todolists-wrap">
   <div class="todolist-box">
     <div class="todolist-placeholder" *cdkDragPlaceholder></div>
-    <app-todos-box *ngIf="todolist" [todolist]="todolist"></app-todos-box>
+    <app-todos-box *ngIf="todolist" [todolist]="todolist" (action)="todoCreate($event)"></app-todos-box>
   </div>
 </div>
 <div class="task-comments-wrap">
   <div class="task-comment" *ngFor="let comment of comments">
     <div class="task-item">
       <div class="task-time">
-        <span>{{ comment.createdAt | date:'dd.MM.y' }}</span>
+        <span title="{{comment.createdAt | date:'MMM d, y, h:mm:ss'}}">{{ comment.createdAt | date:'MMM d' }}</span>
       </div>
       <div class="task-text-wrap">
         <div class="task-avatar" *ngIf="comment.creator">

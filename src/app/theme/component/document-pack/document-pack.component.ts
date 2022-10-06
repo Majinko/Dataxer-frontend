@@ -18,6 +18,7 @@ import {
   DocumentPackTitleDialogComponent
 } from './components/document-pack-title-dialog/document-pack-title-dialog.component';
 import {MatDialog} from '@angular/material/dialog';
+import {MessageService} from "../../../core/services/message.service";
 
 @Component({
   selector: 'app-document-pack',
@@ -26,6 +27,8 @@ import {MatDialog} from '@angular/material/dialog';
 })
 export class DocumentPackComponent extends DocumentPackHelpers implements OnInit {
   categories: CategoryItemNode[];
+  titleOptions = [];
+  titlePack;
 
   @Input() packs: Pack[];
   @Input() formGroup: FormGroup;
@@ -43,6 +46,7 @@ export class DocumentPackComponent extends DocumentPackHelpers implements OnInit
     protected projectService: ProjectService,
     private categoryService: CategoryService,
     private dialog: MatDialog,
+    private messageService: MessageService,
   ) {
     super(formBuilder);
   }
@@ -78,6 +82,7 @@ export class DocumentPackComponent extends DocumentPackHelpers implements OnInit
   setPack(packIndex: number, packFormGroup: AbstractControl, pack: Pack) {
     this.packService.getById(pack.id).subscribe(p => {
       this.setPackData(packIndex, packFormGroup, p);
+      this.changeTitle();
     });
   }
 
@@ -173,13 +178,53 @@ export class DocumentPackComponent extends DocumentPackHelpers implements OnInit
     const dialogRef = this.dialog.open(DocumentPackTitleDialogComponent, {
       width: '100%',
       maxWidth: '700px',
+      data: {
+        pack: this.titlePack
+      },
       autoFocus: false,
       disableClose: true
     });
     dialogRef.afterClosed().subscribe(dialogResult => {
       if (dialogResult) {
         console.log(dialogResult);
+        this.titlePack = dialogResult;
+        this.titleOptions = dialogResult.done;
+        this.changeTitle();
       }
+    });
+  }
+
+  private changeTitle() {
+    let packIndex = 0;
+
+    this.formPacks.controls.forEach((pack) => {
+      this.itemsByIndex(packIndex).controls.forEach((item) => {
+        let data = '';
+        this.titleOptions.forEach( f => {
+          let title;
+          if (item.value.item) {
+            title = item.value.item[f.value];
+          }
+          if (title) {
+            if ( typeof(title) !== 'string' ) {
+              title = title?.name;
+            }
+            if (data) {
+              data = data + ' ' + title;
+            } else {
+              data = title;
+            }
+          }
+        });
+        if (data) {
+          item.patchValue({
+            title: data
+          });
+        } else {
+          this.messageService.add('Nepodarilo sa zmeniť názov niektorých položiek.');
+        }
+      });
+      packIndex++;
     });
   }
 }

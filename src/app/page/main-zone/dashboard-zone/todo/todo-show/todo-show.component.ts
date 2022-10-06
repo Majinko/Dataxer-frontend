@@ -45,6 +45,12 @@ export class TodoShowComponent implements OnInit {
 
   getTodolist() {
     this.todoService.todoById(this.todoId).subscribe(res => {
+      res?.assignedUsers?.forEach( f => {
+        f.displayName = f.firstName + ' ' + f.lastName.charAt(0);
+      });
+      res?.notifyUsers?.forEach( f => {
+        f.displayName = f.firstName + ' ' + f.lastName.charAt(0);
+      });
       this.todo = res;
     });
   }

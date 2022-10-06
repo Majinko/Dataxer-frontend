@@ -7,6 +7,9 @@ import {APP_DATE_FORMATS} from '../../../../../../../helper';
 import {EDITORCONFIG} from '../../../../../../core/data/editor-config';
 import {TodoService} from '../../../../../../core/services/todo.service';
 import {MessageService} from "../../../../../../core/services/message.service";
+import {CategoryItemNode} from "../../../../../../core/models/category-item-node";
+import {Project} from "../../../../../../core/models/project";
+import {ProjectService} from "../../../../../../core/services/project.service";
 
 @Component({
   selector: 'app-todo-create',
@@ -30,6 +33,7 @@ export class TodoCreateComponent implements OnInit, AfterViewInit {
   editorConfig = EDITORCONFIG;
   noteShow = false;
   submitted = false;
+  categories: CategoryItemNode[] = [];
 
   @Input() todo?: Todo = null;
   @Input() todolistId?: number;
@@ -44,6 +48,7 @@ export class TodoCreateComponent implements OnInit, AfterViewInit {
     private cdr: ChangeDetectorRef,
     private todoService: TodoService,
     private messageService: MessageService,
+    private projectService: ProjectService,
   ) { }
 
   ngOnInit(): void {
@@ -58,11 +63,18 @@ export class TodoCreateComponent implements OnInit, AfterViewInit {
       note: null,
     });
     if (this.todo) {
+      this.todo.assignedUsers.forEach( f => {
+        f.displayName = f.firstName + ' ' + f.lastName.charAt(0);
+      });
+      this.todo.notifyUsers.forEach( f => {
+        f.displayName = f.firstName + ' ' + f.lastName.charAt(0);
+      });
       this.formGroup.patchValue(this.todo);
       if (this.todo.note) {
         this.noteShow = true;
       }
     }
+    this.handleChangeProject();
   }
   ngAfterViewInit() {
     if (this.todo) {
@@ -109,4 +121,14 @@ export class TodoCreateComponent implements OnInit, AfterViewInit {
       });
     }
   }
+
+  // handle change project
+  private handleChangeProject() {
+    this.formGroup.get('project').valueChanges.subscribe((project: Project) => {
+      this.projectService.getCategories(project.id).subscribe((categories) => {
+        this.categories = categories;
+      });
+    });
+  }
+
 }

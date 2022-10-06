@@ -26,7 +26,8 @@ export interface Todo {
   dueDate: string;
   note: string;
   isFinished: boolean;
-  assignedUser: User[];
+  assignedUsers: User[];
+  notifyUsers: User[];
   fromUser: User;
   notifyWhenDone: User;
   createdAt: string;
