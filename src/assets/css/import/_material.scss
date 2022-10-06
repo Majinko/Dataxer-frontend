@@ -3,7 +3,10 @@
     line-height: 20px !important;
   }
 }
-
+.mat-badge-medium.mat-badge-overlap.mat-badge-after .mat-badge-content {
+  right: -2px;
+  top: -2px;
+}
 
 .table-scroll{
   .mat-table{
