@@ -34,7 +34,7 @@ import {ProjectService} from '../../../../../core/services/project.service';
 export class PriceOfferEditComponent extends DocumentHelperClass implements OnInit {
   priceOffer: PriceOffer;
   formGroup: FormGroup;
-  documentType: string = 'INVOICE';
+  documentType: string = 'PRICE_OFFER';
   isEdit: boolean = true;
   submitted: boolean = false;
 

@@ -43,6 +43,9 @@ import {DocumentHelper} from '../../../../../core/class/DocumentHelper';
 export class CostEditComponent extends DocumentHelperClass implements OnInit {
   cost: Cost;
   categories: CategoryItemNode[] = [];
+  documentType = 'COST';
+  differentProject: boolean = false;
+  differentCategory: boolean = false;
 
   formGroup: FormGroup;
   submitted: boolean = false;
@@ -70,7 +73,6 @@ export class CostEditComponent extends DocumentHelperClass implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.uploadHelper.files);
     this.prepareForm();
     this.getCost();
     this.changeForm();
@@ -89,6 +91,7 @@ export class CostEditComponent extends DocumentHelperClass implements OnInit {
       repeatedTo: null,
       contact: [null, Validators.required],
       project: [null, Validators.required],
+      category: null,
       note: null,
       number: null,
       variableSymbol: null,
@@ -102,6 +105,8 @@ export class CostEditComponent extends DocumentHelperClass implements OnInit {
       documentType: 'COST',
       totalPrice: null,
       discount: 0,
+      paymentMethod: null,
+      paymentDate: null,
       documentData: this.formBuilder.group({
         contact: null,
         firm: null,
@@ -116,6 +121,14 @@ export class CostEditComponent extends DocumentHelperClass implements OnInit {
     });
   }
 
+  // change checkbox for repeated cost
+  handleRepeatedCostChange(checked: boolean) {
+    this.formGroup.patchValue({
+      period: checked ? 'MONTH' : null,
+      isInfinity: checked ? true : null,
+      repeatedFrom: checked ? new Date() : null
+    });
+  }
 
   private getCost() {
     this.costService.getById(+this.route.snapshot.paramMap.get('id')).subscribe(cost => {
