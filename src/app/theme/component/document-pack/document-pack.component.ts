@@ -82,7 +82,9 @@ export class DocumentPackComponent extends DocumentPackHelpers implements OnInit
   setPack(packIndex: number, packFormGroup: AbstractControl, pack: Pack) {
     this.packService.getById(pack.id).subscribe(p => {
       this.setPackData(packIndex, packFormGroup, p);
-      this.changeTitle();
+      if (this.titleOptions.length > 0) {
+        this.changeTitle();
+      }
     });
   }
 
@@ -189,7 +191,9 @@ export class DocumentPackComponent extends DocumentPackHelpers implements OnInit
         console.log(dialogResult);
         this.titlePack = dialogResult;
         this.titleOptions = dialogResult.done;
-        this.changeTitle();
+        if (this.titleOptions.length > 0) {
+          this.changeTitle();
+        }
       }
     });
   }
