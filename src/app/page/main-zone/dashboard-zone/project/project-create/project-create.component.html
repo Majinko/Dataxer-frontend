@@ -16,24 +16,34 @@
   </div>
 
   <div class="row">
-    <div class="col-md-6 form-group">
+    <div class="col-md-6 form-group mb-0">
       <mat-form-field class="form-group w-100">
         <input formControlName="title" matInput placeholder="Názov zákazky">
         <mat-error *ngIf="f.title.errors">Názov zákazky je <strong>požadovaný.</strong></mat-error>
       </mat-form-field>
     </div>
 
-    <div class="col-md-6 form-group">
+    <div class="col-md-6 form-group mb-0">
       <mat-form-field class="form-group w-100">
         <input formControlName="number" matInput placeholder="Číslo zákazky">
         <mat-error *ngIf="f.number.errors">Číslo zákazky je <strong>požadované.</strong></mat-error>
       </mat-form-field>
     </div>
 
-    <div class="col-md-12 form-group">
-      <mat-form-field class="form-group w-100">
+    <div class="col-md-12 form-group mb-0">
+      <mat-form-field class="form-group w-100 n-0">
         <input formControlName="description" matInput placeholder="Popis zákazky">
       </mat-form-field>
+    </div>
+
+    <div class="col-md-6 form-group">
+      <app-new-user-select placeholder="Spolupracovníci" [multiple]='true'
+              formControlName="coworkers"></app-new-user-select>
+    </div>
+
+    <div class="col-md-6 form-group">
+      <app-new-user-select placeholder="Pracovníci zodpovedný za projekt" [multiple]='true'
+              formControlName="responsibleUsers"></app-new-user-select>
     </div>
 
     <div class="col-md-4 form-group">
