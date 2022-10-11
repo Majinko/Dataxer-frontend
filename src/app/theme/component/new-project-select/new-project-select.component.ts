@@ -28,6 +28,7 @@ export class NewProjectSelectComponent implements ControlValueAccessor, OnInit, 
   @Input() projects: Project[] = [];
   @Input() showAddButton: boolean = true;
   @Input() dropDownPosition: DropdownPosition = 'auto';
+  @Input() fromComponent: string;
 
   constructor(
     public dialog: MatDialog,
@@ -99,7 +100,7 @@ export class NewProjectSelectComponent implements ControlValueAccessor, OnInit, 
   }
 
   writeValue(project: Project) {
-    if (project) {
+    if (project && (project.title || project.number)) {
       project.fullTitle = ((project.number ?? '') + ' ' + project.title).trim();
     }
 

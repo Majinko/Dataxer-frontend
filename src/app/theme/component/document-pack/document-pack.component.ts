@@ -70,7 +70,7 @@ export class DocumentPackComponent extends DocumentPackHelpers implements OnInit
       this.categories = categories;
     });
     this.formGroup.get('project').valueChanges.subscribe((project: Project) => {
-      if (project) {
+      if (project && project.id) {
         this.projectService.getCategories(project.id).subscribe((categories) => {
           this.categories = categories;
         });
@@ -135,7 +135,7 @@ export class DocumentPackComponent extends DocumentPackHelpers implements OnInit
 
 
   onValueChange($event: any, item: any) {
-    if ($event) {
+    if ($event && $event.id) {
       this.projectService.getCategories($event.id).subscribe((categories) => {
         item.projectCategories = categories;
         this.checkProjects();

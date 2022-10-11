@@ -19,6 +19,7 @@ import {DemandService} from '../../../../../core/services/demand.service';
 import {UserService} from '../../../../../core/services/user.service';
 import {UploadHelper} from '../../../../../core/class/UploadHelper';
 import {Project} from '../../../../../core/models/project';
+import {CategoryService} from '../../../../../core/services/category.service';
 
 @Component({
   selector: 'app-cost-create',
@@ -59,6 +60,7 @@ export class CostCreateComponent extends DocumentHelperClass implements OnInit {
     protected messageService: MessageService,
     protected projectService: ProjectService,
     protected router: Router,
+    private categoryService: CategoryService,
     public route: ActivatedRoute,
     public uploadHelper: UploadHelper,
     private formBuilder: FormBuilder,
@@ -87,6 +89,7 @@ export class CostCreateComponent extends DocumentHelperClass implements OnInit {
       state: null,
       company: [null, Validators.required],
       isRepeated: false,
+      isInternal: false,
       isInfinity: null,
       period: null,
       repeatedFrom: null,
@@ -136,9 +139,19 @@ export class CostCreateComponent extends DocumentHelperClass implements OnInit {
   // handle change project
   private handleChangeProject() {
     this.formGroup.get('project').valueChanges.subscribe((project: Project) => {
-      this.projectService.getCategories(project.id).subscribe((categories) => {
-        this.categories = categories;
-      });
+      if (project && project.id) {
+        this.projectService.getCategories(project.id).subscribe((categories) => {
+          this.categories = categories;
+        });
+      } else {
+        this.getInternalCategories(['COMPANY', 'SALARY']);
+      }
+    });
+  }
+
+  getInternalCategories(groups: string[]) {
+    this.categoryService.fallByGroupIn(groups, false).subscribe((nestedCategories) => {
+      this.categories = nestedCategories;
     });
   }
 
@@ -158,11 +171,22 @@ export class CostCreateComponent extends DocumentHelperClass implements OnInit {
       return;
     }
 
+    if (this.f.project.value && !this.f.project.value?.id) {
+      this.formGroup.get('isInternal').patchValue(true);
+      this.formGroup.get('project').patchValue(null, {emitEvent: false});
+    }
+
     if (this.f.isRepeated.value === true) {
       this.formGroup.patchValue({
         nextRepeatedCost: this.f.repeatedFrom.value
       });
     }
+
+    // set cost price and total price
+    this.formGroup.patchValue({
+      price: this.documentHelper.price,
+      totalPrice: this.documentHelper.totalPrice,
+    });
 
     this.costService.storeWithFiles(this.formGroup.value, this.uploadHelper.files).subscribe(() => {
       this.isLoading = false;
@@ -171,6 +195,9 @@ export class CostCreateComponent extends DocumentHelperClass implements OnInit {
         this.messageService.add('Náklad bol pridaný');
       });
     }, error => {
+      if (this.formGroup.get('isInternal').value) {
+        this.formGroup.get('project').patchValue('Firemný náklad');
+      }
       this.isLoading = false;
     });
   }
