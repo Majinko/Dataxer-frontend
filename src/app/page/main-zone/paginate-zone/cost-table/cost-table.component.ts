@@ -14,6 +14,7 @@ import {PaymentService} from '../../../../core/services/payment.service';
 import {CompanyService} from '../../../../core/services/company.service';
 import {AppDocumentPaginate} from '../../../../core/class/AppDocumentPaginate';
 import {DocumentService} from '../../../../core/services/document.service';
+import {Company} from '../../../../core/models/company';
 
 @Component({
   selector: 'app-cost-table',
@@ -23,6 +24,7 @@ import {DocumentService} from '../../../../core/services/document.service';
 export class CostTableComponent extends AppDocumentPaginate<Cost> implements OnInit, AfterViewInit, OnDestroy {
   repeatCost: boolean = false;
   displayedColumns: string[] = [];
+  companies: Company[] = [];
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
@@ -52,6 +54,10 @@ export class CostTableComponent extends AppDocumentPaginate<Cost> implements OnI
       this.repeatCost = data.rsQlFilter.includes('cost.repeated==TRUE');
 
       this.displayedColumns = this.repeatCost ? ['title', 'project', 'client', 'price', 'period', 'nextRepeatedCost'] : ['title', 'project', 'client', 'number', 'createdDate', 'deliveredDate', 'dueDate', 'state', 'price', 'actions'];
+      
+      if (this.companies.length > 1) {
+        this.displayedColumns = [...['company'], ...this.displayedColumns];
+      }
 
       if (data && data.filteredData) {
         this.costService.rsqlFilter = data.rsQlFilter;
@@ -94,6 +100,8 @@ export class CostTableComponent extends AppDocumentPaginate<Cost> implements OnI
 
   private prepareColumns() {
     this.companyService.all().subscribe(c => {
+      this.companies = c;
+
       // ak ma pouzivatel viacej ako jednu spolocnost nech vidi z akej spolocnosti je
       if (c.length > 1) {
         this.displayedColumns = [...['company'], ...this.displayedColumns];
