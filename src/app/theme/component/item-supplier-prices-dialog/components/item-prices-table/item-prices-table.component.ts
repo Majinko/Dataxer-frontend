@@ -126,7 +126,6 @@ export class ItemPricesTableComponent extends AppPaginateData<any> implements On
   private getMarge() {
     this.itemMargeService.get().subscribe(r => {
       if (r) {
-        console.log(r);
         this.marge = r;
       }
     }, error => {
