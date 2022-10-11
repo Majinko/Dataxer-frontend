@@ -58,7 +58,7 @@ export const SettingMenuItems: MenuItem[] = [
   {
     routerLink: ['/setting/document-template'],
     title: 'Šablóny poznámok',
-    icon: 'format_paint',
+    icon: 'imagesearch_roller',
     permission: 'Settings'
   }
 ];

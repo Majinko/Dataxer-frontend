@@ -1474,6 +1474,8 @@ app-todolist-index .angular-editor-textarea {
   padding-left: 30px;
 }
 .todo-box .todo-title {
+  display: flex;
+  align-items: center;
   padding-left: 10px;
 }
 .todo-box .todo-title h3 {
@@ -1786,6 +1788,19 @@ app-todos-box .button-wrap + .todo-wrap {
 
 app-todolist-show .task-comments-wrap {
   border-top: 1px solid #ccc;
+}
+
+.todo-users-wrap .avatar-container {
+  width: 20px !important;
+  height: 20px !important;
+}
+.todo-users-wrap .avatar-container .avatar-content {
+  font-size: 10px !important;
+  line-height: 20px !important;
+  height: 20px !important;
+}
+.todo-users-wrap .d-inline-flex {
+  color: #877457;
 }
 
 /*

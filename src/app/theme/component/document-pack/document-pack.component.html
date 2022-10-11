@@ -20,8 +20,7 @@
                 <mat-icon class="text-theme">{{documentHelper.packs[i].showItems ? 'visibility' : 'visibility_off'}}
                 </mat-icon>
               </a>
-              <app-pack-autocomplete (findPack)="setPack(i, pack, $event)" formControlName="title">
-              </app-pack-autocomplete>
+              <app-pack-autocomplete (findPack)="setPack(i, pack, $event)" formControlName="title"></app-pack-autocomplete>
             </td>
             <td colspan="3" class="thin">
               <mat-checkbox #checkbox formControlName="customPrice">Určiť cenu</mat-checkbox>
