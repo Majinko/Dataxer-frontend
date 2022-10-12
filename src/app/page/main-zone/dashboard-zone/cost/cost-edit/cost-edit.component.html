@@ -24,7 +24,7 @@
       </div>
 
       <div class="col-md-4">
-        <app-new-project-select [projects]="projects" [client]="f.contact.value" formControlName="project">
+        <app-new-project-select [projects]="projects" [client]="f.contact.value" [fromComponent]="'cost'" formControlName="project">
         </app-new-project-select>
         <mat-error *ngIf="submitted && f.project.errors" class="mat-error-not-in-field">Projekt je
           <strong>požadovaný.</strong></mat-error>
@@ -38,7 +38,7 @@
             {{item.parentName || 'Unnamed group'}}
           </ng-template>
         </ng-select>
-        <mat-error *ngIf="submitted && f.categories.errors" class="mat-error-not-in-field">Kategória je
+        <mat-error *ngIf="submitted && f.categories?.errors" class="mat-error-not-in-field">Kategória je
           <strong>požadovana.</strong></mat-error>
         <mat-error *ngIf="differentCategory" class="mat-error-not-in-field">Položky sú priradené k rozdielnym kategóriam</mat-error>
       </div>

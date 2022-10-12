@@ -106,6 +106,8 @@ export class ProjectCreateComponent implements OnInit {
       number: null,
       description: '',
       categoryGroup: 'PROJECT',
+      coworkers: null,
+      responsibleUsers: null,
       contact: null,
       state: null,
       address: '',

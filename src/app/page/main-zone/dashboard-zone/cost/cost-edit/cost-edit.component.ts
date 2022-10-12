@@ -19,6 +19,8 @@ import {BankAccountService} from '../../../../../core/services/bank-account.serv
 import {DemandService} from '../../../../../core/services/demand.service';
 import {UserService} from '../../../../../core/services/user.service';
 import {DocumentHelper} from '../../../../../core/class/DocumentHelper';
+import {Project} from '../../../../../core/models/project';
+import {CategoryService} from '../../../../../core/services/category.service';
 
 @Component({
   selector: 'app-cost-edit',
@@ -62,6 +64,7 @@ export class CostEditComponent extends DocumentHelperClass implements OnInit {
     protected projectService: ProjectService,
     protected router: Router,
     public route: ActivatedRoute,
+    private categoryService: CategoryService,
     public uploadHelper: UploadHelper,
     private formBuilder: FormBuilder,
     private demandService: DemandService,
@@ -76,6 +79,7 @@ export class CostEditComponent extends DocumentHelperClass implements OnInit {
     this.prepareForm();
     this.getCost();
     this.changeForm();
+    this.handleChangeProject();
   }
 
   private prepareForm() {
@@ -86,6 +90,8 @@ export class CostEditComponent extends DocumentHelperClass implements OnInit {
       state: null,
       company: [null, Validators.required],
       isRepeated: false,
+      isInternal: false,
+      isInfinity: null,
       period: null,
       repeatedFrom: null,
       repeatedTo: null,
@@ -130,11 +136,33 @@ export class CostEditComponent extends DocumentHelperClass implements OnInit {
     });
   }
 
+  // handle change project
+  private handleChangeProject() {
+    this.formGroup.get('project').valueChanges.subscribe((project: Project) => {
+      if (project && project.id) {
+        this.projectService.getCategories(project.id).subscribe((categories) => {
+          this.categories = categories;
+        });
+      } else {
+        this.getInternalCategories(['COMPANY', 'SALARY']);
+      }
+    });
+  }
+
+  getInternalCategories(groups: string[]) {
+    this.categoryService.fallByGroupIn(groups, false).subscribe((nestedCategories) => {
+      this.categories = nestedCategories;
+    });
+  }
+
   private getCost() {
     this.costService.getById(+this.route.snapshot.paramMap.get('id')).subscribe(cost => {
       this.cost = cost;
 
       this.formGroup.patchValue(this.cost);
+      if (this.cost?.isInternal) {
+        this.formGroup.get('project').patchValue('Firemný náklad');
+      }
     });
   }
 
@@ -152,11 +180,21 @@ export class CostEditComponent extends DocumentHelperClass implements OnInit {
       return;
     }
 
-    // set offer price and total price
+    if (this.f.project.value && !this.f.project.value?.id) {
+      this.formGroup.get('isInternal').patchValue(true);
+      this.formGroup.get('project').patchValue(null, {emitEvent: false});
+    }
+
+    // set cost price and total price
     this.formGroup.patchValue({
       price: this.documentHelper.price,
       totalPrice: this.documentHelper.totalPrice,
     });
+
+    if (this.f.project.value && !this.f.project.value?.id) {
+      this.formGroup.get('isInternal').patchValue(true);
+      this.formGroup.get('project').patchValue(null, {emitEvent: false});
+    }
 
     this.costService.updateWithFiles(this.formGroup.value, this.uploadHelper.files).subscribe(() => {
       this.router.navigate(['/paginate/costs']).then(() => {

@@ -28,9 +28,9 @@ export class NewCategorySelectComponent implements ControlValueAccessor, OnInit 
   }
 
   onTouched = () => {
-  };
+  }
   onChange = _ => {
-  };
+  }
 
   ngOnInit(): void {
     this.getCategories();

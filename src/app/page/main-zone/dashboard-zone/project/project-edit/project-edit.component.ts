@@ -73,6 +73,8 @@ export class ProjectEditComponent implements OnInit {
       title: [null, Validators.required],
       number: null,
       description: null,
+      coworkers: null,
+      responsibleUsers: null,
       contact: null,
       state: null,
       address: null,

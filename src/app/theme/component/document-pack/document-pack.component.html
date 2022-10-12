@@ -119,8 +119,7 @@
               </div>
 
               <div class="jsSettings" *ngIf="projects">
-                <app-new-project-select (ngModelChange)="onValueChange($event, item)" [projects]="projects"
-                  formControlName="project" dropDownPosition="top" [showAddButton]="false"></app-new-project-select>
+                <app-new-project-select [fromComponent]="formGroup.get('documentType').value.toLocaleLowerCase()" (ngModelChange)="onValueChange($event, item)" [projects]="projects" formControlName="project" dropDownPosition="top" [showAddButton]="false"></app-new-project-select>
               </div>
             </td>
             <td>
@@ -147,27 +146,6 @@
               </div>
             </td>
             <td class="text-center thin">
-              <!--    <button class="text-theme" onclick="event.stopPropagation();" mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-                <mat-icon>more_vert</mat-icon>
-              </button>
-
-              <mat-menu #menu="matMenu" class="menu-not-rounded">
-                <button mat-menu-item (click)="showDiscount(item)">
-                  <mat-icon>local_offer</mat-icon>
-                  <span>Zľava</span>
-                </button>
-
-                <button mat-menu-item (click)="showMoreOptions(trRow)">
-                  <mat-icon>settings</mat-icon>
-                  <span>Ďalšie nastavenia</span>
-                </button>
-
-                <button mat-menu-item (click)="removeItem($event, j, i)">
-                  <mat-icon>delete</mat-icon>
-                  <span>Odstrániť položku</span>
-                </button>
-              </mat-menu>-->
-
               <a (click)="showDiscount(trRow)" class="mr-3" mat-icon-button matTooltip="Zľava na položku">
                 <mat-icon class="text-theme">local_offer</mat-icon>
               </a>

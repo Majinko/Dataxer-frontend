@@ -5,20 +5,20 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup } from '@angular/forms';
-import { DocumentHelper } from '../../../core/class/DocumentHelper';
-import { Pack } from '../../../core/models/pack';
-import { PackService } from '../../../core/services/pack.service';
-import { CategoryItemNode } from '../../../core/models/category-item-node';
-import { CategoryService } from '../../../core/services/category.service';
-import { Project } from '../../../core/models/project';
-import { DocumentPackHelpers } from '../../../core/class/DocumentPackHelpers';
-import { ProjectService } from '../../../core/services/project.service';
+import {AbstractControl, FormBuilder, FormGroup} from '@angular/forms';
+import {DocumentHelper} from '../../../core/class/DocumentHelper';
+import {Pack} from '../../../core/models/pack';
+import {PackService} from '../../../core/services/pack.service';
+import {CategoryItemNode} from '../../../core/models/category-item-node';
+import {CategoryService} from '../../../core/services/category.service';
+import {Project} from '../../../core/models/project';
+import {DocumentPackHelpers} from '../../../core/class/DocumentPackHelpers';
+import {ProjectService} from '../../../core/services/project.service';
 import {
   DocumentPackTitleDialogComponent
 } from './components/document-pack-title-dialog/document-pack-title-dialog.component';
 import {MatDialog} from '@angular/material/dialog';
-import {MessageService} from "../../../core/services/message.service";
+import {MessageService} from '../../../core/services/message.service';
 
 @Component({
   selector: 'app-document-pack',
@@ -60,7 +60,7 @@ export class DocumentPackComponent extends DocumentPackHelpers implements OnInit
 
     setTimeout(() => {
       if (this.packs) {
-        this.formGroup.patchValue({ packs: this.packs });
+        this.formGroup.patchValue({packs: this.packs});
       }
     }, 1);
   }
@@ -69,8 +69,9 @@ export class DocumentPackComponent extends DocumentPackHelpers implements OnInit
     this.categoryService.all(true).subscribe((categories) => {
       this.categories = categories;
     });
+
     this.formGroup.get('project').valueChanges.subscribe((project: Project) => {
-      if (project) {
+      if (project && project.id) {
         this.projectService.getCategories(project.id).subscribe((categories) => {
           this.categories = categories;
         });
@@ -82,7 +83,9 @@ export class DocumentPackComponent extends DocumentPackHelpers implements OnInit
   setPack(packIndex: number, packFormGroup: AbstractControl, pack: Pack) {
     this.packService.getById(pack.id).subscribe(p => {
       this.setPackData(packIndex, packFormGroup, p);
-      this.changeTitle();
+      if (this.titleOptions.length > 0) {
+        this.changeTitle();
+      }
     });
   }
 
@@ -110,6 +113,7 @@ export class DocumentPackComponent extends DocumentPackHelpers implements OnInit
         this.checkProjects();
       });
     }
+
     if (this.formGroup.get('category')) {
       this.formGroup.get('category').valueChanges.subscribe((category) => {
         let packIndex = 0;
@@ -135,9 +139,14 @@ export class DocumentPackComponent extends DocumentPackHelpers implements OnInit
 
 
   onValueChange($event: any, item: any) {
-    if ($event) {
+    if ($event && $event.id) {
       this.projectService.getCategories($event.id).subscribe((categories) => {
         item.projectCategories = categories;
+        this.checkProjects();
+      });
+    }else {
+      this.categoryService.fallByGroupIn(['COMPANY', 'SALARY'], false).subscribe((nestedCategories) => {
+        item.projectCategories = nestedCategories;
         this.checkProjects();
       });
     }
@@ -189,7 +198,9 @@ export class DocumentPackComponent extends DocumentPackHelpers implements OnInit
         console.log(dialogResult);
         this.titlePack = dialogResult;
         this.titleOptions = dialogResult.done;
-        this.changeTitle();
+        if (this.titleOptions.length > 0) {
+          this.changeTitle();
+        }
       }
     });
   }
@@ -200,13 +211,13 @@ export class DocumentPackComponent extends DocumentPackHelpers implements OnInit
     this.formPacks.controls.forEach((pack) => {
       this.itemsByIndex(packIndex).controls.forEach((item) => {
         let data = '';
-        this.titleOptions.forEach( f => {
+        this.titleOptions.forEach(f => {
           let title;
           if (item.value.item) {
             title = item.value.item[f.value];
           }
           if (title) {
-            if ( typeof(title) !== 'string' ) {
+            if (typeof (title) !== 'string') {
               title = title?.name;
             }
             if (data) {
