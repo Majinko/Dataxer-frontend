@@ -156,8 +156,6 @@ export class CostCreateComponent extends DocumentHelperClass implements OnInit {
   }
 
   submit() {
-    console.log(this.formGroup.value);
-    return;
     this.submitted = true;
     this.isLoading = true;
 
