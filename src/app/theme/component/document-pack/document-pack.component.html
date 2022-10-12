@@ -119,7 +119,7 @@
               </div>
 
               <div class="jsSettings" *ngIf="projects">
-                <app-new-project-select [fromComponent]="formGroup.get('documentType').value.toLocaleLowerCase()" (ngModelChange)="onValueChange($event, item)" [projects]="projects" formControlName="project" dropDownPosition="top" [showAddButton]="false"></app-new-project-select>
+                <app-new-project-select [fromComponent]="formGroup.get('documentType')?.value?.toLocaleLowerCase()" (ngModelChange)="onValueChange($event, item)" [projects]="projects" formControlName="project" dropDownPosition="top" [showAddButton]="false"></app-new-project-select>
               </div>
             </td>
             <td>

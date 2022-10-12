@@ -40,6 +40,9 @@ export class NewProjectSelectComponent implements ControlValueAccessor, OnInit, 
   }
   onChange = _ => {
   }
+  compareWith(item, selected) {
+    return item.name === selected.name && item.id === selected.id;
+  }
 
   ngOnInit(): void {
     if (this.projects.length === 0) {

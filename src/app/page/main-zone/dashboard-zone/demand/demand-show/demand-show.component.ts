@@ -48,7 +48,6 @@ export class DemandShowComponent implements OnInit {
   }
 
   createPriceOffer() {
-    console.log('createPriceOffer');
     this.router.navigate(['/price-offer/create/demand', this.documentId]).then(() => {
     });
   }
