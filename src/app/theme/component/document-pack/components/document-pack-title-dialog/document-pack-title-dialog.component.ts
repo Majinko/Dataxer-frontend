@@ -49,8 +49,8 @@ export class DocumentPackTitleDialogComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.data?.pack) {
-      this.done = this.data.pack.done
-      this.options = this.data.pack.options
+      this.done = this.data.pack.done;
+      this.options = this.data.pack.options;
     }
   }
 
@@ -71,7 +71,7 @@ export class DocumentPackTitleDialogComponent implements OnInit {
     const data = {
       done: this.done,
       options: this.options
-    }
+    };
     this.dialogRef.close(data);
   }
 }

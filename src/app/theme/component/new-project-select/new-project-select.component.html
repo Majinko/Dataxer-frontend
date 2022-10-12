@@ -1,7 +1,7 @@
 <div class="ng-select-custom position-relative">
   <ng-select class="form-group w-100 disable-arrow mb-0" [dropdownPosition]="dropDownPosition"
     bindLabel="fullTitle" placeholder="Zákazka" [clearable]="false" [searchable]="true" [(ngModel)]="project"
-    groupBy="group" (change)="selectProject($event)">
+    groupBy="group" (change)="selectProject($event)" [compareWith]="compareWith">
     <ng-option *ngIf="fromComponent === 'cost'" [value]="{id: null, title: 'Firemný náklad'}">
       Firemný náklad
     </ng-option>

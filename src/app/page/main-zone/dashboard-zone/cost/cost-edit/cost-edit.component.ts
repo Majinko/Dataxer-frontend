@@ -160,6 +160,9 @@ export class CostEditComponent extends DocumentHelperClass implements OnInit {
       this.cost = cost;
 
       this.formGroup.patchValue(this.cost);
+      if (this.cost?.isInternal) {
+        this.formGroup.get('project').patchValue({id: null, title: 'Firemný náklad'});
+      }
     });
   }
 
