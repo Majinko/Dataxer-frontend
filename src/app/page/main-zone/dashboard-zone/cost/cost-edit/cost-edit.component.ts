@@ -160,9 +160,6 @@ export class CostEditComponent extends DocumentHelperClass implements OnInit {
       this.cost = cost;
 
       this.formGroup.patchValue(this.cost);
-      if (this.cost?.isInternal) {
-        this.formGroup.get('project').patchValue('Firemný náklad');
-      }
     });
   }
 
@@ -182,7 +179,6 @@ export class CostEditComponent extends DocumentHelperClass implements OnInit {
 
     if (this.f.project.value && !this.f.project.value?.id) {
       this.formGroup.get('isInternal').patchValue(true);
-      this.formGroup.get('project').patchValue(null, {emitEvent: false});
     }
 
     // set cost price and total price
@@ -190,11 +186,6 @@ export class CostEditComponent extends DocumentHelperClass implements OnInit {
       price: this.documentHelper.price,
       totalPrice: this.documentHelper.totalPrice,
     });
-
-    if (this.f.project.value && !this.f.project.value?.id) {
-      this.formGroup.get('isInternal').patchValue(true);
-      this.formGroup.get('project').patchValue(null, {emitEvent: false});
-    }
 
     this.costService.updateWithFiles(this.formGroup.value, this.uploadHelper.files).subscribe(() => {
       this.router.navigate(['/paginate/costs']).then(() => {

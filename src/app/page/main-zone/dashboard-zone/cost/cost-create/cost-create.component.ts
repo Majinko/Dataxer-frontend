@@ -156,8 +156,6 @@ export class CostCreateComponent extends DocumentHelperClass implements OnInit {
   }
 
   submit() {
-    console.log(this.formGroup.value);
-    return;
     this.submitted = true;
     this.isLoading = true;
 
@@ -175,7 +173,6 @@ export class CostCreateComponent extends DocumentHelperClass implements OnInit {
 
     if (this.f.project.value && !this.f.project.value?.id) {
       this.formGroup.get('isInternal').patchValue(true);
-      this.formGroup.get('project').patchValue(null, {emitEvent: false});
     }
 
     if (this.f.isRepeated.value === true) {
@@ -197,10 +194,6 @@ export class CostCreateComponent extends DocumentHelperClass implements OnInit {
         this.messageService.add('Náklad bol pridaný');
       });
     }, error => {
-      // todo zrjeme sa uz nepouziva
-      if (this.formGroup.get('isInternal').value) {
-        this.formGroup.get('project').patchValue('Firemný náklad');
-      }
       this.isLoading = false;
     });
   }
