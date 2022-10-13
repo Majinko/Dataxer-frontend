@@ -14,13 +14,6 @@ const routes: Routes = [
       },
       {
         path: 'todo',
-        data: {
-          godButtonTitle: 'Novy zoznam', // todo presunut do paginate zone
-          gotButtonRouteLink: '/todo/create',
-          permissions: {
-            only: 'Task'
-          }
-        },
         loadChildren: () => import('./todo/todo.module').then(m => m.TodoModule),
       },
       {

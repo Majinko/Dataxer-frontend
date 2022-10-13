@@ -292,6 +292,9 @@ app-todo-project-guide {
   .mat-card-actions {
     margin: 0;
   }
+  .mat-card {
+    cursor: pointer;
+  }
   .mat-card > * {
     position: relative;
     z-index: 2;

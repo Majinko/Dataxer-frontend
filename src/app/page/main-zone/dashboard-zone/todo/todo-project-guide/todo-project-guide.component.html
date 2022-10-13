@@ -6,7 +6,7 @@
 
   <div class="row todos-wrap" *ngIf="projects.length">
     <div class="col-md-2 mb-3" *ngFor="let project of projects">
-      <mat-card class="example-card" [style.background-color]="project.color">
+      <mat-card class="example-card" [style.background-color]="project.color" [routerLink]="['/todo/todolist', project.projectId]">
         <mat-card-header class="d-flex align-items-center">
           <mat-card-title class="mb-0">{{project.projectName}}</mat-card-title>
         </mat-card-header>

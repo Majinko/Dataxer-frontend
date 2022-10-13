@@ -25,11 +25,11 @@ const routes: Routes = [{
       component: TodoProjectGuideComponent,
     },
     {
-      path: 'todolist',
+      path: 'todolist/:projectId',
       component: TodolistIndexComponent,
     },
     {
-      path: ':type',
+      path: 'todolist/:projectId/:type',
       component: TodolistIndexComponent,
     },
     {
@@ -45,7 +45,8 @@ const routes: Routes = [{
 
 
 @NgModule({
-  declarations: [TodoComponent, TodolistIndexComponent, TodolistShowComponent, TodoShowComponent, TodoCreateComponent, TodosBoxComponent, TodoPieChartComponent, TodoProjectGuideComponent],
+  declarations: [TodoComponent, TodolistIndexComponent, TodolistShowComponent, TodoShowComponent,
+    TodoCreateComponent, TodosBoxComponent, TodoPieChartComponent, TodoProjectGuideComponent],
     imports: [
         CommonModule,
         RouterModule.forChild(routes),
