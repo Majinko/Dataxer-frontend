@@ -1,0 +1,29 @@
+<div class="row mb-3 pb-2">
+    <div class="col">
+      <h1>Úlohy</h1>
+    </div>
+  </div>
+
+  <div class="row todos-wrap" *ngIf="projects.length">
+    <div class="col-md-2 mb-3" *ngFor="let project of projects">
+      <mat-card class="example-card" [style.background-color]="project.color">
+        <mat-card-header class="d-flex align-items-center">
+          <mat-card-title class="mb-0">{{project.projectName}}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+
+        </mat-card-content>
+        <mat-card-actions>
+          <div class="todo-avatar-wrap">
+            <ng-container *ngIf="project.users">
+            <span class="todo-users-wrap">
+              <span class="d-inline-flex align-items-center" *ngFor="let item of project.users">
+                <ngx-avatar [src]="item?.userPhotoUrl" size="40" name="{{item?.userName}}" title="{{item?.userName}}" class="mr-2"></ngx-avatar>
+              </span>
+            </span>
+            </ng-container>
+          </div>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>

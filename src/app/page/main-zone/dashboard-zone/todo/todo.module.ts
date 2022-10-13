@@ -13,7 +13,8 @@ import {AvatarModule} from 'ngx-avatar';
 import {TodoPieChartComponent} from './components/todo-pie-chart/todo-pie-chart.component';
 import {MaterialModule} from '../../../../theme/modules/material.module';
 import {ThemeModule} from '../../../../theme/theme.module';
-import {NgSelectModule} from "@ng-select/ng-select";
+import {NgSelectModule} from '@ng-select/ng-select';
+import { TodoProjectGuideComponent } from './todo-project-guide/todo-project-guide.component';
 
 const routes: Routes = [{
   path: '',
@@ -21,6 +22,10 @@ const routes: Routes = [{
   children: [
     {
       path: '',
+      component: TodoProjectGuideComponent,
+    },
+    {
+      path: 'todolist',
       component: TodolistIndexComponent,
     },
     {
@@ -40,7 +45,7 @@ const routes: Routes = [{
 
 
 @NgModule({
-  declarations: [TodoComponent, TodolistIndexComponent, TodolistShowComponent, TodoShowComponent, TodoCreateComponent, TodosBoxComponent, TodoPieChartComponent],
+  declarations: [TodoComponent, TodolistIndexComponent, TodolistShowComponent, TodoShowComponent, TodoCreateComponent, TodosBoxComponent, TodoPieChartComponent, TodoProjectGuideComponent],
     imports: [
         CommonModule,
         RouterModule.forChild(routes),

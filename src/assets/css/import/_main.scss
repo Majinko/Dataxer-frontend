@@ -270,7 +270,7 @@ body {
         background-color: #000;
       }
     }
-    
+
   }
 }
 
@@ -280,3 +280,33 @@ app-todolist-index {
     resize: none !important;
   }
 }
+
+app-todo-project-guide {
+  .mat-card-header .mat-card-title {
+    font-size: 16px;
+  }
+  .mat-card-header-text {
+    margin: 0;
+    padding-bottom: 10px;
+  }
+  .mat-card-actions {
+    margin: 0;
+  }
+  .mat-card > * {
+    position: relative;
+    z-index: 2;
+  }
+  .mat-card:before {
+    content: '';
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    background: linear-gradient(45deg, rgba(255,255,255,1) 70%, rgba(255,255,255,0.8));
+    z-index: 1;
+  }
+}
+
