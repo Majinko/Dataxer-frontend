@@ -11,7 +11,7 @@ import {
 import {Router} from '@angular/router';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import {Todo, Todolist} from '../../../../../../core/models/task';
-import {TodoService} from '../../../../../../core/services/todo.service';
+import {TodoService} from '../../todo.service';
 
 @Component({
   selector: 'app-todos-box',

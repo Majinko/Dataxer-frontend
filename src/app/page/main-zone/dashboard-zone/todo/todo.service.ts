@@ -1,15 +1,18 @@
 import {Injectable} from '@angular/core';
-import {ResourceService} from '../class/ResourceService';
-import {Todo, TodoComment, Todolist} from '../models/task';
+import {ResourceService} from '../../../../core/class/ResourceService';
+import {Todo, TodoComment, Todolist} from '../../../../core/models/task';
 import {HttpClient} from '@angular/common/http';
-import {Serializer} from '../models/serializers/Serializer';
-import {Observable} from 'rxjs';
-import {environment} from '../../../environments/environment';
+import {Serializer} from '../../../../core/models/serializers/Serializer';
+import {Observable, Subject} from 'rxjs';
+import {environment} from '../../../../../environments/environment';
+import {map} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TodoService extends ResourceService<Todo> {
+  storeUpdateSubject = new Subject();
+  closeSubject = new Subject();
 
   constructor(
     private httpClient: HttpClient,
@@ -21,7 +24,10 @@ export class TodoService extends ResourceService<Todo> {
   }
 
   storeTodoList(todolist: Todolist): Observable<Todolist> {
-    return this.httpClient.post<Todolist>(`${environment.baseUrl}/todo/storeTodoList`, todolist);
+    return this.httpClient.post<Todolist>(`${environment.baseUrl}/todo/storeTodoList`, todolist).pipe(map((list) => {
+      this.storeUpdateSubject.next();
+      return list;
+    }));
   }
 
   listReorder(ids: number[]): Observable<Todolist[]> {

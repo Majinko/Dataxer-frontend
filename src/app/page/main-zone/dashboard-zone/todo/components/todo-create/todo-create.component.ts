@@ -5,7 +5,7 @@ import {MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter} from '@angular/mater
 import { Todo } from 'src/app/core/models/task';
 import {APP_DATE_FORMATS} from '../../../../../../../helper';
 import {EDITORCONFIG} from '../../../../../../core/data/editor-config';
-import {TodoService} from '../../../../../../core/services/todo.service';
+import {TodoService} from '../../todo.service';
 import {MessageService} from "../../../../../../core/services/message.service";
 import {CategoryItemNode} from "../../../../../../core/models/category-item-node";
 import {Project} from "../../../../../../core/models/project";

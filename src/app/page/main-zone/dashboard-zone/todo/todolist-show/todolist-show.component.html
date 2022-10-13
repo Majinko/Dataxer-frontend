@@ -1,8 +1,6 @@
-<div class="nav-link">
-  <div class="nav-button" [routerLink]="['/todo']">
-    <mat-icon class="mr-2 cursor-pointer">keyboard_backspace</mat-icon>
-    Naspäť na zoznam úloh
-  </div>
+<div class="nav-button" [routerLink]="['/todo/todolist', this.projectId]">
+  <mat-icon class="mr-2 cursor-pointer">keyboard_backspace</mat-icon>
+  Naspäť na zoznam úloh
 </div>
 <div class="todolist-row-title">
   <p>{{this.completeTodo?.length}}/{{this.todolist?.todos?.length}} dokončené</p>

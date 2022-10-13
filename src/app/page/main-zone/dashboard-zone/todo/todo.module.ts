@@ -15,6 +15,7 @@ import {MaterialModule} from '../../../../theme/modules/material.module';
 import {ThemeModule} from '../../../../theme/theme.module';
 import {NgSelectModule} from '@ng-select/ng-select';
 import { TodoProjectGuideComponent } from './todo-project-guide/todo-project-guide.component';
+import { TodolistCreateComponent } from './components/todolist-create/todolist-create.component';
 
 const routes: Routes = [{
   path: '',
@@ -46,7 +47,7 @@ const routes: Routes = [{
 
 @NgModule({
   declarations: [TodoComponent, TodolistIndexComponent, TodolistShowComponent, TodoShowComponent,
-    TodoCreateComponent, TodosBoxComponent, TodoPieChartComponent, TodoProjectGuideComponent],
+    TodoCreateComponent, TodosBoxComponent, TodoPieChartComponent, TodoProjectGuideComponent, TodolistCreateComponent],
     imports: [
         CommonModule,
         RouterModule.forChild(routes),

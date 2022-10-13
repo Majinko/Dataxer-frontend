@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {TodoService} from '../../../../../core/services/todo.service';
+import {TodoService} from '../todo.service';
 import {TodoProject} from '../../../../../core/models/task';
 
 @Component({
@@ -8,6 +8,7 @@ import {TodoProject} from '../../../../../core/models/task';
   styleUrls: ['./todo-project-guide.component.scss']
 })
 export class TodoProjectGuideComponent implements OnInit {
+  create = false;
   projects: TodoProject[] = [];
 
   constructor(
@@ -16,15 +17,21 @@ export class TodoProjectGuideComponent implements OnInit {
 
   ngOnInit(): void {
     this.getProjects();
+    this.todoService.closeSubject.subscribe(() => {
+      this.create = false;
+    });
   }
 
   private getProjects() {
     this.todoService.groupByProject().subscribe((projects) => {
-      console.log(projects);
       projects.forEach( item => {
         item.color = '#' + Math.floor(Math.random() * 16777215).toString(16);
       });
       this.projects = projects;
     });
+  }
+
+  openNewList() {
+    this.create = true;
   }
 }
