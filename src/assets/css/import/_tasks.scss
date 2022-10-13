@@ -381,6 +381,7 @@ body {
   .task-detail-title {
     textarea {
       font-size: 32px;
+      line-height: 1.1em;
       border: 0;
       outline: 0;
       padding: 0;
@@ -481,5 +482,6 @@ app-todolist-show {
   }
   .d-inline-flex {
     color: rgb(135, 116, 87);
+    white-space: nowrap;
   }
 }

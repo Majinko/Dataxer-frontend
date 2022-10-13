@@ -16,6 +16,7 @@ export interface Project {
   group?: string;
   startedAt: Date;
   finishedAt: Date;
+  color?: string;
 
   demand?: DocumentBase;
   contact: Contact;

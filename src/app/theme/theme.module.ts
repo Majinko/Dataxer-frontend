@@ -77,6 +77,7 @@ import {
   DocumentPackTitleDialogComponent
 } from './component/document-pack/components/document-pack-title-dialog/document-pack-title-dialog.component';
 import { ChangeStateDialogComponent } from './component/change-state-dialog/change-state-dialog.component';
+import { ItemPricePeriodComponent } from './component/item-supplier-prices-dialog/components/item-price-period/item-price-period.component';
 
 @NgModule({
   imports: [
@@ -143,6 +144,7 @@ import { ChangeStateDialogComponent } from './component/change-state-dialog/chan
     NoteTemplatesDialogComponent,
     DocumentPackTitleDialogComponent,
     ChangeStateDialogComponent,
+    ItemPricePeriodComponent,
   ],
   exports: [
     DrawerComponent,

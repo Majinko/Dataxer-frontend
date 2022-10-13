@@ -63,10 +63,10 @@ export class TodoCreateComponent implements OnInit, AfterViewInit {
       note: null,
     });
     if (this.todo) {
-      this.todo.assignedUsers.forEach( f => {
+      this.todo?.assignedUsers?.forEach( f => {
         f.displayName = f.firstName + ' ' + f.lastName.charAt(0);
       });
-      this.todo.notifyUsers.forEach( f => {
+      this.todo?.notifyUsers?.forEach( f => {
         f.displayName = f.firstName + ' ' + f.lastName.charAt(0);
       });
       this.formGroup.patchValue(this.todo);

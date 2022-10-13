@@ -51,3 +51,15 @@ export interface TodoComment {
   name: string;
   text: string;
 }
+
+export interface TodoProject {
+  projectId: number;
+  projectName: string;
+  color?: string;
+  users: TodoUser[];
+}
+export interface TodoUser {
+  projectId: number;
+  userName: string;
+  userPhotoUrl: string;
+}

@@ -26,7 +26,6 @@ export class TodolistIndexComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.create = this.route.snapshot.paramMap.get('type');
     this.prepareForm();
     this.getTodolist();
   }
@@ -50,11 +49,7 @@ export class TodolistIndexComponent implements OnInit {
   }
 
   getTodolist() {
-    this.todoService.groupByProject().subscribe(res => {
-      console.log(res);
-    });
-
-    this.todoService.allTodoList().subscribe(res => {
+    this.todoService.allTodoList(+this.route.snapshot.paramMap.get('projectId')).subscribe(res => {
       this.todoLists = res;
       this.getPercent();
     });
@@ -90,5 +85,13 @@ export class TodolistIndexComponent implements OnInit {
     if ($event === true) {
       this.getTodolist();
     }
+  }
+
+  closeList() {
+    this.create = null;
+  }
+
+  openNewList() {
+    this.create = 'create';
   }
 }

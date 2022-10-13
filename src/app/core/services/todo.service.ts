@@ -44,8 +44,8 @@ export class TodoService extends ResourceService<Todo> {
     return this.httpClient.post<Todo>(`${environment.baseUrl}/todo/updateTodo/`, todo);
   }
 
-  allTodoList(): Observable<Todolist[]> {
-    return this.httpClient.get<Todolist[]>(`${environment.baseUrl}/todo/allTodoList`);
+  allTodoList(projectId: number): Observable<Todolist[]> {
+    return this.httpClient.get<Todolist[]>(`${environment.baseUrl}/todo/allTodoList/${projectId}`);
   }
 
   todoListById(id: number): Observable<Todolist> {
@@ -68,7 +68,7 @@ export class TodoService extends ResourceService<Todo> {
     return this.httpClient.post<any>(`${environment.baseUrl}/todoMessage/store`, message);
   }
 
-  groupByProject(): Observable<any> {
+  groupByProject() {
     return this.httpClient.get<any>(`${environment.baseUrl}/todo/groupByProject`);
   }
 }
