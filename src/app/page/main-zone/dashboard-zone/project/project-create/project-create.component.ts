@@ -127,7 +127,7 @@ export class ProjectCreateComponent implements OnInit {
   }
 
   private prepareCategoriesBeforeStore() {
-    const categories: ProjectCategoriesMap[] = [];
+    /* todo odkomentovat ked milan opravy svoj bug const categories: ProjectCategoriesMap[] = [];
 
     this.groups.forEach((item) => {
       item.fillCategories.forEach(category => {
@@ -137,6 +137,15 @@ export class ProjectCreateComponent implements OnInit {
           showName: category.sharedCategory ? category.sharedCategory.showName : null,
           showPerson: category.sharedCategory ? category.sharedCategory.showPerson : null
         });
+      });
+    });*/
+
+    
+    const categories: CategoryItemNode[] = [];
+
+    this.groups.forEach((item) => {
+      item.fillCategories.forEach(category => {
+        categories.push(category);
       });
     });
 

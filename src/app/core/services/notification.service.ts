@@ -22,7 +22,6 @@ export class NotificationService {
 
       this.client.onConnect = () => {
         this.client.subscribe('/notification/new', (response) => {
-
           this.newNotification.next(true);
         });
       };

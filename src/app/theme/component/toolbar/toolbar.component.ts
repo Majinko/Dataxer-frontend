@@ -21,7 +21,7 @@ export class ToolbarComponent implements OnInit {
 
   ngOnInit() {
     // todo nacitata notifikacie
-    //this.notificationService.openWebSocket();
+    this.notificationService.openWebSocket();
 
     this.notificationService.newNotification.subscribe(count => {
       this.notificationCount++;

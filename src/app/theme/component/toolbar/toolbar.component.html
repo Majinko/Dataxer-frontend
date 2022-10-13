@@ -6,9 +6,9 @@
         <app-search-bar class="px-0 col col-sm-6 col-md-8-8" [hidden]="showSearchBar === false || searchBarService.showBar === false"></app-search-bar>
         <div class="d-flex align-items-center col-2 col-md-auto justify-content-end">
           <div>
-       <!--     <button matTooltip="Notifikácie" [matBadge]="notificationCount" matBadgeColor="warn" mat-icon-button class="text-gray mr-3 mb-0 d-none d-md-inline t-d-n position-relative">
+            <button matTooltip="Notifikácie" [matBadge]="notificationCount" matBadgeColor="warn" mat-icon-button class="text-gray mr-3 mb-0 d-none d-md-inline t-d-n position-relative">
               <mat-icon>lightbulb</mat-icon>
-            </button>-->
+            </button>
             <a *ngxPermissionsOnly="'Settings'" href="#" class="text-gray mr-3 mb-0 d-none d-md-inline t-d-n" mat-icon-button matTooltip="Nastavenie aplikácie" routerLink="/setting/profile">
               <mat-icon>settings</mat-icon>
             </a>
