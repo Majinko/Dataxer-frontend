@@ -67,4 +67,8 @@ export class TodoService extends ResourceService<Todo> {
   storeMessage(message: any): Observable<any> {
     return this.httpClient.post<any>(`${environment.baseUrl}/todoMessage/store`, message);
   }
+
+  groupByProject(): Observable<any> {
+    return this.httpClient.get<any>(`${environment.baseUrl}/todo/groupByProject`);
+  }
 }

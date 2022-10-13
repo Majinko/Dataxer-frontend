@@ -50,6 +50,10 @@ export class TodolistIndexComponent implements OnInit {
   }
 
   getTodolist() {
+    this.todoService.groupByProject().subscribe(res => {
+      console.log(res);
+    });
+
     this.todoService.allTodoList().subscribe(res => {
       this.todoLists = res;
       this.getPercent();

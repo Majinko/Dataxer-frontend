@@ -14,7 +14,6 @@ import {CategoryService} from '../../../../../core/services/category.service';
 import {
   CategoryItemNode,
   CategoryItemNodeWithSharedCategory,
-  ProjectCategoriesMap
 } from '../../../../../core/models/category-item-node';
 import {DocumentHelper} from '../../../../../core/class/DocumentHelper';
 import {DemandService} from '../../../../../core/services/demand.service';
