@@ -207,11 +207,12 @@ body {
       padding-left: 20px;
       flex: 0 0 calc(100% - 180px);
       max-width: calc(100% - 180px);
+      padding-bottom: 20px;
 
       h3 {
         margin: 0;
         font-size: 32px;
-        padding-top: 20px;
+        padding-bottom: 20px;
         font-weight: 500;
       }
     }
@@ -385,7 +386,7 @@ body {
       border: 0;
       outline: 0;
       padding: 0;
-      padding: 20px;
+      padding: 5px;
       margin: 0;
     }
   }

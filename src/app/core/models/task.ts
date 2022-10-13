@@ -36,6 +36,8 @@ export interface Todo {
 }
 export interface Todolist {
   id?: number;
+  projectId: number;
+  project: Project;
   title: string;
   position: number;
   createdAt: string;

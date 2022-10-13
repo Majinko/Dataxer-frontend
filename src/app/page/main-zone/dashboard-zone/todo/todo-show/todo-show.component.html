@@ -1,8 +1,6 @@
-<div class="nav-link">
-  <div class="nav-button" [routerLink]="['/todo/show', this.todoListId]">
-    <mat-icon class="mr-2 cursor-pointer">keyboard_backspace</mat-icon>
-    Naspäť na úlohy
-  </div>
+<div class="nav-button" [routerLink]="['/todo/show', this.todoListId]">
+  <mat-icon class="mr-2 cursor-pointer">keyboard_backspace</mat-icon>
+  Naspäť na úlohy
 </div>
 
 <div class="task-detail-wrap">
@@ -47,7 +45,8 @@
       </div>
       <div class="col-8">
         <p>
-          <ng-container *ngIf="todo?.fromUser">{{ todo?.fromUser?.firstName }} {{ todo?.fromUser?.lastName }} {{ todo?.createdAt | date:'dd.MM.y' }}</ng-container>
+          <ng-container *ngIf="todo?.fromUser">{{ todo?.fromUser?.firstName }} {{ todo?.fromUser?.lastName }} {{
+            todo?.createdAt | date:'dd.MM.y' }}</ng-container>
           <ng-container *ngIf="!todo?.fromUser">-</ng-container>
         </p>
       </div>
@@ -105,7 +104,9 @@
       </div>
       <div class="col-8">
         <p (click)="editButton($event)">
-          <ng-container *ngIf="todo?.note"> <div [innerHTML]="todo.note"></div></ng-container>
+          <ng-container *ngIf="todo?.note">
+            <div [innerHTML]="todo.note"></div>
+          </ng-container>
           <ng-container *ngIf="!todo?.note">Pridajte ďalšie podrobnosti…</ng-container>
         </p>
       </div>
@@ -123,7 +124,7 @@
         <div class="task-text-wrap">
           <div class="task-avatar" *ngIf="comment.creator">
             <ngx-avatar [src]="comment.creator.photoUrl" size="40" bgColor="#19A5E5"
-                        name="{{ comment.creator.firstName }} {{ comment.creator.lastName }}" class=""></ngx-avatar>
+              name="{{ comment.creator.firstName }} {{ comment.creator.lastName }}" class=""></ngx-avatar>
           </div>
           <div class="task-text">
             <div class="task-text-title">
@@ -145,7 +146,7 @@
       <div class="task-text-wrap">
         <div class="task-avatar">
           <ngx-avatar [src]="userService.user.photoUrl" size="40" bgColor="#19A5E5"
-                      name="{{ userService.user.displayName }}" class=""></ngx-avatar>
+            name="{{ userService.user.displayName }}" class=""></ngx-avatar>
         </div>
         <div class="task-text">
           <div class="add-comment" *ngIf="!writeComment">

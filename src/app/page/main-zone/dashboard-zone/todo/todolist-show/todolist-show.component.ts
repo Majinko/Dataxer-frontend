@@ -14,6 +14,7 @@ import {MessageService} from '../../../../../core/services/message.service';
   styleUrls: ['./todolist-show.component.scss']
 })
 export class TodolistShowComponent implements OnInit {
+  projectId: number;
   formGroup: FormGroup;
   editorConfig = EDITORCONFIG;
   todolist: Todolist;
@@ -48,6 +49,7 @@ export class TodolistShowComponent implements OnInit {
         });
       });
       this.todolist = res;
+      this.projectId = this.todolist.project.id;
       this.completeTodo = this.todolist.todos.filter( f => f.isFinished === true);
       this.percent = this.completeTodo?.length / this.todolist?.todos?.length * 100;
     });
