@@ -140,7 +140,7 @@ export class ProjectCreateComponent implements OnInit {
       });
     });*/
 
-    
+
     const categories: CategoryItemNode[] = [];
 
     this.groups.forEach((item) => {

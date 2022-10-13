@@ -44,4 +44,8 @@ export class PriceOfferService extends ResourceService<PriceOffer> {
   createFromDemand(demandId: number, priceOffer: PriceOffer): Observable<PriceOffer> {
     return this.httpClient.post<PriceOffer>(`${environment.baseUrl}/priceOffer/createFromDemand/${demandId}`, priceOffer);
   }
+
+  changeState(id: number, state: string): Observable<PriceOffer> {
+    return this.httpClient.get<PriceOffer>(`${environment.baseUrl}/priceOffer/chagneState/${id}/${state}`);
+  }
 }

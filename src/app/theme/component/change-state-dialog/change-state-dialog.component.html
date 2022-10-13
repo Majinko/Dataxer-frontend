@@ -1,0 +1,37 @@
+<div mat-dialog-title class="row mb-4">
+  <div class="d-flex align-items-center justify-content-between mb-3">
+    <h1 class="mb-0">Zmena stavu</h1>
+    <a mat-icon-button class="close-icon cursor-pointer" mat-dialog-close>
+      <mat-icon>close</mat-icon>
+    </a>
+  </div>
+</div>
+<div mat-dialog-content>
+  <div class="row">
+    <div class="col-12">
+      <p>Nastavujete nový stav pre <strong class="text-dark">{{ this.data.element.title }}</strong> z projektu <strong class="text-dark">{{this.data.element.project.title}}</strong></p>
+      <div class="mt-4">
+        <mat-form-field class="form-group w-100">
+          <mat-label>Stav</mat-label>
+          <mat-select [(ngModel)]="state">
+            <mat-option value="WAITING">Čakajúca</mat-option>
+            <mat-option value="APPROVED">Schválená</mat-option>
+            <mat-option value="REJECTED">Zamietnutá</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 text-right">
+      <button mat-dialog-close mat-stroked-button class="btn-icon btn-theme-stroked mr-3" type="button">
+        <mat-icon>cancel</mat-icon>
+        Zrušiť
+      </button>
+      <button (click)="save()" mat-stroked-button class="btn-icon btn-theme">
+        <mat-icon>save</mat-icon>
+        Uložiť
+      </button>
+    </div>
+  </div>
+</div>

@@ -14,6 +14,9 @@ import {GodButtonService} from '../../../../core/services/god-button.service';
 import {FilterService} from '../../../../core/store/service/filter.service';
 import {AppDocumentPaginate} from '../../../../core/class/AppDocumentPaginate';
 import {DocumentService} from '../../../../core/services/document.service';
+import {
+  ChangeStateDialogComponent
+} from '../../../../theme/component/change-state-dialog/change-state-dialog.component';
 
 @Component({
   selector: 'app-price-offer-table',
@@ -91,6 +94,17 @@ export class PriceOfferTableComponent extends AppDocumentPaginate<PriceOffer> im
 
     this.pdfService.downloadPdf(id, 'priceOffer').subscribe(r => {
       this.documentHelper.pdf(r, name);
+    });
+  }
+
+  setState(element: PriceOffer) {
+    this.dialog.open(ChangeStateDialogComponent, {
+      width: '100%',
+      maxWidth: '400px',
+      data: {
+        element
+      },
+      autoFocus: false,
     });
   }
 }
