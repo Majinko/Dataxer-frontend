@@ -76,6 +76,7 @@ import {
 import {
   DocumentPackTitleDialogComponent
 } from './component/document-pack/components/document-pack-title-dialog/document-pack-title-dialog.component';
+import { ChangeStateDialogComponent } from './component/change-state-dialog/change-state-dialog.component';
 
 @NgModule({
   imports: [
@@ -141,6 +142,7 @@ import {
     NoteTemplatesCreateDialogComponent,
     NoteTemplatesDialogComponent,
     DocumentPackTitleDialogComponent,
+    ChangeStateDialogComponent,
   ],
   exports: [
     DrawerComponent,
