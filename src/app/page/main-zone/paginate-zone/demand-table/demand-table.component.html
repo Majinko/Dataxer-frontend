@@ -21,7 +21,7 @@
           &lt;!&ndash; Company Column &ndash;&gt;
           <ng-container matColumnDef="company">
             <th class="text-right" mat-header-cell *matHeaderCellDef></th>
-            <td class="text-right" mat-cell *matCellDef="let element"> <ngx-avatar [src]="element.company.logoUrl" size="30" name="{{element.company.name}}"></ngx-avatar></td>
+            <td class="text-right" mat-cell *matCellDef="let element"> <ngx-avatar [src]="element.company?.logoUrl" size="30" name="{{element.company.name}}"></ngx-avatar></td>
           </ng-container>
 
           &lt;!&ndash; Number Column &ndash;&gt;

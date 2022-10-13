@@ -4,7 +4,7 @@ import {EDITORCONFIG} from '../../../../../core/data/editor-config';
 import {Todo, TodoComment, Todolist} from '../../../../../core/models/task';
 import {UserService} from '../../../../../core/services/user.service';
 import {ActivatedRoute} from '@angular/router';
-import {TodoService} from '../../../../../core/services/todo.service';
+import {TodoService} from '../todo.service';
 import {MessageService} from '../../../../../core/services/message.service';
 
 

@@ -1,0 +1,38 @@
+<div class="create-todolist">
+    <div [formGroup]="formGroup" class="create-todolist-box">
+      <div class="row">
+        <div class="col-12">
+          <div class="private-todo-wrap">
+            <h5>Kto by mal mať možnosť vidieť tento zoznam úloh?</h5>
+            <mat-radio-group formControlName="visibilityType">
+              <mat-radio-button [value]="'PRIVATE'">Len náš tím - súkromné</mat-radio-button>
+              <mat-radio-button [value]="'PROJECT'">Viditeľné len pre ludí z projektu</mat-radio-button>
+              <mat-radio-button [value]="'PUBLIC'">Viditeľné aj pre klientov</mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </div>
+        <div class="col-12" *ngIf="noProjectId">
+            <app-new-project-select placeholder="Vyberte zákazku" [showAddButton]="false" formControlName="projectId">
+            </app-new-project-select>
+            <mat-error *ngIf="submitted && f.projectId.errors" class="mat-error-not-in-field">Zákazka je povinný údaj</mat-error>
+        </div>
+        <div class="col-12">
+          <mat-form-field class="w-100">
+            <input matInput formControlName="title" type="text" placeholder="Názov zoznamu úloh" />
+          </mat-form-field>
+        </div>
+        <div class="col-12">
+          <div class="button-wrap">
+            <button mat-flat-button class="btn-icon btn-theme mr-3" (click)="createTodolist()" type="button">
+              <mat-icon>save</mat-icon>
+              Pridať zoznam
+            </button>
+            <button (click)="closeList()" mat-stroked-button class="btn-icon btn-theme-stroked">
+              <mat-icon>cancel</mat-icon>
+              Zrušiť
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

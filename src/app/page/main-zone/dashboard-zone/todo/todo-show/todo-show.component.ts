@@ -2,7 +2,7 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute} from '@angular/router';
 import {UserService} from '../../../../../core/services/user.service';
-import {TodoService} from '../../../../../core/services/todo.service';
+import {TodoService} from '../todo.service';
 import {Todo, TodoComment} from '../../../../../core/models/task';
 import {EDITORCONFIG} from '../../../../../core/data/editor-config';
 import {MessageService} from '../../../../../core/services/message.service';
