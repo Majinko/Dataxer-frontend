@@ -14,7 +14,6 @@ import {CategoryService} from '../../../../../core/services/category.service';
 import {
   CategoryItemNode,
   CategoryItemNodeWithSharedCategory,
-  ProjectCategoriesMap
 } from '../../../../../core/models/category-item-node';
 import {DocumentHelper} from '../../../../../core/class/DocumentHelper';
 import {DemandService} from '../../../../../core/services/demand.service';
@@ -127,7 +126,7 @@ export class ProjectCreateComponent implements OnInit {
   }
 
   private prepareCategoriesBeforeStore() {
-    const categories: ProjectCategoriesMap[] = [];
+    /* todo odkomentovat ked milan opravy svoj bug const categories: ProjectCategoriesMap[] = [];
 
     this.groups.forEach((item) => {
       item.fillCategories.forEach(category => {
@@ -137,6 +136,15 @@ export class ProjectCreateComponent implements OnInit {
           showName: category.sharedCategory ? category.sharedCategory.showName : null,
           showPerson: category.sharedCategory ? category.sharedCategory.showPerson : null
         });
+      });
+    });*/
+
+
+    const categories: CategoryItemNode[] = [];
+
+    this.groups.forEach((item) => {
+      item.fillCategories.forEach(category => {
+        categories.push(category);
       });
     });
 

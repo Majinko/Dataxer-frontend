@@ -1384,6 +1384,36 @@ app-todolist-index .angular-editor-textarea {
   resize: none !important;
 }
 
+app-todo-project-guide .mat-card-header .mat-card-title {
+  font-size: 16px;
+}
+app-todo-project-guide .mat-card-header-text {
+  margin: 0;
+  padding-bottom: 10px;
+}
+app-todo-project-guide .mat-card-actions {
+  margin: 0;
+}
+app-todo-project-guide .mat-card {
+  cursor: pointer;
+}
+app-todo-project-guide .mat-card > * {
+  position: relative;
+  z-index: 2;
+}
+app-todo-project-guide .mat-card:before {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  background: linear-gradient(45deg, white 70%, rgba(255, 255, 255, 0.8));
+  z-index: 1;
+}
+
 .todolists-wrap {
   padding-top: 20px;
   max-width: 800px;
@@ -1563,11 +1593,12 @@ body .mat-checkbox-frame {
   padding-left: 20px;
   flex: 0 0 calc(100% - 180px);
   max-width: calc(100% - 180px);
+  padding-bottom: 20px;
 }
 .task-detail-title .task-checkbox-wrap + div h3 {
   margin: 0;
   font-size: 32px;
-  padding-top: 20px;
+  padding-bottom: 20px;
   font-weight: 500;
 }
 
@@ -1709,10 +1740,11 @@ body .mat-checkbox-frame {
 }
 .task-edit-detail .task-detail-title textarea {
   font-size: 32px;
+  line-height: 1.1em;
   border: 0;
   outline: 0;
   padding: 0;
-  padding: 20px;
+  padding: 5px;
   margin: 0;
 }
 .task-edit-detail .todo-create-wrap .todo-create-box {
@@ -1801,6 +1833,7 @@ app-todolist-show .task-comments-wrap {
 }
 .todo-users-wrap .d-inline-flex {
   color: #877457;
+  white-space: nowrap;
 }
 
 /*

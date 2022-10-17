@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MessageService} from '../../../../../../core/services/message.service';
-import {TodoService} from "../../todo.service";
-import {ActivatedRoute} from "@angular/router";
+import {TodoService} from '../../todo.service';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-todolist-create',
@@ -16,10 +16,12 @@ export class TodolistCreateComponent implements OnInit {
 
   constructor(
     public route: ActivatedRoute,
+    private router: Router,
     private formBuilder: FormBuilder,
     private messageService: MessageService,
     private todoService: TodoService,
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.prepareForm();
@@ -29,10 +31,10 @@ export class TodolistCreateComponent implements OnInit {
     this.formGroup = this.formBuilder.group({
       title: [null, Validators.required],
       visibilityType: ['PRIVATE', Validators.required],
-      projectId: [null, Validators.required]
+      project: [null, Validators.required]
     });
     if (+this.route.snapshot.paramMap.get('projectId')) {
-      this.formGroup.get('projectId').patchValue(+this.route.snapshot.paramMap.get('projectId'));
+      this.formGroup.get('project').patchValue({id: this.route.snapshot.paramMap.get('projectId')});
     } else {
       this.noProjectId = true;
     }
@@ -40,16 +42,14 @@ export class TodolistCreateComponent implements OnInit {
 
   createTodolist() {
     this.submitted = true;
+
     if (this.formGroup.invalid) {
       this.messageService.add('Vyplňte názov zoznamu úloh.');
       return;
     }
 
-    if (this.formGroup.get('projectId').value?.id) {
-      const projectId = this.formGroup.get('projectId').value.id;
-      this.formGroup.get('projectId').patchValue(projectId);
-    }
     this.todoService.storeTodoList(this.formGroup.value).subscribe(res => {
+      this.router.navigate(['/todo/todolist', this.formGroup.get('project').value.id]);
     });
   }
 
