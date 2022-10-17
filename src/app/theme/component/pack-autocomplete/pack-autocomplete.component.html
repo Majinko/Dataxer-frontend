@@ -1,11 +1,11 @@
-<mat-form-field>
+<mat-form-field title="{{ value }}">
   <input [(ngModel)]="value" matInput placeholder="Hľadať sadu položiek" (input)="onInputChange()" [matAutocomplete]="auto">
   <mat-icon matSuffix class="text-gray">search</mat-icon>
 </mat-form-field>
 
 <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="setPack($event.option.value)">
   <ng-container>
-    <mat-option *ngFor="let pack of packs" [value]="pack">
+    <mat-option *ngFor="let pack of packs" [value]="pack" title="{{ pack.title }}">
       <span>{{ pack.title }}</span>
     </mat-option>
 
