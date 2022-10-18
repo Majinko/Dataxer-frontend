@@ -16,6 +16,7 @@ import {ThemeModule} from '../../../../theme/theme.module';
 import {NgSelectModule} from '@ng-select/ng-select';
 import { TodoProjectGuideComponent } from './todo-project-guide/todo-project-guide.component';
 import { TodolistCreateComponent } from './components/todolist-create/todolist-create.component';
+import {AutosizeModule} from "ngx-autosize";
 
 const routes: Routes = [{
   path: '',
@@ -56,7 +57,8 @@ const routes: Routes = [{
         ThemeModule,
         ReactiveFormsModule,
         AvatarModule,
-        NgSelectModule
+        NgSelectModule,
+        AutosizeModule
     ]
 })
 export class TodoModule {
