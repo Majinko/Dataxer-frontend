@@ -36,7 +36,6 @@ export class NewUserSelectComponent implements OnInit {
 
   getUsers() {
     this.userService.all().subscribe(users => {
-      console.log(users);
       this.users = users;
     });
   }

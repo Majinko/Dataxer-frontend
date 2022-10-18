@@ -21,7 +21,7 @@
   </div>
 </div>
 <div *ngIf="createTodo">
-  <app-todo-create (action)="todoCreate($event)" [todolistId]="this.todolist.id"></app-todo-create>
+  <app-todo-create (action)="todoCreate($event)" [todolist]="this.todolist"></app-todo-create>
 </div>
 <div *ngIf="!createTodo" class="button-wrap">
   <button mat-stroked-button (click)="addTodo($event)" class="btn-icon btn-theme-stroked">

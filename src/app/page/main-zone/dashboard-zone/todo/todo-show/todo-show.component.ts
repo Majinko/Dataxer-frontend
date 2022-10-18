@@ -64,7 +64,6 @@ export class TodoShowComponent implements OnInit {
   checkedTodo(checked: boolean) {
     if (this.todo?.id) {
       this.todoService.markSolved(this.todo.id).subscribe(res => {
-        console.log(res);
       });
     }
   }

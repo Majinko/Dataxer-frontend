@@ -2,14 +2,14 @@ import {AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, I
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import {MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter} from '@angular/material-moment-adapter';
-import { Todo } from 'src/app/core/models/task';
+import {Todo, Todolist} from 'src/app/core/models/task';
 import {APP_DATE_FORMATS} from '../../../../../../../helper';
 import {EDITORCONFIG} from '../../../../../../core/data/editor-config';
 import {TodoService} from '../../todo.service';
-import {MessageService} from "../../../../../../core/services/message.service";
-import {CategoryItemNode} from "../../../../../../core/models/category-item-node";
-import {Project} from "../../../../../../core/models/project";
-import {ProjectService} from "../../../../../../core/services/project.service";
+import {MessageService} from '../../../../../../core/services/message.service';
+import {CategoryItemNode} from '../../../../../../core/models/category-item-node';
+import {Project} from '../../../../../../core/models/project';
+import {ProjectService} from '../../../../../../core/services/project.service';
 
 @Component({
   selector: 'app-todo-create',
@@ -36,7 +36,7 @@ export class TodoCreateComponent implements OnInit, AfterViewInit {
   categories: CategoryItemNode[] = [];
 
   @Input() todo?: Todo = null;
-  @Input() todolistId?: number;
+  @Input() todolist?: Todolist;
 
   @ViewChild('titleInput') titleInput: ElementRef<HTMLInputElement>;
   @ViewChild('titleTextarea') titleTextarea: ElementRef<HTMLInputElement>;
@@ -74,6 +74,9 @@ export class TodoCreateComponent implements OnInit, AfterViewInit {
         this.noteShow = true;
       }
     }
+    if (this.todolist && this.todolist.project) {
+      this.formGroup.get('project').patchValue(this.todolist.project);
+    }
     this.handleChangeProject();
   }
   ngAfterViewInit() {
@@ -91,12 +94,14 @@ export class TodoCreateComponent implements OnInit, AfterViewInit {
       this.messageService.add('Napíšte názov úlohy.');
       return;
     }
+
+    return;
     if (this.todo) {
       this.todoService.updateTodo(this.formGroup.value).subscribe(res => {
         this.action.emit(true);
       });
     } else {
-      this.todoService.storeTodo(this.todolistId, this.formGroup.value).subscribe(res => {
+      this.todoService.storeTodo(this.todolist.id, this.formGroup.value).subscribe(res => {
         this.action.emit(true);
       });
     }

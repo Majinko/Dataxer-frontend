@@ -56,7 +56,6 @@ export class TodosBoxComponent implements OnInit, OnChanges {
       ids.push(f.id);
     });
     this.todoService.todoReorder(ids).subscribe(res => {
-      console.log(res);
     });
   }
 

@@ -11,9 +11,8 @@
             formControlName="title">{{ todo.title }}</textarea>
         </div>
       </div>
-      <div *ngIf="!todo" class="todo-title">
-        <input #titleInput matInput placeholder="Opíšte túto úlohu" formControlName="title"
-          [ngClass]="{'invalid-color' : submitted && f.title.errors}">
+      <div *ngIf="!todo" class="todo-title" [ngClass]="{'invalid-color' : submitted && f.title.errors}">
+        <input #titleInput matInput placeholder="Opíšte túto úlohu" formControlName="title">
       </div>
       <div class="todo-content">
         <div class="row">
