@@ -1415,7 +1415,7 @@ app-todo-project-guide .mat-card:before {
 }
 
 app-item-autocomplete .mat-form-field-infix {
-  width: 420px;
+  width: 480px;
 }
 
 app-pack-autocomplete .mat-form-field-infix {
@@ -1426,6 +1426,11 @@ app-set-item-create app-item-autocomplete .mat-form-field-infix {
   width: 700px;
 }
 
+@media screen and (max-width: 1920px) {
+  app-item-autocomplete .mat-form-field-infix {
+    width: 420px;
+  }
+}
 @media screen and (max-width: 1750px) {
   app-item-autocomplete .mat-form-field-infix {
     width: 340px;
