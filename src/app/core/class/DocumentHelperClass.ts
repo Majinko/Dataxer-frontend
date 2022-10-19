@@ -107,6 +107,10 @@ export abstract class DocumentHelperClass {
     this.isLoad = true;
     this.oldPacks = document.packs;
 
+    if (document?.company) {
+      this.prepareDocumentNumber(document.company);
+    }
+
     setTimeout(() => {
       this.isLoad = false;
 
