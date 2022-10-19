@@ -1,3 +1,4 @@
+<h3 *ngIf="todo?.project" class="mb-4">Zákazka: <strong>{{todo?.project?.title}}</strong></h3>
 <div class="nav-button" [routerLink]="['/todo/show', this.todoListId]">
   <mat-icon class="mr-2 cursor-pointer">keyboard_backspace</mat-icon>
   Naspäť na úlohy

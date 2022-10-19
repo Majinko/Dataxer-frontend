@@ -212,7 +212,8 @@ body {
       h3 {
         margin: 0;
         font-size: 32px;
-        padding-bottom: 20px;
+        line-height: 1.2em;
+        padding-bottom: 5px;
         font-weight: 500;
       }
     }
@@ -334,6 +335,20 @@ body {
       padding: 10px 30px 5px;
       input.mat-input-element {
         height: 30px;
+      }
+      input {
+        &::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+          color: #757575;
+          opacity: 1; /* Firefox */
+        }
+        
+        &:-ms-input-placeholder { /* Internet Explorer 10-11 */
+          color: #757575;
+        }
+        
+        &::-ms-input-placeholder { /* Microsoft Edge */
+          color: #757575;
+        }
       }
     }
     .todo-content {
@@ -485,4 +500,8 @@ app-todolist-show {
     color: rgb(135, 116, 87);
     white-space: nowrap;
   }
+}
+
+.todo-title.invalid-color {
+  box-shadow: inset 0px 0px 5px 1px rgba(255, 0, 0, 0.8)
 }

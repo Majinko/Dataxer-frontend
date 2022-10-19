@@ -313,3 +313,55 @@ app-todo-project-guide {
   }
 }
 
+app-item-autocomplete {
+  .mat-form-field-infix {
+    width: 420px;
+  }
+}
+
+app-pack-autocomplete {
+  .mat-form-field-infix {
+    width: 360px;
+  }
+}
+
+app-set-item-create {
+  app-item-autocomplete {
+    .mat-form-field-infix {
+      width: 700px;
+    }
+  }
+}
+
+@media screen and (max-width: 1750px) {
+  app-item-autocomplete {
+    .mat-form-field-infix {
+      width: 340px;
+    }
+  }
+  
+  app-pack-autocomplete {
+    .mat-form-field-infix {
+      width: 280px;
+    }
+  }
+  app-set-item-create {
+    app-item-autocomplete {
+      .mat-form-field-infix {
+        width: 500px;
+      }
+    }
+  }
+}
+
+
+
+@media screen and (max-width: 1100px) {
+  app-set-item-create {
+    app-item-autocomplete {
+      .mat-form-field-infix {
+        width: 100%;
+      }
+    }
+  }
+}

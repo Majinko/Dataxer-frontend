@@ -39,7 +39,6 @@ export class TodolistIndexComponent implements OnInit {
       ids.push(f.id);
     });
     this.todoService.listReorder(ids).subscribe(res => {
-      console.log(res);
     });
   }
 

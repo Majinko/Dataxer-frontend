@@ -1,4 +1,4 @@
-<mat-form-field>
+<mat-form-field title="{{ value }}">
   <input [formControl]="myControl" [(ngModel)]="value" matInput placeholder="Hľadať položku" (input)="onInputChange()" [matAutocomplete]="auto">
   <mat-icon matSuffix class="text-gray">search</mat-icon>
   <mat-error *ngIf="myControl?.errors">Maximálna dĺžka je 255 znakov</mat-error>
@@ -6,7 +6,7 @@
 
 <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="setItem($event.option.value)">
   <ng-container>
-    <mat-option *ngFor="let item of items" [value]="item">
+    <mat-option *ngFor="let item of items" [value]="item" title="{{ item.title }}">
       <span>{{ item.title }}</span>
     </mat-option>
 

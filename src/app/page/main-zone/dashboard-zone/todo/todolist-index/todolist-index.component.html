@@ -1,9 +1,10 @@
 
+<h3 *ngIf="this.todoLists" class="mb-4">Zákazka: <strong>{{this.todoLists[0]?.project?.title}}</strong></h3>
 <div class="nav-button" [routerLink]="['/todo']">
   <mat-icon class="mr-2 cursor-pointer">keyboard_backspace</mat-icon>
-  Naspäť na výber projektu
+  Naspäť na výber zákazky
 </div>
-<div class="row">
+<div class="row pb-3">
   <div class="col-12">
     <h1>Zoznam úloh</h1>
   </div>

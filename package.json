@@ -55,6 +55,7 @@
     "lodash": "^4.17.21",
     "moment": "^2.29.1",
     "ng-apexcharts": "^1.5.9",
+    "ngx-autosize": "^2.0.2",
     "ngx-avatar": "^4.0.0",
     "ngx-filesize": "^2.0.16",
     "ngx-material-file-input": "^2.1.1",
@@ -62,10 +63,10 @@
     "ngx-translate-multi-http-loader": "^3.0.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "~6.5.4",
+    "sockjs-client": "^1.4.0",
     "strftime": "^0.10.0",
     "tslib": "^2.0.0",
-    "zone.js": "~0.11.4",
-    "sockjs-client": "^1.4.0"
+    "zone.js": "~0.11.4"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^12.2.2",
