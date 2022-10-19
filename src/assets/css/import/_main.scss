@@ -315,7 +315,7 @@ app-todo-project-guide {
 
 app-item-autocomplete {
   .mat-form-field-infix {
-    width: 420px;
+    width: 480px;
   }
 }
 
@@ -329,6 +329,14 @@ app-set-item-create {
   app-item-autocomplete {
     .mat-form-field-infix {
       width: 700px;
+    }
+  }
+}
+
+@media screen and (max-width: 1920px) {
+  app-item-autocomplete {
+    .mat-form-field-infix {
+      width: 420px;
     }
   }
 }
