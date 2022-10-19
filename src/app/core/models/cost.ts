@@ -1,6 +1,7 @@
 import {User} from './user';
 import {CustomFile} from './customFile';
 import {DocumentBase} from './documentBase';
+import {CategoryItemNode} from './category-item-node';
 
 export interface Cost extends DocumentBase{
   user: User;
@@ -8,6 +9,7 @@ export interface Cost extends DocumentBase{
   constantSymbol: string;
   costOrder: string;
   state: string;
+  category?: CategoryItemNode;
   type: string;
   period: string;
   currency: string;

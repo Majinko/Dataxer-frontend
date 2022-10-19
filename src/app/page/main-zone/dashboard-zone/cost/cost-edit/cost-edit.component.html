@@ -226,7 +226,8 @@
       </div>
     </div>
 
-    <app-document-pack [packs]="cost.packs" [formGroup]="formGroup" [documentHelper]="documentHelper" [documentId]="cost.id" [projects]="projects"></app-document-pack>
+    <app-document-pack [packs]="cost.packs" [formGroup]="formGroup" [documentHelper]="documentHelper" [documentId]="cost.id"
+     [projects]="projects" (compareProjects)="differentProject = $event" (compareCategory)="differentCategory = $event"></app-document-pack>
 
     <div class="row">
       <div class="col-12">

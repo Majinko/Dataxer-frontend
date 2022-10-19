@@ -158,7 +158,9 @@ export class CostEditComponent extends DocumentHelperClass implements OnInit {
   private getCost() {
     this.costService.getById(+this.route.snapshot.paramMap.get('id')).subscribe(cost => {
       this.cost = cost;
-
+      if (this.cost.packs[0]?.packItems[0]?.category) {
+        this.cost.category = this.cost.packs[0].packItems[0].category
+      }
       this.formGroup.patchValue(this.cost);
       if (this.cost?.isInternal) {
         this.formGroup.get('project').patchValue({id: null, title: 'Firemný náklad'});
