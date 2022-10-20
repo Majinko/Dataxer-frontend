@@ -19,12 +19,13 @@
 
     <div class="col-md-4 form-group">
       <app-select-new-contact formControlName="contact"></app-select-new-contact>
-      <mat-error *ngIf="submitted && f.contact.errors" class="mat-error-not-in-field">Client je <strong>pozadovany.</strong></mat-error>
+      <mat-error *ngIf="submitted && f.contact.errors" class="mat-error-not-in-field">Objednávateľ je <strong>požadovaný.</strong></mat-error>
     </div>
 
     <div class="col-md-4 form-group">
       <app-new-project-select [client]="f.contact.value"  formControlName="project"></app-new-project-select>
-      <mat-error *ngIf="submitted && f.project.errors" class="mat-error-not-in-field">Projekt je <strong>požadovaný.</strong></mat-error>
+      <mat-error *ngIf="submitted && f.project.errors" class="mat-error-not-in-field">Zákazka je <strong>požadovaná.</strong></mat-error>
+      <mat-error *ngIf="differentProject" class="mat-error-not-in-field">Položky sú priradené k rozdielnym zákazkam</mat-error>
     </div>
   </div>
 
@@ -47,6 +48,18 @@
       <mat-form-field class="form-group w-100">
         <input formControlName="subject" matInput placeholder="Predmet">
       </mat-form-field>
+    </div>
+
+    <div class="col-md-4">
+      <ng-select class="form-group w-100 mb-0" [items]="categories" bindLabel="name" notFoundText="Zvoľte projekt"
+                 placeholder="Kategória" groupBy="parentName" formControlName="category">
+        <ng-template ng-optgroup-tmp let-item="item">
+          {{item.parentName || 'Unnamed group'}}
+        </ng-template>
+      </ng-select>
+      <mat-error *ngIf="submitted && f.categories?.errors" class="mat-error-not-in-field">Kategória je
+        <strong>požadovana.</strong></mat-error>
+      <mat-error *ngIf="differentCategory" class="mat-error-not-in-field">Položky sú priradené k rozdielnym kategóriam</mat-error>
     </div>
 
     <div class="col-md-4">
@@ -105,10 +118,14 @@
   </div>
 
   <ng-container *ngIf="!demandId; else isDemandOffer">
-    <app-document-pack *ngIf="route.snapshot.paramMap.get('id') === null && f.company.value != null && !projectId; else copyPriceOfferBlock" [formGroup]="formGroup" [documentHelper]="documentHelper" [projects]="projects"></app-document-pack>
+    <app-document-pack *ngIf="route.snapshot.paramMap.get('id') === null && f.company.value != null && !projectId; else copyPriceOfferBlock"
+                       [formGroup]="formGroup" [documentHelper]="documentHelper" [projects]="projects"
+                       (compareProjects)="differentProject = $event" (compareCategory)="differentCategory = $event"></app-document-pack>
     <ng-template #copyPriceOfferBlock>
       <div *ngIf="this.oldPacks.length > 0 && f.company.value != null;">
-        <app-document-pack [formGroup]="formGroup" [packs]="this.oldPacks" [documentHelper]="documentHelper" [projects]="projects"></app-document-pack>
+        <app-document-pack [formGroup]="formGroup" [packs]="this.oldPacks" [documentHelper]="documentHelper"
+                           [projects]="projects" (compareProjects)="differentProject = $event"
+                           (compareCategory)="differentCategory = $event"></app-document-pack>
       </div>
     </ng-template>
   </ng-container>
