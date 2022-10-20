@@ -11,7 +11,7 @@
   <div mat-dialog-content>
     <p>Vyberte prosím položky do rozpočtu</p>
     <p>Po pridaní položiek bude možné vytvoriť Cenovú ponuku alebo Faktúru.</p>
-    <app-document-pack [formGroup]="formGroup" [packs]="this.packs" [documentHelper]="documentHelper"></app-document-pack>
+    <app-document-pack [formGroup]="formGroup" [packs]="this.packs" [documentHelper]="documentHelper" [projects]="projects" [fromBudget]="true"></app-document-pack>
     <div class="row">
       <div class="col-md-12 text-right">
         <button mat-dialog-close mat-stroked-button class="btn-icon btn-theme-stroked mr-3" type="button">

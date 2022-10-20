@@ -118,7 +118,7 @@
                 </mat-form-field>
               </div>
 
-              <div class="jsSettings" *ngIf="projects">
+              <div class="jsSettings" *ngIf="projects" [ngClass]="{'d-none' : fromBudget}">
                 <app-new-project-select [fromComponent]="formGroup.get('documentType')?.value?.toLocaleLowerCase()" (ngModelChange)="onValueChange($event, item)" [projects]="projects" formControlName="project" dropDownPosition="top" [showAddButton]="false"></app-new-project-select>
               </div>
             </td>
