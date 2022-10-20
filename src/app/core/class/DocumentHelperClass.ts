@@ -107,10 +107,6 @@ export abstract class DocumentHelperClass {
     this.isLoad = true;
     this.oldPacks = document.packs;
 
-    if (document?.company) {
-      this.prepareDocumentNumber(document.company);
-    }
-
     setTimeout(() => {
       this.isLoad = false;
 
@@ -120,7 +116,7 @@ export abstract class DocumentHelperClass {
         contact: document.contact,
         project: document.project,
         discount: document.discount === null ? 0 : document.discount,
-      }, {emitEvent: false});
+      }, {emitEvent: true});
     }, 500);
   }
 
