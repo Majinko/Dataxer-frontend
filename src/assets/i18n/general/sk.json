@@ -22,5 +22,7 @@
   "items": "Položky",
   "packs": "Sady položiek",
   "time": "Čas",
-  "demands": "Dopyty"
+  "demands": "Dopyty",
+  "partially_payed" : "Čiastočne uhradené",
+  "overdue" : "Po splatnosti"
 }

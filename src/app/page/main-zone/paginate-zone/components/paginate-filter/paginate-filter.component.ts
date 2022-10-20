@@ -284,6 +284,8 @@ export class PaginateFilterComponent extends PaginateFilterHelper implements OnI
     this.payedStates = [
       {key: 'PAYED', value: 'Uhradené'},
       {key: 'UNPAID', value: 'Neuradené'},
+      {key: 'PARTIALLY_PAYED', value: 'Čiastočne uhradené'},
+      {key: 'OVERDUE', value: 'Po splatnosti'},
     ];
   }
 
