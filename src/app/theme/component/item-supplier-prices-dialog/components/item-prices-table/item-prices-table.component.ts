@@ -96,9 +96,7 @@ export class ItemPricesTableComponent extends AppPaginateData<any> implements On
 
         this.formGroup.get('itemPrices').patchValue(this.item.itemPrices);
 
-        if (this.table) {
-          this.table.renderRows();
-        }
+        this.table?.renderRows();
       }
     });
   }
@@ -143,6 +141,7 @@ export class ItemPricesTableComponent extends AppPaginateData<any> implements On
     }
     this.itemService.getById(id).subscribe(item => {
       this.item = item;
+      this.table?.renderRows();
     });
   }
 
@@ -153,6 +152,24 @@ export class ItemPricesTableComponent extends AppPaginateData<any> implements On
       }
     }, error => {
       this.messageService.add('Nastala chyba');
+    });
+  }
+
+  delete(element) {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '100%',
+      maxWidth: '300px',
+    });
+
+    dialogRef.afterClosed().subscribe(dialogResult => {
+      if (dialogResult === true) {
+        this.itemPriceService.delete(element.id).subscribe(r => {
+          this.messageService.add('Dodávateľ bol z položky vymazaný');
+          this.getItem();
+        }, error => {
+          this.messageService.add('Nastala chyba, nepodarilo sa vymazať dodávateľa');
+        });
+      }
     });
   }
 }

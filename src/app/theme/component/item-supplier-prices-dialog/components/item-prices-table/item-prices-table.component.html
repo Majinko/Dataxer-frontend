@@ -115,6 +115,9 @@
                   <button mat-menu-item *ngIf="!element.isBanned && !element.isDefault" (click)="setDefault(element)">
                     <span>Nastaviť ako predvolený</span>
                   </button>
+                  <button mat-menu-item *ngIf="!element.isBanned && !element.isDefault" (click)="delete(element)">
+                    <span>Vymazať dodávateľa</span>
+                  </button>
                 </mat-menu>
               </td>
             </ng-container>
