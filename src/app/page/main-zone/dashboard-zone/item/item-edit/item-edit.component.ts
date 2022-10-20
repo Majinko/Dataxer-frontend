@@ -71,6 +71,7 @@ export class ItemEditComponent implements OnInit {
       material: null,
       previewUrl: null,
       files: null,
+      weight: null,
       itemPrice: this.formBuilder.group({
         id: null,
         supplier: null,

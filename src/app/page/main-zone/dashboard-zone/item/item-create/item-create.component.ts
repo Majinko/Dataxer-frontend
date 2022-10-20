@@ -64,6 +64,7 @@ export class ItemCreateComponent implements OnInit {
       series: null,
       color: null,
       material: null,
+      weight: null,
       previewUrl: null,
       files: null,
       itemPrice: null,
