@@ -30,6 +30,7 @@ import {MessageService} from '../../../../../../../core/services/message.service
 })
 export class UserSalaryDialogComponent implements OnInit {
   formGroup: FormGroup;
+  isLoading = false;
 
   constructor(
     public dialogRef: MatDialogRef<UserSalaryDialogComponent>,
@@ -64,19 +65,24 @@ export class UserSalaryDialogComponent implements OnInit {
     if (this.formGroup.invalid) {
       return;
     }
+    this.isLoading = true;
 
     if (this.data.salary) {
       this.salaryService.update(this.formGroup.value).subscribe(r => {
+        this.isLoading = false;
         this.messageService.add('Mzda bola aktualizivaná');
 
       }, error => {
+        this.isLoading = false;
         this.messageService.add(error.error.message);
       });
     } else {
       this.salaryService.store(this.formGroup.value).subscribe(r => {
+        this.isLoading = false;
         this.messageService.add('Mzda bola vytvorená');
 
       }, error => {
+        this.isLoading = false;
         this.messageService.add(error.error.message);
       });
     }

@@ -74,24 +74,24 @@
     <div class="col-md-3">
       <p class="mb-0">Dodávateľ:</p>
 
-      <h3 class="text-dark"><strong>{{invoice.documentData.firm.name}}</strong></h3>
+      <h3 class="text-dark"><strong>{{invoice.documentData?.firm?.name}}</strong></h3>
       <p class="mb-3">
-        {{invoice.documentData.firm.street}}
+        {{invoice.documentData?.firm?.street}}
         <br>
-        {{invoice.documentData.firm.city + ' ' + invoice.documentData.firm.postalCode}}
+        {{invoice.documentData?.firm?.city + ' ' + invoice.documentData?.firm?.postalCode}}
         <br>
-        {{invoice.documentData.firm.country}}
+        {{invoice.documentData?.firm?.country}}
       </p>
 
       <p>
-        <b class="text-dark">IČO:</b> {{invoice.documentData.firm.cin}} <br>
-        <b class="text-dark">DIČ:</b> {{invoice.documentData.firm.tin}} <br>
-        <b class="text-dark">IČ DPH:</b> {{invoice.documentData.firm.vatin}} <br>
+        <b class="text-dark">IČO:</b> {{invoice.documentData?.firm?.cin}} <br>
+        <b class="text-dark">DIČ:</b> {{invoice.documentData?.firm?.tin}} <br>
+        <b class="text-dark">IČ DPH:</b> {{invoice.documentData?.firm?.vatin}} <br>
       </p>
 
       <p>
-        <b class="text-dark">Banka:</b> {{invoice.documentData.bankAccount.bankName}} <br>
-        <b class="text-dark">Účet(IBAN):</b> {{invoice.documentData.bankAccount.iban}}<br>
+        <b class="text-dark">Banka:</b> {{invoice.documentData?.bankAccount?.bankName}} <br>
+        <b class="text-dark">Účet(IBAN):</b> {{invoice.documentData?.bankAccount?.iban}}<br>
         <b class="text-dark">VS:</b> {{invoice.variableSymbol}} <br>
       </p>
     </div>
@@ -100,13 +100,13 @@
       <p class="mb-0">Odberateľ:</p>
 
       <div *ngIf="invoice.documentData.contact">
-        <h3 class="text-dark"><strong>{{invoice.documentData.contact.name}}</strong></h3>
+        <h3 class="text-dark"><strong>{{invoice.documentData?.contact?.name}}</strong></h3>
         <p class="mb-3">
-          {{invoice.documentData.contact.street || '-'}}
+          {{invoice.documentData?.contact?.street || '-'}}
           <br>
-          {{invoice.documentData.contact.city || '' + ' ' + (invoice.documentData.contact.postalCode || '-')}}
+          {{invoice.documentData?.contact?.city || '' + ' ' + (invoice.documentData.contact?.postalCode || '-')}}
           <br>
-          {{invoice.documentData.contact.country || '-'}}
+          {{invoice.documentData?.contact?.country || '-'}}
         </p>
 
         <p>

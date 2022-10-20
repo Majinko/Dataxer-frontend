@@ -37,4 +37,8 @@ export class SalaryService {
       this.storeOrUpdate.next(true);
     }));
   }
+
+  destroy(salaryId: number): Observable<void> {
+    return this.http.get<void>(`${environment.baseUrl}/salary/delete/${salaryId}`);
+  }
 }

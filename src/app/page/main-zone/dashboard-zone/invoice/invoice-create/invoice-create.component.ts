@@ -174,6 +174,8 @@ export class InvoiceCreateComponent extends DocumentHelperClass implements OnIni
   }
 
   submit() {
+    console.log(this.formGroup.value);
+    return;
     this.submitted = true;
 
     if (this.formGroup.invalid) {

@@ -1,4 +1,4 @@
-import {Component, Inject, OnDestroy, OnInit} from '@angular/core';
+import {Component, Inject, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Salary} from '../../../../../core/models/salary';
 import {SalaryService} from '../../../../../core/services/salary.service';
 import {ActivatedRoute} from '@angular/router';
@@ -7,6 +7,8 @@ import {User} from '../../../../../core/models/user';
 import {GodButtonService} from '../../../../../core/services/god-button.service';
 import {UserSalaryDialogComponent} from './components/user-salary-dialog/user-salary-dialog.component';
 import {MatDialog} from '@angular/material/dialog';
+import {MessageService} from "../../../../../core/services/message.service";
+import {MatTable} from "@angular/material/table";
 
 @Component({
   selector: 'app-user-salary',
@@ -20,12 +22,15 @@ export class UserSalaryComponent implements OnInit, OnDestroy {
 
   displayedColumns: string[] = ['price', 'from', 'to', 'type', 'actions'];
 
+  @ViewChild(MatTable) table!: MatTable<Salary>;
+
   constructor(
     @Inject(GodButtonService) private readonly godButtonService: GodButtonService,
     private userService: UserService,
     private salaryService: SalaryService,
     private route: ActivatedRoute,
     private dialog: MatDialog,
+    private messageService: MessageService
   ) {
   }
 
@@ -59,11 +64,17 @@ export class UserSalaryComponent implements OnInit, OnDestroy {
     this.salaryService.getUserSalaries(this.route.parent.snapshot.paramMap.get('uid'), 'desc').subscribe(salaries => {
       this.salaries = salaries;
       this.isLoadingResults = false;
+      this.table?.renderRows();
     });
   }
 
   destroy(id: number) {
-
+    this.salaryService.destroy(id).subscribe(r => {
+      this.messageService.add('Mzda bola odstránená');
+      this.getUserSalaries();
+    }, error => {
+      this.messageService.add('Mzdu sa nepodarilo odstrániť');
+    });
   }
 
   ngOnDestroy(): void {
