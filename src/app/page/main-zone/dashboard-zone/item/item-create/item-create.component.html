@@ -191,7 +191,7 @@
   </div>
 
   <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-4">
       <ng-select class="form-group w-100" [items]="colors"
                  formControlName="color"
                  placeholder="Farba"
@@ -202,7 +202,7 @@
       </ng-select>
     </div>
 
-    <div class="col-md-6">
+    <div class="col-md-4">
       <ng-select class="form-group w-100" [items]="material"
                  formControlName="material"
                  placeholder="Materál"
@@ -212,6 +212,15 @@
         </ng-template>
       </ng-select>
     </div>
+    <div class="col-md-4">
+      <mat-form-field class="form-group w-100">
+        <input matInput placeholder="Hmotnosť (v kg)" formControlName="weight" type="number">
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div>
+    <app-item-prices-table [formGroup]="formGroup" [createItem]="true"></app-item-prices-table>
   </div>
 
 <!--  <div class="row">

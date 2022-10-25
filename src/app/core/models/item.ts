@@ -19,6 +19,7 @@ export class Item implements IItem {
   series?: string;
   color?: string;
   material?: string;
+  weight?: number;
   needMontage?: boolean;
   file?: any;
   category?: CategoryItemNode;

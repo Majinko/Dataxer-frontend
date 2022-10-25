@@ -104,7 +104,7 @@
                 <button mat-icon-button matTooltip="Edit item" (click)="edit($event, element)" type="button">
                   <mat-icon class="text-theme">edit</mat-icon>
                 </button>
-                <button onclick="event.stopPropagation();" mat-icon-button [matMenuTriggerFor]="menu" type="button">
+                <button *ngIf="!createItem" onclick="event.stopPropagation();" mat-icon-button [matMenuTriggerFor]="menu" type="button">
                   <mat-icon>more_vert</mat-icon>
                 </button>
 
@@ -115,6 +115,9 @@
                   <button mat-menu-item *ngIf="!element.isBanned && !element.isDefault" (click)="setDefault(element)">
                     <span>Nastaviť ako predvolený</span>
                   </button>
+                  <button mat-menu-item *ngIf="!element.isBanned && !element.isDefault" (click)="delete(element)">
+                    <span>Vymazať dodávateľa</span>
+                  </button>
                 </mat-menu>
               </td>
             </ng-container>
@@ -123,6 +126,9 @@
             <tr class="cursor-pointer" mat-row *matRowDef="let row; columns: displayedColumns;" (click)="edit(null, row)"></tr>
           </table>
         </div>
+      </div>
+      <div *ngIf="!item">
+        <p class="mt-3">Neboli pridaný žiadny dodávatelia</p>
       </div>
     </div>
   </div>

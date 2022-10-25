@@ -15,7 +15,10 @@ import {DocumentHelperClass} from '../../../../../core/class/DocumentHelperClass
 import {ProjectService} from '../../../../../core/services/project.service';
 import {MatSlideToggle} from '@angular/material/slide-toggle';
 import {DemandService} from '../../../../../core/services/demand.service';
-import {BudgetService} from "../../../../../core/services/budget.service";
+import {BudgetService} from '../../../../../core/services/budget.service';
+import {CategoryItemNode} from '../../../../../core/models/category-item-node';
+import {CategoryService} from '../../../../../core/services/category.service';
+import {Project} from '../../../../../core/models/project';
 
 @Component({
   selector: 'app-create',
@@ -43,6 +46,10 @@ export class PriceOfferCreateComponent extends DocumentHelperClass implements On
   demandPackItems: DemandPackItem[] = [];
   documentType: string = 'PRICE_OFFER';
   projectId: number;
+  differentProject: boolean = false;
+  differentCategory: boolean = false;
+
+  categories: CategoryItemNode[] = [];
 
   @ViewChild('slide', {static: false}) slide: MatSlideToggle;
 
@@ -67,6 +74,7 @@ export class PriceOfferCreateComponent extends DocumentHelperClass implements On
     this.prepareForm();
     this.changeForm();
     this.getProject();
+    this.handleChangeProject();
 
     this.route.params.subscribe(params => {
       if (params.projectId) {
@@ -98,11 +106,23 @@ export class PriceOfferCreateComponent extends DocumentHelperClass implements On
     });
   }
 
+  // handle change project
+  private handleChangeProject() {
+    this.formGroup.get('project').valueChanges.subscribe((project: Project) => {
+      if (project && project.id) {
+        this.projectService.getCategories(project.id).subscribe((categories) => {
+          this.categories = categories;
+        });
+      }
+    });
+  }
+
   // prepare form
   private prepareForm() {
     this.formGroup = this.formBuilder.group({
       contact: [null, Validators.required],
       project: [null, Validators.required],
+      category: null,
       title: ['', Validators.required],
       subject: '',
       number: ['', Validators.required],
@@ -149,7 +169,7 @@ export class PriceOfferCreateComponent extends DocumentHelperClass implements On
   private preparePacksFromDemandItem() {
     this.formGroup.get('packs').patchValue([]);
 
-    //this.demandPackItems.
+    // this.demandPackItems.
 
     // todo dokoncit zajtra
     console.log(this.demandPackItems);
@@ -180,7 +200,7 @@ export class PriceOfferCreateComponent extends DocumentHelperClass implements On
     });
 
     if (this.projectId) {
-      this.priceOfferService.storeFromBudget(this.formGroup.value,this.projectId).subscribe((r) => {
+      this.priceOfferService.storeFromBudget(this.formGroup.value, this.projectId).subscribe((r) => {
         this.router
           .navigate(['/paginate/priceOffers'])
           .then(() => this.messageService.add('Cenová ponuka bola uložená'));

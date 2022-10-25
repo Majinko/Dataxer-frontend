@@ -29,4 +29,8 @@ export class ItemPriceService extends ResourceService<ItemPrice>{
   setBan(id: number): Observable<any> {
     return this.httpClient.get<any>(`${environment.baseUrl}/${this.endpoint}/setBan/${id}`);
   }
+
+  delete(itemPriceId: number): Observable<void> {
+    return this.httpClient.get<void>(`${environment.baseUrl}/itemPrice/delete/${itemPriceId}`);
+  }
 }

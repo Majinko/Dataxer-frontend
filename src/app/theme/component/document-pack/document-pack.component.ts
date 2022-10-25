@@ -36,6 +36,7 @@ export class DocumentPackComponent extends DocumentPackHelpers implements OnInit
   @Input() projects: Project[];
   @Input() documentHelper: DocumentHelper;
   @Input() fromDemand: boolean;
+  @Input() fromBudget: boolean;
 
   @Output() compareProjects: EventEmitter<boolean> = new EventEmitter();
   @Output() compareCategory: EventEmitter<boolean> = new EventEmitter();
@@ -66,9 +67,15 @@ export class DocumentPackComponent extends DocumentPackHelpers implements OnInit
   }
 
   private getCategories() {
-    this.categoryService.all(true).subscribe((categories) => {
-      this.categories = categories;
-    });
+    if (this.fromBudget) {
+      this.projectService.getCategories(this.projects[0].id).subscribe((categories) => {
+        this.categories = categories;
+      });
+    } else {
+      this.categoryService.all(true).subscribe((categories) => {
+        this.categories = categories;
+      });
+    }
 
     this.formGroup.get('project').valueChanges.subscribe((project: Project) => {
       if (project && project.id) {

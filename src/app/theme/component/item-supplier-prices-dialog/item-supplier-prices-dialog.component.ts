@@ -29,7 +29,7 @@ export class ItemSupplierPricesDialogComponent implements OnInit {
     this.formGroup = this.formBuilder.group({
       itemPrice: this.formBuilder.group({
         id: null,
-        type: this.type,
+        type: '0',
         priceActualTo: null,
         deliveryTime: null,
         deliveryTimeReserve: null,
@@ -53,8 +53,12 @@ export class ItemSupplierPricesDialogComponent implements OnInit {
 
     if (this.data) {
       setTimeout(() => {
-        this.type = this.data.element.type;
         this.formGroup.get('itemPrice').patchValue(this.data.element);
+        if (this.data.element.type) {
+          this.type = this.data.element.type;
+        } else {
+          this.formGroup.get('itemPrice').patchValue({type: '0'});
+        }
       }, 1);
     }
   }

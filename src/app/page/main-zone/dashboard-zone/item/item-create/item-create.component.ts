@@ -64,6 +64,7 @@ export class ItemCreateComponent implements OnInit {
       series: null,
       color: null,
       material: null,
+      weight: null,
       previewUrl: null,
       files: null,
       itemPrice: null,
@@ -75,6 +76,7 @@ export class ItemCreateComponent implements OnInit {
     if (+this.route.snapshot.paramMap.get('original_id')) {
       this.itemService.getById(+this.route.snapshot.paramMap.get('original_id')).subscribe((item) => {
         delete item.id; // remove old item id
+        delete item.itemPrice.id; // remove old item itemPrice id
 
         this.formGroup.patchValue({
           ...item
