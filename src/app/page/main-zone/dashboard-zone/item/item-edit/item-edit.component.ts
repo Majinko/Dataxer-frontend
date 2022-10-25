@@ -112,10 +112,17 @@ export class ItemEditComponent implements OnInit {
       return;
     }
 
-    this.itemService.updateWithFiles(this.formGroup.value, this.uploadHelper.files).subscribe(i => {
-      this.isLoading = false;
-      this.messageService.add('Položka bola aktualizovaná');
-    });
+    const prices = this.formGroup.get('itemPrices').value
+
+    if(prices) {
+      this.itemService.storeWithPriceAndFiles(this.formGroup.value, this.uploadHelper.files).subscribe(i => {
+        this.messageService.add('Položka bola aktualizovaná');
+      });
+    } else {
+      this.itemService.storeWithFiles(this.formGroup.value, this.uploadHelper.files).subscribe(i => {
+        this.messageService.add('Položka bola aktualizovaná');
+      });
+    }
   }
 
   uploadFile(files: File, b: boolean) {

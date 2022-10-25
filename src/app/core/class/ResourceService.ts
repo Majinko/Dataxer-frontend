@@ -68,6 +68,16 @@ export class ResourceService<T extends Resource> implements IPaginate<T>, IDestr
       .post<void>(`${environment.baseUrl}/${this.endpoint}/store`, uploadContext);
   }
 
+  storeWithPriceAndFiles(item: T, files: CustomFile[]): Observable<void> {
+    const uploadContext: UploadContext<T> = {
+      files,
+      object: item
+    };
+
+    return this.http
+      .post<void>(`${environment.baseUrl}/${this.endpoint}/storeWithPrice`, uploadContext);
+  }
+
   updateWithFiles(item: T, files: CustomFile[]): Observable<void> {
     const uploadContext: UploadContext<T> = {
       files,
