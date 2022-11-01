@@ -1,5 +1,5 @@
 import {Contact} from './contact';
-import {User, UserOverviewPrice} from './user';
+import {User, UserOverviewPrice, UserOverviewProfit} from './user';
 import {CategoryItemNode} from './category-item-node';
 import {DocumentBase} from './documentBase';
 
@@ -35,4 +35,11 @@ export interface ProjectManHours {
   sumPriceNetto: number;
   sumPriceBrutto: number;
   userTimePriceOverviewList: UserOverviewPrice[];
+}
+
+export interface ProjectProfit {
+  sumPriceNetto: number;
+  sumPriceBrutto: number;
+  sumTimeProfitUser: number;
+  user: UserOverviewProfit[];
 }

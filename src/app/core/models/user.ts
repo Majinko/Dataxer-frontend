@@ -34,3 +34,9 @@ export interface UserOverviewPrice {
   priceNetto: number;
   priceBrutto: number;
 }
+
+export interface UserOverviewProfit extends UserOverviewPrice {
+  isCalcProfit: boolean;
+  userId: number;
+  uid: string;
+}

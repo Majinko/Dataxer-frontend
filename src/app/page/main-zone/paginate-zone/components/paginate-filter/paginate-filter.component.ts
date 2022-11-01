@@ -256,9 +256,6 @@ export class PaginateFilterComponent extends PaginateFilterHelper implements OnI
       });
     }
 
-
-    console.log(checkFormIsNotFill(this.filterForm.controls));
-
     if (this.modelName !== 'cost' && checkFormIsNotFill(this.filterForm.controls)) {
       this.filterForm.patchValue({
         date: this.dates[0]

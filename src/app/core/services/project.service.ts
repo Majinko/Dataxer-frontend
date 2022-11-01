@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable, Subject} from 'rxjs';
 import {environment} from '../../../environments/environment';
-import {Project, ProjectEvaluation, ProjectManHours} from '../models/project';
+import {Project, ProjectEvaluation, ProjectManHours, ProjectProfit} from '../models/project';
 import {map} from 'rxjs/operators';
 import {CategoryItemNode} from '../models/category-item-node';
 import {ResourceService} from '../class/ResourceService';
@@ -100,8 +100,18 @@ export class ProjectService extends ResourceService<Project> {
     return this.httpClient.get<ProjectManHours>(`${environment.baseUrl}/project/projectManHours/${id}${companyIds && companyIds.length > 0 ? '?companyIds=' + companyIds : ''}`);
   }
 
+  getProjectProfitPerson(id: number, companyIds: number[] = null): Observable<ProjectProfit> {
+    return this.httpClient.get<ProjectProfit>(`${environment.baseUrl}/project/projectManProfit/${id}${companyIds && companyIds.length > 0 ? '?companyIds=' + companyIds : ''}`);
+  }
+
   getEvaluation(id: number): Observable<any> {
     return this.httpClient.get<any>(`${environment.baseUrl}/project/prepareEvaluation/${id}`);
+  }
+
+  saveProjectUserProfit(projectId: number, userIds: number[]) {
+    const projectProfit: {projectId: number, userIds: number[]} = {projectId, userIds};
+
+    return this.httpClient.post<any>(`${environment.baseUrl}/project/profitUserSave`, projectProfit);
   }
 
   private static prepareProjects(projects: Project[]): Project[] {

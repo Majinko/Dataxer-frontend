@@ -9,8 +9,9 @@ import {Cost} from '../../../../../../core/models/cost';
 import {ProjectStats} from '../../../../../../core/data/projectStats';
 import {monthDiff, sum} from '../../../../../../../helper';
 import {ProjectService} from '../../../../../../core/services/project.service';
-import {Project, ProjectManHours} from '../../../../../../core/models/project';
+import {Project, ProjectProfit} from '../../../../../../core/models/project';
 import {DocumentTypeEnum} from '../../../../../../core/enums/documentType.enum';
+import {MessageService} from '../../../../../../core/services/message.service';
 
 @Component({
   selector: 'app-project-evaluation',
@@ -23,7 +24,9 @@ export class ProjectEvaluationComponent implements OnInit {
   costs: Cost[];
   project: Project;
   countLoads: number = 0;
-  projectManHours: ProjectManHours;
+  projectId: number;
+  sumTimeProfitUser: number = 0;
+  projectProfit: ProjectProfit;
   displayedColumns: string[] = ['input', 'user', 'time', 'profit'];
 
   projectStats: ProjectStats = new ProjectStats();
@@ -33,11 +36,14 @@ export class ProjectEvaluationComponent implements OnInit {
     private timeService: TimeService,
     private invoiceService: InvoiceService,
     private costService: CostService,
+    private messageService: MessageService,
     private projectService: ProjectService
   ) {
   }
 
   ngOnInit(): void {
+    this.projectId = +this.route.parent.snapshot.paramMap.get('id');
+
     this.getProject();
     this.getTimes(null);
     this.getInvoices(null);
@@ -47,13 +53,13 @@ export class ProjectEvaluationComponent implements OnInit {
   }
 
   private getProject() {
-    this.projectService.getById(+this.route.parent.snapshot.paramMap.get('id')).subscribe((project) => {
+    this.projectService.getById(this.projectId).subscribe((project) => {
       this.project = project;
     });
   }
 
   private getTimes(companyIds: number[]) {
-    this.timeService.getAllByProject(+this.route.parent.snapshot.paramMap.get('id'), companyIds).subscribe((times) => {
+    this.timeService.getAllByProject(this.projectId, companyIds).subscribe((times) => {
 
       if (times.length) {
         this.projectStats.countUser = [...new Set(times.map(time => time?.user?.uid))].length;
@@ -68,7 +74,7 @@ export class ProjectEvaluationComponent implements OnInit {
   }
 
   private getCosts(companyIds: number[]) {
-    this.costService.findAllByProject(+this.route.parent.snapshot.paramMap.get('id'), companyIds).subscribe((costs) => {
+    this.costService.findAllByProject(this.projectId, companyIds).subscribe((costs) => {
       if (costs.length) {
         this.projectStats.sumCost = sum(costs, 'price');
         this.projectStats.sumInvoices = (this.projectStats.sumInvoices ?? 0) - this.projectStats.sumCost;
@@ -79,7 +85,7 @@ export class ProjectEvaluationComponent implements OnInit {
   }
 
   private getInvoices(companyIds: number[]) {
-    this.invoiceService.findAllByProject(+this.route.parent.snapshot.paramMap.get('id'), companyIds).subscribe((invoices) => {
+    this.invoiceService.findAllByProject(this.projectId, companyIds).subscribe((invoices) => {
       invoices = invoices.filter((invoice) => invoice.documentType !== DocumentTypeEnum.PROFORMA);
 
       if (invoices.length) {
@@ -91,12 +97,13 @@ export class ProjectEvaluationComponent implements OnInit {
   }
 
   private getProjectManHours(companyIds: number[]) {
-    this.projectService.getProjectManHours(+this.route.parent.snapshot.paramMap.get('id'), companyIds).subscribe(manHours => {
-      this.projectManHours = manHours;
-      // tslint:disable-next-line:max-line-length
+    this.projectService.getProjectProfitPerson(this.projectId, companyIds).subscribe(manHours => {
+      this.projectProfit = manHours;
+      this.sumTimeProfitUser = manHours.sumTimeProfitUser;
+
       this.projectStats.profit = +((this.projectStats.sumInvoices || 0) - (manHours.sumPriceBrutto || 0)).toFixed(2);
       // tslint:disable-next-line:max-line-length
-      this.projectStats.coefficient = this.projectStats.timeStamp !== 0 ? (this.projectStats.profit / 100 * this.project.projectProfit) / (this.projectStats.timeStamp / 60 / 60) : 0;
+      this.calcCoefficient();
 
       this.countLoads++;
     });
@@ -120,5 +127,23 @@ export class ProjectEvaluationComponent implements OnInit {
     this.projectStats.coefficient = 0;
     this.projectStats.sumInvoices = 0;
     this.projectStats.sumCost = 0;
+  }
+
+  private calcCoefficient() {
+    this.projectStats.coefficient = this.projectStats.timeStamp !== 0 ?
+      (this.projectStats.profit / 100 * this.project.projectProfit) / (this.sumTimeProfitUser / 60 / 60) : 0;
+  }
+
+  recallUserProfit() {
+    this.sumTimeProfitUser = sum(this.projectProfit.user.filter(user => user.isCalcProfit), 'hours');
+    this.calcCoefficient();
+  }
+
+  saveUserProjectProfit() {
+    const userIds: number[] = this.projectProfit.user.filter(user => user.isCalcProfit).map((user) => user.userId);
+
+    this.projectService.saveProjectUserProfit(this.projectId, userIds).subscribe(() => {
+      this.messageService.add('Udaje boli ulozene.');
+    });
   }
 }
