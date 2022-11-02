@@ -46,14 +46,15 @@
     </div>
 
     <div class="col-md-4">
-      <ng-select class="form-group w-100 mb-0"
-                 [multiple]="true"
-                 [items]="roles"
-                 bindLabel="name"
-                 placeholder="Role"
-                 formControlName="roles"
-      >
-      </ng-select>
+      <div class="mat-form-field w-100 mat-form-field-appearance-legacy">
+        <ng-select class="form-group w-100 mb-0" [ngClass]="{'submitted' : submitted}" [multiple]="true" [items]="roles"
+          bindLabel="name" placeholder="Role" formControlName="roles">
+        </ng-select>
+
+        <div class="mat-form-field-subscript-wrapper">
+          <mat-error *ngIf="submitted && f.roles.errors">Rola je <strong>požadovaná.</strong></mat-error>
+        </div>
+      </div>
     </div>
   </div>
 

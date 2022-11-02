@@ -1,6 +1,6 @@
 .ng-select:not(.filter-ng-select) .ng-select-container .ng-value-container {
   padding: 0 !important;
-  border-top: 1em solid transparent;
+  border-top: 1.28125em solid transparent;
 
   .ng-input {
     bottom: 0 !important;
@@ -72,6 +72,21 @@
     .ng-input{
       padding-left: 15px;
       padding-right: 15px;
+    }
+  }
+}
+
+
+.ng-select {
+  &.submitted.ng-invalid {
+    .ng-select-container {
+      color: red;
+      &::after {
+        border-color: red;
+      }
+      .ng-value-container .ng-placeholder {
+        color: red;
+      }
     }
   }
 }

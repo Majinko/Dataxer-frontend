@@ -17,6 +17,7 @@ import {Role} from '../../../../core/models/role';
 export class UserEditComponent implements OnInit {
   user: User;
   roles: Role[] = [];
+  submitted: boolean = false;
 
   countries = COUNTRIES;
   formGroup: FormGroup;
@@ -49,7 +50,7 @@ export class UserEditComponent implements OnInit {
       city: null,
       postalCode: null,
       country: null,
-      roles: null
+      roles: [null, Validators.required]
     });
 
     if (this.route.snapshot.paramMap.get('uid')) {
@@ -75,6 +76,7 @@ export class UserEditComponent implements OnInit {
   }
 
   onSubmit() {
+    this.submitted = true;
     if (this.formGroup.invalid) {
       return;
     }
