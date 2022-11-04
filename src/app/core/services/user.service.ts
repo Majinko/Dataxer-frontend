@@ -7,6 +7,7 @@ import {environment} from '../../../environments/environment';
 import {map} from 'rxjs/operators';
 import {UserOverview} from '../models/userOverview';
 import {Paginate} from '../models/paginate';
+import {ProjectProfit} from '../models/project';
 
 @Injectable({
   providedIn: 'root'
@@ -94,6 +95,10 @@ export class UserService {
 
   userOverview(uid: string): Observable<UserOverview> {
     return this.http.get<UserOverview>(`${environment.baseUrl}/user/overview/${uid}`);
+  }
+
+  userProjectOverview(uid: string, year: number): Observable<ProjectProfit[]>{
+    return this.http.get<ProjectProfit[]>(`${environment.baseUrl}/user/projectOverview/${uid}/${year}`);
   }
 
   switchProfile(id: number) {

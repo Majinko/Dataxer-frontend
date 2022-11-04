@@ -29,7 +29,7 @@ export class ProjectEvaluationComponent implements OnInit {
   projectProfit: ProjectProfit;
   displayedColumns: string[] = ['input', 'user', 'time', 'profit'];
 
-  projectStats: ProjectStats = new ProjectStats();
+  projectStats: ProjectStats = new ProjectStats(); // TODO vytvorit na backende
 
   constructor(
     private route: ActivatedRoute,
@@ -132,6 +132,9 @@ export class ProjectEvaluationComponent implements OnInit {
   private calcCoefficient() {
     this.projectStats.coefficient = this.projectStats.timeStamp !== 0 ?
       (this.projectStats.profit / 100 * this.project.projectProfit) / (this.sumTimeProfitUser / 60 / 60) : 0;
+
+    console.log((this.projectStats.profit / 100 * this.project.projectProfit));
+    console.log(this.projectStats);
   }
 
   recallUserProfit() {

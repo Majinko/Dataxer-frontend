@@ -14,6 +14,7 @@ import {NgApexchartsModule} from 'ng-apexcharts';
 import {UserSalaryDialogComponent} from './user-salary/components/user-salary-dialog/user-salary-dialog.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import { UserProjectOverviewComponent } from './user-project-overview/user-project-overview.component';
+import { UserProjectOverviewTableComponent } from './user-project-overview/components/user-project-overview-table/user-project-overview-table.component';
 
 const routes: Routes = [
   {
@@ -48,7 +49,8 @@ const routes: Routes = [
     UserTimeComponent,
     ChartComponent,
     UserSalaryDialogComponent,
-    UserProjectOverviewComponent
+    UserProjectOverviewComponent,
+    UserProjectOverviewTableComponent
   ],
   imports: [
     CommonModule,

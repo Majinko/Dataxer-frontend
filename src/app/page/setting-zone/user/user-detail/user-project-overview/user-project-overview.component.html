@@ -1,1 +1,14 @@
-<p>user-project-overview works!</p>
+<div *ngIf="!isLoading">
+  <h2>Prebiehajúce projekty</h2>
+  <app-user-project-overview-table [projectProfit]="projectProfitsUnfinished"></app-user-project-overview-table>
+
+  <h2>Ukončené projekty</h2>
+  <app-user-project-overview-table [projectProfit]="projectProfitsFinished"></app-user-project-overview-table>
+</div>
+
+
+<div class="row mt-3" *ngIf="isLoading">
+  <div class="col-12 d-flex justify-content-center">
+    <mat-spinner></mat-spinner>
+  </div>
+</div>

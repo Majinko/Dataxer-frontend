@@ -38,8 +38,13 @@ export interface ProjectManHours {
 }
 
 export interface ProjectProfit {
+  title: string;
   sumPriceNetto: number;
   sumPriceBrutto: number;
   sumTimeProfitUser: number;
+  profit: number;
+  coefficient: number;
+  profitPercent: number;
+  isFinish: boolean;
   user: UserOverviewProfit[];
 }
