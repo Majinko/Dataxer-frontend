@@ -18,6 +18,7 @@ export class UserCreateComponent implements OnInit {
   role: Role[] = [];
   countries = COUNTRIES;
   isLoading: boolean = false;
+  submitted: boolean = false;
 
   constructor(
     private userService: UserService,
@@ -44,7 +45,7 @@ export class UserCreateComponent implements OnInit {
       city: null,
       postalCode: null,
       country: null,
-      roles: null
+      roles: [null, Validators.required]
     });
 
     this.salaryForm = this.formBuilder.group({
@@ -60,6 +61,7 @@ export class UserCreateComponent implements OnInit {
   }
 
   onSubmit() {
+    this.submitted = true;
     this.isLoading = true;
     this.userForm.markAllAsTouched();
     this.salaryForm.markAllAsTouched();
