@@ -88,11 +88,9 @@ h2 {
 $max: 50;
 
 @for $i from 1 through $max {
-  @if ($i * 5 != 100) {
-    @if ($i * 5 != 75) {
-      .w-#{$i * 5} {
-        width: #{$i * 5}px !important;
-      }
+  @if ($i * 5 != 100 and $i * 5 != 75 and $i * 5 != 65 and $i * 5 != 45 and $i * 5 != 35) {
+    .w-#{$i * 5} {
+      width: #{$i * 5}px !important;
     }
   }
 

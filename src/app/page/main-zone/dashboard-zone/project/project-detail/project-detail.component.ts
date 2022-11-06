@@ -11,13 +11,13 @@ import { Project } from 'src/app/core/models/project';
   template: `
     <div>
       <div class="d-flex align-items-center justify-content-between">
-        <h1 *ngIf="project">{{project.title}}</h1>
+        <h1 *ngIf="project" class="w-35">{{project.title}}</h1>
 
-        <div class="row w-75 justify-content-end align-items-center">
+        <div class="w-75 d-flex justify-content-end align-items-center">
             <button [routerLink]="projectLink" mat-icon-button matTooltip="Upraviť project" class="text-theme">
               <mat-icon>edit</mat-icon>
             </button>
-          <div *ngIf="companies && companies.length > 1" class="col-md-4 col-lg-2">
+          <!--<div *ngIf="companies && companies.length > 1" style="min-width: 200px">
             <ng-select
               [clearable]="false"
               bindLabel="name"
@@ -38,7 +38,7 @@ import { Project } from 'src/app/core/models/project';
                 </div>
               </ng-option>
             </ng-select>
-          </div>
+          </div>-->
         </div>
       </div>
       <app-menu-tab [navLinks]="navLinks"></app-menu-tab>
