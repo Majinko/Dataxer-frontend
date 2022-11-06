@@ -30,6 +30,7 @@ import {CategoryItemNode} from '../../../../../core/models/category-item-node';
   ],
 })
 export class ProjectEditComponent implements OnInit {
+  isLoading: boolean = false;
   formGroup: FormGroup;
   project: Project;
   submitted: boolean = false;
@@ -134,10 +135,16 @@ export class ProjectEditComponent implements OnInit {
       return;
     }
 
+    this.isLoading = true;
+
     this.projectService.update(this.formGroup.value).subscribe(() => {
+      this.isLoading = false;
+
       this.router.navigate(['/paginate/projects']).then(() => {
         this.messageService.add('Zákazka bola aktualizovaná');
       });
+    }, error => {
+      this.isLoading = false;
     });
   }
 

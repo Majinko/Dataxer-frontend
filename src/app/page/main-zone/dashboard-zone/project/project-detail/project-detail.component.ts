@@ -13,27 +13,32 @@ import { Project } from 'src/app/core/models/project';
       <div class="d-flex align-items-center justify-content-between">
         <h1 *ngIf="project">{{project.title}}</h1>
 
-        <div *ngIf="companies && companies.length > 1" class="col-md-4 col-lg-2">
-          <ng-select
-            [clearable]="false"
-            bindLabel="name"
-            bindValue="id"
-            placeholder="Spoločnosť"
-            [(ngModel)]="selectedCompany"
-            (ngModelChange)="getDataByFirm()"
-            class="filter-ng-select">
+        <div class="row w-75 justify-content-end align-items-center">
+            <button [routerLink]="projectLink" mat-icon-button matTooltip="Upraviť project" class="text-theme">
+              <mat-icon>edit</mat-icon>
+            </button>
+          <div *ngIf="companies && companies.length > 1" class="col-md-4 col-lg-2">
+            <ng-select
+              [clearable]="false"
+              bindLabel="name"
+              bindValue="id"
+              placeholder="Spoločnosť"
+              [(ngModel)]="selectedCompany"
+              (ngModelChange)="getDataByFirm()"
+              class="filter-ng-select mt-3">
 
-            <ng-option *ngFor="let company of companies" [value]="company">
-              <div class="company-option">
-                <div class="img-wrap">
-                  <img *ngIf="company.logoUrl" [src]="company.logoUrl" size="40" alt="company.name">
+              <ng-option *ngFor="let company of companies" [value]="company">
+                <div class="company-option">
+                  <div class="img-wrap">
+                    <img *ngIf="company.logoUrl" [src]="company.logoUrl" size="40" alt="company.name">
+                  </div>
+                  <div class="text-wrap">
+                    {{ company.name }}
+                  </div>
                 </div>
-                <div class="text-wrap">
-                  {{ company.name }}
-                </div>
-              </div>
-            </ng-option>
-          </ng-select>
+              </ng-option>
+            </ng-select>
+          </div>
         </div>
       </div>
       <app-menu-tab [navLinks]="navLinks"></app-menu-tab>
@@ -44,6 +49,7 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
   project: Project;
   companies: Company[] = [];
   selectedCompany: number = null;
+  projectLink: string;
   navLinks: { label: string, link: string, index: number }[] = [];
 
   constructor(
@@ -56,6 +62,7 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.searchBarService.showBar = false;
+    this.projectLink = `/project/edit/${+this.route.snapshot.paramMap.get('id')}`;
 
     this.navLinks = [
       {

@@ -41,6 +41,7 @@ export class ProjectCreateComponent implements OnInit {
   formGroup: FormGroup;
   demandId: number = null;
   submitted: boolean = false;
+  isLoading: boolean = false;
 
   users: User[] = [];
   demandItems: DemandPackItem[] = [];
@@ -166,7 +167,10 @@ export class ProjectCreateComponent implements OnInit {
       return;
     }
 
+    this.isLoading = true;
+
     this.projectService.store(this.formGroup.value).subscribe(() => {
+      this.isLoading = false;
       this.messageService.add('Zákazka bola vytvorena');
 
       if (this.dialogRef === null) {

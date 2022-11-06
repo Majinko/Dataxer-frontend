@@ -92,7 +92,7 @@
         <mat-checkbox formControlName="isProjectFinish">Projekt dokončený</mat-checkbox>
       </div>
     </div>
-    
+
   </div>
 
   <div class="row">
@@ -131,10 +131,7 @@
           <mat-icon>cancel</mat-icon>
           Zrušiť
         </button>
-        <button mat-flat-button class="btn-icon btn-theme">
-          <mat-icon>save</mat-icon>
-          Uložiť
-        </button>
+        <app-spinner-button [loading]="isLoading"></app-spinner-button>
       </div>
 
       <ng-template #dialogProject>

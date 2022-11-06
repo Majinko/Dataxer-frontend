@@ -59,25 +59,25 @@ h2 {
   white-space: nowrap !important;
 }
 
-.reset-white-space{
+.reset-white-space {
   white-space: inherit !important;
 }
 
-.outline-none{
+.outline-none {
   outline: none !important;
 }
 
-.text-underline-hover{
-  &:hover{
+.text-underline-hover {
+  &:hover {
     text-decoration: underline !important;
   }
 }
 
-.not-visible{
+.not-visible {
   visibility: hidden !important;
 }
 
-.l-h-0{
+.l-h-0 {
   line-height: 0 !important;
 }
 
@@ -89,8 +89,10 @@ $max: 50;
 
 @for $i from 1 through $max {
   @if ($i * 5 != 100) {
-    .w-#{$i * 5} {
-      width: #{$i * 5}px !important;
+    @if ($i * 5 != 75) {
+      .w-#{$i * 5} {
+        width: #{$i * 5}px !important;
+      }
     }
   }
 
@@ -117,6 +119,6 @@ $max: 50;
 }
 
 // ng select
-.ng-option-disabled.ng-optgroup.ng-star-inserted{
+.ng-option-disabled.ng-optgroup.ng-star-inserted {
   text-align: left;
 }

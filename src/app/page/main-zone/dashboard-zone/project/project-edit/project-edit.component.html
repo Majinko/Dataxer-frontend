@@ -83,7 +83,7 @@
         <mat-datepicker #finishedAt></mat-datepicker>
       </mat-form-field>
     </div>
-    
+
     <div class="col-md-6">
       <div class="form-group pb-4">
         <mat-checkbox formControlName="isProjectFinish">Projekt dokončený</mat-checkbox>
@@ -125,10 +125,7 @@
         <mat-icon>cancel</mat-icon>
         Zrušiť
       </button>
-      <button mat-flat-button class="btn-icon btn-theme">
-        <mat-icon>save</mat-icon>
-        Uložiť
-      </button>
+      <app-spinner-button [loading]="isLoading"></app-spinner-button>
     </div>
   </div>
 </form>

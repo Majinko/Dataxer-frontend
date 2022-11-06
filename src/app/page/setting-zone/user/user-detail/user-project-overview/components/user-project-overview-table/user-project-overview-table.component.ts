@@ -9,13 +9,16 @@ import {ProjectProfit} from '../../../../../../../core/models/project';
 export class UserProjectOverviewTableComponent implements OnInit {
   @Input() projectProfit: ProjectProfit[] = [];
 
+  total: number = 0;
+
   displayedColumns: string[] = ['project', 'timeSum', 'profitInPercent', 'profitInEuro'];
 
   constructor() {
   }
 
   ngOnInit(): void {
-    console.log(this.projectProfit);
+    this.projectProfit.forEach(projectProfit => {
+      this.total += (projectProfit.user[0].hours / 60 / 60) * projectProfit.coefficient;
+    });
   }
-
 }
