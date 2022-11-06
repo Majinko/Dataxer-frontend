@@ -1111,7 +1111,7 @@ input[type=number] {
 
 .ng-select:not(.filter-ng-select) .ng-select-container .ng-value-container {
   padding: 0 !important;
-  border-top: 1em solid transparent;
+  border-top: 1.28125em solid transparent;
 }
 .ng-select:not(.filter-ng-select) .ng-select-container .ng-value-container .ng-input {
   bottom: 0 !important;
@@ -1167,6 +1167,16 @@ input[type=number] {
 .filter-ng-select .ng-select-container .ng-input {
   padding-left: 15px;
   padding-right: 15px;
+}
+
+.ng-select.submitted.ng-invalid .ng-select-container {
+  color: red;
+}
+.ng-select.submitted.ng-invalid .ng-select-container::after {
+  border-color: red;
+}
+.ng-select.submitted.ng-invalid .ng-select-container .ng-value-container .ng-placeholder {
+  color: red;
 }
 
 app-invoice-create app-company-select-group,

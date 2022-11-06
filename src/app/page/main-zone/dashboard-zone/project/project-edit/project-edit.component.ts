@@ -79,6 +79,7 @@ export class ProjectEditComponent implements OnInit {
       state: null,
       address: null,
       projectProfit: 0,
+      isProjectFinish: false,
       area: null,
       startedAt: null,
       finishedAt: null,
