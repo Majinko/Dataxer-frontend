@@ -72,6 +72,7 @@
         <input formControlName="startedAt" matInput [matDatepicker]="startedAt">
         <mat-datepicker-toggle matSuffix [for]="startedAt"></mat-datepicker-toggle>
         <mat-datepicker #startedAt></mat-datepicker>
+        <mat-hint>Pokiaľ nieje projekt ukončený berie sa prvý časový záznam v projekte.</mat-hint>
       </mat-form-field>
     </div>
 
@@ -81,6 +82,7 @@
         <input formControlName="finishedAt" matInput [matDatepicker]="finishedAt">
         <mat-datepicker-toggle matSuffix [for]="finishedAt"></mat-datepicker-toggle>
         <mat-datepicker #finishedAt></mat-datepicker>
+        <mat-hint>Pokiaľ nieje projekt ukončený berie sa posledný časový záznam v projekte.</mat-hint>
       </mat-form-field>
     </div>
 

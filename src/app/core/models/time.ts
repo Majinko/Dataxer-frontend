@@ -18,3 +18,8 @@ export interface Time {
   dateWorkMonth?: any;
   createdDate: Date;
 }
+
+export interface ProjectStartEnd{
+  start: Date;
+  finish: Date;
+}

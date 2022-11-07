@@ -7,7 +7,6 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {MatDialog} from '@angular/material/dialog';
 import {AppPaginate} from '../../../../core/class/AppPaginate';
 import {GodButtonService} from '../../../../core/services/god-button.service';
-import {Subscription} from 'rxjs';
 import {FilterService} from '../../../../core/store/service/filter.service';
 
 @Component({

@@ -17,6 +17,7 @@ export interface Project {
   startedAt: Date;
   finishedAt: Date;
   color?: string;
+  isProjectFinish?: boolean;
 
   demand?: DocumentBase;
   contact: Contact;

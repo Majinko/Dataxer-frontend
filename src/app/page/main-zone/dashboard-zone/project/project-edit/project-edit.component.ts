@@ -10,6 +10,7 @@ import {APP_DATE_FORMATS} from '../../../../../../helper';
 import {AddPercentPipe} from '../../../../../core/pipes/add-percent.pipe';
 import {CategoryService} from '../../../../../core/services/category.service';
 import {CategoryItemNode} from '../../../../../core/models/category-item-node';
+import {TimeService} from '../../../../../core/services/time.service';
 
 @Component({
   selector: 'app-project-edit',
@@ -56,6 +57,7 @@ export class ProjectEditComponent implements OnInit {
     private projectService: ProjectService,
     private messageService: MessageService,
     private categoryService: CategoryService,
+    private timeService: TimeService,
     private route: ActivatedRoute,
     private router: Router,
   ) {
@@ -95,6 +97,9 @@ export class ProjectEditComponent implements OnInit {
       this.formGroup.patchValue(p);
 
       this.prepareGroup('fillCategories', p.categories);
+
+      // project finished
+      this.setProjectStartFinish(p);
     });
   }
 
@@ -124,6 +129,19 @@ export class ProjectEditComponent implements OnInit {
     });
 
     this.formGroup.patchValue({categories});
+  }
+
+  private setProjectStartFinish(p: Project) {
+    if (!p.isProjectFinish) {
+      this.timeService.getProjectStartEnd(p.id).subscribe((r) => {
+        if (r) {
+          this.formGroup.patchValue({
+            startedAt: r.start,
+            finishedAt: r.finish
+          });
+        }
+      });
+    }
   }
 
   submit() {

@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Time} from '../models/time';
+import {ProjectStartEnd, Time} from '../models/time';
 import {Observable} from 'rxjs';
 import {environment} from '../../../environments/environment';
 import {Project} from '../models/project';
@@ -71,6 +71,10 @@ export class TimeService implements IPaginate<Time> {
 
   getAllByProject(projectId: number, companyIds: number[] = null): Observable<Time[]> {
     return this.http.get<Time[]>(`${environment.baseUrl}/time/allByProject/${projectId}${companyIds && companyIds.length > 0 ? '?companyIds=' + companyIds : ''}`);
+  }
+
+  getProjectStartEnd(projectId: number): Observable<ProjectStartEnd> {
+    return this.http.get<ProjectStartEnd>(`${environment.baseUrl}/time/getProjectStartEnd/${projectId}`);
   }
 
   getAllByProjectInDetail(projectId: number): Observable<Time[]> {

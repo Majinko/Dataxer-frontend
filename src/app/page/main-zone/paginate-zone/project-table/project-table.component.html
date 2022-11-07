@@ -34,8 +34,8 @@
           <!-- completed Column -->
           <ng-container matColumnDef="completed">
             <th mat-header-cell *matHeaderCellDef> Dokončený </th>
-            <td mat-cell *matCellDef="let element"> 
-              <mat-icon *ngIf="element.isProjectFinish" class="text-approved" matTooltip="{{ element.finishedAt | date:'dd.MM.y' }}">check_circle </mat-icon>
+            <td mat-cell *matCellDef="let element">
+              <mat-icon *ngIf="element.isProjectFinish" class="text-approved" matTooltip="{{ element.finishedAt | date:'dd.MM.y' }}">check_circle</mat-icon>
             </td>
           </ng-container>
 
