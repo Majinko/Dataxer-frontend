@@ -23,6 +23,7 @@ export class ProjectTableComponent extends AppPaginate<Project> implements OnIni
     'title',
     'client',
     'address',
+    'completed',
     'actions'
   ];
 
