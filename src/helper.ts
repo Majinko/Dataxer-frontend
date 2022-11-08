@@ -92,7 +92,6 @@ export function timeRange(): { timesForHuman: string; timesForPc: string }[] {
 export function containsObject(obj, list) {
   let x;
   for (x in list) {
-    console.log(list[x]);
     if (list.hasOwnProperty(x) && JSON.stringify(list[x]) === JSON.stringify(obj)) {
       return true;
     }

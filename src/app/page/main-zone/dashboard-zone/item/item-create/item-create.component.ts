@@ -108,12 +108,12 @@ export class ItemCreateComponent implements OnInit {
     }
 
     this.isLoading = false;
-    const prices = this.formGroup.get('itemPrices').value
+    const prices = this.formGroup.get('itemPrices').value;
 
-    if(prices) {
+    if (prices) {
       this.itemService.storeWithPriceAndFiles(this.formGroup.value, this.uploadHelper.files).subscribe(i => {
         this.uploadHelper.imageUrl = null;
-  
+
         this.router.navigate(['/paginate/items']).then(() => {
           this.messageService.add('Položka bola vytvorená.');
         });
@@ -121,7 +121,7 @@ export class ItemCreateComponent implements OnInit {
     } else {
       this.itemService.storeWithFiles(this.formGroup.value, this.uploadHelper.files).subscribe(i => {
         this.uploadHelper.imageUrl = null;
-  
+
         this.router.navigate(['/paginate/items']).then(() => {
           this.messageService.add('Položka bola vytvorená.');
         });

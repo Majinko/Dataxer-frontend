@@ -17,7 +17,7 @@ export class UserTimeComponent implements OnInit {
 
   ngOnInit(): void {
     this.timeService.getAllByUser(this.route.parent.snapshot.paramMap.get('uid')).subscribe((t) => {
-      console.log(t);
+
     });
   }
 

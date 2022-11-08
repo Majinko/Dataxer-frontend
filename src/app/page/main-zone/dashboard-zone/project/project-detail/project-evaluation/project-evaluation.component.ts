@@ -44,6 +44,7 @@ export class ProjectEvaluationComponent implements OnInit {
   ngOnInit(): void {
     this.projectId = +this.route.parent.snapshot.paramMap.get('id');
 
+    this.resetProjectStat();
     this.getProject();
     this.getTimes(null);
     this.getInvoices(null);
@@ -101,8 +102,8 @@ export class ProjectEvaluationComponent implements OnInit {
       this.projectProfit = manHours;
       this.sumTimeProfitUser = manHours.sumTimeProfitUser;
 
-      this.projectStats.profit = +((this.projectStats.sumInvoices || 0) - (manHours.sumPriceBrutto || 0)).toFixed(2);
-      // tslint:disable-next-line:max-line-length
+      this.projectStats.profit = manHours.profit;
+      
       this.calcCoefficient();
 
       this.countLoads++;
@@ -132,9 +133,6 @@ export class ProjectEvaluationComponent implements OnInit {
   private calcCoefficient() {
     this.projectStats.coefficient = this.projectStats.timeStamp !== 0 ?
       (this.projectStats.profit / 100 * this.project.projectProfit) / (this.sumTimeProfitUser / 60 / 60) : 0;
-
-    console.log((this.projectStats.profit / 100 * this.project.projectProfit));
-    console.log(this.projectStats);
   }
 
   recallUserProfit() {
