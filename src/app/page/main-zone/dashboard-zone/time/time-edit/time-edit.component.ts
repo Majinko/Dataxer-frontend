@@ -101,6 +101,8 @@ export class TimeEditComponent extends TimeHelperClass implements OnInit {
       this.router.navigate(['/paginate/time']).then(() => {
         this.messageService.add('Čas bol uložený');
       });
+    }, error => {
+      this.messageService.add(error.error.message);
     });
   }
 

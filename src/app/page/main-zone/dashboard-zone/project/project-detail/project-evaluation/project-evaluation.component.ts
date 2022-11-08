@@ -47,8 +47,6 @@ export class ProjectEvaluationComponent implements OnInit {
     this.resetProjectStat();
     this.getProject();
     this.getTimes(null);
-    this.getInvoices(null);
-    this.getCosts(null);
     this.getProjectManHours(null);
     this.handleChangeCompany();
   }
@@ -74,28 +72,6 @@ export class ProjectEvaluationComponent implements OnInit {
     });
   }
 
-  private getCosts(companyIds: number[]) {
-    this.costService.findAllByProject(this.projectId, companyIds).subscribe((costs) => {
-      if (costs.length) {
-        this.projectStats.sumCost = sum(costs, 'price');
-        this.projectStats.sumInvoices = (this.projectStats.sumInvoices ?? 0) - this.projectStats.sumCost;
-      }
-
-      this.countLoads++;
-    });
-  }
-
-  private getInvoices(companyIds: number[]) {
-    this.invoiceService.findAllByProject(this.projectId, companyIds).subscribe((invoices) => {
-      invoices = invoices.filter((invoice) => invoice.documentType !== DocumentTypeEnum.PROFORMA);
-
-      if (invoices.length) {
-        this.projectStats.sumInvoices = (this.projectStats.sumInvoices ?? 0) + sum(invoices, 'price');
-      }
-
-      this.countLoads++;
-    });
-  }
 
   private getProjectManHours(companyIds: number[]) {
     this.projectService.getProjectProfitPerson(this.projectId, companyIds).subscribe(manHours => {
@@ -103,7 +79,7 @@ export class ProjectEvaluationComponent implements OnInit {
       this.sumTimeProfitUser = manHours.sumTimeProfitUser;
 
       this.projectStats.profit = manHours.profit;
-      
+
       this.calcCoefficient();
 
       this.countLoads++;
@@ -117,8 +93,6 @@ export class ProjectEvaluationComponent implements OnInit {
       this.countLoads = 0;
 
       this.getTimes(ids);
-      this.getInvoices(ids);
-      this.getCosts(ids);
       this.getProjectManHours(ids);
     });
   }
