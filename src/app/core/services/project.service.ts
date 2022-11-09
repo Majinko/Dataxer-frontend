@@ -85,9 +85,9 @@ export class ProjectService extends ResourceService<Project> {
     }));
   }
 
-  getCategories(id: number): Observable<CategoryItemNode[]> {
+  getCategories(id: number, categoryType?: string): Observable<CategoryItemNode[]> {
     // tslint:disable-next-line:max-line-length
-    return this.httpClient.get<CategoryItemNode[]>(`${environment.baseUrl}/project/allProjectCategory?projectId=${id}`).pipe(map(categories => {
+    return this.httpClient.get<CategoryItemNode[]>(`${environment.baseUrl}/project/allProjectCategory?projectId=${id}${categoryType ? '&&categoryType=' + categoryType : ''}`).pipe(map(categories => {
       return this.categoryHelper.prepareOptionTree(categories);
     }));
   }
@@ -109,7 +109,7 @@ export class ProjectService extends ResourceService<Project> {
   }
 
   saveProjectUserProfit(projectId: number, userIds: number[]) {
-    const projectProfit: {projectId: number, userIds: number[]} = {projectId, userIds};
+    const projectProfit: { projectId: number, userIds: number[] } = {projectId, userIds};
 
     return this.httpClient.post<any>(`${environment.baseUrl}/project/profitUserSave`, projectProfit);
   }

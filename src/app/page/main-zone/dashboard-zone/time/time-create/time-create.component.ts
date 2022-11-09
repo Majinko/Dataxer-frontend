@@ -126,7 +126,8 @@ export class TimeCreateComponent extends TimeHelperClass implements OnInit {
   }
 
   private getProjectCategories(project: Project) {
-    this.projectService.getCategories(project.id).subscribe(categories => {
+    // ak sa zapisuje cas do ukonceneho projektu, beru sa len kategorie ktore maju type TIME_AFTER_PROJECT_END
+    this.projectService.getCategories(project.id, project.isProjectFinish ? 'TIME_AFTER_PROJECT_END' : null).subscribe(categories => {
       if (categories.length > 0) {
         if (!this.lastCategories) {
           this.formGroup.patchValue({category: categories[0]});

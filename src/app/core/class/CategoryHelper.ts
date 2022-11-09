@@ -62,11 +62,16 @@ export class CategoryHelper {
       items.forEach((item, index) => {
         const parents = items.filter(itemParent => (itemParent.id === item.parentId));
 
-        if (parents.length) {
-          tree[counter] = item;
-          tree[counter].parentName = items.find(itemParent => itemParent.id === item.parentId).name;
 
-          counter++;
+        if (parents.length) {
+          const childrenCount = items.filter(itemParent => itemParent.parentId === item.id); // len ak nema element deticky tak mu nastavime parrent name
+
+          if (childrenCount.length === 0) {
+            tree[counter] = item;
+            tree[counter].parentName = items.find(itemParent => itemParent.id === item.parentId).name;
+
+            counter++;
+          }
         }
       });
 
