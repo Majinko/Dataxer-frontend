@@ -118,7 +118,10 @@ export class PriceOfferEditComponent extends DocumentHelperClass implements OnIn
       totalPrice: this.documentHelper.totalPrice,
     });
 
+    this.isLoad = true;
+
     this.priceOfferService.update(this.formGroup.value).subscribe((r) => {
+      this.isLoad = false;
       this.router.navigate(['/paginate/priceOffers']).then(() => {
         this.messageService.add('Cenová ponuka bola uložená');
       });

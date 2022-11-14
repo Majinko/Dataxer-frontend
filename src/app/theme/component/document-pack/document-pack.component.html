@@ -15,9 +15,9 @@
               <a cdkDragHandle class="mr-3" mat-icon-button matTooltip="Reorder pack">
                 <mat-icon class="text-theme">drag_indicator</mat-icon>
               </a>
-              <a (click)="showHidePackItems(i)" cdkDragHandle class="mr-3" mat-icon-button
-                matTooltip="{{documentHelper.packs[i].showItems ? 'Hide' : 'Show'}} items in pack">
-                <mat-icon class="text-theme">{{documentHelper.packs[i].showItems ? 'visibility' : 'visibility_off'}}
+              <a (click)="showHidePackItems(pack.value)" cdkDragHandle class="mr-3" mat-icon-button
+                matTooltip="{{pack.value.showItems ? 'Hide' : 'Show'}} items in pack">
+                <mat-icon class="text-theme">{{pack.value.showItems ? 'visibility' : 'visibility_off'}}
                 </mat-icon>
               </a>
               <app-pack-autocomplete (findPack)="setPack(i, pack, $event)" formControlName="title"></app-pack-autocomplete>
@@ -52,7 +52,7 @@
           </tr>
         </tbody>
 
-        <tbody [hidden]="!documentHelper.packs[i].showItems" class="no-border table-item table-td-initial"
+        <tbody [hidden]="!pack.value.showItems" class="no-border table-item table-td-initial"
           formArrayName="packItems" cdkDropList (cdkDropListDropped)="dropItem(i, $event)">
           <tr #trRow class="tbody-row item-row" [formGroupName]="j"
             *ngFor="let item of pack.get('packItems').controls; let j=index" cdkDragLockAxis="y" cdkDrag>

@@ -41,7 +41,6 @@ export class InvoiceCreateComponent extends DocumentHelperClass implements OnIni
   submitted: boolean = false;
   moreOptions: boolean = false;
   documentType: string = 'INVOICE';
-  isLoad: boolean = false;
   projectId: number;
 
   constructor(
@@ -191,8 +190,11 @@ export class InvoiceCreateComponent extends DocumentHelperClass implements OnIni
       totalPrice: this.documentHelper.totalPrice,
     });
 
+    this.isLoad = true;
+
     if (this.projectId) {
       this.invoiceService.storeFromBudget(this.formGroup.value, this.projectId).subscribe((r) => {
+        this.isLoad = false;
         this.router
           .navigate(['/paginate/invoices'])
           .then(() => {
@@ -201,6 +203,7 @@ export class InvoiceCreateComponent extends DocumentHelperClass implements OnIni
       });
     } else {
       this.invoiceService.store(this.formGroup.value, +this.route.snapshot.paramMap.get('id')).subscribe((r) => {
+        this.isLoad = false;
         this.router
           .navigate(['/paginate/invoices'])
           .then(() => {

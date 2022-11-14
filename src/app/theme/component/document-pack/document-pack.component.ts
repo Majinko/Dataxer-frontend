@@ -97,8 +97,8 @@ export class DocumentPackComponent extends DocumentPackHelpers implements OnInit
   }
 
   // show hide pack item
-  showHidePackItems(index: number) {
-    this.documentHelper.packs[index].showItems = !this.documentHelper.packs[index].showItems;
+  showHidePackItems(pack: Pack) {
+    pack.showItems = !pack.showItems;
   }
 
   private handleChangesForm() {
@@ -151,7 +151,7 @@ export class DocumentPackComponent extends DocumentPackHelpers implements OnInit
         item.projectCategories = categories;
         this.checkProjects();
       });
-    }else {
+    } else {
       this.categoryService.fallByGroupIn(['COMPANY', 'SALARY'], false).subscribe((nestedCategories) => {
         item.projectCategories = nestedCategories;
         this.checkProjects();

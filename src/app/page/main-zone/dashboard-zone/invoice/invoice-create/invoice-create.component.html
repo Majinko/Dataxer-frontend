@@ -217,10 +217,7 @@
         Zrušiť
       </button>
       <!--todo spravit ochranu proti multi kliku-->
-      <button mat-flat-button class="btn-icon btn-theme">
-        <mat-icon>save</mat-icon>
-        Uložiť
-      </button>
+      <app-spinner-button [loading]="isLoad"></app-spinner-button>
     </div>
   </div>
 </form>

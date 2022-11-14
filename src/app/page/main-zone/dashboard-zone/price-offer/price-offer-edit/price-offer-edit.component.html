@@ -174,10 +174,7 @@
         <mat-icon>cancel</mat-icon>
         Zrušiť
       </button>
-      <button mat-flat-button class="btn-icon btn-theme">
-        <mat-icon>save</mat-icon>
-        Uložiť
-      </button>
+      <app-spinner-button [loading]="isLoad"></app-spinner-button>
     </div>
   </div>
 </form>

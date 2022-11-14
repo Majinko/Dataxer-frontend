@@ -17,7 +17,6 @@ import {MatSlideToggle} from '@angular/material/slide-toggle';
 import {DemandService} from '../../../../../core/services/demand.service';
 import {BudgetService} from '../../../../../core/services/budget.service';
 import {CategoryItemNode} from '../../../../../core/models/category-item-node';
-import {CategoryService} from '../../../../../core/services/category.service';
 import {Project} from '../../../../../core/models/project';
 
 @Component({
@@ -197,16 +196,21 @@ export class PriceOfferCreateComponent extends DocumentHelperClass implements On
     this.formGroup.patchValue({
       price: this.documentHelper.price,
       totalPrice: this.documentHelper.totalPrice,
+      packs: this.documentHelper.packs
     });
+
+    this.isLoad = true;
 
     if (this.projectId) {
       this.priceOfferService.storeFromBudget(this.formGroup.value, this.projectId).subscribe((r) => {
+        this.isLoad = false;
         this.router
           .navigate(['/paginate/priceOffers'])
           .then(() => this.messageService.add('Cenová ponuka bola uložená'));
       });
     } else {
       this.priceOfferService.store(this.formGroup.value).subscribe((r) => {
+        this.isLoad = false;
         this.router
           .navigate(['/paginate/priceOffers'])
           .then(() => this.messageService.add('Cenová ponuka bola uložená'));

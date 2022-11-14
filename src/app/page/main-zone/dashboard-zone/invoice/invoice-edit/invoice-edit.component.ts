@@ -115,6 +115,8 @@ export class InvoiceEditComponent extends DocumentHelperClass implements OnInit 
       return;
     }
 
+    this.isEdit = true;
+
     // set offer price and total price
     this.formGroup.patchValue({
       price: this.documentHelper.price,
@@ -122,6 +124,7 @@ export class InvoiceEditComponent extends DocumentHelperClass implements OnInit 
     });
 
     this.invoiceService.update(this.formGroup.value).subscribe((r) => {
+      this.isLoad = false;
       this.router.navigate(['/paginate/invoices']).then(() => {
         this.messageService.add('Faktúra bola aktualizovaná');
       });

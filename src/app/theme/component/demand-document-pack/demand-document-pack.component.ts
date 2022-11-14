@@ -77,6 +77,7 @@ export class DemandDocumentPackComponent extends DocumentPackHelpers implements 
 
   // show hide pack item
   showHidePackItems(index: number) {
+    console.log(this.documentHelper.packs[index].showItems);
     this.documentHelper.packs[index].showItems = !this.documentHelper.packs[index].showItems;
   }
 }

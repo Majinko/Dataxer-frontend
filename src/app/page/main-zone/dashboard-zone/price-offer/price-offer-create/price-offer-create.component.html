@@ -212,10 +212,7 @@
         <mat-icon>cancel</mat-icon>
         Zrušiť
       </button>
-      <button mat-flat-button class="btn-icon btn-theme mr-3" (click)="submit('save')" type="button">
-        <mat-icon>save</mat-icon>
-        Uložiť
-      </button>
+      <app-spinner-button [loading]="isLoad" (click)="submit('save')"></app-spinner-button>
      <!-- <button *ngIf="demandId" mat-flat-button class="btn-icon btn-theme-warn" (click)="submit('send')" type="button">
         <mat-icon>send</mat-icon>
         Odoslať objednávateľovi
