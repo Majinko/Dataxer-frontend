@@ -54,7 +54,7 @@ export abstract class DocumentPackHelpers {
       price: null,
       tax: this.formGroup.value.company?.companyTaxType === 'TAX_PAYER' ? 20 : 0,
       totalPrice: null,
-      project: this.formGroup.get('project').value,
+      project: this.formGroup.get('project')?.value ? this.formGroup.get('project').value : null,
       category: this.formGroup.get('category')?.value ? this.formGroup.get('category').value : null
     });
   }

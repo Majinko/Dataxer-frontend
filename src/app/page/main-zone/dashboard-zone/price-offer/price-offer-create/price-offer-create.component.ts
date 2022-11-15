@@ -101,6 +101,9 @@ export class PriceOfferCreateComponent extends DocumentHelperClass implements On
 
   // get demand pack items
   private gedDemandPackItem() {
+    this.demandService.getById(this.demandId).subscribe(d => {
+      this.formGroup.get('contact').patchValue(d.company);
+    });
     this.demandService.gedDemandPackItem(this.demandId).subscribe((demandPackItems) => {
       this.demandPackItems = demandPackItems;
     });
