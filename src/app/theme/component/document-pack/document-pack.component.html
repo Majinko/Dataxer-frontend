@@ -20,7 +20,8 @@
                 <mat-icon class="text-theme">{{documentHelper.packs[i].showItems ? 'visibility' : 'visibility_off'}}
                 </mat-icon>
               </a>
-              <app-pack-autocomplete (findPack)="setPack(i, pack, $event)" formControlName="title"></app-pack-autocomplete>
+              <app-pack-autocomplete (findPack)="setPack(i, pack, $event)" formControlName="title">
+              </app-pack-autocomplete>
             </td>
             <td colspan="3" class="thin">
               <mat-checkbox #checkbox formControlName="customPrice">Určiť cenu</mat-checkbox>
@@ -118,8 +119,11 @@
                 </mat-form-field>
               </div>
 
-              <div class="jsSettings" *ngIf="projects" [ngClass]="{'d-none' : fromBudget}">
-                <app-new-project-select [fromComponent]="formGroup.get('documentType')?.value?.toLocaleLowerCase()" (ngModelChange)="onValueChange($event, item)" [projects]="projects" formControlName="project" dropDownPosition="top" [showAddButton]="false"></app-new-project-select>
+              <div class="jsSettings" *ngIf="projects">
+                <app-new-project-select [ngClass]="{'d-none' : fromBudget}"
+                  [fromComponent]="formGroup.get('documentType')?.value?.toLocaleLowerCase()"
+                  (ngModelChange)="onValueChange($event, item)" [projects]="projects" formControlName="project"
+                  dropDownPosition="top" [showAddButton]="false"></app-new-project-select>
               </div>
             </td>
             <td>
@@ -149,10 +153,14 @@
               <a (click)="showDiscount(trRow)" class="mr-3" mat-icon-button matTooltip="Zľava na položku">
                 <mat-icon class="text-theme">local_offer</mat-icon>
               </a>
-              <a (click)="showMoreOptions(trRow)" class="mr-3" mat-icon-button matTooltip="Nastavenie položky">
+              <a *ngIf="!fromBudget" (click)="showMoreOptions(trRow)" class="mr-3" mat-icon-button matTooltip="Nastavenie položky">
                 <mat-icon class="text-theme">settings</mat-icon>
               </a>
-              <button (click)="documentRemoveItem($event, j, i)" mat-icon-button matTooltip="Vymazať položku" type="button">
+              <a *ngIf="fromBudget" (click)="itemDialog(item)" class="mr-3" mat-icon-button matTooltip="Nastavenie položky">
+                <mat-icon class="text-theme">extension</mat-icon>
+              </a>
+              <button (click)="documentRemoveItem($event, j, i)" mat-icon-button matTooltip="Vymazať položku"
+                type="button">
                 <mat-icon class="text-theme">delete</mat-icon>
               </button>
             </td>

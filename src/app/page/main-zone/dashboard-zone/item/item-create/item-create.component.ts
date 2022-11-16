@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, Optional, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Item} from '../../../../../core/models/item';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -9,6 +9,7 @@ import {ItemService} from '../../../../../core/services/item.service';
 import {MessageService} from '../../../../../core/services/message.service';
 import {UploadHelper} from '../../../../../core/class/UploadHelper';
 import {DocumentHelper} from '../../../../../core/class/DocumentHelper';
+import {MatDialogRef} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-item-create',
@@ -27,6 +28,7 @@ export class ItemCreateComponent implements OnInit {
   @ViewChild('autosize', {static: false}) autosize: CdkTextareaAutosize;
 
   constructor(
+    @Optional() public dialogRef: MatDialogRef<ItemCreateComponent>,
     private categoryService: CategoryService,
     private messageService: MessageService,
     private itemService: ItemService,
@@ -114,17 +116,25 @@ export class ItemCreateComponent implements OnInit {
       this.itemService.storeWithPriceAndFiles(this.formGroup.value, this.uploadHelper.files).subscribe(i => {
         this.uploadHelper.imageUrl = null;
 
-        this.router.navigate(['/paginate/items']).then(() => {
-          this.messageService.add('Položka bola vytvorená.');
-        });
+        if (this.dialogRef) {
+          this.dialogRef.close();
+        } else {
+          this.router.navigate(['/paginate/items']).then(() => {
+            this.messageService.add('Položka bola vytvorená.');
+          });
+        }
       });
     } else {
       this.itemService.storeWithFiles(this.formGroup.value, this.uploadHelper.files).subscribe(i => {
         this.uploadHelper.imageUrl = null;
 
-        this.router.navigate(['/paginate/items']).then(() => {
-          this.messageService.add('Položka bola vytvorená.');
-        });
+        if (this.dialogRef) {
+          this.dialogRef.close();
+        } else {
+          this.router.navigate(['/paginate/items']).then(() => {
+            this.messageService.add('Položka bola vytvorená.');
+          });
+        }
       });
     }
   }

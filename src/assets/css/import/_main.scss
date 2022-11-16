@@ -373,3 +373,14 @@ app-set-item-create {
     }
   }
 }
+.col {
+  & > app-item-create,
+  & > app-item-edit {
+    .mat-dialog-content {
+      margin: 0;
+      padding: 0;
+      max-height: 100%;
+      overflow: hidden;
+    }
+  }
+}

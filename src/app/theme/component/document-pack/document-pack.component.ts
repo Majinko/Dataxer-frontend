@@ -19,6 +19,8 @@ import {
 } from './components/document-pack-title-dialog/document-pack-title-dialog.component';
 import {MatDialog} from '@angular/material/dialog';
 import {MessageService} from '../../../core/services/message.service';
+import {ItemEditComponent} from "../../../page/main-zone/dashboard-zone/item/item-edit/item-edit.component";
+import {ItemCreateComponent} from "../../../page/main-zone/dashboard-zone/item/item-create/item-create.component";
 
 @Component({
   selector: 'app-document-pack',
@@ -244,5 +246,27 @@ export class DocumentPackComponent extends DocumentPackHelpers implements OnInit
       });
       packIndex++;
     });
+  }
+
+
+  itemDialog(item: any) {
+    console.log(item);
+    if (item.value.item?.id) {
+      this.dialog.open(ItemEditComponent, {
+        width: '100%',
+        data: {
+          inModal: true,
+          item: item.value
+        },
+        autoFocus: false
+      });
+    } else {
+      this.dialog.open(ItemCreateComponent, {
+        width: '100%',
+        data: {inModal: true},
+        autoFocus: false
+      });
+    }
+
   }
 }

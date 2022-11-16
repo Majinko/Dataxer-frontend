@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, Inject, OnInit, Optional, ViewChild} from '@angular/core';
 import {ItemService} from '../../../../../core/services/item.service';
 import {Item} from '../../../../../core/models/item';
 import {ActivatedRoute} from '@angular/router';
@@ -11,6 +11,7 @@ import {ContactService} from '../../../../../core/services/contact.service';
 import {MessageService} from '../../../../../core/services/message.service';
 import {StorageService} from '../../../../../core/services/storage.service';
 import {UploadHelper} from '../../../../../core/class/UploadHelper';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-item-edit',
@@ -30,6 +31,8 @@ export class ItemEditComponent implements OnInit {
   @ViewChild('autosize', {static: false}) autosize: CdkTextareaAutosize;
 
   constructor(
+    @Optional() @Inject(MAT_DIALOG_DATA) public data: any,
+    @Optional() public dialogRef: MatDialogRef<ItemEditComponent>,
     private readonly categoryService: CategoryService,
     private readonly contactService: ContactService,
     private messageService: MessageService,
@@ -88,7 +91,11 @@ export class ItemEditComponent implements OnInit {
   }
 
   getItem() {
-    this.itemService.getById(+this.route.snapshot.paramMap.get('item_id')).subscribe(i => {
+    let idemId = +this.route.snapshot.paramMap.get('item_id');
+    if (this.data && this.data.item?.item?.id) {
+      idemId = this.data.item.item.id;
+    }
+    this.itemService.getById(idemId).subscribe(i => {
       this.item = i;
 
       this.formGroup.patchValue(this.item);
@@ -112,15 +119,23 @@ export class ItemEditComponent implements OnInit {
       return;
     }
 
-    const prices = this.formGroup.get('itemPrices').value
+    const prices = this.formGroup.get('itemPrices').value;
 
-    if(prices) {
+    if (prices) {
       this.itemService.storeWithPriceAndFiles(this.formGroup.value, this.uploadHelper.files).subscribe(i => {
-        this.messageService.add('Položka bola aktualizovaná');
+        if (this.dialogRef) {
+          this.dialogRef.close();
+        } else {
+          this.messageService.add('Položka bola aktualizovaná');
+        }
       });
     } else {
       this.itemService.storeWithFiles(this.formGroup.value, this.uploadHelper.files).subscribe(i => {
-        this.messageService.add('Položka bola aktualizovaná');
+        if (this.dialogRef) {
+          this.dialogRef.close();
+        } else {
+          this.messageService.add('Položka bola aktualizovaná');
+        }
       });
     }
   }
