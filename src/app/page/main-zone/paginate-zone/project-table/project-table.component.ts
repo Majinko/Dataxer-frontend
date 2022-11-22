@@ -22,6 +22,18 @@ export class ProjectTableComponent extends AppPaginate<Project> implements OnIni
     'title',
     'client',
     'address',
+    'payedInvoices',
+    'notPayedInvoices',
+    'payedCosts',
+    'notPayedCosts',
+    'manHours',
+    'priceBrutto',
+    'startedAt',
+    'finishedAt',
+    'monthsDuration',
+    'profit',
+    'manHoursProfit',
+    'profitSurcharge',
     'completed',
     'actions'
   ];
