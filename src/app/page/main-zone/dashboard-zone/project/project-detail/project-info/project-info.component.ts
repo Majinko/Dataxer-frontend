@@ -104,12 +104,6 @@ export class ProjectInfoComponent implements OnInit {
     });
   }
 
-  private getProject() {
-    this.projectService.getById(+this.route.snapshot.paramMap.get('id')).subscribe((project) => {
-      this.project = project;
-    });
-  }
-
   private handleChangeCompany() {
     this.projectService.getInfoFromCompany.subscribe((ids) => {
       this.getData(ids);

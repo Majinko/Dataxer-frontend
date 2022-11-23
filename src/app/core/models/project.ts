@@ -51,6 +51,7 @@ export interface ProjectManHours {
 
 export interface ProjectProfit {
   title: string;
+  marge: number; // Zisk z obratu (marža):
   sumPriceNetto: number;
   sumPriceBrutto: number;
   sumTimeProfitUser: number;

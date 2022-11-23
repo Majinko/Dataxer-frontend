@@ -55,8 +55,18 @@ export class ProjectChartComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.resetData();
     this.prepareSum();
     this.prepareChart();
+  }
+
+
+  private resetData() {
+    this.priceOfferSum = 0;
+    this.costPayedSum = 0;
+    this.costNotPayedSum = 0;
+    this.invoicePayedSum = 0;
+    this.invoiceNotPayedSum = 0;
   }
 
   private prepareSum() {
