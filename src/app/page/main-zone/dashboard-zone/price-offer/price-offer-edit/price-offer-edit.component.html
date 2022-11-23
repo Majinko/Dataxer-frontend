@@ -50,6 +50,18 @@
     </div>
 
     <div class="col-md-4">
+      <ng-select class="form-group w-100 mb-0" [items]="categories" bindLabel="name" notFoundText="Zvoľte projekt"
+                 placeholder="Kategória" groupBy="parentName" formControlName="category">
+        <ng-template ng-optgroup-tmp let-item="item">
+          {{item.parentName || 'Unnamed group'}}
+        </ng-template>
+      </ng-select>
+      <mat-error *ngIf="submitted && f.categories?.errors" class="mat-error-not-in-field">Kategória je
+        <strong>požadovana.</strong></mat-error>
+      <mat-error *ngIf="differentCategory" class="mat-error-not-in-field">Položky sú priradené k rozdielnym kategóriam</mat-error>
+    </div>
+
+    <div class="col-md-4">
       <mat-form-field class="form-group w-100">
         <mat-label>Stav</mat-label>
         <select formControlName="state" matNativeControl>
@@ -104,7 +116,7 @@
     </div>
   </div>
 
-  <app-document-pack [packs]="priceOffer.packs" [formGroup]="formGroup" [documentHelper]="documentHelper" [documentId]="priceOffer.id" [projects]="projects"></app-document-pack>
+  <app-document-pack [packs]="priceOffer.packs" [formGroup]="formGroup" [documentHelper]="documentHelper" [documentId]="priceOffer.id" [projects]="projects" (compareCategory)="differentCategory = $event"></app-document-pack>
 
   <div class="row">
     <div class="col-12">

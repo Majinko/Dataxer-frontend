@@ -100,6 +100,9 @@ export class PriceOfferCreateComponent extends DocumentHelperClass implements On
 
   // get demand pack items
   private gedDemandPackItem() {
+    this.demandService.getById(this.demandId).subscribe(d => {
+      this.formGroup.get('contact').patchValue(d.company);
+    });
     this.demandService.gedDemandPackItem(this.demandId).subscribe((demandPackItems) => {
       this.demandPackItems = demandPackItems;
     });
@@ -227,8 +230,6 @@ export class PriceOfferCreateComponent extends DocumentHelperClass implements On
     this.budgetService.getBudgetData(projectId, itemIds).subscribe((data) => {
       this.formGroup.get('project').patchValue(data.project);
       this.formGroup.get('contact').patchValue(data.contact);
-      // this.formGroup.get('packs').patchValue(data.packs);
-      // this.formGroup.get('packs').patchValue(data.packs);
       this.oldPacks = data.packs;
     });
   }

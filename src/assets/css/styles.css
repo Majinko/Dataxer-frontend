@@ -754,6 +754,11 @@ button.btn-theme-warn:hover, .btn.btn-theme-warn:hover {
 .mat-icon {
   outline: none;
 }
+.mat-icon.mat-16 {
+  font-size: 16px;
+  width: 16px;
+  height: 16px;
+}
 
 .mat-menu-avatar {
   border-radius: 25px !important;

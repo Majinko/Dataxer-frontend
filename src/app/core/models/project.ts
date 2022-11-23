@@ -19,6 +19,17 @@ export interface Project {
   color?: string;
   isProjectFinish?: boolean;
 
+  payedInvoices: number;
+  notPayedInvoices: number;
+  payedCosts: number;
+  notPayedCosts: number;
+  manHours: number;
+  priceBrutto: number;
+  monthsDuration: number;
+  profit: number;
+  manHoursProfit: number;
+  profitSurcharge: number;
+
   demand?: DocumentBase;
   contact: Contact;
   user: User;

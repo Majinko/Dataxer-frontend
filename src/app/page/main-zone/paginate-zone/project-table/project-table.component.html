@@ -22,7 +22,8 @@
           <!-- Client Column -->
           <ng-container matColumnDef="client">
             <th mat-header-cell *matHeaderCellDef> Klient</th>
-            <td mat-cell *matCellDef="let element"> {{element.contact ? element.contact.name : 'Klient nebol priradeny'}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.contact ? element.contact.name : 'Klient nebol
+              priradeny'}} </td>
           </ng-container>
 
           <!-- Adresa Column -->
@@ -31,11 +32,92 @@
             <td mat-cell *matCellDef="let element"> {{element.address}} </td>
           </ng-container>
 
+          <!-- payedInvoices Column -->
+          <ng-container matColumnDef="payedInvoices">
+            <th mat-header-cell *matHeaderCellDef> Fakturácia uhradené</th>
+            <td mat-cell *matCellDef="let element"> {{element.payedInvoices | currency:'EUR':'symbol' || '-'}} </td>
+          </ng-container>
+
+          <!-- notPayedInvoices Column -->
+          <ng-container matColumnDef="notPayedInvoices">
+            <th mat-header-cell *matHeaderCellDef> neuhradené</th>
+            <td mat-cell *matCellDef="let element"> {{element.notPayedInvoices | currency:'EUR':'symbol' || '-'}} </td>
+          </ng-container>
+
+          <!-- payedCosts Column -->
+          <ng-container matColumnDef="payedCosts">
+            <th mat-header-cell *matHeaderCellDef> Náklady uhradené</th>
+            <td mat-cell *matCellDef="let element"> {{element.payedCosts | currency:'EUR':'symbol' || '-'}} </td>
+          </ng-container>
+
+          <!-- notPayedCosts Column -->
+          <ng-container matColumnDef="notPayedCosts">
+            <th mat-header-cell *matHeaderCellDef> neuhradené</th>
+            <td mat-cell *matCellDef="let element"> {{element.notPayedCosts | currency:'EUR':'symbol' || '-'}} </td>
+          </ng-container>
+
+          <!-- manHours Column -->
+          <ng-container matColumnDef="manHours">
+            <th mat-header-cell *matHeaderCellDef> Člocekohodiny</th>
+            <td mat-cell *matCellDef="let element">
+              <ng-container *ngIf="element.manHours;else emptySymbol">{{element.manHours}} h</ng-container>
+            </td>
+          </ng-container>
+
+          <!-- priceBrutto Column -->
+          <ng-container matColumnDef="priceBrutto">
+            <th mat-header-cell *matHeaderCellDef> Suma brutto</th>
+            <td mat-cell *matCellDef="let element"> {{element.priceBrutto | currency:'EUR':'symbol' || '-'}} </td>
+          </ng-container>
+
+          <!-- startedAt Column -->
+          <ng-container matColumnDef="startedAt">
+            <th mat-header-cell *matHeaderCellDef> Začiatok fázy</th>
+            <td mat-cell *matCellDef="let element"> {{element.startedAt | date:'dd.MM.y' || '-'}} </td>
+          </ng-container>
+
+          <!-- finishedAt Column -->
+          <ng-container matColumnDef="finishedAt">
+            <th mat-header-cell *matHeaderCellDef> Koniec fázy</th>
+            <td mat-cell *matCellDef="let element"> {{element.finishedAt | date:'dd.MM.y' || '-'}} </td>
+          </ng-container>
+
+          <!-- monthsDuration Column -->
+          <ng-container matColumnDef="monthsDuration">
+            <th mat-header-cell *matHeaderCellDef> Trvanie <mat-icon class="mat-16" style="vertical-align: sub;" matTooltip="Trvanie v mesiacoch">help</mat-icon> </th>
+            <td mat-cell *matCellDef="let element">
+              <ng-container *ngIf="element.monthsDuration;else emptySymbol">{{element.monthsDuration}} m</ng-container>
+            </td>
+          </ng-container>
+
+          <!-- profit Column -->
+          <ng-container matColumnDef="profit">
+            <th mat-header-cell *matHeaderCellDef> Zisk </th>
+            <td mat-cell *matCellDef="let element"> {{element.profit | currency:'EUR':'symbol' || '-'}} </td>
+          </ng-container>
+
+          <!-- manHoursProfit Column -->
+          <ng-container matColumnDef="manHoursProfit">
+            <th mat-header-cell *matHeaderCellDef> Zisk osobohodina</th>
+            <td mat-cell *matCellDef="let element"> {{element.manHoursProfit | currency:'EUR':'symbol' || '-'}} </td>
+          </ng-container>
+
+          <!-- profitSurcharge Column -->
+          <ng-container matColumnDef="profitSurcharge">
+            <th mat-header-cell *matHeaderCellDef> Zisk z obratu <mat-icon class="mat-16" style="vertical-align: sub;" matTooltip="Marža">help</mat-icon></th>
+            <td mat-cell *matCellDef="let element">
+              <ng-container *ngIf="element.profitSurcharge;else emptySymbol">{{element.profitSurcharge}} %
+              </ng-container>
+            </td>
+          </ng-container>
+
+
           <!-- completed Column -->
           <ng-container matColumnDef="completed">
             <th mat-header-cell *matHeaderCellDef> Dokončený </th>
             <td mat-cell *matCellDef="let element">
-              <mat-icon *ngIf="element.isProjectFinish" class="text-approved" matTooltip="{{ element.finishedAt | date:'dd.MM.y' }}">check_circle</mat-icon>
+              <mat-icon *ngIf="element.isProjectFinish" class="text-approved"
+                matTooltip="{{ element.finishedAt | date:'dd.MM.y' }}">check_circle</mat-icon>
             </td>
           </ng-container>
 
@@ -44,16 +126,10 @@
             <th class="thin text-right p-0 max" mat-header-cell *matHeaderCellDef></th>
             <td class="thin text-right action-link pr-0 max" mat-cell colspan="3" *matCellDef="let element">
               <div class="invisible">
-                <button
-                  [routerLink]="['/project/edit', element.id]"
-                  mat-icon-button
-                  matTooltip="Edit item">
+                <button [routerLink]="['/project/edit', element.id]" mat-icon-button matTooltip="Edit item">
                   <mat-icon class="text-theme">edit</mat-icon>
                 </button>
-                <button
-                  (click)="destroy($event, element.id)"
-                  mat-icon-button
-                  matTooltip="Delete item">
+                <button (click)="destroy($event, element.id)" mat-icon-button matTooltip="Delete item">
                   <mat-icon class="text-theme">delete</mat-icon>
                 </button>
               </div>
@@ -64,8 +140,14 @@
           <tr mat-row (click)="show(row)" class="cursor-pointer" *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
 
-        <mat-paginator [pageSizeOptions]="[10, 15, 20, 100]" [length]="totalElements" [pageSize]="pageSize"></mat-paginator>
+        <mat-paginator [pageSizeOptions]="[10, 15, 20, 100]" [length]="totalElements" [pageSize]="pageSize">
+        </mat-paginator>
       </div>
     </div>
   </div>
 </div>
+
+
+<ng-template #emptySymbol>
+  -
+</ng-template>

@@ -217,8 +217,6 @@ export class InvoiceCreateComponent extends DocumentHelperClass implements OnIni
     this.budgetService.getBudgetData(projectId, itemIds).subscribe((data) => {
       this.formGroup.get('project').patchValue(data.project);
       this.formGroup.get('contact').patchValue(data.contact);
-      // this.formGroup.get('packs').patchValue(data.packs);
-      // this.formGroup.get('packs').patchValue(data.packs);
       this.oldPacks = data.packs;
     });
   }

@@ -12,6 +12,8 @@ import {BankAccountService} from '../../../../../core/services/bank-account.serv
 import {DocumentHelperClass} from '../../../../../core/class/DocumentHelperClass';
 import {NumberingService} from '../../../../../core/services/numbering.service';
 import {ProjectService} from '../../../../../core/services/project.service';
+import {CategoryItemNode} from '../../../../../core/models/category-item-node';
+import {Project} from '../../../../../core/models/project';
 
 @Component({
   selector: 'app-price-offer-edit',
@@ -38,6 +40,9 @@ export class PriceOfferEditComponent extends DocumentHelperClass implements OnIn
   isEdit: boolean = true;
   submitted: boolean = false;
 
+  differentCategory: boolean = false;
+  categories: CategoryItemNode[] = [];
+
   constructor(
     protected numberingService: NumberingService,
     protected bankAccountService: BankAccountService,
@@ -62,15 +67,23 @@ export class PriceOfferEditComponent extends DocumentHelperClass implements OnIn
 
       this.prepareForm(p);
       this.changeForm();
+      this.handleChangeProject();
     });
   }
 
   // prepare form
   private prepareForm(priceOffer: PriceOffer) {
+    if (priceOffer?.project?.id) {
+      this.projectService.getCategories(priceOffer.project.id).subscribe((categories) => {
+        this.categories = categories;
+      });
+    }
+    
     this.formGroup = this.formBuilder.group({
       id: priceOffer.id,
       contact: [priceOffer.contact, Validators.required],
       project: [priceOffer.project, Validators.required],
+      category: priceOffer.category,
       title: [priceOffer.title, Validators.required],
       subject: priceOffer.subject,
       number: [priceOffer.number, Validators.required],
@@ -96,6 +109,17 @@ export class PriceOfferEditComponent extends DocumentHelperClass implements OnIn
       }),
 
       packs: this.formBuilder.array([])
+    });
+  }
+
+  // handle change project
+  private handleChangeProject() {
+    this.formGroup.get('project').valueChanges.subscribe((project: Project) => {
+      if (project && project.id) {
+        this.projectService.getCategories(project.id).subscribe((categories) => {
+          this.categories = categories;
+        });
+      }
     });
   }
 
