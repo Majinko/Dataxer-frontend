@@ -10,7 +10,6 @@ import {ProjectStats} from '../../../../../../core/data/projectStats';
 import {monthDiff, sum} from '../../../../../../../helper';
 import {ProjectService} from '../../../../../../core/services/project.service';
 import {Project, ProjectProfit} from '../../../../../../core/models/project';
-import {DocumentTypeEnum} from '../../../../../../core/enums/documentType.enum';
 import {MessageService} from '../../../../../../core/services/message.service';
 
 @Component({
