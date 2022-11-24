@@ -64,7 +64,12 @@
     </div>
 
     <div class="col-md-12 {{moreOptions ? 'mb-3' : 'mb-5'}}">
-      <a class="cursor-pointer text-dark btn-link" (click)="moreOptions = !moreOptions"><b>Viac možností</b></a>
+      <a class="cursor-pointer text-dark btn-link" (click)="moreOptions = !moreOptions">
+        <b>
+          <ng-container *ngIf="!moreOptions">Viac</ng-container>
+          <ng-container *ngIf="moreOptions">Menej</ng-container>
+           možností</b>
+      </a>
     </div>
 
     <div class="col-12" *ngIf="moreOptions">

@@ -41,8 +41,17 @@
 
         </app-category-select-group>
       </div>
+      <div class="col-md-12 {{moreOptions ? 'mb-3' : 'mb-5'}}">
+        <a class="cursor-pointer text-dark btn-link" (click)="moreOptions = !moreOptions">
+          <b>
+            <ng-container *ngIf="!moreOptions">Viac</ng-container>
+            <ng-container *ngIf="moreOptions">Menej</ng-container>
+             možností</b>
+        </a>
+      </div>
     </div>
-
+    <div *ngIf="moreOptions">
+    
     <div class="row">
       <div class="col-12">
         <h2 class="border-bottom-2 pb-2 mb-4">Popis</h2>
@@ -215,7 +224,7 @@
         </mat-form-field>
       </div>
     </div>
-
+  </div> 
     <div>
       <app-item-prices-table [formGroup]="formGroup" [createItem]="true"></app-item-prices-table>
     </div>

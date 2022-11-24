@@ -5,6 +5,7 @@ import { UNITS } from '../data/unit-items';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Item } from '../models/item';
 import { addPercent } from '../../../helper';
+import {Contact} from "../models/contact";
 
 @Injectable()
 export abstract class DocumentPackHelpers {
@@ -52,6 +53,8 @@ export abstract class DocumentPackHelpers {
       discount: 0,
       demandItem: null,
       price: null,
+      contact: null,
+      contacts: null,
       tax: this.formGroup.value.company?.companyTaxType === 'TAX_PAYER' ? 20 : 0,
       totalPrice: null,
       project: this.formGroup.get('project')?.value ? this.formGroup.get('project').value : null,
@@ -114,14 +117,34 @@ export abstract class DocumentPackHelpers {
         }
       });
     }
+    const contacts: Contact[] = [];
+    let contact: Contact;
+    item?.itemPrices?.forEach(e => {
+      if (e.supplier) {
+        contacts.push(e.supplier);
+      }
+      if (e.isDefault) {
+        contact = e.supplier;
+      }
+    });
+    if (contacts.length === 1) {
+      contact = contacts[0];
+    }
+
+    if (!contact) {
+      contact = contacts[0];
+    }
 
     if (!data) {
-      data = item.title
+      data = item.title;
     }
     itemGroup.patchValue({
       item,
       title: data,
       price: item.itemPrice.price,
+      itemPrices: item.itemPrices,
+      contact,
+      contacts,
       tax: item.itemPrice.tax,
       category: item.category
     }, { emitEvent: true });

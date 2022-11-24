@@ -22,6 +22,7 @@ export class ItemCreateComponent implements OnInit {
   formGroup: FormGroup;
   isLoading: boolean = false;
   categories: CategoryItemNode[] = [];
+  moreOptions: boolean = false;
   colors: string[] = ['zlta', 'modra', 'biela'];
   material: string[] = ['kov', 'drevo', 'zlato'];
 
@@ -117,7 +118,7 @@ export class ItemCreateComponent implements OnInit {
         this.uploadHelper.imageUrl = null;
 
         if (this.dialogRef) {
-          this.dialogRef.close();
+          this.dialogRef.close(i);
         } else {
           this.router.navigate(['/paginate/items']).then(() => {
             this.messageService.add('Položka bola vytvorená.');
@@ -129,7 +130,7 @@ export class ItemCreateComponent implements OnInit {
         this.uploadHelper.imageUrl = null;
 
         if (this.dialogRef) {
-          this.dialogRef.close();
+          this.dialogRef.close(i);
         } else {
           this.router.navigate(['/paginate/items']).then(() => {
             this.messageService.add('Položka bola vytvorená.');

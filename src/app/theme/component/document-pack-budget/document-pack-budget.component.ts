@@ -14,20 +14,20 @@ import {CategoryService} from '../../../core/services/category.service';
 import {Project} from '../../../core/models/project';
 import {DocumentPackHelpers} from '../../../core/class/DocumentPackHelpers';
 import {ProjectService} from '../../../core/services/project.service';
-import {
-  DocumentPackTitleDialogComponent
-} from './components/document-pack-title-dialog/document-pack-title-dialog.component';
 import {MatDialog} from '@angular/material/dialog';
 import {MessageService} from '../../../core/services/message.service';
 import {ItemEditComponent} from '../../../page/main-zone/dashboard-zone/item/item-edit/item-edit.component';
 import {ItemCreateComponent} from '../../../page/main-zone/dashboard-zone/item/item-create/item-create.component';
+import {
+  DocumentPackTitleDialogComponent
+} from '../document-pack/components/document-pack-title-dialog/document-pack-title-dialog.component';
 
 @Component({
-  selector: 'app-document-pack',
-  templateUrl: './document-pack.component.html',
-  styleUrls: ['./document-pack.component.scss'],
+  selector: 'app-document-pack-budget',
+  templateUrl: './document-pack-budget.component.html',
+  styleUrls: ['./document-pack-budget.component.scss']
 })
-export class DocumentPackComponent extends DocumentPackHelpers implements OnInit {
+export class DocumentPackBudgetComponent extends DocumentPackHelpers implements OnInit {
   categories: CategoryItemNode[];
   titleOptions = [];
   titlePack;
@@ -68,7 +68,7 @@ export class DocumentPackComponent extends DocumentPackHelpers implements OnInit
   }
 
   private getCategories() {
-    this.categoryService.all(true).subscribe((categories) => {
+    this.projectService.getCategories(this.projects[0].id).subscribe((categories) => {
       this.categories = categories;
     });
 
@@ -240,4 +240,47 @@ export class DocumentPackComponent extends DocumentPackHelpers implements OnInit
     });
   }
 
+
+  itemDialog(item: any) {
+    if (item.value.item?.id) {
+      const dialogRef = this.dialog.open(ItemEditComponent, {
+        width: '100%',
+        data: {
+          inModal: true,
+          item: item.value
+        },
+        autoFocus: false
+      });
+      dialogRef.afterClosed().subscribe(dialogResult => {
+        if (dialogResult) {
+          this.setItem(item, dialogResult);
+        }
+      });
+    }
+
+  }
+
+  addItemDialog() {
+    const dialogRef = this.dialog.open(ItemCreateComponent, {
+      width: '100%',
+      data: {inModal: true},
+      autoFocus: false
+    });
+    dialogRef.afterClosed().subscribe(dialogResult => {
+      this.addItem();
+      const item = this.items.controls[this.items.controls.length - 1];
+      if (item instanceof FormGroup) {
+        this.setItem(item, dialogResult);
+      }
+    });
+  }
+
+  selectContact($event: any, item: any) {
+    const price = item.value.item.itemPrices.find( f => f.supplier.id === $event.id);
+    item.value.item.itemPrice = price;
+    item.patchValue({
+      price: price.price,
+      tax: price.tax,
+    });
+  }
 }

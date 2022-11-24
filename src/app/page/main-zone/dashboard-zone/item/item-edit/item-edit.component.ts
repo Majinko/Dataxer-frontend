@@ -26,6 +26,7 @@ export class ItemEditComponent implements OnInit {
   colors: string[] = ['zlta', 'modra', 'biela'];
   material: string[] = ['kov', 'drevo', 'zlato'];
   contacts: Contact[];
+  moreOptions: boolean = false;
   isLoading: boolean = false;
 
   @ViewChild('autosize', {static: false}) autosize: CdkTextareaAutosize;

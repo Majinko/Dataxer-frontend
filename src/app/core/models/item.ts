@@ -33,6 +33,7 @@ export class ItemPrice {
   id: number;
   itemId?: number;
   supplier?: Contact;
+  isDefault?: boolean;
   wholesalePrice?: number;
   wholesaleTax?: number;
   wholesalePriceTax?: number;

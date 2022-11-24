@@ -138,6 +138,8 @@ export class ItemPricesTableComponent extends AppPaginateData<any> implements On
       id = +this.route.snapshot.paramMap.get('item_id');
     } else if (this.route.snapshot.paramMap.get('id')) {
       id = +this.route.snapshot.paramMap.get('id');
+    } else {
+      id = this.item.id
     }
     this.itemService.getById(id).subscribe(item => {
       this.item = item;

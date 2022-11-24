@@ -120,7 +120,7 @@
               </div>
 
               <div class="jsSettings" *ngIf="projects">
-                <app-new-project-select [ngClass]="{'d-none' : fromBudget}"
+                <app-new-project-select
                   [fromComponent]="formGroup.get('documentType')?.value?.toLocaleLowerCase()"
                   (ngModelChange)="onValueChange($event, item)" [projects]="projects" formControlName="project"
                   dropDownPosition="top" [showAddButton]="false"></app-new-project-select>
@@ -153,11 +153,8 @@
               <a (click)="showDiscount(trRow)" class="mr-3" mat-icon-button matTooltip="Zľava na položku">
                 <mat-icon class="text-theme">local_offer</mat-icon>
               </a>
-              <a *ngIf="!fromBudget" (click)="showMoreOptions(trRow)" class="mr-3" mat-icon-button matTooltip="Nastavenie položky">
+              <a (click)="showMoreOptions(trRow)" class="mr-3" mat-icon-button matTooltip="Nastavenie položky">
                 <mat-icon class="text-theme">settings</mat-icon>
-              </a>
-              <a *ngIf="fromBudget" (click)="itemDialog(item)" class="mr-3" mat-icon-button matTooltip="Nastavenie položky">
-                <mat-icon class="text-theme">extension</mat-icon>
               </a>
               <button (click)="documentRemoveItem($event, j, i)" mat-icon-button matTooltip="Vymazať položku"
                 type="button">
