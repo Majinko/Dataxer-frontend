@@ -252,7 +252,7 @@ export class DocumentPackComponent extends DocumentPackHelpers implements OnInit
   itemDialog(item: any) {
     console.log(item);
     if (item.value.item?.id) {
-      this.dialog.open(ItemEditComponent, {
+      const dialogRef = this.dialog.open(ItemEditComponent, {
         width: '100%',
         data: {
           inModal: true,
@@ -260,11 +260,17 @@ export class DocumentPackComponent extends DocumentPackHelpers implements OnInit
         },
         autoFocus: false
       });
+      dialogRef.afterClosed().subscribe(dialogResult => {
+        console.log(dialogResult);
+      });
     } else {
-      this.dialog.open(ItemCreateComponent, {
+      const dialogRef = this.dialog.open(ItemCreateComponent, {
         width: '100%',
         data: {inModal: true},
         autoFocus: false
+      });
+      dialogRef.afterClosed().subscribe(dialogResult => {
+        console.log(dialogResult);
       });
     }
 

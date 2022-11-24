@@ -124,7 +124,7 @@ export class ItemEditComponent implements OnInit {
     if (prices) {
       this.itemService.storeWithPriceAndFiles(this.formGroup.value, this.uploadHelper.files).subscribe(i => {
         if (this.dialogRef) {
-          this.dialogRef.close();
+          this.dialogRef.close(i);
         } else {
           this.messageService.add('Položka bola aktualizovaná');
         }
@@ -132,7 +132,7 @@ export class ItemEditComponent implements OnInit {
     } else {
       this.itemService.storeWithFiles(this.formGroup.value, this.uploadHelper.files).subscribe(i => {
         if (this.dialogRef) {
-          this.dialogRef.close();
+          this.dialogRef.close(i);
         } else {
           this.messageService.add('Položka bola aktualizovaná');
         }
