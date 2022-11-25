@@ -8,6 +8,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {AppPaginate} from '../../../../core/class/AppPaginate';
 import {GodButtonService} from '../../../../core/services/god-button.service';
 import {FilterService} from '../../../../core/store/service/filter.service';
+import {sum} from '../../../../../helper';
 
 @Component({
   selector: 'app-project-table',
@@ -16,6 +17,17 @@ import {FilterService} from '../../../../core/store/service/filter.service';
 })
 export class ProjectTableComponent extends AppPaginate<Project> implements OnInit, AfterViewInit, OnDestroy {
   destroyMsg: string = 'Zákazka bola vymazana';
+  projectData: { profit: number, payedInvoices: number, notPayedInvoices: number, payedCosts: number, notPayedCosts: number, manHours: number, priceBrutto: number, manHoursProfit: 0, marge: 0 } = {
+    profit: 0,
+    payedInvoices: 0,
+    notPayedInvoices: 0,
+    payedCosts: 0,
+    notPayedCosts: 0,
+    manHours: 0,
+    priceBrutto: 0,
+    manHoursProfit: 0,
+    marge: 0
+  };
 
   displayedColumns: string[] = [
     'number',
@@ -54,6 +66,7 @@ export class ProjectTableComponent extends AppPaginate<Project> implements OnIni
 
   ngOnInit(): void {
     this.init();
+    this.handlePaginateFinish();
   }
 
   ngAfterViewInit(): void {
@@ -72,5 +85,15 @@ export class ProjectTableComponent extends AppPaginate<Project> implements OnIni
 
   show(project: Project) {
     this.router.navigate(['/project/show', project.id]).then();
+  }
+
+  private handlePaginateFinish() {
+    this.paginateFinish.subscribe(() => {
+      for (const [key, value] of Object.entries(this.projectData)) {
+        this.projectData[key] = sum(this.data, key.toString());
+      }
+
+      console.log();
+    });
   }
 }
