@@ -75,7 +75,7 @@ const routes: Routes = [
           // for filtering
           modelName: 'project',
           inputSearchBarValues: ['title', 'number', 'address', 'contact.name'],
-          inputSearchBarSelectValues: ['contact.id'],
+          inputSearchBarSelectValues: ['user.id', 'project.id', 'contact.id', 'category.id', 'finishState', 'start', 'finish'],
 
           permissions: {
             only: 'Project'

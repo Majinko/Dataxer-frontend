@@ -37,8 +37,10 @@ export class PaginateFilterComponent extends PaginateFilterHelper implements OnI
   allProjects: Project[] = [];
   payedStates: KeyValue[] = [];
   documentTypes: KeyValue[] = [];
+  finishStates: KeyValue[] = [];
   documentRepeated: KeyValue[] = [];
   categories: CategoryItemNode[] = [];
+  years: { start: string, end: string, title: string, type: string } [] = [];  /// todo dynamicky podla casov v projektoch, od prveho po posledny
   dates: { start: string, end: string, title: string, type: string } [] = [];
 
   constructor(
@@ -66,6 +68,10 @@ export class PaginateFilterComponent extends PaginateFilterHelper implements OnI
       company: null,
       contractor: null,
       documentType: null,
+      finishState: null,
+      start: null,
+      finish: null,
+      projectFinish: null,
       date: null,
       state: null,
       category: null,
@@ -233,9 +239,11 @@ export class PaginateFilterComponent extends PaginateFilterHelper implements OnI
     this.getContacts();
     this.getCompanies();
     this.prepareDates();
+    this.prepareYears();
     this.getCategories();
     this.preparePayedStates();
     this.prepareDocumentType();
+    this.prepareFinishStates();
     this.prepareRepeated();
     this.handleClientChangesInFilter();
   }
@@ -274,6 +282,19 @@ export class PaginateFilterComponent extends PaginateFilterHelper implements OnI
     }
   }
 
+  private prepareYears() {
+    for (let i = 0; i <= 10; i++) {
+      const yearStart: moment.Moment = moment().subtract(i, 'years').startOf('year');
+
+      this.years.push({
+        start: moment().subtract(i, 'years').startOf('year').format('YYYY-MM-DD'),
+        end: moment().subtract(i, 'years').endOf('year').format('YYYY-MM-DD'),
+        title: 'rok ' + yearStart.format('YYYY'),
+        type: 'Roky'
+      });
+    }
+  }
+
   /**
    * Prepared document states
    */
@@ -293,6 +314,13 @@ export class PaginateFilterComponent extends PaginateFilterHelper implements OnI
     this.documentTypes = [
       {key: 'INVOICE', value: 'Faktúra'},
       {key: 'PROFORMA', value: 'Zálohová faktúra'}
+    ];
+  }
+
+  prepareFinishStates() {
+    this.finishStates = [
+      {key: true, value: 'Dokončené'},
+      {key: false, value: 'Prebiehajúce'}
     ];
   }
 

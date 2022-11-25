@@ -1,4 +1,4 @@
 export interface KeyValue {
-  key: string;
+  key: string | boolean;
   value: string;
 }

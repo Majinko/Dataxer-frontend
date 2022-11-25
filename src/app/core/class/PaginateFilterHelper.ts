@@ -44,6 +44,8 @@ export class PaginateFilterHelper {
         if (this.inputSearchBarSelectValues.includes(key)) {
           if (key === 'date') {
             this.fillDateExpression(key);
+          } else if (key === 'start' || key === 'finish') {
+            this.startFinis(key);
           } else {
             this.fillSearchbarSelectAndExpression(key);
           }
@@ -129,5 +131,28 @@ export class PaginateFilterHelper {
    */
   private slugifyRsqlFilter(filterElement: string): string {
     return filterElement.replace(/[&\/\\#^+()$~%'":*?<>{},![\]]/g, '').trimLeft();
+  }
+
+  /**
+   * Start finish
+   * @param key
+   * @private
+   */
+  private startFinis(key: string) {
+    if (key === 'start') {
+      this.andExpression.push(
+        builder.and(
+          builder.ge(`${this.modelName}.start`, this.filterForm.value[key].start),
+        )
+      );
+    }
+
+    if (key === 'finish') {
+      this.andExpression.push(
+        builder.and(
+          builder.le(`${this.modelName}.finish`, this.filterForm.value[key].start),
+        )
+      );
+    }
   }
 }
