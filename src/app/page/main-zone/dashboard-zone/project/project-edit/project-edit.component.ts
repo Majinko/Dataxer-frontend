@@ -132,16 +132,14 @@ export class ProjectEditComponent implements OnInit {
   }
 
   private setProjectStartFinish(p: Project) {
-    if (!p.isProjectFinish) {
-      this.timeService.getProjectStartEnd(p.id).subscribe((r) => {
-        if (r) {
-          this.formGroup.patchValue({
-            startedAt: r.start,
-            finishedAt: r.finish
-          });
-        }
-      });
-    }
+    this.timeService.getProjectStartEnd(p.id).subscribe((r) => {
+      if (r) {
+        this.formGroup.patchValue({
+          startedAt: r.start,
+          finishedAt: r.finish
+        });
+      }
+    });
   }
 
   submit() {
