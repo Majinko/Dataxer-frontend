@@ -257,3 +257,8 @@ export const downloadFile = (file: CustomFile): void => {
 
   downloadLink.remove();
 };
+
+
+export const getLastDayOfYear = (year) => {
+  return new Date(year, 11, 31);
+}

@@ -4,6 +4,8 @@ import {FormGroup} from '@angular/forms';
 import {parse} from '@rsql/parser';
 import builder from '@rsql/builder';
 import {emit} from '@rsql/emitter';
+import {getLastDayOfYear} from '../../../helper';
+import * as moment from 'moment';
 
 @Directive()
 // tslint:disable-next-line:directive-class-suffix
@@ -150,7 +152,8 @@ export class PaginateFilterHelper {
     if (key === 'finish') {
       this.andExpression.push(
         builder.and(
-          builder.le(`${this.modelName}.finish`, this.filterForm.value[key].start),
+          builder.ge(`${this.modelName}.finish`, this.filterForm.value[key].start),
+          builder.le(`${this.modelName}.finish`, moment([new Date(this.filterForm.value[key].start).getFullYear()]).endOf('year').format('YYYY-MM-DD'))
         )
       );
     }
