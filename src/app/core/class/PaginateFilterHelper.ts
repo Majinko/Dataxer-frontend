@@ -145,6 +145,7 @@ export class PaginateFilterHelper {
       this.andExpression.push(
         builder.and(
           builder.ge(`${this.modelName}.start`, this.filterForm.value[key].start),
+          builder.le(`${this.modelName}.start`, moment([new Date(this.filterForm.value[key].start).getFullYear()]).endOf('year').format('YYYY-MM-DD'))
         )
       );
     }

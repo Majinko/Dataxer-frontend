@@ -92,8 +92,6 @@ export class ProjectTableComponent extends AppPaginate<Project> implements OnIni
       for (const [key, value] of Object.entries(this.projectData)) {
         this.projectData[key] = sum(this.data, key.toString());
       }
-
-      console.log();
     });
   }
 }

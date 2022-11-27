@@ -18,6 +18,7 @@ export interface Project {
   finishedAt: Date;
   color?: string;
   isProjectFinish?: boolean;
+  isDeactivated?: boolean;
 
   payedInvoices: number;
   notPayedInvoices: number;

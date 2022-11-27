@@ -129,6 +129,17 @@
     </ng-select>
   </div>
 
+  <div class="col-md-4 col-lg-2" *ngIf="projectStatus && projectStatus.length > 0 && inputSearchBarSelectValues.includes('deactivatedState')">
+    <ng-select [items]="projectStatus"
+               [clearable]="false"
+               bindLabel="key"
+               bindValue="value"
+               placeholder="Status projektu"
+               formControlName="deactivatedState"
+               class="filter-ng-select">
+    </ng-select>
+  </div>
+
   <div class="col-md-4 col-lg-2" *ngIf="payedStates && payedStates.length > 0 && inputSearchBarSelectValues.includes('state')">
     <ng-select [items]="payedStates"
                [clearable]="false"

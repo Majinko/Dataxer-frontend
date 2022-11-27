@@ -26,7 +26,7 @@ import {User} from '../../../../../core/models/user';
   templateUrl: './paginate-filter.component.html',
   styleUrls: ['./paginate-filter.component.scss']
 })
-// todo je tu problem ze filter sa pusta viacej krat, fix it
+// todo je tu problem ze filter sa pusta viacej krat, fix it a cele refaktorovat
 export class PaginateFilterComponent extends PaginateFilterHelper implements OnInit, OnChanges {
   isAdmin: boolean = false;
 
@@ -42,6 +42,11 @@ export class PaginateFilterComponent extends PaginateFilterHelper implements OnI
   categories: CategoryItemNode[] = [];
   years: { start: string, end: string, title: string, type: string } [] = [];  /// todo dynamicky podla casov v projektoch, od prveho po posledny
   dates: { start: string, end: string, title: string, type: string } [] = [];
+  projectStatus: { value: boolean | null, key: string } [] = [
+    {value: true, key: 'Deaktivované projekty'},
+    {value: false, key: 'Aktívne projekty'},
+    {value: null, key: 'Všetky projekty'}
+  ];
 
   constructor(
     protected searchBarService: SearchBarService,
@@ -72,6 +77,7 @@ export class PaginateFilterComponent extends PaginateFilterHelper implements OnI
       start: null,
       finish: null,
       projectFinish: null,
+      deactivatedState: null,
       date: null,
       state: null,
       category: null,
@@ -427,10 +433,18 @@ export class PaginateFilterComponent extends PaginateFilterHelper implements OnI
 
   // Path by model
   private pathByModel() {
-    if (this.modelName === 'cost') {
-      this.filterForm.patchValue({
-        repeated: 'FALSE'
-      });
+    switch (this.modelName) {
+      case 'cost':
+        this.filterForm.patchValue({
+          repeated: 'FALSE'
+        });
+        break;
+
+      case 'project':
+        this.filterForm.patchValue({
+          deactivatedState: false
+        });
+        break;
     }
   }
 }

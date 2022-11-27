@@ -113,6 +113,7 @@ export class ProjectCreateComponent implements OnInit {
       address: '',
       projectProfit: 0,
       isProjectFinish: false,
+      isDeactivated: false,
       area: null,
       demandId: this.demandId,
       startedAt: new Date(),

@@ -141,7 +141,7 @@
           <tr mat-row (click)="show(row)" class="cursor-pointer" *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
 
-        <mat-paginator [pageSizeOptions]="[10, 15, 20, 100]" [length]="totalElements" [pageSize]="pageSize">
+        <mat-paginator [pageSizeOptions]="[10, 15, 20, 100, totalElements]" [length]="totalElements" [pageSize]="pageSize">
         </mat-paginator>
       </div>
     </div>
