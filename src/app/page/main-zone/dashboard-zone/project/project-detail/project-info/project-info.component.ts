@@ -68,6 +68,7 @@ export class ProjectInfoComponent implements OnInit {
     this.requestDone = 0;
 
     this.invoiceService.findAllByProject(+this.route.snapshot.paramMap.get('id'), companyIds).subscribe(invoices => {
+      console.log(invoices);
       this.requestDone += 1;
       this.invoices = invoices
         .map((i) => {
