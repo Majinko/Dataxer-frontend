@@ -16,6 +16,7 @@ import {OverviewChartsComponent} from './overview-charts/overview-charts.compone
 import {OverviewChartComponent} from './overview-charts/components/overview-chart/overview-chart.component';
 import {NgApexchartsModule} from 'ng-apexcharts';
 import {OverviewProfitChartComponent} from './overview-charts/components/overview-profit-chart/overview-profit-chart.component';
+import { OverviewFirmsComponent } from './overview-firms/overview-firms.component';
 
 const routes: Routes = [
   {
@@ -37,6 +38,10 @@ const routes: Routes = [
       {
         path: 'charts',
         component: OverviewChartsComponent
+      },
+      {
+        path: 'firms',
+        component: OverviewFirmsComponent
       }
     ]
   }
@@ -51,7 +56,8 @@ const routes: Routes = [
     OverviewCostTableRowComponent,
     OverviewChartsComponent,
     OverviewChartComponent,
-    OverviewProfitChartComponent
+    OverviewProfitChartComponent,
+    OverviewFirmsComponent
   ],
   imports: [
     CommonModule,

@@ -246,6 +246,9 @@ app-demand-pack {
   .mat-form-field {
     pointer-events: none !important;
   }
+  .form-group {
+    pointer-events: none !important;
+  }
 }
 
 body {
@@ -371,5 +374,23 @@ app-set-item-create {
         width: 100%;
       }
     }
+  }
+}
+
+app-project-table {
+  .table-wrap .table-data th {
+    &.th-wrap {
+      white-space: normal !important;
+      span,
+      strong {
+        display: inline-block;
+        width: 100%;
+        white-space: nowrap;
+      }
+      strong {
+        color: rgba(0,0,0,.87)
+      }
+    }
+    
   }
 }

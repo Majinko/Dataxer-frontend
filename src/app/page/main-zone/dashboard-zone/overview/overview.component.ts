@@ -51,6 +51,11 @@ export class OverviewComponent implements OnInit, OnDestroy {
         link: '/overview/charts',
         index: 3
       },
+      {
+        label: 'Celkový prehľad spoločností',
+        link: '/overview/firms',
+        index: 4
+      },
     ];
   }
 

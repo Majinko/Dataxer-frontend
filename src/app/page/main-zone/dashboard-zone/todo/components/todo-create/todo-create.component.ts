@@ -62,6 +62,7 @@ export class TodoCreateComponent implements OnInit, AfterViewInit {
       dueDate: null,
       note: null,
     });
+    this.handleChangeProject();
     if (this.todo) {
       this.todo?.assignedUsers?.forEach( f => {
         f.displayName = f.firstName + ' ' + f.lastName.charAt(0);
@@ -77,7 +78,6 @@ export class TodoCreateComponent implements OnInit, AfterViewInit {
     if (this.todolist && this.todolist.project) {
       this.formGroup.get('project').patchValue(this.todolist.project);
     }
-    this.handleChangeProject();
   }
   ngAfterViewInit() {
     if (this.todo) {
@@ -95,7 +95,6 @@ export class TodoCreateComponent implements OnInit, AfterViewInit {
       return;
     }
 
-    return;
     if (this.todo) {
       this.todoService.updateTodo(this.formGroup.value).subscribe(res => {
         this.action.emit(true);

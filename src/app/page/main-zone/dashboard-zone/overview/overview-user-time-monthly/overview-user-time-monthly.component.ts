@@ -14,6 +14,7 @@ export class OverviewUserTimeMonthlyComponent implements OnInit {
   userMonthlyOverviews: UserMonthlyOverview[] = [];
   month: { start: string, end: string, title: string };
   months: { start: string, end: string, title: string } [] = [];
+  sum = 0;
 
   startDate: string = moment().clone().startOf('month').format('YYYY-MM-DD');
   endDate: string = moment().clone().endOf('month').format('YYYY-MM-DD');
@@ -56,6 +57,7 @@ export class OverviewUserTimeMonthlyComponent implements OnInit {
     this.overviewService.getUsersMonthlyOverview(this.month.start, this.month.end).subscribe(response => {
       this.isLoad = false;
       this.userMonthlyOverviews = response;
+      this.calculateSum();
     });
   }
 
@@ -63,5 +65,12 @@ export class OverviewUserTimeMonthlyComponent implements OnInit {
     const date = new Date(momentData.year(), momentData.month(), momentData.date());
 
     return date.toLocaleString('default', {month: 'long'}) + ' ' + momentData.year();
+  }
+
+  private calculateSum() {
+    this.sum = 0;
+    this.userMonthlyOverviews.forEach( f => {
+      this.sum  += f.totalUserPrice;
+    });
   }
 }

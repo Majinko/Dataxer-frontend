@@ -9,6 +9,7 @@ import {AppPaginate} from '../../../../core/class/AppPaginate';
 import {GodButtonService} from '../../../../core/services/god-button.service';
 import {FilterService} from '../../../../core/store/service/filter.service';
 import {sum} from '../../../../../helper';
+import {SecurityDialogComponent} from "../components/security-dialog/security-dialog.component";
 
 @Component({
   selector: 'app-project-table',
@@ -17,7 +18,10 @@ import {sum} from '../../../../../helper';
 })
 export class ProjectTableComponent extends AppPaginate<Project> implements OnInit, AfterViewInit, OnDestroy {
   destroyMsg: string = 'Zákazka bola vymazana';
-  projectData: { profit: number, payedInvoices: number, notPayedInvoices: number, payedCosts: number, notPayedCosts: number, manHours: number, priceBrutto: number, manHoursProfit: 0, marge: 0 } = {
+  securityCode: string = '1234';
+  isSecurity = false;
+  projectData: { profit: number, payedInvoices: number, notPayedInvoices: number, payedCosts: number,
+    notPayedCosts: number, manHours: number, priceBrutto: number, manHoursProfit: 0, marge: 0 } = {
     profit: 0,
     payedInvoices: 0,
     notPayedInvoices: 0,
@@ -28,8 +32,27 @@ export class ProjectTableComponent extends AppPaginate<Project> implements OnIni
     manHoursProfit: 0,
     marge: 0
   };
-
-  displayedColumns: string[] = [
+  securityColumns: string[] = [
+    'number',
+    'title',
+    'profit',
+    'manHoursProfit',
+    'profitSurcharge',
+    'client',
+    'address',
+    'payedInvoices',
+    'notPayedInvoices',
+    'payedCosts',
+    'notPayedCosts',
+    'manHours',
+    'priceBrutto',
+    'startedAt',
+    'finishedAt',
+    'monthsDuration',
+    'completed',
+    'actions'
+  ];
+  defaultColumns: string[] = [
     'number',
     'title',
     'client',
@@ -43,12 +66,11 @@ export class ProjectTableComponent extends AppPaginate<Project> implements OnIni
     'startedAt',
     'finishedAt',
     'monthsDuration',
-    'profit',
-    'manHoursProfit',
-    'profitSurcharge',
     'completed',
     'actions'
   ];
+  displayedColumns: string[] = this.defaultColumns;
+
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
@@ -93,5 +115,24 @@ export class ProjectTableComponent extends AppPaginate<Project> implements OnIni
         this.projectData[key] = sum(this.data, key.toString());
       }
     });
+  }
+
+  security() {
+    if (!this.isSecurity) {
+      const dialogRef = this.dialog.open(SecurityDialogComponent, {
+        maxWidth: '400px',
+      });
+      dialogRef.afterClosed().subscribe(dialogResult => {
+        if (dialogResult) {
+          if (this.securityCode === dialogResult.code) {
+            this.isSecurity = true;
+            this.displayedColumns = this.securityColumns;
+          }
+        }
+      });
+    } else {
+      this.isSecurity = false;
+      this.displayedColumns = this.defaultColumns;
+    }
   }
 }
