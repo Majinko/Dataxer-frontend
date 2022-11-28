@@ -90,7 +90,7 @@
           <ng-container matColumnDef="monthsDuration">
             <th mat-header-cell *matHeaderCellDef> Trvanie <mat-icon class="mat-16" style="vertical-align: sub;" matTooltip="Trvanie v mesiacoch">help</mat-icon> </th>
             <td mat-cell *matCellDef="let element">
-              <ng-container *ngIf="element.monthsDuration && element.isProjectFinish;else emptySymbol">{{element.monthsDuration}} m</ng-container>
+              <ng-container *ngIf="element.monthsDuration;else emptySymbol">{{element.monthsDuration}} m</ng-container>
             </td>
           </ng-container>
 
