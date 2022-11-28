@@ -22,6 +22,7 @@ import {ItemTableComponent} from './item-table/item-table.component';
 import {PaginateZoneComponent} from './paginate.component';
 import {DemandTableComponent} from './demand-table/demand-table.component';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { SecurityDialogComponent } from './components/security-dialog/security-dialog.component';
 
 const routes: Routes = [
   {
@@ -226,7 +227,8 @@ const routes: Routes = [
     TimeTableComponent,
     PriceOfferTableComponent,
     PackTableComponent,
-    ItemTableComponent
+    ItemTableComponent,
+    SecurityDialogComponent
   ],
   imports: [
     CommonModule,

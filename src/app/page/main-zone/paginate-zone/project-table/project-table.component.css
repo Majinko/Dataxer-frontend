@@ -6,4 +6,14 @@
   color: green;
 }
 
+.security-button {
+  margin-top: -55px;
+}
+
+@media screen and (max-width: 767px) {
+  .security-button {
+    margin-top: 0;
+  }
+}
+
 /*# sourceMappingURL=project-table.component.css.map */

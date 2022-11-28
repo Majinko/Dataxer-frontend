@@ -1361,6 +1361,9 @@ app-demand-pack div.jsSettings app-category-select-group {
 .no-click .mat-form-field {
   pointer-events: none !important;
 }
+.no-click .form-group {
+  pointer-events: none !important;
+}
 
 body .mat-tab-body-content {
   overflow: hidden;
@@ -1448,6 +1451,19 @@ app-set-item-create app-item-autocomplete .mat-form-field-infix {
     width: 100%;
   }
 }
+app-project-table .table-wrap .table-data th.th-wrap {
+  white-space: normal !important;
+}
+app-project-table .table-wrap .table-data th.th-wrap span,
+app-project-table .table-wrap .table-data th.th-wrap strong {
+  display: inline-block;
+  width: 100%;
+  white-space: nowrap;
+}
+app-project-table .table-wrap .table-data th.th-wrap strong {
+  color: rgba(0, 0, 0, 0.87);
+}
+
 .todolists-wrap {
   padding-top: 20px;
   max-width: 800px;
