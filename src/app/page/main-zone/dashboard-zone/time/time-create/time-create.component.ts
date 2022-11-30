@@ -15,6 +15,7 @@ import {Project} from '../../../../../core/models/project';
 import {CategoryItemNode} from '../../../../../core/models/category-item-node';
 import {MatRadioButton} from '@angular/material/radio';
 import {TimeHelperClass} from '../../../../../core/class/TimeHelperClass';
+import {CategoryService} from "../../../../../core/services/category.service";
 
 @Component({
   selector: 'app-time-create',
@@ -54,6 +55,7 @@ export class TimeCreateComponent extends TimeHelperClass implements OnInit {
     private messageService: MessageService,
     private projectService: ProjectService,
     private router: Router,
+    private categoryService: CategoryService,
     private strftimePipe: StrftimePipe
   ) {
     super();
@@ -84,14 +86,28 @@ export class TimeCreateComponent extends TimeHelperClass implements OnInit {
 
   public changeProjectGetCategories() {
     this.f.project.valueChanges.subscribe((project) => {
-      this.getProjectCategories(project);
+      if (project?.id) {
+        this.getProjectCategories(project);
+      } else {
+        this.getInternalCategories(['COMPANY', 'SALARY']);
+      }
+    });
+  }
+
+  getInternalCategories(groups: string[]) {
+    this.categoryService.fallByGroupIn(groups, false).subscribe((nestedCategories) => {
+      this.formGroup.patchValue({category: null});
+      this.lastCategories = [];
+      this.categorySelect.categoryItemNodes = nestedCategories;
     });
   }
 
   private handleFormChange() {
     // handle project ng select change
     this.formGroup.get('project').valueChanges.subscribe((project) => {
-      this.getLatestProjectCategories(project.id);
+      if (project.id) {
+        this.getLatestProjectCategories(project.id);
+      }
     });
   }
 
@@ -101,7 +117,9 @@ export class TimeCreateComponent extends TimeHelperClass implements OnInit {
         this.lastProjects = projects;
 
         this.formGroup.patchValue({project: projects[0]});
-        this.getLatestProjectCategories(projects[0].id);
+        if (projects[0].id) {
+          this.getLatestProjectCategories(projects[0].id);
+        }
       }
     });
   }
@@ -109,8 +127,9 @@ export class TimeCreateComponent extends TimeHelperClass implements OnInit {
   private getLatestProjectCategories(projectId: number) {
     this.timeService.getLatestProjectCategories(projectId).subscribe(categories => {
       this.lastCategories = categories;
-
-      this.formGroup.patchValue({category: categories[0]});
+      if (categories) {
+        this.formGroup.patchValue({category: categories[0]});
+      }
     });
   }
 
@@ -175,7 +194,12 @@ export class TimeCreateComponent extends TimeHelperClass implements OnInit {
       return;
     }
 
-    this.timeService.store(this.formGroup.value).subscribe(() => {
+    const formData = this.formGroup.value;
+    if (!formData.project.id) {
+      formData.project = null;
+    }
+
+    this.timeService.store(formData).subscribe(() => {
       this.router.navigate(['/paginate/time']).then(() => {
         this.messageService.add('Čas bol uložený');
       });
