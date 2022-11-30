@@ -56,6 +56,11 @@ export class OverviewComponent implements OnInit, OnDestroy {
         link: '/overview/firms',
         index: 4
       },
+      {
+        label: 'Denný prehľad',
+        link: '/overview/daily',
+        index: 5
+      },
     ];
   }
 
