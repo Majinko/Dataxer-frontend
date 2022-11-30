@@ -42,9 +42,7 @@ export class PaginateFilterHelper {
         if (this.inputSearchBarValues.includes(key)) {
           this.fillSearchBarExpression(key);
         }
-
-        console.log(this.inputSearchBarSelectValues.includes(key), key);
-
+        
         if (this.inputSearchBarSelectValues.includes(key)) {
           if (key === 'date') {
             this.fillDateExpression(key);

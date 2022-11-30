@@ -911,7 +911,7 @@ app-upload-files .mat-form-field-appearance-fill:not(.mat-form-field-disabled) .
   text-align: center;
   padding: 2px;
   border-left: 1px solid #ececec;
-  font-size: 10px;
+  font-size: 12px;
 }
 .table-show-data tbody .row-head {
   border-right: 1px solid #ddd;

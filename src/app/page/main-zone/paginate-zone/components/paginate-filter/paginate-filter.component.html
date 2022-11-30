@@ -206,7 +206,13 @@
       <mat-icon (click)="resetFilterValue('project')" matChipRemove>cancel</mat-icon>
     </mat-chip>
 
-    <mat-chip class="text-gray my-md-0  mb-md-0" *ngIf="contacts && contacts.length > 0 && filterForm.get('category').value && inputSearchBarSelectValues.includes('category.id')">
+    <mat-chip class="text-gray my-md-0  mb-md-0" *ngIf="categoriesGroup && categoriesGroup.length > 0 && filterForm.get('categoryGroup').value && inputSearchBarSelectValues.includes('categoryGroup.id')">
+      <mat-icon class="mr-1">folder</mat-icon>
+      {{filterForm.get('categoryGroup').value.name}}
+      <mat-icon (click)="resetFilterValue('categoryGroup')" matChipRemove>cancel</mat-icon>
+    </mat-chip>
+
+    <mat-chip class="text-gray my-md-0  mb-md-0" *ngIf="categories && categories.length > 0 && filterForm.get('category').value && inputSearchBarSelectValues.includes('category.id')">
       <mat-icon class="mr-1">folder</mat-icon>
       {{filterForm.get('category').value.name}}
       <mat-icon (click)="resetFilterValue('category')" matChipRemove>cancel</mat-icon>

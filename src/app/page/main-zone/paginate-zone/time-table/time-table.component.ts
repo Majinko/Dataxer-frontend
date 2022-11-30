@@ -54,10 +54,6 @@ export class TimeTableComponent extends AppPaginate<Time> implements OnInit, Aft
         this.paginate();
       }
     });
-
-   /* this.http.get(environment.baseUrl + '/import/importCostFile').subscribe(r => {
-      console.log(r);
-    });*/
   }
 
   ngOnDestroy(): void {

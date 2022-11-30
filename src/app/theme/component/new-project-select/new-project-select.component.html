@@ -5,6 +5,9 @@
     <ng-option *ngIf="fromComponent === 'cost'" [value]="{id: null, title: 'Firemný náklad'}">
       Firemný náklad
     </ng-option>
+    <ng-option *ngIf="fromComponent === 'time'" [value]="{id: null, title: 'Firemný čas'}">
+      Firemný čas
+    </ng-option>
     <ng-option *ngFor="let project of projects" [value]="project">
       {{ project.fullTitle }}
     </ng-option>

@@ -15,7 +15,7 @@ import {Project} from '../../../../../core/models/project';
 import {CategoryItemNode} from '../../../../../core/models/category-item-node';
 import {MatRadioButton} from '@angular/material/radio';
 import {TimeHelperClass} from '../../../../../core/class/TimeHelperClass';
-import {CategoryService} from "../../../../../core/services/category.service";
+import {CategoryService} from '../../../../../core/services/category.service';
 
 @Component({
   selector: 'app-time-create',
