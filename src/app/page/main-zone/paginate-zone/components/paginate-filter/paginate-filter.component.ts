@@ -156,9 +156,11 @@ export class PaginateFilterComponent extends PaginateFilterHelper implements OnI
     dialogRef.afterClosed().subscribe(dialogResult => {
       isRangeOk = Object.values(dialogResult).some(v => v != null);
 
+      console.log(isRangeOk);
+
       if (isRangeOk) {
         this.filterForm.patchValue({
-          month: {
+          date: {
             start: moment(dialogResult.start).format('YYYY-MM-DD'),
             end: moment(dialogResult.end).format('YYYY-MM-DD'),
             title: moment(dialogResult.start).format('DD.M.YYYY')
