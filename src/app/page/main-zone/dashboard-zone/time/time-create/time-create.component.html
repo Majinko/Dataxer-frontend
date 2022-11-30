@@ -30,7 +30,7 @@
 
   <div class="row">
     <div class="col-md-6 form-group">
-      <app-new-project-select formControlName="project" [showAddButton]="false"></app-new-project-select>
+      <app-new-project-select formControlName="project" [showAddButton]="false" [fromComponent]="'cost'"></app-new-project-select>
       <mat-error *ngIf="isSubmit && f.project.errors" class="mat-error-not-in-field">Projekt je <strong>požadovaný.</strong></mat-error>
     </div>
 
