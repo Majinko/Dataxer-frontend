@@ -90,4 +90,10 @@ export class CategoryService {
         }
       }));
   }
+
+  allTimeCategoryForCompany(): Observable<CategoryItemNode[]> {
+    return  this.http.get<CategoryItemNode[]>(`${environment.baseUrl}/category/allTimeCategoryForCompany`).pipe(map(categories => {
+      return this.categoryHelper.prepareOptionTree(categories);
+    }));
+  }
 }

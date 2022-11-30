@@ -89,13 +89,21 @@ export class TimeCreateComponent extends TimeHelperClass implements OnInit {
       if (project?.id) {
         this.getProjectCategories(project);
       } else {
-        this.getInternalCategories(['COMPANY', 'SALARY']);
+        this.allTimeCategoryForCompany();
       }
     });
   }
 
   getInternalCategories(groups: string[]) {
     this.categoryService.fallByGroupIn(groups, false).subscribe((nestedCategories) => {
+      this.formGroup.patchValue({category: null});
+      this.lastCategories = [];
+      this.categorySelect.categoryItemNodes = nestedCategories;
+    });
+  }
+
+  allTimeCategoryForCompany() {
+    this.categoryService.allTimeCategoryForCompany().subscribe((nestedCategories) => {
       this.formGroup.patchValue({category: null});
       this.lastCategories = [];
       this.categorySelect.categoryItemNodes = nestedCategories;
