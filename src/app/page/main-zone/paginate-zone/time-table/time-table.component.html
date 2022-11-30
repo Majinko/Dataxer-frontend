@@ -32,10 +32,7 @@
 
           <ng-container matColumnDef="project">
             <th mat-header-cell *matHeaderCellDef>Projekt</th>
-            <td mat-cell *matCellDef="let element">
-               <ng-container *ngIf="element.project">{{(element.project.number || '') + ' ' + element.project.title}}</ng-container>
-               <ng-container *ngIf="!element.project">Firemný náklad</ng-container>
-              </td>
+            <td mat-cell *matCellDef="let element"> {{element.project ? ((element.project.number || '') + ' ' + element.project.title) : 'Firemný čas'}} </td>
           </ng-container>
 
           <ng-container matColumnDef="description">
