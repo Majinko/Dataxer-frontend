@@ -40,6 +40,7 @@ export class PaginateFilterComponent extends PaginateFilterHelper implements OnI
   finishStates: KeyValue[] = [];
   documentRepeated: KeyValue[] = [];
   categories: CategoryItemNode[] = [];
+  categoriesGroup: CategoryItemNode[] = [];
   years: { start: string, end: string, title: string, type: string } [] = [];  /// todo dynamicky podla casov v projektoch, od prveho po posledny
   dates: { start: string, end: string, title: string, type: string } [] = [];
   projectStatus: { value: boolean | null, key: string } [] = [
@@ -81,6 +82,7 @@ export class PaginateFilterComponent extends PaginateFilterHelper implements OnI
       date: null,
       state: null,
       category: null,
+      categoryGroup: null,
       user: null,
       repeated: null, // todo
     });
@@ -414,6 +416,12 @@ export class PaginateFilterComponent extends PaginateFilterHelper implements OnI
     if (this.inputSearchBarSelectValues.includes('category.id')) {
       this.categoryService.all().subscribe((categories) => {
         this.categories = this.categoryHelper.prepareOptionTree(categories);
+      });
+    }
+
+    if (this.inputSearchBarSelectValues.includes('categoryGroup.id')) {
+      this.categoryService.fallByGroupIn(['TYPE_PROJECT']).subscribe((categoriesGroup) => {
+        this.categoriesGroup = this.categoryHelper.prepareOptionTree(categoriesGroup);
       });
     }
   }

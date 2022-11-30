@@ -9,7 +9,7 @@ import {AppPaginate} from '../../../../core/class/AppPaginate';
 import {GodButtonService} from '../../../../core/services/god-button.service';
 import {FilterService} from '../../../../core/store/service/filter.service';
 import {sum} from '../../../../../helper';
-import {SecurityDialogComponent} from "../components/security-dialog/security-dialog.component";
+import {SecurityDialogComponent} from '../components/security-dialog/security-dialog.component';
 
 @Component({
   selector: 'app-project-table',

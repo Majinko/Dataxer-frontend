@@ -61,6 +61,17 @@
     </ng-select>
   </div>
 
+  <div class="col-md-4 col-lg-2" *ngIf="categoriesGroup && categoriesGroup.length > 0 && inputSearchBarSelectValues.includes('categoryGroup.id')">
+    <ng-select [items]="categoriesGroup"
+               [clearable]="false"
+               bindLabel="name"
+               placeholder="Druhy zakaziek"
+               formControlName="categoryGroup"
+               groupBy="parentName"
+               class="filter-ng-select">
+    </ng-select>
+  </div>
+
   <div class="col-md-4 col-lg-2" *ngIf="categories && categories.length > 0 && inputSearchBarSelectValues.includes('category.id')">
     <ng-select [items]="categories"
                [clearable]="false"
