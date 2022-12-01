@@ -14,7 +14,7 @@
 
   <div class="row">
     <div class="col-md-6 form-group">
-      <app-new-project-select formControlName="project" [showAddButton]="false"></app-new-project-select>
+      <app-new-project-select formControlName="project" [showAddButton]="false" [fromComponent]="'time'"></app-new-project-select>
       <mat-error *ngIf="isSubmit && f.project.errors">Projekt je <strong>požadovaný.</strong></mat-error>
     </div>
 
