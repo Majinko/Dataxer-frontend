@@ -20,6 +20,8 @@ import {ChecklistDatabase} from '../../../../../../core/class/CheckListDatabase'
 import {MatDialog} from '@angular/material/dialog';
 import {ConfirmDialogComponent} from '../../../../../../theme/component/confirm-dialog/confirm-dialog.component';
 import firebase from 'firebase';
+import {HttpClient} from '@angular/common/http';
+import {environment} from '../../../../../../../environments/environment';
 
 @Component({
   selector: 'app-category-tree',
@@ -29,7 +31,7 @@ import firebase from 'firebase';
 })
 export class CategoryTreeComponent implements OnInit, OnChanges {
   // todo trochu upravit alebo dat inam, mozno nejaka pypes aby to bolo pouzitelne vsade ????
-  categoryTypeIcons: {key: string[], icons: string[]}[] = [
+  categoryTypeIcons: { key: string[], icons: string[] }[] = [
     {
       key: ['STUFF_SERVICE_IN_PROJECT_BALANCE', 'SALARY_FOR_PROJECT'],
       icons: ['euro_symbol', 'layers']
@@ -104,6 +106,7 @@ export class CategoryTreeComponent implements OnInit, OnChanges {
     private categoryHelper: CategoryHelper,
     private database: ChecklistDatabase,
     public dialog: MatDialog,
+    private http: HttpClient,
   ) {
     this.treeFlattener = new MatTreeFlattener(this.transformer, this.getLevel, this.isExpandable, this.getChildren);
     this.treeControl = new FlatTreeControl<CategoryItemFlatNode>(this.getLevel, this.isExpandable);
@@ -146,6 +149,7 @@ export class CategoryTreeComponent implements OnInit, OnChanges {
     flatNode.categoryType = node.categoryType;
     flatNode.categoryGroup = node.categoryGroup;
     flatNode.expandable = (node.children && node.children.length > 0);
+    flatNode.isDeactivated = node.isDeactivated;
     this.flatNodeMap.set(flatNode, node);
     this.nestedNodeMap.set(node, flatNode);
     return flatNode;
@@ -280,6 +284,14 @@ export class CategoryTreeComponent implements OnInit, OnChanges {
           this.messageService.add(`Kategória ${node.name} bola zmazaná.`);
         });
       }
+    });
+  }
+
+  activeDeactivateCategory(category: CategoryItemNode) {
+    category.isDeactivated = !category.isDeactivated;
+
+    this.categoryService.activeDeactivateCategory(category).subscribe(() => {
+      this.messageService.add('Kategória bola aktualizovaná.');
     });
   }
 }

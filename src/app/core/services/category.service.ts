@@ -92,8 +92,12 @@ export class CategoryService {
   }
 
   allTimeCategoryForCompany(): Observable<CategoryItemNode[]> {
-    return  this.http.get<CategoryItemNode[]>(`${environment.baseUrl}/category/allTimeCategoryForCompany`).pipe(map(categories => {
+    return this.http.get<CategoryItemNode[]>(`${environment.baseUrl}/category/allTimeCategoryForCompany`).pipe(map(categories => {
       return this.categoryHelper.prepareOptionTree(categories);
     }));
+  }
+
+  activeDeactivateCategory(category: CategoryItemNode): Observable<any> {
+    return this.http.get<any>(`${environment.baseUrl}/category/${category.isDeactivated ? 'activeCategory' : 'deactivateCategory'}/${category.id}`);
   }
 }

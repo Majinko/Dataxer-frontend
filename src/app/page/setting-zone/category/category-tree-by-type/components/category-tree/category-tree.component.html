@@ -91,6 +91,10 @@
 
 <ng-template #divIcon let-onlyEdit=onlyEdit let-category=category>
   <div class="not-visible position-absolute" style="right: 0;">
+    <button [ngClass]="category.isDeactivated === true ? 'text-danger' : 'text-success'" mat-icon-button *ngIf="!onlyEdit" (click)="activeDeactivateCategory(category)">
+      <mat-icon>{{category.isDeactivated ? 'toggle_on' : 'toggle_off'}}</mat-icon>
+    </button>
+
     <button mat-icon-button [routerLink]="['/setting/category/edit', category.id]">
       <mat-icon>edit</mat-icon>
     </button>

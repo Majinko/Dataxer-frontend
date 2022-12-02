@@ -7,4 +7,5 @@ export class CategoryItemFlatNode {
   expandable: boolean;
   categoryType: string;
   categoryGroup: string;
+  isDeactivated?: boolean;
 }

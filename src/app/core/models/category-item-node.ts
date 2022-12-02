@@ -7,6 +7,7 @@ export interface CategoryItemNode {
   parentName?: string;
   categoryType?: string;
   categoryGroup?: string;
+  isDeactivated?: boolean;
   parent?: CategoryItemNode;
   children?: CategoryItemNode[];
 }
