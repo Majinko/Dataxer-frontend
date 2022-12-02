@@ -72,7 +72,7 @@ export class TimeEditComponent extends TimeHelperClass implements OnInit {
 
       this.time = t;
 
-      if (t.project === null){
+      if (t.project === null) {
         this.formGroup.get('project').patchValue({id: null, title: 'Firemný čas'});
       }
     });
@@ -92,6 +92,12 @@ export class TimeEditComponent extends TimeHelperClass implements OnInit {
 
     if (this.formGroup.invalid) {
       return;
+    }
+
+    if (this.formGroup.get('project').value.id === null) {
+      this.formGroup.patchValue({
+        project: null
+      }, {emitEvent: false});
     }
 
     this.formGroup.patchValue(this.getTimeData(this.f), {emitEvent: false});
