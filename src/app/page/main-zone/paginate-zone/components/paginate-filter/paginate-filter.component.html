@@ -51,13 +51,18 @@
   </ng-template>
 
   <div class="col-md-4 col-lg-2" *ngIf="projects && projects.length > 0 && inputSearchBarSelectValues.includes('project.id')">
-    <ng-select [items]="projects"
-               [clearable]="false"
+    <ng-select [clearable]="false"
                bindLabel="fullTitle"
                placeholder="Zákazka"
                formControlName="project"
                groupBy="group"
                class="filter-ng-select">
+      <ng-option [value]="{id: null, title: 'Firemný náklad'}">
+        Firemný náklad
+      </ng-option>
+      <ng-option *ngFor="let project of projects" [value]="project">
+        {{ project.fullTitle }}
+      </ng-option>
     </ng-select>
   </div>
 
