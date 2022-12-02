@@ -98,6 +98,7 @@ export class CategoryService {
   }
 
   activeDeactivateCategory(category: CategoryItemNode): Observable<any> {
-    return this.http.get<any>(`${environment.baseUrl}/category/${category.isDeactivated ? 'activeCategory' : 'deactivateCategory'}/${category.id}`);
+    // je to prehodne nashval, lebo prehadzujem to skor ako na backende 
+    return this.http.get<any>(`${environment.baseUrl}/category/${category.isDeactivated ? 'deactivateCategory' : 'activeCategory'}/${category.id}`);
   }
 }
