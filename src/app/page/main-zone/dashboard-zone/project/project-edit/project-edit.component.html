@@ -86,18 +86,24 @@
       </mat-form-field>
     </div>
 
-    <div class="col-md-6">
-      <div class="form-group pb-4">
-        <mat-checkbox formControlName="isProjectFinish">Projekt dokončený</mat-checkbox>
+    <div class="col-12">
+      <div class="row">
+        <div class="col-md-4 form-group pb-4">
+          <mat-checkbox formControlName="isCompanyProject">
+            Firemna zakazka
+            <mat-icon class="mat-16" style="vertical-align: sub;" matTooltip="zakazka ktorej naklady sa prepocitavaju netto naklady na prevadzku firmy.">help</mat-icon>
+          </mat-checkbox>
+        </div>
+
+        <div class="col-md-4 form-group pb-4">
+          <mat-checkbox formControlName="isProjectFinish">Projekt dokončený</mat-checkbox>
+        </div>
+
+        <div class="col-md-4 form-group pb-4">
+          <mat-checkbox formControlName="isDeactivated">Projekt deaktivovaný</mat-checkbox>
+        </div>
       </div>
     </div>
-
-    <div class="col-md-6">
-      <div class="form-group pb-4">
-        <mat-checkbox formControlName="isDeactivated">Projekt deaktivovaný</mat-checkbox>
-      </div>
-    </div>
-
   </div>
 
   <div class="row">

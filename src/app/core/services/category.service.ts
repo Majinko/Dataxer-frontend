@@ -98,7 +98,7 @@ export class CategoryService {
   }
 
   activeDeactivateCategory(category: CategoryItemNode): Observable<any> {
-    // je to prehodne nashval, lebo prehadzujem to skor ako na backende 
+    // je to prehodne nashval, lebo prehadzujem to skor ako na backende
     return this.http.get<any>(`${environment.baseUrl}/category/${category.isDeactivated ? 'deactivateCategory' : 'activeCategory'}/${category.id}`);
   }
 }
