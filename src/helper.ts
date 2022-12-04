@@ -8,8 +8,6 @@ import {HttpParams} from '@angular/common/http';
 export const getHttpParams = (filter: any): HttpParams => {
   let params = new HttpParams();
 
-  console.log(filter);
-
   for (const key in filter) {
     if (filter.hasOwnProperty(key)) {
       // @ts-ignore
@@ -19,8 +17,9 @@ export const getHttpParams = (filter: any): HttpParams => {
           params = params.set(key, value.id.toString());
         } else if (value.value) {
           params = params.set(key, value.value.toString());
-        } else {
-          params = params.set(key, JSON.stringify(value));
+        } else if (value.start) {
+          params = params.set('dateFrom', value.start.toString());
+          params = params.set('dateTo', value.end.toString());
         }
       }
     }
