@@ -70,6 +70,7 @@ export class OverviewHoursPriceComponent implements OnInit, AfterViewInit {
         map(data => {
           // Flip flag to show that loading has finished.
           this.isLoadingResults = false;
+          this.totalElements = data.totalElements;
 
           return data;
         })
