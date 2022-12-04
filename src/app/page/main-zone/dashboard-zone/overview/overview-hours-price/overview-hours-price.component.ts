@@ -14,7 +14,7 @@ import {MatTable} from '@angular/material/table';
 import {
   OverviewHoursPriceFilterComponent
 } from './components/overview-hours-price-filter/overview-hours-price-filter.component';
-import {OverviewService} from "../../../../../core/services/overview.service";
+import {OverviewService} from '../../../../../core/services/overview.service';
 
 @Component({
   selector: 'app-overview-hours-price',
@@ -58,6 +58,9 @@ export class OverviewHoursPriceComponent implements OnInit, AfterViewInit {
   }
 
   public paginate(filter?: any) {
+    if (!this.paginator) {
+      return;
+    }
     merge()
       .pipe(
         startWith({}),

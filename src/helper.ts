@@ -19,6 +19,8 @@ export const getHttpParams = (filter: any): HttpParams => {
           params = params.set(key, value.id.toString());
         } else if (value.value) {
           params = params.set(key, value.value.toString());
+        } else {
+          params = params.set(key, JSON.stringify(value));
         }
       }
     }
