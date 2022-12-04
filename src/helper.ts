@@ -2,6 +2,29 @@ import {AbstractControl, FormArray} from '@angular/forms';
 import {MatPaginatorIntl} from '@angular/material/paginator';
 import * as moment from 'moment';
 import {CustomFile} from './app/core/models/customFile';
+import {HttpParams} from '@angular/common/http';
+
+// get http params
+export const getHttpParams = (filter: any): HttpParams => {
+  let params = new HttpParams();
+
+  console.log(filter);
+
+  for (const key in filter) {
+    if (filter.hasOwnProperty(key)) {
+      // @ts-ignore
+      const value = filter[key];
+      if (value != '' && value !== null) {
+        if (value.id) {
+          params = params.set(key, value.id.toString());
+        } else if (value.value) {
+          params = params.set(key, value.value.toString());
+        }
+      }
+    }
+  }
+  return params;
+};
 
 // custom date picker formats
 export const APP_DATE_FORMATS = {
