@@ -8,7 +8,6 @@ import {CategoryItemNode} from '../models/category-item-node';
 import {DocumentFilter} from '../models/filters/document-filter';
 import {map} from 'rxjs/operators';
 import {IPaginate} from '../interface/IPaginate';
-import {getHttpParams} from "../../../helper";
 
 @Injectable({
   providedIn: 'root'
@@ -36,11 +35,6 @@ export class TimeService implements IPaginate<Time> {
 
         return times;
       }));
-  }
-
-  paginateFilter(page: number, size: number, filter: any): Observable<any> {
-    return this.http
-      .get<any>(`${environment.baseUrl}/overview/usersDailyOverview?pageNumber=${page}&pageSize=${size}`, {params: getHttpParams(filter)});
   }
 
   getById(id: number): Observable<Time> {

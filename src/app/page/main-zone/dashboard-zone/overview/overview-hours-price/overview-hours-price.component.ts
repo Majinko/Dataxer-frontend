@@ -14,6 +14,7 @@ import {MatTable} from '@angular/material/table';
 import {
   OverviewHoursPriceFilterComponent
 } from './components/overview-hours-price-filter/overview-hours-price-filter.component';
+import {OverviewService} from "../../../../../core/services/overview.service";
 
 @Component({
   selector: 'app-overview-hours-price',
@@ -29,7 +30,7 @@ export class OverviewHoursPriceComponent implements OnInit, AfterViewInit {
   totalTime: number = 0;
   isLoadingResults = true;
   daysPriceTime: { time: number, price: number }[] = [];
-  displayedColumns: string[] = ['user', 'stats', 'project', 'description', 'category'];
+  displayedColumns: string[] = ['user', 'dateWork', 'stats', 'project', 'description', 'category'];
   @ViewChild(MatPaginator, {static: false}) paginator!: MatPaginator;
   @ViewChild(MatTable) table!: MatTable<Time>;
 
@@ -39,7 +40,7 @@ export class OverviewHoursPriceComponent implements OnInit, AfterViewInit {
   constructor(
     protected route: ActivatedRoute,
     protected godButtonService: GodButtonService,
-    protected timeService: TimeService,
+    protected overviewService: OverviewService,
     protected messageService: MessageService,
     protected dialog: MatDialog,
     protected filterService: FilterService,
@@ -61,7 +62,8 @@ export class OverviewHoursPriceComponent implements OnInit, AfterViewInit {
       .pipe(
         startWith({}),
         switchMap(() => {
-          return this.timeService.paginateFilter(
+          this.isLoadingResults = true;
+          return this.overviewService.paginateFilter(
             this.paginator.pageIndex,
             this.paginator.pageSize,
             filter
@@ -76,8 +78,29 @@ export class OverviewHoursPriceComponent implements OnInit, AfterViewInit {
         })
       )
       .subscribe(data => {
-        console.log(data);
+        console.log(data.content);
         this.times = data.content;
+        this.prepareTimeInDay();
       });
+  }
+
+  /**
+   * PreparedData from time
+   * @private
+   */
+  private prepareTimeInDay() {
+    this.daysPriceTime = [];
+
+    this.times.forEach((time) => {
+      if (!this.daysPriceTime[time.day]) {
+        this.daysPriceTime[time.day] = {
+          time: time.time,
+          price: time.price
+        };
+      } else {
+        this.daysPriceTime[time.day].time += time.time;
+        this.daysPriceTime[time.day].price += time.price;
+      }
+    });
   }
 }
