@@ -76,7 +76,7 @@ export class OverviewHoursPriceComponent implements OnInit, AfterViewInit {
           // Flip flag to show that loading has finished.
           this.isLoadingResults = false;
           this.totalElements = data.totalElements;
-
+          this.totalTime = data.totalTime;
           return data;
         })
       )
