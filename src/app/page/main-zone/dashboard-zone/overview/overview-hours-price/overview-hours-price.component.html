@@ -36,7 +36,10 @@
           <th mat-header-cell *matHeaderCellDef>Info</th>
           <td mat-cell *matCellDef="let element">
 
-            <span *ngIf="element.price != null; else flatPrice">{{element.price + ' &euro;' + ' / ' + (element.time | timeFromTimestamp) + ' h'}} </span>
+            <span *ngIf="element.price != null; else flatPrice">
+              <ng-container *ngIf="daysPriceTime[element.day].price">{{daysPriceTime[element.day].price | currency:'EUR':'symbol'}} /</ng-container>
+              {{(element.time | timeFromTimestamp) + ' h'}}
+            </span>
             <ng-template #flatPrice>{{(element.time | timeFromTimestamp) + ' h'}}</ng-template>
           </td>
         </ng-container>
