@@ -10,15 +10,6 @@
         </div>
 
         <table mat-table [dataSource]="times" class="table-hover table-data table-borderless w-100" matSort matSortDisableClear matSortDirection="desc">
-          <ng-container matColumnDef="user">
-            <th mat-header-cell *matHeaderCellDef>Pracujuci</th>
-            <td mat-cell *matCellDef="let element">
-              <div class="d-flex align-items-center">
-                <ngx-avatar [src]="element.user?.photoUrl" size="30" name="{{element.user.firstName + ' ' + element.user.lastName}}"></ngx-avatar>
-                <span class="ml-2">{{element.user.firstName + ' ' + element.user.lastName}}</span>
-              </div>
-            </td>
-          </ng-container>
           <ng-container matColumnDef="dateWork">
             <th mat-header-cell *matHeaderCellDef>Dátum práce</th>
             <td mat-cell *matCellDef="let element; let i = index">

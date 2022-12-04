@@ -12,8 +12,6 @@ import {AppPaginate} from '../../../../core/class/AppPaginate';
 import {ActivatedRoute} from '@angular/router';
 import {GodButtonService} from '../../../../core/services/god-button.service';
 import {FilterService} from '../../../../core/store/service/filter.service';
-import {HttpClient} from '@angular/common/http';
-import {UserService} from '../../../../core/services/user.service';
 
 @Component({
   selector: 'app-time-table',
@@ -29,7 +27,7 @@ export class TimeTableComponent extends AppPaginate<Time> implements OnInit, Aft
   totalTime: number = 0;
   isLoadingResults = true;
   daysPriceTime: { time: number, price: number }[] = [];
-  displayedColumns: string[] = ['user', 'dateWork', 'stats', 'project', 'description', 'category', 'actions'];
+  displayedColumns: string[] = ['dateWork', 'stats', 'project', 'description', 'category', 'actions'];
 
   constructor(
     protected route: ActivatedRoute,

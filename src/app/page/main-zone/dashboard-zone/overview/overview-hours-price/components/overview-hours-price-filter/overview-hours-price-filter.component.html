@@ -1,0 +1,50 @@
+<form [formGroup]="formGroup" (ngSubmit)="doFilter()">
+    <div class="mt-3">
+      <div class="row">
+        <div class="col-md-4 col-lg-2">
+          <ng-select [items]="users"
+                     [clearable]="false"
+                     bindLabel="displayName"
+                     placeholder="Používateľ"
+                     formControlName="user"
+                     class="filter-ng-select">
+          </ng-select>
+        </div>
+        <div class="col-md-4 col-lg-2">
+          <ng-select [clearable]="false"
+                     bindLabel="fullTitle"
+                     placeholder="Zákazka"
+                     formControlName="project"
+                     groupBy="group"
+                     class="filter-ng-select">
+            <ng-option [value]="{id: null, title: 'Firemný náklad'}">
+              Firemný náklad
+            </ng-option>
+            <ng-option *ngFor="let project of projects" [value]="project">
+              {{ project.fullTitle }}
+            </ng-option>
+          </ng-select>
+        </div>
+        <div class="col-md-4 col-lg-2">
+          <ng-select [items]="categories"
+                     [clearable]="false"
+                     bindLabel="name"
+                     placeholder="Kategória"
+                     formControlName="category"
+                     groupBy="parentName"
+                     class="filter-ng-select">
+          </ng-select>
+        </div>
+        <div class="col-md-4 col-lg-2">
+          <ng-select [items]="options"
+                     [clearable]="false"
+                     bindLabel="name"
+                     placeholder="Zobrazenie"
+                     formControlName="display"
+                     groupBy="parentName"
+                     class="filter-ng-select">
+          </ng-select>
+        </div>
+      </div>
+    </div>
+  </form>

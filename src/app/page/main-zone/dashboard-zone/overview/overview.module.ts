@@ -11,13 +11,15 @@ import {AvatarModule} from 'ngx-avatar';
 import {CoreModule} from '../../../../core/core.module';
 import {OverviewCostTableRowComponent} from './overview-cost-yearly/components/overview-cost-table-row/overview-cost-table-row.component';
 import {NgSelectModule} from '@ng-select/ng-select';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {OverviewChartsComponent} from './overview-charts/overview-charts.component';
 import {OverviewChartComponent} from './overview-charts/components/overview-chart/overview-chart.component';
 import {NgApexchartsModule} from 'ng-apexcharts';
 import {OverviewProfitChartComponent} from './overview-charts/components/overview-profit-chart/overview-profit-chart.component';
 import { OverviewFirmsComponent } from './overview-firms/overview-firms.component';
 import { OverviewTimeDailyComponent } from './overview-time-daily/overview-time-daily.component';
+import { OverviewHoursPriceComponent } from './overview-hours-price/overview-hours-price.component';
+import { OverviewHoursPriceFilterComponent } from './overview-hours-price/components/overview-hours-price-filter/overview-hours-price-filter.component';
 
 const routes: Routes = [
   {
@@ -47,6 +49,10 @@ const routes: Routes = [
       {
         path: 'daily',
         component: OverviewTimeDailyComponent
+      },
+      {
+        path: 'hours-price',
+        component: OverviewHoursPriceComponent
       }
     ]
   }
@@ -63,19 +69,22 @@ const routes: Routes = [
     OverviewChartComponent,
     OverviewProfitChartComponent,
     OverviewFirmsComponent,
-    OverviewTimeDailyComponent
+    OverviewTimeDailyComponent,
+    OverviewHoursPriceComponent,
+    OverviewHoursPriceFilterComponent
   ],
-  imports: [
-    CommonModule,
-    RouterModule.forChild(routes),
-    ThemeModule,
-    MaterialModule,
-    AvatarModule,
-    CoreModule,
-    NgSelectModule,
-    FormsModule,
-    NgApexchartsModule,
-  ]
+    imports: [
+        CommonModule,
+        RouterModule.forChild(routes),
+        ThemeModule,
+        MaterialModule,
+        AvatarModule,
+        CoreModule,
+        NgSelectModule,
+        FormsModule,
+        NgApexchartsModule,
+        ReactiveFormsModule,
+    ]
 })
 export class OverviewModule {
 }
