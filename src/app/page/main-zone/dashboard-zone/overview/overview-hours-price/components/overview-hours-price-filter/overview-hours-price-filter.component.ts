@@ -3,10 +3,10 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {CategoryItemNode} from '../../../../../../../core/models/category-item-node';
 import {Project} from '../../../../../../../core/models/project';
 import {User} from '../../../../../../../core/models/user';
-import {ProjectService} from "../../../../../../../core/services/project.service";
-import {CategoryService} from "../../../../../../../core/services/category.service";
-import {UserService} from "../../../../../../../core/services/user.service";
-import {CategoryHelper} from "../../../../../../../core/class/CategoryHelper";
+import {ProjectService} from '../../../../../../../core/services/project.service';
+import {CategoryService} from '../../../../../../../core/services/category.service';
+import {UserService} from '../../../../../../../core/services/user.service';
+import {CategoryHelper} from '../../../../../../../core/class/CategoryHelper';
 
 @Component({
   selector: 'app-overview-hours-price-filter',
@@ -111,5 +111,9 @@ export class OverviewHoursPriceFilterComponent implements OnInit {
 
         this.allProjects = this.projects;
       });
+  }
+
+  resetFilterValue(key: string) {
+    this.formGroup.patchValue({[key]: null});
   }
 }

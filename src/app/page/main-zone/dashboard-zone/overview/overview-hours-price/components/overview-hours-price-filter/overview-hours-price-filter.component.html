@@ -48,3 +48,31 @@
       </div>
     </div>
   </form>
+  <div class="d-block d-md-flex align-content-center mb-3" >
+    <mat-chip-list aria-label="Filtering">
+      <mat-chip class="text-gray my-md-0  mb-md-0" *ngIf="users && users.length > 0 && formGroup.get('user').value">
+        <mat-icon class="mr-1">person</mat-icon>
+        {{formGroup.get('user').value.displayName}}
+        <mat-icon (click)="resetFilterValue('user')" matChipRemove>cancel</mat-icon>
+      </mat-chip>
+
+      <mat-chip class="text-gray my-md-0  mb-md-0" *ngIf="projects && projects.length > 0 && formGroup.get('project').value">
+        <mat-icon class="mr-1">layers</mat-icon>
+        {{formGroup.get('project').value.title}}
+        <mat-icon (click)="resetFilterValue('project')" matChipRemove>cancel</mat-icon>
+      </mat-chip>
+
+      <mat-chip class="text-gray my-md-0  mb-md-0" *ngIf="categories && categories.length > 0 && formGroup.get('category').value">
+        <mat-icon class="mr-1">folder</mat-icon>
+        {{formGroup.get('category').value.name}}
+        <mat-icon (click)="resetFilterValue('category')" matChipRemove>cancel</mat-icon>
+      </mat-chip>
+
+      <mat-chip class="text-gray my-md-0  mb-md-0" *ngIf="options && options.length > 0 && formGroup.get('display').value">
+        <mat-icon class="mr-1">folder</mat-icon>
+        {{formGroup.get('display').value.name}}
+        <mat-icon (click)="resetFilterValue('display')" matChipRemove>cancel</mat-icon>
+      </mat-chip>
+
+    </mat-chip-list>
+  </div>
