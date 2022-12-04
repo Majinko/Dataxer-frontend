@@ -96,10 +96,6 @@ export class PaginateFilterComponent extends PaginateFilterHelper implements OnI
 
     // only admin has right to filter other user time
     this.isAdmin = this.userService.user.roles.some(r => r.name.includes('ROLE_ADMIN'));
-    // if is time, set logged user time if is admin
-    if (this.isAdmin && this.modelName === 'time'){
-      this.filterForm.patchValue({user: this.userService.user});
-    }
   }
 
   /**

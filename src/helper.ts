@@ -12,7 +12,7 @@ export const getHttpParams = (filter: any): HttpParams => {
     if (filter.hasOwnProperty(key)) {
       // @ts-ignore
       const value = filter[key];
-      if (value != '' && value !== null) {
+      if (value !== '' && value !== null) {
         if (value.id) {
           params = params.set(key, value.id.toString());
         } else if (value.value) {
