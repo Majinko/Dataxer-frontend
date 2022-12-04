@@ -6,7 +6,7 @@
                      [clearable]="false"
                      bindLabel="displayName"
                      placeholder="Používateľ"
-                     formControlName="user"
+                     formControlName="userId"
                      class="filter-ng-select">
           </ng-select>
         </div>
@@ -14,7 +14,7 @@
           <ng-select [clearable]="false"
                      bindLabel="fullTitle"
                      placeholder="Zákazka"
-                     formControlName="project"
+                     formControlName="projectId"
                      groupBy="group"
                      class="filter-ng-select">
             <ng-option [value]="{id: null, title: 'Firemný náklad'}">
@@ -30,7 +30,7 @@
                      [clearable]="false"
                      bindLabel="name"
                      placeholder="Kategória"
-                     formControlName="category"
+                     formControlName="categoryId"
                      groupBy="parentName"
                      class="filter-ng-select">
           </ng-select>

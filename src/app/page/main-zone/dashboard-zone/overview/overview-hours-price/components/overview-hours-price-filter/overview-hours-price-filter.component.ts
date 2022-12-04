@@ -49,9 +49,9 @@ export class OverviewHoursPriceFilterComponent implements OnInit {
 
   ngOnInit(): void {
     this.formGroup = this.formBuilder.group({
-      user: null,
-      project: null,
-      category: null,
+      userId: null,
+      projectId: null,
+      categoryId: null,
       display: null,
     });
     this.formGroup.valueChanges.subscribe(() => {
