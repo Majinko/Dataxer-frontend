@@ -112,7 +112,7 @@ const routes: Routes = [
           // for filtering
           modelName: 'time',
           inputSearchBarValues: ['description'],
-          inputSearchBarSelectValues: ['date', 'project.id', 'category.id'],
+          inputSearchBarSelectValues: ['date', 'project.id', 'category.id', 'user.id'],
 
           permissions: {
             only: 'time'
