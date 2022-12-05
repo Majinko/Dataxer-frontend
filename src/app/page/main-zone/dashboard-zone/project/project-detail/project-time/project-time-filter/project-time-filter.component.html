@@ -1,0 +1,49 @@
+<form [formGroup]="formGroup" (ngSubmit)="doFilter()">
+    <div class="mt-3">
+        <div class="row">
+            <div class="col-md-4 col-lg-2">
+                <ng-select [items]="users" [clearable]="false" bindLabel="displayName" placeholder="Používateľ"
+                    formControlName="userId" class="filter-ng-select">
+                </ng-select>
+            </div>
+            <div class="col-md-4 col-lg-2">
+                <ng-select [items]="categories" [clearable]="false" bindLabel="name" placeholder="Kategória"
+                    formControlName="categoryId" groupBy="parentName" class="filter-ng-select">
+                </ng-select>
+            </div>
+            <div class="col-md-4 col-lg-2" *ngIf="dates && dates.length > 0">
+                <ng-select [items]="dates" [clearable]="false" bindLabel="title" placeholder="Dátum"
+                    formControlName="date" groupBy="type" class="filter-ng-select">
+
+                    <ng-template ng-footer-tmp>
+                        <div class="cursor-pointer" (click)="monthDateRange()"><span>Od - do</span></div>
+                    </ng-template>
+                </ng-select>
+            </div>
+        </div>
+    </div>
+</form>
+<div class="d-block d-md-flex align-content-center mb-3">
+    <mat-chip-list aria-label="Filtering">
+        <mat-chip class="text-gray my-md-0  mb-md-0" *ngIf="users && users.length > 0 && formGroup.get('userId').value">
+            <mat-icon class="mr-1">person</mat-icon>
+            {{formGroup.get('userId').value.displayName}}
+            <mat-icon (click)="resetFilterValue('userId')" matChipRemove>cancel</mat-icon>
+        </mat-chip>
+
+        <mat-chip class="text-gray my-md-0  mb-md-0"
+            *ngIf="categories && categories.length > 0 && formGroup.get('categoryId').value">
+            <mat-icon class="mr-1">folder</mat-icon>
+            {{formGroup.get('categoryId').value.name}}
+            <mat-icon (click)="resetFilterValue('categoryId')" matChipRemove>cancel</mat-icon>
+        </mat-chip>
+
+        <mat-chip class="text-gray my-md-0  mb-md-0" *ngIf="dates && dates.length > 0 && formGroup.get('date').value">
+            <mat-icon class="mr-1">access_time</mat-icon>
+            {{(formGroup.get('date').value.start | date: 'dd.MM.y') + ' - ' + (formGroup.get('date').value.end | date:
+            'dd.MM.y' )}}
+            <mat-icon (click)="resetFilterValue('date')" matChipRemove>cancel</mat-icon>
+        </mat-chip>
+
+    </mat-chip-list>
+</div>

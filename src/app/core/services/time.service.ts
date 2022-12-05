@@ -8,6 +8,7 @@ import {CategoryItemNode} from '../models/category-item-node';
 import {DocumentFilter} from '../models/filters/document-filter';
 import {map} from 'rxjs/operators';
 import {IPaginate} from '../interface/IPaginate';
+import {getHttpParams} from "../../../helper";
 
 @Injectable({
   providedIn: 'root'
@@ -77,8 +78,8 @@ export class TimeService implements IPaginate<Time> {
     return this.http.get<ProjectStartEnd>(`${environment.baseUrl}/time/getProjectStartEnd/${projectId}`);
   }
 
-  getAllByProjectInDetail(projectId: number): Observable<Time[]> {
-    return this.http.get<Time[]>(`${environment.baseUrl}/time/allByProjectDetail/${projectId}`).pipe(map((times) => {
+  getAllByProjectInDetail(projectId: number, filter: any): Observable<Time[]> {
+    return this.http.get<Time[]>(`${environment.baseUrl}/time/allByProjectDetail/${projectId}`, {params: getHttpParams(filter)}).pipe(map((times) => {
       times.forEach(time => {
         const date = new Date(time.dateWork);
 
