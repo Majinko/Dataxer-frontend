@@ -65,7 +65,7 @@
           <ng-container matColumnDef="state">
             <th class="text-center" mat-header-cell *matHeaderCellDef> Stav</th>
             <td class="text-right" mat-cell *matCellDef="let element">
-              <app-element-paid-state [isPaid]="element.paymentDate != null" [dueAtDays]="element.dueAtDays" [price]="element.totalPrice" [sumPayments]="element.paymentPrice"></app-element-paid-state>
+              <app-element-paid-state [isPaid]="element.paymentDate != null" [dueAtDays]="element.dueAtDays" [price]="element.totalPrice | removePercent: element.discount" [sumPayments]="element.paymentPrice"></app-element-paid-state>
             </td>
           </ng-container>
 

@@ -1,24 +1,28 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {TimeService} from '../../../../../../core/services/time.service';
-import {Time} from '../../../../../../core/models/time';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { TimeService } from '../../../../../../core/services/time.service';
+import { Time } from '../../../../../../core/models/time';
 import * as lodash from 'lodash';
 import * as moment from 'moment';
-import {Moment} from 'moment';
+import { Moment } from 'moment';
+import { ProjectTimeFilterComponent } from './project-time-filter/project-time-filter.component';
 
 @Component({
   selector: 'app-project-time',
   templateUrl: './project-time.component.html',
   styleUrls: ['./project-time.component.scss']
 })
-export class ProjectTimeComponent  implements OnInit {
+export class ProjectTimeComponent implements OnInit {
   times: Time[] = [];
   totalTime: number = 0;
   totalPrice: number = 0;
   isLoadingResults: boolean = true;
   daysPriceTime: { time: number, price: number }[] = [];
-  months: { start: string, end: string, title: string } [] = [];
+  months: { start: string, end: string, title: string }[] = [];
   displayedColumns: string[] = ['dateWork', 'stats', 'person', 'description', 'category'];
+
+  @ViewChild(ProjectTimeFilterComponent, { static: false })
+  public filterRef: ProjectTimeFilterComponent | undefined;
 
   constructor(
     private route: ActivatedRoute,
@@ -30,8 +34,8 @@ export class ProjectTimeComponent  implements OnInit {
     this.getProjectTime();
   }
 
-  getProjectTime() {
-    this.timeService.getAllByProjectInDetail(+this.route.parent.snapshot.paramMap.get('id')).subscribe((times) => {
+  getProjectTime(filter?: any) {
+    this.timeService.getAllByProjectInDetail(+this.route.parent.snapshot.paramMap.get('id'), filter).subscribe((times) => {
       this.times = times;
       this.isLoadingResults = false;
 
@@ -83,6 +87,6 @@ export class ProjectTimeComponent  implements OnInit {
   private getMonthData = (momentData: moment.Moment): string => {
     const date = new Date(momentData.year(), momentData.month(), momentData.date());
 
-    return date.toLocaleString('default', {month: 'long'}) + ' ' + momentData.year();
+    return date.toLocaleString('default', { month: 'long' }) + ' ' + momentData.year();
   }
 }

@@ -24,6 +24,7 @@ import { ProjectBudgetSettingsComponent } from './project-budget/components/proj
 import { ProjectBudgetRefaktComponent } from './project-budget-refakt/project-budget-refakt.component';
 import { ProjectBudgetExpansionsPanelComponent } from './project-budget-refakt/components/project-budget-expansions-panel/project-budget-expansions-panel.component';
 import { ProjectBudgetPackTableComponent } from './project-budget-refakt/components/project-budget-pack-table/project-budget-pack-table.component';
+import { ProjectTimeFilterComponent } from './project-time/project-time-filter/project-time-filter.component';
 
 const routes: Routes = [
   {
@@ -71,6 +72,7 @@ const routes: Routes = [
     ProjectBudgetRefaktComponent,
     ProjectBudgetExpansionsPanelComponent,
     ProjectBudgetPackTableComponent,
+    ProjectTimeFilterComponent,
   ],
   imports: [
     NgApexchartsModule,
