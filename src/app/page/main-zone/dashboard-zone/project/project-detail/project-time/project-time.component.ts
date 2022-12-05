@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TimeService } from '../../../../../../core/services/time.service';
 import { Time } from '../../../../../../core/models/time';
@@ -6,6 +6,11 @@ import * as lodash from 'lodash';
 import * as moment from 'moment';
 import { Moment } from 'moment';
 import { ProjectTimeFilterComponent } from './project-time-filter/project-time-filter.component';
+import * as pdfMake from 'pdfmake/build/pdfmake';
+import * as pdfFonts from 'pdfmake/build/vfs_fonts';
+declare var require: any;
+const htmlToPdfmake = require('html-to-pdfmake');
+(<any> pdfMake).vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
   selector: 'app-project-time',
@@ -14,6 +19,7 @@ import { ProjectTimeFilterComponent } from './project-time-filter/project-time-f
 })
 export class ProjectTimeComponent implements OnInit {
   times: Time[] = [];
+  noPrint = true;
   totalTime: number = 0;
   totalPrice: number = 0;
   isLoadingResults: boolean = true;
@@ -21,6 +27,8 @@ export class ProjectTimeComponent implements OnInit {
   months: { start: string, end: string, title: string }[] = [];
   displayedColumns: string[] = ['dateWork', 'stats', 'person', 'description', 'category'];
 
+  @ViewChild('pdfTable')
+  pdfTable!: ElementRef;
   @ViewChild(ProjectTimeFilterComponent, { static: false })
   public filterRef: ProjectTimeFilterComponent | undefined;
 
@@ -87,5 +95,23 @@ export class ProjectTimeComponent implements OnInit {
     const date = new Date(momentData.year(), momentData.month(), momentData.date());
 
     return date.toLocaleString('default', { month: 'long' }) + ' ' + momentData.year();
+  }
+
+  downloadAsPDF() {
+    this.noPrint = false;
+    setTimeout(() => {
+      const pdfTable = this.pdfTable.nativeElement;
+      const html = htmlToPdfmake(pdfTable.innerHTML);
+      const documentDefinition = {
+        content: html,
+        defaultStyle: {
+          fontSize: 7,
+        },
+        pageOrientation: 'landscape'
+      };
+      // @ts-ignore
+      pdfMake.createPdf(documentDefinition).download();
+      this.noPrint = true;
+    }, 1);
   }
 }

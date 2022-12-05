@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Time } from '../../../../../core/models/time';
 import { Salary } from '../../../../../core/models/salary';
@@ -14,6 +14,11 @@ import {
   OverviewHoursPriceFilterComponent
 } from './components/overview-hours-price-filter/overview-hours-price-filter.component';
 import { OverviewService } from '../../../../../core/services/overview.service';
+import * as pdfMake from 'pdfmake/build/pdfmake';
+import * as pdfFonts from 'pdfmake/build/vfs_fonts';
+declare var require: any;
+const htmlToPdfmake = require('html-to-pdfmake');
+(<any> pdfMake).vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
   selector: 'app-overview-hours-price',
@@ -23,6 +28,7 @@ import { OverviewService } from '../../../../../core/services/overview.service';
 export class OverviewHoursPriceComponent implements OnInit, AfterViewInit {
   salary: Salary;
   times: Time[] = [];
+  noPrint = true;
   pageSize: number = 15;
   pageIndex: number = 0;
   totalElements!: number;
@@ -32,6 +38,9 @@ export class OverviewHoursPriceComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['user', 'dateWork', 'stats', 'project', 'description', 'category'];
   @ViewChild(MatPaginator, { static: false }) paginator!: MatPaginator;
   @ViewChild(MatTable) table!: MatTable<Time>;
+
+  @ViewChild('pdfTable')
+  pdfTable!: ElementRef;
 
   @ViewChild(OverviewHoursPriceFilterComponent, { static: false })
   public filterRef: OverviewHoursPriceFilterComponent | undefined;
@@ -104,5 +113,23 @@ export class OverviewHoursPriceComponent implements OnInit, AfterViewInit {
         this.daysPriceTime[time.day].price += time.price;
       }
     });
+  }
+
+  downloadAsPDF() {
+    this.noPrint = false;
+    setTimeout(() => {
+      const pdfTable = this.pdfTable.nativeElement;
+      const html = htmlToPdfmake(pdfTable.innerHTML);
+      const documentDefinition = {
+        content: html,
+        defaultStyle: {
+          fontSize: 7,
+        },
+        pageOrientation: 'landscape'
+      };
+      // @ts-ignore
+      pdfMake.createPdf(documentDefinition).download();
+      this.noPrint = true;
+    }, 1);
   }
 }

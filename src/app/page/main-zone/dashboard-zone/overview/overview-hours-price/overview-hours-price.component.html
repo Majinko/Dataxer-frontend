@@ -1,12 +1,18 @@
 <h1 class="mt-4">Prehľad časov</h1>
+<div class="d-flex align-items-center justify-content-between">
+  <h3 class="text-gray m-0 pr-3">
+    Čas sumarizacia: <span class="text-theme"></span><span class="text-theme">{{(totalTime | timeFromTimestamp) + '
+      h'}}</span>
+  </h3>
+  <button mat-flat-button color="primary" class="btn-icon btn-theme" (click)="downloadAsPDF();">
+    <mat-icon> picture_as_pdf </mat-icon>
+    Export do PDF
+  </button>
+</div>
 <app-overview-hours-price-filter #flterRef (onFilter)="paginate(flterRef.formGroup.value)">
 </app-overview-hours-price-filter>
-<h3 class="text-gray mb-3">
-  Čas sumarizacia: <span class="text-theme"></span><span class="text-theme">{{(totalTime | timeFromTimestamp) + '
-    h'}}</span>
-</h3>
 <div class="table-wrap">
-  <div class="position-relative table-scroll">
+  <div class="position-relative table-scroll" id="pdfTable" #pdfTable>
     <div class="loading-shade" *ngIf="isLoadingResults">
       <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
     </div>
@@ -18,7 +24,7 @@
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let element">
           <div class="d-flex align-items-center">
-            <ngx-avatar [src]="element.user?.photoUrl" size="30"
+            <ngx-avatar *ngIf="noPrint" [src]="element.user?.photoUrl" size="30"
               name="{{element.user.firstName + ' ' + element.user.lastName}}"></ngx-avatar>
             <span class="pl-2">{{element.user.firstName + ' ' + element.user.lastName}}</span>
           </div>
@@ -33,8 +39,7 @@
 
             <b>
               <ng-container *ngIf="daysPriceTime[element.day].price">{{daysPriceTime[element.day].price |
-                currency:'EUR':'symbol'}} /</ng-container> {{(daysPriceTime[element.day].time | timeFromTimestamp) + '
-              h'}}
+                currency:'EUR':'symbol'}} /</ng-container> {{(daysPriceTime[element.day].time | timeFromTimestamp) + '&nbsp;h'}}
             </b>
           </span>
         </td>
@@ -46,10 +51,9 @@
 
           <span *ngIf="element.price != null; else flatPrice">
             <ng-container *ngIf="daysPriceTime[element.day].price">{{daysPriceTime[element.day].price |
-              currency:'EUR':'symbol'}} /</ng-container>
-            {{(element.time | timeFromTimestamp) + ' h'}}
+              currency:'EUR':'symbol'}} /</ng-container> {{(element.time | timeFromTimestamp) + '&nbsp;h'}}
           </span>
-          <ng-template #flatPrice>{{(element.time | timeFromTimestamp) + ' h'}}</ng-template>
+          <ng-template #flatPrice>{{(element.time | timeFromTimestamp) + '&nbsp;h'}}</ng-template>
         </td>
       </ng-container>
 
@@ -78,8 +82,8 @@
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
-    <mat-paginator (page)="paginate(flterRef.formGroup.value)" [pageSizeOptions]="[10, 15, 20, 100]"
-      [length]="totalElements" [pageSize]="pageSize">
-    </mat-paginator>
   </div>
+  <mat-paginator (page)="paginate(flterRef.formGroup.value)" [pageSizeOptions]="[10, 15, 20, 100]"
+                 [length]="totalElements" [pageSize]="pageSize">
+  </mat-paginator>
 </div>
