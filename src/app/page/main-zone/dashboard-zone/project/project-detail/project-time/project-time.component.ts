@@ -1,6 +1,6 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { TimeService } from '../../../../../../core/services/time.service';
+import { TimeService } from '../../../time/time.service';
 import { Time } from '../../../../../../core/models/time';
 import * as lodash from 'lodash';
 import * as moment from 'moment';

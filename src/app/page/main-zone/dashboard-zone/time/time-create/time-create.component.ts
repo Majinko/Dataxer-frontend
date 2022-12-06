@@ -4,7 +4,7 @@ import {APP_DATE_FORMATS, timeRange} from '../../../../../../helper';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import {MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter} from '@angular/material-moment-adapter';
 import {AddPercentPipe} from '../../../../../core/pipes/add-percent.pipe';
-import {TimeService} from '../../../../../core/services/time.service';
+import {TimeService} from '../time.service';
 import {MessageService} from '../../../../../core/services/message.service';
 import {Router} from '@angular/router';
 import {UserService} from '../../../../../core/services/user.service';

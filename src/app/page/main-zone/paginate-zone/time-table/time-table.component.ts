@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, LOCALE_ID, OnDestroy, OnInit} from '@angular/core';
-import {TimeService} from '../../../../core/services/time.service';
+import {TimeService} from '../../dashboard-zone/time/time.service';
 import {Time} from '../../../../core/models/time';
 import {merge} from 'rxjs';
 import {map, startWith, switchMap} from 'rxjs/operators';

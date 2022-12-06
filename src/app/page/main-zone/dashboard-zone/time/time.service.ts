@@ -1,14 +1,14 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
-import {ProjectStartEnd, Time} from '../models/time';
+import {ProjectStartEnd, Time} from '../../../../core/models/time';
 import {Observable} from 'rxjs';
-import {environment} from '../../../environments/environment';
-import {Project} from '../models/project';
-import {CategoryItemNode} from '../models/category-item-node';
-import {DocumentFilter} from '../models/filters/document-filter';
+import {environment} from '../../../../../environments/environment';
+import {Project} from '../../../../core/models/project';
+import {CategoryItemNode} from '../../../../core/models/category-item-node';
+import {DocumentFilter} from '../../../../core/models/filters/document-filter';
 import {map} from 'rxjs/operators';
-import {IPaginate} from '../interface/IPaginate';
-import {getHttpParams} from "../../../helper";
+import {IPaginate} from '../../../../core/interface/IPaginate';
+import {getHttpParams} from "../../../../../helper";
 
 @Injectable({
   providedIn: 'root'

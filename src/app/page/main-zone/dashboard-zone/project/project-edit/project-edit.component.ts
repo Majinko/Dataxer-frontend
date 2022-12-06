@@ -10,7 +10,7 @@ import {APP_DATE_FORMATS} from '../../../../../../helper';
 import {AddPercentPipe} from '../../../../../core/pipes/add-percent.pipe';
 import {CategoryService} from '../../../../../core/services/category.service';
 import {CategoryItemNode} from '../../../../../core/models/category-item-node';
-import {TimeService} from '../../../../../core/services/time.service';
+import {TimeService} from '../../time/time.service';
 
 @Component({
   selector: 'app-project-edit',
