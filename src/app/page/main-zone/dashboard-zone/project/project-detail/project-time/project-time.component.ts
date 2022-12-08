@@ -31,7 +31,6 @@ export class ProjectTimeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getProjectTime();
   }
 
   getProjectTime(filter?: any) {
