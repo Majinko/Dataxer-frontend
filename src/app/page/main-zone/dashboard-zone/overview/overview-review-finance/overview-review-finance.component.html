@@ -28,17 +28,15 @@
                 </mat-panel-title>
             </mat-expansion-panel-header>
             <mat-accordion #accord="matAccordion" [multi]="true" class="mb-2">
-                <button mat-button class="mb-2" (click)="toggle(accord, item)">
+                <button mat-icon-button class="mb-2 accord-button" (click)="toggle(accord, item)">
                     <ng-container *ngIf="!item.showed">
                         <mat-icon>unfold_more</mat-icon>
-                        Zobraziť všetko
                     </ng-container>
                     <ng-container *ngIf="item.showed">
                         <mat-icon>unfold_less</mat-icon>
-                        Skryť všetko
                     </ng-container>
                 </button>
-                <mat-expansion-panel *ngFor="let data of item.data | keyvalue;let i = index">
+                <mat-expansion-panel *ngFor="let data of item.data | keyvalue" [expanded]="item.showed">
                     <mat-expansion-panel-header>
                         <mat-panel-title>
                             {{data.key}}

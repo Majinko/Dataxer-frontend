@@ -60,9 +60,15 @@ export class OverviewReviewFinanceComponent implements OnInit {
   toggleAccord() {
     if (this.toogleAccord) {
       this.toogleAccord = false;
+      this.reviewFinance.forEach( f => {
+        f.showed = false;
+      })
       this.accordion.closeAll();
     } else {
       this.toogleAccord = true;
+      this.reviewFinance.forEach( f => {
+        f.showed = true;
+      })
       this.accordion.openAll();
     }
   }
