@@ -20,6 +20,8 @@ import { OverviewFirmsComponent } from './overview-firms/overview-firms.componen
 import { OverviewTimeDailyComponent } from './overview-time-daily/overview-time-daily.component';
 import { OverviewHoursPriceComponent } from './overview-hours-price/overview-hours-price.component';
 import { OverviewHoursPriceFilterComponent } from './overview-hours-price/components/overview-hours-price-filter/overview-hours-price-filter.component';
+import { OverviewReviewFinanceComponent } from './overview-review-finance/overview-review-finance.component';
+import { OverviewReviewFinanceTableComponent } from './overview-review-finance/components/overview-review-finance-table/overview-review-finance-table.component';
 
 const routes: Routes = [
   {
@@ -53,6 +55,10 @@ const routes: Routes = [
       {
         path: 'hours-price',
         component: OverviewHoursPriceComponent
+      },
+      {
+        path: 'year-review-finance',
+        component: OverviewReviewFinanceComponent
       }
     ]
   }
@@ -71,7 +77,9 @@ const routes: Routes = [
     OverviewFirmsComponent,
     OverviewTimeDailyComponent,
     OverviewHoursPriceComponent,
-    OverviewHoursPriceFilterComponent
+    OverviewHoursPriceFilterComponent,
+    OverviewReviewFinanceComponent,
+    OverviewReviewFinanceTableComponent,
   ],
     imports: [
         CommonModule,

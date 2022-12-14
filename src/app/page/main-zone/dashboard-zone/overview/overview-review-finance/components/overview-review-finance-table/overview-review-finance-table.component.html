@@ -1,0 +1,51 @@
+<div *ngIf="!isLoad; else loading" class="position-relative table-scroll table-fixed-col mt-4 w-100">
+  <table class="table-show-data table-default w-100 border-bottom" *ngIf="categoryCostsOverview.length; else emptyList">
+    <thead>
+    <tr>
+      <th class="table-fixed-col text-left"><span>Kategória</span></th>
+      <th class="text-center white-space-nowrap">
+        Spolu <br>
+        {{categoryCostsOverview.totalCosts | currency:'EUR':'symbol'}}
+      </th>
+      <th class="text-center" *ngFor="let month of months; let index = index">
+        {{skMonths[index]}} <br>
+      </th>
+    </tr>
+    </thead>
+    <tbody class="table-border table-row">
+    <ng-template #recursiveTable let-list let-parent="categoryParent">
+      <ng-container *ngFor="let categoryMonth of list">
+        <tr [classList]="categoryMonth.cssClass">
+          <td class="table-fixed-col text-left white-space-nowrap" [style.padding-left]="getPadding(categoryMonth)">
+              <span><button mat-icon-button aria-label="Example icon button with a vertical three dot icon" [class.invisible]="!categoryMonth.hasChildren"  (click)="loadData(categoryMonth)">
+                <mat-icon>{{categoryMonth.isOpen ? 'keyboard_arrow_down' : 'navigate_next'}}</mat-icon>
+              </button>
+                {{categoryMonth.categoryName}}</span>
+          </td>
+          <td class="text-center">
+            <strong>{{categoryMonth.categoryTotalPrice | currency:'EUR':'symbol'}}</strong>
+          </td>
+          <td  *ngFor="let month of months; let index = index">
+            <b>{{(+categoryMonth.totalMonthsCosts[index + 1] | currency:'EUR':'symbol') || 0}} </b>
+          </td>
+        </tr>
+        <ng-container *ngIf="categoryMonth.children?.length > 0">
+          <ng-container *ngTemplateOutlet="recursiveTable; context:{ $implicit: categoryMonth.children, categoryParent: categoryMonth.categoryId }"></ng-container>
+        </ng-container>
+      </ng-container>
+    </ng-template>
+
+    <ng-container [ngTemplateOutlet]="recursiveTable"  [ngTemplateOutletContext]="{$implicit: categoryCostsOverview}"></ng-container>
+    </tbody>
+  </table>
+
+  <ng-template #emptyList>
+    <p>Žiadne dáta</p>
+  </ng-template>
+</div>
+
+<ng-template #loading>
+  <div class="w-100 d-flex justify-content-center mt-5 pt-5">
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-template>

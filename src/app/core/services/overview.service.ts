@@ -25,6 +25,10 @@ export class OverviewService {
     return this.http.get<CategoryCostsOverview>(`${environment.baseUrl}/overview/costsOverview?year=${year}${parentId ? `&parentId=${parentId}` : ''}`);
   }
 
+  getReviewFinance(year): Observable<any[]> {
+    return this.http.get<any[]>(`${environment.baseUrl}/overview/yearReviewFinance?year=${year}`);
+  }
+
   paginateFilter(page: number, size: number, filter: any): Observable<any> {
     return this.http
       .get<any>(`${environment.baseUrl}/overview/usersDailyOverview?pageNumber=${page}&pageSize=${size}`, {params: getHttpParams(filter)})

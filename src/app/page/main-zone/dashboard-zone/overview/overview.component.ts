@@ -51,20 +51,25 @@ export class OverviewComponent implements OnInit, OnDestroy {
         link: '/overview/charts',
         index: 3
       },
-      {
-        label: 'Celkový prehľad spoločností',
-        link: '/overview/firms',
-        index: 4
-      },
-      {
-        label: 'Denný prehľad',
-        link: '/overview/daily',
-        index: 5
-      },
+      // {
+      //   label: 'Celkový prehľad spoločností',
+      //   link: '/overview/firms',
+      //   index: 4
+      // },
+      // {
+      //   label: 'Denný prehľad',
+      //   link: '/overview/daily',
+      //   index: 5
+      // },
       {
         label: 'Hodiny cena',
         link: '/overview/hours-price',
         index: 6
+      },
+      {
+        label: 'Prehľad financií',
+        link: '/overview/year-review-finance',
+        index: 7
       },
     ];
   }
