@@ -49,6 +49,7 @@ export class ContactCreateComponent implements OnInit {
     this.isSubmit = true;
 
     if (this.contactForm.invalid) {
+      this.messageService.add('Skontrolujte povinné položky');
       return;
     }
 

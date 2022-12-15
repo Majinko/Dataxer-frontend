@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {TimeService} from '../../../../../../core/services/time.service';
+import {TimeService} from '../../../time/time.service';
 import {InvoiceService} from '../../../../../../core/services/invoice.service';
 import {CostService} from '../../../../../../core/services/cost.service';
 import {Time} from '../../../../../../core/models/time';

@@ -1,21 +1,23 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewChecked, ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {APP_DATE_FORMATS, timeRange} from '../../../../../../helper';
+import {APP_DATE_FORMATS} from '../../../../../../helper';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import {MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter} from '@angular/material-moment-adapter';
 import {AddPercentPipe} from '../../../../../core/pipes/add-percent.pipe';
-import {TimeService} from '../../../../../core/services/time.service';
+import {TimeService} from '../time.service';
 import {MessageService} from '../../../../../core/services/message.service';
 import {Router} from '@angular/router';
 import {UserService} from '../../../../../core/services/user.service';
 import {ProjectService} from 'src/app/core/services/project.service';
-import {NewCategorySelectComponent} from 'src/app/theme/component/new-category-select/new-category-select.component';
 import {StrftimePipe} from '../../../../../core/pipes/strftime.pipe';
 import {Project} from '../../../../../core/models/project';
 import {CategoryItemNode} from '../../../../../core/models/category-item-node';
 import {MatRadioButton} from '@angular/material/radio';
 import {TimeHelperClass} from '../../../../../core/class/TimeHelperClass';
 import {CategoryService} from '../../../../../core/services/category.service';
+import {
+  CategorySelectGroupComponent
+} from '../../../../../theme/component/category-select-group/category-select-group.component';
 
 @Component({
   selector: 'app-time-create',
@@ -36,15 +38,14 @@ import {CategoryService} from '../../../../../core/services/category.service';
     StrftimePipe
   ],
 })
-export class TimeCreateComponent extends TimeHelperClass implements OnInit {
+export class TimeCreateComponent extends TimeHelperClass implements OnInit, AfterViewChecked {
   formGroup: FormGroup;
-  timeRange: { timesForHuman: string; timesForPc: string }[] = timeRange();
   filteredOptions: string[];
   isSubmit: boolean = false;
   lastProjects: Project[];
   lastCategories: CategoryItemNode[];
 
-  @ViewChild('categorySelect') categorySelect: NewCategorySelectComponent;
+  @ViewChild('categorySelect') categorySelect: CategorySelectGroupComponent;
   @ViewChild('radioCategories') radioSelect: MatRadioButton;
   @ViewChild('radioProjects') radioProjects: MatRadioButton;
 
@@ -56,7 +57,8 @@ export class TimeCreateComponent extends TimeHelperClass implements OnInit {
     private projectService: ProjectService,
     private router: Router,
     private categoryService: CategoryService,
-    private strftimePipe: StrftimePipe
+    private strftimePipe: StrftimePipe,
+    private cdr: ChangeDetectorRef
   ) {
     super();
   }
@@ -67,6 +69,10 @@ export class TimeCreateComponent extends TimeHelperClass implements OnInit {
     this.getLastUsersProject();
     this.changeProjectGetCategories();
     this.handleFormChange();
+  }
+
+  ngAfterViewChecked(): void {
+    this.cdr.detectChanges();
   }
 
   prepareForm() {
@@ -162,7 +168,6 @@ export class TimeCreateComponent extends TimeHelperClass implements OnInit {
       } else {
         this.formGroup.patchValue({category: null});
       }
-
       this.categorySelect.categoryItemNodes = categories;
     });
   }
@@ -177,15 +182,6 @@ export class TimeCreateComponent extends TimeHelperClass implements OnInit {
 
   setCategory(category: CategoryItemNode) {
     this.formGroup.patchValue({category});
-  }
-
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
-    const regex = new RegExp(filterValue + '.*', 'g');
-
-    return this.timeRange.filter(range => range.timesForPc.replace(':', '').match(regex)).map(range => {
-      return range.timesForHuman;
-    });
   }
 
   submit() {

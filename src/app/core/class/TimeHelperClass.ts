@@ -1,5 +1,7 @@
 import {AbstractControl} from '@angular/forms';
 import * as moment from 'moment';
+import {timeRange} from '../../../helper';
+import {Injectable} from '@angular/core';
 
 export interface TimeData {
   dateWork: string;
@@ -8,7 +10,9 @@ export interface TimeData {
   time: number;
 }
 
+@Injectable()
 export class TimeHelperClass {
+  timeRange: { timesForHuman: string; timesForPc: string }[] = timeRange();
   private: TimeData;
 
   /**
@@ -36,5 +40,14 @@ export class TimeHelperClass {
     const rounded = new Date(Math.round(date.getTime() / coefficient) * coefficient);
 
     return moment(rounded).format('HH:mm');
+  }
+
+  protected _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+    const regex = new RegExp(filterValue + '.*', 'g');
+
+    return this.timeRange.filter(range => range.timesForPc.replace(':', '').match(regex)).map(range => {
+      return range.timesForHuman;
+    });
   }
 }

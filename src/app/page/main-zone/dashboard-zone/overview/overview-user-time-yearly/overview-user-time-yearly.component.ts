@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {OverviewService} from '../../../../../core/services/overview.service';
-import {TimeService} from '../../../../../core/services/time.service';
+import {TimeService} from '../../time/time.service';
 import {UserYearlyOverview} from '../../../../../core/models/overview';
 
 @Component({

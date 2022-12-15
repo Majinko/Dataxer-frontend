@@ -1,15 +1,22 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewChecked, ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {TimeService} from '../../../../../core/services/time.service';
+import {TimeService} from '../time.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import {MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter} from '@angular/material-moment-adapter';
-import {APP_DATE_FORMATS, timeRange} from '../../../../../../helper';
+import {APP_DATE_FORMATS} from '../../../../../../helper';
 import {AddPercentPipe} from '../../../../../core/pipes/add-percent.pipe';
 import {MessageService} from '../../../../../core/services/message.service';
 import {Time} from '../../../../../core/models/time';
 import strftime from 'strftime';
 import {TimeHelperClass} from '../../../../../core/class/TimeHelperClass';
+import {Project} from '../../../../../core/models/project';
+import {CategoryService} from '../../../../../core/services/category.service';
+import {ProjectService} from '../../../../../core/services/project.service';
+import {CategoryItemNode} from '../../../../../core/models/category-item-node';
+import {
+  CategorySelectGroupComponent
+} from '../../../../../theme/component/category-select-group/category-select-group.component';
 
 @Component({
   selector: 'app-time-edit',
@@ -29,25 +36,34 @@ import {TimeHelperClass} from '../../../../../core/class/TimeHelperClass';
     AddPercentPipe
   ],
 })
-export class TimeEditComponent extends TimeHelperClass implements OnInit {
+export class TimeEditComponent extends TimeHelperClass implements OnInit, AfterViewChecked {
   formGroup: FormGroup;
   time: Time;
   isSubmit: boolean = false;
   filteredOptions: string[];
-  timeRange: { timesForHuman: string; timesForPc: string }[] = timeRange();
+  lastCategories: CategoryItemNode[];
+
+  @ViewChild('categorySelect') categorySelect: CategorySelectGroupComponent;
 
   constructor(
     private formBuilder: FormBuilder,
     private timeService: TimeService,
     private messageService: MessageService,
     private route: ActivatedRoute,
-    private router: Router
+    private categoryService: CategoryService,
+    private projectService: ProjectService,
+    private router: Router,
+    private cdr: ChangeDetectorRef
   ) {
     super();
   }
 
   ngOnInit(): void {
     this.prepareForm();
+  }
+
+  ngAfterViewChecked(): void {
+    this.cdr.detectChanges();
   }
 
   search(value: string) {
@@ -70,20 +86,41 @@ export class TimeEditComponent extends TimeHelperClass implements OnInit {
         km: t.km
       });
 
+      this.changeProjectGetCategories();
       this.time = t;
 
       if (t.project === null) {
         this.formGroup.get('project').patchValue({id: null, title: 'Firemný čas'});
+      } else {
+        this.getProjectCategories(t.project);
       }
     });
   }
 
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
-    const regex = new RegExp(filterValue + '.*', 'g');
+  public changeProjectGetCategories() {
+    this.f.project.valueChanges.subscribe((project) => {
+      if (project?.id) {
+        this.getProjectCategories(project);
+      } else {
+        this.allTimeCategoryForCompany();
+      }
+    });
+  }
 
-    return this.timeRange.filter(range => range.timesForPc.replace(':', '').match(regex)).map(range => {
-      return range.timesForHuman;
+  private getProjectCategories(project: Project) {
+    // ak sa zapisuje cas do ukonceneho projektu, beru sa len kategorie ktore maju type TIME_AFTER_PROJECT_END
+    this.projectService.getCategories(project.id, project.isProjectFinish ? 'TIME_AFTER_PROJECT_END' : null).subscribe(categories => {
+      setTimeout(() => {
+        this.categorySelect.categoryItemNodes = categories;
+      }, 1);
+    });
+  }
+
+  allTimeCategoryForCompany() {
+    this.categoryService.allTimeCategoryForCompany().subscribe((nestedCategories) => {
+      this.formGroup.patchValue({category: null});
+      this.lastCategories = [];
+      this.categorySelect.categoryItemNodes = nestedCategories;
     });
   }
 

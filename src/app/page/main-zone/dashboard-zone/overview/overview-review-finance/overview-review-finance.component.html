@@ -1,0 +1,58 @@
+<div class="row my-3 justify-content-start" *ngIf="years">
+    <div class="col-md-4 col-lg-2">
+        <ng-select [items]="years" [clearable]="false" [(ngModel)]="year" (ngModelChange)="getData()" placeholder="Rok"
+            class="filter-ng-select">
+            <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+                <div><span>{{item}}</span></div>
+            </ng-template>
+        </ng-select>
+    </div>
+</div>
+
+<div *ngIf="!isLoad; else loading">
+    <button class="mb-2" mat-button (click)="toggleAccord()">
+        <ng-container *ngIf="!toogleAccord">
+            <mat-icon>unfold_more</mat-icon>
+            Zobraziť všetko
+        </ng-container>
+        <ng-container *ngIf="toogleAccord">
+            <mat-icon>unfold_less</mat-icon>
+            Skryť všetko
+        </ng-container>
+    </button>
+    <mat-accordion [multi]="true">
+        <mat-expansion-panel *ngFor="let item of reviewFinance">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    {{item.categoryGroup}}
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-accordion #accord="matAccordion" [multi]="true" class="mb-2">
+                <button mat-button class="mb-2" (click)="toggle(accord, item)">
+                    <ng-container *ngIf="!item.showed">
+                        <mat-icon>unfold_more</mat-icon>
+                        Zobraziť všetko
+                    </ng-container>
+                    <ng-container *ngIf="item.showed">
+                        <mat-icon>unfold_less</mat-icon>
+                        Skryť všetko
+                    </ng-container>
+                </button>
+                <mat-expansion-panel *ngFor="let data of item.data | keyvalue;let i = index">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            {{data.key}}
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <app-overview-review-finance-table [data]="data.value"></app-overview-review-finance-table>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </mat-expansion-panel>
+    </mat-accordion>
+</div>
+
+<ng-template #loading>
+    <div class="w-100 d-flex justify-content-center mt-5 pt-5">
+        <mat-spinner></mat-spinner>
+    </div>
+</ng-template>

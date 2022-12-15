@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {TimeService} from '../../../../../core/services/time.service';
+import {TimeService} from '../../../../main-zone/dashboard-zone/time/time.service';
 import {ActivatedRoute} from '@angular/router';
 
 @Component({
