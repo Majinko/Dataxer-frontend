@@ -24,7 +24,7 @@
         <mat-expansion-panel *ngFor="let item of reviewFinance">
             <mat-expansion-panel-header>
                 <mat-panel-title>
-                    {{item.categoryGroup}}
+                    <span class="mr-3">{{item.categoryGroup}}</span> <strong>{{item.totalPrice | currency:'EUR':'symbol'}}</strong>
                 </mat-panel-title>
             </mat-expansion-panel-header>
             <mat-accordion #accord="matAccordion" [multi]="true" class="mb-2">
@@ -36,13 +36,13 @@
                         <mat-icon>unfold_less</mat-icon>
                     </ng-container>
                 </button>
-                <mat-expansion-panel *ngFor="let data of item.data | keyvalue" [expanded]="item.showed">
+                <mat-expansion-panel *ngFor="let data of item.categoryGroupDetailOverview" [expanded]="item.showed">
                     <mat-expansion-panel-header>
                         <mat-panel-title>
-                            {{data.key}}
+                            <span class="mr-3">{{data.type}}</span> <strong>{{data.totalPrice | currency:'EUR':'symbol'}}</strong>
                         </mat-panel-title>
                     </mat-expansion-panel-header>
-                    <app-overview-review-finance-table [data]="data.value"></app-overview-review-finance-table>
+                    <app-overview-review-finance-table [data]="data.data"></app-overview-review-finance-table>
                 </mat-expansion-panel>
             </mat-accordion>
         </mat-expansion-panel>

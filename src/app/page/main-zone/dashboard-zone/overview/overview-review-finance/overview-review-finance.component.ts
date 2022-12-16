@@ -40,7 +40,6 @@ export class OverviewReviewFinanceComponent implements OnInit {
       this.isLoad = false;
       this.reviewFinance = response;
       setTimeout(() => {
-        console.log(this.accordion);
         this.accordion.openAll();
       }, 1);
     });
