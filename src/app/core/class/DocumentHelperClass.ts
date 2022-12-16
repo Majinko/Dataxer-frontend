@@ -60,6 +60,12 @@ export abstract class DocumentHelperClass {
         });
       }
     }
+
+    if (this.formGroup.get('project') && this.documentType === 'COST') {
+      this.formGroup.get('project').valueChanges.subscribe((project) => {
+        this.formGroup.get('isInternal').patchValue(project.id === null, {emitEvent: false});
+      });
+    }
   }
 
   // get default bank account
