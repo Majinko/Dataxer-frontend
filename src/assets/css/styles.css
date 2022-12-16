@@ -1464,6 +1464,26 @@ app-project-table .table-wrap .table-data th.th-wrap strong {
   color: rgba(0, 0, 0, 0.87);
 }
 
+app-overview-review-finance .accord-button {
+  display: none;
+  position: absolute;
+  left: 0;
+  top: -52px;
+  z-index: 10;
+}
+app-overview-review-finance .mat-expansion-panel-body {
+  position: relative;
+}
+app-overview-review-finance .mat-expansion-panel-body .mat-expansion-panel-header {
+  padding-left: 24px;
+}
+app-overview-review-finance .mat-expanded .accord-button {
+  display: inline-block;
+}
+app-overview-review-finance .mat-expansion-panel-header {
+  padding-left: 40px;
+}
+
 .todolists-wrap {
   padding-top: 20px;
   max-width: 800px;
