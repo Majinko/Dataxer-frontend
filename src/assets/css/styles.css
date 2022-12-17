@@ -1477,11 +1477,21 @@ app-overview-review-finance .mat-expansion-panel-body {
 app-overview-review-finance .mat-expansion-panel-body .mat-expansion-panel-header {
   padding-left: 24px;
 }
+app-overview-review-finance .mat-expansion-panel-body .mat-expansion-panel-header .mat-expansion-panel-header-title {
+  margin-right: 16px;
+}
 app-overview-review-finance .mat-expanded .accord-button {
   display: inline-block;
 }
 app-overview-review-finance .mat-expansion-panel-header {
   padding-left: 40px;
+}
+app-overview-review-finance .mat-expansion-panel-header-title {
+  margin-right: 39px;
+}
+app-overview-review-finance .mat-expansion-panel-header-title strong {
+  margin-left: auto;
+  font-weight: 600;
 }
 
 .todolists-wrap {

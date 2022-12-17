@@ -407,6 +407,9 @@ app-overview-review-finance {
     position: relative;
     .mat-expansion-panel-header {
       padding-left: 24px;
+      .mat-expansion-panel-header-title {
+        margin-right: 16px;
+      }
     }
   }
   .mat-expanded {
@@ -418,4 +421,12 @@ app-overview-review-finance {
     padding-left: 40px;
     
   }
+  .mat-expansion-panel-header-title {
+    margin-right: 39px;
+    strong {
+      margin-left: auto;
+      font-weight: 600;
+    }
+  }
 }
+
