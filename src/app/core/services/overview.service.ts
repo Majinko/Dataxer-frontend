@@ -25,6 +25,10 @@ export class OverviewService {
     return this.http.get<CategoryCostsOverview>(`${environment.baseUrl}/overview/costsOverview?year=${year}${parentId ? `&parentId=${parentId}` : ''}`);
   }
 
+  getReviewFinanceCategoryData(parentId: number = null, year: number, type: string): Observable<CategoryCostsOverview> {
+    return this.http.get<CategoryCostsOverview>(`${environment.baseUrl}/overview/yearReviewFinanceCategoryData?year=${year}${parentId ? `&parentId=${parentId}` : ''}${type ? `&documentType=${type}` : 'COST'}`);
+  }
+
   getReviewFinance(year): Observable<any[]> {
     return this.http.get<any[]>(`${environment.baseUrl}/overview/yearReviewFinance?year=${year}`);
   }

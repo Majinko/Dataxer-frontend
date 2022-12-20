@@ -37,7 +37,7 @@ export class OverviewReviewFinanceTableComponent implements OnInit {
 
     if (!categoryMonth.children) {
       this.isLoad = true;
-      this.overviewService.getCostsOverview(categoryMonth.categoryId, this.year).subscribe(response => {
+      this.overviewService.getReviewFinanceCategoryData(categoryMonth.categoryId, this.year, categoryMonth.documentType).subscribe(response => {
         this.isLoad = false;
         categoryMonth.children = response.categoryMonthsCostsDTOS;
       });
