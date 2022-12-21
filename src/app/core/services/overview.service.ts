@@ -21,7 +21,7 @@ export class OverviewService {
     return this.http.get<UserYearlyOverview[]>(`${environment.baseUrl}/overview/userYearsOverview`);
   }
 
-  getCostsOverview(parentId: number = null, year): Observable<CategoryCostsOverview> {
+  getCostsOverview(parentId: number = null, year: number): Observable<CategoryCostsOverview> {
     return this.http.get<CategoryCostsOverview>(`${environment.baseUrl}/overview/costsOverview?year=${year}${parentId ? `&parentId=${parentId}` : ''}`);
   }
 
@@ -29,7 +29,11 @@ export class OverviewService {
     return this.http.get<CategoryCostsOverview>(`${environment.baseUrl}/overview/yearReviewFinanceCategoryData?year=${year}${parentId ? `&parentId=${parentId}` : ''}${type ? `&documentType=${type}` : 'COST'}`);
   }
 
-  getReviewFinance(year): Observable<any[]> {
+  getReviewFinanceAdditionalData(year: number): Observable<any[]> {
+    return this.http.get<any[]>(`${environment.baseUrl}/overview/yearReviewFinanceAdditionalData?year=${year}`);
+  }
+
+  getReviewFinance(year: number): Observable<any[]> {
     return this.http.get<any[]>(`${environment.baseUrl}/overview/yearReviewFinance?year=${year}`);
   }
 

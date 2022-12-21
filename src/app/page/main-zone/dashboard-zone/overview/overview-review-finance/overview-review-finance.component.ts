@@ -11,11 +11,13 @@ import {CategoryCostsOverview} from '../../../../../core/models/overview';
 })
 export class OverviewReviewFinanceComponent implements OnInit {
   isLoad: boolean = true;
+  isLoadAdditionalData: boolean = false;
   months: number[] = new Array(12);
   year: number = new Date().getFullYear();
   years: number[] = [];
   reviewFinance = [];
-  toogleAccord = true;
+  additionalData;
+  toogleAccord = false;
 
   @ViewChild(MatAccordion) accordion: MatAccordion;
 
@@ -36,6 +38,7 @@ export class OverviewReviewFinanceComponent implements OnInit {
   }
 
   getData() {
+    this.isLoad = true;
     this.overviewService.getReviewFinance(this.year).subscribe(response => {
       this.isLoad = false;
       this.reviewFinance = response;
@@ -43,6 +46,11 @@ export class OverviewReviewFinanceComponent implements OnInit {
         this.accordion.openAll();
       }, 1);
     });
+    this.isLoadAdditionalData = false;
+    this.overviewService.getReviewFinanceAdditionalData(this.year).subscribe(response => {
+      this.additionalData = response;
+      this.isLoadAdditionalData = true;
+     });
   }
 
   toggle(panel: any, item: any) {
