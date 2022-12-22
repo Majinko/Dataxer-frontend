@@ -19,9 +19,7 @@ import {CategoryHelper} from '../../../../../../core/class/CategoryHelper';
 import {ChecklistDatabase} from '../../../../../../core/class/CheckListDatabase';
 import {MatDialog} from '@angular/material/dialog';
 import {ConfirmDialogComponent} from '../../../../../../theme/component/confirm-dialog/confirm-dialog.component';
-import firebase from 'firebase';
 import {HttpClient} from '@angular/common/http';
-import {environment} from '../../../../../../../environments/environment';
 
 @Component({
   selector: 'app-category-tree',
