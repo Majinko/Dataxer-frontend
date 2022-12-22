@@ -30,6 +30,7 @@ export interface CategoryMonthsCosts {
   categoryDepth: number;
   totalMonthsCosts: { key: number, value: number }[];
   categoryTotalPrice: number;
+  documentType: string;
   hasChildren: boolean;
   cssClass: string;
   isOpen: boolean | true;
