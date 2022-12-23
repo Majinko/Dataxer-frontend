@@ -31,17 +31,15 @@
     <div class="col-md-4">
         <div>
             <p class="mb-0">Celková bilancia nákladov: <mat-icon class="mat-16" style="vertical-align: sub;" matTooltip="Celková bilancia nákladov, ktoré počítajú náklad k hodinovke (súčet všetkých nákladov + hodín)">help</mat-icon></p>
-            <h3 class="text-dark"><b>{{(additionalData.totalTime |
-                    currency:'EUR':'symbol') || '-'}}</b></h3>
+            <h3 class="text-dark"><b>{{(additionalData.totalCostPriceForCostToHour | currency:'EUR':'symbol') || '-'}}</b></h3>
         </div>
         <div>
             <p class="mb-0">Celková bilancia firma:</p>
-            <h3 class="text-dark"><b>{{(additionalData.totalTime |
-                    currency:'EUR':'symbol') || '-'}}</b></h3>
+            <h3 class="text-dark"><b>{{(additionalData.totalCostCompany | currency:'EUR':'symbol') || '-'}}</b></h3>
         </div>
         <div>
             <p class="mb-0">Celková bilancia firemné zákazky:</p>
-            <h3 class="text-dark"><b>{{(additionalData.totalTime |
+            <h3 class="text-dark"><b>{{(additionalData.totalCostCompanyProject |
                     currency:'EUR':'symbol') || '-'}}</b></h3>
         </div>
     </div>

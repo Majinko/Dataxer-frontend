@@ -34,7 +34,7 @@ export class OverviewComponent implements OnInit, OnDestroy {
     this.searchBarService.showBar = false;
 
     // todo tmp
-    if (this.userService.isAdmin()){
+    if (this.userService.isAdmin()) {
       this.navLinks = [
         {
           label: 'Mesačný prehľad časov',
@@ -77,7 +77,7 @@ export class OverviewComponent implements OnInit, OnDestroy {
           index: 7
         },
       ];
-    }else {
+    } else {
       this.navLinks = [
         {
           label: 'Mesačný prehľad časov',
