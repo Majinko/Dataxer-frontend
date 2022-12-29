@@ -10,56 +10,171 @@
 </div>
 
 <div class="row" *ngIf="isLoadAdditionalData; else loading">
-    <div class="col-md-4">
-        <div>
-            <p class="mb-0">Celkový počet hodín:</p>
-            <h3 class="text-dark"><b>{{additionalData.totalTime || '-'}} h</b></h3>
-        </div>
-        <div>
-            <p class="mb-0">Počet a suma aktívnych hodín (na zákazkách):</p>
-            <h3 class="text-dark"><b>{{additionalData.totalActiveTime || '-'}} h</b></h3>
-        </div>
-        <div>
-            <p class="mb-0">Počet a suma neaktivnych hodín (na zákazkách):</p>
-            <h3 class="text-dark"><b>{{additionalData.totalNonActiveTime || '-'}} h</b></h3>
-        </div>
-        <div>
-            <p class="mb-0">Počet a suma firemných hodín:</p>
-            <h3 class="text-dark"><b>{{additionalData.totalTimeInCompanyProject || '-'}} h</b></h3>
-        </div>
+  <div class="col-12">
+    <h2 class="border-bottom-2 pb-2 mb-4">Základné ukazovatele</h2>
+  </div>
+
+  <div class="col-md-4">
+    <div>
+      <p class="mb-0">Klienti: <mat-icon class="mat-16" style="vertical-align: sub;" matTooltip="Počet nových zákazníkov">help</mat-icon></p>
+      <h3 class="text-dark"><b>{{additionalData.totalClientCount}}</b></h3>
     </div>
-    <div class="col-md-4">
-        <div>
-            <p class="mb-0">Celková bilancia nákladov: <mat-icon class="mat-16" style="vertical-align: sub;" matTooltip="Celková bilancia nákladov, ktoré počítajú náklad k hodinovke (súčet všetkých nákladov + hodín)">help</mat-icon></p>
-            <h3 class="text-dark"><b>{{(additionalData.totalCostPriceForCostToHour | currency:'EUR':'symbol') || '-'}}</b></h3>
-        </div>
-        <div>
-            <p class="mb-0">Celková bilancia firma:</p>
-            <h3 class="text-dark"><b>{{(additionalData.totalCostCompany | currency:'EUR':'symbol') || '-'}}</b></h3>
-        </div>
-        <div>
-            <p class="mb-0">Celková bilancia firemné zákazky:</p>
-            <h3 class="text-dark"><b>{{(additionalData.totalCostCompanyProject |
-                    currency:'EUR':'symbol') || '-'}}</b></h3>
-        </div>
+  </div>
+
+  <div class="col-md-4">
+    <div>
+      <p class="mb-0">Zákazky: <mat-icon class="mat-16" style="vertical-align: sub;" matTooltip="Počet nových zákaziek">help</mat-icon></p>
+      <h3 class="text-dark"><b>{{additionalData.totalProjectCount}}</b></h3>
     </div>
-    <div class="col-md-4">
-        <div>
-            <p class="mb-0">Celkove príjmy zákaziek:</p>
-            <h3 class="text-dark"><b>{{(additionalData.totalIncomesFromProject |
-                    currency:'EUR':'symbol') || '-'}}</b></h3>
-        </div>
-        <div>
-            <p class="mb-0">Celkové výdaje zákaziek:</p>
-            <h3 class="text-dark"><b>{{(additionalData.totalCostFromProject |
-                    currency:'EUR':'symbol') || '-'}}</b></h3>
-        </div>
-        <div>
-            <p class="mb-0">Celková bilancia zákaziek okrem hodín pre firmu:</p>
-            <h3 class="text-dark"><b>{{(additionalData.totalBalanceForProject |
-                currency:'EUR':'symbol') || '-'}}</b></h3>
-        </div>
+  </div>
+
+  <div class="col-md-4">
+    <div>
+      <p class="mb-0">Používatelia: <mat-icon class="mat-16" style="vertical-align: sub;" matTooltip="Počet používateľov">help</mat-icon></p>
+      <h3 class="text-dark"><b>{{additionalData.totalUserCount}}</b></h3>
     </div>
+  </div>
+
+  <div class="col-12">
+    <h2 class="border-bottom-2 pb-2 mb-4">Ekonomika celkom</h2>
+  </div>
+
+  <div class="col-md-4">
+    <div>
+      <p class="mb-0">Bilancia / čistá marža:</p>
+      <h3 class="text-dark"><b>{{(additionalData.totalIncomes - additionalData.totalCost) | currency:'EUR':'symbol'}}</b></h3>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div>
+      <p class="mb-0">Príjmy: <mat-icon class="mat-16" style="vertical-align: sub;" matTooltip="Celkové príjmy - suma uhradených faktúr firmy, firemných zákazok a zákazok">help</mat-icon></p>
+      <h3 class="text-dark"><b>{{additionalData.totalIncomes | currency:'EUR':'symbol'}}</b></h3>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div>
+      <p class="mb-0">Výdavky: <mat-icon class="mat-16" style="vertical-align: sub;" matTooltip="Celkové výdavky - suma uhradených nákladov firmy, firemných zákazok, zákazok a miezd">help</mat-icon></p>
+      <h3 class="text-dark"><b>{{additionalData.totalCost | currency:'EUR':'symbol'}}</b></h3>
+    </div>
+  </div>
+
+  <div class="col-12">
+    <h2 class="border-bottom-2 pb-2 mb-4">Ekonomika firma</h2>
+  </div>
+
+  <div class="col-md-3">
+    <div>
+      <p class="mb-0">Prevádzkové náklady celkom: <mat-icon class="mat-16" style="vertical-align: sub;" matTooltip="Výdavky za tovar, služby, firemné zákazky a časové záznamy započítané do prevádzkových nákladov firmy.">help</mat-icon></p>
+      <h3 class="text-dark"><b>{{(additionalData.totalIncomesForCompany + additionalData.totalIncomesForCompanyProject - additionalData.totalCostForCompany - additionalData.totalCostForCompanyProject - additionalData.totalCompanyTimePrice) | currency:'EUR':'symbol'}}</b></h3>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div>
+      <p class="mb-0">Firma: <mat-icon class="mat-16" style="vertical-align: sub;" matTooltip="Výdavky/príjmy pre chod firmy">help</mat-icon></p>
+      <h3 class="text-dark"><b>{{additionalData.totalCostForCompany | currency:'EUR':'symbol'}} / {{additionalData.totalIncomesForCompany | currency:'EUR':'symbol'}}</b></h3>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div>
+      <p class="mb-0">Firemné zákazky: <mat-icon class="mat-16" style="vertical-align: sub;" matTooltip="Výdavky/príjmy z firemných zákazok">help</mat-icon></p>
+      <h3 class="text-dark"><b>{{additionalData.totalCostForCompanyProject | currency:'EUR':'symbol'}} / {{additionalData.totalIncomesForCompanyProject | currency:'EUR':'symbol'}} </b></h3>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div>
+      <p class="mb-0">Časové záznamy: <mat-icon class="mat-16" style="vertical-align: sub;" matTooltip="časové záznamy pre chod firmy, firemných zákaziek a vedľajších a servisných činností na zákazkách.">help</mat-icon></p>
+      <h3 class="text-dark"><b>{{additionalData.totalCompanyTimePrice | currency:'EUR':'symbol'}}</b></h3>
+    </div>
+  </div>
+
+  <div class="col-12">
+    <h2 class="border-bottom-2 pb-2 mb-4">Ekonomika zákaziek</h2>
+  </div>
+
+  <div class="col-md-3">
+    <div>
+      <p class="mb-0">Bilancia / hrubá marža: <mat-icon class="mat-16" style="vertical-align: sub;" matTooltip="Celkové príjmy a výdavky zákaziek">help</mat-icon></p>
+      <h3 class="text-dark"><b>{{(additionalData.totalIncomesFromProject - additionalData.totalCostFromProject - additionalData.totalPriceFromCapitalTimeProject) | currency:'EUR':'symbol'}}</b></h3>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div>
+      <p class="mb-0">Príjmy: <mat-icon class="mat-16" style="vertical-align: sub;" matTooltip="Celkové príjmy - suma uhradených faktúr zákaziek">help</mat-icon></p>
+      <h3 class="text-dark"><b>{{additionalData.totalIncomesFromProject | currency:'EUR':'symbol'}}</b></h3>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div>
+      <p class="mb-0">Výdavky: <mat-icon class="mat-16" style="vertical-align: sub;" matTooltip="Celkové výdavky - suma uhradených nákladov zákaziek">help</mat-icon></p>
+      <h3 class="text-dark"><b>{{additionalData.totalCostFromProject | currency:'EUR':'symbol'}}</b></h3>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div>
+      <p class="mb-0">Časové záznamy: <mat-icon class="mat-16" style="vertical-align: sub;" matTooltip="Cena za časové záznamy hlavných činností na zákazke">help</mat-icon></p>
+      <h3 class="text-dark"><b>{{additionalData.totalPriceFromCapitalTimeProject | currency:'EUR':'symbol'}}</b></h3>
+    </div>
+  </div>
+
+
+  <!--<div class="col-md-4">
+      <div>
+          <p class="mb-0">Celkový počet hodín:</p>
+          <h3 class="text-dark"><b>{{additionalData.totalTime || '-'}} h</b></h3>
+      </div>
+      <div>
+          <p class="mb-0">Počet a suma aktívnych hodín (na zákazkách):</p>
+          <h3 class="text-dark"><b>{{additionalData.totalActiveTime || '-'}} h</b></h3>
+      </div>
+      <div>
+          <p class="mb-0">Počet a suma neaktivnych hodín (na zákazkách):</p>
+          <h3 class="text-dark"><b>{{additionalData.totalNonActiveTime || '-'}} h</b></h3>
+      </div>
+      <div>
+          <p class="mb-0">Počet a suma firemných hodín:</p>
+          <h3 class="text-dark"><b>{{additionalData.totalTimeInCompanyProject || '-'}} h</b></h3>
+      </div>
+  </div>
+  <div class="col-md-4">
+      <div>
+          <p class="mb-0">Celková bilancia nákladov: <mat-icon class="mat-16" style="vertical-align: sub;" matTooltip="Celková bilancia nákladov, ktoré počítajú náklad k hodinovke (súčet všetkých nákladov + hodín)">help</mat-icon></p>
+          <h3 class="text-dark"><b>{{(additionalData.totalCostPriceForCostToHour | currency:'EUR':'symbol') || '-'}}</b></h3>
+      </div>
+      <div>
+          <p class="mb-0">Celková bilancia firma:</p>
+          <h3 class="text-dark"><b>{{(additionalData.totalCostCompany | currency:'EUR':'symbol') || '-'}}</b></h3>
+      </div>
+      <div>
+          <p class="mb-0">Celková bilancia firemné zákazky:</p>
+          <h3 class="text-dark"><b>{{(additionalData.totalCostCompanyProject |
+                  currency:'EUR':'symbol') || '-'}}</b></h3>
+      </div>
+  </div>
+  <div class="col-md-4">
+      <div>
+          <p class="mb-0">Celkove príjmy zákaziek:</p>
+          <h3 class="text-dark"><b>{{(additionalData.totalIncomesFromProject |
+                  currency:'EUR':'symbol') || '-'}}</b></h3>
+      </div>
+      <div>
+          <p class="mb-0">Celkové výdaje zákaziek:</p>
+          <h3 class="text-dark"><b>{{(additionalData.totalCostFromProject |
+                  currency:'EUR':'symbol') || '-'}}</b></h3>
+      </div>
+      <div>
+          <p class="mb-0">Celková bilancia zákaziek okrem hodín pre firmu:</p>
+          <h3 class="text-dark"><b>{{(additionalData.totalBalanceForProject |
+              currency:'EUR':'symbol') || '-'}}</b></h3>
+      </div>
+  </div>-->
 </div>
 
 <div *ngIf="!isLoad; else loading">

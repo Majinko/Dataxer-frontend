@@ -61,7 +61,6 @@ export class OverviewReviewFinanceComponent implements OnInit {
       item.showed = true;
       panel.openAll();
     }
-
   }
 
   toggleAccord() {
