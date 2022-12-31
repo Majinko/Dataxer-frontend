@@ -3,8 +3,8 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {CategoryCostsOverview, UserMonthlyOverview, UserYearlyOverview} from '../models/overview';
 import {environment} from '../../../environments/environment';
-import {getHttpParams} from "../../../helper";
-import {map} from "rxjs/operators";
+import {getHttpParams} from '../../../helper';
+import {map} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -37,6 +37,10 @@ export class OverviewService {
     return this.http.get<any[]>(`${environment.baseUrl}/overview/yearReviewFinance?year=${year}`);
   }
 
+  yearReviewFinanceByCompany(year: number): Observable<any> {
+    return this.http.get<any>(`${environment.baseUrl}/overview/yearReviewFinanceByCompany?year=${year}`);
+  }
+
   paginateFilter(page: number, size: number, filter: any): Observable<any> {
     return this.http
       .get<any>(`${environment.baseUrl}/overview/usersDailyOverview?pageNumber=${page}&pageSize=${size}`, {params: getHttpParams(filter)})
@@ -48,6 +52,7 @@ export class OverviewService {
         });
 
         return times;
-      }));;
+      }));
+    ;
   }
 }

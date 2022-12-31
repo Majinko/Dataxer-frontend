@@ -24,7 +24,8 @@ export class OverviewReviewFinanceComponent implements OnInit {
   constructor(
     private costService: CostService,
     private overviewService: OverviewService
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.getYears();
@@ -50,7 +51,7 @@ export class OverviewReviewFinanceComponent implements OnInit {
     this.overviewService.getReviewFinanceAdditionalData(this.year).subscribe(response => {
       this.additionalData = response;
       this.isLoadAdditionalData = true;
-     });
+    });
   }
 
   toggle(panel: any, item: any) {
@@ -66,15 +67,15 @@ export class OverviewReviewFinanceComponent implements OnInit {
   toggleAccord() {
     if (this.toogleAccord) {
       this.toogleAccord = false;
-      this.reviewFinance.forEach( f => {
+      this.reviewFinance.forEach(f => {
         f.showed = false;
-      })
+      });
       this.accordion.closeAll();
     } else {
       this.toogleAccord = true;
-      this.reviewFinance.forEach( f => {
+      this.reviewFinance.forEach(f => {
         f.showed = true;
-      })
+      });
       this.accordion.openAll();
     }
   }

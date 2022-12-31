@@ -33,6 +33,6 @@ export class MenuTabComponent implements OnInit {
   }
 
   private setActiveIndex() {
-    this.activeLinkIndex = this.navLinks.indexOf(this.navLinks.find(tab => tab.link === this.router.url));
+    this.activeLinkIndex = this.navLinks.find(tab => tab.link === this.router.url).index;
   }
 }

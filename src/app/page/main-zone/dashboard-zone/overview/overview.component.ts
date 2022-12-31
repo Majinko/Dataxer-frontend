@@ -76,6 +76,11 @@ export class OverviewComponent implements OnInit, OnDestroy {
           link: '/overview/year-review-finance',
           index: 7
         },
+        {
+          label: 'Ekonomicky prehľad firiem',
+          link: '/overview/year-review-by-company',
+          index: 8
+        },
       ];
     } else {
       this.navLinks = [
