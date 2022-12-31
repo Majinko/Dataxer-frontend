@@ -171,10 +171,9 @@
     <div class="col-md-3">
       <div>
         <p class="mb-0">Priemerný náklad k hodine: <mat-icon class="mat-16" style="vertical-align: sub;" matTooltip="Priemerný náklad k hodine je hodnota prirážky k odpracovanej hodine. Je to podiel firemných výdavkov (súčtu celkových výdavkov na prevádzku firmy, firemných zákaziek a časových záznamov započítaných do prevádzkových nákladov firmy) a časových záznamov aktívnych hodín na zákazkách. Pri používateľoch s fixnou mzdou sa mzda rozpočítava medzi odpracované hodiny.">help</mat-icon></p>
-        <h3 class="text-dark"><b>{{((additionalData.totalCompanyTimePrice + additionalData.totalCostForCompany) / additionalData.totalActiveTime) | currency:'EUR':'symbol'}}</b></h3>
+        <h3 class="text-dark"><b>{{(((additionalData.totalIncomesForCompany + additionalData.totalIncomesForCompanyProject - additionalData.totalCostForCompany - additionalData.totalCostForCompanyProject - additionalData.totalCompanyTimePrice) * -1) / additionalData.totalActiveTime) | currency:'EUR':'symbol'}}</b></h3>
       </div>
     </div>
-
   </div>
 </div>
 
