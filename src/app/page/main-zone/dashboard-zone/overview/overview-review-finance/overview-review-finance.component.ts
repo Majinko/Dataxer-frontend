@@ -13,7 +13,7 @@ export class OverviewReviewFinanceComponent implements OnInit {
   isLoad: boolean = true;
   isLoadAdditionalData: boolean = false;
   months: number[] = new Array(12);
-  year: number = new Date().getFullYear();
+  year: number = 2022; //new Date().getFullYear();
   years: number[] = [];
   reviewFinance = [];
   additionalData;
