@@ -121,7 +121,10 @@
     <div class="col-md-3">
       <div>
         <p class="mb-0">Bilancia / hrubá marža: <mat-icon class="mat-16" style="vertical-align: sub;" matTooltip="Celkové príjmy a výdavky zákaziek">help</mat-icon></p>
-        <h3 class="text-dark"><b>{{(additionalData.totalIncomesFromProject - additionalData.totalCostFromProject - additionalData.totalPriceFromCapitalTimeProject) | currency:'EUR':'symbol'}} / {{(((additionalData.totalIncomesFromProject - additionalData.totalCostFromProject - additionalData.totalPriceFromCapitalTimeProject) / additionalData.totalIncomesFromProject) * 100).toFixed(2)}} %</b></h3>
+        <h3 class="text-dark"><b>
+          {{(additionalData.totalIncomesFromProject - additionalData.totalCostFromProject - additionalData.totalPriceFromCapitalTimeProject) | currency:'EUR':'symbol'}}
+          <span *ngIf="additionalData.totalIncomesFromProject && additionalData.totalIncomesFromProject != 0"> / {{(((additionalData.totalIncomesFromProject - additionalData.totalCostFromProject - additionalData.totalPriceFromCapitalTimeProject) / additionalData.totalIncomesFromProject) * 100).toFixed(2)}}%</span></b>
+        </h3>
       </div>
     </div>
 
