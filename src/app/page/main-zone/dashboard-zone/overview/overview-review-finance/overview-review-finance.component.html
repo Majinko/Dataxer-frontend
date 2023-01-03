@@ -210,10 +210,49 @@
         <mat-expansion-panel *ngFor="let item of reviewFinance">
             <mat-expansion-panel-header>
                 <mat-panel-title>
-                    <span class="mr-3">{{item.categoryGroup}}</span> <strong>{{item.totalPrice |
-                        currency:'EUR':'symbol'}}</strong>
+                    <span class="mr-3">{{item.categoryGroup}}</span> <strong>{{item.totalPrice | currency:'EUR':'symbol'}}</strong>
                 </mat-panel-title>
             </mat-expansion-panel-header>
+            <div class="mb-2 row">
+              <div class="col-2 d-flex" *ngFor="let itemCategoryType of item.categoryTypeData">
+                <div class="icons mr-3 l-h-0" [ngSwitch]="itemCategoryType.categoryType">
+                   <span *ngSwitchCase="['STUFF_SERVICE_FOR_COMPANY', 'STUFF_SERVICE_IN_OPERATING_COST_COMPANY'].includes(itemCategoryType.categoryType) ? itemCategoryType.categoryType : !itemCategoryType.categoryType">
+                    <mat-icon>euro_symbol</mat-icon>
+                    <mat-icon>work_outline</mat-icon>
+                  </span>
+
+                  <span *ngSwitchCase="['TIME_FOR_COMPANY', 'TIME_NO_CAPITAL_IN_PROJECT', 'SALARY_FOR_COMPANY'].includes(itemCategoryType.categoryType) ? itemCategoryType.categoryType : !itemCategoryType.categoryType">
+                    <mat-icon>query_builder</mat-icon>
+                    <mat-icon>work_outline</mat-icon>
+                  </span>
+
+                  <span *ngSwitchCase="'TIME_CAPITAL_IN_PROJECT'">
+                    <mat-icon>query_builder</mat-icon>
+                    <mat-icon>layers</mat-icon>
+                  </span>
+
+                  <span *ngSwitchCase="'STUFF_SERVICE_NOT_IN_COST'">
+                    <mat-icon>euro_symbol</mat-icon>
+                    <mat-icon>work_off</mat-icon>
+                  </span>
+
+                  <span *ngSwitchCase="'STUFF_SERVICE_NOT_IN_COST_INVESTMENT'">
+                    <mat-icon>euro_symbol</mat-icon>
+                    <mat-icon>home</mat-icon>
+                  </span>
+
+                  <span *ngSwitchCase="['STUFF_SERVICE_IN_PROJECT_BALANCE', 'SALARY_FOR_PROJECT'].includes(itemCategoryType.categoryType) ? itemCategoryType.categoryType : !itemCategoryType.categoryType">
+                    <mat-icon>euro_symbol</mat-icon>
+                    <mat-icon>layers</mat-icon>
+                  </span>
+
+                  <span *ngSwitchCase="'TIME_AFTER_PROJECT_END'">
+                    <mat-icon>build_circle</mat-icon>
+                  </span>
+                </div>
+                <h3 class="text-dark"><b>{{itemCategoryType.price | currency:'EUR':'symbol'}}</b></h3>
+              </div>
+            </div>
             <mat-accordion #accord="matAccordion" [multi]="true" class="mb-2">
                 <button mat-icon-button class="mb-2 accord-button" (click)="toggle(accord, item)">
                     <ng-container *ngIf="!item.showed">
@@ -226,11 +265,10 @@
                 <mat-expansion-panel *ngFor="let data of item.categoryGroupDetailOverview" [expanded]="item.showed">
                     <mat-expansion-panel-header>
                         <mat-panel-title>
-                            <span class="mr-3">{{data.type}}</span> <strong>{{data.totalPrice |
-                                currency:'EUR':'symbol'}}</strong>
+                            <span class="mr-3">{{data.type}}</span> <strong>{{data.totalPrice |currency:'EUR':'symbol'}}</strong>
                         </mat-panel-title>
                     </mat-expansion-panel-header>
-                    <app-overview-review-finance-table [data]="data.data"></app-overview-review-finance-table>
+                    <app-overview-review-finance-table [year]="year" [data]="data.data"></app-overview-review-finance-table>
                 </mat-expansion-panel>
             </mat-accordion>
         </mat-expansion-panel>

@@ -54,6 +54,10 @@ export class CategoryTreeComponent implements OnInit, OnChanges {
       key: ['STUFF_SERVICE_NOT_IN_COST'],
       icons: ['euro_symbol', 'work_off']
     },
+    {
+      key: ['STUFF_SERVICE_NOT_IN_COST_INVESTMENT'],
+      icons: ['euro_symbol', 'home']
+    },
   ];
 
   @Input() categories: CategoryItemNode[] = [];

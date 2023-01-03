@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {CategoryCostsOverview, CategoryMonthsCosts} from '../../../../../../../core/models/overview';
+import {CategoryMonthsCosts} from '../../../../../../../core/models/overview';
 import {OverviewService} from '../../../../../../../core/services/overview.service';
 
 @Component({
@@ -10,18 +10,19 @@ import {OverviewService} from '../../../../../../../core/services/overview.servi
 export class OverviewReviewFinanceTableComponent implements OnInit {
   isLoad: boolean = true;
   months: number[] = new Array(12);
-  year: number = new Date().getFullYear();
+  @Input() year: number = new Date().getFullYear();
   years: number[] = [];
-
-  // tslint:disable-next-line:max-line-length
-  skMonths: string[] = ['Január', 'Február', 'Marec', 'Apríl', 'Máj', 'Jún', 'Júl', 'August', 'September', 'Október', 'November', 'December'];
+  skMonths: string[] = [
+    'Január', 'Február', 'Marec', 'Apríl', 'Máj', 'Jún', 'Júl', 'August', 'September', 'Október', 'November', 'December'
+  ];
   categoryCostsOverview: any;
 
   @Input() data;
 
   constructor(
     private overviewService: OverviewService
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.categoryCostsOverview = this.data;
@@ -46,6 +47,7 @@ export class OverviewReviewFinanceTableComponent implements OnInit {
     }
   }
 
+  // todo duplicitny kod presunut inam
   private showHideAllChildren(items: CategoryMonthsCosts[], categoryMonth: CategoryMonthsCosts) {
     if (items) {
       items.forEach((item) => {

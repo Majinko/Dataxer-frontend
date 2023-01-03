@@ -33,10 +33,48 @@
         <ng-container *ngFor="let categoryMonth of list">
           <tr [classList]="categoryMonth.cssClass">
             <td class="table-fixed-col text-left white-space-nowrap" [style.padding-left]="getPadding(categoryMonth)">
-              <span><button mat-icon-button aria-label="Example icon button with a vertical three dot icon" [class.invisible]="!categoryMonth.hasChildren"  (click)="loadData(categoryMonth)">
-                <mat-icon>{{categoryMonth.isOpen ? 'keyboard_arrow_down' : 'navigate_next'}}</mat-icon>
-              </button>
-              {{categoryMonth.categoryName}}</span>
+              <div class="d-flex align-items-center">
+                <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" [class.invisible]="!categoryMonth.hasChildren"  (click)="loadData(categoryMonth)">
+                  <mat-icon>{{categoryMonth.isOpen ? 'keyboard_arrow_down' : 'navigate_next'}}</mat-icon>
+                </button>
+                <div class="icons mr-3 l-h-0" [ngSwitch]="categoryMonth.categoryType" *ngIf="!categoryMonth.hasChildren">
+                  <span *ngSwitchCase="['STUFF_SERVICE_NOT_IN_COST_INVESTMENT'].includes(categoryMonth.categoryType) ? categoryMonth.categoryType : !categoryMonth.categoryType">
+                    <mat-icon>euro_symbol</mat-icon>
+                    <mat-icon>home</mat-icon>
+                  </span>
+
+                  <span *ngSwitchCase="['STUFF_SERVICE_IN_PROJECT_BALANCE', 'SALARY_FOR_PROJECT'].includes(categoryMonth.categoryType) ? categoryMonth.categoryType : !categoryMonth.categoryType">
+                    <mat-icon>euro_symbol</mat-icon>
+                    <mat-icon>layers</mat-icon>
+                  </span>
+
+                  <span *ngSwitchCase="['STUFF_SERVICE_IN_OPERATING_COST_COMPANY', 'SALARY_FOR_COMPANY', 'STUFF_SERVICE_FOR_COMPANY'].includes(categoryMonth.categoryType) ? categoryMonth.categoryType : !categoryMonth.categoryType">
+                    <mat-icon>euro_symbol</mat-icon>
+                    <mat-icon>work_outline</mat-icon>
+                  </span>
+
+                  <span *ngSwitchCase="'TIME_CAPITAL_IN_PROJECT'">
+                    <mat-icon>query_builder</mat-icon>
+                    <mat-icon>layers</mat-icon>
+                  </span>
+
+                  <span *ngSwitchCase="['TIME_NO_CAPITAL_IN_PROJECT', 'TIME_FOR_COMPANY'].includes(categoryMonth.categoryType) ? categoryMonth.categoryType : !categoryMonth.categoryType">
+                    <mat-icon>query_builder</mat-icon>
+                    <mat-icon>work_outline</mat-icon>
+                  </span>
+
+                  <span *ngSwitchCase="'TIME_AFTER_PROJECT_END'">
+                    <mat-icon>query_builder</mat-icon>
+                    <mat-icon>build_circle</mat-icon>
+                  </span>
+
+                  <span *ngSwitchCase="'STUFF_SERVICE_NOT_IN_COST'">
+                    <mat-icon>euro_symbol</mat-icon>
+                    <mat-icon>work_off</mat-icon>
+                  </span>
+                </div>
+                {{categoryMonth.categoryName}}
+              </div>
             </td>
             <td class="text-center">
               <strong>{{categoryMonth.categoryTotalPrice | currency:'EUR':'symbol'}}</strong>

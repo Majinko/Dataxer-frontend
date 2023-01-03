@@ -1,8 +1,7 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {OverviewService} from '../../../../../core/services/overview.service';
 import {CostService} from '../../../../../core/services/cost.service';
 import {MatAccordion} from '@angular/material/expansion';
-import {CategoryCostsOverview} from '../../../../../core/models/overview';
 
 @Component({
   selector: 'app-overview-review-finance',
@@ -13,7 +12,7 @@ export class OverviewReviewFinanceComponent implements OnInit {
   isLoad: boolean = true;
   isLoadAdditionalData: boolean = false;
   months: number[] = new Array(12);
-  year: number = new Date().getFullYear();
+  year: number = 2022; // new Date().getFullYear();
   years: number[] = [];
   reviewFinance = [];
   additionalData;
@@ -43,6 +42,7 @@ export class OverviewReviewFinanceComponent implements OnInit {
     this.overviewService.getReviewFinance(this.year).subscribe(response => {
       this.isLoad = false;
       this.reviewFinance = response;
+      console.log(response[0])
       setTimeout(() => {
         this.accordion.openAll();
       }, 1);

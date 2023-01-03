@@ -14,9 +14,9 @@ export class OverviewCostYearlyComponent implements OnInit {
   months: number[] = new Array(12);
   year: number = new Date().getFullYear();
   years: number[] = [];
-
-  // tslint:disable-next-line:max-line-length
-  skMonths: string[] = ['Január', 'Február', 'Marec', 'Apríl', 'Máj', 'Jún', 'Júl', 'August', 'September', 'Október', 'November', 'December'];
+  skMonths: string[] = [
+    'Január', 'Február', 'Marec', 'Apríl', 'Máj', 'Jún', 'Júl', 'August', 'September', 'Október', 'November', 'December'
+  ];
   categoryCostsOverview: CategoryCostsOverview;
 
   @ViewChild(AdHostDirective, {static: false}) adHost: AdHostDirective;
@@ -32,6 +32,7 @@ export class OverviewCostYearlyComponent implements OnInit {
   }
 
   public getCosts() {
+    this.isLoad = true;
     this.overviewService.getCostsOverview(null, this.year).subscribe(response => {
       this.isLoad = false;
 
