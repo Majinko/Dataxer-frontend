@@ -26,7 +26,8 @@ export class OverviewService {
   }
 
   getReviewFinanceCategoryData(parentId: number = null, year: number, type: string): Observable<CategoryCostsOverview> {
-    return this.http.get<CategoryCostsOverview>(`${environment.baseUrl}/overview/yearReviewFinanceCategoryData?year=${year}${parentId ? `&parentId=${parentId}` : ''}${type ? `&documentType=${type}` : 'COST'}`);
+    console.log(type);
+    return this.http.get<CategoryCostsOverview>(`${environment.baseUrl}/overview/yearReviewFinanceCategoryData?year=${year}&parentId=${parentId}&documentType=${type}`);
   }
 
   getReviewFinanceAdditionalData(year: number): Observable<any[]> {

@@ -12,7 +12,7 @@ export class OverviewReviewFinanceComponent implements OnInit {
   isLoad: boolean = true;
   isLoadAdditionalData: boolean = false;
   months: number[] = new Array(12);
-  year: number = 2022; // new Date().getFullYear();
+  year: number = new Date().getFullYear();
   years: number[] = [];
   reviewFinance = [];
   additionalData;
@@ -42,7 +42,6 @@ export class OverviewReviewFinanceComponent implements OnInit {
     this.overviewService.getReviewFinance(this.year).subscribe(response => {
       this.isLoad = false;
       this.reviewFinance = response;
-      console.log(response[0])
       setTimeout(() => {
         this.accordion.openAll();
       }, 1);

@@ -214,8 +214,8 @@
                 </mat-panel-title>
             </mat-expansion-panel-header>
             <div class="mb-2 row">
-              <div class="col-2 d-flex" *ngFor="let itemCategoryType of item.categoryTypeData">
-                <div class="icons mr-3 l-h-0" [ngSwitch]="itemCategoryType.categoryType">
+              <div class="col-12 col-md-2 d-flex" *ngFor="let itemCategoryType of item.categoryTypeData">
+                  <div class="icons mr-3 l-h-0" [ngSwitch]="itemCategoryType.categoryType">
                    <span *ngSwitchCase="['STUFF_SERVICE_FOR_COMPANY', 'STUFF_SERVICE_IN_OPERATING_COST_COMPANY'].includes(itemCategoryType.categoryType) ? itemCategoryType.categoryType : !itemCategoryType.categoryType">
                     <mat-icon>euro_symbol</mat-icon>
                     <mat-icon>work_outline</mat-icon>
@@ -226,34 +226,34 @@
                     <mat-icon>work_outline</mat-icon>
                   </span>
 
-                  <span *ngSwitchCase="'TIME_CAPITAL_IN_PROJECT'">
+                    <span *ngSwitchCase="'TIME_CAPITAL_IN_PROJECT'">
                     <mat-icon>query_builder</mat-icon>
                     <mat-icon>layers</mat-icon>
                   </span>
 
-                  <span *ngSwitchCase="'STUFF_SERVICE_NOT_IN_COST'">
+                    <span *ngSwitchCase="'STUFF_SERVICE_NOT_IN_COST'">
                     <mat-icon>euro_symbol</mat-icon>
                     <mat-icon>work_off</mat-icon>
                   </span>
 
-                  <span *ngSwitchCase="'STUFF_SERVICE_NOT_IN_COST_INVESTMENT'">
+                    <span *ngSwitchCase="'STUFF_SERVICE_NOT_IN_COST_INVESTMENT'">
                     <mat-icon>euro_symbol</mat-icon>
                     <mat-icon>home</mat-icon>
                   </span>
 
-                  <span *ngSwitchCase="['STUFF_SERVICE_IN_PROJECT_BALANCE', 'SALARY_FOR_PROJECT'].includes(itemCategoryType.categoryType) ? itemCategoryType.categoryType : !itemCategoryType.categoryType">
+                    <span *ngSwitchCase="['STUFF_SERVICE_IN_PROJECT_BALANCE', 'SALARY_FOR_PROJECT'].includes(itemCategoryType.categoryType) ? itemCategoryType.categoryType : !itemCategoryType.categoryType">
                     <mat-icon>euro_symbol</mat-icon>
                     <mat-icon>layers</mat-icon>
                   </span>
 
-                  <span *ngSwitchCase="'TIME_AFTER_PROJECT_END'">
+                    <span *ngSwitchCase="'TIME_AFTER_PROJECT_END'">
                     <mat-icon>build_circle</mat-icon>
                   </span>
-                </div>
-                <h3 class="text-dark"><b>{{itemCategoryType.price | currency:'EUR':'symbol'}}</b></h3>
+                  </div>
+                  <h3 class="text-dark"><b>{{itemCategoryType.price | currency:'EUR':'symbol'}}</b></h3>
               </div>
 
-              <div class="col-md-2 d-flex">
+              <div class="col-md-2">
                 <h3 class="text-dark"><b>{{item.categoryTypePrice | currency:'EUR':'symbol'}}</b></h3>
               </div>
             </div>
