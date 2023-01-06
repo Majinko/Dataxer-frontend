@@ -21,19 +21,19 @@ export class ChecklistDatabase {
   }
 
   /** Add an item to to-do list */
-  insertItem(parent: CategoryItemNode, id: number, name: string, categoryType: string, categoryGroup: string): CategoryItemNode {
+  insertItem(parent: CategoryItemNode, id: number, name: string, categoryType: string, categoryGroup: string, isDeactivated: boolean, deletedAt: Date): CategoryItemNode {
     if (!parent.children) {
       parent.children = [];
     }
-    const newItem = {id, name, categoryType, categoryGroup} as CategoryItemNode;
+    const newItem = {id, name, categoryType, categoryGroup, isDeactivated, deletedAt} as CategoryItemNode;
     parent.children.push(newItem);
     this.dataChange.next(this.data);
     return newItem;
   }
 
-  insertItemAbove(node: CategoryItemNode, id: number, name: string, categoryType: string, categoryGroup: string): CategoryItemNode {
+  insertItemAbove(node: CategoryItemNode, id: number, name: string, categoryType: string, categoryGroup: string, isDeactivated: boolean, deletedAt: Date): CategoryItemNode {
     const parentNode = this.getParentFromNodes(node);
-    const newItem = {id, name, categoryType, categoryGroup} as CategoryItemNode;
+    const newItem = {id, name, categoryType, categoryGroup, isDeactivated, deletedAt} as CategoryItemNode;
     if (parentNode != null) {
       parentNode.children.splice(parentNode.children.indexOf(node), 0, newItem);
     } else {
@@ -43,9 +43,9 @@ export class ChecklistDatabase {
     return newItem;
   }
 
-  insertItemBelow(node: CategoryItemNode, id: number, name: string, categoryType: string, categoryGroup: string): CategoryItemNode {
+  insertItemBelow(node: CategoryItemNode, id: number, name: string, categoryType: string, categoryGroup: string, isDeactivated: boolean, deletedAt: Date): CategoryItemNode {
     const parentNode = this.getParentFromNodes(node);
-    const newItem = {id, name, categoryType, categoryGroup} as CategoryItemNode;
+    const newItem = {id, name, categoryType, categoryGroup, isDeactivated, deletedAt} as CategoryItemNode;
     if (parentNode != null) {
       parentNode.children.splice(parentNode.children.indexOf(node) + 1, 0, newItem);
     } else {
@@ -109,7 +109,7 @@ export class ChecklistDatabase {
   }
 
   copyPasteItem(from: CategoryItemNode, to: CategoryItemNode): CategoryItemNode {
-    const newItem = this.insertItem(to, from.id, from.name, from.categoryType, from.categoryGroup);
+    const newItem = this.insertItem(to, from.id, from.name, from.categoryType, from.categoryGroup, from.isDeactivated, from.deletedAt);
     if (from.children) {
       from.children.forEach(child => {
         this.copyPasteItem(child, newItem);
@@ -119,7 +119,7 @@ export class ChecklistDatabase {
   }
 
   copyPasteItemAbove(from: CategoryItemNode, to: CategoryItemNode): CategoryItemNode {
-    const newItem = this.insertItemAbove(to, from.id, from.name, from.categoryType, from.categoryGroup);
+    const newItem = this.insertItemAbove(to, from.id, from.name, from.categoryType, from.categoryGroup, from.isDeactivated, from.deletedAt);
     if (from.children) {
       from.children.forEach(child => {
         this.copyPasteItem(child, newItem);
@@ -129,7 +129,7 @@ export class ChecklistDatabase {
   }
 
   copyPasteItemBelow(from: CategoryItemNode, to: CategoryItemNode): CategoryItemNode {
-    const newItem = this.insertItemBelow(to, from.id, from.name, from.categoryType, from.categoryGroup);
+    const newItem = this.insertItemBelow(to, from.id, from.name, from.categoryType, from.categoryGroup, from.isDeactivated, from.deletedAt);
     if (from.children) {
       from.children.forEach(child => {
         this.copyPasteItem(child, newItem);

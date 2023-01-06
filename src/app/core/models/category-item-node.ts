@@ -10,6 +10,7 @@ export interface CategoryItemNode {
   isDeactivated?: boolean;
   parent?: CategoryItemNode;
   children?: CategoryItemNode[];
+  deletedAt?: Date;
 }
 
 export interface CategoryItemNodeDemand extends CategoryItemNode {

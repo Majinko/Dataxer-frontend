@@ -64,7 +64,7 @@
             <strong>{{categoryMonth.categoryTotalPrice | currency:'EUR':'symbol'}}</strong>
           </td>
           <td  *ngFor="let month of months; let index = index">
-            {{(+categoryMonth.totalMonthsCosts[index + 1] | currency:'EUR':'symbol') || 0}} 
+            {{(+categoryMonth.totalMonthsCosts[index + 1] | currency:'EUR':'symbol') || 0}}
           </td>
         </tr>
         <ng-container *ngIf="categoryMonth.children?.length > 0">

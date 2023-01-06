@@ -184,7 +184,7 @@ export class CategoryTreeComponent implements OnInit, OnChanges {
     const parentNode = this.flatNodeMap.get(node);
     this.newNodeParent = {id: parentNode.id, name: parentNode.name};
 
-    this.database.insertItem(parentNode, null, '', null, null);
+    this.database.insertItem(parentNode, null, '', null, null, false, null);
     this.treeControl.expand(node);
   }
 
