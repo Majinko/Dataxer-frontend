@@ -37,24 +37,29 @@ export class OverviewComponent implements OnInit, OnDestroy {
     if (this.userService.isAdmin()) {
       this.navLinks = [
         {
+          label: 'Prehľad financií',
+          link: '/overview/year-review-finance',
+          index: 0
+        },
+        {
           label: 'Mesačný prehľad časov',
           link: '/overview',
-          index: 0
+          index: 1
         },
         {
           label: 'Ročný prehľad časov',
           link: '/overview/time-yearly',
-          index: 1
+          index: 2
         },
         {
           label: 'Ročný prehľad nákladov',
           link: '/overview/cost-yearly',
-          index: 2
+          index: 3
         },
         {
           label: 'Grafický prehľad nákladov',
           link: '/overview/charts',
-          index: 3
+          index: 4
         },
         // {
         //   label: 'Celkový prehľad spoločností',
@@ -69,17 +74,12 @@ export class OverviewComponent implements OnInit, OnDestroy {
         {
           label: 'Hodiny cena',
           link: '/overview/hours-price',
-          index: 6
-        },
-        {
-          label: 'Prehľad financií',
-          link: '/overview/year-review-finance',
-          index: 7
+          index: 5
         },
         {
           label: 'Ekonomicky prehľad firiem',
           link: '/overview/year-review-by-company',
-          index: 8
+          index: 6
         },
       ];
     } else {
