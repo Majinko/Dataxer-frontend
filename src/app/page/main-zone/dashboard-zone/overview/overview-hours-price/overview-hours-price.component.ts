@@ -24,9 +24,10 @@ export class OverviewHoursPriceComponent implements OnInit, AfterViewInit {
   salary: Salary;
   times: Time[] = [];
   pageSize: number = 15;
-  pageIndex: number = 0;
+  price: number = 0;
   totalElements!: number;
   totalTime: number = 0;
+  totalTimeOutOfWork: number = 0;
   isLoadingResults = true;
   daysPriceTime: { time: number, price: number }[] = [];
   displayedColumns: string[] = ['user', 'dateWork', 'stats', 'project', 'description', 'category'];
@@ -76,6 +77,8 @@ export class OverviewHoursPriceComponent implements OnInit, AfterViewInit {
           this.isLoadingResults = false;
           this.totalElements = data.totalElements;
           this.totalTime = data.totalTime;
+          this.totalTimeOutOfWork = data.totalTimeOutOfWork;
+          this.price = data.price
           return data;
         })
       )

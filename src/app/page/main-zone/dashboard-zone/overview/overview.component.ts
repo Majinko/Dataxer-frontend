@@ -29,7 +29,6 @@ export class OverviewComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-
     this.godButtonService.title = null;
     this.searchBarService.showBar = false;
 
@@ -42,24 +41,29 @@ export class OverviewComponent implements OnInit, OnDestroy {
           index: 0
         },
         {
+          label: 'Denný prehľad časov',
+          link: '/overview/time-daily',
+          index: 1
+        },
+        {
           label: 'Mesačný prehľad časov',
           link: '/overview',
-          index: 1
+          index: 2
         },
         {
           label: 'Ročný prehľad časov',
           link: '/overview/time-yearly',
-          index: 2
+          index: 3
         },
         {
           label: 'Ročný prehľad nákladov',
           link: '/overview/cost-yearly',
-          index: 3
+          index: 4
         },
         {
           label: 'Grafický prehľad nákladov',
           link: '/overview/charts',
-          index: 4
+          index: 5
         },
         // {
         //   label: 'Celkový prehľad spoločností',
@@ -71,11 +75,6 @@ export class OverviewComponent implements OnInit, OnDestroy {
         //   link: '/overview/daily',
         //   index: 5
         // },
-        {
-          label: 'Hodiny cena',
-          link: '/overview/hours-price',
-          index: 5
-        },
         {
           label: 'Ekonomicky prehľad firiem',
           link: '/overview/year-review-by-company',

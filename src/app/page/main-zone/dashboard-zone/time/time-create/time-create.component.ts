@@ -86,7 +86,8 @@ export class TimeCreateComponent extends TimeHelperClass implements OnInit, Afte
       time: null,
       project: [null, Validators.required],
       category: [null, Validators.required],
-      km: 0
+      km: 0,
+      isOutOfWork: false,
     });
   }
 

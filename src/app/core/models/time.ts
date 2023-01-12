@@ -17,6 +17,7 @@ export interface Time {
   dateWork: Date;
   dateWorkMonth?: any;
   createdDate: Date;
+  isOutOfWork: boolean;
 }
 
 export interface ProjectStartEnd{

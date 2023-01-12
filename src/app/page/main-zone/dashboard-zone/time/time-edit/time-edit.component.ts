@@ -83,7 +83,8 @@ export class TimeEditComponent extends TimeHelperClass implements OnInit, AfterV
         time: t.time,
         project: [t.project, Validators.required],
         category: [t.category, Validators.required],
-        km: t.km
+        km: t.km,
+        isOutOfWork: t.isOutOfWork
       });
 
       this.changeProjectGetCategories();

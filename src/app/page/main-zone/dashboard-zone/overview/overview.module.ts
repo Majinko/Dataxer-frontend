@@ -62,7 +62,7 @@ const routes: Routes = [
         component: OverviewTimeDailyComponent
       },
       {
-        path: 'hours-price',
+        path: 'time-daily',
         component: OverviewHoursPriceComponent
       },
       {

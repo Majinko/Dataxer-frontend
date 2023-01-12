@@ -2,8 +2,9 @@
 <app-overview-hours-price-filter #flterRef (onFilter)="paginate(flterRef.formGroup.value)">
 </app-overview-hours-price-filter>
 <h3 class="text-gray mb-3">
-  Čas sumarizacia: <span class="text-theme"></span><span class="text-theme">{{(totalTime | timeFromTimestamp) + '
-    h'}}</span>
+  <div>Čas sumarizacia: <span class="text-theme"></span><span class="text-theme">{{(totalTime | timeFromTimestamp) + 'h'}}</span></div>
+  <div>Čas mimo prace: <span class="text-theme"></span><span class="text-theme">{{(totalTimeOutOfWork | timeFromTimestamp) + 'h'}}</span></div>
+  <div>Cena prace spolu: <span class="text-theme"></span><span class="text-theme">{{price |currency:'EUR':'symbol'}}</span></div>
 </h3>
 <div class="table-wrap">
   <div class="position-relative table-scroll">
@@ -32,9 +33,7 @@
             {{element.dateWork | date:'fullDate':'Europe/Slovak'}}
 
             <b>
-              <ng-container *ngIf="daysPriceTime[element.day].price">{{daysPriceTime[element.day].price |
-                currency:'EUR':'symbol'}} /</ng-container> {{(daysPriceTime[element.day].time | timeFromTimestamp) + '
-              h'}}
+              <ng-container *ngIf="daysPriceTime[element.day].price">{{daysPriceTime[element.day].price |currency:'EUR':'symbol'}} /</ng-container> {{(daysPriceTime[element.day].time | timeFromTimestamp) + 'h'}}
             </b>
           </span>
         </td>
@@ -44,12 +43,14 @@
         <th mat-header-cell *matHeaderCellDef>Info</th>
         <td mat-cell *matCellDef="let element">
 
-          <span *ngIf="element.price != null; else flatPrice">
+          <div class="d-flex align-items-center">
+            <mat-icon *ngIf="element.isOutOfWork" class="mr-2">home</mat-icon>
+            <span *ngIf="element.price != null; else flatPrice">
             <ng-container *ngIf="daysPriceTime[element.day].price">{{daysPriceTime[element.day].price |
-              currency:'EUR':'symbol'}} /</ng-container>
-            {{(element.time | timeFromTimestamp) + ' h'}}
+              currency:'EUR':'symbol'}} /</ng-container>{{(element.time | timeFromTimestamp) + ' h'}}
           </span>
-          <ng-template #flatPrice>{{(element.time | timeFromTimestamp) + ' h'}}</ng-template>
+            <ng-template #flatPrice>{{(element.time | timeFromTimestamp) + ' h'}}</ng-template>
+          </div>
         </td>
       </ng-container>
 
