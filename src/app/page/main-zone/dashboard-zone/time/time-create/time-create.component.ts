@@ -153,7 +153,8 @@ export class TimeCreateComponent extends TimeHelperClass implements OnInit, Afte
       if (time != null) {
         this.formGroup.patchValue({
           timeFromForUser: this.strftimePipe.transform(time.timeTo),
-          timeToForUser: this.prepareTime()
+          timeToForUser: this.prepareTime(),
+          isOutOfWork: time.isOutOfWork
         });
       }
     });
