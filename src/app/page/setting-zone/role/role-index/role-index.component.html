@@ -61,6 +61,16 @@
     <hr>
   </div>
 
+  <div class="col-12">
+    <h3>Fakturácia</h3>
+
+    <div class="col-md-4 form-group">
+      <mat-checkbox
+        [checked]="getIPrivilegeChecked(role, 32)"
+        (change)="storeRemoveRolePermission(role.id, 32)">
+        Prístup do fakturácie</mat-checkbox>
+    </div>
+  </div>
 
   <div class="col-12">
     <h3>Nastavenia</h3>
@@ -126,7 +136,7 @@
   </div>
 
   <div class="col-12">
-    <h3>Dopyty</h3>
+    <h3>Položky</h3>
 
     <div class="col-md-4 form-group">
       <mat-checkbox
