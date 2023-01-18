@@ -24,3 +24,9 @@ export interface Company {
   isTaxPayer: boolean;
   position?: number;
 }
+
+export interface UserEditCompany {
+  id: number;
+  name: string;
+  isSelected: boolean;
+}

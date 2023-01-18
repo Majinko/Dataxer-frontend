@@ -72,4 +72,14 @@ export class RoleIndexComponent implements OnInit {
   roleIncludesPrivilege(role: Role, privilege: Privilege): boolean {
     return role.privileges.some(pr => pr.name === privilege.name);
   }
+
+  storeRemoveRolePermission(roleId: number, permissionId: number) {
+    this.roleService.storeRemoveRolePermission(roleId, permissionId).subscribe(() => {
+      this.messageService.add('Nastavenia boli aktualizovane.');
+    });
+  }
+
+  getIPrivilegeChecked(role: Role, privilegeId: number) { // todo spravit ako map
+    return role.privileges.some(privilege => privilege.id === privilegeId);
+  }
 }

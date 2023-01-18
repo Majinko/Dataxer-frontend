@@ -236,17 +236,18 @@
   <div class="row">
     <div class="col-md-4 mb-5">
       <mat-form-field class="example-full-width">
-        <input type="number" matInput #discount formControlName="discount">
+        <input type="number" value="0" matInput #discount formControlName="discount">
         <i matSuffix>%</i>
       </mat-form-field>
+
+      {{discount.value}}
     </div>
 
     <div class="col-md-8 mb-5">
       <table class="w-100">
         <tr class="text-right">
           <td class="pb-1">Zľava {{discount.value}} %</td>
-          <td class="pb-1">{{discount.value > 0 ? '-' : ''}}{{((documentHelper.totalPrice | addPercent: discount.value)
-            - documentHelper.totalPrice).toFixed(2)}} €</td>
+          <td class="pb-1">{{discount.value && discount.value > 0 ? '-' : ''}}{{ discount.value > 0 ? ((documentHelper.totalPrice | addPercent: discount.value) - documentHelper.totalPrice).toFixed(2) : 0}} €</td>
         </tr>
 
         <tr class="text-right" appShowHideTax>

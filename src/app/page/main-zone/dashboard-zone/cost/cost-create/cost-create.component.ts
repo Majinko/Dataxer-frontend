@@ -128,13 +128,14 @@ export class CostCreateComponent extends DocumentHelperClass implements OnInit {
     });
   }
 
-  private checkIsDuplicate(){
+  private checkIsDuplicate() {
     if (+this.route.snapshot.paramMap.get('id')) {
       this.costService.duplicate(+this.route.snapshot.paramMap.get('id')).subscribe(oldCost => {
         this.pathFromOldObject(oldCost);
 
         this.formGroup.patchValue({
           title: oldCost.title,
+          discount: 10
         }, {emitEvent: false});
       });
     }
@@ -145,7 +146,7 @@ export class CostCreateComponent extends DocumentHelperClass implements OnInit {
     this.formGroup.patchValue({
       period: checked ? 'MONTH' : null,
       isInfinity: checked ? true : null,
-      repeatedFrom: checked ? new Date() : null
+      repeatedFrom: checked ? new Date() : null,
     });
   }
 
