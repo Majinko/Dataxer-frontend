@@ -74,6 +74,7 @@ export class CostCreateComponent extends DocumentHelperClass implements OnInit {
 
   ngOnInit() {
     this.prepareForm();
+    this.checkIsDuplicate();
     this.changeForm();
     this.getProject();
     this.handleChangeProject();
@@ -125,6 +126,18 @@ export class CostCreateComponent extends DocumentHelperClass implements OnInit {
 
       packs: this.formBuilder.array([])
     });
+  }
+
+  private checkIsDuplicate(){
+    if (+this.route.snapshot.paramMap.get('id')) {
+      this.costService.duplicate(+this.route.snapshot.paramMap.get('id')).subscribe(oldCost => {
+        this.pathFromOldObject(oldCost);
+
+        this.formGroup.patchValue({
+          title: oldCost.title,
+        }, {emitEvent: false});
+      });
+    }
   }
 
   // change checkbox for repeated cost

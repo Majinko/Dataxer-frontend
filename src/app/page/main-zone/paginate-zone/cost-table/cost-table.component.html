@@ -109,7 +109,7 @@
                   <mat-icon class="text-theme">delete</mat-icon>
                 </button>
 
-                <button  *ngIf="element.paymentDate === null" onclick="event.stopPropagation();" mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                <button onclick="event.stopPropagation();" mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
                   <mat-icon>more_vert</mat-icon>
                 </button>
 
@@ -117,6 +117,11 @@
                   <button mat-menu-item (click)="showPaymentDialog(element.id, 'COST')" *ngIf="element.paymentDate === null">
                     <mat-icon>credit_card</mat-icon>
                     <span>Prijať platbu</span>
+                  </button>
+
+                  <button mat-menu-item [routerLink]="['/cost/create', element.id]">
+                    <mat-icon>file_copy</mat-icon>
+                    <span>Duplikovať</span>
                   </button>
                 </mat-menu>
               </div>

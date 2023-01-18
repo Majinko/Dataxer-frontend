@@ -10,6 +10,10 @@
     <div class="col-12">
       <h2 class="border-bottom-2 pb-2 mb-4">Základné info</h2>
     </div>
+
+    <div class="loading-shade" *ngIf="isLoad">
+      <mat-spinner *ngIf="isLoad"></mat-spinner>
+    </div>
   </div>
 
   <div class="row">
@@ -220,9 +224,14 @@
   </div>
 
   <div *ngIf="projects && projects.length">
-    <app-document-pack *ngIf="f.company.value != null;" [formGroup]="formGroup" [documentHelper]="documentHelper"
-      [projects]="projects" (compareProjects)="differentProject = $event" (compareCategory)="differentCategory = $event"></app-document-pack>
+    <app-document-pack *ngIf="route.snapshot.paramMap.get('id') === null && f.company.value != null; else copyCostBlock" [formGroup]="formGroup" [documentHelper]="documentHelper" [projects]="projects" (compareProjects)="differentProject = $event" (compareCategory)="differentCategory = $event"></app-document-pack>
   </div>
+
+  <ng-template #copyCostBlock>
+    <div *ngIf="this.oldPacks.length > 0 && f.company.value != null">
+      <app-document-pack [formGroup]="formGroup" [packs]="this.oldPacks" [documentHelper]="documentHelper" [projects]="projects"></app-document-pack>
+    </div>
+  </ng-template>
 
   <div class="row">
     <div class="col-md-4 mb-5">

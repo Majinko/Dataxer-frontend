@@ -23,6 +23,10 @@ const routes: Routes = [
         component: CostCreateComponent
       },
       {
+        path: 'create/:id',
+        component: CostCreateComponent
+      },
+      {
         path: 'edit/:id',
         component: CostEditComponent
       },
