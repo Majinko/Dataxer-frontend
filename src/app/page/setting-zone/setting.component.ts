@@ -4,9 +4,7 @@ import {SettingMenuItems} from '../../core/data/setting-menu-items';
 import {GodButtonService} from '../../core/services/god-button.service';
 import {UserService} from '../../core/services/user.service';
 import {ActivatedRoute} from '@angular/router';
-import {NgxPermissionsService} from 'ngx-permissions';
 import {AppProfileService} from '../../core/services/app-profile.service';
-
 
 @Component({
   selector: 'app-setting',
@@ -32,7 +30,6 @@ export class SettingComponent implements OnInit {
     private appProfileService: AppProfileService,
     private userService: UserService,
     private route: ActivatedRoute,
-    private permissionService: NgxPermissionsService
   ) {
     godButtonService.title = null;
   }
@@ -40,13 +37,5 @@ export class SettingComponent implements OnInit {
   ngOnInit(): void {
     this.userService.user = this.route.snapshot.data.user;
     this.appProfileService.appProfile = this.route.snapshot.data.appProfile;
-
-    this.preparePermission();
-  }
-
-  private preparePermission() {
-    this.userService.user.roles.forEach(r => {
-      this.permissionService.addPermission(r.privileges.map(p => p.name));
-    });
   }
 }

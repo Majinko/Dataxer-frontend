@@ -6,14 +6,13 @@ import {ThemeModule} from '../../theme/theme.module';
 import {MaterialModule} from '../../theme/modules/material.module';
 import {UserResolver} from '../../core/resolver/user.resolver';
 import {AppProfileResolver} from '../../core/resolver/appProfile.resolver';
-import {NgxPermissionsModule} from 'ngx-permissions';
-import {AuthGuardService} from '../../core/guards/auth-guard.service';
+import {AuthGuardGuard} from '../../core/guards/auth-guard.guard';
 
 const routes: Routes = [
   {
     path: '',
     component: MainComponent,
-    canActivate: [AuthGuardService],
+    canActivate: [AuthGuardGuard],
     resolve: {user: UserResolver, appProfile: AppProfileResolver},
     children: [
       {
@@ -37,9 +36,6 @@ const routes: Routes = [
     MaterialModule,
     RouterModule.forChild(routes),
     ThemeModule,
-
-    // Specify your library as an import
-    NgxPermissionsModule.forRoot()
   ],
   providers: [AppProfileResolver, UserResolver]
 })

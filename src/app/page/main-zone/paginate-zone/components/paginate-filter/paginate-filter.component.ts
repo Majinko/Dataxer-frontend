@@ -26,6 +26,7 @@ import {User} from '../../../../../core/models/user';
   templateUrl: './paginate-filter.component.html',
   styleUrls: ['./paginate-filter.component.scss']
 })
+// todo je to uplne napicu cely filter aj s jebnutym rsql query
 // todo je tu problem ze filter sa pusta viacej krat, fix it a cele refaktorovat
 export class PaginateFilterComponent extends PaginateFilterHelper implements OnInit, OnChanges {
   isAdmin: boolean = false;
@@ -126,6 +127,9 @@ export class PaginateFilterComponent extends PaginateFilterHelper implements OnI
           date: this.dates[0]
         });
       }
+
+      // this path data by model, mozno spravit efektivnejsie
+      this.pathByModel();
     }
   }
 

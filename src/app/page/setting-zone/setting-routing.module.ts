@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {SettingComponent} from './setting.component';
-import {AuthGuardService} from '../../core/guards/auth-guard.service';
+import {AuthGuardGuard} from '../../core/guards/auth-guard.guard';
 import {UserResolver} from '../../core/resolver/user.resolver';
 import {AppProfileResolver} from '../../core/resolver/appProfile.resolver';
 
@@ -9,7 +9,7 @@ const routes: Routes = [
   {
     path: '',
     component: SettingComponent,
-    canActivate: [AuthGuardService],
+    canActivate: [AuthGuardGuard],
     resolve: {user: UserResolver, appProfile: AppProfileResolver},
     children: [
       {

@@ -22,7 +22,8 @@ import {ItemTableComponent} from './item-table/item-table.component';
 import {PaginateZoneComponent} from './paginate.component';
 import {DemandTableComponent} from './demand-table/demand-table.component';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
-import { SecurityDialogComponent } from './components/security-dialog/security-dialog.component';
+import {SecurityDialogComponent} from './components/security-dialog/security-dialog.component';
+import {AuthPrivilegeGuardGuard} from '../../../core/guards/auth-privilege-guard.guard';
 
 const routes: Routes = [
   {
@@ -85,6 +86,7 @@ const routes: Routes = [
       },
       {
         path: 'costs',
+        canActivate: [AuthPrivilegeGuardGuard],
         component: CostTableComponent,
         data: {
           menuItem: [],
@@ -96,9 +98,7 @@ const routes: Routes = [
           inputSearchBarValues: ['title', 'contractor.name'],
           inputSearchBarSelectValues: ['contractor.id', 'company.id', 'category.id', 'project.id', 'state', 'date', 'repeated'],
 
-          permissions: {
-            only: 'Cost'
-          }
+          permissions: 'Cost'
         },
       },
       {

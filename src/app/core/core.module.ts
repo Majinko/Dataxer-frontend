@@ -12,8 +12,9 @@ import {TimeFromTimestampPipe} from './pipes/time-from-timestamp.pipe';
 import {StrftimePipe} from './pipes/strftime.pipe';
 import {FormatPricePipe} from './pipes/format-price.pipe';
 import {AdHostDirective} from './directives/ad-host.directive';
-import { FileDragDropDirective } from './directives/file-drag-drop.directive';
-import { ShowHideTaxDirective } from './directives/show-hide-tax.directive';
+import {FileDragDropDirective} from './directives/file-drag-drop.directive';
+import {ShowHideTaxDirective} from './directives/show-hide-tax.directive';
+import {RolePrivilegesDirective} from './directives/role-privileges.directive';
 
 @NgModule({
   declarations: [
@@ -31,23 +32,25 @@ import { ShowHideTaxDirective } from './directives/show-hide-tax.directive';
     AdHostDirective,
     FileDragDropDirective,
     ShowHideTaxDirective,
+    RolePrivilegesDirective,
   ],
-    exports: [
-        AdHostDirective,
-        ZeroValuePipe,
-        AddPercentPipe,
-        GetinitialsPipe,
-        FilterPersonPipe,
-        RemovePercentPipe,
-        NotNullPipe,
-        SortByPipe,
-        RemovePercentGetNumberPipe,
-        TimeFromTimestampPipe,
-        StrftimePipe,
-        FormatPricePipe,
-        FileDragDropDirective,
-        ShowHideTaxDirective,
-    ],
+  exports: [
+    AdHostDirective,
+    ZeroValuePipe,
+    AddPercentPipe,
+    GetinitialsPipe,
+    FilterPersonPipe,
+    RemovePercentPipe,
+    NotNullPipe,
+    SortByPipe,
+    RemovePercentGetNumberPipe,
+    TimeFromTimestampPipe,
+    StrftimePipe,
+    FormatPricePipe,
+    FileDragDropDirective,
+    ShowHideTaxDirective,
+    RolePrivilegesDirective,
+  ],
   imports: [
     CommonModule,
   ]

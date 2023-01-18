@@ -2,6 +2,7 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DashboardComponent} from './dashboard.component';
 import {RouterModule, Routes} from '@angular/router';
+import {AuthPrivilegeGuardGuard} from '../../../core/guards/auth-privilege-guard.guard';
 
 const routes: Routes = [
   {
@@ -67,11 +68,11 @@ const routes: Routes = [
       },
       {
         path: 'cost',
+        canActivate: [AuthPrivilegeGuardGuard],
         data: {
-          godButtonTitle: 'Nový náklad', gotButtonRouteLink: '/cost/create',
-          permissions: {
-            only: 'Cost'
-          },
+          godButtonTitle: 'Nový náklad',
+          gotButtonRouteLink: '/cost/create',
+          permissions: 'Cost'
         },
         loadChildren: () => import('./cost/cost.module').then(m => m.CostModule),
       },

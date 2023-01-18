@@ -17,10 +17,10 @@
   </div>
   <div class="menu-item">
     <h5 class="pl-3 pr-3 mt-0 mb-2 pt-3"><b>Môj profil</b></h5>
-    <a class="border-radius-0 t-d-n text-dark" mat-menu-item routerLink="/setting/user" *ngxPermissionsOnly="'Settings'">
+    <a class="border-radius-0 t-d-n text-dark" mat-menu-item routerLink="/setting/user" appRolePrivileges="Settings">
       <mat-icon>person</mat-icon> Osobné údaje
     </a>
-    <a class="border-radius-0 t-d-n text-dark" mat-menu-item routerLink="/setting/profile" *ngxPermissionsOnly="'Settings'">
+    <a class="border-radius-0 t-d-n text-dark" mat-menu-item routerLink="/setting/profile" appRolePrivileges="Settings">
       <mat-icon>build</mat-icon> Nastavenia
     </a>
   </div>
