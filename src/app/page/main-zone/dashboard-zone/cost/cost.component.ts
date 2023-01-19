@@ -30,5 +30,6 @@ export class CostComponent implements OnInit {
     this.godButtonService.menuItem = [];
     this.godButtonService.title = this.route.snapshot.data.godButtonTitle;
     this.godButtonService.routerLink = this.route.snapshot.data.gotButtonRouteLink;
+    this.godButtonService.privilege = this.route.snapshot.data.permissions;
   }
 }

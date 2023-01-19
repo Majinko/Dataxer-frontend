@@ -39,6 +39,8 @@ export class UserService {
     return this.http.get<User>(`${environment.baseUrl}/user/logged`).pipe(map((user) => {
       user.displayName = user.firstName + ' ' + user.lastName;
 
+      localStorage.setItem(user.uid, JSON.stringify(user.roles));
+
       return user;
     }));
   }
