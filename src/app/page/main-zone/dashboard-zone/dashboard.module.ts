@@ -72,7 +72,16 @@ const routes: Routes = [
         data: {
           godButtonTitle: 'Nový náklad',
           gotButtonRouteLink: '/cost/create',
-          permissions: 'Cost'
+          permissions: 'Cost',
+          menuItem: [
+            {
+              title: 'Nový náklad',
+              link: '/cost/create'
+            }, {
+              title: 'Nový náklad zo suboru',
+              link: '/cost/createFromFile'
+            }
+          ],
         },
         loadChildren: () => import('./cost/cost.module').then(m => m.CostModule),
       },

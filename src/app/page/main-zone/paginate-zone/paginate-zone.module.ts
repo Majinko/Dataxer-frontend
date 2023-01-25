@@ -89,7 +89,15 @@ const routes: Routes = [
         canActivate: [AuthPrivilegeGuardGuard],
         component: CostTableComponent,
         data: {
-          menuItem: [],
+          menuItem: [
+            {
+              title: 'Nový náklad',
+              link: '/cost/create'
+            }, {
+              title: 'Nový náklad zo suboru',
+              link: '/cost/createFromFile'
+            }
+          ],
           godButtonTitle: 'Nový náklad',
           gotButtonRouteLink: '/cost/create',
 
