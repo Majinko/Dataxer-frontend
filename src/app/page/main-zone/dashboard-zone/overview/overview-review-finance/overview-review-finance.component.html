@@ -9,59 +9,189 @@
     </div>
 </div>
 
-<div class="row" *ngIf="isLoadAdditionalData; else loading">
-    <div class="col-md-4">
-        <div>
-            <p class="mb-0">Celkový počet hodín:</p>
-            <h3 class="text-dark"><b>{{additionalData.totalTime || '-'}} h</b></h3>
-        </div>
-        <div>
-            <p class="mb-0">Počet a suma aktívnych hodín (na zákazkách):</p>
-            <h3 class="text-dark"><b>{{additionalData.totalActiveTime || '-'}} h</b></h3>
-        </div>
-        <div>
-            <p class="mb-0">Počet a suma neaktivnych hodín (na zákazkách):</p>
-            <h3 class="text-dark"><b>{{additionalData.totalNonActiveTime || '-'}} h</b></h3>
-        </div>
-        <div>
-            <p class="mb-0">Počet a suma firemných hodín:</p>
-            <h3 class="text-dark"><b>{{additionalData.totalTimeInCompanyProject || '-'}} h</b></h3>
-        </div>
+<div *ngIf="isLoadAdditionalData; else loading">
+  <div class="row">
+    <div class="col-12">
+      <h2 class="border-bottom-2 pb-2 mb-4">Základné ukazovatele</h2>
     </div>
-    <div class="col-md-4">
-        <div>
-            <p class="mb-0">Celková bilancia nákladov: <mat-icon class="mat-16" style="vertical-align: sub;" matTooltip="Celková bilancia nákladov, ktoré počítajú náklad k hodinovke (súčet všetkých nákladov + hodín)">help</mat-icon></p>
-            <h3 class="text-dark"><b>{{(additionalData.totalTime |
-                    currency:'EUR':'symbol') || '-'}}</b></h3>
-        </div>
-        <div>
-            <p class="mb-0">Celková bilancia firma:</p>
-            <h3 class="text-dark"><b>{{(additionalData.totalTime |
-                    currency:'EUR':'symbol') || '-'}}</b></h3>
-        </div>
-        <div>
-            <p class="mb-0">Celková bilancia firemné zákazky:</p>
-            <h3 class="text-dark"><b>{{(additionalData.totalTime |
-                    currency:'EUR':'symbol') || '-'}}</b></h3>
-        </div>
+
+    <div class="col-md-3">
+      <div>
+        <p class="mb-0">Klienti: <mat-icon class="mat-16" style="vertical-align: sub;" matTooltip="Počet nových zákazníkov">help</mat-icon></p>
+        <h3 class="text-dark"><b>{{additionalData.totalClientCount}}</b></h3>
+      </div>
     </div>
-    <div class="col-md-4">
-        <div>
-            <p class="mb-0">Celkove príjmy zákaziek:</p>
-            <h3 class="text-dark"><b>{{(additionalData.totalIncomesFromProject |
-                    currency:'EUR':'symbol') || '-'}}</b></h3>
-        </div>
-        <div>
-            <p class="mb-0">Celkové výdaje zákaziek:</p>
-            <h3 class="text-dark"><b>{{(additionalData.totalCostFromProject |
-                    currency:'EUR':'symbol') || '-'}}</b></h3>
-        </div>
-        <div>
-            <p class="mb-0">Celková bilancia zákaziek okrem hodín pre firmu:</p>
-            <h3 class="text-dark"><b>{{(additionalData.totalBalanceForProject |
-                currency:'EUR':'symbol') || '-'}}</b></h3>
-        </div>
+
+    <div class="col-md-3">
+      <div>
+        <p class="mb-0">Zákazky: <mat-icon class="mat-16" style="vertical-align: sub;" matTooltip="Počet nových zákaziek">help</mat-icon></p>
+        <h3 class="text-dark"><b>{{additionalData.totalProjectCount}}</b></h3>
+      </div>
     </div>
+
+    <div class="col-md-3">
+      <div>
+        <p class="mb-0">Používatelia: <mat-icon class="mat-16" style="vertical-align: sub;" matTooltip="Počet používateľov">help</mat-icon></p>
+        <h3 class="text-dark"><b>{{additionalData.totalUserCount}}</b></h3>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div>
+        <p class="mb-0">Počet ukončených zákaziek: <mat-icon class="mat-16" style="vertical-align: sub;" matTooltip="Počet nových zákazníkov">help</mat-icon></p>
+        <h3 class="text-dark"><b>{{additionalData.totalEndProjectCount}}</b></h3>
+      </div>
+    </div>
+
+    <div class="col-12">
+      <h2 class="border-bottom-2 pb-2 mb-4">Ekonomika celkom za kalendárny rok</h2>
+    </div>
+
+    <div class="col-md-3">
+      <div>
+        <p class="mb-0">Bilancia / čistá marža:</p>
+        <h3 class="text-dark">
+          <b>
+            {{(additionalData.totalIncomes - additionalData.totalCost) | currency:'EUR':'symbol'}} /
+            <span *ngIf="additionalData.totalIncomes">
+              {{(((additionalData.totalIncomes - additionalData.totalCost) / (additionalData.totalIncomes)) * 100).toFixed(2)}} %
+            </span>
+          </b>
+        </h3>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div>
+        <p class="mb-0">Uhradené príjmy: <mat-icon class="mat-16" style="vertical-align: sub;" matTooltip="Celkové príjmy - suma uhradených faktúr firmy, firemných zákazok a zákazok">help</mat-icon></p>
+        <h3 class="text-dark"><b>{{additionalData.totalIncomes | currency:'EUR':'symbol'}}</b></h3>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div>
+        <p class="mb-0">Uhradené výdavky: <mat-icon class="mat-16" style="vertical-align: sub;" matTooltip="Celkové výdavky - suma uhradených nákladov firmy, firemných zákazok, zákazok a miezd">help</mat-icon></p>
+        <h3 class="text-dark"><b>-{{additionalData.totalCost | currency:'EUR':'symbol'}}</b></h3>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div>
+        <p class="mb-0">Investicne naklady: <mat-icon class="mat-16" style="vertical-align: sub;" matTooltip="Tovar / služba pre firmu nezahrnutá do nákladov">help</mat-icon></p>
+        <h3 class="text-dark"><b>{{additionalData.investmentCost | currency:'EUR':'symbol'}}</b></h3>
+      </div>
+    </div>
+
+    <div class="col-12">
+      <h2 class="border-bottom-2 pb-2 mb-4">Ekonomika firma za kalendárny rok</h2>
+    </div>
+
+    <div class="col-md-3">
+      <div>
+        <p class="mb-0">Prevádzkové náklady celkom: <mat-icon class="mat-16" style="vertical-align: sub;" matTooltip="Výdavky za tovar, služby, firemné zákazky a časové záznamy započítané do prevádzkových nákladov firmy.">help</mat-icon></p>
+        <h3 class="text-dark"><b>{{(additionalData.totalIncomesForCompany + additionalData.totalIncomesForCompanyProject - additionalData.totalCostForCompany - additionalData.totalCostForCompanyProject - additionalData.totalCompanyTimePrice) | currency:'EUR':'symbol'}}</b></h3>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div>
+        <p class="mb-0">Firma: <mat-icon class="mat-16" style="vertical-align: sub;" matTooltip="Výdavky/príjmy pre chod firmy">help</mat-icon></p>
+        <h3 class="text-dark"><b>{{additionalData.totalIncomesForCompany | currency:'EUR':'symbol'}} - {{additionalData.totalCostForCompany | currency:'EUR':'symbol'}}</b></h3>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div>
+        <p class="mb-0">Firemné zákazky: <mat-icon class="mat-16" style="vertical-align: sub;" matTooltip="Výdavky/príjmy z firemných zákazok">help</mat-icon></p>
+        <h3 class="text-dark"><b>{{additionalData.totalIncomesForCompanyProject | currency:'EUR':'symbol'}} - {{additionalData.totalCostForCompanyProject | currency:'EUR':'symbol'}}</b></h3>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div>
+        <p class="mb-0">Časové záznamy: <mat-icon class="mat-16" style="vertical-align: sub;" matTooltip="časové záznamy pre chod firmy, firemných zákaziek a vedľajších a servisných činností na zákazkách.">help</mat-icon></p>
+        <h3 class="text-dark"><b>-{{additionalData.totalCompanyTimePrice | currency:'EUR':'symbol'}}</b></h3>
+      </div>
+    </div>
+
+    <div class="col-12">
+      <h2 class="border-bottom-2 pb-2 mb-4">Ekonomika zákaziek za kalendárny rok</h2>
+    </div>
+
+    <div class="col-md-3">
+      <div>
+        <p class="mb-0">Bilancia / hrubá marža: <mat-icon class="mat-16" style="vertical-align: sub;" matTooltip="Celkové príjmy a výdavky zákaziek">help</mat-icon></p>
+        <h3 class="text-dark"><b>
+          {{(additionalData.totalIncomesFromProject - additionalData.totalCostFromProject - additionalData.totalPriceFromCapitalTimeProject) | currency:'EUR':'symbol'}}
+          <span *ngIf="additionalData.totalIncomesFromProject && additionalData.totalIncomesFromProject != 0"> / {{(((additionalData.totalIncomesFromProject - additionalData.totalCostFromProject - additionalData.totalPriceFromCapitalTimeProject) / additionalData.totalIncomesFromProject) * 100).toFixed(2)}}%</span></b>
+        </h3>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div>
+        <p class="mb-0">Príjmy: <mat-icon class="mat-16" style="vertical-align: sub;" matTooltip="Celkové príjmy - suma uhradených faktúr zákaziek">help</mat-icon></p>
+        <h3 class="text-dark"><b>{{additionalData.totalIncomesFromProject | currency:'EUR':'symbol'}}</b></h3>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div>
+        <p class="mb-0">Výdavky: <mat-icon class="mat-16" style="vertical-align: sub;" matTooltip="Celkové výdavky - suma uhradených nákladov zákaziek">help</mat-icon></p>
+        <h3 class="text-dark"><b>-{{additionalData.totalCostFromProject | currency:'EUR':'symbol'}}</b></h3>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div>
+        <p class="mb-0">Časové záznamy: <mat-icon class="mat-16" style="vertical-align: sub;" matTooltip="Cena za časové záznamy hlavných činností na zákazke">help</mat-icon></p>
+        <h3 class="text-dark"><b>-{{additionalData.totalPriceFromCapitalTimeProject | currency:'EUR':'symbol'}}</b></h3>
+      </div>
+    </div>
+
+    <div class="col-12">
+      <h2 class="border-bottom-2 pb-2 mb-4">Časové záznamy</h2>
+    </div>
+
+    <div class="col-md-3">
+      <div>
+        <p class="mb-0">Celkový odpracovaný čas / cena netto: <mat-icon class="mat-16" style="vertical-align: sub;" matTooltip="Celkové príjmy a výdavky zákaziek">help</mat-icon></p>
+        <h3 class="text-dark"><b>{{additionalData.totalTime | number:'1.0-2'}} h / {{additionalData.totalTimePrice | currency:'EUR':'symbol'}}</b></h3>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div>
+        <p class="mb-0">Aktívny čas na zákazkách / cena netto: <mat-icon class="mat-16" style="vertical-align: sub;" matTooltip="Časové záznamy hlavných činností na zákazke a ich cena. Počet hodín na zákazkách, ktoré priamo súvisia s realizáciou zákazky. Cena určuje hodnotu časových záznamov.">help</mat-icon></p>
+        <h3 class="text-dark"><b>{{additionalData.totalActiveTime | number:'1.0-2'}} h / {{additionalData.totalActiveTimePrice | currency:'EUR':'symbol'}}</b></h3>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div>
+        <p class="mb-0">Neaktívny čas na zákazkach / cena netto: <mat-icon class="mat-16" style="vertical-align: sub;" matTooltip="Časové záznamy vedľajších a servisných činností na zákazke. Cena určuje hodnotu časových záznamov.">help</mat-icon></p>
+        <h3 class="text-dark"><b>{{additionalData.totalNonActiveTime | number:'1.0-2'}} h / {{additionalData.totalNonActiveTimePrice | currency:'EUR':'symbol'}}</b></h3>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div>
+        <p class="mb-0">Firemný čas / cena netto: <mat-icon class="mat-16" style="vertical-align: sub;" matTooltip="Časové záznamy pre chod firmy. Cena určuje hodnotu časových záznamov.">help</mat-icon></p>
+        <h3 class="text-dark"><b>{{additionalData.totalCompanyTime | number:'1.0-2'}} h / {{additionalData.totalCompanyTimePrice | currency:'EUR':'symbol'}}</b></h3>
+      </div>
+    </div>
+
+    <div class="col-12">
+      <h2 class="border-bottom-2 pb-2 mb-4">Cena časových záznamov zákaziek</h2>
+    </div>
+
+    <div class="col-md-3">
+      <div>
+        <p class="mb-0">Priemerný náklad k hodine: <mat-icon class="mat-16" style="vertical-align: sub;" matTooltip="Priemerný náklad k hodine je hodnota prirážky k odpracovanej hodine. Je to podiel firemných výdavkov (súčtu celkových výdavkov na prevádzku firmy, firemných zákaziek a časových záznamov započítaných do prevádzkových nákladov firmy) a časových záznamov aktívnych hodín na zákazkách. Pri používateľoch s fixnou mzdou sa mzda rozpočítava medzi odpracované hodiny.">help</mat-icon></p>
+        <h3 class="text-dark"><b>{{(((additionalData.totalIncomesForCompany + additionalData.totalIncomesForCompanyProject - additionalData.totalCostForCompany - additionalData.totalCostForCompanyProject - additionalData.totalCompanyTimePrice) * -1) / additionalData.totalActiveTime) | currency:'EUR':'symbol'}}</b></h3>
+      </div>
+    </div>
+  </div>
 </div>
 
 <div *ngIf="!isLoad; else loading">
@@ -80,10 +210,53 @@
         <mat-expansion-panel *ngFor="let item of reviewFinance">
             <mat-expansion-panel-header>
                 <mat-panel-title>
-                    <span class="mr-3">{{item.categoryGroup}}</span> <strong>{{item.totalPrice |
-                        currency:'EUR':'symbol'}}</strong>
+                    <span class="mr-3">{{item.categoryGroup}}</span> <strong>{{item.totalPrice | currency:'EUR':'symbol'}}</strong>
                 </mat-panel-title>
             </mat-expansion-panel-header>
+            <div class="mb-2 row">
+              <div class="col-12 col-md-2 d-flex" *ngFor="let itemCategoryType of item.categoryTypeData">
+                  <div class="icons mr-3 l-h-0" [ngSwitch]="itemCategoryType.categoryType">
+                   <span *ngSwitchCase="['STUFF_SERVICE_FOR_COMPANY', 'STUFF_SERVICE_IN_OPERATING_COST_COMPANY'].includes(itemCategoryType.categoryType) ? itemCategoryType.categoryType : !itemCategoryType.categoryType">
+                    <mat-icon>euro_symbol</mat-icon>
+                    <mat-icon>work_outline</mat-icon>
+                  </span>
+
+                  <span *ngSwitchCase="['TIME_FOR_COMPANY', 'TIME_NO_CAPITAL_IN_PROJECT', 'SALARY_FOR_COMPANY'].includes(itemCategoryType.categoryType) ? itemCategoryType.categoryType : !itemCategoryType.categoryType">
+                    <mat-icon>query_builder</mat-icon>
+                    <mat-icon>work_outline</mat-icon>
+                  </span>
+
+                    <span *ngSwitchCase="'TIME_CAPITAL_IN_PROJECT'">
+                    <mat-icon>query_builder</mat-icon>
+                    <mat-icon>layers</mat-icon>
+                  </span>
+
+                    <span *ngSwitchCase="'STUFF_SERVICE_NOT_IN_COST'">
+                    <mat-icon>euro_symbol</mat-icon>
+                    <mat-icon>work_off</mat-icon>
+                  </span>
+
+                    <span *ngSwitchCase="'STUFF_SERVICE_NOT_IN_COST_INVESTMENT'">
+                    <mat-icon>euro_symbol</mat-icon>
+                    <mat-icon>home</mat-icon>
+                  </span>
+
+                    <span *ngSwitchCase="['STUFF_SERVICE_IN_PROJECT_BALANCE', 'SALARY_FOR_PROJECT'].includes(itemCategoryType.categoryType) ? itemCategoryType.categoryType : !itemCategoryType.categoryType">
+                    <mat-icon>euro_symbol</mat-icon>
+                    <mat-icon>layers</mat-icon>
+                  </span>
+
+                    <span *ngSwitchCase="'TIME_AFTER_PROJECT_END'">
+                    <mat-icon>build_circle</mat-icon>
+                  </span>
+                  </div>
+                  <h3 class="text-dark"><b>{{(itemCategoryType.price || 0) | currency:'EUR':'symbol'}}</b></h3>
+              </div>
+
+              <div class="col-md-2">
+                <h3 class="text-dark"><b>{{item.categoryTypePrice | currency:'EUR':'symbol'}}</b></h3>
+              </div>
+            </div>
             <mat-accordion #accord="matAccordion" [multi]="true" class="mb-2">
                 <button mat-icon-button class="mb-2 accord-button" (click)="toggle(accord, item)">
                     <ng-container *ngIf="!item.showed">
@@ -96,11 +269,10 @@
                 <mat-expansion-panel *ngFor="let data of item.categoryGroupDetailOverview" [expanded]="item.showed">
                     <mat-expansion-panel-header>
                         <mat-panel-title>
-                            <span class="mr-3">{{data.type}}</span> <strong>{{data.totalPrice |
-                                currency:'EUR':'symbol'}}</strong>
+                            <span class="mr-3">{{data.type}}</span> <strong>{{data.totalPrice |currency:'EUR':'symbol'}}</strong>
                         </mat-panel-title>
                     </mat-expansion-panel-header>
-                    <app-overview-review-finance-table [data]="data.data"></app-overview-review-finance-table>
+                    <app-overview-review-finance-table [year]="year" [data]="data.data"></app-overview-review-finance-table>
                 </mat-expansion-panel>
             </mat-accordion>
         </mat-expansion-panel>

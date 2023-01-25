@@ -8,6 +8,7 @@ import * as moment from 'moment';
 import {map} from 'rxjs/operators';
 import {ResourceService} from '../class/ResourceService';
 import {Serializer} from '../models/serializers/Serializer';
+import {Invoice} from '../models/invoice';
 
 
 @Injectable({
@@ -45,5 +46,9 @@ export class CostService extends ResourceService<Cost> {
 
   getCostsYears(): Observable<number[]> {
     return this.httpClient.get<number[]>(`${environment.baseUrl}/cost/years`);
+  }
+
+  duplicate(oldId: number): Observable<Invoice> {
+    return this.httpClient.get<Invoice>(`${environment.baseUrl}/cost/duplicate/${oldId}`);
   }
 }

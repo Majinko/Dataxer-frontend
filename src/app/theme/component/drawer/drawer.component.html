@@ -6,7 +6,7 @@
     <div class="col-12 pl-0">
       <mat-nav-list>
         <ng-container *ngFor="let link of menuItems">
-          <a mat-list-item href="#" *ngxPermissionsOnly="link.permission" class="text-gray drawer-link" (click)="linkClick(link)" [routerLink]="link.routerLink" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+          <a mat-list-item href="#" [appRolePrivileges]="link.permission"  class="text-gray drawer-link" (click)="linkClick(link)" [routerLink]="link.routerLink" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
             <mat-icon mat-list-icon class="mr-2">{{link.icon}}</mat-icon>
             <span>{{link.title}}</span>
           </a>

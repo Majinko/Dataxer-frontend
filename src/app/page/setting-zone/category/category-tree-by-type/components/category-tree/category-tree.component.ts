@@ -54,6 +54,10 @@ export class CategoryTreeComponent implements OnInit, OnChanges {
       key: ['STUFF_SERVICE_NOT_IN_COST'],
       icons: ['euro_symbol', 'work_off']
     },
+    {
+      key: ['STUFF_SERVICE_NOT_IN_COST_INVESTMENT'],
+      icons: ['euro_symbol', 'home']
+    },
   ];
 
   @Input() categories: CategoryItemNode[] = [];
@@ -180,7 +184,7 @@ export class CategoryTreeComponent implements OnInit, OnChanges {
     const parentNode = this.flatNodeMap.get(node);
     this.newNodeParent = {id: parentNode.id, name: parentNode.name};
 
-    this.database.insertItem(parentNode, null, '', null, null);
+    this.database.insertItem(parentNode, null, '', null, null, false, null);
     this.treeControl.expand(node);
   }
 

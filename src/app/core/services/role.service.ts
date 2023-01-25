@@ -24,4 +24,8 @@ export class RoleService {
   destroy(id: number): Observable<void> {
     return this.http.get<void>(`${environment.baseUrl}/role/destroy/${id}`);
   }
+
+  storeRemoveRolePermission(roleId: number, permissionId: number){
+    return this.http.get<void>(`${environment.baseUrl}/role/storeRemoveRolePermission/${roleId}/${permissionId}`);
+  }
 }

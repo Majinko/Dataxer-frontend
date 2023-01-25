@@ -12,6 +12,7 @@ import {CostShowComponent} from './cost-show/cost-show.component';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {TranslateModule} from '@ngx-translate/core';
 import {AvatarModule} from 'ngx-avatar';
+import {CostCreateFromFileComponent} from './cost-create-from-file/cost-create-from-file.component';
 
 const routes: Routes = [
   {
@@ -20,6 +21,14 @@ const routes: Routes = [
     children: [
       {
         path: 'create',
+        component: CostCreateComponent
+      },
+      {
+        path: 'createFromFile',
+        component: CostCreateFromFileComponent
+      },
+      {
+        path: 'create/:id',
         component: CostCreateComponent
       },
       {
@@ -51,6 +60,7 @@ const routes: Routes = [
     CostCreateComponent,
     CostEditComponent,
     CostShowComponent,
+    CostCreateFromFileComponent,
   ],
 })
 export class CostModule {

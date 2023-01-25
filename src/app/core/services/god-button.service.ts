@@ -11,6 +11,7 @@ export class GodButtonService {
   showModal: boolean = false;
   component: ComponentType<any>;
   menuItem: { title: string, link: string }[] = [];
+  privilege: string;
 
   constructor() {
   }

@@ -92,6 +92,18 @@
   </div>
 
   <div class="row">
+    <div class="col-12">
+      <h2 class="text-theme border-bottom-2 pb-2">Spoločnosti</h2>
+    </div>
+  </div>
+
+  <div class="row" formArrayName="companies">
+    <div class="col-md-4 form-group pb-4" *ngFor="let company of companies; let i=index;">
+      <mat-checkbox (change)="company.isSelected = !company.isSelected" [checked]="company.isSelected">{{company.name}}</mat-checkbox>
+    </div>
+  </div>
+
+  <div class="row">
     <div class="col-md-12 text-right">
       <button mat-flat-button class="btn-icon btn-theme">
         <mat-icon>save</mat-icon>

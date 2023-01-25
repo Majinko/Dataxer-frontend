@@ -25,7 +25,12 @@ export class ErrorInterceptor implements HttpInterceptor {
           this.authService.signOut().then(() => this.router.navigate(['/auth/login']));
         }
 
-        this.messageService.add('Somenthing wrong :(');
+        if (error.status === 403) {
+          this.messageService.add('Pre túto akciu nemáte oprávnenie.');
+        } else {
+          this.messageService.add('Somenthing wrong :(');
+        }
+
         return throwError(error);
       })
     );

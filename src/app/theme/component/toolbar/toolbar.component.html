@@ -9,7 +9,7 @@
           <!--  <button matTooltip="Notifikácie" [matBadge]="notificationCount" matBadgeColor="warn" mat-icon-button class="text-gray mr-3 mb-0 d-none d-md-inline t-d-n position-relative">
               <mat-icon>lightbulb</mat-icon>
             </button>-->
-            <a *ngxPermissionsOnly="'Settings'" href="#" class="text-gray mr-3 mb-0 d-none d-md-inline t-d-n" mat-icon-button matTooltip="Nastavenie aplikácie" routerLink="/setting/profile">
+            <a appRolePrivileges="Settings" href="#" class="text-gray mr-3 mb-0 d-none d-md-inline t-d-n" mat-icon-button matTooltip="Nastavenie aplikácie" routerLink="/setting/profile">
               <mat-icon>settings</mat-icon>
             </a>
           </div>

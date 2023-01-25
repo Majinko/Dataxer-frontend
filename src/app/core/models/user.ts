@@ -1,5 +1,6 @@
 import {Salary} from './salary';
 import {Role} from './role';
+import {Company} from './company';
 
 export interface User {
   id?: number;
@@ -19,6 +20,7 @@ export interface User {
   country?: string;
   isDisabled?: boolean;
   roles?: Role[];
+  companies?: Company[];
 }
 
 export interface UserInit {

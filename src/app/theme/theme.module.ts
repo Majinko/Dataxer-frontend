@@ -36,7 +36,6 @@ import {
   DocumentRelationDialogComponent
 } from './component/document-relation/component/document-relation-dialog/document-relation-dialog.component';
 import {MenuTabComponent} from './component/menu-tab/menu-tab.component';
-import {NgxPermissionsModule} from 'ngx-permissions';
 import {NestedCategoriesComponent} from './component/nested-categories/nested-categories.component';
 import {TranslateModule} from '@ngx-translate/core';
 import {DocumentEmailDialogComponent} from './component/document-email-dialog/document-email-dialog.component';
@@ -90,7 +89,6 @@ import { ItemPricePeriodComponent } from './component/item-supplier-prices-dialo
     FormsModule,
     ReactiveFormsModule,
     NgxFilesizeModule,
-    NgxPermissionsModule,
     TranslateModule,
     AngularEditorModule,
     MatSlideToggleModule,

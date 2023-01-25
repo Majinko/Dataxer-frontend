@@ -1,0 +1,25 @@
+<div class="row mb-4">
+  <div class="col d-flex align-items-center mb-3">
+    <app-back-button url="/paginate/costs"></app-back-button>
+    <h1 class="mb-0">Nový náklad</h1>
+  </div>
+</div>
+
+<div class="dropzone position-relative mb-2 d-flex justify-content-center cursor-pointer" appFileDragDrop (filesChangeEmmit)="onFileChange($event)">
+  <label for="file" class="d-flex align-items-center justify-content-center cursor-pointer">
+    <mat-icon class="mr-3">upload</mat-icon>
+    Nahraj subor
+  </label>
+  <input id="file" type="file" (change)="onFileChange($event.target.files)">
+</div>
+
+<div class="row" *ngIf="imageData && imageData.length > 0">
+  <div class="col-12" *ngFor="let image of imageData">
+    <img alt="pdfImage" src="data:image/jpeg;base64,{{image}}">
+  </div>
+</div>
+
+
+<div class="loading-shade" *ngIf="isLoad">
+  <mat-spinner *ngIf="isLoad"></mat-spinner>
+</div>

@@ -39,6 +39,8 @@ export class UserService {
     return this.http.get<User>(`${environment.baseUrl}/user/logged`).pipe(map((user) => {
       user.displayName = user.firstName + ' ' + user.lastName;
 
+      localStorage.setItem(user.uid, JSON.stringify(user.roles));
+
       return user;
     }));
   }
@@ -97,11 +99,15 @@ export class UserService {
     return this.http.get<UserOverview>(`${environment.baseUrl}/user/overview/${uid}`);
   }
 
-  userProjectOverview(uid: string, year: number): Observable<ProjectProfit[]>{
+  userProjectOverview(uid: string, year: number): Observable<ProjectProfit[]> {
     return this.http.get<ProjectProfit[]>(`${environment.baseUrl}/user/projectOverview/${uid}/${year}`);
   }
 
   switchProfile(id: number) {
     return this.http.get<void>(`${environment.baseUrl}/user/switchProfile/${id}`);
+  }
+
+  isAdmin(): boolean {
+    return this.user.roles.filter(role => role.name.includes('ROLE_ADMIN')).length > 0;
   }
 }

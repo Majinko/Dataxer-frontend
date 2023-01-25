@@ -62,7 +62,7 @@ export const MenuItems: MenuItem[] = [
     permission: 'Pack'
   },
   {
-    routerLink: ['/overview'],
+    routerLink: ['/overview/year-review-finance'],
     title: 'Prehľady',
     icon: 'show_chart',
     permission: 'Overview'

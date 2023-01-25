@@ -1,8 +1,7 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {OverviewService} from '../../../../../core/services/overview.service';
 import {CostService} from '../../../../../core/services/cost.service';
 import {MatAccordion} from '@angular/material/expansion';
-import {CategoryCostsOverview} from '../../../../../core/models/overview';
 
 @Component({
   selector: 'app-overview-review-finance',
@@ -24,7 +23,8 @@ export class OverviewReviewFinanceComponent implements OnInit {
   constructor(
     private costService: CostService,
     private overviewService: OverviewService
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.getYears();
@@ -50,7 +50,7 @@ export class OverviewReviewFinanceComponent implements OnInit {
     this.overviewService.getReviewFinanceAdditionalData(this.year).subscribe(response => {
       this.additionalData = response;
       this.isLoadAdditionalData = true;
-     });
+    });
   }
 
   toggle(panel: any, item: any) {
@@ -61,21 +61,20 @@ export class OverviewReviewFinanceComponent implements OnInit {
       item.showed = true;
       panel.openAll();
     }
-
   }
 
   toggleAccord() {
     if (this.toogleAccord) {
       this.toogleAccord = false;
-      this.reviewFinance.forEach( f => {
+      this.reviewFinance.forEach(f => {
         f.showed = false;
-      })
+      });
       this.accordion.closeAll();
     } else {
       this.toogleAccord = true;
-      this.reviewFinance.forEach( f => {
+      this.reviewFinance.forEach(f => {
         f.showed = true;
-      })
+      });
       this.accordion.openAll();
     }
   }

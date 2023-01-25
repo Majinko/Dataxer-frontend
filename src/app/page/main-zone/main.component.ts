@@ -5,7 +5,6 @@ import {SidenavService} from '../../core/services/sidenav.service';
 import {AppProfileService} from '../../core/services/app-profile.service';
 import {UserService} from '../../core/services/user.service';
 import {ActivatedRoute} from '@angular/router';
-import {NgxPermissionsService} from 'ngx-permissions';
 
 @Component({
   selector: 'app-main-zone',
@@ -30,7 +29,6 @@ export class MainComponent implements OnInit {
     private appProfileService: AppProfileService,
     private userService: UserService,
     private route: ActivatedRoute,
-    private permissionService: NgxPermissionsService
   ) {
   }
 
@@ -38,13 +36,5 @@ export class MainComponent implements OnInit {
     this.userService.user = this.route.snapshot.data.user;
     this.appProfileService.appProfile = this.route.snapshot.data.appProfile;
     this.godButtonService.showModal = false;
-
-    this.preparePermission();
-  }
-
-  private preparePermission() {
-    this.userService.user.roles.forEach(r => {
-      this.permissionService.addPermission(r.privileges.map(p => p.name));
-    });
   }
 }

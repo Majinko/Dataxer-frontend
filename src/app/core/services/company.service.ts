@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Company} from '../models/company';
+import {Company, UserEditCompany} from '../models/company';
 import {Observable, Subject} from 'rxjs';
 import {environment} from '../../../environments/environment';
 import {map} from 'rxjs/operators';
@@ -26,6 +26,10 @@ export class CompanyService {
 
   all(): Observable<Company[]> { // todo brat z prihlaseneho usera pridal som mu to
     return this.http.get<Company[]>(environment.baseUrl + '/company/all');
+  }
+
+  allByAppProfileId(): Observable<UserEditCompany[]> {
+    return this.http.get<UserEditCompany[]>(environment.baseUrl + '/company/allByAppProfile');
   }
 
   getById(companyId: number): Observable<Company> {

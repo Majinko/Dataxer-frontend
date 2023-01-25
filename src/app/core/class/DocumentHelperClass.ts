@@ -63,7 +63,11 @@ export abstract class DocumentHelperClass {
 
     if (this.formGroup.get('project') && this.documentType === 'COST') {
       this.formGroup.get('project').valueChanges.subscribe((project) => {
-        this.formGroup.get('isInternal').patchValue(project.id === null, {emitEvent: false});
+        const isInternal = project == null || project.id === null;
+        this.formGroup.get('isInternal').patchValue(isInternal, {emitEvent: false});
+        if (isInternal){
+          this.formGroup.get('project').patchValue({id: null, title: 'Firemný náklad'}, {emitEvent: false});
+        }
       });
     }
   }

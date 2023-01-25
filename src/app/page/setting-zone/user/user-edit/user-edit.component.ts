@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {User} from '../../../../core/models/user';
 import {AuthService} from '../../../../core/services/auth.service';
 import {COUNTRIES} from '../../../../core/data/countries';
@@ -8,6 +8,8 @@ import {MessageService} from 'src/app/core/services/message.service';
 import {ActivatedRoute} from '@angular/router';
 import {RoleService} from '../../../../core/services/role.service';
 import {Role} from '../../../../core/models/role';
+import {CompanyService} from '../../../../core/services/company.service';
+import {UserEditCompany} from '../../../../core/models/company';
 
 @Component({
   selector: 'app-user-edit',
@@ -17,6 +19,7 @@ import {Role} from '../../../../core/models/role';
 export class UserEditComponent implements OnInit {
   user: User;
   roles: Role[] = [];
+  companies: UserEditCompany[] = [];
   submitted: boolean = false;
 
   countries = COUNTRIES;
@@ -25,6 +28,7 @@ export class UserEditComponent implements OnInit {
   constructor(
     @Inject(UserService) public readonly userService: UserService,
     @Inject(AuthService) private readonly authService: AuthService,
+    private companyService: CompanyService,
     private messageService: MessageService,
     private roleService: RoleService,
     private route: ActivatedRoute,
@@ -50,22 +54,20 @@ export class UserEditComponent implements OnInit {
       city: null,
       postalCode: null,
       country: null,
-      roles: [null, Validators.required]
+      roles: [null, Validators.required],
+      companies: this.fb.array([])
     });
 
-    if (this.route.snapshot.paramMap.get('uid')) {
-      this.getUserByUid();
-    } else {
-      this.user = this.userService.user;
-      this.formGroup.patchValue(this.userService.user); // edit my account
-    }
+    this.getUserByUid();
   }
 
   private getUserByUid() {
-    this.userService.edit(this.route.snapshot.paramMap.get('uid')).subscribe(u => {
+    this.userService.edit(this.route.snapshot.paramMap.get('uid') ?? this.userService.user.uid).subscribe(u => {
 
       this.user = u;
       this.formGroup.patchValue(u);
+
+      this.getCompanies();
     });
   }
 
@@ -75,11 +77,42 @@ export class UserEditComponent implements OnInit {
     });
   }
 
+  private getCompanies() {
+    this.companyService.allByAppProfileId().subscribe(companies => {
+      this.companies = companies;
+
+      this.companies.forEach(company => {
+        company.isSelected = this.user.companies.some(userCompany => userCompany.id === company.id);
+      });
+    });
+  }
+
+  get companiesFormArray(): FormArray {
+    return this.formGroup.get('companies') as FormArray;
+  }
+
+  private prepareCompanies() {
+    this.companiesFormArray.reset();
+
+    this.companies.forEach(company => {
+      if (company.isSelected) {
+        this.companiesFormArray.push(this.fb.group({
+          id: company.id,
+          name: company.name
+        }));
+      }
+    });
+  }
+
   onSubmit() {
     this.submitted = true;
+
     if (this.formGroup.invalid) {
       return;
     }
+
+    this.prepareCompanies();
+
 
     this.userService.update(this.formGroup.value).subscribe(() => {
       this.messageService.add('Údaje boli aktualizované');

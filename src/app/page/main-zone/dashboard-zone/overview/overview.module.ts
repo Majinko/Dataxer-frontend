@@ -9,19 +9,28 @@ import {ThemeModule} from '../../../../theme/theme.module';
 import {MaterialModule} from '../../../../theme/modules/material.module';
 import {AvatarModule} from 'ngx-avatar';
 import {CoreModule} from '../../../../core/core.module';
-import {OverviewCostTableRowComponent} from './overview-cost-yearly/components/overview-cost-table-row/overview-cost-table-row.component';
+import {
+  OverviewCostTableRowComponent
+} from './overview-cost-yearly/components/overview-cost-table-row/overview-cost-table-row.component';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {OverviewChartsComponent} from './overview-charts/overview-charts.component';
 import {OverviewChartComponent} from './overview-charts/components/overview-chart/overview-chart.component';
 import {NgApexchartsModule} from 'ng-apexcharts';
-import {OverviewProfitChartComponent} from './overview-charts/components/overview-profit-chart/overview-profit-chart.component';
-import { OverviewFirmsComponent } from './overview-firms/overview-firms.component';
-import { OverviewTimeDailyComponent } from './overview-time-daily/overview-time-daily.component';
-import { OverviewHoursPriceComponent } from './overview-hours-price/overview-hours-price.component';
-import { OverviewHoursPriceFilterComponent } from './overview-hours-price/components/overview-hours-price-filter/overview-hours-price-filter.component';
-import { OverviewReviewFinanceComponent } from './overview-review-finance/overview-review-finance.component';
-import { OverviewReviewFinanceTableComponent } from './overview-review-finance/components/overview-review-finance-table/overview-review-finance-table.component';
+import {
+  OverviewProfitChartComponent
+} from './overview-charts/components/overview-profit-chart/overview-profit-chart.component';
+import {OverviewFirmsComponent} from './overview-firms/overview-firms.component';
+import {OverviewTimeDailyComponent} from './overview-time-daily/overview-time-daily.component';
+import {OverviewHoursPriceComponent} from './overview-hours-price/overview-hours-price.component';
+import {
+  OverviewHoursPriceFilterComponent
+} from './overview-hours-price/components/overview-hours-price-filter/overview-hours-price-filter.component';
+import {OverviewReviewFinanceComponent} from './overview-review-finance/overview-review-finance.component';
+import {
+  OverviewReviewFinanceTableComponent
+} from './overview-review-finance/components/overview-review-finance-table/overview-review-finance-table.component';
+import {OverviewYearByCompanyComponent} from './overview-year-by-company/overview-year-by-company.component';
 
 const routes: Routes = [
   {
@@ -53,12 +62,16 @@ const routes: Routes = [
         component: OverviewTimeDailyComponent
       },
       {
-        path: 'hours-price',
+        path: 'time-daily',
         component: OverviewHoursPriceComponent
       },
       {
         path: 'year-review-finance',
         component: OverviewReviewFinanceComponent
+      },
+      {
+        path: 'year-review-by-company',
+        component: OverviewYearByCompanyComponent
       }
     ]
   }
@@ -80,19 +93,20 @@ const routes: Routes = [
     OverviewHoursPriceFilterComponent,
     OverviewReviewFinanceComponent,
     OverviewReviewFinanceTableComponent,
+    OverviewYearByCompanyComponent,
   ],
-    imports: [
-        CommonModule,
-        RouterModule.forChild(routes),
-        ThemeModule,
-        MaterialModule,
-        AvatarModule,
-        CoreModule,
-        NgSelectModule,
-        FormsModule,
-        NgApexchartsModule,
-        ReactiveFormsModule,
-    ]
+  imports: [
+    CommonModule,
+    RouterModule.forChild(routes),
+    ThemeModule,
+    MaterialModule,
+    AvatarModule,
+    CoreModule,
+    NgSelectModule,
+    FormsModule,
+    NgApexchartsModule,
+    ReactiveFormsModule,
+  ]
 })
 export class OverviewModule {
 }
