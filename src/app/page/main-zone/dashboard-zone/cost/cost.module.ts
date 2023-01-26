@@ -5,7 +5,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {CostCreateComponent} from './cost-create/cost-create.component';
 import {CostEditComponent} from './cost-edit/cost-edit.component';
 import {MaterialModule} from '../../../../theme/modules/material.module';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ThemeModule} from '../../../../theme/theme.module';
 import {CoreModule} from '../../../../core/core.module';
 import {CostShowComponent} from './cost-show/cost-show.component';
@@ -13,6 +13,12 @@ import {NgSelectModule} from '@ng-select/ng-select';
 import {TranslateModule} from '@ngx-translate/core';
 import {AvatarModule} from 'ngx-avatar';
 import {CostCreateFromFileComponent} from './cost-create-from-file/cost-create-from-file.component';
+import {AngularSplitModule} from 'angular-split';
+import { CostCreateImagesComponent } from './cost-create-from-file/components/cost-create-images/cost-create-images.component';
+import {PinchZoomModule} from 'ngx-pinch-zoom';
+import {Ng2ScreenshotModule} from 'ng2-screenshot';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { AngularResizeEventModule } from 'angular-resize-event';
 
 const routes: Routes = [
   {
@@ -54,6 +60,12 @@ const routes: Routes = [
     NgSelectModule,
     TranslateModule,
     AvatarModule,
+    AngularSplitModule,
+    PinchZoomModule,
+    Ng2ScreenshotModule,
+    MatSlideToggleModule,
+    FormsModule,
+    AngularResizeEventModule
   ],
   declarations: [
     CostComponent,
@@ -61,6 +73,7 @@ const routes: Routes = [
     CostEditComponent,
     CostShowComponent,
     CostCreateFromFileComponent,
+    CostCreateImagesComponent,
   ],
 })
 export class CostModule {
