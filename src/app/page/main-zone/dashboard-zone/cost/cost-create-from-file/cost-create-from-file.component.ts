@@ -173,8 +173,6 @@ export class CostCreateFromFileComponent extends DocumentHelperClass implements 
 
   screenshot(event: string) {
     if (event) {
-      console.log(event);
-      return;
       this.ocrService.getDataFromImage(event).subscribe(r => {
         console.log(r);
       });
