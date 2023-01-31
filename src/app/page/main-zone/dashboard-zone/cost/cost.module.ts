@@ -19,6 +19,7 @@ import {PinchZoomModule} from 'ngx-pinch-zoom';
 import {Ng2ScreenshotModule} from 'ng2-screenshot';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { AngularResizeEventModule } from 'angular-resize-event';
+import { CostCreateFilePackComponent } from './cost-create-from-file/components/cost-create-file-pack/cost-create-file-pack.component';
 
 const routes: Routes = [
   {
@@ -74,6 +75,7 @@ const routes: Routes = [
     CostShowComponent,
     CostCreateFromFileComponent,
     CostCreateImagesComponent,
+    CostCreateFilePackComponent,
   ],
 })
 export class CostModule {

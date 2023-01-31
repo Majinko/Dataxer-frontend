@@ -1,6 +1,6 @@
 import {Component, ElementRef, Inject, OnDestroy, OnInit, Renderer2, ViewChild} from '@angular/core';
 import {PdfServiceService} from '../../../../../core/services/pdf-service.service';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {OcrService} from '../../../../../core/services/ocr.service';
 import {DOCUMENT} from '@angular/common';
 import {CategoryItemNode} from '../../../../../core/models/category-item-node';
@@ -23,6 +23,7 @@ import {AddPercentPipe} from '../../../../../core/pipes/add-percent.pipe';
 import {MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter} from '@angular/material-moment-adapter';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import {ResizedEvent} from "angular-resize-event";
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-cost-create-from-file',
@@ -53,10 +54,12 @@ export class CostCreateFromFileComponent extends DocumentHelperClass implements 
   isLoading = false;
   cropData: string;
   cropDataItem: number;
-  cropDataGroup: string;
+  cropDataPackItem: number;
   items: number;
   documentType: string = 'COST';
 
+  cropDate: string[] = ['createdDate', 'deliveredDate', 'dueDate', 'dueAt', 'taxableSupply'];
+  cropNumber: string[] = ['price', 'tax', 'totalPrice', 'qty'];
   differentProject: boolean = false;
   differentCategory: boolean = false;
   categories: CategoryItemNode[] = [];
@@ -77,6 +80,7 @@ export class CostCreateFromFileComponent extends DocumentHelperClass implements 
     protected messageService: MessageService,
     protected projectService: ProjectService,
     protected router: Router,
+    private readonly elementRef: ElementRef,
     public route: ActivatedRoute,
     private userService: UserService,
     private costService: CostService,
@@ -167,14 +171,37 @@ export class CostCreateFromFileComponent extends DocumentHelperClass implements 
     this.cropData = event.currentTarget.getAttribute('data-crop');
     this.cropDataItem = null;
     this.event = null;
-    this.cropDataGroup = event.currentTarget.getAttribute('data-crop-group');
     this.isOpen = !this.isOpen;
   }
 
   screenshot(event: string) {
     if (event) {
       this.ocrService.getDataFromImage(event).subscribe(r => {
-        console.log(r);
+
+        if (this.cropDataItem || this.cropDataItem === 0) {
+          if (this.cropDataPackItem || this.cropDataPackItem === 0) {
+            if (this.cropNumber.includes(this.cropData)) {
+              this.docItems.at(this.cropDataItem).get('packItems').at(this.cropDataPackItem).get(this.cropData).patchValue(+r);
+            } else {
+              this.docItems.at(this.cropDataItem).get('packItems').at(this.cropDataPackItem).get(this.cropData).patchValue(r);
+            }
+          } else {
+            if (this.cropNumber.includes(this.cropData)) {
+              this.docItems.at(this.cropDataItem).get(this.cropData).patchValue(+r);
+            } else {
+              this.docItems.at(this.cropDataItem).get(this.cropData).patchValue(r);
+            }
+          }
+          this.isLoading = false;
+        } else {
+          if (this.cropDate.includes(this.cropData)) {
+            // @ts-ignore
+            this.formGroup.get(this.cropData).patchValue(moment(r, 'DD.MM.YYYY'));
+          } else {
+            this.formGroup.get(this.cropData).patchValue(r);
+          }
+          this.isLoading = false;
+        }
       });
     }
   }
@@ -274,5 +301,18 @@ export class CostCreateFromFileComponent extends DocumentHelperClass implements 
   // convenience getter for easy access to form fields
   get f() {
     return this.formGroup.controls;
+  }
+
+  get docItems(): any {
+    return this.formGroup.get('packs') as FormArray;
+  }
+
+  itemCrop(event: any) {
+    console.log(event);
+    this.isOpen = !this.isOpen;
+    this.cropDataItem = event.i;
+    this.cropDataPackItem = event.j;
+    this.event = null;
+    this.cropData = event.input.currentTarget.getAttribute('data-crop');
   }
 }

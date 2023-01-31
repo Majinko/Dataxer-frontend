@@ -40,6 +40,7 @@ export class CostCreateImagesComponent implements OnInit {
     }
   }
 
+
   @HostListener('window:keydown.escape', ['$event'])
   closeScreen(event: KeyboardEvent): void {
     if (this.isOpen) {
