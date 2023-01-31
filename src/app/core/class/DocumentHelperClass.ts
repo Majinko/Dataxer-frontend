@@ -127,7 +127,7 @@ export abstract class DocumentHelperClass {
         project: document.project,
         discount: document.discount === null ? 0 : document.discount,
       }, {emitEvent: true});
-    }, 500);
+    }, 1);
   }
 
   // get document title
