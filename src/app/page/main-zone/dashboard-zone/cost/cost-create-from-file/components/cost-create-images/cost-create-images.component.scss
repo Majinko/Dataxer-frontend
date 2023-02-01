@@ -1,0 +1,16 @@
+.dropzone{
+  width: 100%;
+  height: 200px;
+  
+
+  label {
+    width: 100%;
+    height: 100%;
+    padding: 15px;
+  }
+
+  input[type="file"]{
+    display:none;
+  }
+}
+

@@ -1,25 +1,385 @@
-<div class="row mb-4">
-  <div class="col d-flex align-items-center mb-3">
-    <app-back-button url="/paginate/costs"></app-back-button>
-    <h1 class="mb-0">Nový náklad</h1>
+<form [formGroup]="formGroup" #ngForm="ngForm" autocomplete="off" (ngSubmit)="submit()">
+  <div class="document-title">
+    <div class="row mb-4">
+      <div class="col d-flex align-items-center mb-3">
+        <app-back-button url="/paginate/costs"></app-back-button>
+        <h1 class="mb-0">Nový náklad</h1>
+      </div>
+    </div>
   </div>
-</div>
+  <div class="document-content">
+    <as-split direction="horizontal">
+      <as-split-area [size]="48" [minSize]="26">
+        <div class="document-data-wrap" (resized)="onResized($event)" #document>
+          <div class="row">
+            <div class="col-12">
+              <h2 class="border-bottom-2 pb-2 mb-4">Základné info</h2>
+            </div>
 
-<div class="dropzone position-relative mb-2 d-flex justify-content-center cursor-pointer" appFileDragDrop (filesChangeEmmit)="onFileChange($event)">
-  <label for="file" class="d-flex align-items-center justify-content-center cursor-pointer">
-    <mat-icon class="mr-3">upload</mat-icon>
-    Nahraj subor
-  </label>
-  <input id="file" type="file" (change)="onFileChange($event.target.files)">
-</div>
+            <div class="loading-shade" *ngIf="isLoad">
+              <mat-spinner *ngIf="isLoad"></mat-spinner>
+            </div>
+          </div>
 
-<div class="row" *ngIf="imageData && imageData.length > 0">
-  <div class="col-12" *ngFor="let image of imageData">
-    <img alt="pdfImage" src="data:image/jpeg;base64,{{image}}">
+          <div class="row">
+            <div class="col-md-4 mb-2">
+              <app-company-select-group formControlName="company" [ngForm]="ngForm"></app-company-select-group>
+            </div>
+
+            <div class="col-md-4">
+              <app-select-new-contact placeholder="Dodávaťeľ" formControlName="contact"></app-select-new-contact>
+              <mat-error *ngIf="submitted && f.contact.errors" class="mat-error-not-in-field">Client je
+                <strong>požadovaný.</strong>
+              </mat-error>
+            </div>
+
+            <div class="col-md-4">
+              <app-new-project-select [projects]="projects" [client]="f.contact.value"
+                [fromComponent]="formGroup.get('documentType').value.toLocaleLowerCase()" formControlName="project">
+              </app-new-project-select>
+              <mat-error *ngIf="submitted && f.project.errors" class="mat-error-not-in-field">Projekt je
+                <strong>požadovaný.</strong>
+              </mat-error>
+              <mat-error *ngIf="differentProject" class="mat-error-not-in-field">Položky sú priradené k rozdielnym
+                zákazkam</mat-error>
+            </div>
+
+            <div class="col-md-4">
+              <ng-select class="form-group w-100 mb-0" [items]="categories" bindLabel="name"
+                notFoundText="Zvoľte projekt" placeholder="Kategória" groupBy="parentName" formControlName="category">
+                <ng-template ng-optgroup-tmp let-item="item">
+                  {{item.parentName || 'Unnamed group'}}
+                </ng-template>
+              </ng-select>
+              <mat-error *ngIf="submitted && f.categories?.errors" class="mat-error-not-in-field">Kategória je
+                <strong>požadovana.</strong>
+              </mat-error>
+              <mat-error *ngIf="differentCategory" class="mat-error-not-in-field">Položky sú priradené k rozdielnym
+                kategóriam</mat-error>
+            </div>
+
+            <div class="col-md-4">
+              <mat-form-field class="form-group w-100 mb-md-0">
+                <mat-label>Typ nákladu</mat-label>
+                <mat-select formControlName="type">
+                  <mat-option *ngFor="let type of costTypes" value="{{type.key}}">{{type.value}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div class="col-md-4">
+              <mat-form-field class="form-group w-100 mb-md-0">
+                <mat-label>Stav</mat-label>
+                <mat-select formControlName="state">
+                  <mat-option *ngFor="let state of costStates" value="{{state.key}}">{{state.value}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="row" *ngIf="formGroup.get('state').value === 'PAYED'">
+            <div class="col-md-4">
+              <mat-form-field class="form-group w-100 mb-md-0">
+                <mat-label>Forma úhrady</mat-label>
+                <mat-select formControlName="paymentMethod" matNativeControl>
+                  <mat-option value="BANK_PAYMENT" selected>Bankový prevod</mat-option>
+                  <mat-option value="CASH">Hotovosť</mat-option>
+                  <mat-option value="PAYPAL">Paypal</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div class="col-md-4" *ngIf="!isRepeated.checked">
+              <mat-form-field class="form-group w-100">
+                <mat-label>Dátum úhrady</mat-label>
+                <input formControlName="paymentDate" matInput [matDatepicker]="deliveredDate">
+                <mat-datepicker-toggle matSuffix [for]="deliveredDate"></mat-datepicker-toggle>
+                <mat-datepicker #deliveredDate></mat-datepicker>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-4">
+              <div class="box p-3">
+                <mat-checkbox #isRepeated class="mt-3" formControlName="isRepeated"
+                  (change)="handleRepeatedCostChange(isRepeated.checked)">Pravidelný náklad</mat-checkbox>
+
+                <mat-form-field class="form-group w-100 mt-3" *ngIf="isRepeated.checked">
+                  <mat-label>Opakovanie</mat-label>
+                  <mat-select formControlName="period">
+                    <mat-option value="DAY">Denne</mat-option>
+                    <mat-option value="WEEK">Týždenne</mat-option>
+                    <mat-option value="MONTH">Mesačne</mat-option>
+                    <mat-option value="YEAR">Ročne</mat-option>
+                  </mat-select>
+                </mat-form-field>
+
+                <mat-form-field class="w-100" *ngIf="isRepeated.checked">
+                  <mat-label>Prvé vystavenie</mat-label>
+                  <input formControlName="repeatedFrom" matInput [matDatepicker]="repeatedFromDate">
+                  <mat-datepicker-toggle matSuffix [for]="repeatedFromDate"></mat-datepicker-toggle>
+                  <mat-datepicker #repeatedFromDate></mat-datepicker>
+                </mat-form-field>
+
+                <mat-checkbox #isInfinity class="form-group d-block" [class.not-visible]="!isRepeated.checked"
+                  formControlName="isInfinity">Opakovať neobmedzene</mat-checkbox>
+
+                <mat-form-field class="w-100" *ngIf="isRepeated.checked && !isInfinity.checked">
+                  <mat-label>Od - do</mat-label>
+                  <mat-date-range-input [rangePicker]="picker">
+                    <input matStartDate placeholder="Start date" formControlName="repeatedFrom">
+                    <input matEndDate placeholder="End date" formControlName="repeatedTo">
+                  </mat-date-range-input>
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-date-range-picker #picker></mat-date-range-picker>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+
+          <div class="row mt-3">
+            <div class="col-12">
+              <h2 class="border-bottom-2 pb-2 mb-4">Popis</h2>
+            </div>
+
+            <div class="col-md-4">
+              <div class="d-flex">
+                <mat-form-field class="form-group w-100">
+                  <input formControlName="title" matInput placeholder="Názov nákladu">
+                  <mat-error *ngIf="f.title.errors">Názov nákladu je <strong>požadovaný.</strong></mat-error>
+                </mat-form-field>
+                <button mat-icon-button type="button" tabindex="-1" matTooltip="Vystrihovanie"
+                  (click)="cropImg($event, null)" [attr.data-crop]="'title'">
+                  <mat-icon>transform</mat-icon>
+                </button>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="d-flex">
+                <mat-form-field class="form-group w-100">
+                  <input formControlName="note" matInput placeholder="Poznámka">
+                </mat-form-field>
+                <button mat-icon-button type="button" tabindex="-1" matTooltip="Vystrihovanie"
+                  (click)="cropImg($event, null)" [attr.data-crop]="'note'">
+                  <mat-icon>transform</mat-icon>
+                </button>
+              </div>
+            </div>
+
+            <div class="col-md-4 form-group">
+              <app-upload-files></app-upload-files>
+            </div>
+          </div>
+
+          <div class="row" *ngIf="!isRepeated.checked">
+            <div class="col-12">
+              <h2 class="border-bottom-2 pb-2 mb-4">Označenie nákladu</h2>
+            </div>
+
+            <div class="col-md-4">
+              <div class="d-flex">
+                <mat-form-field class="form-group w-100">
+                  <input matInput formControlName="number" placeholder="Číslo dokladu">
+                </mat-form-field>
+                <button mat-icon-button type="button" tabindex="-1" matTooltip="Vystrihovanie"
+                  (click)="cropImg($event, null)" [attr.data-crop]="'number'">
+                  <mat-icon>transform</mat-icon>
+                </button>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              
+              <div class="d-flex">
+                <mat-form-field class="form-group w-100">
+                  <input matInput formControlName="variableSymbol" placeholder="Variabilný symbol">
+                </mat-form-field>
+                <button mat-icon-button type="button" tabindex="-1" matTooltip="Vystrihovanie"
+                  (click)="cropImg($event, null)" [attr.data-crop]="'variableSymbol'">
+                  <mat-icon>transform</mat-icon>
+                </button>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="d-flex">
+                <mat-form-field class="form-group w-100">
+                  <input matInput formControlName="constantSymbol" placeholder="Konštantný symbol">
+                </mat-form-field>
+                <button mat-icon-button type="button" tabindex="-1" matTooltip="Vystrihovanie"
+                  (click)="cropImg($event, null)" [attr.data-crop]="'constantSymbol'">
+                  <mat-icon>transform</mat-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12">
+              <h2 class="border-bottom-2 pb-2 mb-4">Dátumy</h2>
+            </div>
+
+            <div class="col-md-3">
+              <div class="d-flex">
+                <mat-form-field class="form-group w-100">
+                  <mat-label>Dátum vystavenia</mat-label>
+                  <input formControlName="createdDate" matInput [matDatepicker]="createdDate">
+                  <mat-datepicker-toggle matSuffix [for]="createdDate"></mat-datepicker-toggle>
+                  <mat-datepicker #createdDate></mat-datepicker>
+                  <mat-error *ngIf="f.createdDate.errors">Dátum vystavenia je <strong>pozadovany.</strong></mat-error>
+                </mat-form-field>
+                <button mat-icon-button type="button" tabindex="-1" matTooltip="Vystrihovanie"
+                  (click)="cropImg($event, null)" [attr.data-crop]="'createdDate'">
+                  <mat-icon>transform</mat-icon>
+                </button>
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <div class="d-flex">
+                <mat-form-field class="form-group w-100">
+                  <mat-label>Dátum dodania</mat-label>
+                  <input formControlName="deliveredDate" matInput [matDatepicker]="deliveredDate">
+                  <mat-datepicker-toggle matSuffix [for]="deliveredDate"></mat-datepicker-toggle>
+                  <mat-datepicker #deliveredDate></mat-datepicker>
+                  <mat-error *ngIf="f.deliveredDate.errors">Dátum dodania je <strong>pozadovany.</strong></mat-error>
+                </mat-form-field>
+                <button mat-icon-button type="button" tabindex="-1" matTooltip="Vystrihovanie"
+                  (click)="cropImg($event, null)" [attr.data-crop]="'deliveredDate'">
+                  <mat-icon>transform</mat-icon>
+                </button>
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <div class="d-flex">
+                <mat-form-field class="form-group w-100">
+                  <mat-label>Splatnosť</mat-label>
+                  <input formControlName="dueDate" matInput [matDatepicker]="dueDate">
+                  <mat-datepicker-toggle matSuffix [for]="dueDate"></mat-datepicker-toggle>
+                  <mat-datepicker #dueDate></mat-datepicker>
+                </mat-form-field>
+                <button mat-icon-button type="button" tabindex="-1" matTooltip="Vystrihovanie"
+                  (click)="cropImg($event, null)" [attr.data-crop]="'dueDate'">
+                  <mat-icon>transform</mat-icon>
+                </button>
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <div class="d-flex">
+                <mat-form-field class="form-group w-100">
+                  <mat-label>Dátum upľatnenia DPH</mat-label>
+                  <input formControlName="taxableSupply" matInput [matDatepicker]="taxableSupply">
+                  <mat-datepicker-toggle matSuffix [for]="taxableSupply"></mat-datepicker-toggle>
+                  <mat-datepicker #taxableSupply></mat-datepicker>
+                </mat-form-field>
+                <button mat-icon-button type="button" tabindex="-1" matTooltip="Vystrihovanie"
+                  (click)="cropImg($event, null)" [attr.data-crop]="'taxableSupply'">
+                  <mat-icon>transform</mat-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12">
+              <h2 class="border-bottom-2 pb-2 mb-3">Položky</h2>
+            </div>
+          </div>
+
+          <div *ngIf="projects && projects.length">
+            <app-cost-create-file-pack
+              *ngIf="route.snapshot.paramMap.get('id') === null && f.company.value != null; else copyCostBlock"
+              [formGroup]="formGroup" [documentHelper]="documentHelper" (onItemScreenshot)="itemCrop($event)" [projects]="projects"
+              (compareProjects)="differentProject = $event" (compareCategory)="differentCategory = $event">
+            </app-cost-create-file-pack>
+          </div>
+
+          <ng-template #copyCostBlock>
+            <div *ngIf="this.oldPacks.length > 0 && f.company.value != null">
+              <app-cost-create-file-pack [formGroup]="formGroup" (onItemScreenshot)="itemCrop($event)" [packs]="this.oldPacks" [documentHelper]="documentHelper"
+                [projects]="projects"></app-cost-create-file-pack>
+            </div>
+          </ng-template>
+
+          <div class="row">
+            <div class="col-md-4 mb-5">
+              <mat-form-field class="example-full-width">
+                <input type="number" value="0" matInput #discount formControlName="discount">
+                <i matSuffix>%</i>
+              </mat-form-field>
+
+              {{discount.value}}
+            </div>
+
+            <div class="col-md-8 mb-5">
+              <table class="w-100">
+                <tr class="text-right">
+                  <td class="pb-1">Zľava {{discount.value}} %</td>
+                  <td class="pb-1">{{discount.value && discount.value > 0 ? '-' : ''}}{{ discount.value > 0 ?
+                    ((documentHelper.totalPrice | addPercent: discount.value) - documentHelper.totalPrice).toFixed(2) :
+                    0}} €</td>
+                </tr>
+
+                <tr class="text-right" appShowHideTax>
+                  <td>Celkom bez DPH:</td>
+                  <td>{{documentHelper.price | removePercent: +discount.value}} €</td>
+                </tr>
+
+                <tr class="text-right">
+                  <td>
+                    <h2 class="text-theme mb-0"><b>Celkom <span appShowHideTax>s DPH</span>:</b></h2>
+                  </td>
+                  <td>{{documentHelper.totalPrice | removePercent: +discount.value}} €</td>
+                </tr>
+              </table>
+            </div>
+            <div class="col-md-12">
+              <div class="cost-template-wrap">
+                <button mat-icon-button type="button" tabindex="-1" matTooltip="Vystrihovanie"
+                  (click)="cropImg($event, null)" [attr.data-crop]="'note'">
+                  <mat-icon>transform</mat-icon>
+                </button>
+                <app-note-templates [formGroup]="formGroup" [documentType]="documentType"></app-note-templates>
+              </div>
+              
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12 text-right">
+              <button routerLink="/paginate/costs" mat-stroked-button class="btn-icon btn-theme-stroked mr-3">
+                <mat-icon>cancel</mat-icon>
+                Zrušiť
+              </button>
+              <app-spinner-button [loading]="isLoading"></app-spinner-button>
+            </div>
+          </div>
+
+          <div class="box p-3 mt-3" *ngIf="isRepeated.checked">
+            <div class="row">
+              <div class="col-12 mb-3">
+                <h5>Možnosti nastavenia pravidelných nákladov</h5>
+                <p>V pravidelnom náklade môžete použiť nasledovné skratky, ktoré budú nahradené aktuálnymi hodnotami v
+                  čase
+                  vystavenia nákladu:</p>
+              </div>
+
+              <div class="col-md-3">
+                <p class="mb-0">#DOCUMENT_NUMBER</p>
+                <h3 class="text-dark"><b>Číslo dokladu</b></h3>
+              </div>
+            </div>
+          </div>
+        </div>
+      </as-split-area>
+      <as-split-area [size]="52" [minSize]="22">
+        <app-cost-create-images [isOpen]="isOpen" [documentData]="documentData" [files]="files"
+          (onScreenshot)="screenshot($event)" (onOpenChange)="openChange($event)"></app-cost-create-images>
+      </as-split-area>
+    </as-split>
   </div>
-</div>
-
-
-<div class="loading-shade" *ngIf="isLoad">
-  <mat-spinner *ngIf="isLoad"></mat-spinner>
-</div>
+</form>
