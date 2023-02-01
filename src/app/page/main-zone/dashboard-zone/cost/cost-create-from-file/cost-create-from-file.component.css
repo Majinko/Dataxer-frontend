@@ -1,3 +1,10 @@
-
+.cost-template-wrap {
+  position: relative;
+}
+.cost-template-wrap .mat-icon-button {
+  position: absolute;
+  right: 0;
+  top: 70px;
+}
 
 /*# sourceMappingURL=cost-create-from-file.component.css.map */
