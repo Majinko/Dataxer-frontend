@@ -12,7 +12,7 @@ import {IMAGEDATA} from '../image';
 })
 export class CostCreateImagesComponent implements OnInit {
   isLoad: boolean = false;
-  imageData: string[] = IMAGEDATA; // IMAGEDATA alebo []
+  imageData: string[] = []; // IMAGEDATA alebo []
 
   api: Ng2ScreenshotAPI;
   documentType: string;

@@ -27,6 +27,7 @@ app-cost-create-from-file {
 }
 
 body.full-height {
+    overflow: hidden;
     app-page {
         display: flex;
         width: 100%;
