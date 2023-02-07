@@ -1,4 +1,7 @@
 <div class="document-img-wrap">
+  <div class="loading-shade" *ngIf="isLoad">
+    <mat-spinner *ngIf="isLoad"></mat-spinner>
+  </div>
   <ng2-screenshot [target]="'#target'" [isOpen]="isOpen" (apiInitialized)="apiInitialized($event)"
                   (isOpenChange)="isOpenChange($event)">
     <ng2-screenshot-toolbox></ng2-screenshot-toolbox>
