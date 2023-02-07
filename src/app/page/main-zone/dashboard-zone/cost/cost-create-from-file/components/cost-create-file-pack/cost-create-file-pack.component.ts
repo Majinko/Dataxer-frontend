@@ -197,7 +197,6 @@ export class CostCreateFilePackComponent extends DocumentPackHelpers implements 
     });
     dialogRef.afterClosed().subscribe(dialogResult => {
       if (dialogResult) {
-        console.log(dialogResult);
         this.titlePack = dialogResult;
         this.titleOptions = dialogResult.done;
         if (this.titleOptions.length > 0) {
@@ -246,7 +245,6 @@ export class CostCreateFilePackComponent extends DocumentPackHelpers implements 
     const itemData = {
       input, i, j
     };
-    console.log(itemData);
     this.onItemScreenshot.emit(itemData);
   }
 }

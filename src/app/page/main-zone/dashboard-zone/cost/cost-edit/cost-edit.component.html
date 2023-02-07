@@ -88,8 +88,8 @@
     <div class="row">
       <div class="col-md-4">
         <div class="box p-3">
-          <mat-checkbox #isRepeated class="mt-3" formControlName="isRepeated"
-                        (change)="handleRepeatedCostChange(isRepeated.checked)">Pravidelný náklad</mat-checkbox>
+          <mat-checkbox appRolePrivileges="Cost approval" class="d-block mb-3" formControlName="isApproved" [disabled]="cost.isApproved">Schvaliť náklad</mat-checkbox>
+          <mat-checkbox #isRepeated class="mt-3" formControlName="isRepeated" (change)="handleRepeatedCostChange(isRepeated.checked)">Pravidelný náklad</mat-checkbox>
 
           <mat-form-field class="form-group w-100 mt-3" *ngIf="isRepeated.checked">
             <mat-label>Opakovanie</mat-label>

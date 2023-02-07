@@ -17,6 +17,7 @@ export interface Cost extends DocumentBase{
   dueAtDays: number;
   isInternal: boolean;
   isRepeated: boolean;
+  isApproved: boolean;
   paymentDate: Date;
   repeatedFrom: Date;
   repeatedTo: Date;
