@@ -159,7 +159,6 @@ export class CostCreateFromFileComponent extends DocumentHelperClass implements 
 
   onResized(event: ResizedEvent): void {
     this.isOpen = false;
-    console.log(event);
     if (event.newRect.width < 1000) {
       this.documentRef.nativeElement.classList.add('col-half');
     } else {
