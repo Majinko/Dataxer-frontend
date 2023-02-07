@@ -59,7 +59,7 @@ export class CostCreateImagesComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadedCost.subscribe( r => {
-      if (r) {
+      if (r && r.files[0]) {
         this.storageService.getById(r.files[0].id).subscribe((f) => {
           this.downloadFile(f);
         });
