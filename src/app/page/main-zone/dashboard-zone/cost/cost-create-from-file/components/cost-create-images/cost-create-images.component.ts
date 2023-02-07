@@ -61,6 +61,7 @@ export class CostCreateImagesComponent implements OnInit {
     this.loadedCost.subscribe( r => {
       if (r && r.files[0]) {
         this.storageService.getById(r.files[0].id).subscribe((f) => {
+          this.isLoad = true;
           this.downloadFile(f);
         });
       }

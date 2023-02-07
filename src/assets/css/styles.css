@@ -1953,6 +1953,7 @@ app-cost-create-from-file form {
   width: 100%;
   min-height: 100%;
   padding: 50px 40px;
+  position: relative;
 }
 .document-content .document-data-wrap {
   padding: 0 30px 20px 0;
