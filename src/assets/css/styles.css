@@ -1958,6 +1958,9 @@ app-cost-create-from-file form {
   padding: 0 30px 20px 0;
 }
 
+body.full-height {
+  overflow: hidden;
+}
 body.full-height app-page {
   display: flex;
   width: 100%;

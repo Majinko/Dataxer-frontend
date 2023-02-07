@@ -22,8 +22,10 @@ import {CategoryService} from '../../../../../core/services/category.service';
 import {AddPercentPipe} from '../../../../../core/pipes/add-percent.pipe';
 import {MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter} from '@angular/material-moment-adapter';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
-import {ResizedEvent} from "angular-resize-event";
+import {ResizedEvent} from 'angular-resize-event';
 import * as moment from 'moment';
+import {Subject} from 'rxjs';
+import {Cost} from '../../../../../core/models/cost';
 
 @Component({
   selector: 'app-cost-create-from-file',
@@ -46,10 +48,10 @@ import * as moment from 'moment';
 })
 export class CostCreateFromFileComponent extends DocumentHelperClass implements OnInit, OnDestroy {
   formGroup: FormGroup;
+  cost: Cost;
   submitted = false;
   documentData;
   event;
-  files = [];
   isOpen = false;
   isLoading = false;
   cropData: string;
@@ -57,6 +59,8 @@ export class CostCreateFromFileComponent extends DocumentHelperClass implements 
   cropDataPackItem: number;
   items: number;
   documentType: string = 'COST';
+  uploadFile = new Subject<boolean>();
+  loadedCost = new Subject<Cost>();
 
   cropDate: string[] = ['createdDate', 'deliveredDate', 'dueDate', 'dueAt', 'taxableSupply'];
   cropNumber: string[] = ['price', 'tax', 'totalPrice', 'qty'];
@@ -93,7 +97,7 @@ export class CostCreateFromFileComponent extends DocumentHelperClass implements 
 
   ngOnInit(): void {
     this.prepareForm();
-    this.checkIsDuplicate();
+    this.getCost();
     this.changeForm();
     this.getProject();
     this.handleChangeProject();
@@ -155,7 +159,6 @@ export class CostCreateFromFileComponent extends DocumentHelperClass implements 
 
   onResized(event: ResizedEvent): void {
     this.isOpen = false;
-    console.log(event);
     if (event.newRect.width < 1000) {
       this.documentRef.nativeElement.classList.add('col-half');
     } else {
@@ -210,17 +213,22 @@ export class CostCreateFromFileComponent extends DocumentHelperClass implements 
     this.isOpen = $event;
   }
 
-  private checkIsDuplicate() {
+  private getCost() {
     if (+this.route.snapshot.paramMap.get('id')) {
-      this.costService.duplicate(+this.route.snapshot.paramMap.get('id')).subscribe(oldCost => {
-        this.pathFromOldObject(oldCost);
-
-        this.formGroup.patchValue({
-          title: oldCost.title,
-          discount: 10
-        }, {emitEvent: false});
+      this.costService.getById(+this.route.snapshot.paramMap.get('id')).subscribe(cost => {
+        this.cost = cost;
+        if (this.cost.packs[0]?.packItems[0]?.category) {
+          this.cost.category = this.cost.packs[0].packItems[0].category;
+        }
+        this.loadedCost.next(this.cost);
+        this.formGroup.patchValue(this.cost);
+        if (this.cost?.isInternal) {
+          this.formGroup.get('project').patchValue({id: null, title: 'Firemný náklad'});
+        }
       });
     }
+
+    
   }
 
   // change checkbox for repeated cost
@@ -253,9 +261,6 @@ export class CostCreateFromFileComponent extends DocumentHelperClass implements 
 
   submit() {
 
-    console.log(this.formGroup.value);
-    return;
-
     this.submitted = true;
     this.isLoading = true;
 
@@ -287,15 +292,29 @@ export class CostCreateFromFileComponent extends DocumentHelperClass implements 
       totalPrice: this.documentHelper.totalPrice,
     });
 
-    this.costService.storeWithFiles(this.formGroup.value, this.uploadHelper.files).subscribe(() => {
-      this.isLoading = false;
-      this.router.navigate(['/paginate/costs']).then(() => {
-        this.uploadHelper.files = [];
-        this.messageService.add('Náklad bol pridaný');
+    if (this.cost) {
+      this.costService.updateWithFiles(this.formGroup.value, this.uploadHelper.files).subscribe(() => {
+        this.router.navigate(['/paginate/costs']).then(() => {
+          this.isLoading = false;
+          this.uploadHelper.files = null;
+          this.messageService.add('Náklad bol aktualizovaný');
+        });
+      }, error => {
+        this.isLoading = false;
       });
-    }, error => {
-      this.isLoading = false;
-    });
+    } else {
+      this.costService.storeWithFiles(this.formGroup.value, this.uploadHelper.files).subscribe(() => {
+        this.isLoading = false;
+        this.router.navigate(['/paginate/costs']).then(() => {
+          this.uploadHelper.files = [];
+          this.messageService.add('Náklad bol pridaný');
+        });
+      }, error => {
+        this.isLoading = false;
+      });
+    }
+
+    
   }
 
   // convenience getter for easy access to form fields
@@ -308,11 +327,14 @@ export class CostCreateFromFileComponent extends DocumentHelperClass implements 
   }
 
   itemCrop(event: any) {
-    console.log(event);
     this.isOpen = !this.isOpen;
     this.cropDataItem = event.i;
     this.cropDataPackItem = event.j;
     this.event = null;
     this.cropData = event.input.currentTarget.getAttribute('data-crop');
+  }
+
+  onUploadFile($event: boolean) {
+    this.uploadFile.next(true);
   }
 }

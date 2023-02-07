@@ -177,6 +177,17 @@
                class="filter-ng-select">
     </ng-select>
   </div>
+
+  <div class="col-md-4 col-lg-2" *ngIf="inputSearchBarSelectValues.includes('revision')">
+    <ng-select [items]="[{key: 'Schválené', value: true}, {key: 'Zamietnuté', value: false}]"
+               [clearable]="false"
+               bindLabel="key"
+               bindValue="value"
+               placeholder="Revizia"
+               formControlName="revision"
+               class="filter-ng-select">
+    </ng-select>
+  </div>
 </form>
 
 <div class="d-block d-md-flex align-content-center mb-3" *ngIf="isFiltering">

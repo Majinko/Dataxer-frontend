@@ -65,23 +65,31 @@
             <td class="text-right" mat-cell *matCellDef="let element"> {{element.nextRepeatedCost | date:'dd.MM.y'}} </td>
           </ng-container>
 
-          <!-- Created Column -->
+          <!-- delivereddate Column -->
           <ng-container matColumnDef="deliveredDate">
             <th class="text-right" mat-header-cell *matHeaderCellDef> Dátum dodania</th>
             <td class="text-right" mat-cell *matCellDef="let element"> {{element.deliveredDate | date:'dd.MM.y'}} </td>
           </ng-container>
 
-          <!-- Created Column -->
+          <!-- dueDate Column -->
           <ng-container matColumnDef="dueDate">
             <th class="text-right" mat-header-cell *matHeaderCellDef> Splatnosť</th>
             <td class="text-right" mat-cell *matCellDef="let element"> {{element.dueDate | date:'dd.MM.y'}} </td>
           </ng-container>
 
-          <!-- Created Column -->
+          <!-- state Column -->
           <ng-container matColumnDef="state">
             <th class="text-center" mat-header-cell *matHeaderCellDef> Stav</th>
             <td class="text-right" mat-cell *matCellDef="let element">
               <app-element-paid-state [isPaid]="element.paymentDate != null" [dueAtDays]="element.dueAtDays"></app-element-paid-state>
+            </td>
+          </ng-container>
+
+          <!-- Created Column -->
+          <ng-container matColumnDef="revision">
+            <th class="text-center" mat-header-cell *matHeaderCellDef> Revizia</th>
+            <td class="text-center" mat-cell *matCellDef="let element">
+              <span [matTooltip]="element.isApproved ? 'Schválené' : 'Zamietnuté' | titlecase" *ngIf="element.state" [ngClass]="'bg-' + (element.isApproved ? 'approved' : 'rejected')" class="custom-badge text-white ml-3">{{element.isApproved ? 'S' : 'Z'}}</span>
             </td>
           </ng-container>
 

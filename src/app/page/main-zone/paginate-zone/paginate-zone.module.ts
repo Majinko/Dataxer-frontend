@@ -104,7 +104,7 @@ const routes: Routes = [
           // for filtering
           modelName: 'cost',
           inputSearchBarValues: ['title', 'contractor.name'],
-          inputSearchBarSelectValues: ['contractor.id', 'company.id', 'category.id', 'project.id', 'state', 'date', 'repeated'],
+          inputSearchBarSelectValues: ['contractor.id', 'company.id', 'category.id', 'project.id', 'state', 'date', 'repeated', 'revision'],
 
           permissions: 'Cost'
         },

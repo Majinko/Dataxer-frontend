@@ -86,6 +86,7 @@ export class PaginateFilterComponent extends PaginateFilterHelper implements OnI
       categoryGroup: null,
       user: null,
       repeated: null, // todo
+      revision: null
     });
 
     this.getDataForFilters();

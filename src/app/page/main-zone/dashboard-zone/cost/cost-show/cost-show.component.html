@@ -7,6 +7,9 @@
       </div>
 
       <div>
+        <button [routerLink]="['/cost/editFromFile', cost.id]" mat-icon-button matTooltip="Upraviť náklad zo súboru">
+          <mat-icon>crop</mat-icon>
+        </button>
         <button [routerLink]="['/cost/edit', cost.id]" mat-icon-button matTooltip="Upraviť náklad">
           <mat-icon>edit</mat-icon>
         </button>
