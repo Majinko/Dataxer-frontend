@@ -1935,6 +1935,74 @@ app-todolist-show .task-comments-wrap {
   box-shadow: inset 0px 0px 5px 1px rgba(255, 0, 0, 0.8);
 }
 
+app-cost-create-from-file form {
+  height: 100%;
+}
+
+.document-content {
+  height: calc(100% - 56px);
+  overflow: hidden;
+}
+.document-content app-cost-create-images {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.document-content .document-img-wrap {
+  background: #e5e5e5;
+  width: 100%;
+  min-height: 100%;
+  padding: 50px 40px;
+  position: relative;
+}
+.document-content .document-data-wrap {
+  padding: 0 30px 20px 0;
+}
+
+body.full-height {
+  overflow: hidden;
+}
+body.full-height app-page {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+body.full-height app-page app-cost {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+body.full-height app-page app-cost > .container-fluid {
+  width: 100%;
+  height: 100%;
+}
+body.full-height app-page app-cost > .container-fluid > .row {
+  height: 100%;
+}
+body.full-height app-page app-cost > .container-fluid > .row > .col {
+  height: 100%;
+}
+
+.document-data-wrap.col-half .row .col-md-4,
+.document-data-wrap.col-half .row .col-md-3 {
+  flex: 0 0 50%;
+  max-width: 50%;
+}
+.document-data-wrap.col-half .row .col-md-8 {
+  flex: 0 0 100%;
+  max-width: 100%;
+}
+.document-data-wrap.col-half app-pack-autocomplete .mat-form-field-infix {
+  width: 220px;
+}
+.document-data-wrap.col-half app-item-autocomplete .mat-form-field-infix {
+  width: 280px;
+}
+
+ng2-screenshot-toolbox {
+  display: none;
+}
+
 /*
 * === Element ===
 */

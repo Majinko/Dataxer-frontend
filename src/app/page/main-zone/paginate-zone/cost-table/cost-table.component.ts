@@ -53,7 +53,7 @@ export class CostTableComponent extends AppDocumentPaginate<Cost> implements OnI
     this.subscription = this.filterService.doFilter.subscribe(data => {
       this.repeatCost = data.rsQlFilter.includes('cost.repeated==TRUE');
 
-      this.displayedColumns = this.repeatCost ? ['title', 'project', 'client', 'price', 'period', 'nextRepeatedCost', 'actions'] : ['title', 'project', 'client', 'number', 'createdDate', 'deliveredDate', 'dueDate', 'state', 'price', 'actions'];
+      this.displayedColumns = this.repeatCost ? ['title', 'project', 'client', 'price', 'period', 'nextRepeatedCost', 'actions'] : ['title', 'project', 'client', 'number', 'createdDate', 'deliveredDate', 'dueDate', 'state', 'revision', 'price', 'actions'];
 
       if (this.companies.length > 1) {
         this.displayedColumns = [...['company'], ...this.displayedColumns];

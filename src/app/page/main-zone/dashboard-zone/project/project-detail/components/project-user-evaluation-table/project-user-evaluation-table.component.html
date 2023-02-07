@@ -1,3 +1,10 @@
+<div>
+  <div class="security-button text-right">
+    <button mat-icon-button class="mb-2" (click)="security()" color="primary">
+      <mat-icon>security</mat-icon>
+    </button>
+  </div>
+</div>
 <div class="table-wrap no-border mt-4" *ngIf="userOverviewPrice && userOverviewPrice.length">
   <div class="position-relative">
     <table mat-table [dataSource]="userOverviewPrice" class="table-hover table-data table-borderless w-100" matSort matSortDisableClear matSortDirection="desc">

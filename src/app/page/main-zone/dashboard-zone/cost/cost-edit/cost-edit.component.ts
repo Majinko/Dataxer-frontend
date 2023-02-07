@@ -113,6 +113,7 @@ export class CostEditComponent extends DocumentHelperClass implements OnInit {
       discount: 0,
       paymentMethod: null,
       paymentDate: null,
+      isApproved: null,
       documentData: this.formBuilder.group({
         contact: null,
         firm: null,

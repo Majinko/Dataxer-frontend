@@ -1,0 +1,33 @@
+<div class="document-img-wrap">
+  <div class="loading-shade" *ngIf="isLoad">
+    <mat-spinner *ngIf="isLoad"></mat-spinner>
+  </div>
+  <ng2-screenshot [target]="'#target'" [isOpen]="isOpen" (apiInitialized)="apiInitialized($event)"
+                  (isOpenChange)="isOpenChange($event)">
+    <ng2-screenshot-toolbox></ng2-screenshot-toolbox>
+  </ng2-screenshot>
+
+  <div id="target">
+    <ng-container *ngIf="imageData && imageData.length > 0">
+      <div class="document-img-page" *ngFor="let file of imageData; let i = index">
+        <ng-container *ngIf="file">
+          <pinch-zoom #myPinch="pinchZoom" [limit-zoom]="100">
+            <img src="data:image/jpeg;base64,{{file}}" alt="pdfImage">
+          </pinch-zoom>
+        </ng-container>
+      </div>
+    </ng-container>
+  </div>
+  <ng-container *ngIf="imageData && imageData.length === 0">
+    <div class="d-flex align-items-center justify-content-center w-100 h-100">
+      <div class="dropzone position-relative mb-2 d-flex justify-content-center cursor-pointer" appFileDragDrop (filesChangeEmmit)="onFileChange($event)">
+        <label for="file" class="d-flex align-items-center justify-content-center cursor-pointer">
+          <mat-icon class="mr-3">upload</mat-icon>
+          Nahraj subor
+        </label>
+        <input id="file" type="file" (change)="onFileChange($event.target.files)">
+      </div>
+    </div>
+  </ng-container>
+
+</div>

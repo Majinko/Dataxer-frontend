@@ -1,3 +1,9 @@
-
+.security-button {
+  margin-bottom: -72px;
+}
+.security-button button {
+  position: relative;
+  z-index: 1;
+}
 
 /*# sourceMappingURL=project-user-evaluation-table.component.css.map */

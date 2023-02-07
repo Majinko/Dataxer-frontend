@@ -1,0 +1,232 @@
+<div class="row mt-top">
+  <div class="col-12" [formGroup]="formGroup">
+    <div class="table-wrap no-border" formArrayName="packs" cdkDropList (cdkDropListDropped)="dropPack($event)">
+      <div class="pb-3">
+        <a mat-flat-button class="btn btn-icon text-theme mt-2" (click)="settingTitle()">
+          <mat-icon>create_new_folder</mat-icon>
+          Nastavenie názvu položiek
+        </a>
+      </div>
+      <table class="table-hover table-hover-gray table-data table-borderless w-100 mat-table" cdkDrag
+        cdkDragLockAxis="y" [formGroupName]="i" *ngFor="let pack of formPacks.controls; let i=index">
+        <tbody class="no-border">
+          <tr class="tbody-row set-row" [class.d-none]="fromDemand">
+            <td>
+              <a cdkDragHandle class="mr-3" mat-icon-button matTooltip="Reorder pack">
+                <mat-icon class="text-theme">drag_indicator</mat-icon>
+              </a>
+              <a (click)="showHidePackItems(pack.value)" cdkDragHandle class="mr-3" mat-icon-button
+                matTooltip="{{pack.value.showItems ? 'Hide' : 'Show'}} items in pack">
+                <mat-icon class="text-theme">{{pack.value.showItems ? 'visibility' : 'visibility_off'}}
+                </mat-icon>
+              </a>
+              <app-pack-autocomplete (findPack)="setPack(i, pack, $event)" formControlName="title">
+              </app-pack-autocomplete>
+              <button mat-icon-button type="button" tabindex="-1" matTooltip="Vystrihovanie"
+                style="vertical-align: top;" (click)="cropImg( $event, i, null)" [attr.data-crop]="'title'">
+                <mat-icon>transform</mat-icon>
+              </button>
+            </td>
+            <td colspan="3" class="thin">
+              <mat-checkbox #checkbox formControlName="customPrice">Určiť cenu</mat-checkbox>
+            </td>
+            <td class="thin">
+              <div class="d-flex">
+                <mat-form-field class="w-100">
+                  <input type="number" matInput [attr.disabled]="!checkbox.checked ? true : null"
+                    formControlName="price" placeholder="Jednotková cena" value="{{documentHelper.packs[i].price}}"
+                    class="text-right">
+                </mat-form-field>
+                <button mat-icon-button type="button" tabindex="-1" matTooltip="Vystrihovanie"
+                  (click)="cropImg($event, i, null)" [attr.data-crop]="'price'">
+                  <mat-icon>transform</mat-icon>
+                </button>
+              </div>
+            </td>
+            <td class="thin" appShowHideTax>
+              <div class="d-flex">
+                <mat-form-field class="w-100">
+                  <input type="number" matInput [attr.disabled]="!checkbox.checked ? true : null" formControlName="tax"
+                    placeholder="DPH" class="text-right">
+                </mat-form-field>
+                <button mat-icon-button type="button" tabindex="-1" matTooltip="Vystrihovanie"
+                  (click)="cropImg($event, i, null)" [attr.data-crop]="'tax'">
+                  <mat-icon>transform</mat-icon>
+                </button>
+              </div>
+            </td>
+            <td>
+              <div class="d-flex">
+                <mat-form-field class="w-100">
+                  <input type="number" matInput [attr.disabled]="!checkbox.checked ? true : null"
+                    formControlName="totalPrice" placeholder="Celkom" value="{{documentHelper.packs[i].totalPrice}}"
+                    class="text-right">
+                </mat-form-field>
+                <button mat-icon-button type="button" tabindex="-1" matTooltip="Vystrihovanie"
+                  (click)="cropImg($event, i, null)" [attr.data-crop]="'totalPrice'">
+                  <mat-icon>transform</mat-icon>
+                </button>
+              </div>
+            </td>
+            <td class="text-right thin">
+              <a (click)="removePack($event, i)" mat-icon-button matTooltip="Vymazať sadu položiek">
+                <mat-icon class="text-theme">delete</mat-icon>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+
+        <tbody [hidden]="!pack.value.showItems" class="no-border table-item table-td-initial" formArrayName="packItems"
+          cdkDropList (cdkDropListDropped)="dropItem(i, $event)">
+          <tr #trRow class="tbody-row item-row" [formGroupName]="j"
+            *ngFor="let item of pack.get('packItems').controls; let j=index" cdkDragLockAxis="y" cdkDrag>
+            <td colspan="2" [ngClass]="fromDemand ? '' : 'text-right'">
+              <a cdkDragHandle class="mr-3" [class.d-none]="fromDemand" mat-icon-button matTooltip="Reorder item">
+                <mat-icon class="text-theme">drag_indicator</mat-icon>
+              </a>
+
+              <app-item-autocomplete formControlName="title" (change)="setItemTitle(item, $event.target.value)"
+                (findItem)="setItem(item, $event)"></app-item-autocomplete>
+              <button mat-icon-button type="button" tabindex="-1" matTooltip="Vystrihovanie"
+                style="vertical-align: top;" (click)="cropImg($event, i, j)" [attr.data-crop]="'title'">
+                <mat-icon>transform</mat-icon>
+              </button>
+
+              <div class="jsDiscount" [ngClass]="{'d-none' : item.value.discount == 0}">
+                <mat-form-field class="w-100">
+                  <input matInput readonly placeholder="Zľava {{item.value.discount}} %" class="text-right" />
+                </mat-form-field>
+              </div>
+            </td>
+            <td class="text-right thin">
+              <div>
+                <div class="d-flex">
+                  <mat-form-field style="width: 65px">
+                    <input type="number" [attr.disabled]="checkbox.checked ? true : null" #qty formControlName="qty"
+                      placeholder="Počet" matInput>
+                  </mat-form-field>
+                  <button mat-icon-button type="button" tabindex="-1" matTooltip="Vystrihovanie"
+                    style="vertical-align: top;" (click)="cropImg($event, i, j)" [attr.data-crop]="'qty'">
+                    <mat-icon>transform</mat-icon>
+                  </button>
+                </div>
+              </div>
+            </td>
+            <td class="thin">
+              <div>
+                <mat-form-field style="width: 65px">
+                  <mat-select [attr.disabled]="checkbox.checked ? true : null" formControlName="unit">
+                    <mat-option *ngFor="let option of units" [value]="option.unit">
+                      {{ option.unit }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="jsDiscount" [ngClass]="{'d-none' : item.value.discount == 0}">
+                <div class="d-flex">
+                  <mat-form-field class="w-100">
+                    <input matInput [attr.disabled]="checkbox.checked ? true : null" formControlName="discount"
+                      #itemDiscount class="text-right" />
+                  </mat-form-field>
+                  <button mat-icon-button type="button" tabindex="-1" matTooltip="Vystrihovanie"
+                    style="vertical-align: top;" (click)="cropImg($event, i, j)" [attr.data-crop]="'discount'">
+                    <mat-icon>transform</mat-icon>
+                  </button>
+                </div>
+              </div>
+            </td>
+            <td>
+              <div>
+                <div class="d-flex">
+                  <mat-form-field class="w-100">
+                    <input type="number" matInput #price [attr.disabled]="checkbox.checked ? true : null"
+                      formControlName="price" placeholder="Jednotková cena" class="text-right" />
+                  </mat-form-field>
+                  <button mat-icon-button type="button" tabindex="-1" matTooltip="Vystrihovanie"
+                    style="vertical-align: top;" (click)="cropImg($event, i, j)" [attr.data-crop]="'price'">
+                    <mat-icon>transform</mat-icon>
+                  </button>
+                </div>
+              </div>
+
+              <div class="jsDiscount" [ngClass]="{'d-none' : item.value.discount == 0}">
+                <mat-form-field class="w-100">
+                  <input type="number" matInput disabled
+                    value="{{(itemDiscount.value > 0 && price.value > 0 ? '-' : '') + (+price.value | removePercentGetNumber: +itemDiscount.value)}}"
+                    class="text-right" />
+                </mat-form-field>
+              </div>
+            </td>
+            <td class="thin" appShowHideTax>
+              <div>
+                <div class="d-flex">
+                  <mat-form-field class="w-100">
+                    <input type="number" matInput #tax [attr.disabled]="checkbox.checked ? true : null"
+                      formControlName="tax" placeholder="DPH" class="text-right" />
+                  </mat-form-field>
+                  <button mat-icon-button type="button" tabindex="-1" matTooltip="Vystrihovanie"
+                    style="vertical-align: top;" (click)="cropImg($event, i, j)" [attr.data-crop]="'tax'">
+                    <mat-icon>transform</mat-icon>
+                  </button>
+                </div>
+              </div>
+
+              <div class="jsSettings" *ngIf="projects" [ngClass]="{'d-none' : fromBudget}">
+                <app-new-project-select [fromComponent]="formGroup.get('documentType')?.value?.toLocaleLowerCase()"
+                  (ngModelChange)="onValueChange($event, item)" [projects]="projects" formControlName="project"
+                  dropDownPosition="top" [showAddButton]="false"></app-new-project-select>
+              </div>
+            </td>
+            <td>
+              <div>
+                <mat-form-field class="w-100">
+                  <input type="number" matInput [attr.disabled]="checkbox.checked ? true : null"
+                    value="{{documentHelper.packs[i].packItems[j].totalPrice}}" placeholder="Celkom"
+                    class="text-right" />
+                </mat-form-field>
+              </div>
+
+              <div class="jsDiscount" [ngClass]="{'d-none' : item.value.discount == 0}">
+                <mat-form-field class="w-100">
+                  <input matInput disabled
+                    value="{{(itemDiscount.value > 0 && price.value > 0 ? '-' : '') + (+price.value * +qty.value | addPercent: tax.value | removePercentGetNumber: +itemDiscount.value)}}"
+                    class="text-right" />
+                </mat-form-field>
+              </div>
+
+              <div class="jsSettings" *ngIf="categories">
+                <app-category-select-group (ngModelChange)="checkProjects()" dropDownPosition="top"
+                  [categoryItemNodes]="item.projectCategories ? item.projectCategories : categories"
+                  formControlName="category"></app-category-select-group>
+              </div>
+            </td>
+            <td class="text-center thin">
+              <a (click)="showDiscount(trRow)" class="mr-3" mat-icon-button matTooltip="Zľava na položku">
+                <mat-icon class="text-theme">local_offer</mat-icon>
+              </a>
+              <a (click)="showMoreOptions(trRow)" class="mr-3" mat-icon-button matTooltip="Nastavenie položky">
+                <mat-icon class="text-theme">settings</mat-icon>
+              </a>
+              <button (click)="documentRemoveItem($event, j, i)" mat-icon-button matTooltip="Vymazať položku"
+                type="button">
+                <mat-icon class="text-theme">delete</mat-icon>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="col-md-12 text-center mt-3 mb-5">
+    <a mat-flat-button class="btn btn-icon btn-theme mr-3" (click)="addItem()">
+      <mat-icon>add_circle</mat-icon>
+      Položka
+    </a>
+
+    <a mat-flat-button class="btn btn-icon btn-theme" [ngClass]="fromDemand ? 'd-none' : ''" (click)="addPack()">
+      <mat-icon>create_new_folder</mat-icon>
+      Sada položiek
+    </a>
+  </div>
+</div>
