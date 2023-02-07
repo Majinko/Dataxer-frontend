@@ -35,6 +35,10 @@ const routes: Routes = [
         component: CostCreateFromFileComponent
       },
       {
+        path: 'editFromFile/:id',
+        component: CostCreateFromFileComponent
+      },
+      {
         path: 'create/:id',
         component: CostCreateComponent
       },

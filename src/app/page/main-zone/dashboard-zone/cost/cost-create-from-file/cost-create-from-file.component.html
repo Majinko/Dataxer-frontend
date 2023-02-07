@@ -170,6 +170,7 @@
 
             <div class="col-md-4 form-group">
               <app-upload-files [uploadFile]="uploadFile"></app-upload-files>
+              <app-file *ngIf="cost" class="mb-3" [files]="cost.files" deleteFile="true"></app-file>
             </div>
           </div>
 
@@ -299,9 +300,9 @@
           </div>
 
           <ng-template #copyCostBlock>
-            <div *ngIf="this.oldPacks.length > 0 && f.company.value != null">
-              <app-cost-create-file-pack [formGroup]="formGroup" (onItemScreenshot)="itemCrop($event)" [packs]="this.oldPacks" [documentHelper]="documentHelper"
-                [projects]="projects"></app-cost-create-file-pack>
+            <div *ngIf="cost && cost.packs.length > 0 && f.company.value != null">
+              <app-cost-create-file-pack [formGroup]="formGroup" (onItemScreenshot)="itemCrop($event)" [packs]="cost.packs" [documentHelper]="documentHelper"
+                [projects]="projects" [documentId]="cost.id"></app-cost-create-file-pack>
             </div>
           </ng-template>
 
@@ -377,7 +378,7 @@
         </div>
       </as-split-area>
       <as-split-area [size]="52" [minSize]="22">
-        <app-cost-create-images [isOpen]="isOpen" [documentData]="documentData" [files]="files"
+        <app-cost-create-images [isOpen]="isOpen" [documentData]="documentData" [loadedCost]="loadedCost"
           (onScreenshot)="screenshot($event)" (onUploadFile)="onUploadFile($event)" (onOpenChange)="openChange($event)"></app-cost-create-images>
       </as-split-area>
     </as-split>
