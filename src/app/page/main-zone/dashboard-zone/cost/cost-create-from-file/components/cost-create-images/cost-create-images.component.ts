@@ -4,6 +4,7 @@ import {PinchZoomComponent} from 'ngx-pinch-zoom';
 import {MatSlideToggleChange} from '@angular/material/slide-toggle';
 import {PdfServiceService} from '../../../../../../../core/services/pdf-service.service';
 import {IMAGEDATA} from '../image';
+import {UploadHelper} from '../../../../../../../core/class/UploadHelper';
 
 @Component({
   selector: 'app-cost-create-images',
@@ -26,6 +27,7 @@ export class CostCreateImagesComponent implements OnInit {
   @Output() onScreenshot: EventEmitter<string> = new EventEmitter<string>();
   // tslint:disable-next-line:no-output-on-prefix
   @Output() onOpenChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() onUploadFile: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   @ViewChild('myPinch') myPinch;
 
@@ -53,7 +55,8 @@ export class CostCreateImagesComponent implements OnInit {
   }
 
   constructor(
-    private pdfService: PdfServiceService
+    private pdfService: PdfServiceService,
+    public uploadHelper: UploadHelper,
   ) { }
 
   ngOnInit(): void {
@@ -90,6 +93,9 @@ export class CostCreateImagesComponent implements OnInit {
 
   onFileChange(files: File[]) {
     this.isLoad = true;
+
+    this.uploadHelper.uploadFile(files);
+    this.onUploadFile.emit(true);
 
     this.pdfService.createImgFromPdf(files[0]).subscribe({
       next: (r) => {

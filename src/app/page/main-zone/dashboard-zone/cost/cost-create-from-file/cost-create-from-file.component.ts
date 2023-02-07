@@ -24,6 +24,7 @@ import {MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter} from '@angular/mater
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import {ResizedEvent} from "angular-resize-event";
 import * as moment from 'moment';
+import {Subject} from "rxjs";
 
 @Component({
   selector: 'app-cost-create-from-file',
@@ -57,6 +58,7 @@ export class CostCreateFromFileComponent extends DocumentHelperClass implements 
   cropDataPackItem: number;
   items: number;
   documentType: string = 'COST';
+  uploadFile = new Subject<boolean>();
 
   cropDate: string[] = ['createdDate', 'deliveredDate', 'dueDate', 'dueAt', 'taxableSupply'];
   cropNumber: string[] = ['price', 'tax', 'totalPrice', 'qty'];
@@ -254,6 +256,7 @@ export class CostCreateFromFileComponent extends DocumentHelperClass implements 
   submit() {
 
     console.log(this.formGroup.value);
+    console.log(this.uploadHelper.files);
     return;
 
     this.submitted = true;
@@ -308,11 +311,14 @@ export class CostCreateFromFileComponent extends DocumentHelperClass implements 
   }
 
   itemCrop(event: any) {
-    console.log(event);
     this.isOpen = !this.isOpen;
     this.cropDataItem = event.i;
     this.cropDataPackItem = event.j;
     this.event = null;
     this.cropData = event.input.currentTarget.getAttribute('data-crop');
+  }
+
+  onUploadFile($event: boolean) {
+    this.uploadFile.next(true);
   }
 }

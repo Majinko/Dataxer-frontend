@@ -169,7 +169,7 @@
             </div>
 
             <div class="col-md-4 form-group">
-              <app-upload-files></app-upload-files>
+              <app-upload-files [uploadFile]="uploadFile"></app-upload-files>
             </div>
           </div>
 
@@ -191,7 +191,7 @@
             </div>
 
             <div class="col-md-4">
-              
+
               <div class="d-flex">
                 <mat-form-field class="form-group w-100">
                   <input matInput formControlName="variableSymbol" placeholder="Variabilný symbol">
@@ -345,7 +345,7 @@
                 </button>
                 <app-note-templates [formGroup]="formGroup" [documentType]="documentType"></app-note-templates>
               </div>
-              
+
             </div>
           </div>
 
@@ -378,7 +378,7 @@
       </as-split-area>
       <as-split-area [size]="52" [minSize]="22">
         <app-cost-create-images [isOpen]="isOpen" [documentData]="documentData" [files]="files"
-          (onScreenshot)="screenshot($event)" (onOpenChange)="openChange($event)"></app-cost-create-images>
+          (onScreenshot)="screenshot($event)" (onUploadFile)="onUploadFile($event)" (onOpenChange)="openChange($event)"></app-cost-create-images>
       </as-split-area>
     </as-split>
   </div>

@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {UploadHelper} from '../../../core/class/UploadHelper';
+import {Subject} from 'rxjs';
 
 @Component({
   selector: 'app-upload-files',
@@ -8,12 +9,16 @@ import {UploadHelper} from '../../../core/class/UploadHelper';
 })
 export class UploadFilesComponent implements OnInit {
   files = [];
+  @Input() uploadFile: Subject<boolean>;
 
   constructor(
     public uploadHelper: UploadHelper,
   ) { }
 
   ngOnInit(): void {
+    this.uploadFile.subscribe( r => {
+      this.seeFiles();
+    });
   }
 
   uploadFiles(files: any) {
